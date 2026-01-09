@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>953</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/953</ISSUEURL>
+  <TITLE>[Bug] Condition for webhook automation does not take boolean type into consideration</TITLE>
+  <DESCRIPTION>NocoDB used as docker : **false** NocoDB version : **&quot;nocodb&quot;: &quot;^0.84.6&quot;** Database used in NC_DB URL : **pg** Project was created by clicking : **New Project by connecting to external database** Database on which spreadsheet is created : **pg** OS on which NocoDB is running : **Ubuntu 18.04.6 LTS** Node.js version if running as node : **v15.3.0** Database version : **Postgres 12.9** **Steps To Reproduce** 1. Install Slack App 1. Create webhook automation for Slack app that happens after an update 1. Add a condition for when the update happens 1. Condition needs to be related to a column like a checkbox or another column that implements a boolean type (TRUE/FALSE) 1. Example condition would be: `where, column_name, is equal, true` **Notes** 1. An example JSON that is sent back to the BE is: ```&quot;[{\&quot;field\&quot;:\&quot;Validated\&quot;,\&quot;op\&quot;:\&quot;is equal\&quot;,\&quot;value\&quot;:\&quot;true\&quot;,\&quot;logicOp\&quot;:\&quot;and\&quot;}]&quot;)```. 1. Even after the values are parsed, with JSON.parse, the value remains a string: ``` [ { &quot;field&quot;: &quot;Validated&quot;, &quot;op&quot;: &quot;is equal&quot;, &quot;value&quot;: &quot;true&quot;, &quot;logicOp&quot;: &quot;and&quot; } ] ``` 1. The check I believe happens here: https://github.com/nocodb/nocodb/blob/1cbaaab6bf838aa8c38a35f3fab06670ca8d9264/packages/nocodb/src/lib/noco/common/BaseModel.ts#L397. `data[field]` is probably `TRUE` while `con.value` is `&quot;true&quot;`. These would never equate unless the value itself is parsed further to see if it can be converted into a boolean value. The suggested change would probably be to just do: `JSON.parse(con.value)`. **Expected behavior** When the condition is met, such as when a column is true and the condition put in is `&quot;true&quot;`, then the webhook should be sent out afterward. I believe this is not happening because the values are not parsed from the JS side, I believe they are all literal strings instead of appropriate values.</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #979 from nocodb/all-contributors/add-bitbytejoy docs: add bitbytejoy as a contributor for code</MESSAGE>
+    <SHA>9463ed3d8611be82a234f1597e6214f063b713bc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: show checkbox for boolean field in filter component re #953,#947 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>1760c7cedfd7149ff1ef53a0f957260a024ea9fe</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/components/project/spreadsheet/components/columnFilter.vue</FILE>
+        <FILE>packages/nc-gui/components/project/spreadsheet/components/columnFilterMenu.vue</FILE>
+        <FILE>packages/nc-gui/components/project/spreadsheet/rowsXcDataTable.vue</FILE>
+        <FILE>packages/nc-gui/components/project/tableTabs/webhooks.vue</FILE>
+        <FILE>packages/nocodb/src/lib/dataMapper/lib/sql/CustomKnex.ts</FILE>
+        <FILE>packages/nocodb/src/lib/noco/common/BaseModel.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

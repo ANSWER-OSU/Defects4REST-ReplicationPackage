@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6819</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/6819</ISSUEURL>
+  <TITLE>Feature: Use AWS instance/container IAM profiles for S3 access</TITLE>
+  <DESCRIPTION>### Please confirm if feature request does NOT exists already ? - [X] I confirm there is no existing issue for this ### Describe the usecase for the feature Today, it is [required to explicitly define](https://github.com/nocodb/nocodb/blob/804edeeacf253e09ba58d9bfc0ac757f0e0163d7/packages/nocodb/src/helpers/NcPluginMgrv2.ts#L113-L118) `NC_S3_ACCESS_SECRET` and `NC_S3_ACCESS_KEY`, which implies the necessity to create persistent access keys. However, this should not be required when running NocoDB in an AWS service with builtin IAM roles, such as ECS task containers or EC2 instances, which can supply their own IAM roles through the environment. SDKs can access the builtin IAM roles without the need to configure static credentials. The lack of this feature means that users must forego best practices of using builtin service-based roles and places an additional burden of provisioning, monitoring, and rotating standard access keys. ### Suggested Solution NocoDB should only necessarily require `NC_S3_BUCKET_NAME` to configure use of object storage when running in AWS ECS or EC2 (or similar). For example, when running in ECS, the [ECS task role](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html) can be used for accessing S3. The AWS SDK uses this as part of its standardized credential providers. When running AWS SDKs in AWS services, providing explicit access keys is not necessary and it will detect container task credentials automatically. Typically, this means just simply omitting the access key ID and secret key parameters altogether and relying on the normal [precedence of settings](https://docs.aws.amazon.com/sdkref/latest/guide/settings-reference.html#precedenceOfSettings) to automatically configure credentials. ### Additional Context _No response_</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>352</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9605 from nocodb/refactor/pnpm refactor: pnpm</MESSAGE>
+    <SHA>51eb1f25a5d7b2929be6069c7a0fb78066912eb2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ISSUE #6819 AWS Access with IAM role.</MESSAGE>
+      <SHA>613b9cc583409b57ecc26922c9e60e56bc4c687c</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/noco-docs/docs/020.getting-started/050.self-hosted/020.environment-variables.md</FILE>
+        <FILE>packages/nocodb/src/helpers/NcPluginMgrv2.ts</FILE>
+        <FILE>packages/nocodb/src/plugins/GenericS3/GenericS3.ts</FILE>
+        <FILE>packages/nocodb/src/plugins/s3/S3.ts</FILE>
+        <FILE>packages/nocodb/src/plugins/s3/index.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ISSUE #6819 AWS Access with IAM role.</MESSAGE>
+      <SHA>a8763941f57beadc89482a04ac80a2947e4f91ef</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/noco-docs/docs/020.getting-started/050.self-hosted/020.environment-variables.md</FILE>
+        <FILE>packages/nocodb/src/helpers/NcPluginMgrv2.ts</FILE>
+        <FILE>packages/nocodb/src/plugins/GenericS3/GenericS3.ts</FILE>
+        <FILE>packages/nocodb/src/plugins/s3/S3.ts</FILE>
+        <FILE>packages/nocodb/src/plugins/s3/index.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

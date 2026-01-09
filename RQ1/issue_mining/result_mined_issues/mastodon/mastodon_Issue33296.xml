@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>33296</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/33296</ISSUEURL>
+  <TITLE>Odd theming makes interface elements unusable when listening to audio on media page</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem I'm on mastodon.social. I am using light mode. I normally use advanced mode but for purposes of this bug, I am not. I go to [this specific url, the media page](https://mastodon.social/@t36s@social.ordinal.garden/media) for [this user](https://social.ordinal.garden/@t36s). In other words, I'm looking at the page on my home instance mastodon.social not on the user's instance. Notice the user has many audio posts. I click on the photo in the upper right. It is presented in a &quot;lightbox&quot;, like this. ![Image](https://github.com/user-attachments/assets/23783198-3f9c-442e-811e-23a38fdbf557) Notice the row of buttons along the bottom. I exit the lightbox and click on any of the audio posts. I get this. ![Image](https://github.com/user-attachments/assets/cc405476-eab4-43fc-ace2-f92493bf0183) ### Expected behaviour Row of buttons so I can go to original post and such. ### Actual behaviour Oh no! Buttons are gone! ### Detailed description Actually, the buttons are there, they're just drawn as white-on-white so it's really hard to see them. I fiddled for a couple minutes when I encountered this trying to figure out why the buttons that are normally there were gone. I didn't notice the pale shadow. If you go to Karlsson's home instance and look at the audio posts there, you don't have this problem. This could be because of a different software version, but I think it's because social.ordinal.garden presents dark theme to logged out users. I didn't test but I hypothesize if I switched to dark theme, this problem would go away. ### Mastodon instance mastodon.social ### Mastodon version v4.4.0-alpha.1+pr-33266-17e66a4 ### Browser name and version Chrome 131.0.6778.109 Stable 64-bit ### Operating system Windows 10 ### Technical details _No response_</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>21</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Localize language names (#33402)</MESSAGE>
+    <SHA>f9582bcfc3676404bd0053f58702246ed2d98431</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix audio player modal having white-on-white buttons in light theme Fixes #33296</MESSAGE>
+      <SHA>b388f925f2dfe45cc3418987928205bf9eb2d577</SHA>
+      <PATCHEDFILES>
+        <FILE>app/javascript/mastodon/features/ui/components/audio_modal.jsx</FILE>
+        <FILE>app/javascript/mastodon/features/ui/components/video_modal.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

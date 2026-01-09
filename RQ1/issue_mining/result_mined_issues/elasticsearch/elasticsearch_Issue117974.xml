@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117974</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/117974</ISSUEURL>
+  <TITLE>[CI] EsqlSpecIT test {lookup-join.LookupIPFromIndexKeep ASYNC} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #13857 / part3](https://gradle-enterprise.elastic.co/s/qoeupwqtl3k72) - [elasticsearch-intake #13811 / part3](https://gradle-enterprise.elastic.co/s/wp3drwdirkexm) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:multi-node:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT&quot; -Dtests.method=&quot;test {lookup-join.LookupIPFromIndexKeep ASYNC}&quot; -Dtests.seed=BE0A9C1F9174B2FD -Dtests.locale=fr-MQ -Dtests.timezone=Asia/Riyadh -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Blookup-join.LookupIPFromIndexKeep%20ASYNC%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Data mismatch: row 0 column 0:a list containing row 0 column 0:0: expected &quot;2023-10-23T13:55:01.543Z&quot; but was &quot;2023-10-23T12:27:28.948Z&quot; row 0 column 1:a list containing row 0 column 1:0: expected &quot;172.21.3.15&quot; but was &quot;172.21.2.113&quot; row 0 column 2:a list containing row 0 column 2:0: expected &quot;1756467&quot; but was &quot;2764889&quot; row 0 column 3:a list containing row 0 column 3:0: expected &quot;Connected to 10.1.0.1&quot; but was &quot;Connected to 10.1.0.2&quot; row 0 column 4:a list containing row 0 column 4:0: expected &quot;Production&quot; but was &quot;QA&quot; row 1 column 0:a list containing row 1 column 0:0: expected &quot;2023-10-23T13:53:55.832Z&quot; but was &quot;2023-10-23T12:15:03.360Z&quot; row 1 column 1:a list containing row 1 column 1:0: expected &quot;172.21.3.15&quot; but was &quot;172.21.2.162&quot; row 1 column 2:a list containing row 1 column 2:0: expected &quot;5033755&quot; but was &quot;3450233&quot; row 1 column 3:a list containing row 1 column 3:0: expected &quot;Connection error&quot; but was &quot;Connected to 10.1.0.3&quot; row 1 column 4:a list containing row 1 column 4:0: expected &quot;Production&quot; but was &quot;QA&quot; row 2 column 0:a list containing row 2 column 0:0: expected &quot;2023-10-23T13:52:55.015Z&quot; but was &quot;2023-10-23T13:55:01.543Z&quot; ``` **Issue Reasons:** - [main] 2 failures in test test {lookup-join.LookupIPFromIndexKeep ASYNC} (1.3% fail rate in 149 executions) - [main] 2 failures in step part3 (6.9% fail rate in 29 executions) - [main] 2 failures in pipeline elasticsearch-intake (6.9% fail rate in 29 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Support ST_ENVELOPE and related ST_XMIN, etc. (#116964) Support ST_ENVELOPE and related ST_XMIN, etc. Based on the PostGIS equivalents: https://postgis.net/docs/ST_Envelope.html https://postgis.net/docs/ST_XMin.html https://postgis.net/docs/ST_XMax.html https://postgis.net/docs/ST_YMin.html https://postgis.net/docs/ST_YMax.html</MESSAGE>
+    <SHA>c7e985c3b61ef1aece751e674f5431fb06174935</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT test {lookup-join.LookupIPFromIndexKeep ASYNC} #117974</MESSAGE>
+      <SHA>cd58030d46640e22c6e1a736256b5c2ad094cf89</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

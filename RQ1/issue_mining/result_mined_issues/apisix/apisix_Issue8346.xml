@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8346</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/8346</ISSUEURL>
+  <TITLE>bug: apisix 3.0 v3_adapter.filter(data) causes some API response body empty when disabling v3 admin API</TITLE>
+  <DESCRIPTION>### Current Behavior https://github.com/apache/apisix/blob/2f4a4dba2c0cbc426ae99133c2546112ea71dba8/apisix/admin/v3_adapter.lua#L180 Perhaps should be `return body` ? ### Expected Behavior _No response_ ### Error Logs _No response_ ### Steps to Reproduce curl http://127.0.0.1:9180/apisix/admin/routes -H &quot;X-API-KEY: ******&quot; -i ### Environment - APISIX version (run `apisix version`): 3.0 - Operating system (run `uname -a`): - OpenResty / Nginx version (run `openresty -V` or `nginx -V`): - etcd version, if relevant (run `curl http://127.0.0.1:9090/v1/server_info`): - APISIX Dashboard version, if relevant: - Plugin runner version, for issues related to plugin runners: - LuaRocks version, for installation issues (run `luarocks --version`):</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: support hide credentials for jwt-auth plugin (#8206) Co-authored-by: Alex Zhang &lt;tokers@apache.org&gt; Co-authored-by: 罗泽轩 &lt;spacewanderlzx@gmail.com&gt; Co-authored-by: root &lt;root@pixelpig.localdomain&gt; Fixes https://github.com/apache/apisix/issues/8122</MESSAGE>
+    <SHA>2f4a4dba2c0cbc426ae99133c2546112ea71dba8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: v3_adapter.filter(data) causes some API response body empty when disabling v3 admin API (#8349) Fixes https://github.com/apache/apisix/issues/8346</MESSAGE>
+      <SHA>ae400b95b91240fb867c3cedc9fa65a6b5593f36</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/admin/v3_adapter.lua</FILE>
+        <FILE>t/admin/api.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

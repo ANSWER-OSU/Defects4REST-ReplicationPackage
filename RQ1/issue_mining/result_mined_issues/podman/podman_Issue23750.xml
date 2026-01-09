@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23750</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23750</ISSUEURL>
+  <TITLE>run --events-backend=file sometimes means journal</TITLE>
+  <DESCRIPTION>Completely bizarre: ``` not ok 160 |090| events - labels included in container die in 1600ms ... # # podman --events-backend=file run --rm --name=c-t160-kctzrzn9 --label=labelt160kctzrzn9=labelvalue-t160-kctzrzn9 mqfvh quay.io/libpod/testimage:20240123 sh -c exit 17 # [ rc=17 (expected) ] # # podman --events-backend=file events --filter=container=c-t160-kctzrzn9 --filter=status=died --stream=false --format={{.Attributes.labelt160kctzrzn9}} # #/vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv # #| FAIL: podman-events output includes container label # #| expected: = labelvalue-t160-kctzrzn9 mqfvh # #| actual: '' # #\^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ``` Only fails in parallel tests. The test itself is super short. There is no possible way it could fail (obviously this is a lie). Most curious finding: in every case I looked at (three out of the five flakes), I go look at journal, search for `t160`, and the log line is in the journal. On successful test passes, the string `t160` does not appear in the journal. ``` Aug 22 21:10:54 cirrus-task-4622351889858560 podman[139554]: 2024-08-22 21:10:54.971131464 -0500 CDT m=+0.256423311 container died 1a0173d68a5a56cfacba954f713f12d4ae71397f591ee8fe0a5b1a69891bd754 (image=quay.io/libpod/testimage:20240123, name=c-t160-qd8tfclf, created_at=2024-01-24T18:38:28Z, created_by=test/system/build-testimage, io.buildah.version=1.34.1-dev, labelt160qd8tfclf=labelvalue-t160-qd8tfclf RXZGE) ``` ### [sys] |090| events - labels included in container die * debian-13 : sys podman debian-13 root host sqlite * PR #23275 * [08-25 07:43](https://api.cirrus-ci.com/v1/artifact/task/5670145266286592/html/sys-podman-debian-13-root-host-sqlite.log.html#t--00160p) * fedora-39 : sys podman fedora-39 root host boltdb * PR #23275 * [08-23 17:22](https://api.cirrus-ci.com/v1/artifact/task/5984234949574656/html/sys-podman-fedora-39-root-host-boltdb.log.html#t--00160p) * fedora-39 : sys podman fedora-39 rootless host boltdb * PR #23275 * [08-22 22:16](https://api.cirrus-ci.com/v1/artifact/task/6663045471010816/html/sys-podman-fedora-39-rootless-host-boltdb.log.html#t--00160p) * rawhide : sys podman rawhide root host sqlite * PR #23275 * [08-23 15:28](https://api.cirrus-ci.com/v1/artifact/task/5053229317226496/html/sys-podman-rawhide-root-host-sqlite.log.html#t--00160p) * rawhide : sys podman rawhide rootless host sqlite * PR #23275 * [08-22 22:15](https://api.cirrus-ci.com/v1/artifact/task/4622351889858560/html/sys-podman-rawhide-rootless-host-sqlite.log.html#t--00160p) | x | x | x | x | x | x | | ---: | ---: | ---: | ---: | ---: | ---: | | sys(5) | podman(5) | rawhide(2) | root(3) | host(5) | sqlite(3) | | | | fedora-39(2) | rootless(2) | | boltdb(2) | | | | debian-13(1) | | | |</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>50</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23857 from rhatdan/run Remove containers/common/pkg/config from pkg/util</MESSAGE>
+    <SHA>62c101651ff85daa0370d5031b9e2b3b4c5f16be</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>CI: make 090-events parallel-safe ...or at least as much as possible. Some tests cannot be run in parallel due to #23750: &quot;--events-backend=file&quot; does not actually work the way a naïve user would intuit. Stop/die events are asynchronous, and can be gathered by *ANY OTHER* podman process running after it, and if that process has the default events-backend=journal, that's where the event will be logged. See #23987 for further discussion. Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>5468718f22be712f3d89bf4ee992ce6daaf4f8d7</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/090-events.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>CI: parallelize logs test as much as possible Any test that uses --events-backend=file cannot be run in parallel due to #23750. This seems to be a hard block, unfixable. All other tests, enable ci:parallel. And, bring in timing fixes #23600. Thanks, @Honny1! Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>4be6bf22706f88c6b005235138e6be350678d349</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/035-logs.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

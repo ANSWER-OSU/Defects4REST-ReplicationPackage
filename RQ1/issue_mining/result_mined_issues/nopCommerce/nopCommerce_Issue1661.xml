@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1661</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/1661</ISSUEURL>
+  <TITLE>Schedule task interval validation</TITLE>
+  <DESCRIPTION>every task has a run period(interval) based on seconds where we can setup how frequent we want to run a task, and we set them based on seconds, now in nop.services.Tasks.TaskThread.cs line 125 ``` public int Interval { get { return this.Seconds * 1000; } } ``` now int has a max of 2,147,483,647 so if we multiply the seconds by 1000 we have a limit for seconds to be not more than 2147483 seconds which comes down to about 24 days, if someone puts a value more than 2147483 the whole application crash, without any trap to catch the error. to replicate it try the following. 1) under admin/ScheduleTask/List edit any task and put 21474839 in the seconds column, make sure task is enabled. 2) restart application. now where exactly does it fail? at line number 74 this._timer = new Timer(new TimerCallback(this.TimerHandler), null, this.Interval, this.Interval); since this.Interval is being multiplied by 1000 it exceeds the max limit, and it goes into negative number, and you cant pass a negative number as an argument in that line. Solution. 1) validation on server to reject seconds that exceed 2147483 and notify user about the limit. 2) change interval to a long, so the limit is about few months, so admin users can set tasks for monthly basis. Source: http://www.nopcommerce.com/boards/t/43600/task-schedule.aspx</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>23</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#1674 Language tabs didn't work properly when language name had brackets</MESSAGE>
+    <SHA>0d97e81a2ec317405dd24f0f62056b2db5992b02</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#1661 Schedule tasks threw an exception was period was more 24 days</MESSAGE>
+      <SHA>527e65dab84ef507ebb9426a0e7285ce5e3287b8</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Tasks/TaskThread.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#1661 Schedule tasks page. Added a note that period should not exceed 24 days.</MESSAGE>
+      <SHA>6c551bc5d285a7ecf413759aad027a3f3899e221</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Administration/Views/ScheduleTask/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>upgradescripts/3.80-the next version/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

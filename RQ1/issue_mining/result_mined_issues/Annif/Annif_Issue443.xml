@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>443</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/443</ISSUEURL>
+  <TITLE>Allow use of cached data after cancelled training of nn_ensemble backend</TITLE>
+  <DESCRIPTION>When cancelling training of the `nn_ensemble` backend after the data transformation was completed, the backend is not able to use the cached data written to the lmdb file. A quick fix for me was to disable locking when opening the lmdb file but that opens another can of worms. Another possible solution could be to close the db after writing all the data and reopening it in readonly mode. Have not tested yet whether this would do the trick.</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add meter styling for webkit browsers, to match firefox</MESSAGE>
+    <SHA>c57a696855ea0073d2e0676158ca6ae5d126f631</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Commit transaction and reopen LMDB read-only for NN ensemble training. Fixes #443</MESSAGE>
+      <SHA>68564a67d41fd4af28a72c4d077e86a8bf0e3e15</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/backend/nn_ensemble.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

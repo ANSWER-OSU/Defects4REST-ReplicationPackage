@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4942</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4942</ISSUEURL>
+  <TITLE>Lost custom order Redeemed RewardPoints History RedeemedRewardPointsEntryId</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.30 Steps to reproduce the problem: Libraries\Nop.Services\Orders\OrderProcessingService.cs line:841 add &quot;order.RedeemedRewardPointsEntryId =&quot; _rewardPointService.AddRewardPointsHistoryEntry(details.Customer, -details.RedeemedRewardPoints, order.StoreId, string.Format(_localizationService.GetResource(&quot;RewardPoints.Message.RedeemedForOrder&quot;, order.CustomerLanguageId), order.CustomOrderNumber), order, details.RedeemedRewardPointsAmount); --&gt; https://github.com/nopSolutions/nopCommerce/blob/develop/src/Libraries/Nop.Services/Orders/OrderProcessingService.cs#L841 ``` //generate and set custom order Redeemed RewardPoints History order.RedeemedRewardPointsEntryId = _rewardPointService.AddRewardPointsHistoryEntry(details.Customer, -details.RedeemedRewardPoints, order.StoreId, string.Format(_localizationService.GetResource(&quot;RewardPoints.Message.RedeemedForOrder&quot;, order.CustomerLanguageId), order.CustomOrderNumber), order, details.RedeemedRewardPointsAmount); _orderService.UpdateOrder(order); ``` See also: https://www.nopcommerce.com/en/boards/topic/89634/43-redeemed-reward-points-entry-id-not-being-added-to-order-table</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>158</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5232 Fixed minor layout issues on order details page</MESSAGE>
+    <SHA>e8cc5902159c20214ee04c04d943ec3922a46155</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4942 Fix redeemed reward points init in the order</MESSAGE>
+      <SHA>cf7c247679e8a5621c540f9dd81ce3dfbfe1bb46</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderProcessingService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

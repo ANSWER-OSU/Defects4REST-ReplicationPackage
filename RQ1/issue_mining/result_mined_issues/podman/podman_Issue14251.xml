@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14251</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14251</ISSUEURL>
+  <TITLE>--init fail to work when mounting /dev</TITLE>
+  <DESCRIPTION>&lt;!-- --------------------------------------------------- BUG REPORT INFORMATION --------------------------------------------------- Use the commands below to provide key information from your environment: You do NOT have to include this information if this is a FEATURE REQUEST **NOTE** A large number of issues reported against Podman are often found to already be fixed in more current versions of the project. Before reporting an issue, please verify the version you are running with `podman version` and compare it to the latest release documented on the top of Podman's [README.md](../README.md). If they differ, please update your version of Podman to the latest possible and retry your command before creating an issue. Also, there is a running list of known issues in the [Podman Troubleshooting Guide](https://github.com/containers/podman/blob/main/troubleshooting.md), please reference that page before opening a new issue. If you are filing a bug against `podman build`, please instead file a bug against Buildah (https://github.com/containers/buildah/issues). Podman build executes Buildah to perform container builds, and as such the Buildah maintainers are best equipped to handle these bugs. --&gt; **Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind bug **Description** Using podman run with --init, while mounting /dev into the container, doesn't work **Steps to reproduce the issue:** ``` ❯ podman run -v /dev:/dev --init fedora ls Error: open `/home/fruch/.local/share/containers/storage/overlay/7a25422477b336e6746e9c2d6058695b4b8245b8a2f413aaf3f7b5927f765192/merged/init`: No such file or directory: OCI runtime attempted to invoke a command that was not found ``` **Describe the results you received:** got the error from above **Describe the results you expected:** expect the run command to run the command in the container **Additional information you deem important (e.g. issue happens only occasionally):** **Output of `podman version`:** ``` Version: 3.4.2 API Version: 3.4.2 Go Version: go1.16.6 Built: Thu Jan 1 02:00:00 1970 OS/Arch: linux/amd64 ``` **Output of `podman info --debug`:** ``` host: arch: amd64 buildahVersion: 1.23.1 cgroupControllers: - memory - pids cgroupManager: systemd cgroupVersion: v2 conmon: package: 'conmon: /usr/libexec/podman/conmon' path: /usr/libexec/podman/conmon version: 'conmon version 2.1.0, commit: ' cpus: 12 distribution: codename: impish distribution: ubuntu version: &quot;21.10&quot; eventLogger: journald hostname: fruch-syclla-laptop idMappings: gidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 100000 size: 65536 uidmap: - container_id: 0 host_id: 1000 [64/23059] size: 1 - container_id: 1 host_id: 100000 size: 65536 kernel: 5.13.0-40-generic linkmode: dynamic logDriver: journald memFree: 330293248 memTotal: 33470967808 ociRuntime: name: crun package: 'crun: /usr/bin/crun' path: /usr/bin/crun version: |- crun version UNKNOWN commit: ea1fe3938eefa14eb707f1d22adff4db670645d6 spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +CRIU +YAJL os: linux remoteSocket: exists: true path: /run/user/1000/podman/podman.sock security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: true seccompEnabled: true seccompProfilePath: /usr/share/containers/seccomp.json selinuxEnabled: false serviceIsRemote: false slirp4netns: executable: /usr/bin/slirp4netns package: 'slirp4netns: /usr/bin/slirp4netns' version: |- slirp4netns version 1.1.8 commit: unknown libslirp: 4.3.1-git SLIRP_CONFIG_VERSION_MAX: 3 libseccomp: 2.4.3 swapFree: 28319744 swapTotal: 2147479552 uptime: 107h 46m 18.19s (Approximately 4.46 days) plugins: log: - k8s-file - none - journald network: - bridge - macvlan volume: - local registries: search: - docker.io store: configFile: /home/fruch/.config/containers/storage.conf containerStore: number: 31 paused: 0 running: 6 stopped: 25 graphDriverName: overlay graphOptions: overlay.mount_program: Executable: /usr/bin/fuse-overlayfs Package: 'fuse-overlayfs: /usr/bin/fuse-overlayfs' Version: |- fusermount3 version: 3.10.3 fuse-overlayfs: version 1.4 FUSE library version 3.10.3 using FUSE kernel interface version 7.31 graphRoot: /home/fruch/.local/share/containers/storage graphStatus: Backing Filesystem: ecryptfs Native Overlay Diff: &quot;false&quot; Supports d_type: &quot;true&quot; Using metacopy: &quot;false&quot; imageStore: number: 15 runRoot: /run/user/1000/containers volumePath: /home/fruch/.local/share/containers/storage/volumes version: APIVersion: 3.4.2 Built: 0 BuiltTime: Thu Jan 1 02:00:00 1970 GitCommit: &quot;&quot; GoVersion: go1.16.6 OsArch: linux/amd64 Version: 3.4.2 ``` **Package info (e.g. output of `rpm -q podman` or `apt list podman`):** ``` podman/unknown,now 100:3.4.2-1 amd64 [installed]``` ``` **Have you tested with the latest version of Podman and have you checked the Podman Troubleshooting Guide? (https://github.com/containers/podman/blob/main/troubleshooting.md)** No **Additional environment details (AWS, VirtualBox, physical, etc.):**</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14300 from mtrmac/test-gpgme-build Update c/image</MESSAGE>
+    <SHA>769e777656e62172ccdd1b98989627d6dae57a96</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix --init with /dev bind mount The init binary until now has been bind-mounted to /dev/init which breaks when bind-mounting to /dev. Instead mount the init to /run/podman-init. The reasoning for using /run is that it is already used for other runtime data such as secrets. Fixes: #14251 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>633d5f1f8b8844d6e2fb3e2593768360c889ed76</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-create.1.md</FILE>
+        <FILE>docs/source/markdown/podman-run.1.md</FILE>
+        <FILE>libpod/define/container.go</FILE>
+        <FILE>libpod/diff.go</FILE>
+        <FILE>pkg/specgen/generate/oci.go</FILE>
+        <FILE>pkg/specgen/generate/storage.go</FILE>
+        <FILE>test/e2e/run_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix --init with /dev bind mount The init binary until now has been bind-mounted to /dev/init which breaks when bind-mounting to /dev. Instead mount the init to /run/podman-init. The reasoning for using /run is that it is already used for other runtime data such as secrets. Fixes: #14251 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>8ff710857f42e07d0f37e8cc34a237d751b7b0f6</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-create.1.md</FILE>
+        <FILE>docs/source/markdown/podman-run.1.md</FILE>
+        <FILE>libpod/define/container.go</FILE>
+        <FILE>libpod/diff.go</FILE>
+        <FILE>pkg/specgen/generate/oci.go</FILE>
+        <FILE>pkg/specgen/generate/storage.go</FILE>
+        <FILE>test/e2e/run_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3864</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/3864</ISSUEURL>
+  <TITLE>bug: Upstream SNI should also be rewritten when the upstream host is rewritten</TITLE>
+  <DESCRIPTION>### Issue description Currently, when the upstream host is changed (by `proxy-rewrite plugin, or the Host rewrite policy in Upstream), the SNI passed to Upstream is not changed when the scheme is HTTPS. That might introduce some SSL handshaking problem, we may fix it. ### Environment * apisix version (cmd: `apisix version`): * OS (cmd: `uname -a`): * OpenResty / Nginx version (cmd: `nginx -V` or `openresty -V`): * etcd version, if have (cmd: run `curl http://127.0.0.1:9090/v1/server_info` to get the info from server-info API): * apisix-dashboard version, if have: ### Minimal test code / Steps to reproduce the issue 1. 2. 3. ### What's the actual result? (including assertion message &amp; call stack if applicable) ### What's the expected result?</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>test: show how to bypass the ctx.var cache (#3914) Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+    <SHA>3ba24c47d45bf47bf81abf93394bc45bacf0eb6c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: make sure SNI is changed with HTTP host Move the variables under locations to avoid being reset by proxy-mirror. Fix #3864 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>2a29b744125943cd5da9ec4901b7ff505dc77f5f</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ngx_tpl.lua</FILE>
+        <FILE>t/APISIX.pm</FILE>
+        <FILE>t/cli/test_access_log.sh</FILE>
+        <FILE>t/node/https-proxy.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: make sure SNI is changed with HTTP host Move the variables under locations to avoid being reset by proxy-mirror. Fix #3864 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>b33edf5031b069ab3b4f2ac5f700daea167b5b43</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ngx_tpl.lua</FILE>
+        <FILE>t/APISIX.pm</FILE>
+        <FILE>t/cli/test_access_log.sh</FILE>
+        <FILE>t/node/https-proxy.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: make sure SNI is changed with HTTP host Move the variables under locations to avoid being reset by proxy-mirror. Fix #3864 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>5958944dce124ee0b1effde11a731d091eaaa5b1</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ngx_tpl.lua</FILE>
+        <FILE>t/APISIX.pm</FILE>
+        <FILE>t/cli/test_access_log.sh</FILE>
+        <FILE>t/node/https-proxy.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: make sure SNI is changed with HTTP host (#3948) Move the variables under locations to avoid being reset by proxy-mirror. Fix #3864 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>d67da18d53fd02b872b096fe593a990bfaa3766d</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ngx_tpl.lua</FILE>
+        <FILE>t/APISIX.pm</FILE>
+        <FILE>t/cli/test_access_log.sh</FILE>
+        <FILE>t/node/https-proxy.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: make sure SNI is changed with HTTP host (#3948) Move the variables under locations to avoid being reset by proxy-mirror. Fix #3864 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>67aefb7a13b6d3f3d635acdca93dcf6522bdb664</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ngx_tpl.lua</FILE>
+        <FILE>t/APISIX.pm</FILE>
+        <FILE>t/cli/test_access_log.sh</FILE>
+        <FILE>t/node/https-proxy.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

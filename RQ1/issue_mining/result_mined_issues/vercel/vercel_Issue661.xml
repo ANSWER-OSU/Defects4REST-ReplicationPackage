@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>661</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/661</ISSUEURL>
+  <TITLE>Add NOW_ACTUAL_URL environment variable</TITLE>
+  <DESCRIPTION>In the documentation it says: &gt; **Default Env Variables** &gt; By default, all deployments expose these environent variables: &gt; - [...] &gt; - `NOW_URL`: Contains the unique URL of your deployment. **Even if you deployment was aliased, this variable will always contain the URL with the .now.sh suffix.** I have a use case where I need to allow cookies on subdomains. The way to do that is to set the `Set-Cookie` header to `.domain.com`. If that isn't set, the browser assumes you mean to set it for the current domain. The default behaviour works great, because that means I don't have to change anything and cookies will work for the `domain-asdfwett123sf.now.sh` URL and `domain.com` when I alias it, meaning I can test my deployment before I alias it. The issue is that **when `Set-Cookie` isn't set the cookies don't work for subdomains like `bla.domain.com`, and when I set it to `.domain.com` it doesn't work for the `.now.sh` URL.** In my code I basically want to do something like this: ```JS cookie: { domain: IS_PROD &amp;&amp; `.${process.env.NOW_URL}` } ``` Except I need `process.env.NOW_URL` points to the aliased domain when there is one. Is there any chance you could support something like `process.env.NOW_ACTUAL_URL` or similar to allow me to do this?</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now-python] Add Python ASGI support (#654) * add python asgi support * Update packages/now-python/test/fixtures/11-asgi/index.py Co-Authored-By: Steven &lt;steven@ceriously.com&gt; * Update packages/now-python/test/fixtures/11-asgi/now.json Co-Authored-By: Steven &lt;steven@ceriously.com&gt; * Update packages/now-python/test/fixtures/11-asgi/now.json Co-Authored-By: Steven &lt;steven@ceriously.com&gt; * add raw_path</MESSAGE>
+    <SHA>fe88a69ab7f82095c719c2d86d97f99220232d9f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-node-bridge] Use a callback on server.listen() method rather than server.on('listening') (#661) * rely on the listen method rather than events * add empty files to trigger tests suites * improve types * remove empty files</MESSAGE>
+      <SHA>a58c35fb9e00162c713cc6090f963976a4ba8f56</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-node-bridge/src/bridge.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

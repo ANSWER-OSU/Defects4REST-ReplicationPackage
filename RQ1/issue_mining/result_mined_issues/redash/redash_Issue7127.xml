@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7127</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/7127</ISSUEURL>
+  <TITLE>Vertical scroll in query results is broken</TITLE>
+  <DESCRIPTION>&lt;!-- We use GitHub only for bug reports Anything else should be a discussion: https://github.com/getredash/redash/discussions/ For support, help &amp; questions use https://github.com/getredash/redash/discussions/categories/q-a For feature requests &amp; ideas use https://github.com/getredash/redash/discussions/categories/ideas **Found a security vulnerability?** Please email security@redash.io to report any security vulnerabilities. We will acknowledge receipt of your vulnerability and strive to send you regular updates about our progress. If you're curious about the status of your disclosure please feel free to email us again. If you want to encrypt your disclosure email, you can use this PGP key. --&gt; ### Issue Summary Currently, on the latest commit we cannot scroll down in query results. ### Steps to Reproduce 1. Run query with more than 25 rows in result 2. Save it and try to scroll down Any other info e.g. Why do you consider this to be a bug? What did you expect to happen instead? ### Technical details: * Redash Version: #[58a7438](https://github.com/getredash/redash/commit/58a7438cc8054f603f5b061c9864f7855c86496a) * Browser/OS: Chrome 127.0.6533.120 / Windows 11 * How did you install Redash: self-hosted via docker-compose</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Redirect to login page when JWT token expires</MESSAGE>
+    <SHA>da55536431d7c7e4abe773cc6a76a9f6efbe20a8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Revert &quot;Adding ability to fix table columns in place (#7019)&quot; This reverts commit ebb0e2c9ad0581d09c136e325d3c5db52c49ee1c. This feature disabled vertical scroll in query results: https://github.com/getredash/redash/issues/7127</MESSAGE>
+      <SHA>bef0c82e2742695bfbe6cda1c26d14f2ac29b8ff</SHA>
+      <PATCHEDFILES>
+        <FILE>client/cypress/integration/visualizations/table/.mocks/wide-dataset.js</FILE>
+        <FILE>client/cypress/integration/visualizations/table/table_spec.js</FILE>
+        <FILE>client/cypress/support/visualizations/table.js</FILE>
+        <FILE>viz-lib/src/visualizations/table/Editor/GridSettings.tsx</FILE>
+        <FILE>viz-lib/src/visualizations/table/Editor/__snapshots__/ColumnsSettings.test.tsx.snap</FILE>
+        <FILE>viz-lib/src/visualizations/table/Renderer.tsx</FILE>
+        <FILE>viz-lib/src/visualizations/table/getOptions.ts</FILE>
+        <FILE>viz-lib/src/visualizations/table/renderer.less</FILE>
+        <FILE>viz-lib/src/visualizations/table/utils.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

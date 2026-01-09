@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15277</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15277</ISSUEURL>
+  <TITLE>sdnotify doesn't work on aarch64</TITLE>
+  <DESCRIPTION>Looks like `socat` never picks up anything on the socket, so sdnotify tests fail. Seeing this right now in @vrothberg's #15248, and we saw it in #14801 (the PR that enabled aarch64 testing) but just did a blanket `skip` because there was so much stuff that was broken. Amid the confusion, I neglected to file an issue for this. Someone will need to `get_ci_vm` to figure out details, but basically, the gist seems to be that `sdnotify` `container` does not work.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>42</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #15890 from cevich/more_ioutil_fixes Fix a few missed io/ioutil -&gt; os updates</MESSAGE>
+    <SHA>ecaefee43495eed3e387b5cdbd416d85ddaa2254</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>System tests: reenable some skipped aarch64 tests Background: in order to add aarch64 tests, we had to add emergency skips to a lot of failing tests. No attempt was ever made to understand why they were failing. Fast forward to today, I filed #15888 just to see if tests are still failing. Looks like a number of them are fixed. (Yes, magically). Remove those skips. See: #15074, #15277 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>d5f044ee7a65270bf942177b036dc83902f576c1</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/030-run.bats</FILE>
+        <FILE>test/system/075-exec.bats</FILE>
+        <FILE>test/system/260-sdnotify.bats</FILE>
+        <FILE>test/system/410-selinux.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

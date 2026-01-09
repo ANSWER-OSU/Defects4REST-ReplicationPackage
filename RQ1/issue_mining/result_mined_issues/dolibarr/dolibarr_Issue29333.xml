@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>29333</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/29333</ISSUEURL>
+  <TITLE>Link type extrafields on supplier order line are no longer working</TITLE>
+  <DESCRIPTION>### Bug Hello, When i attempted to create an extrafield (link to an other object) on a supplier order line, this error showed up : selectForForms: Error bad setup of field objectdescorig=Contact, objectfield=commande_fournisseurdet:options_buyprice ![Capture d’écran du 2024-04-12 11-01-26](https://github.com/Dolibarr/dolibarr/assets/86972374/8b8423a2-4946-4aed-a91c-9f1bf39f9e7e) I already found the origin of this bug and i will make a pull request, but i suspect that this problem will possibily occur on many other elements, since the problem comes from the 'getElementProperties' function (core/lib/functions.lib.php) and that many elements may not have been integrated into this function (maybe) ![Capture d’écran du 2024-04-12 11-05-05](https://github.com/Dolibarr/dolibarr/assets/86972374/2fd6dd0b-4d00-4f9c-bea6-baa34ff0e0b2) ### Dolibarr Version 19.0.1 ### Environment PHP 8.1.27 ### Environment Database 10.5.23-MariaDB ### Steps to reproduce the behavior and expected behavior Set up an extrafield of type link on supplier order lines (from code or dolibarr's interface) Link it to whatever you want (even the basic examples provided into the help tooltip) Create it When you go to the line form on any order supplier, you'll see the error ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '18.0' of git@github.com:Dolibarr/dolibarr.git into 19.0</MESSAGE>
+    <SHA>ee3263be1db5f8efbae944b9ba0e3d5898f744fc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX #29333 supplier order extrafields of link type displays error</MESSAGE>
+      <SHA>d0de0cb67090b254e91206b309336b08e2620726</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/functions.lib.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>FIX #29333 supplier order extrafields of link type displays error (#29334)</MESSAGE>
+      <SHA>de1d67a6aef942b397096e7584857434ea14e33f</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/functions.lib.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,60 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127286</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/127286</ISSUEURL>
+  <TITLE>[CI] DiskThresholdDeciderIT testRestoreSnapshotAllocationDoesNotExceedWatermarkWithMultipleRestores failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7973 / almalinux-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/c3cle2forjtcm) - [elasticsearch-pull-request #69918 / part-1](https://gradle-enterprise.elastic.co/s/5irskadtx3eau) - [elasticsearch-periodic #7898 / concurrent-search-tests](https://gradle-enterprise.elastic.co/s/35iciyumbn2tc) **Reproduction Line:** ``` ./gradlew &quot;:server:internalClusterTest&quot; --tests &quot;org.elasticsearch.cluster.routing.allocation.decider.DiskThresholdDeciderIT.testRestoreSnapshotAllocationDoesNotExceedWatermarkWithMultipleRestores&quot; -Dtests.seed=7102862F2F4E8B3E -Dtests.locale=en-DE -Dtests.timezone=Indian/Comoro -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.cluster.routing.allocation.decider.DiskThresholdDeciderIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testRestoreSnapshotAllocationDoesNotExceedWatermarkWithMultipleRestores),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: a collection with size &lt;1&gt; but: collection size was &lt;0&gt; ``` **Issue Reasons:** - [main] 3 failures in test testRestoreSnapshotAllocationDoesNotExceedWatermarkWithMultipleRestores (1.1% fail rate in 266 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[TEST] Move test data generation out of logsdb namespace (#119994) (#127265) (cherry picked from commit 5e2b199b9437844ad3bf7f250d4a60272e631587) # Conflicts: # server/src/test/java/org/elasticsearch/index/mapper/blockloader/IpFieldBlockLoaderTests.java # server/src/test/java/org/elasticsearch/index/mapper/blockloader/KeywordFieldBlockLoaderTests.java</MESSAGE>
+    <SHA>b7aab20f0b10d032aa41bc45abe54273c26e9f6b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.cluster.routing.allocation.decider.DiskThresholdDeciderIT testRestoreSnapshotAllocationDoesNotExceedWatermarkWithMultipleRestores #127286</MESSAGE>
+      <SHA>27c4da0f5a6db3fa1a06f5cf74ce70a94f8af5d7</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.cluster.routing.allocation.decider.DiskThresholdDeciderIT testRestoreSnapshotAllocationDoesNotExceedWatermarkWithMultipleRestores #127286</MESSAGE>
+      <SHA>1af1f0231e9182fc54fdfd6ca7ab5746df34c657</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix assertion in DiskThresholdDeciderIT The test launches two concurrent restores and wants to verify that the node with limited disk space is only assigned a single shard from one of the indices. The test was asserting that it had one shard from the first index, but it is possible for it to get one shard from the index copy instead. This change allows the shard to be from either index, but still asserts there is only one assignment to the tiny node. Closes #127286</MESSAGE>
+      <SHA>f713e7b721b05d5be60a6b8d53596521e0dea745</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/internalClusterTest/java/org/elasticsearch/cluster/routing/allocation/decider/DiskThresholdDeciderIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix assertion in DiskThresholdDeciderIT (#127615) The test launches two concurrent restores and wants to verify that the node with limited disk space is only assigned a single shard from one of the indices. The test was asserting that it had one shard from the first index, but it is possible for it to get one shard from the index copy instead. This change allows the shard to be from either index, but still asserts there is only one assignment to the tiny node. Closes #127286</MESSAGE>
+      <SHA>6263f4400f032e41272a715ed89ad2f55b689e05</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/internalClusterTest/java/org/elasticsearch/cluster/routing/allocation/decider/DiskThresholdDeciderIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix assertion in DiskThresholdDeciderIT (#127615) The test launches two concurrent restores and wants to verify that the node with limited disk space is only assigned a single shard from one of the indices. The test was asserting that it had one shard from the first index, but it is possible for it to get one shard from the index copy instead. This change allows the shard to be from either index, but still asserts there is only one assignment to the tiny node. Closes #127286 (cherry picked from commit 6263f4400f032e41272a715ed89ad2f55b689e05)</MESSAGE>
+      <SHA>92b673f8925944076bb0eefb9ac9dedb697a72c9</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/internalClusterTest/java/org/elasticsearch/cluster/routing/allocation/decider/DiskThresholdDeciderIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix assertion in DiskThresholdDeciderIT (#127615) The test launches two concurrent restores and wants to verify that the node with limited disk space is only assigned a single shard from one of the indices. The test was asserting that it had one shard from the first index, but it is possible for it to get one shard from the index copy instead. This change allows the shard to be from either index, but still asserts there is only one assignment to the tiny node. Closes #127286 (cherry picked from commit 6263f4400f032e41272a715ed89ad2f55b689e05) # Conflicts: # muted-tests.yml</MESSAGE>
+      <SHA>385629f4737e3fff6dfbec3a2de412df6cd03d2a</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/internalClusterTest/java/org/elasticsearch/cluster/routing/allocation/decider/DiskThresholdDeciderIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

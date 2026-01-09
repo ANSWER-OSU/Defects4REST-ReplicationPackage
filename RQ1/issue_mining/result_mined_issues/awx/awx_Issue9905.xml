@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9905</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/9905</ISSUEURL>
+  <TITLE>Unable to cancel job - method POST not allowed - awx19</TITLE>
+  <DESCRIPTION>&lt;!-- Issues are for **concrete, actionable bugs and feature requests** only - if you're just asking for debugging help or technical support, please use: - http://webchat.freenode.net/?channels=ansible-awx - https://groups.google.com/forum/#!forum/awx-project We have to limit this because of limited volunteer time to respond to issues! --&gt; ##### ISSUE TYPE - Bug Report ##### SUMMARY I had an inventory sync job that was stuck. Upon trying to cancel it, I got an error saying `Method &quot;POST&quot; not allowed` This is a refile of #9714 as the issue is still not fixed. ##### ENVIRONMENT * AWX version: 19.0.0 * AWX install method: minishift * Ansible version: * Operating System: Debian 10 * Web Browser: Chrome ##### STEPS TO REPRODUCE 1. Get a stuck job? 2. Try to cancel job. ##### EXPECTED RESULTS job to cancel ##### ACTUAL RESULTS ``` POST /api/v2/inventory_updates/11/cancel/ 405 Method &quot;POST&quot; not allowed. ``` ![image](https://user-images.githubusercontent.com/1826947/114759279-f7b63480-9d2b-11eb-96ff-2d5669e4c4a1.png) ##### ADDITIONAL INFORMATION &lt;!-- Include any links to sosreport, database dumps, screenshots or other information. --&gt;</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>50</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #10361 from nixocio/ui_issue_10355 Update message for missing EE for Job pages Update message for missing EE for Job pages See: #10355 Reviewed-by: Keith Grant &lt;keithjgrant@gmail.com&gt; Reviewed-by: Kersom &lt;None&gt; Reviewed-by: Michael Abashian &lt;None&gt;</MESSAGE>
+    <SHA>7832639c25bd3fdbc3782d9337cd638994aa7bce</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #10346 from jakemcdermott/fix-9905 Disable cancel button on http 405 SUMMARY for #9905 When a 405 is received, it means the job is already cancelled. Treat the request as a success and don't show an error modal. We disable the button to handle a rare scenario where we receive the 405 long before the job status is properly updated to &quot;cancelled&quot; over websockets. We want to prevent more cancel requests when this happens. We're disabling instead of hiding the button because, assuming the status hasn't changed over sockets, the buttons that usually replace the cancel button on the toolbar won't be shown yet and we don't want to needlessly flicker and shift button positions around by rapidly loading and unloading a different number of buttons onto the bar. Reviewed-by: Keith Grant &lt;keithjgrant@gmail.com&gt; Reviewed-by: Sarah Akus &lt;sarah.akus@gmail.com&gt;</MESSAGE>
+      <SHA>e4931bde6ce1850de17c7995a21c4625830dabc0</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/components/JobCancelButton/JobCancelButton.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

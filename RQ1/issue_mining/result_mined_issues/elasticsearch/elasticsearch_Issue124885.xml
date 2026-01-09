@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>124885</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/124885</ISSUEURL>
+  <TITLE>[CI] ExplainDataStreamLifecycleIT testSystemExplainLifecycle failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6992 / openjdk21_entitlements_false_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/amovhsksba67i) - [elasticsearch-pull-request #62697 / part-1](https://gradle-enterprise.elastic.co/s/nhrconwz4bsxu) - [elasticsearch-intake #20069 / part1](https://gradle-enterprise.elastic.co/s/jg5hztaorc53w) **Reproduction Line:** ``` ./gradlew &quot;:modules:data-streams:internalClusterTest&quot; --tests &quot;org.elasticsearch.datastreams.lifecycle.ExplainDataStreamLifecycleIT.testSystemExplainLifecycle&quot; -Dtests.seed=E30F24AE87453693 -Dtests.jvm.argline=&quot;-Des.entitlements.enabled=false&quot; -Dtests.locale=he-Hebr-IL -Dtests.timezone=Atlantic/Canary -Druntime.java=21 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.datastreams.lifecycle.ExplainDataStreamLifecycleIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testSystemExplainLifecycle),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.index.IndexNotFoundException: no such index [.ds-.system-test-2025.03.14-000002] ``` **Issue Reasons:** - [main] 3 failures in test testSystemExplainLifecycle (1.4% fail rate in 207 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.datastreams.lifecycle.ExplainDataStreamLifecycleIT testExplainLifecycle #124882</MESSAGE>
+    <SHA>7023fe994e38b91783f88e828257ce538bed9f82</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.datastreams.lifecycle.ExplainDataStreamLifecycleIT testSystemExplainLifecycle #124885</MESSAGE>
+      <SHA>9b7b6ae059be2a1f9926bfe5f26e9dece5c95d16</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix data stream retrieval in `ExplainDataStreamLifecycleIT` These tests had the potential to fail when two consecutive GET data streams requests would hit two different nodes, where one node already had the cluster state that contained the new backing index and the other node didn't yet. Caused by #122852 Fixes #124882 Fixes #124885</MESSAGE>
+      <SHA>99e2268e0359ba51be85ef74ef9d52b931d9623d</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/data-streams/src/internalClusterTest/java/org/elasticsearch/datastreams/lifecycle/ExplainDataStreamLifecycleIT.java</FILE>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix data stream retrieval in `ExplainDataStreamLifecycleIT` (#125611) These tests had the potential to fail when two consecutive GET data streams requests would hit two different nodes, where one node already had the cluster state that contained the new backing index and the other node didn't yet. Caused by #122852 Fixes #124882 Fixes #124885</MESSAGE>
+      <SHA>8b691db4367bf4556cd250fab8becde37fd53d09</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/data-streams/src/internalClusterTest/java/org/elasticsearch/datastreams/lifecycle/ExplainDataStreamLifecycleIT.java</FILE>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix data stream retrieval in `ExplainDataStreamLifecycleIT` (#125611) These tests had the potential to fail when two consecutive GET data streams requests would hit two different nodes, where one node already had the cluster state that contained the new backing index and the other node didn't yet. Caused by #122852 Fixes #124882 Fixes #124885</MESSAGE>
+      <SHA>014f5ef069ee83a6b4d7f2d28c235f14324037a4</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/data-streams/src/internalClusterTest/java/org/elasticsearch/datastreams/lifecycle/ExplainDataStreamLifecycleIT.java</FILE>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

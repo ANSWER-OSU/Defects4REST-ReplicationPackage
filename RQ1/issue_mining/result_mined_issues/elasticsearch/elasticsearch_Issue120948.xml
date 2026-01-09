@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120948</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120948</ISSUEURL>
+  <TITLE>[CI] RestEsqlIT class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #16617 / part3](https://gradle-enterprise.elastic.co/s/6v5vyrdm5vftk) - [elasticsearch-intake #16615 / part3](https://gradle-enterprise.elastic.co/s/afn2r4qwdlyda) - [elasticsearch-pull-request #53525 / part-3](https://gradle-enterprise.elastic.co/s/v5ou5wrv4b74y) - [elasticsearch-pull-request #53508 / part-3](https://gradle-enterprise.elastic.co/s/d6ljxaxwvl57k) - [elasticsearch-pull-request #53510 / part-3](https://gradle-enterprise.elastic.co/s/ruie2tdnfslpq) - [elasticsearch-intake #16602 / part3](https://gradle-enterprise.elastic.co/s/fsavg4b3pga44) - [elasticsearch-intake #16598 / part3](https://gradle-enterprise.elastic.co/s/6rudkjn3zo2u4) - [elasticsearch-intake #16595 / part3](https://gradle-enterprise.elastic.co/s/24ipblaod7y7q) - [elasticsearch-intake #16592 / part3](https://gradle-enterprise.elastic.co/s/6qy6flvq4vy6w) - [elasticsearch-pull-request #53456 / part-3](https://gradle-enterprise.elastic.co/s/ileei57hkqvp4) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:multi-node:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.qa.multi_node.RestEsqlIT.testCSVMode {ASYNC}&quot; -Dtests.seed=5795258665E4A6FE -Dtests.locale=en-BW -Dtests.timezone=Asia/Jayapura -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.multi_node.RestEsqlIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.xpack.esql.qa.multi_node.RestEsqlIT),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.net.ConnectException: Connection refused ``` **Issue Reasons:** - [8.x] 3 consecutive failures in class org.elasticsearch.xpack.esql.qa.multi_node.RestEsqlIT - [8.x] 2 consecutive failures in step part3 - [8.x] 2 consecutive failures in step ubuntu-1804_platform-support-unix - [8.x] 2 consecutive failures in step rocky-8_platform-support-unix - [8.x] 2 consecutive failures in step ubuntu-2404_platform-support-unix - [8.x] 2 consecutive failures in step rocky-9_platform-support-unix - [8.x] 2 consecutive failures in step openjdk21_checkpart3_java-matrix - [8.x] 2 consecutive failures in pipeline elasticsearch-intake - [8.x] 112 failures in class org.elasticsearch.xpack.esql.qa.multi_node.RestEsqlIT (49.8% fail rate in 225 executions) - [8.x] 33 failures in step part3 (61.1% fail rate in 54 executions) - [8.x] 44 failures in step part-3 (53.7% fail rate in 82 executions) - [8.x] 2 failures in step opensuse-leap-15_platform-support-unix (66.7% fail rate in 3 executions) - [8.x] 2 failures in step single-processor-node-tests (66.7% fail rate in 3 executions) - [8.x] 2 failures in step ubuntu-1804_platform-support-unix (100.0% fail rate in 2 executions) - [8.x] 2 failures in step rocky-8_platform-support-unix (66.7% fail rate in 3 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add Minimal Service Settings to the Model Registry (#120560) This commit introduces minimal service settings in the model registry, accessible without querying the inference index. These settings are now available for the default models exposed by the inference service. The ability to access settings without an inference index query is needed for the semantic text field, as it would benefit from eager validation of configuration during field creation. This is not feasible currently because retrieving service settings relies on an asynchronous call to the inference index. ### Follow-Up Plans: 1. Extend this capability to include minimal service settings for all newly added models, making them accessible via the cluster state. 2. Update the semantic text field to eagerly retrieve service settings directly from the model registry.</MESSAGE>
+    <SHA>d28e9ed78ff3ccc63e0c13f9dbbe4de2f6c7b1d7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.multi_node.RestEsqlIT org.elasticsearch.xpack.esql.qa.multi_node.RestEsqlIT #120948</MESSAGE>
+      <SHA>241b998c7f031327a8303d7a41c5443e2ab95f0b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.multi_node.RestEsqlIT org.elasticsearch.xpack.esql.qa.multi_node.RestEsqlIT #120948</MESSAGE>
+      <SHA>666c778765be8ace765c535ec63ca96626496059</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4447</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4447</ISSUEURL>
+  <TITLE>Email doesn't work with SSL</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.30 beta Source: https://www.nopcommerce.com/boards/topic/80146/nopcommerce-430-beta-released-please-share-your-impressions/page/2#260287 Also see: https://www.nopcommerce.com/boards/topic/80146/nopcommerce-430-beta-released-please-share-your-impressions/page/3#261336 Getting the following error when sending emails (gmail account): &quot;An error occurred while attempting to establish an SSL or TLS connection. This usually means that the SSL certificate presented by the server is not trusted by the system for one or more of the following reasons: 1. The server is using a self-signed certificate which cannot be verified. 2. The local system is missing a Root or Intermediate certificate needed to verify the server's certificate. 3. A Certificate Authority CRL server for one or more of the certificates in the chain is temporarily unavailable. 4. The certificate presented by the server is expired or invalid. Another possibility is that you are trying to connect to a port which does not support SSL/TLS. It is also possible that the set of SSL/TLS protocols supported by the client and server do not match. See https://github.com/jstedfast/MailKit/blob/master/FAQ.md#SslHandshakeException for possible solutions&quot; [Andrei Mazulnitsyn] We also experience the same on our demo website</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Removed the placement of PagedList &lt;T&gt; instances in the static cache, as this causes problems when using Redis DB as a caching system</MESSAGE>
+    <SHA>bedfdec3a5b2a83f68865f692c7db97e27f62802</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4447 Added MailKit workaround for using self-signed(or expired) certificates</MESSAGE>
+      <SHA>b47109eaa55285a1cef5ab22df67966e2d496168</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Messages/ISmtpBuilder.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Messages/SmtpBuilder.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

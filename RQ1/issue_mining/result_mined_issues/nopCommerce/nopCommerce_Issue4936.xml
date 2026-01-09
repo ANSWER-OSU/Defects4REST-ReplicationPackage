@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4936</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4936</ISSUEURL>
+  <TITLE>Tax (fixed or by country/state/zip) plugin payment method additional fee error</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.3 Expected behavior: Valid Total Tax calculation including Payment additional fee when Payment fee is taxable Actual behavior: Payment fee tax added to Total Tax multiple times Steps to reproduce the problem: Configuration &gt; Settings &gt; Tax settings &gt; Payment Payment method additional fee is taxable, Payment method additional fee tax category &gt; something, not 0 The solution: In FixedOrByCountryStateZipTaxProvider.cs file &gt; GetTaxTotal class the //payment method additional fee section should be INSIDE the following if statement brackets: if (!(_httpContextAccessor.HttpContext.Items.TryGetValue(&quot;nop.TaxTotal&quot;, out var result) &amp;&amp; result is TaxTotalResult taxTotalResult)) { } Currently it is after the closing bracket. Source: https://www.nopcommerce.com/en/boards/topic/84841/tax-fixed-or-by-countrystatezip-plugin-payment-method-additional-fee-error</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>212</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Slightly changed TaxTotalCalculatedEvent</MESSAGE>
+    <SHA>3f1deb81752ed31cb60851cc14115d87f5a7c3dd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4936 Default tax provider. Correct calculation of payment method additional fee tax</MESSAGE>
+      <SHA>13c8ba95cd619dacdde8dade9866ce8074db156b</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Tax.FixedOrByCountryStateZip/FixedOrByCountryStateZipTaxProvider.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.FixedOrByCountryStateZip/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

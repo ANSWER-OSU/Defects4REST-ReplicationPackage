@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122567</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122567</ISSUEURL>
+  <TITLE>[CI] EntitlementsAllowedIT class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6405 / openjdk21_checkpart1_java-fips-matrix](https://gradle-enterprise.elastic.co/s/z2fkrf33vx7lc) - [elasticsearch-pull-request #57202 / part-1-fips](https://gradle-enterprise.elastic.co/s/tmtfugxbvehok) - [elasticsearch-pull-request #57196 / part-1](https://gradle-enterprise.elastic.co/s/eiqn477v7wcga) - [elasticsearch-pull-request #57177 / part-1-fips](https://gradle-enterprise.elastic.co/s/w5makpla4apto) - [elasticsearch-pull-request #57169 / part-1](https://gradle-enterprise.elastic.co/s/f3rocth5bqfbs) - [elasticsearch-pull-request #57165 / part-1-fips](https://gradle-enterprise.elastic.co/s/76mzhevz7wfeu) - [elasticsearch-pull-request #57161 / part-1-fips](https://gradle-enterprise.elastic.co/s/hyyli25sswcqs) - [elasticsearch-periodic #6398 / openjdk21_checkpart1_java-fips-matrix](https://gradle-enterprise.elastic.co/s/qhwdwxli4gang) - [elasticsearch-pull-request #57127 / part-1-fips](https://gradle-enterprise.elastic.co/s/lufwdhfgnncpu) - [elasticsearch-pull-request #57125 / part-1](https://gradle-enterprise.elastic.co/s/schr5oyn3tu4g) **Reproduction Line:** ``` undefined ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.entitlement.qa.EntitlementsAllowedIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.entitlement.qa.EntitlementsAllowedIT),title:'Test',type:optionsListControl))))) **Failure Message:** ``` undefined ``` **Issue Reasons:** - [main] 3 consecutive failures in step openjdk21_checkpart1_java-fips-matrix - [main] 6 consecutive failures in step part-1-fips - [main] 14 failures in class org.elasticsearch.entitlement.qa.EntitlementsAllowedIT (1.9% fail rate in 753 executions) - [main] 3 failures in step openjdk21_checkpart1_java-fips-matrix (30.0% fail rate in 10 executions) - [main] 4 failures in step part-1 (1.3% fail rate in 305 executions) - [main] 6 failures in step part-1-fips (60.0% fail rate in 10 executions) - [main] 3 failures in pipeline elasticsearch-periodic (25.0% fail rate in 12 executions) - [main] 11 failures in pipeline elasticsearch-pull-request (3.6% fail rate in 307 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.entitlement.qa.EntitlementsDeniedIT org.elasticsearch.entitlement.qa.EntitlementsDeniedIT #122566</MESSAGE>
+    <SHA>9cf2e80d318323d209e8cb71ec44f1abbaa432ae</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.entitlement.qa.EntitlementsAllowedIT org.elasticsearch.entitlement.qa.EntitlementsAllowedIT #122567</MESSAGE>
+      <SHA>0d388c52916d7bc04353846fa6a9e55d99213ea7</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Entitlements] Add missing file entitlements for server (#122728) Add missing file entitlements for server. closes https://github.com/elastic/elasticsearch/issues/122569, closes https://github.com/elastic/elasticsearch/issues/122568, closes https://github.com/elastic/elasticsearch/issues/122567, closes https://github.com/elastic/elasticsearch/issues/122566 (Note, some failures are due to a `NoSuchAlgorithmException` when fips is enabled. This issue is unrelated to entitlements)</MESSAGE>
+      <SHA>cc9679162f278469949a372c119db7f731106c0f</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/initialization/EntitlementInitialization.java</FILE>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Entitlements] Add missing file entitlements for server (#122728) Add missing file entitlements for server. closes https://github.com/elastic/elasticsearch/issues/122569, closes https://github.com/elastic/elasticsearch/issues/122568, closes https://github.com/elastic/elasticsearch/issues/122567, closes https://github.com/elastic/elasticsearch/issues/122566 (Note, some failures are due to a `NoSuchAlgorithmException` when fips is enabled. This issue is unrelated to entitlements) (cherry picked from commit cc9679162f278469949a372c119db7f731106c0f) # Conflicts: # muted-tests.yml</MESSAGE>
+      <SHA>92740d84400fde3947878e14f3d58b6ff2e1c690</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/initialization/EntitlementInitialization.java</FILE>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Entitlements] Add missing file entitlements for server (#122728) Add missing file entitlements for server. closes https://github.com/elastic/elasticsearch/issues/122569, closes https://github.com/elastic/elasticsearch/issues/122568, closes https://github.com/elastic/elasticsearch/issues/122567, closes https://github.com/elastic/elasticsearch/issues/122566 (Note, some failures are due to a `NoSuchAlgorithmException` when fips is enabled. This issue is unrelated to entitlements) (cherry picked from commit cc9679162f278469949a372c119db7f731106c0f) # Conflicts: # muted-tests.yml</MESSAGE>
+      <SHA>10251dc93f2cfd804daf6ab6910bd273e71add7f</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/initialization/EntitlementInitialization.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Entitlements] Add missing file entitlements for server (#122728) Add missing file entitlements for server. closes https://github.com/elastic/elasticsearch/issues/122569, closes https://github.com/elastic/elasticsearch/issues/122568, closes https://github.com/elastic/elasticsearch/issues/122567, closes https://github.com/elastic/elasticsearch/issues/122566 (Note, some failures are due to a `NoSuchAlgorithmException` when fips is enabled. This issue is unrelated to entitlements) (cherry picked from commit cc9679162f278469949a372c119db7f731106c0f) # Conflicts: # muted-tests.yml</MESSAGE>
+      <SHA>7ec6f33e3d9508d0925bbf72468bc85628f80d8f</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/initialization/EntitlementInitialization.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[8.x] [Entitlements] Add missing file entitlements for server (#122728) (#122745) * [Entitlements] Add missing file entitlements for server (#122728) Add missing file entitlements for server. closes https://github.com/elastic/elasticsearch/issues/122569, closes https://github.com/elastic/elasticsearch/issues/122568, closes https://github.com/elastic/elasticsearch/issues/122567, closes https://github.com/elastic/elasticsearch/issues/122566 (Note, some failures are due to a `NoSuchAlgorithmException` when fips is enabled. This issue is unrelated to entitlements) (cherry picked from commit cc9679162f278469949a372c119db7f731106c0f) # Conflicts: # muted-tests.yml * fix merge</MESSAGE>
+      <SHA>49f637740d1a56158b65e8492b676f2afccdae44</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/initialization/EntitlementInitialization.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Entitlements] Add missing file entitlements for server (#122728) (#122747) Add missing file entitlements for server. closes https://github.com/elastic/elasticsearch/issues/122569, closes https://github.com/elastic/elasticsearch/issues/122568, closes https://github.com/elastic/elasticsearch/issues/122567, closes https://github.com/elastic/elasticsearch/issues/122566 (Note, some failures are due to a `NoSuchAlgorithmException` when fips is enabled. This issue is unrelated to entitlements) (cherry picked from commit cc9679162f278469949a372c119db7f731106c0f) # Conflicts: # muted-tests.yml</MESSAGE>
+      <SHA>4a10945525eea910f3bd4a7a8832ebb683c75a92</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/initialization/EntitlementInitialization.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

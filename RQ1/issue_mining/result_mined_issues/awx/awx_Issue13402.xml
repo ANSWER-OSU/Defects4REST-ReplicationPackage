@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>13402</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/13402</ISSUEURL>
+  <TITLE>Access to all keys out of the CyberArk object</TITLE>
+  <DESCRIPTION>### Please confirm the following - [X] I agree to follow this project's [code of conduct](https://docs.ansible.com/ansible/latest/community/code_of_conduct.html). - [X] I have checked the [current issues](https://github.com/ansible/awx/issues) for duplicates. - [X] I understand that AWX is open source software provided for free and that I might not receive a timely response. ### Feature type Enhancement to Existing Feature ### Feature Summary https://issues.redhat.com/browse/AAPRFE-28 We want to pull all the Keys out of the CyberArk object instead of just the content key or the content value. When we run the API call from the playbook, CyberArk presents all the keys and values associated with that object. We can set the fact and use the keys and values as variables in the playbook. But when we use the custom credential it only gives us the content value and does not give us any other keys and values. We want to be able to use custom credential to pull all the keys and values associated with an object and assigned into variables in AAP natively using the credential plugin. This feature request is for changes to the credential lookup plugin as used in AAP2. ### Select the relevant components - [X] UI - [ ] API - [ ] Docs - [ ] Collection - [ ] CLI - [ ] Other ### Steps to reproduce 1. Configure a credential using the credential type &quot;CyberArk Central Credential Provider Lookup&quot;. 2. Only &quot;Content&quot; key value from JSON response is returned. &quot;Content&quot; is the password value of the account object. ### Current results The credential plugin &quot;CyberArk Central Credential Provider Lookup&quot; is hardcoded to only return the &quot;Content&quot; key value from a JSON response that includes more keys that could be utilized. ### Sugested feature result The suggested feature would include an additional field in the metadata of the credential plugin to allow the user to specify a different key value to utilize outside of the &quot;Content&quot; which should still remain as the default key. ### Additional information Spoke with Oleksii Baranov on 01-05-2023 about how to include this feature. Being developed by CyberArk's @infamousjoeg. PR to come shortly. For more information, please reference the Issue at https://issues.redhat.com/browse/AAPRFE-28.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>98</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #13194 from mabashian/13193-related-name-exact Adds support for exact name searching against related fields to the ui</MESSAGE>
+    <SHA>98107301a55b188a8034664c82007c90e5751741</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed #13402 allow user defined key retrieval from CYBR</MESSAGE>
+      <SHA>c34509ff2c2eff15a2233c131a4871d848ee08ce</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/credential_plugins/aim.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #13402 allow user defined key retrieval from CYBR (#13411) * Fixed #13402 allow user defined key retrieval from CYBR * Add default value to object_property * Raise ValueError if object_property not in response * Raise KeyError instead of ValueError</MESSAGE>
+      <SHA>2d140f069ee209b98022242303f7abf9657a21a9</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/credential_plugins/aim.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #13402 allow user defined key retrieval from CYBR (#13411) * Fixed #13402 allow user defined key retrieval from CYBR * Add default value to object_property * Raise ValueError if object_property not in response * Raise KeyError instead of ValueError</MESSAGE>
+      <SHA>11d5e5c7d49b1aa997f84c7b4599dc690c19f41d</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/credential_plugins/aim.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

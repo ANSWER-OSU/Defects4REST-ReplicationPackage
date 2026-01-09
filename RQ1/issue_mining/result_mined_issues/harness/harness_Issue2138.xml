@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2138</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2138</ISSUEURL>
+  <TITLE>meddler.Insert: DB error in Exec: UNIQUE constraint failed: config.config_hash, config.config_repo_id</TITLE>
+  <DESCRIPTION>*As per our [chatroom discussion](https://gitter.im/drone/drone?at=59765a1376a757f80841cd78)* When two hooks are received at the same time, with the same yaml, and drone tries to insert both at the same time, the following exception occurs: ``` Jul 24 22:20:13 coreos0 docker: time=&quot;2017-07-24T20:20:12Z&quot; level=error msg=&quot;failure to persist config for ____GITHUB_ORG/GITHUB_PROJECT_______. meddler.Insert: DB error in Exec: UNIQUE constraint failed: config.config_hash, config.config_repo_id&quot; Jul 24 22:20:13 coreos0 docker: time=&quot;2017-07-24T20:20:12Z&quot; level=error msg=&quot;Error #01: meddler.Insert: DB error in Exec: UNIQUE constraint failed: config.config_hash, config.config_repo_id\n&quot; ip=192.30.252.34 latency=1.71155372s method=POST path=&quot;/hook&quot; status=500 time=&quot;2017-07-24T20:20:12Z&quot; user-agent=&quot;GitHub-Hookshot/62709df&quot; ``` Redelivering the payload via GitHub GUI solves the problem. ``` andreas@coreos0 ~ $ docker images REPOSITORY TAG IMAGE ID CREATED SIZE drone/agent 0.8 230e966bc666 4 days ago 12.98 MB drone/drone 0.8 185b47a4268a 4 days ago 27.26 MB ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>serve logs with sse; update acme pkg</MESSAGE>
+    <SHA>441a015ca8a845c492c4550cae81ff55df65f1e1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix issue #2138</MESSAGE>
+      <SHA>162d9b3a674d6099a269bd2cfe8166479c46ad64</SHA>
+      <PATCHEDFILES>
+        <FILE>server/hook.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #2142 from bradrydzewski/master fix issue #2138</MESSAGE>
+      <SHA>aadcde2b2c3e5e9617f3f71a797e8d97ac15700e</SHA>
+      <PATCHEDFILES>
+        <FILE>server/hook.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat: [CDE-115]: Adding infra provider factory (#2138)</MESSAGE>
+      <SHA>06a514976f5fba1f456845a71e9de27b335d3d20</SHA>
+      <PATCHEDFILES>
+        <FILE>infraprovider/docker_provider.go</FILE>
+        <FILE>infraprovider/infra_provider_factory.go</FILE>
+        <FILE>infraprovider/wire.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23279</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23279</ISSUEURL>
+  <TITLE>race: podman auto-update barfs when containers disappear</TITLE>
+  <DESCRIPTION>In terminal 1: ```console $ while :;do podman run --rm quay.io/libpod/testimage:20240123 date;done ``` In terminal 2: ```console $ while :;do bin/podman auto-update;done Error: container 2815a2a15731c266cc447d5e61becbbdc1aee31580e2c915ef8162ea1ded0617 does not exist in database: no such container Error: container 92bb729f47f1f7400fb8f90511a6406e19ee67c637905d63bb892036d4b86987 does not exist in database: no such container Error: container 5a58708f367a36f2f323dcc9e1fb45ef8d83a892a9ef4d819408ee36d1af93cd does not exist in database: no such container Error: container 8aa0908c890a67d55d1a0984ac47e5eef92683af56ef010a8f4e4bb17b861891 does not exist in database: no such container ...etc etc etc ``` Expected: no output from `auto-update` command, ever.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23299 from containers/renovate/github.com-rootless-containers-rootlesskit-v2-2.x fix(deps): update module github.com/rootless-containers/rootlesskit/v2 to v2.2.0</MESSAGE>
+    <SHA>89432899a7e4f1b4bb387157425fe9638c51ce02</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>podman auto-update: fix ErrNoSuchCtr race If a container is removed during the loop we should just ignore it. No reason to log this as error to the user. Fixes #23279 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>1413a284098d7cd4f3c620696bb3d4b32025576b</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/autoupdate/autoupdate.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

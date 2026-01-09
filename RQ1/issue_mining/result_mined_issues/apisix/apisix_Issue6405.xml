@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6405</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/6405</ISSUEURL>
+  <TITLE>request help: The plugins that act on the specified consumer do not take effect</TITLE>
+  <DESCRIPTION>### Issue description origin mail: https://lists.apache.org/thread/o0zh8pddh50ytcf99g8jr5wnxbf9p9t3 User Description: ``` And when I use the same config : \&quot;proxy-rewrite\&quot;: { \&quot;headers\&quot;: { \&quot;X-USER-ID\&quot;: \&quot;USER1-ID\&quot; } } In the route config it works : curl --location --request PUT &quot;http://$APISIX_URL:$APISIX_PORT/apisix/admin/routes/api-v1&quot; \ --header &quot;X-API-KEY: $APISIX_API_ADMIN_KEY&quot; \ --header &quot;Content-Type: application/json&quot; \ --data-raw &quot;{ \&quot;uri\&quot;: \&quot;/v1/*\&quot;, \&quot;host\&quot;: \&quot;$APISIX_HOST\&quot;, \&quot;plugins\&quot;: { \&quot;key-auth\&quot;: {}, \&quot;consumer-restriction\&quot;: { \&quot;whitelist\&quot;: [ \&quot;user1\&quot;, \&quot;user2\&quot; ] }, \&quot;proxy-rewrite\&quot;: { \&quot;headers\&quot;: { \&quot;X-USER-ID\&quot;: \&quot;USER1-ID\&quot; } } }, \&quot;service_id\&quot;: \&quot;api-v1\&quot; }&quot; ``` and ``` I mean that when I configure the plugin proxy-rewrite on the routes I have the header X-USER-ID set with the value USER1-ID (everything is fine) and when I configure it on the consumer user1 and I call the endpoint with the apikey of user1, the header X-USER-ID does not exist. ``` ### Environment - apisix version (cmd: `apisix version`): - OS (cmd: `uname -a`): - OpenResty / Nginx version (cmd: `nginx -V` or `openresty -V`): - etcd version, if have (cmd: run `curl http://127.0.0.1:9090/v1/server_info` to get the info from server-info API): - apisix-dashboard version, if have: - the plugin runner version, if the issue is about a plugin runner (cmd: depended on the kind of runner): - luarocks version, if the issue is about installation (cmd: `luarocks --version`):</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>docs: fix forward-auth plugin doc (#6444)</MESSAGE>
+    <SHA>c37fc9933a52fd641da3eccbba338e6973f790c0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: rerun rewrite phase for newly added plugins in consumer Closes #6405 Signed-off-by: tzssangglass &lt;tzssangglass@gmail.com&gt;</MESSAGE>
+      <SHA>5b344543c173cf31f468f8c2f17dea1154c7a6f2</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>apisix/plugin.lua</FILE>
+        <FILE>t/admin/consumer-plugins.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6855</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6855</ISSUEURL>
+  <TITLE>Customer role caching should not be cleaned for all customers when a customer role mapping is added/updated</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.5 Steps to reproduce the problem: CustomerCustomerRoleMappingCacheEventConsumer - clears cache by prefix CustomerCustomerRolesPrefix ('Nop.customer.customerrole.') which will remove cache for all customers, for e.g. a guest customer record added and it will clear role mapping cache for all customer, it should clear cache only for the specific customer, refer below image Also this should be check for other entity cache, so that it will improve performance ![image](https://github.com/nopSolutions/nopCommerce/assets/14998556/eec22f9d-df03-48a4-9bcd-1f4c17cfa07b)</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>97</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue-6958-Emails-not-locked-while-processing' into develop # Conflicts: # src/Libraries/Nop.Core/Domain/Messages/EmailAccount.cs # src/Libraries/Nop.Data/Migrations/UpgradeTo470/SchemaMigration.cs # src/Libraries/Nop.Services/Messages/QueuedMessagesSendTask.cs # src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo470/LocalizationMigration.cs # src/Presentation/Nop.Web/Areas/Admin/Factories/EmailAccountModelFactory.cs # src/Presentation/Nop.Web/Areas/Admin/Models/Messages/EmailAccountModel.cs # src/Presentation/Nop.Web/Areas/Admin/Validators/Messages/EmailAccountValidator.cs</MESSAGE>
+    <SHA>d6524b196c26fa37c827a1c4d6ba049688721938</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6855 Some optimization on clear cache for customer roles and addresses</MESSAGE>
+      <SHA>5cef6413bbd5990197aa060f6b01839fad3346e3</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Common/Caching/AddressCacheEventConsumer.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/Caching/CustomerCacheEventConsumer.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/Caching/CustomerCustomerRoleMappingCacheEventConsumer.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/Caching/CustomerRoleCacheEventConsumer.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/NopCustomerServiceDefaults.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

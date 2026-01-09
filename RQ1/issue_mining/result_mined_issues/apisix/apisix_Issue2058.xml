@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2058</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2058</ISSUEURL>
+  <TITLE>request help: Parameters in path</TITLE>
+  <DESCRIPTION>### Issue description https://github.com/gin-gonic/gin#parameters-in-path described a &quot;:&quot; syntax and an &quot;\*&quot; syntax for parameters in path, I believe radixtree (and therefore APISIX) intended to support both. For the &quot;:&quot; syntax, currently APISIX seems to accept _ANY_ string. For example, request &quot;/a/b/c/foo&quot; seems to be accepted by &quot;uri&quot;: &quot;/:id/foo&quot;. I'm not sure if that's the expected behavior: matching &quot;:id&quot; with non-slash character sounds more natural to me (something like &quot;[^/]+&quot;). For the &quot;\*&quot; syntax, my understanding is that &quot;\*action&quot; is an optional parameter. For example if we configure &quot;uri&quot;: &quot;/:id/foo/\*action/bar&quot; in APISIX, both requests &quot;/1/foo/get/bar&quot; and &quot;/2/foo/bar&quot; should be matched by the route, while request &quot;/3/foo/a/b/bar&quot; should be rejected. However in APISIX the &quot;\*&quot; syntax has similar behavior with the colon syntax. The tests 7, 8 here https://github.com/api7/lua-resty-radixtree/blob/master/t/parameter.t seems broken: they are named &quot;/name/\*name/foo&quot; but tested with &quot;/name/:name/foo&quot; ### Environment * apisix version (cmd: `apisix version`): 1.5, with radixtree 2.1 * OS: osx 10.15</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat(prometheus): add prometheus metrics `node_info`(hostname) (#2063) * using a new metric `node_info` to store the hostname</MESSAGE>
+    <SHA>7525f1fcc93de1d9dd4767124359198eb053177a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>update radixtree to version 2.2 . (#2061) fix #2058 * fixed test</MESSAGE>
+      <SHA>c2a7359b2773a946b80e66c48c6d24697273e6f5</SHA>
+      <PATCHEDFILES>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+        <FILE>t/node/route-parameter-uri.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

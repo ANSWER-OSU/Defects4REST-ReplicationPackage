@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20282</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/20282</ISSUEURL>
+  <TITLE>podman cp under vfs: ENOENT</TITLE>
+  <DESCRIPTION>`podman cp` system tests flake under VFS, with pretty consistent symptoms: ``` not ok podman cp XXXXX ... # podman cp something Error: &quot;/tmp/sub/weirdlink&quot; could not be found on container cpcontainer: no such file or directory ``` or ``` # podman cp cpcontainer:/srv b55ec9a6aadd4d115ff483614fd5ac7e606acfb09b6a4516883538eca3357893:/ (works) # podman exec b55ec9a6aadd4d115ff483614fd5ac7e606acfb09b6a4516883538eca3357893 cat //srv/subdir/containerfile0 //srv/subdir/containerfile1 random-0-QrZE7sZYZs &lt;------ this is containerfile0 cat: can't open '//srv/subdir/containerfile1': No such file or directory ``` I've been chasing this one all week because it's a hard blocker for #20161. It's a BAD flake, failing on almost every run, and pretty easily reproducible in 1minutetip. Despite my hopes this morning in seeing https://github.com/containers/storage/pull/1724, that does not fix the problem: the `10-05` failures below include a vendored c/storage. * fedora-38 : sys podman fedora-38 root host boltdb * PR #20161 * [10-05 16:31](https://api.cirrus-ci.com/v1/artifact/task/5062373455691776/html/sys-podman-fedora-38-root-host-boltdb.log.html#t--00180) in [sys] podman cp symlinked directory from container * [10-02 15:22](https://api.cirrus-ci.com/v1/artifact/task/6725636652269568/html/sys-podman-fedora-38-root-host-boltdb.log.html#t--00179) in [sys] podman cp dir from container to container * fedora-38 : sys podman fedora-38 root host sqlite * PR #17831 * [10-05 16:25](https://api.cirrus-ci.com/v1/artifact/task/5923372475875328/html/sys-podman-fedora-38-root-host-sqlite.log.html#t--00176) in [sys] podman cp file from container to container * [10-05 16:25](https://api.cirrus-ci.com/v1/artifact/task/5923372475875328/html/sys-podman-fedora-38-root-host-sqlite.log.html#t--00179) in [sys] podman cp dir from container to container * fedora-38 : sys podman fedora-38 rootless host sqlite * PR #17831 * [10-05 16:22](https://api.cirrus-ci.com/v1/artifact/task/5149316289921024/html/sys-podman-fedora-38-rootless-host-sqlite.log.html#t--00176) in [sys] podman cp file from container to container * [10-05 16:22](https://api.cirrus-ci.com/v1/artifact/task/5149316289921024/html/sys-podman-fedora-38-rootless-host-sqlite.log.html#t--00179) in [sys] podman cp dir from container to container * fedora-38 : sys remote fedora-38 root host boltdb [remote] * PR #20161 * [10-04 14:15](https://api.cirrus-ci.com/v1/artifact/task/5354924884623360/html/sys-remote-fedora-38-root-host-boltdb.log.html#t--00176) in [sys] podman cp file from container to container * [10-03 12:23](https://api.cirrus-ci.com/v1/artifact/task/6702977679884288/html/sys-remote-fedora-38-root-host-boltdb.log.html#t--00176) in [sys] podman cp file from container to container * fedora-38 : sys remote fedora-38 root host sqlite [remote] * PR #17831 * [10-05 16:12](https://api.cirrus-ci.com/v1/artifact/task/6345584940941312/html/sys-remote-fedora-38-root-host-sqlite.log.html#t--00176) in [sys] podman cp file from container to container * [10-05 16:12](https://api.cirrus-ci.com/v1/artifact/task/6345584940941312/html/sys-remote-fedora-38-root-host-sqlite.log.html#t--00179) in [sys] podman cp dir from container to container * [10-05 16:12](https://api.cirrus-ci.com/v1/artifact/task/6345584940941312/html/sys-remote-fedora-38-root-host-sqlite.log.html#t--00180) in [sys] podman cp symlinked directory from container * [10-05 16:12](https://api.cirrus-ci.com/v1/artifact/task/6345584940941312/html/sys-remote-fedora-38-root-host-sqlite.log.html#t--00187) in [sys] podman cp into container: weird symlink expansion * [10-05 16:12](https://api.cirrus-ci.com/v1/artifact/task/6345584940941312/html/sys-remote-fedora-38-root-host-sqlite.log.html#t--00195) in [sys] podman cp - dot notation - container to host Seen in: podman/remote fedora-38 root/rootless boltdb/sqlite &quot;fedora-38&quot; is only special because that's `prior-fedora` which means `force VFS` under the rules of #20161. It could possibly be a kernel or distro bug only on f38, but I choose not to even bother considering that right now. I'm treating it as a VFS driver bug.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>61</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #20857 from cevich/windows_fail_properly Fix command failure not resulting in task failure</MESSAGE>
+    <SHA>4ec76eca3557862f71ac3aabc5fa3d119ceb39c8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>systests: cp: add wait_for_ready Some of the tests were doing &quot;podman run -d&quot; without wait_for_ready. This may be the cause of some of the CI flakes. Maybe even all? It's not clear why the tests have been working reliably for years under overlay, and only started failing under vfs, but shrug. Thanks to Chris for making that astute observation. Fixes: #20282 (I hope) Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>4d2125bafbb9edf80b1b67e4d83613e61d9767a7</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/065-cp.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>systests: cp: add wait_for_ready Some of the tests were doing &quot;podman run -d&quot; without wait_for_ready. This may be the cause of some of the CI flakes. Maybe even all? It's not clear why the tests have been working reliably for years under overlay, and only started failing under vfs, but shrug. Thanks to Chris for making that astute observation. Fixes: #20282 (I hope) Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>871881daee74656d06ddc4c4979897c351b73cbc</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/065-cp.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

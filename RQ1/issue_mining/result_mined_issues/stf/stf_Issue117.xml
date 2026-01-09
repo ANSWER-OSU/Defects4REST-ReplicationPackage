@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117</ISSUENO>
+  <ISSUEURL>https://github.com/openstf/stf/issues/117</ISSUEURL>
+  <TITLE>Units start before database is ready (stf local)</TITLE>
+  <DESCRIPTION>I consistently getting this when running `stf local` ``` FTL/reaper 7584 [reaper001] Unable to load initial state { [ReqlOpFailedError: Index `present` was not found on table `stf.devices` in: r.table(&quot;devices&quot;).getAll(true, {index: &quot;present&quot;}) ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^] name: 'ReqlOpFailedError', msg: 'Index `present` was not found on table `stf.devices`.', frames: [], message: 'Index `present` was not found on table `stf.devices` in:\nr.table(&quot;devices&quot;).getAll(true, {index: &quot;present&quot;})\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^' } ``` Manually adding the index to the table fixed the problem. Apparently `migrate` cli already exit before the index was fully created.</DESCRIPTION>
+  <REPONAME>stf</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Wait for indexes to be ready before we let migrate finish. Should fix</MESSAGE>
+    <SHA>66fbadbd5d3ba39d4ae38d73cc8159ec521ddc9b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix #117 indexWait does not report actual availability of index form query so we use actual query to verify an index is actually ready. We need to process simple indexes (index with no indexFunction option) first before processing the complex indexes (which may be dependent to simple indexes). Example log: INF/db 24299 [*] Connecting to 127.0.0.1:28015 INF/db:setup 24299 [*] Database &quot;stf&quot; created INF/db:setup 24299 [*] Table &quot;vncauth&quot; created INF/db:setup 24299 [*] Processing simple indexes [ 'response' ] INF/db:setup 24299 [*] Table &quot;devices&quot; created INF/db:setup 24299 [*] Processing simple indexes [ 'present' ] INF/db:setup 24299 [*] Table &quot;users&quot; created INF/db:setup 24299 [*] Processing simple indexes [] INF/db:setup 24299 [*] Processing non-simple indexes [ 'adbKeys' ] INF/db:setup 24299 [*] Index &quot;vncauth&quot;.&quot;response&quot; created INF/db:setup 24299 [*] Index &quot;devices&quot;.&quot;present&quot; created INF/db:setup 24299 [*] Waiting for index &quot;vncauth&quot;.&quot;response&quot; INF/db:setup 24299 [*] Waiting for index &quot;devices&quot;.&quot;present&quot; INF/db:setup 24299 [*] Index &quot;users&quot;.&quot;adbKeys&quot; created INF/db:setup 24299 [*] Waiting for index &quot;users&quot;.&quot;adbKeys&quot; INF/db:setup 24299 [*] Table &quot;logs&quot; created INF/db:setup 24299 [*] Index &quot;devices&quot;.&quot;present&quot; is ready INF/db:setup 24299 [*] Processing non-simple indexes [ 'owner', 'providerChannel' ] INF/db:setup 24299 [*] Index &quot;vncauth&quot;.&quot;response&quot; is ready INF/db:setup 24299 [*] Processing non-simple indexes [ 'responsePerDevice' ] INF/db:setup 24299 [*] Index &quot;users&quot;.&quot;adbKeys&quot; is ready INF/db:setup 24299 [*] Index &quot;devices&quot;.&quot;owner&quot; created INF/db:setup 24299 [*] Waiting for index &quot;devices&quot;.&quot;owner&quot; INF/db:setup 24299 [*] Index &quot;vncauth&quot;.&quot;responsePerDevice&quot; created INF/db:setup 24299 [*] Waiting for index &quot;vncauth&quot;.&quot;responsePerDevice&quot; INF/db:setup 24299 [*] Index &quot;devices&quot;.&quot;providerChannel&quot; created INF/db:setup 24299 [*] Waiting for index &quot;devices&quot;.&quot;providerChannel&quot; INF/db:setup 24299 [*] Index &quot;devices&quot;.&quot;owner&quot; is ready INF/db:setup 24299 [*] Index &quot;vncauth&quot;.&quot;responsePerDevice&quot; is ready INF/db:setup 24299 [*] Index &quot;devices&quot;.&quot;providerChannel&quot; is ready</MESSAGE>
+      <SHA>ff405ff26c3961d7f2afa5fcfac1f06dcc102b19</SHA>
+      <PATCHEDFILES>
+        <FILE>lib/db/setup.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Bump imports-loader from 0.6.5 to 0.8.0 (#117) Bumps [imports-loader](https://github.com/webpack-contrib/imports-loader) from 0.6.5 to 0.8.0. - [Release notes](https://github.com/webpack-contrib/imports-loader/releases) - [Changelog](https://github.com/webpack-contrib/imports-loader/blob/master/CHANGELOG.md) - [Commits](https://github.com/webpack-contrib/imports-loader/compare/v0.6.5...v0.8.0) Signed-off-by: dependabot-preview[bot] &lt;support@dependabot.com&gt; Co-authored-by: dependabot-preview[bot] &lt;27856297+dependabot-preview[bot]@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>582d38ff296a36cbc55541cbcc1bfbc3f3048bca</SHA>
+      <PATCHEDFILES>
+        <FILE>package.json</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

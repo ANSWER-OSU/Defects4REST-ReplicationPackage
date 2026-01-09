@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>123203</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/123203</ISSUEURL>
+  <TITLE>[CI] TimeSeriesLifecycleActionsIT testHistoryIsWrittenWithFailure failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6668 / opensuse-leap-15_platform-support-unix](https://gradle-enterprise.elastic.co/s/gtjmei3ibyyvk) - [elasticsearch-periodic-platform-support #6584 / oraclelinux-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/t6mjhbh6lcjsq) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:ilm:qa:multi-node:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.ilm.TimeSeriesLifecycleActionsIT.testHistoryIsWrittenWithFailure&quot; -Dtests.seed=6F99046BCB9E69EB -Dtests.locale=fr-CM -Dtests.timezone=Europe/Bratislava -Druntime.java=23 ``` **Applicable branches:** 8.16 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.ilm.TimeSeriesLifecycleActionsIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testHistoryIsWrittenWithFailure),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.client.ResponseException: method [GET], host [http://127.0.0.1:44945], URI [.ds-ilm-history-7-2025.02.28-000001/_lifecycle/explain], status line [HTTP/1.1 404 Not Found] {&quot;error&quot;:{&quot;root_cause&quot;:[{&quot;type&quot;:&quot;index_not_found_exception&quot;,&quot;reason&quot;:&quot;no such index [.ds-ilm-history-7-2025.02.28-000001]&quot;,&quot;index_uuid&quot;:&quot;_na_&quot;,&quot;resource.type&quot;:&quot;index_or_alias&quot;,&quot;resource.id&quot;:&quot;.ds-ilm-history-7-2025.02.28-000001&quot;,&quot;index&quot;:&quot;.ds-ilm-history-7-2025.02.28-000001&quot;}],&quot;type&quot;:&quot;index_not_found_exception&quot;,&quot;reason&quot;:&quot;no such index [.ds-ilm-history-7-2025.02.28-000001]&quot;,&quot;index_uuid&quot;:&quot;_na_&quot;,&quot;resource.type&quot;:&quot;index_or_alias&quot;,&quot;resource.id&quot;:&quot;.ds-ilm-history-7-2025.02.28-000001&quot;,&quot;index&quot;:&quot;.ds-ilm-history-7-2025.02.28-000001&quot;},&quot;status&quot;:404} ``` **Issue Reasons:** - [8.16] 2 failures in test testHistoryIsWrittenWithFailure (0.5% fail rate in 396 executions) - [8.16] 2 failures in pipeline elasticsearch-periodic-platform-support (15.4% fail rate in 13 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>16</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.ilm.actions.SearchableSnapshotActionIT testRestoredIndexManagedByLocalPolicySkipsIllegalActions #123202</MESSAGE>
+    <SHA>2c34d95977fd18675ff545ef2ed94e72fc2cdbda</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ilm.TimeSeriesLifecycleActionsIT testHistoryIsWrittenWithFailure #123203</MESSAGE>
+      <SHA>0fee331c28d15afa8c1d3c17d11ab6a587d589c8</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16248</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16248</ISSUEURL>
+  <TITLE>flake: test/e2e/search_test.go</TITLE>
+  <DESCRIPTION>The search tests are currently flaking. The problem with search is that it's not part of a spec and that there is no guarantee whether the searched term will be returned even if the image exists on the registry (see failure below). ``` [+1204s] • Failure [1.999 seconds] [+1204s] Podman search [+1204s] /var/tmp/go/src/github.com/containers/podman/test/e2e/search_test.go:27 [+1204s] podman search [It] [+1204s] /var/tmp/go/src/github.com/containers/podman/test/e2e/search_test.go:74 [+1204s] [+1204s] Expected [+1204s] &lt;string&gt;: NAME DESCRIPTION docker.io/alpinelinux/docker-cli Simple and lightweight Alpine Linux image wi... docker.io/alpinelinux/alpine-gitlab-ci Build Alpine Linux packages with Gitlab CI docker.io/alpinelinux/gitlab-runner-helper Helper image container gitlab-runner-helper... docker.io/alpinelinux/alpine-drone-ci Build Alpine Linux packages with drone CI docker.io/alpinelinux/apkbuild-lint-tools Tools for linting APKBUILD files in a CI env... docker.io/alpinelinux/docker-alpine docker.io/alpinelinux/unbound docker.io/alpinelinux/gitlab-runner Alpine Linux gitlab-runner (supports more ar... docker.io/alpinelinux/docker-compose docker-compose image based on Alpine Linux docker.io/alpinelinux/docker-abuild Dockerised abuild docker.io/alpinelinux/build-base Base image suitable for building packages wi... docker.io/alpinelinux/darkhttpd docker.io/alpinelinux/golang Build container for golang based on Alpine L... docker.io/rancher/alpine-git docker.io/alpinelinux/mqtt-exec docker.io/alpinelinux/rsyncd docker.io/alpinelinux/package-builder Container to build packages for a repository docker.io/alpinelinux/alpine-docker-gitlab Gitlab running on Alpine Linux docker.io/alpinelinux/mirror-status docker.io/alpinelinux/git-mirror-syncd docker.io/grafana/alpine Alpine Linux with ca-certificates package in... docker.io/alpinelinux/ansible Ansible in docker docker.io/alpinelinux/gitlab Alpine Linux based Gitlab image docker.io/alpinelinux/secdb docker.io/ibmcom/alpine-helm-s390x quay.io/libpod/alpine quay.io/almworks/alpine-curl quay.io/openshifttest/base-alpine quay.io/cilium/alpine-curl quay.io/dougbtv/alpine quay.io/aptible/alpine ![](https://quay.io/repository/aptible/alpin... quay.io/openshifttest/nginx-alpine quay.io/bedrock/alpine quay.io/giantswarm/alpine quay.io/verygoodsecurity/testcafe-alpine-ci quay.io/vqcomms/alpine-tools quay.io/wire/alpine-deps quay.io/wire/alpine-builder quay.io/wire/alpine-prebuilder quay.io/wire/alpine-git quay.io/kubevirt/alpine-container-disk-demo Part of kubevirt/kubevirt artifacts quay.io/openshifttest/alpine quay.io/watchdogpolska/alpine-curl quay.io/kubevirt/alpine-ext-kernel-boot-demo quay.io/nvlab/alpine quay.io/codefresh/alpine quay.io/kubevirtci/alpine-with-test-tooling-container-disk quay.io/crio/alpine quay.io/mm-dict/alpine quay.io/wire/alpine-sphinx [+1204s] to contain substring [+1204s] &lt;string&gt;: docker.io/library/alpine [+1204s] [+1204s] /var/tmp/go/src/github.com/containers/podman/test/e2e/search_test.go:79 [+1204s] [+1204s] Full Stack Trace [+1204s] github.com/containers/podman/v4/test/e2e.glob..func103.3() [+1204s] /var/tmp/go/src/github.com/containers/podman/test/e2e/search_test.go:79 +0x251 ```</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>use cached containers.conf Use `Default()` instead of re-loading containers.conf. Also rework how the containers.conf objects are handled for parsing the CLI. Previously, we were conflating &quot;loading the defaults&quot; with &quot;storing values from the CLI&quot; with &quot;libpod may further change fields&quot; which ultimately led to various bugs and test failues. To address the issue, separate the defaults from the values from the CLI and properly name the fields to make the semantics less ambiguous. [NO NEW TESTS NEEDED] as it's not a functional change. Fixes: containers/common/issues/1200 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+    <SHA>4e29ce2baf1d287bc136776fa265cc5c10de3260</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix search flake There's no guarantee that the searched image will be returned, so only make sure that &quot;alpine&quot; is mentioned somewhere. Fixes: #16248 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>7a9c14d6266a0883c8e95d376ffcae71c7e8621e</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/search_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix search flake There's no guarantee that the searched image will be returned, so only make sure that &quot;alpine&quot; is mentioned somewhere. Fixes: #16248 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>c7ea09bbb6ef6eb77ee0c4edc091eb7bd104bb97</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/search_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix search flake There's no guarantee that the searched image will be returned, so only make sure that &quot;alpine&quot; is mentioned somewhere. Fixes: #16248 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>d03b69fd27b31d397c5b3de7e498dc78afb089c3</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/search_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

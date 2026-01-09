@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1108</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/1108</ISSUEURL>
+  <TITLE>timeouts from volume-server while doing GC</TITLE>
+  <DESCRIPTION>**Describe the bug** Getting timeout over 10 seconds from volumeserver while doing GC **System Setup** ``` /usr/local/bin/weed -logtostderr master -mdir=/mnt/data01/meta -ip=10.1.21.17 -defaultReplication=010 -volumePreallocate -volumeSizeLimitMB 30000 -pulseSeconds 10 -peers=10.1.21.17:9333,10.1.21.18:9333,10.1.21.19:9333 /usr/local/bin/weed -logtostderr -v=1 volume -port=8080 -mserver=10.1.21.17:9333,10.1.21.18:9333,10.1.21.19:9333 -dir=/mnt/data01/data,/mnt/data02/data -index leveldb -max 3866,3866 -ip 10.1.21.17 -rack photol-107 ``` - OS version: Ubuntu 16.04 - output of `weed version`: version 30GB 1.44 linux amd64 **Expected behavior** Do not get highly reduced performance while doing GC **Screenshots** https://www.jottacloud.com/s/006d6b606b06d544986b1cdd288d7a3524d **Logs** Logs from the volume server shows alot of log and a broken pipe in the periods of timeout: https://gist.github.com/roflmao/5f27a6944c8ab25deb521e65bde675b2 **Additional context** GC by: ``` $ curl &quot;http://localhost:9333/vol/vacuum?garbageThreshold=0.05&quot; ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>121</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>skip printouts</MESSAGE>
+    <SHA>4237a813ccc92011d740c31c22e5bc29b7d3316e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>volume: follow compactionBytePerSecond related to https://github.com/chrislusf/seaweedfs/issues/1108</MESSAGE>
+      <SHA>d439d837726f5fdb53e686275a29eaa02d66ad62</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/backup.go</FILE>
+        <FILE>weed/command/compact.go</FILE>
+        <FILE>weed/storage/store_vacuum.go</FILE>
+        <FILE>weed/storage/volume_vacuum.go</FILE>
+        <FILE>weed/storage/volume_vacuum_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

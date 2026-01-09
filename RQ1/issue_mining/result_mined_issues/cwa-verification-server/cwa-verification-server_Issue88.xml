@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>88</ISSUENO>
+  <ISSUEURL>https://github.com/corona-warn-app/cwa-verification-server/issues/88</ISSUEURL>
+  <TITLE>Use configuration classes instead of @Value annotations</TITLE>
+  <DESCRIPTION>## Current Implementation Configuration values are injected via `@Value`. ## Suggested Enhancement Implement a ConfigurationService. See https://github.com/corona-warn-app/cwa-server/issues/183 ## Expected Benefits * central configration definition for better maintainability * fast failure on startup, if non-optional values are missing. * ability to use primitive values instead of wrapper types without higher chance of accidental default value usage (see #86)</DESCRIPTION>
+  <REPONAME>cwa-verification-server</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix typo in contributing (#48)</MESSAGE>
+    <SHA>3612f5d740d6acbb550bf74c7da820f88f06757e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fixes #88 Adds a nested spring configuration class that reads in values from application.yml. All places where @value annotations were used now use the configuration class. Maybe it makes sense to add comments to the configuration class values, describing their significance?</MESSAGE>
+      <SHA>795d4aea3414fc07e6c9c977f0967df8dfceee2a</SHA>
+      <PATCHEDFILES>
+        <FILE>src/main/java/app/coronawarn/verification/VerificationApplication.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/config/VerificationApplicationConfig.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/controller/VerificationController.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/service/TanService.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Issues/88 (#89) * fixes #88 Adds a nested spring configuration class that reads in values from application.yml. All places where @value annotations were used now use the configuration class. Maybe it makes sense to add comments to the configuration class values, describing their significance? * Adding file header, also adding contributors entry * Fixing checkstyle violation * Removing unused imports</MESSAGE>
+      <SHA>c56f37f783f79e332d61ef248fd00a7ff6d4cee5</SHA>
+      <PATCHEDFILES>
+        <FILE>NOTICE</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/VerificationApplication.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/config/VerificationApplicationConfig.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/controller/VerificationController.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/service/TanService.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

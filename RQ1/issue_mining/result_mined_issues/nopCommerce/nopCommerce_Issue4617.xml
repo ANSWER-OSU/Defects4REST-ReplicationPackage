@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4617</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4617</ISSUEURL>
+  <TITLE>LocalizationService.ImportResourcesFromXml() allows inserting duplicate resources</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.30 and probably lower Steps to reproduce the problem: 1. Use LocalizationService.ImportResourcesFromXml() to import duplicate resources. 2. Afterwards try to query the LocaleStringResource repository and cas toDictionary as ImportResourcesFromXml is doing : var lsNamesList = _lsrRepository.Table.Where(lsr =&gt; lsr.LanguageId == language.Id).ToDictionary(lsr =&gt; lsr.ResourceName, lsr =&gt; lsr); Error will be received on the ToDictionary cast: &quot;An item with the same key has already been added. Key: Admin.Configuration.Languages.Fields.FlagImage&quot; ImportResourcesFromXml should not allow duplicate inserts based on resource key.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#4615 Changed date format to use 24-hour format on NopMigrationAttribute</MESSAGE>
+    <SHA>4ce93ae83f075ff0ec5fbff605299ca76358b6f0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4617 Fixed problem with duplicate inserts based on resource key in the ImportResourcesFromXml method</MESSAGE>
+      <SHA>fe2266a00a6a2fc7581d73baa2c90317f34361d7</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Localization/LocalizationService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1862</ISSUENO>
+  <ISSUEURL>https://github.com/MobSF/Mobile-Security-Framework-MobSF/issues/1862</ISSUEURL>
+  <TITLE>Not working with Django 4.0</TITLE>
+  <DESCRIPTION>## ENVIRONMENT ``` OS and Version: Windows 11 Python Version: 3.9.5 MobSF Version: 3.4 beta ``` ## EXPLANATION OF THE ISSUE *What happens:* There are some errors during the **setup** phase (I have all the requirements correctly installed) and when running it breaks with the error: ``` ImportError at / cannot import name 'url' from 'django.conf.urls ``` After some research, I found out that **just today** *Django 4.0* has been released. Probably they changed something and your code broke. In fact, changing the Django version in the **requirements.txt** file to ``` django==3.15 (instead of django&gt;=3.1.5) ``` solves the problem. ## STEPS TO REPRODUCE THE ISSUE ``` 1. clone the repo (git clone https://github.com/MobSF/Mobile-Security-Framework-MobSF) 2. Run the setup script (setup.bat) 3. Run MobSF (run.bat 127.0.0.1 &lt;port_number&gt;) ``` ## LOG FILE Unfortunately I do not have the log file because I deleted the old venv (the one with Django 4.0)</DESCRIPTION>
+  <REPONAME>Mobile-Security-Framework-MobSF</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>HOTFIX: Check ELF and MachO before getting details</MESSAGE>
+    <SHA>d3df61e324b568a38b2614827bfe8229a7b54b20</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Resolving Django issue Referenced in: https://github.com/MobSF/Mobile-Security-Framework-MobSF/issues/1862</MESSAGE>
+      <SHA>7afc214fea3fc56a7218c2825f7442daadede3d4</SHA>
+      <PATCHEDFILES>
+        <FILE>requirements.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

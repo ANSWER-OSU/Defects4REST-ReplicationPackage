@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2104</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2104</ISSUEURL>
+  <TITLE>Issue with multiline Text and DecryptText</TITLE>
+  <DESCRIPTION>Hey There seems to be an issue with **EncryptionService.DecryptText()**. If you encrypted a multiline text and then decrypt it you are loosing data. **EncryptText()** uses **Encoding.Unicode.GetBytes(data)** and therefor encrypts all bytes inside of the data string specified. **DecryptText()** uses all bytes specified, but returns only **sr.ReadLine()** In my case i serialized some data to XML and encrypted it. After decrypting it again i only received the XML declaration since there is a \n inside the XML string. I think this should be changed from **sr.ReadLine()** to **sr.ReadToEnd()** to return the whole decrypted text.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#1883 Product details page. Categories (or any other entities) with too long names could not be deleted</MESSAGE>
+    <SHA>b8c1a00581ffc031e5be25c5d0abd5b352f75a18</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2104 Fix bug with decryption multiline text</MESSAGE>
+      <SHA>fc8534a25ac7b42c6988e456409ff80fb7f43452</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Security/EncryptionService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

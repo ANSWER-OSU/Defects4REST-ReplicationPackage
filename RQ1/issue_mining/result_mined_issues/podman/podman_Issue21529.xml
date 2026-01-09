@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>21529</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/21529</ISSUEURL>
+  <TITLE>podman rm -f con1 con2 con-nonexistent not working</TITLE>
+  <DESCRIPTION>### Issue Description Describe your issue ### Steps to reproduce the issue Steps to reproduce the issue 1. podman create --name t1 quay.io/libpod/testimage:20221018 2. podman create --name t2 quay.io/libpod/testimage:20221018 3. podman rm -f t1 t2 t3 4. ### Describe the results you received The rm commands returns with exit code 0 and no error printed. ``` podman ps -a CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES bdb50262ecbd quay.io/libpod/testimage:20221018 /bin/echo This co... 3 minutes ago Created t1 3f1b3b8657fd quay.io/libpod/testimage:20221018 /bin/echo This co... 3 minutes ago Created t2 ``` ### Describe the results you expected both containers gone ### podman info output ```yaml latest main ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details _No response_ ### Additional information Without `-f` there is a proper error report that t3 does not exists but I think t1 and t2 should still be deleted. `Error: no container with ID or name &quot;t3&quot; found: no such container`</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>58</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #22253 from ashley-cui/sitevers [CI:DOCS] Add GitHub action to update version on Podman.io</MESSAGE>
+    <SHA>394be0b4482b0f30655b0c8d87008eb2592f9af4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>rm --force work for more than one arg When we remove with --force we do not return a error if the input does not exists, however if we get more than on input we must try to remove all and not just NOP out and not remove anything just because one arg did not exists. Also make the code simpler for commands that do have the --ignore option and just make --force imply --ignore which reduces the ugly error handling. Fixes #21529 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>f2c365c6f6b1263569ea6c45cd7404d7acf53aaa</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/containers/rm.go</FILE>
+        <FILE>cmd/podman/images/rm.go</FILE>
+        <FILE>cmd/podman/pods/rm.go</FILE>
+        <FILE>pkg/domain/infra/tunnel/helpers.go</FILE>
+        <FILE>pkg/domain/infra/tunnel/pods.go</FILE>
+        <FILE>test/system/010-images.bats</FILE>
+        <FILE>test/system/055-rm.bats</FILE>
+        <FILE>test/system/160-volumes.bats</FILE>
+        <FILE>test/system/200-pod.bats</FILE>
+        <FILE>test/system/500-networking.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7211</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7211</ISSUEURL>
+  <TITLE>Avalara tax plugin. Address validation updates State to incorrect region from other countries</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.70 &gt; When validating a street address, the State code is reading the the first matching value from the StateProvince table without regard for what country was specified. &gt; This causes the validation to return an incorrect value for the state in many cases. &gt; &gt; Example: Florida, abbreviation FL. &gt; The validation changes Florida to Flevoland, a province in the Netherlands. &gt; &gt; Real world example: &gt; For the correct tax calculation we need the most accurate address, so we clarified the address you entered (1 SE 3rd Ave., Suite 1410, Miami, Florida, United States of America, 33131) through the validation system. Do you confirm the use of this updated address (1 Se 3rd Ave Ste 1410, Miami, Flevoland, United States of America, 33131-1726)? &gt; &gt; Example: California, abbreviation CA. &gt; The validation changes California to Catamarca, a province in Argentina. &gt; &gt; We have tried disabling use of the countries for addresses, but that had no effect. Source: https://github.com/nopSolutions/avalara-plugin-for-nopcommerce/issues/21</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue-7205-pickup-point-validation' into 4.70-bug-fixes</MESSAGE>
+    <SHA>1801fcbead2717b5fb7ed0e0bfea6f0656016497</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7211 Fixed incorrect region update when address validation is enabled in Avalara tax plugin</MESSAGE>
+      <SHA>5640fe970f7eada39c3ae52d111c6e29a2245442</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Tax.Avalara/Components/AddressValidationViewComponent.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.Avalara/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>22329</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/22329</ISSUEURL>
+  <TITLE>podman exec, with no args, exits 255</TITLE>
+  <DESCRIPTION>```console $ podman run -d --name foo quay.io/libpod/testimage:20240123 top d65a49e7f6511a1e4d77f8de912c9b9524d18dfcc1e11f0c23a7280d56288fa5 $ podman exec foo Error: must provide a non-empty command to start an exec session: invalid argument $ echo $? 255 ``` Seems weird. I would expect 126, but 125 is also cool. `podman-remote` exits 125.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #22349 from jwhonce/wip/swagger_serve [CI:DOCS] Swap out javascript engine</MESSAGE>
+    <SHA>7b95a8af80da7dcefe0bcbce3a24002a038c55a9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>podman exec CID without command should exit 125 Fixes: https://github.com/containers/podman/issues/22329 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>5e68fbd13297cad37b02d38c6f309b61b7f5669f</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/define/exec_codes.go</FILE>
+        <FILE>test/e2e/exec_test.go</FILE>
+        <FILE>test/system/075-exec.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

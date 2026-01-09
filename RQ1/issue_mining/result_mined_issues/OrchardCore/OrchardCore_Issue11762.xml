@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>11762</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/11762</ISSUEURL>
+  <TITLE>Expand the User management permission to allow for Edit,Delete or view only scenarios</TITLE>
+  <DESCRIPTION>### Is your feature request related to a problem? Please describe. I have a need where some users need to be able to view and edit other users but not to be able to delete users. Currently, ManageUser permission is all that we have around editing/deleting users which is limiting the ability to grant the users the needed permissions. ### Describe the solution you'd like I think we should add 1. EditUsers: allows the user to edit other users 2. DeleteUsers: allows the user to delete other users Now, a user with EditUsers permission would be able to add users or edit any users. The existing `ManageOwnUserInformation` would only allow the user to edit their own profile. Also, any user with ManageUsers would be able to also edit, delete to prevent breaking existing permission. Now, this would give us more flexibility/control over the secured user UI.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>238</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'OrchardCMS:main' into main</MESSAGE>
+    <SHA>fac1a93f9cb42293bdf88ad151c30445bcf979ff</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add EditUsers and DeleteUsers permission. Fix #11762</MESSAGE>
+      <SHA>064abfa8d21fa241c41fb7ef35867bea5b0ded98</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Users/Controllers/AdminController.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Users/Controllers/RegistrationController.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Users/Drivers/ChangeEmailSettingsDisplayDriver.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Users/Drivers/UserDisplayDriver.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Users/Drivers/UserInformationDisplayDriver.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Users/Permissions.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Users/Services/UserAuthorizationHandler.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Users/Views/UserButtons.cshtml</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Users/Views/UsersAdminListCreate.cshtml</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Users.Core/CommonPermissions.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

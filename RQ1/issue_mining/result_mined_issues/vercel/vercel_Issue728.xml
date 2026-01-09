@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>728</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/728</ISSUEURL>
+  <TITLE>Callback when build is done</TITLE>
+  <DESCRIPTION>I have a problem. I'm trying to do the Continuous integration from our master branch to the specified URL (say abc.zeit.sh). I need an alias (abc.zeit.sh) to be always up and working (100% uptime). Now I have a bash script in my CI that does: - now - now alias The problem is that these 2 commands exit quickly, alias is created to a deployment that currently shows html page with build progress, until the build process is done. Expected behavior: alias is service the previous deployment until the new deployment is fully built, and then switches to new deployment. It would be possible to solve if e.g `now` has a flag `--waitForBuildToFinish`, so CLI command doesn't exit until build has finished. Next CLI command will do `now alias` and everything will be smooth. So now I don't know how to automate the EXACT MOMENT when I need to do `now alias`.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Remove maxLambdaSize config from all builders (#741) * remove maxLambdaSize config * remove maxLambdaSize config from `now-bash`, `now-php` and from tests</MESSAGE>
+    <SHA>5ca59332ede078d24a7deae3835fe4d61a90187f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-node] Support symlink outputs (#728) * support symlink outputs * create symlink in build file * ensure build script idempotency * Add isSymbolicLink and fix test</MESSAGE>
+      <SHA>88558136970c8f8c2299f5c4bd64e06689629b6e</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-node/.gitignore</FILE>
+        <FILE>packages/now-node/build.sh</FILE>
+        <FILE>packages/now-node/src/index.ts</FILE>
+        <FILE>packages/now-node/test/fixtures/11-symlinks/index.js</FILE>
+        <FILE>packages/now-node/test/fixtures/11-symlinks/now.json</FILE>
+        <FILE>packages/now-node/test/fixtures/11-symlinks/symlinked-asset</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

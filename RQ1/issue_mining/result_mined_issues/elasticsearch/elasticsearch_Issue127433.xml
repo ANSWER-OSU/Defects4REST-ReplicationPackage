@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127433</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/127433</ISSUEURL>
+  <TITLE>[CI] XpackWithMultipleProjectsClientYamlTestSuiteIT class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7883 / oraclelinux-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/uwt3qq2nudjke) - [elasticsearch-periodic-platform-support #7877 / rocky-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/atw6x3szhb7ra) - [elasticsearch-periodic #7849 / encryption-at-rest](https://gradle-enterprise.elastic.co/s/jailkn4ogqy3g) - [elasticsearch-periodic #7849 / concurrent-search-tests](https://gradle-enterprise.elastic.co/s/xmkpvzyupfnok) - [elasticsearch-periodic-platform-support #7871 / almalinux-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/bmwkns5izbtuo) - [elasticsearch-periodic #7843 / encryption-at-rest](https://gradle-enterprise.elastic.co/s/q6lqswrgwydzi) - [elasticsearch-periodic #7843 / concurrent-search-tests](https://gradle-enterprise.elastic.co/s/oartulpkaiuxa) - [elasticsearch-periodic-platform-support #7859 / rhel-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/5rx2gljqky7qi) - [elasticsearch-periodic #7837 / single-processor-node-tests](https://gradle-enterprise.elastic.co/s/bcrodkhnteryu) - [elasticsearch-periodic #7837 / concurrent-search-tests](https://gradle-enterprise.elastic.co/s/usni3cujtcgqq) **Reproduction Line:** ``` undefined ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.multiproject.test.XpackWithMultipleProjectsClientYamlTestSuiteIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.multiproject.test.XpackWithMultipleProjectsClientYamlTestSuiteIT),title:'Test',type:optionsListControl))))) **Failure Message:** ``` undefined ``` **Issue Reasons:** - [main] 19 failures in class org.elasticsearch.multiproject.test.XpackWithMultipleProjectsClientYamlTestSuiteIT (3.3% fail rate in 568 executions) - [main] 4 failures in step part-2 (1.7% fail rate in 231 executions) - [main] 2 failures in step encryption-at-rest (22.2% fail rate in 9 executions) - [main] 2 failures in step single-processor-node-tests (33.3% fail rate in 6 executions) - [main] 4 failures in step concurrent-search-tests (44.4% fail rate in 9 executions) - [main] 2 failures in step almalinux-8_platform-support-unix (22.2% fail rate in 9 executions) - [main] 2 failures in step rhel-8_platform-support-unix (25.0% fail rate in 8 executions) - [main] 2 failures in step rocky-8_platform-support-unix (28.6% fail rate in 7 executions) - [main] 6 failures in pipeline elasticsearch-periodic-platform-support (60.0% fail rate in 10 executions) - [main] 5 failures in pipeline elasticsearch-periodic (50.0% fail rate in 10 executions) - [main] 4 failures in pipeline elasticsearch-pull-request (1.7% fail rate in 231 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.core.template.IndexTemplateRegistryRolloverIT testRollover #127692</MESSAGE>
+    <SHA>a4cb8d291a7a528681013081d82933a6e75f74e8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Bump the MP x-pack YAML test suite timeout to 60m After the `IndexTemplateRegistry` was made project-aware in #126986, we were seeing timeouts of the MP version of the x-pack YAML test suite. The original version has a timeout of 60 minutes but the MP-version still had a timeout of 30 minutes. We've gotten away with that difference because there are still tests on the blacklist for the MP version, but now that we're making more and more features project-aware, we need to align the timeout. Fixes #127433</MESSAGE>
+      <SHA>d4bebd916f2db8a51a30ebd067368b00d47b8c81</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/qa/multi-project/xpack-rest-tests-with-multiple-projects/src/yamlRestTest/java/org/elasticsearch/multiproject/test/XpackWithMultipleProjectsClientYamlTestSuiteIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Bump the MP x-pack YAML test suite timeout to 60m (#127699) After the `IndexTemplateRegistry` was made project-aware in #126986, we were seeing timeouts of the MP version of the x-pack YAML test suite. The original version has a timeout of 60 minutes but the MP-version still had a timeout of 30 minutes. We've gotten away with that difference because there are still tests on the blacklist for the MP version, but now that we're making more and more features project-aware, we need to align the timeout. Fixes #127433</MESSAGE>
+      <SHA>99f67fae8f96739dc6a604e372ae61f35ec73bdb</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/qa/multi-project/xpack-rest-tests-with-multiple-projects/src/yamlRestTest/java/org/elasticsearch/multiproject/test/XpackWithMultipleProjectsClientYamlTestSuiteIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

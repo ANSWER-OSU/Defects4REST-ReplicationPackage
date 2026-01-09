@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6393</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6393</ISSUEURL>
+  <TITLE>Customer Phone Number Validation Issue</TITLE>
+  <DESCRIPTION>Hello, We have had it reported that at checkout, customer can enter an invalid mobile phone number. https://www.afw.com/SecureCheckout/Billing nopCommerce version: 4.50.2 Steps to reproduce the problem: Create a new customer https://www.afw.com/register?returnUrl=%2F (only email, username, password is required) Create an order and checkout On check-out you are required to enter a phone number if one doesn't already exist, which one will not No validation is happening on the phone number entry and some customers are typing in the US country code Expected: The customer is not able to enter in an invalid area code or phone number Actual: The customer can enter an invalid phone number that is saved to customer profile and no SMS communication can take place Workaround: Customers can go here and fix their phone number https://www.afw.com/customer/info Findings: We have found in our investigation that even though our &quot;Create Account&quot; form doesn't include a field for phone number. The 'PhoneNumberPropertyValidator.IsValid' method still gets called. We found that there are NOP settings for 'customerSettings.PhoneRequired', 'customerSettings.PhoneNumberValidationEnabled', and 'customerSettings.PhoneNumberValidationRule' being made use of in that IsValid method. There was no check in there to see if the PhoneRequired. We have tweaked that method to get this working for us for now. Our updated version of that method is as below: public static bool IsValid(string phoneNumber, CustomerSettings customerSettings) { if (!customerSettings.PhoneNumberValidationEnabled || string.IsNullOrEmpty(customerSettings.PhoneNumberValidationRule)) return true; **if (string.IsNullOrEmpty(phoneNumber)) { return !customerSettings.PhoneRequired; }** return customerSettings.PhoneNumberValidationUseRegex ? Regex.IsMatch(phoneNumber, customerSettings.PhoneNumberValidationRule, RegexOptions.CultureInvariant | RegexOptions.IgnoreCase) : phoneNumber.All(l =&gt; customerSettings.PhoneNumberValidationRule.Contains(l)); } With the updates above, (currently only on our dev https://dev.afw.com, and qa https://qa.afw.com sites), and the settings below this is now functioning as expected without a phone number field in our version of the form. customersettings.phonerequired = False; customersettings.phonenumbervalidationuseregex = True; customersettings.phonenumbervalidationenabled = True; customersettings.phonenumbervalidationrule = '^(\([0-9]{3}\)|[0-9]{3}-)([0-9]{3}-[0-9]{4}| [0-9]{3}-[0-9]{4})$' We suggest that your version of that validation be updated to respect the setting for if 'customersettings.phonerequired ' We would like to make use of the validation for the phone number in the place order steps, but not have it prevent the customer from creating a new customer record when no Phone Number field is present. Thanks</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update Dockerfile (#6390) Added port 80 as default</MESSAGE>
+    <SHA>687b4d7850f4a25faf35ef2e4ed0cb7d4b1ef594</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #6399 from fjaramillo-afw/develop #6393 Customer Phone Number Validation Issue fix for when Phone Number Not Required</MESSAGE>
+      <SHA>acfdd3e6ad8679d2217775b567fed4d53461f38c</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Validators/PhoneNumberPropertyValidator.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6393 Fixed test</MESSAGE>
+      <SHA>6d738b0f96c860b9ebaaa6f878281b3738beedba</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Tests/Nop.Tests/Nop.Web.Tests/Public/Validators/PhoneNumberValidatorTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>134</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/134</ISSUEURL>
+  <TITLE>fastText backend fails when encountering an unknown subject URI</TITLE>
+  <DESCRIPTION>Traceback: ``` Backend fasttext: creating fastText training file from documents Traceback (most recent call last): File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/bin/annif&quot;, line 11, in &lt;module&gt; load_entry_point('Annif', 'console_scripts', 'annif')() File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/click/core.py&quot;, line 722, in __call__ return self.main(*args, **kwargs) File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/flask/cli.py&quot;, line 557, in main return super(FlaskGroup, self).main(*args, **kwargs) File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/click/core.py&quot;, line 697, in main rv = self.invoke(ctx) File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/click/core.py&quot;, line 1066, in invoke return _process_result(sub_ctx.command.invoke(sub_ctx)) File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/click/core.py&quot;, line 895, in invoke return ctx.invoke(self.callback, **ctx.params) File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/click/core.py&quot;, line 535, in invoke return callback(*args, **kwargs) File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/click/decorators.py&quot;, line 17, in new_func return f(get_current_context(), *args, **kwargs) File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/flask/cli.py&quot;, line 412, in decorator return __ctx.invoke(f, *args, **kwargs) File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/click/core.py&quot;, line 535, in invoke return callback(*args, **kwargs) File &quot;/home/oisuomin/git/Annif/annif/cli.py&quot;, line 122, in run_loaddocs proj.load_documents(documents) File &quot;/home/oisuomin/git/Annif/annif/project.py&quot;, line 222, in load_documents self._load_documents_to_backends(documents, subjects) File &quot;/home/oisuomin/git/Annif/annif/project.py&quot;, line 202, in _load_documents_to_backends backend.load_documents(documents, project=self) File &quot;/home/oisuomin/git/Annif/annif/backend/fasttext.py&quot;, line 124, in load_documents self._create_train_file_from_documents(documents, project) File &quot;/home/oisuomin/git/Annif/annif/backend/fasttext.py&quot;, line 107, in _create_train_file_from_documents method=self._write_train_file) File &quot;/home/oisuomin/git/Annif/annif/util.py&quot;, line 19, in atomic_save method(obj, tempfilename) File &quot;/home/oisuomin/git/Annif/annif/backend/fasttext.py&quot;, line 66, in _write_train_file labels = [cls._id_to_label(sid) for sid in subject_ids] File &quot;/home/oisuomin/git/Annif/annif/backend/fasttext.py&quot;, line 66, in &lt;listcomp&gt; labels = [cls._id_to_label(sid) for sid in subject_ids] File &quot;/home/oisuomin/git/Annif/annif/backend/fasttext.py&quot;, line 55, in _id_to_label return &quot;__label__{:d}&quot;.format(subject_id) TypeError: non-empty format string passed to object.__format__ ``` Probably `subject_id` here is None, because the TSV document mentions a subject URI that is not in the SubjectIndex.</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #133 from NatLibFi/issue132-uris-without-brackets Support URIs without angle brackets in vocabulary TSV file. Fixes #132</MESSAGE>
+    <SHA>b53d24f714fbd95010fdd0e9358d2fa312257fe8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Handle documents unknown subject URIs in fastText backend. Fixes #134</MESSAGE>
+      <SHA>ddc4f3d2a213080df4ed8b8111f5e35d9daa3031</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/backend/fasttext.py</FILE>
+        <FILE>annif/corpus/subject.py</FILE>
+        <FILE>tests/test_backend_fasttext.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #135 from NatLibFi/issue134-fasttext-unknown-subject Handle documents unknown subject URIs in fastText backend. Fixes #134</MESSAGE>
+      <SHA>13a6b854f775b6a5d15e3f909f1089e618534513</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/backend/fasttext.py</FILE>
+        <FILE>annif/corpus/subject.py</FILE>
+        <FILE>tests/test_backend_fasttext.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

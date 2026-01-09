@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5564</ISSUENO>
+  <ISSUEURL>https://github.com/louislam/uptime-kuma/issues/5564</ISSUEURL>
+  <TITLE>[BUG] Slack Notifications - [no preview available]</TITLE>
+  <DESCRIPTION>### I have found these related issues/pull requests N/A ### ️ Security Policy - [x] I agree to have read this project [Security Policy](https://github.com/louislam/uptime-kuma/security/policy) ### Description Slack Notifications worked as expected in the Uptime Kuma **`1.x.x`** and displayed a notification preview correctly. Now in Uptime Kuma **`2.x.x`**, Slack Notifications do not work as expected and now display **`[no preview available]`** ### Reproduction steps Any Uptime Kuma **POST** Request to a Slack webhook causes this issue ### Expected behavior Slack is meant to display a brief Notification Preview ### Actual Behavior Slack doesn't display a notification preview ![Image](https://github.com/user-attachments/assets/6f00032d-2ef8-4672-a496-b1414c361957) ### Uptime-Kuma Version 2.0.0-beta.1 ### Operating System and Arch Debian 12.9 - ARM64 ### Browser Safari 18.3 (20620.2.4.11.4) ### ️ Deployment Environment - Runtime: Docker 27.5.0 - Database: SQLite - Filesystem used to store the database on: EXT4 on an NVMe - Number of Monitors: 42 ### Relevant log output ```shell 2025-01-22T19:41:12+11:00 [MONITOR] ERROR: Cannot send notification to Slack 2025-01-22T19:41:12+11:00 [MONITOR] ERROR: Error: Error: AxiosError: Request failed with status code 400 invalid_attachments at Slack.throwGeneralAxiosError (/app/server/notification-providers/notification-provider.js:69:15) at Slack.send (/app/server/notification-providers/slack.js:172:18) at process.processTicksAndRejections (node:internal/process/task_queues:95:5) at async Monitor.sendNotification (/app/server/model/monitor.js:1343:21) at async beat (/app/server/model/monitor.js:925:21) at async Timeout.safeBeat [as _onTimeout] (/app/server/model/monitor.js:1010:17) ```</DESCRIPTION>
+  <REPONAME>uptime-kuma</REPONAME>
+  <TIMEDIFFERENCEDAYS>105</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add disable url option in notification Discord (#5817) Co-authored-by: Frank Elsinga &lt;frank@elsinga.de&gt;</MESSAGE>
+    <SHA>76c382f229119adf100e28b1d137e203dedfa38d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fixed: #5564 slack notifications no preview available (#5824)</MESSAGE>
+      <SHA>eb18677e4fa00f9c709451d8f37e82858419a119</SHA>
+      <PATCHEDFILES>
+        <FILE>server/notification-providers/slack.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

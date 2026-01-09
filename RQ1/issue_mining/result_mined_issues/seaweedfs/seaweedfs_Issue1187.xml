@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1187</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/1187</ISSUEURL>
+  <TITLE>Error message provides faulty instructions and a 404 link</TITLE>
+  <DESCRIPTION>**Describe the bug** 1. a 404 link. 2. config=notification does not make filer.toml. 3. both toml files are in current directory why are they not loaded? **System Setup** ``` &gt; ./weed master -mdir=&quot;$TMP&quot; -defaultReplication=001 -ip=&quot;${IP}&quot; -peers=${IP1}:9333,${IP2}:9333,${IP3}:9333 &gt; weed_master.log 2&gt;&amp;1 &amp; &gt; sleep 2 &gt; ./weed volume -dir=&quot;$TMP&quot; -ip=&quot;${IP}&quot; -port=8081 -mserver=${IP1}:9333,${IP2}:9333,${IP3}:9333 &gt; weed_volume.log 2&gt;&amp;1 &amp; &gt; sleep 2 &gt; ./weed filer -defaultReplicaPlacement=001 -ip=&quot;${IP}&quot; -master=${IP1}:9333,${IP2}:9333,${IP3}:9333 weed_filer.log 2&gt;&amp;1 &amp; &gt; sleep 2 &gt; ./weed mount -dir=&quot;$MOUNT&quot; -replication=001 -filer=&quot;${IP}:8888&quot; &gt; weed_mount.log 2&gt;&amp;1 &amp; &gt; hostnamectl | grep Operating Operating System: Ubuntu 18.04.3 LTS &gt; ./weed version version 30GB 1.51 linux amd64 &gt; find / -iname filer.toml # no pre existing file ``` **Expected behavior** A clear and concise description of what is required. **Additional context** ``` &gt; ./weed scaffold -config=replication -output=. &gt; ./weed scaffold -config=filer -output=. &gt; ./weed filer.replicate I0127 18:05:03 25618 config.go:27] Reading : Config File &quot;security&quot; Not Found in &quot;[/opt /root/.seaweedfs /etc/seaweedfs]&quot; I0127 18:05:03 25618 config.go:27] Reading : Config File &quot;notification&quot; Not Found in &quot;[/opt /root/.seaweedfs /etc/seaweedfs]&quot; F0127 18:05:03 25618 config.go:29] Failed to load notification.toml file from current directory, or $HOME/.seaweedfs/, or /etc/seaweedfs/ Please follow this example and add a filer.toml file to current directory, or $HOME/.seaweedfs/, or /etc/seaweedfs/: https://github.com/chrislusf/seaweedfs/blob/master/weed/notification.toml Or use this command to generate the default toml file weed scaffold -config=notification -output=. goroutine 1 [running]: github.com/chrislusf/seaweedfs/weed/glog.stacks(0xc000496b00, 0xc0000d4000, 0x1b8, 0x341) /home/travis/gopath/src/github.com/chrislusf/seaweedfs/weed/glog/glog.go:767 +0xb8 github.com/chrislusf/seaweedfs/weed/glog.(*loggingT).output(0x33179c0, 0xc000000003, 0xc000485f80, 0x31b7aa8, 0x9, 0x1d, 0x0) /home/travis/gopath/src/github.com/chrislusf/seaweedfs/weed/glog/glog.go:718 +0x351 github.com/chrislusf/seaweedfs/weed/glog.(*loggingT).printf(0x33179c0, 0x3, 0x1f24ac8, 0x177, 0xc0005edbe0, 0x3, 0x3) /home/travis/gopath/src/github.com/chrislusf/seaweedfs/weed/glog/glog.go:656 +0x14b github.com/chrislusf/seaweedfs/weed/glog.Fatalf(...) /home/travis/gopath/src/github.com/chrislusf/seaweedfs/weed/glog/glog.go:1149 github.com/chrislusf/seaweedfs/weed/util.LoadConfiguration(0x1e968c1, 0xc, 0x1, 0xc000344d01) /home/travis/gopath/src/github.com/chrislusf/seaweedfs/weed/util/config.go:29 +0x3ae github.com/chrislusf/seaweedfs/weed/command.runFilerReplicate(0x32e5ca0, 0xc00000c090, 0x0, 0x0, 0x0) /home/travis/gopath/src/github.com/chrislusf/seaweedfs/weed/command/filer_replication.go:41 +0x8c main.main() /home/travis/gopath/src/github.com/chrislusf/seaweedfs/weed/weed.go:66 +0x2f9 &gt; ls -1 *.toml filer.toml replication.toml ``` Side question: [How do I get the mount points to sync?](https://seaweedfs.slack.com/archives/C9MGUC1UG/p1580053555005400)</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>reduce logs</MESSAGE>
+    <SHA>f72405705192f531a0ee5da11361bc4300ccde08</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix wrong url fix https://github.com/chrislusf/seaweedfs/issues/1187</MESSAGE>
+      <SHA>27b94cb65b34c084790f0a1884956702ee51acc2</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/util/config.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

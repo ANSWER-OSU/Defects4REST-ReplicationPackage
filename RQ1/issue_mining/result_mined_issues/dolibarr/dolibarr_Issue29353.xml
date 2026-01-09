@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>29353</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/29353</ISSUEURL>
+  <TITLE>Hidden extrafields of type boolean are set to 0 on update</TITLE>
+  <DESCRIPTION>### Bug Hidden extrafields of type boolean are set to 0 on update. Can only happen with extrafields in positions of commercial elements (facture, propal, commande, etc) ### Dolibarr Version 18, 19, develop ### Environment PHP na ### Environment Database na ### Steps to reproduce the behavior and expected behavior 1. Create an extrafield of type boolean for an invoice or proposal or order on the lines (DB: ....det_extrafields) and set visibility to 1 2. Create a new line (position) of an element where you have created the extrafield and enable the checkbox 3. Set the visibility of the extrafield created in step 1 to 0 4. Edit the line which has been created in step 2. Doesn't matter what is changed, just important to push the &quot;save&quot; button 5. Set the visibility of the extrafield created in step 1 to 1 6. View the line created in step 2 - Checkbox is not set (value 0) ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>230</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix double hook printFieldPreListTitle in command list (#32108) * Fix command list : remove double hook printFieldPreListTitle * Remove files</MESSAGE>
+    <SHA>e9009ede870c1a1a329f3c22f8ddc5a6120f618d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #29353 Hidden extrafields are NULL on update. Can only happen with extrafields in positions of commercial elements (facture, propal, commande, etc)</MESSAGE>
+      <SHA>f0cf2179e45789bee1f413da44f83a68b3eda0bd</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/class/commonobject.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #29353 (#32151) Hidden extrafields are NULL on update. Can only happen with extrafields in positions of commercial elements (facture, propal, commande, etc)</MESSAGE>
+      <SHA>4962dd1a8147c2d7e2b4d9c8362ff811b5c44a21</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/class/commonobject.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

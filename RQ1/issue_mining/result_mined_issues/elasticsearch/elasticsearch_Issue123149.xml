@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>123149</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/123149</ISSUEURL>
+  <TITLE>[CI] ScaledFloatFieldMapperTests testBlockLoaderFromColumnReaderWithSyntheticSource failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #18644 / part1](https://gradle-enterprise.elastic.co/s/qllglbioksuv4) - [elasticsearch-intake #18599 / part1](https://gradle-enterprise.elastic.co/s/yuajy6zqwtqzk) **Reproduction Line:** ``` ./gradlew &quot;:modules:mapper-extras:test&quot; --tests &quot;org.elasticsearch.index.mapper.extras.ScaledFloatFieldMapperTests.testBlockLoaderFromColumnReaderWithSyntheticSource&quot; -Dtests.seed=9B4D782D542FA8F6 -Dtests.locale=ta-LK -Dtests.timezone=America/Guyana -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.index.mapper.extras.ScaledFloatFieldMapperTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testBlockLoaderFromColumnReaderWithSyntheticSource),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected a list containing 0: &lt;0.0&gt; 1: &lt;0.0&gt; 2: &lt;0.0&gt; 3: expected &lt;2.34061534171008E253&gt; but was &lt;2.3406153417100796E253&gt; ``` **Issue Reasons:** - [main] 2 failures in test testBlockLoaderFromColumnReaderWithSyntheticSource (0.8% fail rate in 255 executions) - [main] 2 failures in step part1 (3.7% fail rate in 54 executions) - [main] 2 failures in pipeline elasticsearch-intake (3.7% fail rate in 54 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ESQL: Remove duplicated nested commands (#123085) Fork grammar duplicated nested command declaration causing additional lexing to occur resulting in invalid field name declaration Relates to #121948</MESSAGE>
+    <SHA>21845ad7a18821ccd80927211285308bb3eb8038</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.index.mapper.extras.ScaledFloatFieldMapperTests testBlockLoaderFromColumnReaderWithSyntheticSource #123149</MESSAGE>
+      <SHA>4e15a4d786e98f3f498d109a3ed27ae5db3c49d3</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

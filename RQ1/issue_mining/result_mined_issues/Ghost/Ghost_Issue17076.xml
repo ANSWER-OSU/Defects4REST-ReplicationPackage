@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17076</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/17076</ISSUEURL>
+  <TITLE>Post reverts to draft after some time if left on the publish page</TITLE>
+  <DESCRIPTION>### Issue Summary Publishing a post and then leaving it for some time (30 minutes to an hour), it will revert to a draft even after it has been published. This does not happen if you navigate back to the main posts page. ### Steps to Reproduce 1. Create a post using the new ghost editor 2. Publish the post by clicking &quot;Publish&quot; 3. Confirm that you want to publish the post 4. Stay on the page that tells you that it is published. 5. Go do something else for 30 or so minutes - you must keep the tab open - you can visit other sites or whatnot 6. Now go back to the main post's page and you will see that it has reverted to a &quot;draft&quot; ### Ghost Version Latest ### Node.js Version v16.20.0 ### How did you install Ghost? Standard production install - Debian 11, Mariadb, Nginx ### Database type Other ### Browser &amp; OS version Firefox (Fedora) v114.0 ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Added simple search bar to AdminX settings refs https://github.com/TryGhost/Team/issues/3349</MESSAGE>
+    <SHA>dd1d2f8d4d924340253e340333b6fe040bb3a878</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed revision save reverting newly published post to draft (#17083) fixes https://github.com/TryGhost/Ghost/issues/17076 When a post is saved `_revisionSaveTask` gets queued to execute 10 minutes from the save. When a post is published via the publish modal `_revisionSaveTask` does not get dequeued. When `_revisionSaveTask` gets executed at the 10 minute mark it is assumed that it is ok to save a revision, which will cause the post to be reverted back to a draft. This change enforces another check during the task exection to ensure that it is in fact still ok to save a revision (in case anything has changed in the 10 minutes since the task queued, i.e the post being published)</MESSAGE>
+      <SHA>934ec415fcba0c1dcc03dd75dcde286b06e57ce4</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/app/controllers/lexical-editor.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed revision save reverting newly published post to draft (#17083) fixes https://github.com/TryGhost/Ghost/issues/17076 When a post is saved `_revisionSaveTask` gets queued to execute 10 minutes from the save. When a post is published via the publish modal `_revisionSaveTask` does not get dequeued. When `_revisionSaveTask` gets executed at the 10 minute mark it is assumed that it is ok to save a revision, which will cause the post to be reverted back to a draft. This change enforces another check during the task exection to ensure that it is in fact still ok to save a revision (in case anything has changed in the 10 minutes since the task queued, i.e the post being published)</MESSAGE>
+      <SHA>db0081ccaf4229d595b8baee499ef0f590a6e5a1</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/app/controllers/lexical-editor.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19341</ISSUENO>
+  <ISSUEURL>https://github.com/supabase/supabase/issues/19341</ISSUEURL>
+  <TITLE>Unable to update table PK via dashboard after renaming table</TITLE>
+  <DESCRIPTION># Bug report ## Describe the bug Opening this issue because I ran into it again today #5549 After renaming a table, the _pkey constraint uses the old table name. This causes a problem if you try to change the primary key field. For example, a table originally named &quot;reporttype_report&quot; was renamed to &quot;report_reporttype&quot;. When trying to change the primary key, It gives an error &quot;constraint &quot;report_reporttype_pkey&quot; of relation &quot;report_reporttype&quot; does not exist&quot; because the constraint is still named &quot;reporttype_report_pkey&quot; ## To Reproduce Steps to reproduce the behavior, please provide code snippets or a repository: 1. create a table 2. rename it in the admin console 3. add a new column 4. try to add the new column to the primary key ## Expected behavior Should succeed. Instead you have to go find the constraint name and manually ALTER the table. ## System information OS: macOS Browser: Chrome</DESCRIPTION>
+  <REPONAME>supabase</REPONAME>
+  <TIMEDIFFERENCEDAYS>87</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update webhooks.mdx (#19783) Deleted an unnecessary line break Co-authored-by: Charis &lt;26616127+charislam@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>8c2c609950fdc8c4a8e2077454498a17fd1c3a15</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[#19341] Bug Fix - Renaming Table does not rename primary key constraint Signed-off-by: Prakhar Kumar &lt;prakhar.meerut@gmail.com&gt;</MESSAGE>
+      <SHA>5f5ed2a6fd143cf8a33655feba53caead3498783</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/studio/components/interfaces/TableGridEditor/SidePanelEditor/SidePanelEditor.tsx</FILE>
+        <FILE>apps/studio/stores/pgmeta/MetaStore.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[#19341] Bug Fix - Renaming Table does not rename primary key constraint Signed-off-by: Prakhar Kumar &lt;prakhar.meerut@gmail.com&gt;</MESSAGE>
+      <SHA>84faed011a82da8387b1dac15ca31f076c3ff6be</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/studio/components/interfaces/TableGridEditor/SidePanelEditor/SidePanelEditor.tsx</FILE>
+        <FILE>apps/studio/stores/pgmeta/MetaStore.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

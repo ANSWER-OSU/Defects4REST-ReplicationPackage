@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>160</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/160</ISSUEURL>
+  <TITLE>current glog module in seaweedfs can not work correctly if -log-dir is a relative directory</TITLE>
+  <DESCRIPTION>When I started weed with `-log_dir=master1/`, weed created logs as follows: ``` lrwxrwxrwx 1 root root 63 Jul 2 09:33 weed.INFO -&gt; master1/weed.ubuntu-blade7.root.log.INFO.20150702-093324.112469 -rw-r--r-- 1 root root 2146 Jul 2 09:34 weed.ubuntu-blade7.root.log.INFO.20150702-093324.112469 ``` Symbol-link `weed.INFO` should not use `master1/` in its destination. I use `github.com/golang/glog`, which works correctly: ``` # mkdir master1 # ./test_glog -log_dir=master1/ # ll master1 total 32 drwxr-xr-x 2 root root 4096 Jul 2 14:11 ./ drwxr-xr-x 18 root root 4096 Jul 2 14:11 ../ lrwxrwxrwx 1 root root 61 Jul 2 14:11 test_glog.ERROR -&gt; test_glog.ubuntu-blade8.root.log.ERROR.20150702-141130.180932 lrwxrwxrwx 1 root root 60 Jul 2 14:11 test_glog.INFO -&gt; test_glog.ubuntu-blade8.root.log.INFO.20150702-141130.180932 -rw-r--r-- 1 root root 302 Jul 2 14:11 test_glog.ubuntu-blade8.root.log.ERROR.20150702-141130.180932 -rw-r--r-- 1 root root 593 Jul 2 14:11 test_glog.ubuntu-blade8.root.log.INFO.20150702-141130.180932 -rw-r--r-- 1 root root 419 Jul 2 14:11 test_glog.ubuntu-blade8.root.log.WARNING.20150702-141130.180932 lrwxrwxrwx 1 root root 63 Jul 2 14:11 test_glog.WARNING -&gt; test_glog.ubuntu-blade8.root.log.WARNING.20150702-141130.180932 ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix wrong logic</MESSAGE>
+    <SHA>430f371a97f981af4f3cee918e3c96d89b5fedc5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>adjust symlink as recommended in https://github.com/chrislusf/seaweedfs/issues/160</MESSAGE>
+      <SHA>8b1f83a0ed2a9715c4f2930ac114451a8eec8daf</SHA>
+      <PATCHEDFILES>
+        <FILE>go/glog/glog_file.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

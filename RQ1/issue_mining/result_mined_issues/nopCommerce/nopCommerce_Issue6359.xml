@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6359</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6359</ISSUEURL>
+  <TITLE>Close order performance</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.5 Hi, in our b2b we have order with many items. There are alse some discounts and some acl rule (with discounts) Sometimes we have error 500 time out when a customer close an order. Looking at the source code we believe it is possible to do some refactoring In OrderProcessingService.PreparePlaceOrderDetailsAsync there are two call await _orderTotalCalculationService.GetShoppingCartSubTotalAsync(details.Cart, true); await _orderTotalCalculationService.GetShoppingCartSubTotalAsync(details.Cart, false); and await _orderTotalCalculationService.GetShoppingCartShippingTotalAsync(details.Cart, true); await _orderTotalCalculationService.GetShoppingCartShippingTotalAsync(details.Cart, false); I think that it's possible change this and this, less important In CheckoutController.ConfirmOrder I think that: //prevent 2 orders being placed within an X seconds time frame if (!await IsMinimumOrderPlacementIntervalValidAsync(customer)) throw new Exception(await _localizationService.GetResourceAsync(&quot;Checkout.MinOrderPlacementInterval&quot;)); it's possible to move some row before</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>48</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '4.50-bug-fixes' into develop # Conflicts: # src/Libraries/Nop.Core/NopVersion.cs # src/Libraries/Nop.Data/Nop.Data.csproj</MESSAGE>
+    <SHA>990bd013aaa2fe25f891e7bde480289b46f72f27</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6359. Increased performance of PreparePlaceOrderDetailsAsync method</MESSAGE>
+      <SHA>32f5e8fdd423fafc8474ab147209be692281031d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Orders/IOrderTotalCalculationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderProcessingService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderTotalCalculationService.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Services.Tests/Orders/OrderTotalCalculationServiceTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

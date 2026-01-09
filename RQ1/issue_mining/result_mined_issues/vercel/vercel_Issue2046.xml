@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2046</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/2046</ISSUEURL>
+  <TITLE>now dev doesn't set `build.env` vars for builders</TITLE>
+  <DESCRIPTION>I'm using the now dev feature in the new canary build of now-cli. I'm setting environment variables in now.json as such: ``` &quot;build&quot;: { &quot;env&quot;: { &quot;TEST&quot;: &quot;TEST&quot;, &quot;SITE_URL&quot; : &quot;http://localhost:3000&quot; } } ``` And I'm trying to use them in next.config.js as such: ``` const config = { target: 'serverless', env: { TEST: process.env.TEST, SITE_URL: process.env.SITE_URL, } } module.exports = (phase, { defaultConfig }) =&gt; { console.log(&quot;PHASE&quot;, phase) console.log(&quot;CONFIG&quot;, process.env.TEST) if (phase === PHASE_PRODUCTION_SERVER) { // Config used to run in production. return config } const withCSS = require('@zeit/next-css') return withCSS(config); } ``` I'm using the serverless target which suggests you add an env property to the config object you return, and I was intending to just add the build time variables to that value, however the env values I add in now.json always come back 'undefined'. This is the process that was suggested here and it's claimed that it worked, but I simply can't access build env variables: https://github.com/zeit/next.js/pull/6212#issuecomment-462071522 UPDATE: I just went ahead with this configuration and deployed the NextJS app to Now, and the actual deployment appears to have had access to the build variables. The Auth0 client I use client side which uses process.env.AUTH_DOMAIN to instantiate is working. When using now dev, I the library was saying that process.env.AUTH_DOMAIN was undefined. This is confirmed when looking at the outputs of doing a deploy with 'now' and doing 'now dev' respectively. now: ![Selection_037](https://user-images.githubusercontent.com/5091808/55294965-c4670e00-53cd-11e9-8b0c-c08b2c5cc458.png) now dev: ![Selection_038](https://user-images.githubusercontent.com/5091808/55294968-caf58580-53cd-11e9-928e-c5f8cbd7de2b.png)</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Use `hasOwnProperty()` instead of `in`</MESSAGE>
+    <SHA>17bf5eda9013b93111fb0de9359bf24a8dd72e21</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Apply `build.env` vars during builder `build()` invocations Fixes #2046.</MESSAGE>
+      <SHA>772e215600b6213ff2fed5f38945412fefc0b32c</SHA>
+      <PATCHEDFILES>
+        <FILE>src/commands/dev/lib/dev-builder.ts</FILE>
+        <FILE>src/commands/dev/lib/dev-server.ts</FILE>
+        <FILE>src/commands/dev/lib/types.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now dev] Add support for `.env` and `.env.build` file to define Now secrets (#2048) * [now dev] Add support for `.env` file to define Now secrets If a `now.json` files relies on secret env vars, then they must be defined in the user's local `.env` file otherwise `now dev` exits with an error. * Prettier * Fix multi-line error output * Use `code()` to format the dotenv file name * Add &quot;file&quot; to error message for clarity * Use `hasOwnProperty()` instead of `in` * Apply `build.env` vars during builder `build()` invocations Fixes #2046.</MESSAGE>
+      <SHA>e9f161adb2bf6ed81ed5284a867182e04cc69e0a</SHA>
+      <PATCHEDFILES>
+        <FILE>package.json</FILE>
+        <FILE>src/commands/dev/lib/dev-builder.ts</FILE>
+        <FILE>src/commands/dev/lib/dev-server.ts</FILE>
+        <FILE>src/commands/dev/lib/types.ts</FILE>
+        <FILE>src/util/errors-ts.ts</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now dev] Add support for `.env` and `.env.build` file to define Now secrets (#2048) * [now dev] Add support for `.env` file to define Now secrets If a `now.json` files relies on secret env vars, then they must be defined in the user's local `.env` file otherwise `now dev` exits with an error. * Prettier * Fix multi-line error output * Use `code()` to format the dotenv file name * Add &quot;file&quot; to error message for clarity * Use `hasOwnProperty()` instead of `in` * Apply `build.env` vars during builder `build()` invocations Fixes #2046.</MESSAGE>
+      <SHA>0c5bae6f373fae5df25c6daf9906242bacc4b284</SHA>
+      <PATCHEDFILES>
+        <FILE>package.json</FILE>
+        <FILE>src/commands/dev/lib/dev-builder.ts</FILE>
+        <FILE>src/commands/dev/lib/dev-server.ts</FILE>
+        <FILE>src/commands/dev/lib/types.ts</FILE>
+        <FILE>src/util/errors-ts.ts</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

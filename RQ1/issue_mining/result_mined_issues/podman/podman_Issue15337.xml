@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15337</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15337</ISSUEURL>
+  <TITLE>CI: Reevaluate use of Ubuntu</TITLE>
+  <DESCRIPTION>There's a whole swath of tests being skipped on Ubuntu: * Five because of #15025 * One because &quot;BFQ scheduler not supported&quot; * Sixteen because Ubuntu doesn't seem to have SELinux * Four because &quot;checkpointing broken in Ubuntu 2004, 2104, 2110, 2204, ...&quot; AIUI the point of using Ubuntu in CI is testing runc + cgroups v1. The point of testing runc + cgroups v1 is because that's what RHEL8 has, and not that many of us enjoy the panic-scrambles when RHEL8 gating tests fail because we haven't actually been testing very much. This is a place for us to discuss how to improve our coverage.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>146</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #15317 from rhatdan/debug Add compatibility support for --debug flag from docker</MESSAGE>
+    <SHA>3dace12777e27a7732acb25ae78f86ced8ae04da</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>system tests: fix broken runc test Followup to #14613, which was never actually tested until this week in RHEL8 gating tests (see issue #15337). * add missing backslash in '|' expression * allow extra text after error (e.g., &quot;invalid argument&quot;) No way to test this until it makes its way into RHEL8, so, fingers crossed. Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>06b3a4c1cfac4bc1d56ddb77df3b0dcc7e5f91b4</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/410-selinux.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

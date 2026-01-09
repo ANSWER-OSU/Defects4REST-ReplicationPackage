@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4728</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/4728</ISSUEURL>
+  <TITLE>custom HTML link with &quot;target=&quot;_blank&quot;&quot; in column cannot open in new tab</TITLE>
+  <DESCRIPTION>### Issue Summary I want to show several links in a single column, and the links should be opened in new tab. The following example worked in Redash 8.0, but not working in 9.0. This is the link to the deploy preview: https://redash-preview.netlify.com/queries/345/source ### Steps to Reproduce 1. Build a column with mutiple links. ``` sql SELECT '&lt;a target=&quot;_blank&quot; href=&quot;https://www.google.com&quot;&gt;&lt;font color=&quot;red&quot;&gt;Google&lt;/font&gt;&lt;/a&gt;&lt;br/&gt; &lt;a target=&quot;_blank&quot; href=&quot;https://www.facebook.com/&quot;&gt;&lt;font color=&quot;green&quot;&gt;Facebook&lt;/font&gt;&lt;/a&gt;&lt;br/&gt; &lt;a target=&quot;_blank&quot; href=&quot;https://twitter.com/&quot;&gt;&lt;font color=&quot;orange&quot;&gt;Twitter&lt;/font&gt;&lt;/a&gt;' AS test ; ``` ![image](https://user-images.githubusercontent.com/8188177/76488247-d5365580-645f-11ea-9a67-4943af653143.png) 2. Click the link, it opens in the current window. It ignored the ```target=&quot;_blank&quot;``` property. In Redash 8.0, it worked as I expected. ### Technical details: * Redash Version: 9.0 * Browser/OS: Chrome * How did you install Redash: Docker</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Cypress: Separate start command and update to v4.1.0 (#4690)</MESSAGE>
+    <SHA>f4b69d4495594b7ebec2439e9924f57a56595126</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>getredash/redash#4728 DOMPurify by default removes 'target' attribute</MESSAGE>
+      <SHA>a40926d27fca93b357f241da554ce342f1d16f3d</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/components/HtmlContent.jsx</FILE>
+        <FILE>client/app/services/sanitize.js</FILE>
+        <FILE>client/app/services/user.js</FILE>
+        <FILE>client/app/visualizations/choropleth/Renderer/initChoropleth.js</FILE>
+        <FILE>client/app/visualizations/map/initMap.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>getredash/redash#4728 DOMPurify by default removes 'target' attribute (#4729)</MESSAGE>
+      <SHA>a10a3f1731bab6c4e834ed789636f6fdf6c753d1</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/components/HtmlContent.jsx</FILE>
+        <FILE>client/app/services/sanitize.js</FILE>
+        <FILE>client/app/services/user.js</FILE>
+        <FILE>client/app/visualizations/choropleth/Renderer/initChoropleth.js</FILE>
+        <FILE>client/app/visualizations/map/initMap.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

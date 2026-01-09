@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16431</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/16431</ISSUEURL>
+  <TITLE>'System.Dynamic.ExpandoObject' does not contain a definition for 'propertiesToUpdate'</TITLE>
+  <DESCRIPTION>### Describe the bug if we use `UseScriptToSyncRoles` option in the login settings and provide a script that does not use `propertiesToUpdate` property, we get the following exception. ``` eUserAsync threw an exception Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: 'System.Dynamic.ExpandoObject' does not contain a definition for 'propertiesToUpdate' at CallSite.Target(Closure, CallSite, Object) at System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0) at CallSite.Target(Closure, CallSite, Object) at OrchardCore.Users.Handlers.ScriptExternalLoginEventHandler.UpdateUserInternal(UpdateUserContext context, LoginSettings loginSettings) at OrchardCore.Users.Handlers.ScriptExternalLoginEventHandler.UpdateUserAsync(UpdateUserContext context) at OrchardCore.Users.Controllers.AccountController.ExternalLoginSignInAsync(IUser user, ExternalLoginInfo info) at CallSite.Target(Closure, CallSite, Object) at System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0) at CallSite.Target(Closure, CallSite, Object) at OrchardCore.Users.Handlers.ScriptExternalLoginEventHandler.UpdateUserInternal(UpdateUserContext context, LoginSettings loginSettings) at OrchardCore.Users.Handlers.ScriptExternalLoginEventHandler.UpdateUserAsync(UpdateUserContext context) at OrchardCore.Users.Controllers.AccountController.ExternalLoginSignInAsync(IUser user, ExternalLoginInfo info) ``` ### Orchard Core version main</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix Elasticsearch Query API (#16424)</MESSAGE>
+    <SHA>9a547142e04cf12d7a8597be396a720154e8a842</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix ExpandoObject property access Fix #16431</MESSAGE>
+      <SHA>d7a6bba68cd5d82e76a11d34ecc073bd235b923c</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Users/Handlers/ScriptExternalLoginEventHandler.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix ExpandoObject property access (#16432) Fix #16431</MESSAGE>
+      <SHA>4d4f20f3a9d9d5314b487cdb720d544a8401643d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Users/Handlers/ScriptExternalLoginEventHandler.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

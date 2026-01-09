@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2307</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2307</ISSUEURL>
+  <TITLE>Pickup Point mismatches 'State' when States exist with no abbreviation property set</TITLE>
+  <DESCRIPTION>The PrepareShippingAddressModel method of the CheckoutModelFactory class selects the pickup point state based on the state abbreviation property. However the state abbreviation property can be an empty string. This means that if the selected state has no abbreviation value set, the selected state will return the first matching state it finds that also has no abbreviation value set, even if that state is from another country. Almost certainly resulting in mis-match.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>136</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#2383 Fixed bug with displaying only the first 10 pickup points on the map</MESSAGE>
+    <SHA>7f2973560b3694b6f243f0aea748e744e8f06e6d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2307 Return null from the GetStateProvinceByAbbreviation method when the state abbreviation is not passed</MESSAGE>
+      <SHA>784c1a4c14e00829eeacbc3147a0bddfc9ad8ccb</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Directory/StateProvinceService.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Pickup.PickupInStore/Description.txt</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Pickup.PickupInStore/Nop.Plugin.Pickup.PickupInStore.csproj</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Pickup.PickupInStore/PickupInStoreProvider.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/CheckoutModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/ShoppingCartModelFactory.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6900</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6900</ISSUEURL>
+  <TITLE>Performance optimization for forums</TITLE>
+  <DESCRIPTION>Check &quot;PrepareForumTopicRowModelAsync&quot; method of \Nop.Web\Factories\ForumModelFactory.cs There's no any need to load all posts to prepare this model. We have to replace the following code ``` var forumPosts = await _forumService.GetAllPostsAsync(topic.Id, 0, string.Empty, 1, _forumSettings.PostsPageSize); topicModel.TotalPostPages = forumPosts.TotalPages; ``` with `topicModel.TotalPostPages = (topic.NumPosts / _forumSettings.PostsPageSize) + 1;` See https://github.com/nopSolutions/nopCommerce/blob/develop/src/Presentation/Nop.Web/Factories/ForumModelFactory.cs#L1035</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6891 Added setting for auto mapping</MESSAGE>
+    <SHA>484febbbaca41f37faa29237c008d8705562fcb5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6900 Performance and code optimization of PrepareForumTopicRowModelAsync method</MESSAGE>
+      <SHA>b1fe9d54a8fd6a9691291494b9af9b48fd5d06a4</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Factories/ForumModelFactory.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

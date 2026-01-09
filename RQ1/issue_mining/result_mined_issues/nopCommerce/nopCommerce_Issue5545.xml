@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5545</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5545</ISSUEURL>
+  <TITLE>Incorrect search of orders in the admin area when filter by a warehouse</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.30 &gt; When doing a search on the Order screen, and only selecting a particular warehouse (leaving all other options as blank or ALL), the correct orders are not displayed. In most cases, a negative dollar amount is shown in the total, and no orders are in the grid. Introduced in [this commit](https://github.com/nopSolutions/nopCommerce/commit/f021d40d4f8fe2a08e53e00beadfb67f17feb000#diff-841ecc872010bdbfcac101a62fb8025b9f4ae9f2dbf814a50c350ac60cf346c4L192), we shouldn't use the `inner join` to `_productWarehouseInventoryRepository` here, since it leads to incorrect results. Source: https://www.nopcommerce.com/boards/topic/90501/order-search-bug-on-warehouse-only-search-nop43</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>19</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5351 Renamed the AddLocaleResourceAsync method to AddOrUpdateLocaleResourceAsync</MESSAGE>
+    <SHA>8de4ea8f4ffd79742ec36ce8bb3399e3ba8cd6ee</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5545 Fixed searching problem of orders in the admin area when filter by a warehouse</MESSAGE>
+      <SHA>7a04c3446cf7a4884bb519d280964c6fbfc61a7d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#5545 Fixed searching problem of orders in the admin area when filter by a warehouse (cherry picked from commit 7a04c3446cf7a4884bb519d280964c6fbfc61a7d)</MESSAGE>
+      <SHA>6eaee6ebe238b33f9000a2686f663a46f7abaa22</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

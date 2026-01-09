@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>53</ISSUENO>
+  <ISSUEURL>https://github.com/snarfed/granary/issues/53</ISSUEURL>
+  <TITLE>Add new hub= parameter for specifying a PuSH hub</TITLE>
+  <DESCRIPTION>To retain any realtimeness of the source in the converted output there's two needed components: Discovery and pinging. The discovery have to be provided by Granary, while the pinging can easily be done by the one specifying the feed – by either chaining it onto an original PuSH update or by pinging in some other way. By allowing a new `&amp;hub=https://pubsubhubbub.superfeedr.com/` and when that is specified include the required `rel-hub` and `rel-self` links in both HTTP headers and, when possible, in the output (mostly needed for Atom feeds) discovery would be solved and it would be possible to also consume the converted output in realtime and skip the polling.</DESCRIPTION>
+  <REPONAME>granary</REPONAME>
+  <TIMEDIFFERENCEDAYS>165</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>tune automatic scaling aggressively to avoid using more than one instance lots of background in snarfed/bridgy#578</MESSAGE>
+    <SHA>6b7b16872cb0fe38ba157852e5049d00b911094d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>atom: add rels kwarg to activities_to_atom() for rel links for #53</MESSAGE>
+      <SHA>74b2d6a9e777dcd15d8d922ccc0f3c62988b1d55</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/atom.py</FILE>
+        <FILE>granary/templates/user_feed.atom</FILE>
+        <FILE>granary/test/test_atom.py</FILE>
+        <FILE>granary/test/test_facebook.py</FILE>
+        <FILE>granary/test/test_instagram.py</FILE>
+        <FILE>granary/test/test_twitter.py</FILE>
+        <FILE>test_app.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>add hub= query param for atom output. fixes #53</MESSAGE>
+      <SHA>17f804190ff0416656c596a048789b79e10e5a86</SHA>
+      <PATCHEDFILES>
+        <FILE>activitystreams.py</FILE>
+        <FILE>granary/atom.py</FILE>
+        <FILE>granary/test/test_atom.py</FILE>
+        <FILE>test_activitystreams.py</FILE>
+        <FILE>test_app.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>add hub= query param for atom output. fixes #53</MESSAGE>
+      <SHA>6f540f723ac61eacbd1d2fb8b2a84280ae472381</SHA>
+      <PATCHEDFILES>
+        <FILE>activitystreams.py</FILE>
+        <FILE>granary/atom.py</FILE>
+        <FILE>granary/test/test_atom.py</FILE>
+        <FILE>test_activitystreams.py</FILE>
+        <FILE>test_app.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #83 from snarfed/hub add hub= query param for atom output. fixes #53</MESSAGE>
+      <SHA>06e0510132e687b3cc12beb83defef796558265e</SHA>
+      <PATCHEDFILES>
+        <FILE>activitystreams.py</FILE>
+        <FILE>granary/atom.py</FILE>
+        <FILE>granary/templates/user_feed.atom</FILE>
+        <FILE>granary/test/test_atom.py</FILE>
+        <FILE>granary/test/test_facebook.py</FILE>
+        <FILE>granary/test/test_instagram.py</FILE>
+        <FILE>granary/test/test_twitter.py</FILE>
+        <FILE>test_activitystreams.py</FILE>
+        <FILE>test_app.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

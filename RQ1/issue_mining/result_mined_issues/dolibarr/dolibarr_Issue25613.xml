@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>25613</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/25613</ISSUEURL>
+  <TITLE>PHP Error when sending invoice email</TITLE>
+  <DESCRIPTION>### Bug Hi, When I want to send an email, I have this error: Call to undefined function getDomainFromURL() ### Environment Version 18.0 ### Environment OS _No response_ ### Environment Web server _No response_ ### Environment PHP 7.4 ### Environment Database Percona SQL 8.0 ### Environment URL(s) _No response_ ### Expected and actual behavior ``` [10-Aug-2023 17:08:52 Europe/Berlin] PHP Fatal error: Uncaught Error: Call to undefined function getDomainFromURL() in /space/www/dolibarr/htdocs/core/class/smtps.class.php:697 Stack trace: #0 /space/www/dolibarr/htdocs/core/class/CMailFile.class.php(1004): SMTPs-&gt;sendMsg() #1 /space/www/dolibarr/htdocs/core/actions_sendmails.inc.php(372): CMailFile-&gt;sendfile() #2 /space/www/dolibarr/htdocs/compta/facture/card.php(2878): include('/space/www/doli...') #3 {main} thrown in /space/www/dolibarr/htdocs/core/class/smtps.class.php on line 697 ``` If I add in htdocs/core/class/smtps.class.php the line below it works... but I think it is not the right place for this. `require_once(DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php');` ### Steps to reproduce the behavior Inside an invoice, click on sendemail and then click again on send email. ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>28</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Log</MESSAGE>
+    <SHA>5af2da11918f78e207b57cab72ff7aaaca7721ff</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #25613</MESSAGE>
+      <SHA>5b4eac734bb2974aec64f97489feaf536dd584d0</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/class/smtps.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #25613</MESSAGE>
+      <SHA>c8ceb3aaba109d7d79a673f7afbbc052e6e50d92</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/class/smtps.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #25826 from yledoare/18.0 Fix #25613</MESSAGE>
+      <SHA>6676494baf8615e02793cb5a07966f28e0a950c1</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/class/smtps.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

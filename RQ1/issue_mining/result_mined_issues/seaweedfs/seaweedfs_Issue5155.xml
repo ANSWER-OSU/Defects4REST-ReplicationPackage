@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5155</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/5155</ISSUEURL>
+  <TITLE>s3api v3.60: Missing VersionConfiguration node in get-bucket-versioning response</TITLE>
+  <DESCRIPTION>Feature introduced in: https://github.com/seaweedfs/seaweedfs/pull/4998 **Describe the bug** When using aws-cli get-bucket-versioning will return no results; this is due to the malformed response. When running with debug, we can see that the response body is missing the VersionConfiguration node. ``` aws --endpoint-url http://localhost:8333 s3api get-bucket-versioning --bucket mybucket --debug ... 2024-01-03 01:11:43,611 - MainThread - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8333 2024-01-03 01:11:43,618 - MainThread - urllib3.connectionpool - DEBUG - http://localhost:8333 &quot;GET /mybucket?versioning HTTP/1.1&quot; 200 26 2024-01-03 01:11:43,619 - MainThread - botocore.parsers - DEBUG - Response headers: {'Accept-Ranges': 'bytes', 'Content-Length': '26', 'Content-Type': 'application/xml', 'Server': 'SeaweedFS S3', 'X-Amz-Request-Id': '1704244303617654225' , 'Date': 'Wed, 03 Jan 2024 01:11:43 GMT'} 2024-01-03 01:11:43,619 - MainThread - botocore.parsers - DEBUG - Response body: b'&lt;Status&gt;Suspended&lt;/Status&gt;' ... ``` **System Setup** - running seaweedfs:3.60_large_disk container image - command: weed server -s3 -iam - `# weed version: version 8000GB 3.60 d4e91b6ad linux amd64` **Expected behavior** Default response **&quot;Status&quot;:&quot;Suspended&quot;**: ``` aws --endpoint-url http://localhost:8333 s3api get-bucket-versioning --bucket mybucket { &quot;Status&quot;: &quot;Suspended&quot; } ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: webdav avoid create empty files (#5160)</MESSAGE>
+    <SHA>3e43778869ccbb1ddab207e48f58e5be5d37fd53</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: s3 response for get bucket version https://github.com/seaweedfs/seaweedfs/issues/5155</MESSAGE>
+      <SHA>bb66deb2b04a4b970c0a013ca06a980d78bc411f</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/s3api/s3api_bucket_handlers.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: s3 response for get bucket version https://github.com/seaweedfs/seaweedfs/issues/5155</MESSAGE>
+      <SHA>25c7d78ad89bad26e2f9e8659a6e2713d2cf1085</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/s3api/s3api_bucket_handlers.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix missing VersionConfiguration node in get-bucket-versioning response (#5162) * fix: s3 response for get bucket version https://github.com/seaweedfs/seaweedfs/issues/5155 * fix: s3 response for get bucket version https://github.com/seaweedfs/seaweedfs/issues/5155</MESSAGE>
+      <SHA>4f6172f3699cc47107dea3fe4f3664f283296cdb</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/s3api/s3api_bucket_handlers.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

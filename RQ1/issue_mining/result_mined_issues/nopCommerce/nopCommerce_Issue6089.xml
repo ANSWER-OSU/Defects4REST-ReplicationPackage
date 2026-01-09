@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6089</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6089</ISSUEURL>
+  <TITLE>Make some controller actions consistent with PRG design pattern</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.50-rc Steps to reproduce the problem: 1. Place an order in store front. 2. Go to admin backoffice and view/edit the order. 3. Mark the order as Paid. 4. Refresh the page. ![image](https://user-images.githubusercontent.com/14930009/150398194-399cd79a-c5d9-4c87-9ab9-f09a47bdc88f.png) In order to prevent resubmission of the same action, redirect back to the same page instead. This is known as the design pattern POST-REDIRECT-GET (PRG): 1. https://andrewlock.net/post-redirect-get-using-tempdata-in-asp-net-core/ 2. https://en.wikipedia.org/wiki/Post/Redirect/Get Taking an excerpt from the above. ![image](https://user-images.githubusercontent.com/14930009/150447793-d9722a6f-fe84-4722-9048-2c7487a50d2c.png) The following actions are affected: 1. CancelOrder 2. CaptureOrder 3. MarkOrderAsPaid 4. RefundOrder 5. RefundOrderOffline 6. VoidOrder 7. VoidOrderOffline 8. ChangeOrderStatus 9. EditCreditCardInfo 10. EditOrderTotals 11. EditShippingMethod 12. EditOrderItem 13. ResetDownloadCount 14. ActivateDownloadItem</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6090 Text color plugin is now built in to the core Tinymce editor</MESSAGE>
+    <SHA>e38e4e4709cfd532cc50c2a88fe5017e8489ac80</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6089 Fixed some controller actions that are not consistent with the rest of the controller actions employing POST-REDIRECT-GET (PRG) design pattern.</MESSAGE>
+      <SHA>033024d0f72ae83c6db1f5cfc56a94af4323c7f3</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/CampaignController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/EmailAccountController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/GiftCardController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/OrderController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/RecurringPaymentController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6089 Fixed some controller actions that are not consistent with PRG pattern(#6094)</MESSAGE>
+      <SHA>70a4aa029622f00caaff956f2a86030054390e69</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/CampaignController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/EmailAccountController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/GiftCardController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/OrderController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/RecurringPaymentController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

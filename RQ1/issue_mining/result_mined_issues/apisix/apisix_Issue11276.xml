@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>11276</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/11276</ISSUEURL>
+  <TITLE>feat: As a user, I want to use &quot;iss&quot; JWT claim, so that I can verify my Apisix Consumers with a claim different than &quot;key&quot;</TITLE>
+  <DESCRIPTION>### Description I'd like to extend [jwt-auth plugin](https://github.com/apache/apisix/blob/master/apisix/plugins/jwt-auth.lua) to add a new configuration parameter: - `key_claim_name` (default value: `key`). that can be used to specify a different key claim name, to validate the JWT against an Apisix Consumer. Lil snippet for reference: ```lua function _M.rewrite(conf, ctx) -- [...] local key_claim_name = conf.key_claim_name local user_key = jwt_obj.payload and jwt_obj.payload[key_claim_name] if not user_key then return 401, {message = &quot;Missing &quot; .. key_claim_name .. &quot; claim in JWT token&quot;} end -- [...] end ``` Since it would be set to `key` by default, it shouldn't change/break any existing setting, but would be helpful for those who are using different JWT &quot;formats&quot;. For example, the company I'm working at is using `iss` claim as Consumer key. Since we're already using a custom version of the jwt-auth plugin (with this feature implemented), I'd like to integrate this contribution to the official plugin. --- Do you think I can make a PR with the changes?</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>190</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: support hcv namespace (#11277)</MESSAGE>
+    <SHA>0468d78918c268d82f7c975f4326f4a0e79f3c10</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #11276 + little style refactor Features: - config param &quot;key_claim_name&quot; (default = &quot;key&quot;), so for example one could use &quot;iss&quot; to check the validity of the JWT; Style: - 2 blank lines between functions; - 1 blank like before &quot;else&quot; and &quot;elseif&quot;; - jwt -&gt; JWT; - Capitalized logs and response messages; - Added description for each schema configuration parameter;</MESSAGE>
+      <SHA>e393d0ccfe16b2cc97cea7486335b922ce64a8e6</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/jwt-auth.lua</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #11276 + little style refactor Features: - config param &quot;key_claim_name&quot; (default = &quot;key&quot;), so for example one could use &quot;iss&quot; to check the validity of the JWT; Style changes: - 2 blank lines between functions; - 1 blank like before &quot;else&quot; and &quot;elseif&quot;; - jwt -&gt; JWT; - Capitalized logs and response messages; - Added description for each schema configuration parameter;</MESSAGE>
+      <SHA>c74e807b42516cd20d2ed3b99b2faddecb3cb46c</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/jwt-auth.lua</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #11276 + little style refactor Features: - config param &quot;key_claim_name&quot; (default = &quot;key&quot;), so for example one could use &quot;iss&quot; to check the validity of the JWT; Style: - 2 blank lines between functions; - 1 blank like before &quot;else&quot; and &quot;elseif&quot;; - jwt -&gt; JWT; - Capitalized logs and response messages; - Added description for each schema configuration parameter;</MESSAGE>
+      <SHA>afa520dbf2f61a46b6a39656c36facb4264c9b51</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/jwt-auth.lua</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Added test case for new jwt-auth feature I added a new test case for feature #11276 Since the default value of the new config parameter &quot;key_claim_name&quot; is &quot;key&quot;, &quot;default behaviour&quot; is already validated by other tests.</MESSAGE>
+      <SHA>2af7e156aa07ca29cf19f4934daa605eb0571902</SHA>
+      <PATCHEDFILES>
+        <FILE>t/plugin/jwt-auth4.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #11276 + little style refactor Features: - config param &quot;key_claim_name&quot; (default = &quot;key&quot;), so for example one could use &quot;iss&quot; to check the validity of the JWT; Style: - 2 blank lines between functions; - 1 blank like before &quot;else&quot; and &quot;elseif&quot;; - jwt -&gt; JWT; - Capitalized logs and response messages; - Added description for each schema configuration parameter;</MESSAGE>
+      <SHA>667ac7f55fafe867d63547a20af06b151b3ba7e0</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/jwt-auth.lua</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Added test case for new jwt-auth feature I added a new test case for feature #11276 Since the default value of the new config parameter &quot;key_claim_name&quot; is &quot;key&quot;, &quot;default behaviour&quot; is already validated by other tests.</MESSAGE>
+      <SHA>1ddbc8f82fb96069c4785ff81d688c20cb49bc69</SHA>
+      <PATCHEDFILES>
+        <FILE>t/plugin/jwt-auth4.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

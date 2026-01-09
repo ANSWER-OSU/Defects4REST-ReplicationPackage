@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118307</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118307</ISSUEURL>
+  <TITLE>[CI] CrossClustersEnrichIT testTopNThenEnrichRemote failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #14149 / part3](https://gradle-enterprise.elastic.co/s/lv7i7zpdm7z22) - [elasticsearch-pull-request #45435 / part-3](https://gradle-enterprise.elastic.co/s/ot3wopc4ufake) - [elasticsearch-pull-request #45435 / part-3](https://gradle-enterprise.elastic.co/s/5fxgmysdy3i7m) - [elasticsearch-intake #14138 / part3](https://gradle-enterprise.elastic.co/s/sqa462g3dzztw) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.esql.action.CrossClustersEnrichIT.testTopNThenEnrichRemote&quot; -Dtests.seed=28CDF758812ADAA7 -Dtests.locale=es-EC -Dtests.timezone=Etc/GMT -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.action.CrossClustersEnrichIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testTopNThenEnrichRemote),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.IllegalStateException: Found 1 problem line -1:-1: Plan [ProjectExec[[host{f}#462, timestamp{f}#463, user{f}#464, os{r}#465, ip{r}#466]]] optimized incorrectly due to missing references [ip{r}#466] ``` **Issue Reasons:** - [main] 2 consecutive failures in step part3 - [main] 2 consecutive failures in pipeline elasticsearch-intake - [main] 4 failures in test testTopNThenEnrichRemote (2.4% fail rate in 169 executions) - [main] 2 failures in step part3 (9.1% fail rate in 22 executions) - [main] 2 failures in step part-3 (2.5% fail rate in 79 executions) - [main] 2 failures in pipeline elasticsearch-intake (9.1% fail rate in 22 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.action.search.SearchQueryThenFetchAsyncActionTests testBottomFieldSort #118214</MESSAGE>
+    <SHA>e52d0c9ae4b9584e44dd5b1bbbee142c11999d1c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.CrossClustersEnrichIT testTopNThenEnrichRemote #118307</MESSAGE>
+      <SHA>78620c6c1aa97030a024921b17b4dc2f0881e69d</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

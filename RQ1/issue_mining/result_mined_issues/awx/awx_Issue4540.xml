@@ -1,0 +1,126 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4540</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/4540</ISSUEURL>
+  <TITLE>Fails to detect roles/requirements.yaml</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY When a project includes a `roles/requirements.yaml` file it is not detected or processed: ``` TASK [detect requirements.yml] ************************************************* ok: [localhost, -&gt; localhost] =&gt; {&quot;changed&quot;: false, &quot;stat&quot;: {&quot;exists&quot;: false}} ``` It looks like the task to detect the file looks specifically for `requirements.yml` and not also `requirements.yaml`. This is contrary to the YAML offical extension: https://yaml.org/faq.html (Generally because both `.yaml` and `.yml` are in common usage, they should be considered interchangeable as different people like different things for their own reasons. I'd expect AWX/Tower to check and use a file with either extension, and throwing an error if it finds both) ##### ENVIRONMENT * AWX version: 3.5.2 * AWX install method: Tower * Ansible version: 2.8 * Operating System: CentOS 7 * Web Browser: Chrome ##### STEPS TO REPRODUCE Create an AWX/Tower role and specify requirements in `roles/requirements.yaml` and clone into a project rename to requirements.yml and it works. ##### EXPECTED RESULTS I expected that the roles specified in `requirements.yaml` would be installed ##### ACTUAL RESULTS The file `requirements.yaml` was ignored and roles were not installed. ##### ADDITIONAL INFORMATION We use Ansible Tower, but I think AWX has this issue too.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>503</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #4769 from mabashian/4554-mgt-jobs-column Fix management job column width issues Reviewed-by: Michael Abashian https://github.com/mabashian</MESSAGE>
+    <SHA>686d4fe26f1c4377418bfa95ebad54b7b23b02da</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix #4540 detect and process requirements.yaml file</MESSAGE>
+      <SHA>5ff8dbc8df460bc8211823e0c8cad0c0b84749a1</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/main/utils/common.py</FILE>
+        <FILE>awx/playbooks/project_update.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>detect and process requirements.yaml file (fix #4540)</MESSAGE>
+      <SHA>d8422dba6e8e14b83f1bc8ef5687cefb29d8132b</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/main/utils/common.py</FILE>
+        <FILE>awx/playbooks/project_update.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>detect and process requirements.yaml file (fix #4540) fix lint failure remove function get_existing_yaml_files return blank lines</MESSAGE>
+      <SHA>c8ee783f2850daf5d7a4c8593d7936075ca3baad</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/playbooks/project_update.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>detect and process requirements.yaml file (fix #4540)</MESSAGE>
+      <SHA>219a3048f23f0ae08d4c7c41742c22a99f2e3485</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/main/utils/common.py</FILE>
+        <FILE>awx/playbooks/project_update.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>detect and process requirements.yaml file (fix #4540)</MESSAGE>
+      <SHA>56f0be082151322bf72766311962c58ae7661694</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/main/utils/common.py</FILE>
+        <FILE>awx/playbooks/project_update.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>detect and process requirements.yaml file (fix #4540)</MESSAGE>
+      <SHA>7abf7656e274a6bfdba8bd0c91042aa8252482cc</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/main/utils/common.py</FILE>
+        <FILE>awx/playbooks/project_update.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>detect and process requirements.yaml file (fix #4540)</MESSAGE>
+      <SHA>11ebdfb72893efa89f28e6c37432264b6b26c5db</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/main/utils/common.py</FILE>
+        <FILE>awx/playbooks/project_update.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>detect and process requirements.yaml file (fix #4540)</MESSAGE>
+      <SHA>3f79e652f5d9359140d755a11fba6cc732ed1ead</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/main/utils/common.py</FILE>
+        <FILE>awx/playbooks/project_update.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>detect and process requirements.yaml file (fix #4540)</MESSAGE>
+      <SHA>6a3e95831f1b4b09b4fe9eb9d884a7f87324049b</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/playbooks/project_update.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>detect and process requirements.yaml file (fix #4540)</MESSAGE>
+      <SHA>01820447227b0d6bd0f614aeb73920d5d0e9d530</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/playbooks/project_update.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>detect and process requirements.yaml file (fix #4540)</MESSAGE>
+      <SHA>519ae608dad75d0494f7dd9bf7ccf2a9d072e55c</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/playbooks/project_update.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>detect and process requirements.yaml file (fix #4540)</MESSAGE>
+      <SHA>e493d938ea0e46f56d5b08f79aa14d8a53efd5b1</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/playbooks/project_update.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>detect and process requirements.yaml file (fix #4540)</MESSAGE>
+      <SHA>c53c51c02e94cc368f0f43dd4e3e6bf83db0d01c</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/playbooks/project_update.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

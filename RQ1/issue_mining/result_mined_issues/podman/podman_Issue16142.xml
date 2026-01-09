@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16142</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16142</ISSUEURL>
+  <TITLE>kill cpcontainer: could not be stopped... sending SIGKILL... container state improper</TITLE>
+  <DESCRIPTION>```bash [+0401s] not ok 127 podman cp file from host to container .... # podman cp /tmp/podman_bats.rNSXlF/cp-test-file-host-to-ctr/hostfile0 cpcontainer:/IdoNotExist/ Error: &quot;/IdoNotExist/&quot; could not be found on container cpcontainer: no such file or directory [ rc=125 (expected) ] # podman kill cpcontainer cpcontainer # podman rm -t 0 -f cpcontainer open pidfd: No such process Error: cannot remove container &lt;ID&gt; as it could not be stopped: sending SIGKILL to container &lt;ID&gt;: container state improper [ rc=2 (** EXPECTED 0 **) ] ``` ### [sys] 127 podman cp file from host to container * fedora-36-aarch64 : sys podman fedora-36-aarch64 root host * PR #16072 * [10-07 05:31](https://api.cirrus-ci.com/v1/artifact/task/5531884187811840/html/sys-podman-fedora-36-aarch64-root-host.log.html#t--00127) * fedora-36-aarch64 : sys remote fedora-36-aarch64 root host [remote] * PR #15894 * [09-21 16:44](https://api.cirrus-ci.com/v1/artifact/task/5694475040194560/html/sys-remote-fedora-36-aarch64-root-host.log.html#t--00124) ``` Only two instances so far, both on f36 aarch64 root.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>95</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #16105 from containers/dependabot/go_modules/github.com/containers/ocicrypt-1.1.6 build(deps): bump github.com/containers/ocicrypt from 1.1.5 to 1.1.6</MESSAGE>
+    <SHA>dfb4364dc33c42b70e587023698159ee332dcc88</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>KillContainer: improve error message To improve the error message reported in #16142 where the container is reported to be in the wrong state but we do not know which. This is not a fix for #16142 but will hopefully aid in better understanding what's going on if it flakes again. [NO NEW TESTS NEEDED] as hitting the condition is inherently racy. Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>1d18dc2671fecf9abce836b56f01a9a2207ced49</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/oci_conmon_common.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>kill: wait for the container Make sure to wait for the container to exit after kill. While the cleanup process will take care eventually of transitioning the state, we need to give a guarantee to the user to leave the container in the expected state once the (kill) command has finished. The issue could be observed in a flaking test (#16142) where `podman rm -f -t0` failed because the preceding `podman kill` left the container in &quot;running&quot; state which ultimately confused the &quot;stop&quot; backend. Note that we should only wait for the container to exit when SIGKILL is being used. Other signals have different semantics. [NO NEW TESTS NEEDED] as I do not know how to reliably reproduce the issue. If #16142 stops flaking, we are good. Fixes: #16142 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>b35fab6f1c246c5596114e68d8af89caf9808c5d</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_api.go</FILE>
+        <FILE>libpod/container_internal.go</FILE>
+        <FILE>test/e2e/attach_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>KillContainer: improve error message To improve the error message reported in #16142 where the container is reported to be in the wrong state but we do not know which. This is not a fix for #16142 but will hopefully aid in better understanding what's going on if it flakes again. [NO NEW TESTS NEEDED] as hitting the condition is inherently racy. Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>7f88deff1ecc751cd087ac220eb48204cd442c64</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/oci_conmon_common.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>kill: wait for the container Make sure to wait for the container to exit after kill. While the cleanup process will take care eventually of transitioning the state, we need to give a guarantee to the user to leave the container in the expected state once the (kill) command has finished. The issue could be observed in a flaking test (#16142) where `podman rm -f -t0` failed because the preceding `podman kill` left the container in &quot;running&quot; state which ultimately confused the &quot;stop&quot; backend. Note that we should only wait for the container to exit when SIGKILL is being used. Other signals have different semantics. [NO NEW TESTS NEEDED] as I do not know how to reliably reproduce the issue. If #16142 stops flaking, we are good. Fixes: #16142 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>fc43751e7a2de8624e84a4ca2f26a4a5ac61d0b8</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_api.go</FILE>
+        <FILE>libpod/container_internal.go</FILE>
+        <FILE>test/e2e/attach_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

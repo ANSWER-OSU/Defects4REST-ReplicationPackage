@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120349</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120349</ISSUEURL>
+  <TITLE>[CI] MultiClusterSpecIT test {date.IN operator with null in list, doesn't find match, EVAL to check value} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5950 / 8.13.4_bwc](https://gradle-enterprise.elastic.co/s/qdeuib4zi43ta) - [elasticsearch-pull-request #51533 / 8.13.4_bwc](https://gradle-enterprise.elastic.co/s/vgxa36meuk7t4) - [elasticsearch-pull-request #51533 / 8.13.4_bwc](https://gradle-enterprise.elastic.co/s/i7hje4ujnxjbm) - [elasticsearch-periodic #5945 / 8.13.4_bwc](https://gradle-enterprise.elastic.co/s/ehprzl2kmy3da) - [elasticsearch-periodic #5940 / 8.13.4_bwc](https://gradle-enterprise.elastic.co/s/zfurv3pw65meq) - [elasticsearch-periodic #5935 / 8.13.4_bwc](https://gradle-enterprise.elastic.co/s/dixj3vrunny7g) - [elasticsearch-periodic #5930 / 8.13.4_bwc](https://gradle-enterprise.elastic.co/s/5tvvrhe43wh6m) - [elasticsearch-periodic #5925 / 8.13.4_bwc](https://gradle-enterprise.elastic.co/s/orpxhmlzdwdhc) - [elasticsearch-periodic #5920 / 8.13.4_bwc](https://gradle-enterprise.elastic.co/s/tizrbgzjnocfg) - [elasticsearch-periodic #5915 / 8.13.4_bwc](https://gradle-enterprise.elastic.co/s/atwwm2nnq3cea) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:multi-clusters:v8.13.4#oldToNew&quot; -Dtests.class=&quot;org.elasticsearch.xpack.esql.ccq.MultiClusterSpecIT&quot; -Dtests.method=&quot;test {date.IN operator with null in list, doesn't find match}&quot; -Dtests.seed=ED4032AA8E32DF54 -Dtests.bwc=true -Dtests.locale=rn -Dtests.timezone=Europe/Sofia -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.ccq.MultiClusterSpecIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Bdate.IN%20operator%20with%20null%20in%20list%2C%20doesn't%20find%20match%2C%20EVAL%20to%20check%20value%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected an empty list 0: &lt;unexpected&gt; but was &quot;Line 3:24: evaluation of [TO_DATETIME(\\\&quot;1900-02-19T00:00:00Z\\\&quot;)] failed, treating result as null. Only first 20 failures recorded.&quot; 1: &lt;unexpected&gt; but was &quot;Line 3:24: java.lang.IllegalArgumentException: failed to parse date field [1900-02-19T00:00:00Z] with format [yyyy-MM-dd'T'HH:mm:ss.SSS'Z']&quot; ``` **Issue Reasons:** - [8.x] 11 failures in test test {date.IN operator with null in list, doesn't find match, EVAL to check value} (1.2% fail rate in 952 executions) - [8.x] 11 failures in step 8.13.4_bwc (100.0% fail rate in 11 executions) - [8.x] 9 failures in pipeline elasticsearch-periodic (100.0% fail rate in 9 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.esql.ccq.MultiClusterSpecIT test {date.IN operator with null in list, doesn't find match} #120348</MESSAGE>
+    <SHA>064c4ce977ef8787c5e462fb78162a1e705b6020</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.ccq.MultiClusterSpecIT test {date.IN operator with null in list, doesn't find match, EVAL to check value} #120349</MESSAGE>
+      <SHA>973610af7ae8ec5fdc49effde5229738f1f53df0</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[8.x] Esql date casting tests #120420 (#120543) Resolves #120159 Resolves #120157 Resolves #120151 Resolves #120158 Resolves #120155 Resolves #120156 Resolves #120348 Resolves #120349 This adds appropriate ignore annotations for the date tests I added in #119772 to not run the tests against very old versions.</MESSAGE>
+      <SHA>4c24fa7cdb1118630b155a5d8285b852f14a79dc</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/date.csv-spec</FILE>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/date_nanos.csv-spec</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

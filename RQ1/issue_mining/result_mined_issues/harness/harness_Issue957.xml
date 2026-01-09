@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>957</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/957</ISSUEURL>
+  <TITLE>Database Changes for 0.4</TITLE>
+  <DESCRIPTION>This is a meta-issue that is used to describe overall data storage changes. Individual tasks will be split into a series of separate issues. --- In order to facilitate matrix builds and pull requests for systems like Bitbucket and Gitlab we'll need to heavily modify our data structure. This is also a good time to re-evaluate this tier of the application and see what improvements can be made. ## Document Oriented We currently have a very flat data structure. I'd like something a bit more document oriented that allows us to store data in nested structures. Here is how we could represent the build of a Commit: ``` js { &quot;number&quot;: 1, &quot;started_at&quot;: &quot;2011-01-26T19:06:43Z&quot;, &quot;finished_at&quot;: &quot;2011-01-26T19:07:43Z&quot;, &quot;duration&quot;: 100, &quot;state&quot;: &quot;success&quot;, &quot;commit&quot;: { &quot;sha&quot;: &quot;c5b97d5ae6c19d5c5df71a34c7fbeeda2479ccbc&quot;, &quot;ref&quot;: &quot;master&quot;, &quot;message&quot;: &quot;Merge pull request #6 from Spaceghost/patch-1&quot;, &quot;author&quot;: { &quot;name&quot;: &quot;The Octocat&quot;, &quot;login&quot;: &quot;octocat&quot;, &quot;email&quot;: &quot;octocat@nowhere.com&quot; } } } ``` This is how we could represent the build of a Pull Request: ``` js { &quot;number&quot;: 1, &quot;started_at&quot;: &quot;2011-01-26T19:06:43Z&quot;, &quot;finished_at&quot;: &quot;2011-01-26T19:07:43Z&quot;, &quot;duration&quot;: 100, &quot;state&quot;: &quot;success&quot;, &quot;pull_request&quot;: { &quot;number&quot;: &quot;6&quot;, &quot;title&quot;: &quot;new feature&quot;, &quot;body&quot;: &quot;Please pull these awesome changes&quot;, &quot;source&quot;: { &quot;sha&quot;: &quot;c5b97d5ae6c19d5c5df71a34c7fbeeda2479ccbc&quot;, &quot;ref&quot;: &quot;my-feature-branch&quot;, &quot;remote&quot;: { &quot;clone_url&quot;: &quot;https://github.com/octocat/Hello-World.git&quot;, &quot;name&quot;: &quot;octocat&quot;, &quot;owner&quot;: &quot;Hello-World&quot; }, &quot;author&quot;: { &quot;name&quot;: &quot;The Octocat&quot;, &quot;login&quot;: &quot;octocat&quot;, &quot;email&quot;: &quot;octocat@nowhere.com&quot; } }, &quot;target&quot;: { &quot;sha&quot;: &quot;6dcb09b5b57875f334f61aebed695e2e4193db5e&quot;, &quot;ref&quot;: &quot;master&quot; } } } ``` These align much more closely with the GitHub data structures that we receive in our post commit hooks, and play nicely with Bitbucket and Gitlab as well. Note: a pull request contains addition details such as the source repository details, which are required for cloning pull requests in systems like Bitbucket or Gitlab that don't expose the pull request as refs in the target repo. ## BoltDB In order to support a more flexible data model we'll need to switch from SQLite to BoltDB (embedded key value store). This means we can continue to ship with a high-performance, embedded database. As an added benefit BoltDB is written in Go which removes our CGO dependency. See https://github.com/boltdb/bolt ## Plugin Other Databases Some teams may prefer to use alternative databases, such as Cassandra, MongoDB, Postgres, etc. Drone will provide the ability to create database plugins to swap out implementations. This allows teams to choose the database they are most equipped to support. Note that plugins **are not** compiled into the binary. We will provide a protocol spec that will allow Drone to interop with external databases. This protocol will be defined this week (April 12 2015). The folks at Cisco Cloud are interested in contributing a Cassandra implementation, which we can probably use as a reference implementation.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>133</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add missing parameters to repo count limiter func (#944)</MESSAGE>
+    <SHA>9f69a4fee1ce426414d2257023a48a368c71b243</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add repo and space store funcs for repo size and repo count (#957)</MESSAGE>
+      <SHA>38a2d43cbcb0e35b74a8a1667332ca6d8c042894</SHA>
+      <PATCHEDFILES>
+        <FILE>app/store/database.go</FILE>
+        <FILE>app/store/database/repo.go</FILE>
+        <FILE>app/store/database/space.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

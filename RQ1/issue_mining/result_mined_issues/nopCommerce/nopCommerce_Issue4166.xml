@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4166</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4166</ISSUEURL>
+  <TITLE>Allow storing DataProtectionKeys in an Azure blob storage container</TITLE>
+  <DESCRIPTION>nopCommerce version: latest Steps to reproduce the problem: Currently, data protection keys can only be stored on disk in App_Data or using Redis. .NET Core provides Microsoft.AspNetCore.DataProtection.AzureStorage which stores the key in Azure. https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/implementation/key-storage-providers?view=aspnetcore-3.0&amp;tabs=visual-studio#azure-storage It can connect using a connection string or AppAuthentication. We should provide support for both. The data protection key should live in a private container separate from the media container. I can work on implementing this if given the OK.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>57</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Replaced URL of Facebook and YouTube pages (should be HTTPS)</MESSAGE>
+    <SHA>e4752036d6f9d379ad2b58026bcf296f57a78f0d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4166 Allow DataProtectionKeys to be stored in Azure Blob Storage (#4219)</MESSAGE>
+      <SHA>f9113ce5446612f12c244c2cd099b94dfff7d0ae</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Configuration/NopConfig.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ServiceCollectionExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Nop.Web.Framework.csproj</FILE>
+        <FILE>src/Presentation/Nop.Web/appsettings.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#4166 Code refactoring (cherry picked from commit 525be0fa4e4b4f7cf8da22ebbfdb9e8d6efd815d)</MESSAGE>
+      <SHA>b4c0499670efea3c368b48e7a2ba09fb038e0335</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Caching/NopCachingDefaults.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Caching/RedisCacheManager.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Configuration/NopConfig.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Security/NopDataProtectionDefaults.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ServiceCollectionExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/appsettings.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

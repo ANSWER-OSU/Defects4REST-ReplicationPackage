@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>448</ISSUENO>
+  <ISSUEURL>https://github.com/louislam/uptime-kuma/issues/448</ISSUEURL>
+  <TITLE>Reset Admin password not working</TITLE>
+  <DESCRIPTION>As described here https://github.com/louislam/uptime-kuma/wiki/Reset-Password-via-CLI docker exec -it &lt;container name&gt; npm run reset-password gives me an error: &gt; uptime-kuma@1.6.2 reset-password /app &gt; node extra/reset-password.js == Uptime Kuma Reset Password Tool == Loading the database (node:55148) UnhandledPromiseRejectionWarning: KnexTimeoutError: Knex: Timeout acquiring a connection. The pool is probably full. Are you missing a .transacting(trx) call? at Client_SQLite3.acquireConnection (/app/node_modules/knex/lib/client.js:295:26) at async Runner.ensureConnection (/app/node_modules/knex/lib/execution/runner.js:259:28) at async Runner.run (/app/node_modules/knex/lib/execution/runner.js:30:19) at async RedBeanNode.normalizeRaw (/app/node_modules/redbean-node/dist/redbean-node.js:566:22) at async RedBeanNode.exec (/app/node_modules/redbean-node/dist/redbean-node.js:530:9) at async Function.connect (/app/server/database.js:67:9) at async /app/extra/reset-password.js:15:5 (Use `node --trace-warnings ...` to show where the warning was created) (node:55148) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 599) (node:55148) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.</DESCRIPTION>
+  <REPONAME>uptime-kuma</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #436 from nbvcxz/running_non-root_user Docker entrypoint to run the application as non-root user</MESSAGE>
+    <SHA>3fc2ba3d76f722416c23d69d5ef3455452ca9d9f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix reset-password (#448)</MESSAGE>
+      <SHA>b0e9c5bcb466fa5ec5a9ec2014b9b8b6c1cc5dae</SHA>
+      <PATCHEDFILES>
+        <FILE>extra/reset-password.js</FILE>
+        <FILE>server/database.js</FILE>
+        <FILE>server/server.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix reset-password (#448) (cherry picked from commit b0e9c5bcb466fa5ec5a9ec2014b9b8b6c1cc5dae)</MESSAGE>
+      <SHA>34c0fa59a86e998620c23ebef5aa81c25f884051</SHA>
+      <PATCHEDFILES>
+        <FILE>extra/reset-password.js</FILE>
+        <FILE>server/database.js</FILE>
+        <FILE>server/server.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

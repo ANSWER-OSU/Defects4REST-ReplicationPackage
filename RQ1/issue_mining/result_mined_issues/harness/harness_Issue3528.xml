@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3528</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/3528</ISSUEURL>
+  <TITLE>using pipelines with Docker-in-Docker samples, Error: mount: permission denied</TITLE>
+  <DESCRIPTION>Using pipelines with Docker-in-Docker samples Error: mount: permission denied, Could not mount /sys/kernel/security. Error Log: ``` Certificate request self-signature ok subject=CN=docker:dind server /certs/server/cert.pem: OK Certificate request self-signature ok subject=CN=docker:dind client /certs/client/cert.pem: OK iptables v1.8.10 (legacy) mount: permission denied (are you root?) Could not mount /sys/kernel/security. AppArmor detection and --privileged mode might break. mount: permission denied (are you root?) ``` ### Steps To Reproduce OS: Ubuntu aarch64 GNU/Linux pipeline: ``` kind: pipeline spec: stages: - type: ci spec: volumes: - name: dockersock spec: {} type: temp steps: - name: dind type: background spec: container: image: docker:dind privileged: true mount: - name: dockersock path: /var/run - name: test type: run spec: container: docker:dind mount: - name: dockersock path: /var/run script: |- sleep 5 docker ps -a ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [CDE-669]: Integrating gitspaces and infra providers with delete spaces functionality. (#3558) * Addressing review comments. * Rebasing * Removing reliance on space paths for gitspace service. * feat: [CDE-669]: Integrating gitspaces and infra providers with soft delete spaces functionality.</MESSAGE>
+    <SHA>b0de915ae23c18c36916c78f6e0cecca35a24983</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: [CODE-2947]: add posthog (#3528) * changed the object-verb separator char * change env var name for the PH API key * add events for repo import and migrate * rename pr &quot;open&quot; to &quot;create&quot;&quot; * resolve pr comments * add posthog</MESSAGE>
+      <SHA>d708de0730fc4475c289da915f260c8246f8550f</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/controller/githook/post_receive.go</FILE>
+        <FILE>app/api/controller/migrate/controller.go</FILE>
+        <FILE>app/api/controller/migrate/create_repo.go</FILE>
+        <FILE>app/api/controller/migrate/wire.go</FILE>
+        <FILE>app/api/controller/repo/controller.go</FILE>
+        <FILE>app/api/controller/repo/create.go</FILE>
+        <FILE>app/api/controller/repo/default_branch.go</FILE>
+        <FILE>app/api/controller/repo/purge.go</FILE>
+        <FILE>app/api/controller/repo/soft_delete.go</FILE>
+        <FILE>app/api/controller/repo/update.go</FILE>
+        <FILE>app/api/controller/repo/update_public_access.go</FILE>
+        <FILE>app/events/repo/events.go</FILE>
+        <FILE>app/events/repo/events_repo.go</FILE>
+        <FILE>app/services/importer/repository.go</FILE>
+        <FILE>app/services/importer/wire.go</FILE>
+        <FILE>app/services/metric/collector_job.go</FILE>
+        <FILE>app/services/metric/common.go</FILE>
+        <FILE>app/services/metric/event_handlers.go</FILE>
+        <FILE>app/services/metric/posthog.go</FILE>
+        <FILE>app/services/metric/values.go</FILE>
+        <FILE>app/services/metric/wire.go</FILE>
+        <FILE>app/services/wire.go</FILE>
+        <FILE>cmd/gitness/wire_gen.go</FILE>
+        <FILE>go.mod</FILE>
+        <FILE>go.sum</FILE>
+        <FILE>types/config.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

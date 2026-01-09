@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3232</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3232</ISSUEURL>
+  <TITLE>Do not allow to assign &quot;Vendor&quot; and &quot;Administrator&quot; roles to a customer</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.10 Steps to reproduce the problem: We encountered a bug in nopCommerce 4.10. By default in nopCommerce you cannot assign Vendor and Administrator roles to a customer but in 4.10 when I edit admin user and assign vendor role to it and then save, it saves successfully. But after this, it does not let me go inside admin part in nopCommerce.. I had to go to database and remove vendor role association from admin user and then login again.. Source: https://www.nopcommerce.com/boards/t/52224/nopcommerce-410-bug-fixes-and-improvements.aspx?p=6#210410 The issue is that how we implemented new navigation properties in 4.10. We invoke &quot;customer.IsVendor()&quot; and &quot;customer.IsAdmin()&quot; methods but actually &quot;CustomerCustomerRoleMappings&quot; property is not syncronized with &quot;CustomerRoles&quot; ones (cached). We jsut have to reset &quot;_customerRoles&quot; variable when we update &quot;CustomerCustomerRoleMappings&quot; property</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>23</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#3246 Added cache cleaning for product images</MESSAGE>
+    <SHA>71bccc40e25c536b6613cd83cae23ea5766094f2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3232 Fixed problem with syncronization &quot;CustomerCustomerRoleMappings&quot; with &quot;CustomerRoles&quot;</MESSAGE>
+      <SHA>18034dd8681a6ca3d695ddcbc08c3d47a6a01663</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Customers/Customer.cs</FILE>
+        <FILE>src/Tests/Nop.Core.Tests/Domain/Customers/CustomerTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3232 Fixed problem with syncronization &quot;CustomerCustomerRoleMappings&quot; with &quot;CustomerRoles&quot;</MESSAGE>
+      <SHA>3f01cf4964a41c424a6891b04dd56a20132c4ecc</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Customers/Customer.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/CustomerRegistrationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/CustomerService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Gdpr/GdprService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Installation/CodeFirstInstallationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderProcessingService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/CustomerController.cs</FILE>
+        <FILE>src/Tests/Nop.Core.Tests/Domain/Customers/CustomerTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3232 Fixed customer class</MESSAGE>
+      <SHA>739d92b63667e40509f2c375485234f8dfca991d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Customers/Customer.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>31015</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/31015</ISSUEURL>
+  <TITLE>Can't add payment through API since upgrade to 20.0</TITLE>
+  <DESCRIPTION>### Bug Hello, Since upgrade to version 20.0, I can't add a payment to an invoice through the API. I'm getting this error: `{ &quot;error&quot;: { &quot;code&quot;: 400, &quot;message&quot;: &quot;Bad Request: Payment error : Incorrect datetime value: '' for column `dolibarr`.`llx_paiement`.`datep` at row 1&quot; }, &quot;debug&quot;: { &quot;source&quot;: &quot;api_invoices.class.php:1516 at call stage&quot;, &quot;stages&quot;: { &quot;success&quot;: [ &quot;get&quot;, &quot;route&quot;, &quot;negotiate&quot;, &quot;authenticate&quot;, &quot;validate&quot; ], &quot;failure&quot;: [ &quot;call&quot;, &quot;message&quot; ] } } }` The request has not changed since months: `CallDOAPI(&quot;POST&quot;, &quot;/invoices/$facid/payments&quot;, json_encode(array(&quot;datepaye&quot;=&gt;time(), &quot;paymentid&quot;=&gt;6, &quot;closepaidinvoices&quot;=&gt;&quot;yes&quot;, &quot;accountid&quot;=&gt;5)));` time() returns the expected value (tried with another value and I'm getting the &quot;Bad Request: Invalid value specified for `datepaye`. Expecting unix timestamp, such as 1726652385&quot; error). The function called is: `$paymentobj-&gt;datepaye = dol_stringtotime($datepaye);` In version 19.0.3, it was: `$paymentobj-&gt;datepaye = $datepaye;` ### Dolibarr Version 20.0.0 ### Environment PHP 8.2.23 ### Environment Database MariaDB 10.11.6 ### Steps to reproduce the behavior and expected behavior See above ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix phpstan (#31018) * fix phpstan * fix phpstan * fix phpstan</MESSAGE>
+    <SHA>a586e2c85172de07a719ab6d5bde58d3d9cf278f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #31015 (#31035) datepaye is already a timestamp</MESSAGE>
+      <SHA>357186722d39b8a01280adcd58823180e94ca1c1</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/compta/facture/class/api_invoices.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>FIX #31015</MESSAGE>
+      <SHA>37e9d4b69e12e2be444ced3473220ff76f799113</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/compta/facture/class/api_invoices.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Better fix for #31015</MESSAGE>
+      <SHA>0819a57345423d252cebb6dcefae70e0c26a5e71</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/compta/facture/class/api_invoices.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

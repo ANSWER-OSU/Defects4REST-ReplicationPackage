@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8769</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/8769</ISSUEURL>
+  <TITLE>[ui_next] Catastrophic failure if changing between resources in wizard after filtering/sorting on wizard steps</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY Catastrophic failure if changing between resources in wizard after filtering/sorting on wizard steps. This affects at least the organization add user/team modal, but may be application wide. ##### ENVIRONMENT * AWX version: d14fa93ce9776754a3524fb9c526a42e79cb7421 ##### STEPS TO REPRODUCE 1. Go to Org 'Access' tab 2. Open Add User Wizard 3. Click on User for step 1 4. Create a filtered/sorted view for step 2 5. Click on the resource step to change from User to Team ##### EXPECTED RESULTS Can add a user role, search, change your mind, add team role instead. ##### ACTUAL RESULTS ##### ADDITIONAL INFORMATION ``` Uncaught Error: sortKey must match one of the column keys, check the sortColumns prop passed to &lt;Sort /&gt; at a.value (Sort.jsx:109) at Ra (react-dom.production.min.js:182) at Pa (react-dom.production.min.js:181) at vs (react-dom.production.min.js:263) at cl (react-dom.production.min.js:246) at sl (react-dom.production.min.js:246) at Qs (react-dom.production.min.js:239) at react-dom.production.min.js:123 at t.unstable_runWithPriority (scheduler.production.min.js:19) at Hi (react-dom.production.min.js:122) ```</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>120</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9637 from mabashian/ouiaids Adds ouiaId's to various buttons SUMMARY @tiagodread @unlikelyzero @one-t @akus062381 this will likely break something because I changed some existing ouia-id's so that they are a consistent structure. ^^ Let's let one of them merge this I also removed an unused component Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt; Reviewed-by: John Hill &lt;johill@redhat.com&gt;</MESSAGE>
+    <SHA>f11bc1154a3bba1cab6124fb5e4c19c454026df4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9563 from AlexSCorey/8769-WizardFailure Fixes crashing wizard, and adds error handle on adding role SUMMARY This addresses #8769. It also adds error handling if there is some sort of request error during the submit request. ISSUE TYPE Bugfix Pull Request COMPONENT NAME UI AWX VERSION ADDITIONAL INFORMATION Reviewed-by: John Mitchell &lt;None&gt;</MESSAGE>
+      <SHA>597435141d5a40337e69b76e6fd895cb1c1d0fbb</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/components/AddRole/AddResourceRole.jsx</FILE>
+        <FILE>awx/ui_next/src/components/AddRole/AddResourceRole.test.jsx</FILE>
+        <FILE>awx/ui_next/src/components/ResourceAccessList/ResourceAccessList.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

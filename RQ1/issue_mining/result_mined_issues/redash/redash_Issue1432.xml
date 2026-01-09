@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1432</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/1432</ISSUEURL>
+  <TITLE>Delete visualization with many series fails with '414 Request-URI Too Long'</TITLE>
+  <DESCRIPTION>### Issue Summary Delete visualization fails with '414 Request-URI Too Long' when the visualization has a lot (100+) of series. apache log shows: &gt; DELETE /api/visualizations/7?created_at=2016-11-23T15:32:17.259565%2B09:00&amp;description=&amp;name=Time&amp;options=%7B%22showlegend%22:false,%22yAxis%22:%5B%7B%22title%22:%7B%22text%22:%22%22%7D,%22rangeMax%22:1499999999999,%22type%22:%22datetime%22,%22rangeMin%22:1471000000000,%22series%22:%7B%22stacking%22:null%7D,%22globalSeriesType%22:%22line%22,%22sortX%22:true,%22seriesOptions%22:%7B%221%22:%7B%22zIndex%22:0,%22index%22:0,%22type%22:%22line%22,%22yAxis%22:0%7D,%222%22:%7B%22zIndex%22:1,%22index%22:0,%22type%22:%22line%22,%22yAxis%22:0%7D,%223%22:%7B%22zIndex%22:2,%22index%22:0,%22type%22:%22line%22,.......... Do we need all the `options` in GET parameter? ### Technical details: * Redash Version: 12.0 * Browser/OS: Chrome/Win8 * How did you install Redash: Bitnami+git clone</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>25</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Close #1451: render safe HTML in table output</MESSAGE>
+    <SHA>a16b333b93e4f39bdc7f2928f3df40360d047b43</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #1432: delete visualization sends full visualization body instead of only id</MESSAGE>
+      <SHA>e4f13253e5d246646a2812233fe9f6e76cfa3622</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/components/dynamic-table/index.js</FILE>
+        <FILE>client/app/pages/queries/source-view.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #1487 from getredash/v1fixes Fix #1432: delete visualization sends full visualization body instead…</MESSAGE>
+      <SHA>9e5944d56302d6ab1d50b843621e16bd3de1d485</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/components/dynamic-table/index.js</FILE>
+        <FILE>client/app/pages/queries/source-view.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

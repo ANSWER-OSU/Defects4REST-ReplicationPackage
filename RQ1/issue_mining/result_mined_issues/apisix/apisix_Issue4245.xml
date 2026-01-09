@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4245</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/4245</ISSUEURL>
+  <TITLE>discuss: ARM on macOS compatible</TITLE>
+  <DESCRIPTION>### Issue description When I installed the dependencies for APISIX, I executed the following command ```shell brew install openresty/brew/openresty luarocks lua@5.1 etcd curl git ``` then clone the apisix source code and run `make deps`, I get the following error ``` mkdir -p ~/.luarocks luarocks --lua-dir=/usr/local/opt/lua@5.1 config --local variables.OPENSSL_LIBDIR /opt/homebrew/Cellar/openresty/1.19.3.1_1/openssl/lib Error: Lua interpreter not found at /usr/local/opt/lua@5.1 You may want to specify a different Lua version with --lua-version make: *** [deps] Error 1 ``` I think it has something to do with this PR: https://github.com/Homebrew/install/pull/373 on ARM machines, homebrew changes the default location of the installed programs from `/usr/local` to `/opt/homebrew` I changed this line of code https://github.com/apache/apisix/blob/045c35140fa5b21d1f447030be3769eea3f13e14/Makefile#L36 to ```makefile LUAROCKS=luarocks --lua-dir=/opt/homebrew/opt/lua@5.1 ``` so that I could continue to execute `make deps` then there was another error ``` Error: Failed installing dependency: https://luarocks.org/luasec-0.9-1.src.rock - Could not find header file for OPENSSL No file openssl/ssl.h in /opt/homebrew/Cellar/openresty/1.19.3.1_1/openssl/include You may have to install OPENSSL in your system and/or pass OPENSSL_DIR or OPENSSL_INCDIR to the luarocks command. Example: luarocks install luasec OPENSSL_DIR=/usr/local make: *** [deps] Error 1 ``` I found that openresty-openssl111 was installed in `/opt/homebrew/Cellar/openresty-openssl111/1.1.1k_1` so I created a soft link ```shell ln -s /opt/homebrew/Cellar/openresty-openssl111/1.1.1k_1 /opt/homebrew/Cellar/openresty/1.19.3.1_1/openssl ``` finally installed! **I would like to discuss whether to start supporting ARM on macOS compatible?** ### Environment Bug report without environment information will be ignored or closed. * apisix version (cmd: `apisix version`): master * OS (cmd: `uname -a`): Darwin MBP.lan 20.4.0 Darwin Kernel Version 20.4.0: Thu Apr 22 21:46:41 PDT 2021; root:xnu-7195.101.2~1/RELEASE_ARM64_T8101 arm64 * OpenResty / Nginx version (cmd: `nginx -V` or `openresty -V`): nginx version: openresty/1.19.3.1 built by clang 12.0.5 (clang-1205.0.22.9) built with OpenSSL 1.1.1k 25 Mar 2021 * etcd version, if have (cmd: run `curl http://127.0.0.1:9090/v1/server_info` to get the info from server-info API): {&quot;etcdserver&quot;:&quot;3.4.15&quot;,&quot;etcdcluster&quot;:&quot;3.4.0&quot;} * luarocks version, if the issue is about installation (cmd: `luarocks --version`): /opt/homebrew/bin/luarocks 3.7.0 LuaRocks main command-line interface</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: avoid 'using uninitialized &quot;from_error_page&quot; variable' (#4253) Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+    <SHA>5a1fa2784e0f6511da75018a48b85fd9ebc5a1cf</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix #4245 use the environment variable HOMEBREW_PREFIX to determine the location of the brew command installer</MESSAGE>
+      <SHA>2c86c0ef66c81466f6498e63b91a050cd4d40bf7</SHA>
+      <PATCHEDFILES>
+        <FILE>Makefile</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

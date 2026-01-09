@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120816</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120816</ISSUEURL>
+  <TITLE>[CI] XPackRestIT class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7265 / openjdk23_entitlements_false_checkpart3_java-matrix](https://gradle-enterprise.elastic.co/s/vedo6ompzclac) - [elasticsearch-periodic #7265 / openjdk21_checkpart3_java-fips-matrix](https://gradle-enterprise.elastic.co/s/rgzwdkbfzyido) - [elasticsearch-pull-request #65067 / part-3](https://gradle-enterprise.elastic.co/s/ywlqs77c7j2o2) - [elasticsearch-pull-request #65063 / part-3](https://gradle-enterprise.elastic.co/s/l27vgqubicwhg) - [elasticsearch-pull-request #65052 / part-3](https://gradle-enterprise.elastic.co/s/cyhmbuls7rpku) - [elasticsearch-pull-request #65024 / part-3](https://gradle-enterprise.elastic.co/s/l67z7jh7awoii) - [elasticsearch-pull-request #65002 / part-3](https://gradle-enterprise.elastic.co/s/fsxrbgkfv5wfe) - [elasticsearch-pull-request #64995 / part-3](https://gradle-enterprise.elastic.co/s/eaxxwmcuhxdio) - [elasticsearch-pull-request #64993 / part-3](https://gradle-enterprise.elastic.co/s/vksnaygzhuz3i) - [elasticsearch-pull-request #64993 / rest-compatibility](https://gradle-enterprise.elastic.co/s/mlv7ijhbenaoo) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:yamlRestTest&quot; --tests &quot;org.elasticsearch.xpack.test.rest.XPackRestIT.test {p0=transform/transforms_stats/Test get multiple transform stats}&quot; -Dtests.seed=CBA84393FF6F7BEB -Dtests.jvm.argline=&quot;-Des.entitlements.enabled=false&quot; -Dtests.locale=dje-Latn-NE -Dtests.timezone=NZ -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.test.rest.XPackRestIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.xpack.test.rest.XPackRestIT),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: 1 active tasks found: reindex-data-stream[c] Z5DSWTCvQlmEYMlAX7c3AQ:27890 cluster:32 persistent 1743081869979 13:24:29 12.9m 127.0.0.1 yamlRestTest-0 Reindexing data stream my-data-stream expected:&lt;0&gt; but was:&lt;1&gt; ``` **Issue Reasons:** - [main] 40 failures in class org.elasticsearch.xpack.test.rest.XPackRestIT (5.3% fail rate in 751 executions) - [main] 6 failures in step rest-compatibility (2.9% fail rate in 206 executions) - [main] 27 failures in step part-3 (13.9% fail rate in 194 executions) - [main] 3 failures in step part3 (5.3% fail rate in 57 executions) - [main] 3 failures in pipeline elasticsearch-periodic (42.9% fail rate in 7 executions) - [main] 28 failures in pipeline elasticsearch-pull-request (13.1% fail rate in 213 executions) - [main] 3 failures in pipeline elasticsearch-intake (5.2% fail rate in 58 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>60</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Special handling for invalid global labels for APM agent (#120795)</MESSAGE>
+    <SHA>190720d2d89266f8ca033a006d596970d73d75d4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.test.rest.XPackRestIT org.elasticsearch.xpack.test.rest.XPackRestIT #120816</MESSAGE>
+      <SHA>10e96bde5d6515bc6cfdcb37e619189fb45021c2</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

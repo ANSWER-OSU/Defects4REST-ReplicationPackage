@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>12199</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/12199</ISSUEURL>
+  <TITLE>[Performance] Apply START_TASK_LIMIT to queries of pending jobs in the task manager</TITLE>
+  <DESCRIPTION>&lt;!-- Issues are for **concrete, actionable bugs and feature requests** only - if you're just asking for debugging help or technical support, please use: - http://web.libera.chat/?channels=#ansible-awx - https://groups.google.com/forum/#!forum/awx-project We have to limit this because of limited volunteer time to respond to issues! --&gt; ##### ISSUE TYPE - Feature Idea ##### SUMMARY &lt;!-- Briefly describe the problem or desired enhancement. --&gt; In the theme of small changes to do to the task manager for scalability. We introduced START_TASK_LIMIT as a way to prevent the task manager from timing out. Problem is, we only respect this on the &quot;back end&quot; of what the task manager is doing -- when it is starting the jobs https://github.com/ansible/awx/blob/a86740c3c9eaf9a551e850341d8adec5a3962dd5/awx/main/scheduler/task_manager.py#L220-L224 We still are exposed to the risk that everything on the &quot;front end&quot; may be slow (initializing data). Specifically, START_TASK_LIMIT is attempting to limit how many `pending` jobs we process in a single run of the task manager. By that logic, we should limit how many pending jobs we fetch from the database. For the moment, while we continue to have a single task manager with a global lock we must collect ALL running and waiting jobs. But we can limit how many pending jobs we collect, and I argue that although this means 2 sets of queries (one for pending jobs, with a limit of START_TASK_LIMIT) and one for running/waiting jobs, we will get a net win for users with many jobs (who are the ones that need this feature) This is because we KNOW that right now the max number of running/waiting jobs pratically is 1024, because that is the maximum number of databse connections we tend to configure. Of course Controller doens't actually know this is a practical limit but that is a different bug. BUT...there can be many thousands of pending jobs. And it is in that particular case that we are exposed to the risk that START_TASK_LIMIT will not sufficiently limit how slow the task manager is, and customers can end up with the task manager timing out anyway. ### Implementation notes We query the pending, waiting, and running jobs in https://github.com/ansible/awx/blob/a86740c3c9eaf9a551e850341d8adec5a3962dd5/awx/main/scheduler/task_manager.py#L89-L101 The approach we want to try is to split this into 2 sets of queries, one that does pending jobs with a limit https://docs.djangoproject.com/en/4.0/topics/db/queries/#limiting-querysets-1 We probably want to make sure we get the oldest pending jobs, e.g. order by created (ascending). The other set of queries for running/waiting jobs would remain essentially unchanged. ### Notes I'd like to warn that for small number of jobs doing 2 sets of queries may actually be slower. But the net result for large number of pending jobs should be that the task manager is not **increasingly slower** as the # of jobs scales, _as it is now_. E.g. the slowest we would get is when we have START_TASK_LIMIT # of pending jobs and the functional max # of running/waiting jobs which is 1024 (based on our database connections config). So this feature is largely to enable _scaling the number of jobs awx can handle w/o tipping over_ at a potential small cost of scheduling them a tiny bit slower in each round of the task manager. Best way to test this would be to test how long it takes to schedule thousands of jobs over a a longer period of time, because hypothetically we will amortize the cost of the two sets of queries over more frequent, lighter weight runs of the task manager.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>85</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #12185 from AlexSCorey/8690-SortSchedulesByType Adds sorting by type on the schedules list</MESSAGE>
+    <SHA>0787cb4fc218158bcd1da662af8e4ca4bda9aafc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>apply start task limit to queries of pending jobs The idea behind this is that it will limit exactly how slow the task manager will get as the number of pending jobs grows. For https://github.com/ansible/awx/issues/12199 Also add timing logs to functions in task_manager. (Enabled when DEBUG log level set)</MESSAGE>
+      <SHA>8e276aadd30087e258fccb26b4b316ccb86c483e</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/scheduler/task_manager.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>apply start task limit to queries of pending jobs The idea behind this is that it will limit exactly how slow the task manager will get as the number of pending jobs grows. For https://github.com/ansible/awx/issues/12199 Also add timing logs to functions in task_manager. (Enabled when DEBUG log level set)</MESSAGE>
+      <SHA>d7547dcf965a33382eb0520a035099182d461494</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/scheduler/task_manager.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>apply start task limit to queries of pending jobs The idea behind this is that it will limit exactly how slow the task manager will get as the number of pending jobs grows. For https://github.com/ansible/awx/issues/12199</MESSAGE>
+      <SHA>a3b8bd6c8798887b8499e4b68d967646d5438759</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/scheduler/task_manager.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>apply start task limit to queries of pending jobs The idea behind this is that it will limit exactly how slow the task manager will get as the number of pending jobs grows. For https://github.com/ansible/awx/issues/12199</MESSAGE>
+      <SHA>c843d2815a44d31c4889ca64d35af17b3a9cd709</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/scheduler/task_manager.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>apply start task limit to queries of pending jobs The idea behind this is that it will limit exactly how slow the task manager will get as the number of pending jobs grows. For https://github.com/ansible/awx/issues/12199 For pending jobs, order by job_explanation to prevent issue where the task manager may stall out if there are more &quot;unstartable&quot; jobs in pending than START_TASK_LIMIT. This relies on the fact that we set job explanation for jobs that are blocked on capacity and also for jobs blocked on allow_simultaneous. For waiting and running jobs, we get all of them anyway so no need to order them</MESSAGE>
+      <SHA>18560197ab068bc5d017af4c47c858072ca6d4ef</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/scheduler/task_manager.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

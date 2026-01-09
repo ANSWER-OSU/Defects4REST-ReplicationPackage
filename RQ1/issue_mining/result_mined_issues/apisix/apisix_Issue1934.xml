@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1934</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/1934</ISSUEURL>
+  <TITLE>bug: redirect plugin redirects all the time when https</TITLE>
+  <DESCRIPTION>### Issue description redirect plugin redirects all the time when https ### Environment * apisix version (cmd: `apisix version`): 1.4 * OS:centos8 ### Minimal test code / Steps to reproduce the issue 1.api config redirects plugins 2.Triggers an http access and redirect to https 3.Subsequent https accesses are still being redirected ### What's the actual result? (including assertion message &amp; call stack if applicable) Subsequent https accesses are still being redirected ### What's the expected result? https normal access rediretc plugin modify conf.uri and conf.ret_code, result in Subsequent access conf.uri and conf.ret_code always not nil</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>bugfix: passive health check seems never provide a healthy report (#1918) Fix #1640</MESSAGE>
+    <SHA>2ba023114085f85c1ada0a8c54279fad4514fda2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>bugfix: avoid to modify the original plugin conf. (#1958) relate issue: #1934 , #1956</MESSAGE>
+      <SHA>8fc2af56aefe70c539f8ba181374ae80a657ab08</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/openid-connect.lua</FILE>
+        <FILE>apisix/plugins/redirect.lua</FILE>
+        <FILE>apisix/plugins/uri-blocker.lua</FILE>
+        <FILE>apisix/plugins/zipkin.lua</FILE>
+        <FILE>t/plugin/uri-blocker.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

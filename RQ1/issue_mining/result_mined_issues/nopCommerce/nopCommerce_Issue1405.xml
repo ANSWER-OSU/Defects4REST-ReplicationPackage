@@ -1,0 +1,94 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1405</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/1405</ISSUEURL>
+  <TITLE>Multiple rating values (configurable)</TITLE>
+  <DESCRIPTION>Right now customers can set only one rating (from 1 to 5) and write a review. Allow a store owner to configure multiple rating lists (name, description). For example, - Accuracy rating (indicate how close the product's condition received by customer is the same as its described in detail page) - Quality rating (indicate the product quality) - etc By default we'll have only one rating value (like it's already done now) Right now we have reviews settings in admin area &gt; configuration &gt; settings &gt; catalog settings. Maybe, we should create a new page for reviews (e.g. Prouct review settings)? Or just leave all of them on the catalog settings (IMHO, a little bit bloated) and add a new grid with multiple rating lists to them as well? Let's discuss. Also update admin area &gt; catalog &gt; product reviews page. Display all values in the grid. And don't forget about product review details page (in admin area) Let's discuss and decide how we should calculate total product rating (affect perfomance). Maybe, if we have multiple ratings, then store only one &quot;average&quot; one for product review. This way we won't have to change much logic when calculating current product ratings and reviews. And entered ones will be stored in a new table</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>774</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#1897 Further changes on &quot;Refactoring of controllers in the admin area&quot;</MESSAGE>
+    <SHA>71f279c08d0bd58947acd2190610438f94307009</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#1405 Added opportunity add multiple rating values</MESSAGE>
+      <SHA>f765c80fdc910e572e5dfecb1a1e7d1e19033368</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Catalog/ProductReview.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Domain/Catalog/ProductReviewReviewTypeMapping.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Domain/Catalog/ReviewType.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Mapping/Catalog/ProductReviewReviewTypeMappingMap.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Mapping/Catalog/ReviewTypeMap.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/IReviewTypeService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/ReviewTypeService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Installation/CodeFirstInstallationService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/AdminWidgetZones.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/DependencyRegistrar.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/ProductReviewController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/ReviewTypeController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Extensions/MappingExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/IProductReviewModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/IReviewTypeModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/ProductReviewModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/ReviewTypeModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/SettingModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Infrastructure/Mapper/AdminMapperConfiguration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Catalog/ProductReviewModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Catalog/ProductReviewReviewTypeMappingListModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Catalog/ProductReviewReviewTypeMappingModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Catalog/ProductReviewReviewTypeMappingSearchModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Catalog/ReviewTypeListModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Catalog/ReviewTypeLocalizedModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Catalog/ReviewTypeModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Catalog/ReviewTypeSearchModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Settings/CatalogSettingsModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Validators/Catalog/ReviewTypeValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/ProductReview/_CreateOrUpdate.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/ProductReview/_ProductReviewReviewTypeMappingList.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/ReviewType/Create.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/ReviewType/Edit.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/ReviewType/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/ReviewType/_CreateOrUpdate.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Setting/Catalog.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/ProductController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/IProductModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/ProductModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Infrastructure/DependencyRegistrar.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Models/Catalog/CustomerProductReviewModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Models/Catalog/ProductReviewModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Themes/DefaultClean/Content/css/styles.css</FILE>
+        <FILE>src/Presentation/Nop.Web/Themes/DefaultClean/Content/css/styles.rtl.css</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Product/CustomerProductReviews.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Product/ProductReviews.cshtml</FILE>
+        <FILE>src/Tests/Nop.Data.Tests/TestHelper.cs</FILE>
+        <FILE>upgradescripts/4.00-4.10 (under development)/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#1405 Further changes on review rating functionallity</MESSAGE>
+      <SHA>8aad66482dab71df9ccfa423166d6d97ab5e1272</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Data/Mapping/Catalog/ProductReviewReviewTypeMappingMap.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Mapping/Catalog/ReviewTypeMap.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Mapping/NopMappingDefaults.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/ReviewTypeController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/ReviewTypeModelFactory.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#1405 Further changes. Change the implementation of the calculation of the average review rating.</MESSAGE>
+      <SHA>44598dfebcaea7c6cae63b347e73a64ead4815b4</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Infrastructure/Mapper/AdminMapperConfiguration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/ProductController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/IProductModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/ProductModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Models/Catalog/ProductReviewModel.cs</FILE>
+        <FILE>upgradescripts/4.00-4.10 (under development)/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>417</ISSUENO>
+  <ISSUEURL>https://github.com/WP-API/WP-API/issues/417</ISSUEURL>
+  <TITLE>Hide &quot;username&quot;, &quot;First Name&quot; &amp; &quot;Last Name&quot; for embedded/non-auth'd author responses?</TITLE>
+  <DESCRIPTION>When dealing with themes, it's general practice to show the user's name as the value clearly labeled as &quot;Display name publicly as&quot;: ![image](https://cloud.githubusercontent.com/assets/442115/3804240/860115f2-1c23-11e4-8ba9-64d738838869.png) The default JSON response for embedded users (e.g. authors in posts) includes all of these values: ``` json {&quot;author&quot;: { &quot;ID&quot;: 4, &quot;username&quot;: &quot;kadamnation&quot;, &quot;name&quot;: &quot;K. Adam White&quot;, &quot;first_name&quot;: &quot;K. Adam&quot;, &quot;last_name&quot;: &quot;White&quot;, &quot;nickname&quot;: &quot;KAdam&quot;, &quot;slug&quot;: &quot;kadamnation&quot;, &quot;URL&quot;: &quot;http://www.mydomain.com&quot;, &quot;avatar&quot;: &quot;http://0.gravatar.com/avatar/6cd1cf6de05952505a165425efaf06b4?s=96&quot;, &quot;description&quot;: &quot;Some short biographical description about the user&quot;, &quot;registered&quot;: &quot;2012-06-17T15:41:32+00:00&quot;, &quot;meta&quot;: { &quot;links&quot;: { &quot;self&quot;: &quot;http://www.mydomain.com/wp-json/users/4&quot;, &quot;archives&quot;: &quot;http://www.mydomain.com/wp-json/users/4/posts&quot; } } }} ``` Of these, we discussed at WCNYC that we may want to limit the information about a user that we expose. I propose limiting embedded response data (and responses for non-authenticated requests, see #297) to these values: - **name**: (the name explicitly selected for display on the site) - **slug**: The public slug representation of the user, for use with routes etc - **nickname**: If this gets populated, I think it'd make sense to expose it since I've seen it commonly used on things like author archive pages This would mean we would _omit_ the following: - **username**: Even though this is probably the same as slug (need to confirm this), we probably don't want to give away internal account names where possible - **first_name**: Superseded by _name_ - **last_name**: Superseded by _name_ - We also discussed removing **registered**, unless anyone can think of a compelling reason why it should be in the public responses</DESCRIPTION>
+  <REPONAME>WP-API</REPONAME>
+  <TIMEDIFFERENCEDAYS>289</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix copypasta in falsey embed context check_user_data test</MESSAGE>
+    <SHA>96a95305b4c89944765d4eead9d8c33186e9336d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add the url and description fields to the users embed response. This follows the logic laid out in #417.</MESSAGE>
+      <SHA>dbfe9e799dac9633b29f8343b835285e9b01d756</SHA>
+      <PATCHEDFILES>
+        <FILE>lib/endpoints/class-wp-rest-users-controller.php</FILE>
+        <FILE>tests/test-rest-users-controller.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17910</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/17910</ISSUEURL>
+  <TITLE>macOS installer pkg fails with command-line install</TITLE>
+  <DESCRIPTION>### Issue Description TL; DR: attempts to upgrade Podman by installing the current release package on macOS fail. Attempting to install the amd64-4.4.3 package for macOS from the command line fails, when run as root, or via sudo: ``` (as root) # installer -pkg podman-installer-macos-amd64-4.4.3.pkg -target / installer: Package name is Podman 4.4.3 installer: Upgrading at base path / installer: The upgrade failed. (The Installer encountered an error that caused the installation to fail. Contact the software manufacturer for assistance. An error occurred while running scripts from the package “podman-installer-macos-amd64-4.4.3.pkg”.) ``` ``` (via sudo) $ sudo installer -pkg podman-installer-macos-amd64-4.4.3.pkg -target / installer: Package name is Podman 4.4.3 installer: Upgrading at base path / installer: The upgrade failed. (The Installer encountered an error that caused the installation to fail. Contact the software manufacturer for assistance. An error occurred while running scripts from the package “podman-installer-macos-amd64-4.4.3.pkg”.) ``` The issue is in the postinstall script: ``` #!/bin/bash set -e echo &quot;/opt/podman/bin&quot; &gt; /etc/paths.d/podman-pkg ln -s /opt/podman/bin/podman-mac-helper /opt/podman/qemu/bin/podman-mac-helper ln -s /opt/podman/bin/gvproxy /opt/podman/qemu/bin/gvproxy /opt/podman/bin/podman-mac-helper install ``` Specifically, `/opt/podman/bin/podman-mac-helper install`. This tool fails a variety of ways. First: if an older version of Podman is already installed: ``` bash-3.2# /opt/podman/bin/podman-mac-helper install Error: helper is already installed, uninstall first ``` Instead of failing, it should either upgrade the tool, or do the uninstall/install dance. But just failing the entire install seems like a bad idea. I've also seen it fail with ``` Error: unexpected root user ``` ### Steps to reproduce the issue Steps to reproduce the issue 1. Install an older release of Podman 2. Download and install the current release: sudo installer -pkg podman-installer-macos-amd64-4.4.3.pkg -target / ### Describe the results you received ``` installer: The upgrade failed. (The Installer encountered an error that caused the installation to fail. Contact the software manufacturer for assistance. An error occurred while running scripts from the package “podman-installer-macos-amd64-4.4.3.pkg”.) ``` ### Describe the results you expected Successful install ### podman info output ```yaml podman 4.4.3, macOS, amd64 (x86_64) ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details Additional environment details ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>podman-mac-helper: install: do not error if already installed Since commit bae07b6ea2 we exit with 1 one errors. This caused problem for the mac installer which fails because of the error now. If the helper is already installed do not treat this as hard error and just log it instead. Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+    <SHA>4f3cbf15cfdb979aec3abb2915d4a1649f3b3507</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>macos pkginstaller: do not fail when podman-mac-helper fails Make sure we can install podman even when the podman-mac-helper install command fails. This used to be the behavior but commit bae07b6ea2 caused the regression because the binary now returns 1 as exit code on errors. [NO NEW TESTS NEEDED] I am not sure if we can test the install step in CI. Fixes #17910 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>64ba82601a9ae67d97e694e365f76bd3341ac722</SHA>
+      <PATCHEDFILES>
+        <FILE>contrib/pkginstaller/scripts/postinstall</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>macos pkginstaller: do not fail when podman-mac-helper fails Make sure we can install podman even when the podman-mac-helper install command fails. This used to be the behavior but commit bae07b6ea2 caused the regression because the binary now returns 1 as exit code on errors. [NO NEW TESTS NEEDED] I am not sure if we can test the install step in CI. Fixes #17910 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>c856dd10d7b79b6440232aa5e3e7f8750fa4a076</SHA>
+      <PATCHEDFILES>
+        <FILE>contrib/pkginstaller/scripts/postinstall</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

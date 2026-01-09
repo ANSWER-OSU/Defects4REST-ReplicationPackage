@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5770</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/5770</ISSUEURL>
+  <TITLE>[AWX 9.1.1] Missing &quot;which&quot; command and link to /usr/bin/python</TITLE>
+  <DESCRIPTION>&lt;!--- The Ansible community is highly committed to the security of our open source projects. Security concerns should be reported directly by email to security@ansible.com. For more information on the Ansible community's practices regarding responsible disclosure, see https://www.ansible.com/security --&gt; ##### ISSUE TYPE &lt;!--- Pick one below and delete the rest: --&gt; - Bug Report ##### COMPONENT NAME &lt;!-- Pick the area of AWX for this issue, you can have multiple, delete the rest: --&gt; - API - Installer ##### SUMMARY In my playbooks I use the command ``` which python ```` to check, where the python interpreter resides on the machine. In current AWX container (`awx_task`) the `which` command is missing. After adding it manually I checked again and found, that `which` cannot find any `python` binary within the standart $PATH. I need to symlink `/usr/bin/python2.7` to `/usr/bin/python` additionally. ##### ENVIRONMENT * AWX version: 9.1.1 * AWX install method: docker on linux * Ansible version: 2.9 * Operating System: CentOS * Web Browser: n/a ##### STEPS TO REPRODUCE Install AWX and run a playbook containing: ``` - name: Detect python path command: which python ``` ##### EXPECTED RESULTS Ansible finds python in one of the $PATH directories ##### ACTUAL RESULTS ``` &quot;msg&quot;: &quot;Child start failed: [Errno 2] No such file or directory. Command was: /usr/bin/python -c \&quot;import codecs,os,sys;_=codecs.decode;exec(_(_(\\\&quot;[OMITTED]\\\&quot;.encode(),\\\&quot;base64\\\&quot;),\\\&quot;zip\\\&quot;))\&quot;&quot;, ``` ##### ADDITIONAL INFORMATION n/a</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #5843 from wenottingham/intentionally-adding-database-queries Bypass memcached to get last gather time to avoid reading cached values. Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>6395d646810f3f81e1482e9b57d9fb489e5bcf97</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add packages missing from base images Related: - https://github.com/ansible/awx/issues/5770 - https://github.com/ansible/awx/issues/5724</MESSAGE>
+      <SHA>3f57061509824bb5dcda7171bfa916215f5f57dd</SHA>
+      <PATCHEDFILES>
+        <FILE>installer/roles/image_build/templates/Dockerfile.j2</FILE>
+        <FILE>tools/docker-compose/Dockerfile</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add packages missing from base images Related: - https://github.com/ansible/awx/issues/5770 - https://github.com/ansible/awx/issues/5724</MESSAGE>
+      <SHA>9897097eacf6a05c352417fa221a8fab3e911a0b</SHA>
+      <PATCHEDFILES>
+        <FILE>installer/roles/image_build/templates/Dockerfile.j2</FILE>
+        <FILE>tools/docker-compose/Dockerfile</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

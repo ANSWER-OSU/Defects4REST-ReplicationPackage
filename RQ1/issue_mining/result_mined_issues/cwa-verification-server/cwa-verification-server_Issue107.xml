@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>107</ISSUENO>
+  <ISSUEURL>https://github.com/corona-warn-app/cwa-verification-server/issues/107</ISSUEURL>
+  <TITLE>Unnecessary complexity</TITLE>
+  <DESCRIPTION>## Current Implementation * Source File: VerificationController.java * Line(s): 225-229 if ((appSession.get().getHashedGuid() == null) &amp;&amp; (appSession.get().getTeleTanHash() != null)) { return ResponseEntity.ok(new TestResult(LabTestResult.POSITIVE.getTestResult())); } String hash = appSession.get().getHashedGuid() != null ? appSession.get().getHashedGuid() : appSession.get().getTeleTanHash(); ## Suggested Enhancement \ | GUIDhash NULL | GUIDhash Not Null ---------------------- | --------------------------------| ------------------------- TeleTANHash Null | 229 hash = TeleTanHash = Null | 229 hash = GUID-Hash TeleTANHash Not Null | Return 226 | 229 hash = GUIDHash 229 should read ? appSession.get().getHashedGuid() : null; as an alternative one should instead check for the AppSessionSourceOfTrust as a selection mechanism - preferable everywhere where this is done by GUIDHash our TeleTanHash comparisons with null. And it would be useful to implement custom setter and getters for hashed_guid and teleTanHash in VerificationAppSession. In these a verification should take place that the hashed value and the sourceOfTrust are consistent. ## Expected Benefits Code is more transparent</DESCRIPTION>
+  <REPONAME>cwa-verification-server</REPONAME>
+  <TIMEDIFFERENCEDAYS>24</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Reference Create Registration Token for E06.01 (#41) docs: updated use case E06.01 Co-authored-by: Maximilian Laue &lt;65015235+mlaue-tech@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>ec860d42949c5660a35a06e8c5e6d5bf0b4c7d9e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix Issue #107 Unnecessary complexity (#165) Fix: Add switch for appsession source of trust in /testresult and fixed some typos Co-authored-by: Andreas Scheibal &lt;andreas.scheibal@t-systems.com&gt; Co-authored-by: Andreas Scheibal &lt;andreas.scheibal@t-systems.com&gt;</MESSAGE>
+      <SHA>8853d7466c7a29353afea07d7d39c99401b8f64d</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/architecture-overview.md</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/controller/VerificationController.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/domain/VerificationTan.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/model/AuthorizationRole.java</FILE>
+        <FILE>src/test/java/app/coronawarn/verification/service/EntitiesCleanupServiceTest.java</FILE>
+        <FILE>src/test/java/app/coronawarn/verification/service/HashingServiceTest.java</FILE>
+        <FILE>src/test/java/app/coronawarn/verification/service/JwtServiceTest.java</FILE>
+        <FILE>src/test/java/app/coronawarn/verification/service/TanServiceTest.java</FILE>
+        <FILE>src/test/java/app/coronawarn/verification/service/TestResultServerServiceTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

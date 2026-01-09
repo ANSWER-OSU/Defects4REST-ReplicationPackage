@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>297</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/297</ISSUEURL>
+  <TITLE>Cannot Add/Edit record properly when table has composite keys</TITLE>
+  <DESCRIPTION>**Please enter the following details** Node: **v12.22.1** Arch: **x64** Platform: **linux** Docker: **true** Database: **mysql2** ProjectOnRootDB: **true** RootDB: **mysql2** PackageVersion: **0.9.35** **Steps To Reproduce** Cannot add record properly 1. Go to Tables, and create new table with several keys as mark as PK 2. Create Gallery View 3. on Gallery View Page, Click on Add new Row Button 4. The primary key is not editable, cannot type anything to the field Cannot Edit record properly 1. Try add new row using Grid View, it will shows some error since there are multiple PKs but continue to fill all of the column 2. Then after finish adding all of the column, ensure that the data saved 3. Try edit one of the value, and save row 4. It will shows 400 error **Expected behavior** On Add new Row it is expected that user could type in the PK field, since it is not auto increment On Edit row, it is expected that user could save the changes properly **Screenshots** on Add new Row, the PK fields seems to have attribute disabled ![Screen Shot 2021-06-23 at 12 56 17](https://user-images.githubusercontent.com/1900931/123043390-6bf30f80-d422-11eb-942a-d298f7b31e2a.png) on Edit Row ![Screen Shot 2021-06-23 at 09 15 27](https://user-images.githubusercontent.com/1900931/123043481-89c07480-d422-11eb-9f72-99f8a875d886.png) error logs ``` PUT /nc/shipment_QoHo/api/v1/shipping_price/jne,regs,1,2 400 280 - 2.371 ms Error: Undefined binding(s) detected when compiling UPDATE. Undefined column(s): [service_type, destination_code, origin_code] query: update `xa2__shipping_price` set `service_type` = ?, `price` = ? where `courier` = ? and `service_type` = ? and `destination_code` = ? and `origin_code` = ? at QueryCompiler_MySQL.toSQL (/usr/src/app/node_modules/knex/lib/query/compiler.js:98:13) at Builder.toSQL (/usr/src/app/node_modules/knex/lib/query/builder.js:97:44) at Builder.Target.toQuery (/usr/src/app/node_modules/knex/lib/interface.js:8:21) at o._run (/usr/src/app/docker/main.js:2:294853) at o.updateByPk (/usr/src/app/docker/main.js:2:281531) at async r.update (/usr/src/app/docker/main.js:2:264326) PUT /nc/shipment_QoHo/api/v1/shipping_price/jne,regs,1,2 400 293 - 4.237 ms (node:8) Warning: Label 'fetch user' already exists for console.time() (node:8) Warning: Label 'fetch user' already exists for console.time() ``` Join our discord : https://discord.gg/5RgZmkW for realtime help.</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>234</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #296 from nocodb/fix/pw0421 test: PW fixes for hub [0421]</MESSAGE>
+    <SHA>16e97e34de123fcbb25d6486fbb02c9f4e658a24</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #297 from nocodb/test/pw0422 test: pw fixes for hub [0422]</MESSAGE>
+      <SHA>f237c8a86a9d2928fc4e2acd201244dc79639b74</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/assets/style.scss</FILE>
+        <FILE>packages/nc-gui/components/general/PreviewAs.vue</FILE>
+        <FILE>packages/nc-gui/components/workspace/Menu.vue</FILE>
+        <FILE>tests/playwright/pages/Account/AppStore.ts</FILE>
+        <FILE>tests/playwright/pages/Dashboard/Grid/index.ts</FILE>
+        <FILE>tests/playwright/pages/Dashboard/Kanban/index.ts</FILE>
+        <FILE>tests/playwright/pages/Dashboard/TreeView.ts</FILE>
+        <FILE>tests/playwright/pages/Dashboard/ViewSidebar/index.ts</FILE>
+        <FILE>tests/playwright/pages/Dashboard/common/Toolbar/index.ts</FILE>
+        <FILE>tests/playwright/pages/Dashboard/common/WorkspaceMenu/index.ts</FILE>
+        <FILE>tests/playwright/pages/Dashboard/index.ts</FILE>
+        <FILE>tests/playwright/tests/db/rolesCreate.spec.ts</FILE>
+        <FILE>tests/playwright/tests/db/rolesPreview.spec.ts</FILE>
+        <FILE>tests/playwright/tests/db/viewForm.spec.ts</FILE>
+        <FILE>tests/playwright/tests/db/viewFormShareSurvey.spec.ts</FILE>
+        <FILE>tests/playwright/tests/db/viewGridShare.spec.ts</FILE>
+        <FILE>tests/playwright/tests/db/viewKanban.spec.ts</FILE>
+        <FILE>tests/playwright/tests/db/viewMap.spec.ts</FILE>
+        <FILE>tests/playwright/tests/db/viewMenu.spec.ts</FILE>
+        <FILE>tests/playwright/tests/db/views.spec.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

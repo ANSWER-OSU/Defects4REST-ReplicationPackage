@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>22312</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/22312</ISSUEURL>
+  <TITLE>SLOW_GET_HELPER renders bad time in the logs</TITLE>
+  <DESCRIPTION>The get helper has the following code: ```js if (totalMs &gt; threshold) { logging[logLevel](new errors.HelperWarning({ message: `{{#get}} helper took ${totalMs}ms to complete`, code: 'SLOW_GET_HELPER', errorDetails: { api: `${controllerName}.${action}`, apiOptions, returnedRows: returnedRowsCount } }), { time: totalMs }); } ``` This makes the time field to be the time used to query the database. When using this data in the logger, it's used as the logging time. For example: ``` 2025-03-03T06:50:58.612491147Z [1970-01-01 00:00:00] WARN {{#get}} helper took 231ms to complete ``` Because the query took 213ms, the field time is parsed as a few milliseconds after the epoc time. _Originally posted by @gilmrjc in https://github.com/TryGhost/Ghost/issues/20427#issuecomment-2693444276_</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Moved ActivityPub flag to public beta (#22381) ref https://linear.app/ghost/issue/AP-853/ - in preparation for the ActivityPub public beta launch, moved the AP feature flag from Alpha to Public Beta</MESSAGE>
+    <SHA>6539b56d830a1c0c52116f231d78f4c4ac5cdb03</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed incorrect time in SLOW_GET_HELPER logs fixes https://github.com/TryGhost/Ghost/issues/22312 - we were passing `time` as a field to the logging library, but that library will interpret it as the time that the log occured - instead, we can just pass it into the errorDetails to avoid this</MESSAGE>
+      <SHA>6d4a4904edb7dc231043dd093962004cae5ad5a3</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/frontend/helpers/get.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed incorrect time in SLOW_GET_HELPER logs fixes https://github.com/TryGhost/Ghost/issues/22312 - we were passing `time` as a field to the logging library, but that library will interpret it as the time that the log occured - instead, we can just pass it into the errorDetails to avoid this</MESSAGE>
+      <SHA>9f8984f23f3772faffd8e263bbc1cdc58172636c</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/frontend/helpers/get.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

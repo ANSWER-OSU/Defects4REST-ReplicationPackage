@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7272</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/7272</ISSUEURL>
+  <TITLE>Rehash DB Migration throw an error when processing elasticsearch queries</TITLE>
+  <DESCRIPTION>### Issue Summary The command `docker compose run --rm server manage db upgrade` throws an error when migrating elasticsearch queries from redash 10.1.0 to latest stable version 25.1.0. ### Steps to Reproduce 1. Run `docker compose run --rm server manage db upgrade` 2. An error appears: ```[2025-01-10 13:14:35,185][PID:1][INFO][xmlschema] Resource 'XMLSchema.xsd' is already loaded [2025-01-10 13:14:36,026][PID:1][INFO][alembic.runtime.migration] Context impl PostgresqlImpl. [2025-01-10 13:14:36,026][PID:1][INFO][alembic.runtime.migration] Will assume transactional DDL. [2025-01-10 13:14:36,054][PID:1][INFO][alembic.runtime.migration] Running upgrade 89bc7873a3e0 -&gt; fd4fc850d7ea, Convert user details to jsonb and move user profile image url into details column [2025-01-10 13:14:36,077][PID:1][INFO][alembic.runtime.migration] Running upgrade fd4fc850d7ea -&gt; 1038c2174f5d, Make case insensitive hash of query text [2025-01-10 13:14:36,435][PID:1][INFO][alembic.runtime.migration] Running upgrade 1038c2174f5d -&gt; 7ce5925f832b, create sqlalchemy_searchable expressions [2025-01-10 13:14:36,443][PID:1][INFO][alembic.runtime.migration] Running upgrade 7ce5925f832b -&gt; 7205816877ec, change type of json fields from varchar to json [2025-01-10 13:14:50,910][PID:1][INFO][alembic.runtime.migration] Running upgrade 7205816877ec -&gt; 9e8c841d1a30, fix_hash Updating hash for query 3 from be97932b23b1bed2b983949e63023fe9 to e0227632e57bf0f88784416c1ea8a65e Query 5 has parameters. Hash might be incorrect. Updating hash for query 5 from eb33e755efdbb127df8f6b5032246aca to ad5a52bac3147148583d8e09a28f683e Updating hash for query 110 from 9a4ece6db120184bab3aff83645707ae to 9a4ece6db120184bab3aff83645707ae Updating hash for query 12 from 7d263214d4cec29081ef91edfdf448d4 to 7d263214d4cec29081ef91edfdf448d4 Query 65 has parameters. Hash might be incorrect. Updating hash for query 65 from 967c317f21bb44b82d4104eb6f697b79 to 0e0c9271ffcfcdbe8528e4ce0067e1bf Updating hash for query 288 from cf18af4b3fe6d73ec4d58d4c50a0c725 to cf18af4b3fe6d73ec4d58d4c50a0c725 Updating hash for query 268 from c5ad543ef6eace5f76ec74661a29e520 to 5d1041bbcc6049fb8a937114e564e567 Query 6 has parameters. Hash might be incorrect. Updating hash for query 6 from d71e116599c5d29df7bd9bd876212071 to dec7db5dce4bfeea317d7225950f53d8 Query 77 has parameters. Hash might be incorrect. Updating hash for query 77 from e9624fe1defccfa314f44524e8172b71 to e459e961cdc17210cfd5caac94e3f808 Traceback (most recent call last): File &quot;/app/manage.py&quot;, line 9, in &lt;module&gt; manager() File &quot;/usr/local/lib/python3.10/site-packages/click/core.py&quot;, line 1130, in __call__ return self.main(*args, **kwargs) File &quot;/usr/local/lib/python3.10/site-packages/click/core.py&quot;, line 1055, in main rv = self.invoke(ctx) File &quot;/usr/local/lib/python3.10/site-packages/click/core.py&quot;, line 1657, in invoke return _process_result(sub_ctx.command.invoke(sub_ctx)) File &quot;/usr/local/lib/python3.10/site-packages/click/core.py&quot;, line 1657, in invoke return _process_result(sub_ctx.command.invoke(sub_ctx)) File &quot;/usr/local/lib/python3.10/site-packages/click/core.py&quot;, line 1404, in invoke return ctx.invoke(self.callback, **ctx.params) File &quot;/usr/local/lib/python3.10/site-packages/click/core.py&quot;, line 760, in invoke return __callback(*args, **kwargs) File &quot;/usr/local/lib/python3.10/site-packages/click/decorators.py&quot;, line 26, in new_func return f(get_current_context(), *args, **kwargs) File &quot;/usr/local/lib/python3.10/site-packages/flask/cli.py&quot;, line 357, in decorator return __ctx.invoke(f, *args, **kwargs) File &quot;/usr/local/lib/python3.10/site-packages/click/core.py&quot;, line 760, in invoke return __callback(*args, **kwargs) File &quot;/usr/local/lib/python3.10/site-packages/flask_migrate/cli.py&quot;, line 134, in upgrade _upgrade(directory, revision, sql, tag, x_arg) File &quot;/usr/local/lib/python3.10/site-packages/flask_migrate/__init__.py&quot;, line 95, in wrapped f(*args, **kwargs) File &quot;/usr/local/lib/python3.10/site-packages/flask_migrate/__init__.py&quot;, line 280, in upgrade command.upgrade(config, revision, sql=sql, tag=tag) File &quot;/usr/local/lib/python3.10/site-packages/alembic/command.py&quot;, line 403, in upgrade script.run_env() File &quot;/usr/local/lib/python3.10/site-packages/alembic/script/base.py&quot;, line 583, in run_env util.load_python_file(self.dir, &quot;env.py&quot;) File &quot;/usr/local/lib/python3.10/site-packages/alembic/util/pyfiles.py&quot;, line 95, in load_python_file module = load_module_py(module_id, path) File &quot;/usr/local/lib/python3.10/site-packages/alembic/util/pyfiles.py&quot;, line 113, in load_module_py spec.loader.exec_module(module) # type: ignore File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 883, in exec_module File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 241, in _call_with_frames_removed File &quot;/app/migrations/env.py&quot;, line 93, in &lt;module&gt; run_migrations_online() File &quot;/app/migrations/env.py&quot;, line 85, in run_migrations_online context.run_migrations() File &quot;&lt;string&gt;&quot;, line 8, in run_migrations File &quot;/usr/local/lib/python3.10/site-packages/alembic/runtime/environment.py&quot;, line 948, in run_migrations self.get_context().run_migrations(**kw) File &quot;/usr/local/lib/python3.10/site-packages/alembic/runtime/migration.py&quot;, line 627, in run_migrations step.migration_fn(**kw) File &quot;/app/migrations/versions/9e8c841d1a30_fix_hash.py&quot;, line 58, in upgrade new_hash = update_query_hash(record) File &quot;/app/migrations/versions/9e8c841d1a30_fix_hash.py&quot;, line 26, in update_query_hash query_runner = get_query_runner(record['type'], {}) if record['type'] else BaseQueryRunner({}) File &quot;/app/redash/query_runner/__init__.py&quot;, line 433, in get_query_runner return query_runner_class(configuration) File &quot;/app/redash/query_runner/elasticsearch.py&quot;, line 95, in __init__ if self.server_url[-1] == &quot;/&quot;: IndexError: string index out of range ``` We've isolated the issue to all elasticsearch queries. ### Technical details: * Redash Version: 25.1.0 * Browser/OS: Chrome/macOS * How did you install Redash: Docker</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Default to not allow HTML content in tables (#7064) Co-authored-by: Ezra Odio &lt;eodio@starfishstorage.com&gt;</MESSAGE>
+    <SHA>10ce280a96f54e935e903b92c0d872476c633a47</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #7272: Rehash DB Migration throw an error when processing elasticsearch queries</MESSAGE>
+      <SHA>f7b87444a1fa9ad89fdab4b90610973cecc723e1</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/query_runner/elasticsearch.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #7272: Rehash DB Migration throw an error when processing elasticsearch queries</MESSAGE>
+      <SHA>e2d2dee69f8828f43352f5cab7701993adadb002</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/query_runner/elasticsearch.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #7272: Error in rehash DB migration with Elasticsearch queries</MESSAGE>
+      <SHA>e20fac00f2ed578692dc1be882ac9fea23edd031</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/query_runner/elasticsearch.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #7272: Error in rehash DB migration with Elasticsearch queries</MESSAGE>
+      <SHA>e4b13a2dd6bdb32a089b4df7ecdbed6d4aee37c8</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/query_runner/elasticsearch.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix error in rehash DB migration with Elasticsearch queries (#7292) Fixes #7272</MESSAGE>
+      <SHA>d03a2c4096065198b5c315446e6dc8d4493a569f</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/query_runner/elasticsearch.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

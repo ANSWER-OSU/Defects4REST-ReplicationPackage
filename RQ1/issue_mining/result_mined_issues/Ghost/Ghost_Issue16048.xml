@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16048</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/16048</ISSUEURL>
+  <TITLE>Improve error message for YouTube videos that disabled embedding</TITLE>
+  <DESCRIPTION>### Issue Summary EDIT: I've figured out that this specific YouTube doesn't allow embedding. Maybe you could improve the error message shown to the user if you get the `Unauthorized` message (see below) so this causes less confusion. I have also updated the issue title to reflect this. I'm leaving the following text here as was to leave the context. --- In general, YouTube embedding works. But this specific returns an error: `https://www.youtube.com/watch?v=5f-JlzBuUUU`. ![CleanShot 2022-12-25 at 20 10 24@2x](https://user-images.githubusercontent.com/1881676/209479558-2388988d-e2db-4116-b7bb-0b56eef57e1f.jpg) The request is the following: ``` https://cassandradispatch.org/ghost/api/admin/oembed/?url=https://www.youtube.com/watch?v=5f-JlzBuUUU&amp;type=embed ``` The error response is the following: ```json { &quot;errors&quot;: [ { &quot;message&quot;: &quot;Internal server error, cannot read oembed.&quot;, &quot;context&quot;: &quot;invalid json response body at https://www.youtube.com/oembed?format=json&amp;url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D5f-JlzBuUUU reason: Unexpected token U in JSON at position 0&quot;, &quot;type&quot;: &quot;InternalServerError&quot;, &quot;details&quot;: null, &quot;property&quot;: null, &quot;help&quot;: null, &quot;code&quot;: null, &quot;id&quot;: &quot;e01223d0-8487-11ed-94c3-8df7a8a46270&quot;, &quot;ghostErrorCode&quot;: null } ] } ``` This is becaue the request `https://www.youtube.com/oembed?format=json&amp;url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D5f-JlzBuUUU` Returns `Unauthorized` as the response body. ### Steps to Reproduce 1. Create a new post (or edit an existing one) 2. Click the &quot;plus&quot; sign to add a new bloc and choose &quot;YouTube&quot; 3. Paste this URL: `https://www.youtube.com/watch?v=5f-JlzBuUUU` 4. See the error ### Ghost Version 5.26.3 ### Node.js Version 16.18.1 ### How did you install Ghost? Hetzner, Ubuntu 22.04.1 ### Database type MySQL 8 ### Browser &amp; OS version _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>130</TIMEDIFFERENCEDAYS>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Improved error message when embedding a Youtube video with embedding disabled fixes TryGhost/Ghost#16048 - When attempting to embed a Youtube video that has had embedding disabled by its owner/author, Ghost displayed a generic error message that didn't indicate the reason for the failed embed. - This change updated the error message when Youtube (or any provider) returns 401: Unauthorized to indicate that the owner of the resource has explicity disabled embedding.</MESSAGE>
+      <SHA>9fa054a28a8cf69b5b2072821252f0ea2c65215f</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/lib/koenig-editor/addon/components/koenig-card-embed.hbs</FILE>
+        <FILE>ghost/admin/lib/koenig-editor/addon/components/koenig-card-embed.js</FILE>
+        <FILE>ghost/core/core/server/services/twitter-embed.js</FILE>
+        <FILE>ghost/core/package.json</FILE>
+        <FILE>ghost/core/test/e2e-api/admin/oembed.test.js</FILE>
+        <FILE>ghost/oembed-service/lib/oembed-service.js</FILE>
+        <FILE>package.json</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Improved error message when embedding a Youtube video with embedding disabled fixes TryGhost/Ghost#16048 - When attempting to embed a Youtube video that has had embedding disabled by its owner/author, Ghost displayed a generic error message that didn't indicate the reason for the failed embed. - This change updated the error message when Youtube (or any provider) returns 401: Unauthorized to indicate that the owner of the resource has explicity disabled embedding.</MESSAGE>
+      <SHA>0e3055ef74e7b10962a0cfb55fdf2cde88a8d423</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/.lint-todo</FILE>
+        <FILE>ghost/admin/lib/koenig-editor/addon/components/koenig-card-embed.hbs</FILE>
+        <FILE>ghost/admin/lib/koenig-editor/addon/components/koenig-card-embed.js</FILE>
+        <FILE>ghost/core/core/server/services/twitter-embed.js</FILE>
+        <FILE>ghost/core/package.json</FILE>
+        <FILE>ghost/core/test/e2e-api/admin/oembed.test.js</FILE>
+        <FILE>ghost/oembed-service/lib/oembed-service.js</FILE>
+        <FILE>package.json</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Improved error message for unauthorized YouTube embeds refs TryGhost/Ghost#16048 - When attempting to embed a Youtube video that has had embedding disabled by its owner/author, Ghost displayed a generic error message that didn't indicate the reason for the failed emebed. - This change updated the error message when Youtube (or any provider) returns 401: Unauthorized to indicate that the owner of the resource has explicitly disabled embedding.</MESSAGE>
+      <SHA>cf57ceedbb0471780a8a0cb3d44f8caf011fe041</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/.lint-todo</FILE>
+        <FILE>ghost/admin/lib/koenig-editor/addon/components/koenig-card-embed.hbs</FILE>
+        <FILE>ghost/admin/lib/koenig-editor/addon/components/koenig-card-embed.js</FILE>
+        <FILE>ghost/core/core/server/services/oembed/twitter-embed.js</FILE>
+        <FILE>ghost/core/package.json</FILE>
+        <FILE>ghost/core/test/e2e-api/admin/oembed.test.js</FILE>
+        <FILE>ghost/oembed-service/lib/oembed-service.js</FILE>
+        <FILE>package.json</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Improved error message for unauthorized YouTube embeds refs TryGhost/Ghost#16048 - When attempting to embed a Youtube video that has had embedding disabled by its owner/author, Ghost displayed a generic error message that didn't indicate the reason for the failed emebed. - This change updated the error message when Youtube (or any provider) returns 401: Unauthorized to indicate that the owner of the resource has explicitly disabled embedding.</MESSAGE>
+      <SHA>d994940b1d8c0cf6fbbb48b6daf0b31632b63acb</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/.lint-todo</FILE>
+        <FILE>ghost/admin/lib/koenig-editor/addon/components/koenig-card-embed.hbs</FILE>
+        <FILE>ghost/admin/lib/koenig-editor/addon/components/koenig-card-embed.js</FILE>
+        <FILE>ghost/core/core/server/services/oembed/twitter-embed.js</FILE>
+        <FILE>ghost/core/package.json</FILE>
+        <FILE>ghost/core/test/e2e-api/admin/oembed.test.js</FILE>
+        <FILE>ghost/oembed-service/lib/oembed-service.js</FILE>
+        <FILE>package.json</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Improved error message for unauthorized YouTube embeds (#16374) refs TryGhost/Ghost#16048 - When attempting to embed a Youtube video that has had embedding disabled by its owner/author, Ghost displayed a generic error message that didn't indicate the reason for the failed emebed. - This change updated the error message when Youtube (or any provider) returns 401: Unauthorized to indicate that the owner of the resource has explicitly disabled embedding.</MESSAGE>
+      <SHA>27e4523aec3790d2280fbc267d178e145f8b9079</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/.lint-todo</FILE>
+        <FILE>ghost/admin/lib/koenig-editor/addon/components/koenig-card-embed.hbs</FILE>
+        <FILE>ghost/admin/lib/koenig-editor/addon/components/koenig-card-embed.js</FILE>
+        <FILE>ghost/core/core/server/services/oembed/twitter-embed.js</FILE>
+        <FILE>ghost/core/package.json</FILE>
+        <FILE>ghost/core/test/e2e-api/admin/oembed.test.js</FILE>
+        <FILE>ghost/oembed-service/lib/oembed-service.js</FILE>
+        <FILE>package.json</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

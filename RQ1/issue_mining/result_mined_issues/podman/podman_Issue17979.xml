@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17979</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/17979</ISSUEURL>
+  <TITLE>build: COPY hardlinks</TITLE>
+  <DESCRIPTION>Four in the last few weeks: ``` not ok 196 podman build COPY hardlinks ... $ podman build -t build_test /tmp/podman_bats.oooMRE/build-test ... $ podman run --rm build_test stat -c %i /test/Dockerfile 529493 $ podman run --rm build_test stat -c %i /test/hardlink1 529492 #/vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv #| FAIL: COPY hardlinks work #| expected: '529493' #| actual: '529492' #\^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ``` I don't see any equivalent failures in the buildah flake catalog. (Note: this is a podman-only test, not a buildah-bud test run in podman). I don't actually see any equivalent test in buildah, the closest is `bud-copy-dockerignore-hardlinks` but that tests `mount`, not running in the container itself. ### [sys] podman build COPY hardlinks * debian-12 : sys podman debian-12 rootless host * PR #17691 * [03-06 21:59](https://api.cirrus-ci.com/v1/artifact/task/4685993752657920/html/sys-podman-debian-12-rootless-host.log.html#t--00193) * PR #17386 * [03-09 08:40](https://api.cirrus-ci.com/v1/artifact/task/5961931027120128/html/sys-podman-debian-12-rootless-host.log.html#t--00193) * [03-08 18:20](https://api.cirrus-ci.com/v1/artifact/task/6192600298815488/html/sys-podman-debian-12-rootless-host.log.html#t--00193) * debian-12 : sys podman debian-12 rootless host sqlite * PR #17831 * [03-29 10:48](https://api.cirrus-ci.com/v1/artifact/task/4783294928125952/html/sys-podman-debian-12-rootless-host-sqlite.log.html#t--00196)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #17854 from matejvasek/enable-test-test_wait_next_exit test: enable test_wait_next_exit</MESSAGE>
+    <SHA>c8eb15114b2456ae508c87de47fd4d8bc82bc4fc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>system tests: address COPY-hardlink flake Possible cause: on Debian, maybe because of fuse-overlayfs(??), we sometimes see unexpected inode numbers. This PR tightens the test logic, so it runs one 'stat' command in only one podman invocation, then cross-checks multiple lines of output. I don't know if this will really fix the flake, but even if it doesn't, it will at least give us much more useful diagnostic output than before. And, as long as I'm in here, clean up test, remove duplication, make error messages distinct (hence more useful), and comment. Fixes: #17979 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>51b582d0ea42e618954ab78332e6866317bb2c29</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/070-build.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

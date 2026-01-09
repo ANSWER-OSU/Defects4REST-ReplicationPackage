@@ -1,0 +1,88 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2073</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/2073</ISSUEURL>
+  <TITLE>failed to create columns in tables with whitespaces at the end</TITLE>
+  <DESCRIPTION>**Steps To Reproduce** 1. Create a table &quot;abc &quot; (without double quote). &quot;abc 1&quot; works fine. 2. Create a column with any type 3. See the error Meta Sync: ![image](https://user-images.githubusercontent.com/35857179/169036990-9c1f5d17-94eb-4797-a362-5d404ccec767.png)</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: escape `?` in query Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+    <SHA>0783663ec76ff0166dbfd9fbb2117a782e6c52e4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: handle leading/trailing whitespace in table name re #2073 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>a9545350eeb996e37b5ae9999217932fee0c3a8d</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/components/project/spreadsheet/RowsXcDataTable.vue</FILE>
+        <FILE>packages/nc-gui/components/utils/DlgTableCreate.vue</FILE>
+        <FILE>packages/nocodb/src/lib/noco/meta/api/tableApis.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: handle leading/trailing whitespace in table name re #2073 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>a18eea97fc4205f0756057b4b3c36fd2b8e01c03</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/components/project/spreadsheet/RowsXcDataTable.vue</FILE>
+        <FILE>packages/nc-gui/components/utils/DlgTableCreate.vue</FILE>
+        <FILE>packages/nocodb/src/lib/noco/meta/api/tableApis.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Feat - Next release improvements and bug fixes (#2120) * refactor: include log lev3l in progress Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * feat: migration logs classification Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * fix: escape `?` in query Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: handle leading/trailing whitespace in table name re #2073 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: replace knex.raw replace `knex.raw` with `knex.from` since response is different for each client Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: created time &amp; modified time handling as dateTime datatype Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * fix: at import issue and data list api corrections Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: richtext migration support Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * fix: filter to ignore dateTime datatype along with date datatype Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * fix: replace all occurance of . from column name Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * refactoring Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: correction in read api Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: keep correct dtxp value Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: replace ? with _ during column name processing Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * refactoring Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: allow singleLineText to text type instead of tinytext Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * chore: start scripts for pg Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * refactor: thumbnail size increased by 3x Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * fix: exclude whitespace from table name and single select rendering correction Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: execute without extracting raw query in pg Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * chore: upgrade nc-help Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: replace special characters in column name with an _ Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * fix: handle duplicate table name Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: replace , in select options with a . Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * fix: for title, trim only spaces Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * fix: multiselect and single select import and rendering Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: unique column name generator Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: mmlist query correction Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * refactor: use common function for column/table name generation Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * refactor: type correction Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * chore: upgrade nc-help Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: form view field alias &amp; help text migration Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * fix: handle column name referenced by $ * refactor: rename system field, change its position during creation Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * fix: replace . in column name with _ Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * fix: skip rollup for checkbox Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * fix: replace title with id's in viewRowData APIs Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * chore: code cleanup and we are hiring button Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: ignore escaping . in alias Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * fix: headercell overflow Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: support presence of existing tables during migration Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * enhancement: add reach out here link Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: skip default value configuration during import Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * enhancement: webhook prefill default values Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: add missing component properties Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: missing gallery view cover image re # 2099 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * cache: fix view:[object Object] * fix: hide websocket button and other buttons from shared form view re # 2107 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: hide virtual columns which are not relevant in expanded form(add) Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: handle view cache based on returned value Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * fix: add galleryViewGet permission for roles Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * chore: upgrade nc-help Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * refactor: add beta label Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * refactor: add beta label Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * test/cypress: fix- corrections for baseShare UI change Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * test/cypress: fix view menu count Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; * fix: disable default autocomplete Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; * chore: update docs link Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt; Co-authored-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt; Co-authored-by: Wing-Kam Wong &lt;wingkwong.code@gmail.com&gt;</MESSAGE>
+      <SHA>5d44848cae979316f4a945d515672d82d5acc463</SHA>
+      <PATCHEDFILES>
+        <FILE>.run/Run NocoDB Sqlite.run.xml</FILE>
+        <FILE>packages/nc-gui/components/ProjectTabs.vue</FILE>
+        <FILE>packages/nc-gui/components/ProjectTreeView.vue</FILE>
+        <FILE>packages/nc-gui/components/import/ImportFromAirtable.vue</FILE>
+        <FILE>packages/nc-gui/components/project/spreadsheet/RowsXcDataTable.vue</FILE>
+        <FILE>packages/nc-gui/components/project/spreadsheet/components/CodeSnippet.vue</FILE>
+        <FILE>packages/nc-gui/components/project/spreadsheet/components/ExpandedForm.vue</FILE>
+        <FILE>packages/nc-gui/components/project/spreadsheet/components/FieldsMenu.vue</FILE>
+        <FILE>packages/nc-gui/components/project/spreadsheet/components/SpreadsheetNavDrawer.vue</FILE>
+        <FILE>packages/nc-gui/components/project/spreadsheet/components/VirtualHeaderCell.vue</FILE>
+        <FILE>packages/nc-gui/components/project/spreadsheet/components/cell/EnumCell.vue</FILE>
+        <FILE>packages/nc-gui/components/project/spreadsheet/components/cell/SetListCell.vue</FILE>
+        <FILE>packages/nc-gui/components/project/spreadsheet/components/editableCell/EditableAttachmentCell.vue</FILE>
+        <FILE>packages/nc-gui/components/project/spreadsheet/components/editableCell/EnumListEditableCell.vue</FILE>
+        <FILE>packages/nc-gui/components/project/spreadsheet/components/editableCell/SetListEditableCell.vue</FILE>
+        <FILE>packages/nc-gui/components/project/spreadsheet/views/GalleryView.vue</FILE>
+        <FILE>packages/nc-gui/components/project/tableTabs/webhook/HttpWebhook.vue</FILE>
+        <FILE>packages/nc-gui/components/project/tableTabs/webhook/WebhookEditor.vue</FILE>
+        <FILE>packages/nc-gui/components/project/tableTabs/webhook/WebhookSlider.vue</FILE>
+        <FILE>packages/nc-gui/components/utils/DlgTableCreate.vue</FILE>
+        <FILE>packages/nc-gui/helpers/weAreHiring.js</FILE>
+        <FILE>packages/nc-gui/layouts/default.vue</FILE>
+        <FILE>packages/nc-gui/pages/projects/index.vue</FILE>
+        <FILE>packages/noco-docs/nuxt.config.js</FILE>
+        <FILE>packages/noco-docs/plugins/nc.js</FILE>
+        <FILE>packages/nocodb-sdk/src/lib/formulaHelpers.ts</FILE>
+        <FILE>packages/nocodb-sdk/src/lib/sqlUi/SqlUiFactory.ts</FILE>
+        <FILE>packages/nocodb/package-lock.json</FILE>
+        <FILE>packages/nocodb/package.json</FILE>
+        <FILE>packages/nocodb/src/example/dockerRunPG.ts</FILE>
+        <FILE>packages/nocodb/src/lib/dataMapper/lib/sql/BaseModelSqlv2.ts</FILE>
+        <FILE>packages/nocodb/src/lib/noco-jobs/JobsMgr.ts</FILE>
+        <FILE>packages/nocodb/src/lib/noco-models/Model.ts</FILE>
+        <FILE>packages/nocodb/src/lib/noco-models/View.ts</FILE>
+        <FILE>packages/nocodb/src/lib/noco/Noco.ts</FILE>
+        <FILE>packages/nocodb/src/lib/noco/meta/api/columnApis.ts</FILE>
+        <FILE>packages/nocodb/src/lib/noco/meta/api/swagger/redocHtml.ts</FILE>
+        <FILE>packages/nocodb/src/lib/noco/meta/api/swagger/swaggerHtml.ts</FILE>
+        <FILE>packages/nocodb/src/lib/noco/meta/api/sync/helpers/job.ts</FILE>
+        <FILE>packages/nocodb/src/lib/noco/meta/api/sync/importApis.ts</FILE>
+        <FILE>packages/nocodb/src/lib/noco/meta/api/tableApis.ts</FILE>
+        <FILE>packages/nocodb/src/lib/noco/meta/helpers/formulaHelpers.ts</FILE>
+        <FILE>packages/nocodb/src/lib/noco/meta/helpers/webhookHelpers.ts</FILE>
+        <FILE>packages/nocodb/src/lib/utils/projectAcl.ts</FILE>
+        <FILE>packages/nocodb/src/lib/utils/weAreHiring.ts</FILE>
+        <FILE>scripts/cypress/integration/common/5a_user_role.js</FILE>
+        <FILE>scripts/cypress/integration/common/5b_preview_role.js</FILE>
+        <FILE>scripts/cypress/integration/common/6g_base_share.js</FILE>
+        <FILE>scripts/cypress/integration/spec/roleValidation.spec.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

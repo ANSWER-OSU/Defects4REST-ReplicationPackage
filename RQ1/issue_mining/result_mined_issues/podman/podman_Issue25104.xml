@@ -1,0 +1,268 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>25104</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/25104</ISSUEURL>
+  <TITLE>Podman may kill another processes instead of exec sessions</TITLE>
+  <DESCRIPTION>### Issue Description When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process I have seen a situation when podman-rm kills itself because pid was assigned to podman-rm itself :) The result is corrupted podman DB which doesn't allow to create container with same name, but also disallow to remove it because &quot;container has already been removed&quot;. Probably, fresher versions of podman can handle this and container will be possible to remove, idk But still, podman may kill processes it's not supposed to kill - this is the main issue We have forked version of podman, but looking through the code of latest one it seems to me the issue still exits. Such problems caused by pid reuse are quite uncommon, but they happen in large clusters The first idea I came up to fix this is to store process start timestamp as well as pid. Combination of (pid, start) is good enough to determine whether pid belongs to created exec session or not P.s. We use forked (long time ago) version, but it seems to me, problem is relevant for latest podman as well Thanks in advance ### Steps to reproduce the issue Steps to reproduce the issue 1. Create container 2. Exec into it 3. Kill exec session 4. Wait exec session pid to be reused by another process 5. Remove the container ### Describe the results you received if pid exists it will be killed by podman ### Describe the results you expected pid is not killed because it belongs to another process ### podman info output ```yaml version: forked from 1.6.2 ``` ### Podman in a container No ### Privileged Or Rootless Privileged ### Upstream Latest Release No ### Additional environment details Additional environment details ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>104</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #25879 from jankaluza/cloexec Fix the fd leaking to aardvark-dns.</MESSAGE>
+    <SHA>2a9b1499dbae2ada482990049ed5b02da4bf7b3e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds Container.generatePIDData(pid) which generates the PIDData string using the unix.NameToHandleAt if available. If not available, it fallbacks to start-time read from /proc/pid/stat file. - Adds Container.isSessionAlive(pid, pidData) to use this additional PIDData context to verify whether the pid is created by podman or not. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>958a98386d8fcb7876310a0ee25926e680bd44a3</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds Container.generatePIDData(pid) which generates the PIDData string using the unix.NameToHandleAt if available. If not available, it fallbacks to start-time read from /proc/pid/stat file. - Adds Container.isSessionAlive(pid, pidData) to use this additional PIDData context to verify whether the pid is created by podman or not. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>cd78208ea4dc808d54e69ee8147ae5b6175cef3d</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/container_internal_freebsd.go</FILE>
+        <FILE>libpod/container_internal_linux.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds Container.generatePIDData(pid) which generates the PIDData string using the unix.NameToHandleAt if available. If not available, it fallbacks to start-time read from /proc/pid/stat file. - Adds Container.isSessionAlive(pid, pidData) to use this additional PIDData context to verify whether the pid is created by podman or not. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>2ad99b0e4e2b046781cfdba2013f20e154a60df6</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/container_internal_freebsd.go</FILE>
+        <FILE>libpod/container_internal_linux.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds new package called pidhandle which implements the methods generating the PIDData, and killing the PID with the PIDData ensuring the right PID is killed by verifying the metadata. The new code uses pidfd_open and name_to_handle_at when available. It fallback to start-time read from /proc/pid/stat file otherwise. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>a1c2d2379e6a49f44b70454f7b4c528bfb87ec45</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds new package called pidhandle which implements the methods generating the PIDData, and killing the PID with the PIDData ensuring the right PID is killed by verifying the metadata. The new code uses pidfd_open and name_to_handle_at when available. It fallback to start-time read from /proc/pid/stat file otherwise. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>a32af9c2f250595006bbd6db0d5d8f43978ff3e1</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds new package called pidhandle which implements the methods generating the PIDData, and killing the PID with the PIDData ensuring the right PID is killed by verifying the metadata. The new code uses pidfd_open and name_to_handle_at when available. It fallback to start-time read from /proc/pid/stat file otherwise. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>1127797e5f960dc5ed27c340e2464f56dbdbdd9c</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds new package called pidhandle which implements the methods generating the PIDData, and killing the PID with the PIDData ensuring the right PID is killed by verifying the metadata. The new code uses pidfd_open and name_to_handle_at when available. It fallback to start-time read from /proc/pid/stat file otherwise. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>12f2835d7e852b96a1897baeba9a1b59cb89c775</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds new package called pidhandle which implements the methods generating the PIDData, and killing the PID with the PIDData ensuring the right PID is killed by verifying the metadata. The new code uses pidfd_open and name_to_handle_at when available. It fallback to start-time read from /proc/pid/stat file otherwise. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>067f84915bfba265435661fb2ee0cf962a77e6f9</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds new package called pidhandle which implements the methods generating the PIDData, and killing the PID with the PIDData ensuring the right PID is killed by verifying the metadata. The new code uses pidfd_open and name_to_handle_at when available. It fallback to start-time read from /proc/pid/stat file otherwise. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>4caf6df6413936d89f7fe3ecd1325d6374d4e3e9</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds new package called pidhandle which implements the methods generating the PIDData, and killing the PID with the PIDData ensuring the right PID is killed by verifying the metadata. The new code uses pidfd_open and name_to_handle_at when available. It fallback to start-time read from /proc/pid/stat file otherwise. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>b76801519fb376db4d2aa5046bfe81d369b51ba7</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds new package called pidhandle which implements the methods generating the PIDData, and killing the PID with the PIDData ensuring the right PID is killed by verifying the metadata. The new code uses pidfd_open and name_to_handle_at when available. It fallbacks to process start-time get using the gopsutil package. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>db6c5df73fa3081353ff82203066f2b4a562ebed</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds new package called pidhandle which implements the methods generating the PIDData, and killing the PID with the PIDData ensuring the right PID is killed by verifying the metadata. The new code uses pidfd_open and name_to_handle_at when available. It fallbacks to process start-time get using the gopsutil package. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>a9ed55eb2adbba4633d1a857e57d761479324fcf</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux_test.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_unix.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds new package called pidhandle which implements the methods generating the PIDData, and killing the PID with the PIDData ensuring the right PID is killed by verifying the metadata. The new code uses pidfd_open and name_to_handle_at when available. It fallbacks to process start-time get using the gopsutil package. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>48f6cb21ee1e8e58d57fe1924ee3e5022c6278e5</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux_test.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_unix.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds new package called pidhandle which implements the methods generating the PIDData, and killing the PID with the PIDData ensuring the right PID is killed by verifying the metadata. The new code uses pidfd_open and name_to_handle_at when available. It fallbacks to process start-time get using the gopsutil package. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>51b3f52a2fb3c4fedaaebda3353e010c4d0b8101</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux_test.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_unix.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds new package called pidhandle which implements the methods generating the PIDData, and killing the PID with the PIDData ensuring the right PID is killed by verifying the metadata. The new code uses pidfd_open and name_to_handle_at when available. It fallbacks to process start-time get using the gopsutil package. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>d24fda0ed7c743cc61ce5a1b919c28e31c4908d7</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux_test.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_unix.go</FILE>
+        <FILE>winmake.ps1</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds new package called pidhandle which implements the methods generating the PIDData, and killing the PID with the PIDData ensuring the right PID is killed by verifying the metadata. The new code uses pidfd_open and name_to_handle_at when available. It fallbacks to process start-time get using the gopsutil package. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>5f09295c4a0efc6ad87b1917e3e4f94d8365b098</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux_test.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_unix.go</FILE>
+        <FILE>winmake.ps1</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds new package called pidhandle which implements the methods generating the PIDData, and killing the PID with the PIDData ensuring the right PID is killed by verifying the metadata. The new code uses pidfd_open and name_to_handle_at when available. It fallbacks to process start-time get using the gopsutil package. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>95b3d5bb203818b63cbbfab998bb2e5cea359165</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux_test.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_unix.go</FILE>
+        <FILE>winmake.ps1</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds new package called pidhandle which implements the methods generating the PIDData, and killing the PID with the PIDData ensuring the right PID is killed by verifying the metadata. The new code uses pidfd_open and name_to_handle_at when available. It fallbacks to process start-time get using the gopsutil package. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>fb0d2c2931dc6dc59dd9c9e097957c0b89284064</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux_test.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_unix.go</FILE>
+        <FILE>winmake.ps1</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds new package called pidhandle which implements the methods generating the PIDData, and killing the PID with the PIDData ensuring the right PID is killed by verifying the metadata. The new code uses pidfd_open and name_to_handle_at when available. It fallbacks to process start-time get using the gopsutil package. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>f7a367a0e6c432790b948573b2390ac05d92c0b3</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux_test.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_unix.go</FILE>
+        <FILE>winmake.ps1</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds new package called pidhandle which implements the methods generating the PIDData, and killing the PID with the PIDData ensuring the right PID is killed by verifying the metadata. The new code uses pidfd_open and name_to_handle_at when available. It fallbacks to process start-time get using the gopsutil package. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>6df986dfc0e16557ba553c6d2a98345caa8c5596</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux_test.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_unix.go</FILE>
+        <FILE>winmake.ps1</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds new package called pidhandle which implements the methods generating the PIDData, and killing the PID with the PIDData ensuring the right PID is killed by verifying the metadata. The new code uses pidfd_open and name_to_handle_at when available. It fallbacks to process start-time get using the gopsutil package. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>d9883358bc5edc3b6678f2eab7fed30d35754fcd</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux_test.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_unix.go</FILE>
+        <FILE>winmake.ps1</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Verify the ExecSession pid before killing it. When container is being removed, podman iterates through its exec sessions and checks whether exec session pid is still alive. The problem is that the pid can be reused for other processes, so that it may not belong to exec session. In this scenario podman may kill another process This commit prevents it by doing following changes: - Adds the PIDData string to ExecSession struct. This string is used to store additional context for a PID to later verify that the PID killed by the podman is really the one started by it. - Adds new package called pidhandle which implements the methods generating the PIDData, and killing the PID with the PIDData ensuring the right PID is killed by verifying the metadata. The new code uses pidfd_open and name_to_handle_at when available. It fallbacks to process start-time get using the gopsutil package. Fixes: #25104 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>f98d497ded381ecd1d514001d5f921d8b9718ba2</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_linux_test.go</FILE>
+        <FILE>pkg/pidhandle/pidhandle_unix.go</FILE>
+        <FILE>winmake.ps1</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2417</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2417</ISSUEURL>
+  <TITLE>+refs/pull/&lt;ID&gt;/merge: not update after rebase and force push</TITLE>
+  <DESCRIPTION>We have a problem with force-push. The essence can be understood from the correspondence with github support. --------------- Greetings! Github have a bug when we doing rebase and force push. With 90% of cases the special branch `+refs/pull/&lt;ID&gt;/merge:` are not updated or update after some long time. The live example of that situation we have prepared at https://github.com/abak-press/apress-demands/pull/256 Right now it is reproduced in our CI and locally. Latest commit in a PR have ref de9ed321028b3338ec19689274ee596234c08d24 But doing this locally right now (and about during 30 minutes): ``` $ git init Initialized empty Git repository in /home/merkushin/code/tmp/demands-remove/.git/ $ git fetch --no-tags origin +refs/pull/256/merge: $ git checkout -qf FETCH_HEAD $ git log -2 commit 16aaa6d3f72a64ceb45d6dc96bf467cdc85bbf0a (HEAD) Merge: d8993a90 81018f75 Date: Tue May 22 11:38:28 2018 +0000 Merge 81018f751a953fc3458c1c67327a7c0f63a94d86 into d8993a90412871b3c3ce3d3568c99b15ddbb8721 commit 81018f751a953fc3458c1c67327a7c0f63a94d86 Date: Tue May 22 14:42:43 2018 +0500 chore: Check head commit in drone ``` This bug is very very very get frustrating us. We are currently is forced to use this crutch :( ``` if ! git merge-base --is-ancestor ${DRONE_COMMIT} HEAD; then echo &quot;The commit ${DRONE_COMMIT} has not been found in HEAD.&quot; echo &quot;Try to restart a build or open a new pull-request.&quot; exit 1 fi ``` ---------- Hey Michail! We currently wouldn't recommend using the merge ref directly as it can sometimes be out of date. As an alternative, our API can be used to trigger the update and retrieve the merge ref: https://developer.github.com/v3/git/#checking-mergeability-of-pull-requests Hope this helps and please let me know if you need anything else! Cheers Stacey</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: [code-2196]: fix overlay issue (#2415) * fix: [code-2196]: fix overlay issue</MESSAGE>
+    <SHA>aa2428225414f717cbc52c57efbb21330b84c414</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>add logging for redis history sanning (#2417)</MESSAGE>
+      <SHA>0c5c4786521688c5b1ebb87df96c5acdf72d2274</SHA>
+      <PATCHEDFILES>
+        <FILE>stream/redis_consumer.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

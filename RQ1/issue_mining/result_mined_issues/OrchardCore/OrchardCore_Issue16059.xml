@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16059</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/16059</ISSUEURL>
+  <TITLE>Support deserializing string to numeric property</TITLE>
+  <DESCRIPTION>Previously using Newtonsoft, we ere able to deserialize a string from a string to numeric. In other words the following two json worked ``` {&quot;name&quot;:&quot;One&quot;,&quot;value&quot;:&quot;1&quot;,&quot;Weight&quot;:1} ``` ``` {&quot;name&quot;:&quot;One&quot;,&quot;value&quot;:&quot;1&quot;,&quot;Weight&quot;:&quot;1&quot;} ``` when deserializing to ``` public sealed class CustomListValueOption : ListValueOption { public string Name { get; set; } public string Value { get; set; } public double? Weight { get; set; } } ``` This no longer works after converting to using System Json Text.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Bump OpenIddict to 5.6.0 (#16054)</MESSAGE>
+    <SHA>31528d2243403168056aad1c3062e0fb7f4d2399</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Support deserializing string to numeric values Fix #16059</MESSAGE>
+      <SHA>10df63d2f8c161a0c0a6816bf643c12dfbb0a6dd</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.Abstractions/Json/JOptions.cs</FILE>
+        <FILE>test/OrchardCore.Tests/Serializers/JsonSerializerTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

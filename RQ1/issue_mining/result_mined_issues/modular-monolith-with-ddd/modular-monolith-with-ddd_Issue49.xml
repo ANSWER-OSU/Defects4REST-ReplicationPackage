@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>49</ISSUENO>
+  <ISSUEURL>https://github.com/kgrzybek/modular-monolith-with-ddd/issues/49</ISSUEURL>
+  <TITLE>Accept of MeetingGroupProposal not works</TITLE>
+  <DESCRIPTION>When meeting group proposal accepted then created MeetingGroup with MeetingGroupMember where MemberId is MeetingGroup creator Id. But not created new record in table meetings.Members. And SendMeetingGroupCreatedEmailCommandHandler failed because it tried to find member by creator Id in Members but not MeetingGroupMembers table. And we have the same problem with SendMeetingGroupCreatedEmailCommandHandler - it failed every time it executed in infinite loop. So I think it is possible to avoid the infinite loop using try/catch and Attempts field for internal command. Also it is possible to add relations between tables in database, so it will be impossible to insert new row in table MeetingGroupMembers before inserting corresponding row in table Members BTW, why do you decide to use Guid as a primary key type instead of int?</DESCRIPTION>
+  <REPONAME>modular-monolith-with-ddd</REPONAME>
+  <TIMEDIFFERENCEDAYS>17</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Move interfaces used by application layer to application building blocks. Fix issue with internal command processing.</MESSAGE>
+    <SHA>4f66e8a558e75bb2e62687f939f2b74c65d65537</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Accept of MeetingGroupProposal not works #49. Do not log recurring commands in Administration module</MESSAGE>
+      <SHA>5c14e03ed9b3bd12641575377c754454cbc0f322</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Database/InitializeDatabase.sql</FILE>
+        <FILE>src/Modules/Administration/Infrastructure/Configuration/Processing/LoggingCommandHandlerWithResultDecorator.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>543</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/543</ISSUEURL>
+  <TITLE>benchmark report 404 on /dir/assign</TITLE>
+  <DESCRIPTION>Hi, I need some help here. I set up a seaweadfs cluster, which works fine. Passed all my reads/writes tests. But when I run ./weed benchmark command, it reports 100% 404 Not Found on /dir/assign request: ./weed benchmark -server=127.0.0.1:9333 -n=100 ------------ Writing Benchmark ---------- writing file error: http://127.0.0.1:9333/dir/assign: 404 Not Found writing file error: http://127.0.0.1:9333/dir/assign: 404 Not Found ...98 more of this I tested http://127.0.0.1:9333/dir/assign with both curl and browser, it works well: curl http://127.0.0.1:9333/dir/assign {&quot;fid&quot;:&quot;9,07a4983afa&quot;,&quot;url&quot;:&quot;someurl:8080&quot;,&quot;publicUrl&quot;:&quot;someurl:18080&quot;,&quot;count&quot;:1} I use version 0.76, linux_arm64.tar.gz my machine runs on Centos7, kernel 4.4.36-1.el7.elrepo.x86_64 thanks in advance</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ensure 30GB or less avoid https://github.com/chrislusf/seaweedfs/issues/535</MESSAGE>
+    <SHA>e0dfa7a069ee4a5d9951d7d073a3404690fbf716</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>(fix #543)added body to error when Post encounter 4xx response</MESSAGE>
+      <SHA>3bf883327e8aaa651149ffc7eec1f78d4e8a8292</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/util/http_util.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #544 from kelgon/master (fix #543)added response body to error when util.Post encounter 4xx response</MESSAGE>
+      <SHA>1129956f7f6a3ada1e3526424c97aeae9de69715</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/util/http_util.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>(fix #543)added body to error when Post encounter 4xx response</MESSAGE>
+      <SHA>42c2064335f705371afcef5aea6a3b6813431bda</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/util/http_util.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

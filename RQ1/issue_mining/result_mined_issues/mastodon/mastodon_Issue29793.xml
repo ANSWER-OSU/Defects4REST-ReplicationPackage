@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>29793</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/29793</ISSUEURL>
+  <TITLE>“Automatic (use system theme)” uses dark `theme-color` in light mode</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem 1. In Settings, choose “Automatic (use system theme)” as the UI theme 2. Set system to light mode ### Expected behaviour The `theme-color` meta tag (and thus the browser chrome) should match the light/dark mode ### Actual behaviour The `theme-color` meta tag stays set to a dark color when the system and site are in light mode ### Detailed description How it appears on macOS with Safari’s compact UI: &lt;img width=&quot;1117&quot; alt=&quot;Screenshot 2024-03-28 at 4 30 17 PM&quot; src=&quot;https://github.com/mastodon/mastodon/assets/3615519/24fa9faa-9d8a-4bf5-b278-5e9ba099b86d&quot;&gt; And iOS: ![Simulator Screenshot - iPhone 15 - 2024-03-28 at 16 37 02](https://github.com/mastodon/mastodon/assets/3615519/01427304-1b48-43a1-8707-aaee414b8ba3) ### Mastodon instance mastodon.online ### Mastodon version v4.3.0-nightly.2024-03-27 ### Browser name and version Safari 17.4.1 ### Operating system macOS 14.4.1 ### Technical details The problem tag: `&lt;meta content=&quot;#191b22&quot; name=&quot;theme-color”&gt;` Per https://webkit.org/blog/11989/new-webkit-features-in-safari-15/, that tag supports media queries for light and dark mode.</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Remove global `boosts` state and convert boosts modal to Typescript (#29774)</MESSAGE>
+    <SHA>67442f90393c644064bf34d531bdebe15f88d729</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Change the `theme-color` value automatically when using a built-in theme Fixes #29793</MESSAGE>
+      <SHA>8802a4a367978acd40cb09e1d9ffbf012c484107</SHA>
+      <PATCHEDFILES>
+        <FILE>app/helpers/application_helper.rb</FILE>
+        <FILE>app/lib/themes.rb</FILE>
+        <FILE>app/views/layouts/application.html.haml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

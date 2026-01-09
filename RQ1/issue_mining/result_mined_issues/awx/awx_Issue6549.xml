@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6549</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6549</ISSUEURL>
+  <TITLE>Not all Associated Groups are displayed on Inventory / Hosts / Groups page</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY Not all Associated Groups are displayed on Inventory / Hosts / Groups page ##### ENVIRONMENT * AWX version: 10.0 ##### STEPS TO REPRODUCE TBD ##### EXPECTED RESULTS &lt;!-- What did you expect to happen when running the steps above? --&gt; ##### ACTUAL RESULTS &lt;!-- What actually happened? --&gt; ##### ADDITIONAL INFORMATION &lt;img width=&quot;1919&quot; alt=&quot;Screen Shot 2020-04-02 at 12 51 33 PM&quot; src=&quot;https://user-images.githubusercontent.com/12446869/78296047-0eac2f00-74fb-11ea-8df1-c7e32dc4ce8b.png&quot;&gt;</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>379</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add secure flag option for userLoggedIn cookie if SESSION_COOKIE_SECU… (#14762) (#6556) Add secure flag option for userLoggedIn cookie if SESSION_COOKIE_SECURE set to True Co-authored-by: Michael Tipton &lt;36353334+CastawayEGR@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>08e77e53066ca31e6bc800c7ac3bd94c799e7650</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[4.5][backport] Recover rsyslog after receiving 4xx from external log aggregator (#6549) * Remove superwatcher from docker-compose dev (#14708) When making changes to the application sometime you can accidentally cause FATAL state and cause the dev container to crash which will remove any ephemeral changes that you have made and is ANNOYING! * Recover rsyslog from 4xx error Due to https://github.com/ansible/awx/issues/7560 'omhttp' module for rsyslog will completely stop forwarding message to external log aggregator after receiving a 4xx error from the external log aggregator This PR is an &quot;workaround&quot; for this problem by restarting rsyslogd after detecting that rsyslog received a 4xx error * Correct misuse of stdxxx_event_enabled Not every log messages need to be emitted as a event! * Send SIGKILL to rsyslog if hard cancellation is needed</MESSAGE>
+      <SHA>7ffe374e36b6560ecb618039af0dd273071a3af4</SHA>
+      <PATCHEDFILES>
+        <FILE>MANIFEST.in</FILE>
+        <FILE>tools/ansible/roles/dockerfile/templates/Dockerfile.j2</FILE>
+        <FILE>tools/ansible/roles/dockerfile/templates/supervisor_rsyslog.conf.j2</FILE>
+        <FILE>tools/docker-compose/supervisor.conf</FILE>
+        <FILE>tools/scripts/rsyslog-4xx-recovery</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2336</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2336</ISSUEURL>
+  <TITLE>request help: We’d better change the organization of `signing_string` for hmac-auth</TITLE>
+  <DESCRIPTION>### Issue description We’d better change the organization of `signing_string` for hmac-auth ``` signing_string = HTTP Method + \n + HTTP URI + \n + + canonical_query_string + \n + + x-hmac-access-key + \n + + Date + \n + + x-hmac-signed-headers ``` Use `\n` interval between fields, if `x-hmac-signed-headers` is empty, you don’t need to add `\n`, if other fields are empty, you need to keep`\n` The key assembly method specified by `x-hmac-signed-headers`: ``` HeaderKey1 + &quot;:&quot; + HeaderValue1 + &quot;\n&quot;\+ HeaderKey2 + &quot;:&quot; + HeaderValue2 + &quot;\n&quot;\+ ... HeaderKeyN + &quot;:&quot; + HeaderValueN + &quot;\n&quot; ``` ref: https://help.aliyun.com/document_detail/29475.html?spm=a2c4g.11186623.2.15.62c73e789LVg02 https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html#RESTAuthenticationConstructingCanonicalizedAmzHeaders ### Environment * apisix version : 1.5 * OS:</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: support to fetch `consumer_name` or `consumer_id` via `ctx.var` (#2333)</MESSAGE>
+    <SHA>dd5a36e20722fc292b439c193e2dc577800ccae0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>change(hmac-auth): update the organization of `signing_string` . (#2337) fix #2336 . ref: https://help.aliyun.com/document_detail/29475.html?spm=a2c4g.11186623.2.15.62c73e789LVg02 https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html#RESTAuthenticationConstructingCanonicalizedAmzHeaders</MESSAGE>
+      <SHA>20c670ce097af6bbd1bdb150f26faa77d582d61e</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/hmac-auth.lua</FILE>
+        <FILE>doc/plugins/hmac-auth.md</FILE>
+        <FILE>doc/zh-cn/plugins/hmac-auth.md</FILE>
+        <FILE>t/plugin/consumer-restriction.t</FILE>
+        <FILE>t/plugin/custom_hmac_auth.t</FILE>
+        <FILE>t/plugin/hmac-auth.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

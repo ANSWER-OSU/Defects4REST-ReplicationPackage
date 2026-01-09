@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>320</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/320</ISSUEURL>
+  <TITLE>benchmark crash just once, and I failed to reproduce...</TITLE>
+  <DESCRIPTION>Chris, There is a crash problem when I run the benchmark tool to reconfirm performance of the 110 replication policy. The command is: ./weed benchmark -server=100.106.21.3:9333 -size=500000 -c=10 -n=10000 -deletePercent=30 Crash log has been attached,please have a review If below code(lookup_vid_cache.go line:44) is not goroutine safe, RWLock should be added for the struct VidCache, how about you opinion? vc.cache = append(vc.cache, VidInfo{}) [benchmark_crash_201606131427_CST.log.zip](https://github.com/chrislusf/seaweedfs/files/311300/benchmark_crash_201606131427_CST.log.zip)</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>3.77</MESSAGE>
+    <SHA>b28b1a34025a2f2ed80883e245250d00783bfea7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Udm docker (#320) * add docker file for mysql and filer * update docker build * add docker compose for udm add docker file for udm multi arch build (#337)</MESSAGE>
+      <SHA>16b4524b6d67e0d67dbfd86de82023baec644849</SHA>
+      <PATCHEDFILES>
+        <FILE>docker/Dockerfile.mysql</FILE>
+        <FILE>docker/Dockerfile.udm.go_build</FILE>
+        <FILE>docker/Makefile</FILE>
+        <FILE>docker/entrypoint.udm.sh</FILE>
+        <FILE>docker/filer_mysql.toml</FILE>
+        <FILE>docker/master-udm.toml</FILE>
+        <FILE>docker/seaweedfs-udm-compose.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

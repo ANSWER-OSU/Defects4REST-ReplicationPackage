@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1059</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/1059</ISSUEURL>
+  <TITLE>Error 1050: Table 'migration_version' already exists</TITLE>
+  <DESCRIPTION>I'm running Drone in a Docker container and I've got it linked to a MySQL container. If I try to re-run the image, I get the following error and the container stops: ``` 2015-06-13T19:49:44.903647213Z panic: Could not get DB version: Error 1050: Table 'migration_version' already exists 2015-06-13T19:49:44.903647213Z 2015-06-13T19:49:44.903647213Z goroutine 16 [running]: 2015-06-13T19:49:44.903647213Z runtime.panic(0xaac3c0, 0xc208170440) 2015-06-13T19:49:44.903647213Z /usr/local/go/src/pkg/runtime/panic.c:279 +0xf5 2015-06-13T19:49:44.903647213Z github.com/drone/drone/server/datastore/database.MustConnect(0xc208135fd8, 0x5, 0xc208161520, 0x1e, 0x0) 2015-06-13T19:49:44.903647213Z /var/cache/drone/src/github.com/drone/drone/server/datastore/database/database.go:52 +0x8a 2015-06-13T19:49:44.903647213Z main.main() 2015-06-13T19:49:44.903647213Z /var/cache/drone/src/github.com/drone/drone/server/main.go:104 +0x274 2015-06-13T19:49:44.903647213Z 2015-06-13T19:49:44.903647213Z goroutine 19 [finalizer wait]: 2015-06-13T19:49:44.903647213Z runtime.park(0x4a8630, 0x11bcf58, 0x11a79a9) 2015-06-13T19:49:44.903647213Z /usr/local/go/src/pkg/runtime/proc.c:1369 +0x89 2015-06-13T19:49:44.903647213Z runtime.parkunlock(0x11bcf58, 0x11a79a9) 2015-06-13T19:49:44.903647213Z /usr/local/go/src/pkg/runtime/proc.c:1385 +0x3b 2015-06-13T19:49:44.903647213Z runfinq() 2015-06-13T19:49:44.903647213Z /usr/local/go/src/pkg/runtime/mgc0.c:2644 +0xcf 2015-06-13T19:49:44.903647213Z runtime.goexit() 2015-06-13T19:49:44.903647213Z /usr/local/go/src/pkg/runtime/proc.c:1445 2015-06-13T19:49:44.903647213Z 2015-06-13T19:49:44.903647213Z goroutine 22 [syscall]: 2015-06-13T19:49:44.903647213Z os/signal.loop() 2015-06-13T19:49:44.903647213Z /usr/local/go/src/pkg/os/signal/signal_unix.go:21 +0x1e 2015-06-13T19:49:44.903647213Z created by os/signal.init·1 2015-06-13T19:49:44.903647213Z /usr/local/go/src/pkg/os/signal/signal_unix.go:27 +0x32 2015-06-13T19:49:44.903647213Z 2015-06-13T19:49:44.903647213Z goroutine 24 [chan receive]: 2015-06-13T19:49:44.903647213Z database/sql.(*DB).connectionOpener(0xc208050600) 2015-06-13T19:49:44.903647213Z /usr/local/go/src/pkg/database/sql/sql.go:583 +0x48 2015-06-13T19:49:44.903647213Z created by database/sql.Open 2015-06-13T19:49:44.903647213Z /usr/local/go/src/pkg/database/sql/sql.go:442 +0x27c 2015-06-13T19:49:44.903647213Z 2015-06-13T19:49:44.903647213Z goroutine 17 [syscall]: 2015-06-13T19:49:44.903647213Z runtime.goexit() 2015-06-13T19:49:44.903647213Z /usr/local/go/src/pkg/runtime/proc.c:1445 ``` This might be more of an issue with the migration library not being able to handle this case, but it's the last issue I'm having with what is otherwise an awesome CI setup. Thank you.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>131</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [code-1523]: fix undo in codemirror box (#1084)</MESSAGE>
+    <SHA>b63c0f48a41cbb3abee61e3fb4949e30fa872e6e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add non-regex search capability in keyword search (#1059)</MESSAGE>
+      <SHA>7ee761c6323190e4b9179fcbe401b0f6cc64ae7f</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/controller/keywordsearch/search.go</FILE>
+        <FILE>app/services/keywordsearch/index_searcher.go</FILE>
+        <FILE>app/services/keywordsearch/local_index_searcher.go</FILE>
+        <FILE>types/search.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

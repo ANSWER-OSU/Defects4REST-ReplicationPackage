@@ -1,0 +1,76 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3844</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/3844</ISSUEURL>
+  <TITLE>Broken OSGi bundle wiring and build</TITLE>
+  <DESCRIPTION>**Describe the bug** Current build on main is broken so I am creating this issue to have a place for a discussion how to tackle it. The issue is probably caused by recent changes that broke bundle wiring and introduced unwanted `Import-Package` declarations. One example of such package dependency (that gets picked up by bndtool) is `org.flowable.common.engine.impl.aot.FlowableMyBatisRuntimeHints` that uses classes from `org.apache.ibatis.javassist.util.proxy` package that is not being exported by mybatis bundle. ``` ERROR: Bundle flowable-osgi [77] Error starting reference:file:target/classes (org.osgi.framework.BundleException: Unable to resolve flowable-osgi [77](R 77.0): missing requirement [flowable-osgi [77](R 77.0)] osgi.wiring.package; (&amp;(osgi.wiring.package=org.flowable.common.engine.impl.javax.el)(version&gt;=7.1.0)(!(version&gt;=8.0.0))) [caused by: Unable to resolve org.flowable.common.engine.impl [15](R 15.0): missing requirement [org.flowable.common.engine.impl [15](R 15.0)] osgi.wiring.package; (osgi.wiring.package=org.apache.ibatis.javassist.util.proxy)] Unresolved requirements: [[flowable-osgi [77](R 77.0)] osgi.wiring.package; (&amp;(osgi.wiring.package=org.flowable.common.engine.impl.javax.el)(version&gt;=7.1.0)(!(version&gt;=8.0.0)))]) org.osgi.framework.BundleException: Unable to resolve flowable-osgi [77](R 77.0): missing requirement [flowable-osgi [77](R 77.0)] osgi.wiring.package; (&amp;(osgi.wiring.package=org.flowable.common.engine.impl.javax.el)(version&gt;=7.1.0)(!(version&gt;=8.0.0))) [caused by: Unable to resolve org.flowable.common.engine.impl [15](R 15.0): missing requirement [org.flowable.common.engine.impl [15](R 15.0)] osgi.wiring.package; (osgi.wiring.package=org.apache.ibatis.javassist.util.proxy)] Unresolved requirements: [[flowable-osgi [77](R 77.0)] osgi.wiring.package; (&amp;(osgi.wiring.package=org.flowable.common.engine.impl.javax.el)(version&gt;=7.1.0)(!(version&gt;=8.0.0)))] at org.apache.felix.framework.Felix.resolveBundleRevision(Felix.java:4398) at org.apache.felix.framework.Felix.startBundle(Felix.java:2308) at org.apache.felix.framework.Felix.setActiveStartLevel(Felix.java:1566) ``` **Expected behavior** OSGi bundles should not depend on non-OSGi packages and tests should pass. **Additional context** I am sure you are looking into this as well as this causes pipeline on main to fail. However as external person I wanted to have a place where I can write my own observations. Originally discussed here https://github.com/flowable/flowable-engine/pull/3843#issuecomment-1933039617 .</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Case definition diagram should not be created in native mode</MESSAGE>
+    <SHA>f0864bced3b058ca9120aebe87764cd9510d685e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix broken OSGi wiring (#3844)</MESSAGE>
+      <SHA>a287d2ac8fbd103db90e78b8111411ea94762ea6</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-batch-service/pom.xml</FILE>
+        <FILE>modules/flowable-engine-common/pom.xml</FILE>
+        <FILE>modules/flowable-entitylink-service/pom.xml</FILE>
+        <FILE>modules/flowable-eventsubscription-service/pom.xml</FILE>
+        <FILE>modules/flowable-identitylink-service/pom.xml</FILE>
+        <FILE>modules/flowable-job-service/pom.xml</FILE>
+        <FILE>modules/flowable-task-service/pom.xml</FILE>
+        <FILE>modules/flowable-variable-service/pom.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix broken OSGi wiring (#3844)</MESSAGE>
+      <SHA>ebf5409a3a2f5030ca367fdad796485c4385a77f</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine-common/pom.xml</FILE>
+        <FILE>pom.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix broken OSGi wiring (#3844)</MESSAGE>
+      <SHA>15e2b0b20e553e31cefd1a402c88ca2fb5be44a9</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-batch-service/pom.xml</FILE>
+        <FILE>modules/flowable-entitylink-service/pom.xml</FILE>
+        <FILE>modules/flowable-eventsubscription-service/pom.xml</FILE>
+        <FILE>modules/flowable-identitylink-service/pom.xml</FILE>
+        <FILE>modules/flowable-job-service/pom.xml</FILE>
+        <FILE>modules/flowable-task-service/pom.xml</FILE>
+        <FILE>modules/flowable-variable-service/pom.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix broken OSGi wiring (#3844)</MESSAGE>
+      <SHA>d58b2766b9164d85b8dba8e914c351a610fba9aa</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-batch-service/pom.xml</FILE>
+        <FILE>modules/flowable-entitylink-service/pom.xml</FILE>
+        <FILE>modules/flowable-eventsubscription-service/pom.xml</FILE>
+        <FILE>modules/flowable-identitylink-service/pom.xml</FILE>
+        <FILE>modules/flowable-job-service/pom.xml</FILE>
+        <FILE>modules/flowable-task-service/pom.xml</FILE>
+        <FILE>modules/flowable-variable-service/pom.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix broken OSGi wiring (#3844)</MESSAGE>
+      <SHA>5f56cc4cd688c20dc38a06a3cd5776763742a9c0</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-batch-service/pom.xml</FILE>
+        <FILE>modules/flowable-entitylink-service/pom.xml</FILE>
+        <FILE>modules/flowable-eventsubscription-service/pom.xml</FILE>
+        <FILE>modules/flowable-identitylink-service/pom.xml</FILE>
+        <FILE>modules/flowable-job-service/pom.xml</FILE>
+        <FILE>modules/flowable-task-service/pom.xml</FILE>
+        <FILE>modules/flowable-variable-service/pom.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

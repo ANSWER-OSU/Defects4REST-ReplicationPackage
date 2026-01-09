@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>28963</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/28963</ISSUEURL>
+  <TITLE>When an order is invoiced, its status does not change to “Billed” in the list of orders</TITLE>
+  <DESCRIPTION>### Bug To check the error we carry out this process: 1) We create an order and its status is correctly shown as “not billed” ![image](https://github.com/Dolibarr/dolibarr/assets/120027058/540a94ac-a37c-4b38-bee6-8f49d0b20eb3) 2) We proceed to create an invoice from that order. To do this, I open the order and create the invoice. ![image](https://github.com/Dolibarr/dolibarr/assets/120027058/89d6cb6e-df1c-47b5-8130-a669966b3251) I validate the invoice and, as you can see, the invoice is linked to the order. ![image](https://github.com/Dolibarr/dolibarr/assets/120027058/4f0f773d-b2ea-4884-bb0e-37375ce75f39) Finally I go to the order list and as you can see the invoice thas was validated is not shown as (Billed) as it should. ![image](https://github.com/Dolibarr/dolibarr/assets/120027058/23da6008-b331-47cd-8393-f6946b884ca0) To fix this error, the way I found to fix it is: In the file “htdocs/fourn/facture/card.php” i add this after line 231. We insert the following code after line 238 “elseif($acion==’confirm_valid’ &amp;&amp; $confirm==’yes’ &amp;&amp; $usercanvalidate){“ This coniditional applies when the user has validaled and confirmed an order. and within that conditional there is another conditional: “if(!$error){“ which tells us that no error has ocurred. Then it calls the validate function and then there is a conditional in which we indicate if there has been an error. If there is and error , we show it. If not, then this is where I have added the additional lines of code that correct the error. $object→fechObjectLinked(); I load all items associated with that invoice. I check that there is an element of type order supplier associated with that invoice: if(array_key_exists(“order_supplier”,$object→linkedObjects)){ $linkedObjectBlock=$object→linkedObjects[“order_supplier”]; I check that there only one order associated with an invoice because when there are several orders associated with an invoice, it is done correctly. if(count($linkedObjectBlock)==1){ In case that there is only one order associated with an invoice, I go through all the elements associated with the invoice of type “order_supplier” and I classify that order using the &quot;ClassifyBilled&quot; method. foreach($linkedObjectBlock as $key =&gt;$objectlink){ $objectlink-&gt;classifyBilled($user) } } } ![image](https://github.com/Dolibarr/dolibarr/assets/120027058/cec680d0-62d2-415a-b816-97860610a174) ### Dolibarr Version 19.0 ### Environment PHP 8.1 ### Environment Database _No response_ ### Steps to reproduce the behavior and expected behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix var_dump</MESSAGE>
+    <SHA>a17cb8aa423f75bf11c161c410fdf5721b6eb5ac</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Update card.php Issues #28963. When an order is invoiced, its status does not change to “Billed” in the list of orders.</MESSAGE>
+      <SHA>845554ac9dbbc3e33db5054f8bcbc294d89bf92e</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/fourn/facture/card.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

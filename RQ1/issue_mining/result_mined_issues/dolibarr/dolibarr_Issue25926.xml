@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>25926</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/25926</ISSUEURL>
+  <TITLE>Error on the uk_links index of the llx_links table</TITLE>
+  <DESCRIPTION>### Bug When adding a new URL link to an object, if this object has the same ID as another object of a different type and the link has the same label as the other object's link, the link is not added. ### Environment Version 18.0.0 ### Environment OS _No response_ ### Environment Web server _No response_ ### Environment PHP _No response_ ### Environment Database _No response_ ### Environment URL(s) _No response_ ### Expected and actual behavior Actual index : ``` CREATE UNIQUE INDEX IF NOT EXISTS uk_links ON public.llx_links USING btree (objectid ASC NULLS LAST, label COLLATE pg_catalog.&quot;default&quot; ASC NULLS LAST) TABLESPACE pg_default; ``` Expected index : ``` CREATE UNIQUE INDEX IF NOT EXISTS uk_links ON public.llx_links USING btree (objectid ASC NULLS LAST, objecttype COLLATE pg_catalog.&quot;default&quot; ASC NULLS LAST, label COLLATE pg_catalog.&quot;default&quot; ASC NULLS LAST) TABLESPACE pg_default; ``` ### Steps to reproduce the behavior _No response_ ### Attached files Link in table : ![image](https://github.com/Dolibarr/dolibarr/assets/145106194/60920756-52dd-4c15-b024-04702780c50e) Link to add : ![image](https://github.com/Dolibarr/dolibarr/assets/145106194/85c334c6-7ba1-450b-8de7-8d2055bb600d)</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Enhance APStats</MESSAGE>
+    <SHA>a68b00de4efcd4dc6f883cd636934361438db3ad</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix Error on the uk_links index of the llx_links table #25926</MESSAGE>
+      <SHA>94dadee77f943d765441004950eea50ee086aeca</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/install/mysql/migration/18.0.0-19.0.0.sql</FILE>
+        <FILE>htdocs/install/mysql/tables/llx_links.key.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #26029 from fappels/develop_fix_link_index Fix Error on the uk_links index of the llx_links table #25926</MESSAGE>
+      <SHA>8021eb0b5deb4125a5c995b545cafb93fc3c3207</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/install/mysql/migration/18.0.0-19.0.0.sql</FILE>
+        <FILE>htdocs/install/mysql/tables/llx_links.key.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

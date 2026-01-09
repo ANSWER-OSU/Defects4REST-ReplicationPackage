@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1094</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/1094</ISSUEURL>
+  <TITLE>1.44/FUSE3: Unable to &quot;mount&quot; / unknown option 'nonempty'</TITLE>
+  <DESCRIPTION>``` $ weed mount -dir=/mnt/weed This is SeaweedFS version 8000GB 1.44 linux amd64 mount point owner uid=1000 gid=1000 mode=drwxr-xr-x 2019-10-27 21:06:47.946233 I | mount helper error: fusermount: unsafe option suid ignored 2019-10-27 21:06:47.946258 I | mount helper error: fusermount: unknown option 'nonempty' F1027 21:06:47 22621 mount_std.go:116] fusermount: exit status 1 ``` ``` $ fusermount -V fusermount3 version: 3.4.1 ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix error logs</MESSAGE>
+    <SHA>71eb8efd208fc7f2c3bc41bed424faa2d758beea</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FUSE: add os specific mount options related to https://github.com/chrislusf/seaweedfs/issues/1094</MESSAGE>
+      <SHA>eb2172f63fcdf7f5455c142daaceb6b1a489f7f4</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/mount_darwin.go</FILE>
+        <FILE>weed/command/mount_freebsd.go</FILE>
+        <FILE>weed/command/mount_linux.go</FILE>
+        <FILE>weed/command/mount_notsupported.go</FILE>
+        <FILE>weed/command/mount_std.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>FUSE mount: make &quot;nonempty&quot; optional https://github.com/chrislusf/seaweedfs/issues/1094</MESSAGE>
+      <SHA>7c111f7b75ba2b0a95766897503997d65d05b42c</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/mount.go</FILE>
+        <FILE>weed/command/mount_linux.go</FILE>
+        <FILE>weed/command/mount_std.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

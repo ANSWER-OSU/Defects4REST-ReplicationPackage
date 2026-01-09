@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6653</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6653</ISSUEURL>
+  <TITLE>Machine credentials are refused by tower_job_template</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY Can't create job template with tower_job_template because of credentials. Machine credentials (SSH) are refused. ##### ENVIRONMENT * AWX version: 10.0.0 * AWX install method: docker on linux * Ansible version: 2.9.5 * Operating System: Debian Buster * Web Browser: Firefox * AWX collection: 10.0.0 ##### STEPS TO REPRODUCE ``` - name: Creation templates tower_job_template: name: &quot;{{ item.name }}&quot; playbook: &quot;{{ item.playbook }}&quot; inventory: &quot;{{ awx_inventory }}&quot; project: &quot;{{ awx_inventory }}&quot; credentials: - &quot;ssh-root-key&quot; survey_enabled: yes survey_spec: name: &quot;survey {{ item.name }}&quot; description: &quot;&quot; spec: &quot;{{ item.survey_spec }}&quot; tower_host: &quot;{{ tower_host }}&quot; tower_username: &quot;{{ tower_username }}&quot; tower_password: &quot;{{ tower_password }}&quot; validate_certs: False with_items: &quot;{{ awx_job_templates }}&quot; loop_control: label: &quot;{{ item.name }}&quot; tags: templates ``` ##### EXPECTED RESULTS Template created ##### ACTUAL RESULTS ``` { &quot;ansible_loop_var&quot;:&quot;item&quot;, &quot;changed&quot;:false, &quot;item&quot;:{ &quot;job_type&quot;:&quot;run&quot;, &quot;name&quot;:&quot;Provisionning TWIN&quot;, &quot;playbook&quot;:&quot;play-provisioning_twin.yml&quot;, }, &quot;msg&quot;:&quot;Failed to add credential to job template: The Tower server claims it was sent a bad request.\n\nPOST https://localhost/api/v2/job_templates/9/extra_credentials/\nParams: None\nData: {\&quot;id\&quot;: 3, \&quot;associate\&quot;: true}\n\nResponse: {\&quot;error\&quot;:\&quot;Extra credentials must be network or cloud.\&quot;}&quot; } ``` ##### ADDITIONAL INFORMATION `credential: &quot;ssh-root-key&quot;` kinda works, but according to the documentation it is deprecated. And when I go into the web interface, the credentials field is empty.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Prevent automountServiceAccountToken (#6638) * Prevent job pod from mounting serviceaccount token * Add serializer validation for cg pod_spec_override Prevent automountServiceAccountToken to be set to true and provide an error message when automountServiceAccountToken is being set to true</MESSAGE>
+    <SHA>15e28371ebb3b08957abceb84300c329c3966823</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Only refresh session if updating own password (#15426) (#6653) Fixes bug where creating a new user will request a new awx_sessionid cookie, invalidating the previous session. Do not refresh session if updating or creating a password for a different user. Signed-off-by: Seth Foster &lt;fosterbseth@gmail.com&gt;</MESSAGE>
+      <SHA>2334211ba07a7c7b4f2b4bed5a94a4b7e311b100</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/serializers.py</FILE>
+        <FILE>awx/main/tests/functional/api/test_user.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

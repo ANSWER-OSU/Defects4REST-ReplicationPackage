@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>125668</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/125668</ISSUEURL>
+  <TITLE>[CI] GCSRepositoryAnalysisRestIT testRepositoryAnalysis failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7312 / third-party_gcs](https://gradle-enterprise.elastic.co/s/bpxh4c4jgns7k) - [elasticsearch-periodic-platform-support #7313 / rhel-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/4n73fui4qsfbi) - [elasticsearch-pull-request #65096 / part-2](https://gradle-enterprise.elastic.co/s/53utg7lgqu4hu) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:snapshot-repo-test-kit:qa:gcs:javaRestTest&quot; --tests &quot;org.elasticsearch.repositories.blobstore.testkit.analyze.GCSRepositoryAnalysisRestIT.testRepositoryAnalysis&quot; -Dtests.seed=E956DE65A2C7CA51 -Dtests.locale=en-KE -Dtests.timezone=Asia/Dhaka -Druntime.java=24 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.repositories.blobstore.testkit.analyze.GCSRepositoryAnalysisRestIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testRepositoryAnalysis),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.client.ResponseException: method [POST], host [http://[::1]:44177], URI [/_snapshot/repository/_analyze?blob_count=10&amp;seed=5856317475903747225&amp;max_blob_size=10mb&amp;timeout=120s&amp;concurrency=4], status line [HTTP/1.1 500 Internal Server Error] {&quot;error&quot;:{&quot;root_cause&quot;:[{&quot;type&quot;:&quot;repository_verification_exception&quot;,&quot;reason&quot;:&quot;[repository] register [test-register-contended-CbVb9VARRria-l-j_Xc3qg] should have value [10] but instead had value [OptionalBytesReference[MISSING]]&quot;}],&quot;type&quot;:&quot;repository_verification_exception&quot;,&quot;reason&quot;:&quot;[repository] Elasticsearch observed the storage system underneath this repository behaved incorrectly which indicates it is not suitable for use with Elasticsearch snapshots. See [https://www.elastic.co/guide/en/elasticsearch/reference/master/repo-analysis-api.html] for further information. Elasticsearch attempted to remove the data it wrote at [temp-analysis-OcWnoI0QSvm-2kJTsnP86A] but may have left some behind. If so, please now remove this data manual [truncated] ``` **Issue Reasons:** - [8.x] 3 failures in test testRepositoryAnalysis (1.2% fail rate in 246 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Speed up LuceneTopNSourceOperator (#125622)</MESSAGE>
+    <SHA>ebc13531ac4baa41649cef5fadc54629183dc6c0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.repositories.blobstore.testkit.analyze.GCSRepositoryAnalysisRestIT testRepositoryAnalysis #125668</MESSAGE>
+      <SHA>540f90e837e2fe30b25ebd4929bff225cceb42e6</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add temporary logging for #125668 This failure doesn't reproduce locally after repeated attempts. Unmuting it in CI with some additional logging, to be reverted ASAP.</MESSAGE>
+      <SHA>64f9e68a45974ca0c25d473334d6c76f6f1c7fb8</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/common/blobstore/support/BlobContainerUtils.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add temporary logging for #125668 (#125749) This failure doesn't reproduce locally after repeated attempts. Unmuting it in CI with some additional logging, to be reverted ASAP.</MESSAGE>
+      <SHA>8ced682a0cebf64465aeb6457f280ac2c7b87760</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/common/blobstore/support/BlobContainerUtils.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Revert &quot;Add temporary logging for #125668 (#125749)&quot; This reverts commit 8ced682a0cebf64465aeb6457f280ac2c7b87760.</MESSAGE>
+      <SHA>d2ed8e74b583817731356f0181602b633657de6a</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/common/blobstore/support/BlobContainerUtils.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Revert &quot;Add temporary logging for #125668 (#125749)&quot; This reverts commit 8ced682a0cebf64465aeb6457f280ac2c7b87760.</MESSAGE>
+      <SHA>f2c3463604093e4431ed16650d5fe775a776c33b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/common/blobstore/support/BlobContainerUtils.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Revert &quot;Add temporary logging for #125668 (#125749)&quot; (#125820) This reverts commit 8ced682a0cebf64465aeb6457f280ac2c7b87760.</MESSAGE>
+      <SHA>1c38e7eea73015f202d284ed9c6fba105bae2fa9</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elasticsearch/common/blobstore/support/BlobContainerUtils.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Revert &quot;Add temporary logging for #125668 (#125749)&quot; This reverts commit 8ced682a0cebf64465aeb6457f280ac2c7b87760.</MESSAGE>
+      <SHA>900723bf417d605804686e1ef154d8526839f908</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.repositories.blobstore.testkit.analyze.GCSRepositoryAnalysisRestIT testRepositoryAnalysis #125668</MESSAGE>
+      <SHA>51ed156f09ff170ab1b25a4e542173ad6a48c4b7</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

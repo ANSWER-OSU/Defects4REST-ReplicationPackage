@@ -1,0 +1,232 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>123</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/123</ISSUEURL>
+  <TITLE>CountingTask (similar to the CountingExecution)</TITLE>
+  <DESCRIPTION>**Purpose**: - provide performance improvements by reducing the number of calls to the DB **Counting Execution approach:** - has been implemented in this issue: https://github.com/Activiti/Activiti/pull/971 - keep a count on executions to avoid deletes - an **ExecutionEntityImpl** holds references to lists of: ``` List&lt;EventSubscriptionEntity&gt; List&lt;JobEntity&gt; List&lt;TimerJobEntity&gt; List&lt;TaskEntity&gt; List&lt;IdentityLinkEntity&gt; List&lt;VariableInstanceEntity&gt; ``` - for each of these lists a count flag is kept separately (the **List.size()** can not be used since the lists are not populated in every scenario): ``` int eventSubscriptionCount int jobCount int timerJobCount int taskCount int identityLinkCount int variableCount ``` - two extra counts (no corresponding lists) are kept for ``` int suspendedJobCount int deadLetterJobCount ``` - these 8 counts are persisted to the ACT_RU_EXECUTION table (which now has 30 columns!) - the counts are increased/decreased in the **insert()/delete()** methods of their corresponding **XXXXEntityManagerImpl** - the counts are ONLY checked in the **ExecutionEntityManagerImpl.deleteDataForExecution()** method. Basically the delete is called for an entity only when we are sure that there is something to delete: ``` if (...((CountingExecutionEntity) executionEntity).getXXXXCount() &gt; 0)) { //call delete ``` - the &quot;counting&quot; performance improvement can be enabled/disabled by setting the **enableExecutionRelationshipCounts** property: ``` &lt;bean id=&quot;processEngineConfiguration&quot; class=&quot;...&quot;&gt; &lt;property name=&quot;enableExecutionRelationshipCounts&quot; value=&quot;true&quot; /&gt; ... ``` **Counting Tasks approach:** - will follow the Counting Execution style - an **TaskEntityImpl** hold references to lists of: ``` List&lt;IdentityLinkEntity&gt; getIdentityLinks() List&lt;VariableInstanceEntity&gt; getQueryVariables() ``` - **TaskEntityImpl** also has a Set of candidates (not sure how to be handled): `public Set&lt;IdentityLink&gt; getCandidates()` - A **TaskEntityImpl** can have sub-tasks. Let ExecutionEntityManager handle the sub-tasks count (together with normal task count)? **Implementation** - add **CountingTaskEntity** interface (implemented by **TaskEntityImpl**) - add the two count fields (identityLinkCount and variableCount) to **TaskEntityImpl** - update the DB scripts and the persistence logic - add the **enableTaskRelationshipCounts** - benchmark performance before/after - add unit tests</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Remove &quot;== true&quot; from condition</MESSAGE>
+    <SHA>cc169fba1ca9c5ba17778379bf46ffd48771e97d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#123 updated version to 6.0.0.5</MESSAGE>
+      <SHA>acf4c3b4d430788bbdb187c8e56f6e6918fe3858</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/ProcessEngine.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 initial commit</MESSAGE>
+      <SHA>e7bbeac057a9757c665178702de76e5a9efa43e0</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/CountingTaskEntity.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 implements CountingTaskEntity</MESSAGE>
+      <SHA>2b42878328b5b2fd90fd8d3f91cef50d7d8d132b</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/TaskEntityImpl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 added columns IS_COUNT_ENABLED_, VAR_COUNT_, ID_LINK_COUNT_</MESSAGE>
+      <SHA>5ab1153ce6b7ff7db17763cdd7a8f51ec2da2de9</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.db2.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.h2.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.hsql.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.mssql.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.mysql.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.mysql55.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.oracle.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.postgres.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/mapping/entity/Task.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 update and check identityLinkCount and variableCount</MESSAGE>
+      <SHA>936d0dfbcd57445840d416b9b7e37555a2a974a8</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/IdentityLinkEntityManagerImpl.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/TaskEntityManagerImpl.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/VariableInstanceEntityManagerImpl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 corrected bulkInsertTask</MESSAGE>
+      <SHA>1f837d20101426bfdfc3a04c659510a2d3132433</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/mapping/entity/Task.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 updated the number of columns for ACT_RU_TASK</MESSAGE>
+      <SHA>0abf616d261d068d621e0f4319b13693a4bfd1ec</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/examples/mgmt/ManagementServiceTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 check identity link count before trying to delete</MESSAGE>
+      <SHA>7919eb289975e503e4dad6f24ead03bad00b9615</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/cmd/DeleteIdentityLinkCmd.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 added TaskCount enabled/disabled check logic</MESSAGE>
+      <SHA>7a7549e37ccf9bcb1882db417aa3510be4546661</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/cfg/PerformanceSettings.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/cfg/ProcessEngineConfigurationImpl.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/cmd/ValidateTaskRelatedEntityCountCfgCmd.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/AbstractEntityManager.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/IdentityLinkEntityManagerImpl.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/TaskEntityManagerImpl.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/VariableInstanceEntityManagerImpl.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/data/TaskDataManager.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/data/impl/MybatisTaskDataManager.java</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/mapping/entity/Task.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 5 properties are now stored in the ACT_GE_PROPERTY table</MESSAGE>
+      <SHA>9e6726b75bbfbe8c3645ca07a6f672aaebf9063a</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/examples/mgmt/ManagementServiceTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 no NOT Validate Task Relationship Count Config On Boot</MESSAGE>
+      <SHA>ccb13f8e6ca68723039f37d3d82ccb0e14a7bf7d</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/db/DatabaseTablePrefixTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 removed TaskCountEnabled check from commands (used only in TaskEntityManager)</MESSAGE>
+      <SHA>f53b158e1d627c116fabb586c8cc8b7b6de90a19</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/cmd/DeleteIdentityLinkCmd.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/cmd/GetIdentityLinksForTaskCmd.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/cmd/GetTaskVariableCmd.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/cmd/GetTaskVariablesCmd.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/cmd/HasTaskVariableCmd.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/cmd/RemoveTaskVariablesCmd.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 two DB Selects (&quot;selectIdentityLinksByTask&quot;, &quot;selectVariablesByTaskId&quot;) skipped when using the EnableTaskRelationshipCounts flag</MESSAGE>
+      <SHA>dacd6fc41a872e14663bd45379f892ca46336c9f</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/cfg/executioncount/VerifyDatabaseOperationsTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 initial commit</MESSAGE>
+      <SHA>909a2fd13b757b6cbc8dd1ffe74143095372c4bc</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/cfg/taskcount/ChangeTaskCountConfigAndRebootEngineTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/cfg/taskcount/ChangeTaskCountConfigAndRebootEngineTest.testChangeTaskCountSettingAndRebootengine.bpmn20.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 added test for variable removal count</MESSAGE>
+      <SHA>5ef6dab11470efd4e45f4516a436f841bf6cc25a</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/cfg/executioncount/VerifyDatabaseOperationsTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 update TaskEntity after an Identity Link is removed</MESSAGE>
+      <SHA>eb67f801363cee9c6ebba9523f97aa82fe07150a</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/cmd/DeleteIdentityLinkCmd.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 call super flushUpdates() AFTER the data has been collected. THe call in super.flushUpdates() calls updatedObjects.clear();</MESSAGE>
+      <SHA>9dada5eab9217bcb888ae6a0b30eff9d132d5cb2</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/test/profiler/ProfilingDbSqlSession.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 added tests for VariableCount and IdentityLinkCount improvements</MESSAGE>
+      <SHA>d485adc61533a29588624268d5a68ebc7cfd63b4</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/cfg/executioncount/VerifyDatabaseOperationsTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 added tests for &quot;identityLinkCount&quot; and &quot;variableCount&quot;</MESSAGE>
+      <SHA>df1c2cb2d3ab836de0d363cd9a72cd6e3e15d26f</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/api/task/TaskServiceTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 added licensing header</MESSAGE>
+      <SHA>9beb079b3246aeb0c3eb7ed7ac4e1eff23db033a</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/CountingTaskEntity.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 updated version to 6.0.0.5</MESSAGE>
+      <SHA>ea79c89bb24d0b9008ce05663150063a330c7180</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/ProcessEngine.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 initial commit</MESSAGE>
+      <SHA>772bb77a829aea43f807ae2338cc13f0986da2a1</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/CountingTaskEntity.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 implements CountingTaskEntity</MESSAGE>
+      <SHA>ac4fc85ab3a27ff44cbe795856c54faac3daf33c</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/TaskEntityImpl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 added columns IS_COUNT_ENABLED_, VAR_COUNT_, ID_LINK_COUNT_</MESSAGE>
+      <SHA>9e193ac6a3ebac609e1f2bc0b4a2978c92b5a210</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.db2.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.h2.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.hsql.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.mssql.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.mysql.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.mysql55.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.oracle.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.postgres.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/mapping/entity/Task.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 update and check identityLinkCount and variableCount</MESSAGE>
+      <SHA>dbe73b04896f627bfb93d54be4a0cfc82e7afc35</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/IdentityLinkEntityManagerImpl.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/TaskEntityManagerImpl.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/VariableInstanceEntityManagerImpl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#123 corrected bulkInsertTask</MESSAGE>
+      <SHA>7d5351a332f70e884eae3ce47606adb9fb50f7e2</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/mapping/entity/Task.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

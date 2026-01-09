@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>255</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/255</ISSUEURL>
+  <TITLE>DmnEngine not work</TITLE>
+  <DESCRIPTION># hi， My flowable.cfg.xml: `&lt;bean id=&quot;dmnEngineConfiguration&quot; class=&quot;org.flowable.dmn.engine.impl.cfg.StandaloneDmnEngineConfiguration&quot;&gt; &lt;property name=&quot;jdbcUrl&quot; value=&quot;jdbc:mysql://127.0.0.1:3306/flowable6&quot; /&gt; &lt;property name=&quot;jdbcDriver&quot; value=&quot;com.mysql.jdbc.Driver&quot; /&gt; &lt;property name=&quot;jdbcUsername&quot; value=&quot;root&quot; /&gt; &lt;property name=&quot;jdbcPassword&quot; value=&quot;&quot; /&gt; &lt;/bean&gt;` I build DmnEngine like this: ` DmnEngineConfiguration dmnEngineConfiguration = DmnEngineConfiguration.createDmnEngineConfigurationFromInputStream(in); dmnEngine = dmnEngineConfiguration.buildDmnEngine(); repositoryService=dmnEngine.getDmnRepositoryService();` and then i use this code: `@Test public void deploySingleDecision() { dmnRepositoryService .createDeployment() .name(&quot;secondDeployment&quot;) .addClasspathResource( &quot;com/shareniu/flowablestudy/ch3/multiple_conclusions.dmn&quot;) .tenantId(&quot;testTenant&quot;).deploy(); }` its's wrong org.flowable.dmn.xml.exception.DmnXMLException: cvc-elt.1: 找不到元素 'definitions' 的声明。 at org.flowable.dmn.xml.converter.DmnXMLConverter.convertToDmnModel(DmnXMLConverter.java:161) ~[flowable-dmn-xml-converter-6.0.0.jar:6.0.0] at org.flowable.dmn.engine.impl.parser.DmnParse.execute(DmnParse.java:80) ~[flowable-dmn-engine-6.0.0.jar:6.0.0] at org.flowable.dmn.engine.impl.deployer.ParsedDeploymentBuilder.createDmnParseFromResource(ParsedDeploymentBuilder.java:89) ~[flowable-dmn-engine-6.0.0.jar:6.0.0] ## multiple_conclusions.dmn `&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;definitions xmlns=&quot;http://www.omg.org/spec/DMN/20151130&quot; id=&quot;simple&quot; name=&quot;Simple&quot; namespace=&quot;http://activiti.org/dmn&quot;&gt; &lt;decision id=&quot;decision&quot; name=&quot;Simple decision&quot;&gt; &lt;decisionTable id=&quot;decisionTable&quot;&gt; &lt;input&gt; &lt;inputExpression id=&quot;input1&quot; typeRef=&quot;number&quot;&gt; &lt;text&gt;input1&lt;/text&gt; &lt;/inputExpression&gt; &lt;/input&gt; &lt;output id=&quot;output1&quot; label=&quot;Output 1&quot; name=&quot;output1&quot; typeRef=&quot;string&quot; /&gt; &lt;output id=&quot;output2&quot; label=&quot;Output 2&quot; name=&quot;output2&quot; typeRef=&quot;number&quot; /&gt; &lt;rule&gt; &lt;inputEntry id=&quot;inputEntry1&quot;&gt; &lt;text&gt;&lt;![CDATA[&gt; 10]]&gt;&lt;/text&gt; &lt;/inputEntry&gt; &lt;outputEntry id=&quot;outputEntry1_1&quot;&gt; &lt;text&gt;'test'&lt;/text&gt; &lt;/outputEntry&gt; &lt;outputEntry id=&quot;outputEntry2_1&quot;&gt; &lt;text&gt;1&lt;/text&gt; &lt;/outputEntry&gt; &lt;/rule&gt; &lt;rule&gt; &lt;inputEntry id=&quot;inputEntry2&quot;&gt; &lt;text&gt;&lt;![CDATA[&lt; 10]]&gt;&lt;/text&gt; &lt;/inputEntry&gt; &lt;outputEntry id=&quot;outputEntry1_2&quot;&gt; &lt;text&gt;'test2'&lt;/text&gt; &lt;/outputEntry&gt; &lt;outputEntry id=&quot;outputEntry2_2&quot;&gt; &lt;text&gt;2&lt;/text&gt; &lt;/outputEntry&gt; &lt;/rule&gt; &lt;rule&gt; &lt;inputEntry id=&quot;inputEntry3&quot;&gt; &lt;text&gt;&lt;![CDATA[== 10]]&gt;&lt;/text&gt; &lt;/inputEntry&gt; &lt;outputEntry id=&quot;outputEntry1_3&quot;&gt; &lt;text&gt;'test3'&lt;/text&gt; &lt;/outputEntry&gt; &lt;outputEntry id=&quot;outputEntry2_3&quot;&gt; &lt;text&gt;3&lt;/text&gt; &lt;/outputEntry&gt; &lt;/rule&gt; &lt;/decisionTable&gt; &lt;/decision&gt; &lt;/definitions&gt;`</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Move to version 6.4.1-18</MESSAGE>
+    <SHA>f1693d7fa8d64782d5cb08c911cdc393fba67e8b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix DmnXMLConverter exception: cvc-elt.1 (flowable#255)</MESSAGE>
+      <SHA>00cac72bcce9dd1075daff1d417d27ec69872eea</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-dmn-xml-converter/src/main/resources/org/flowable/impl/dmn/parser/dmn.xsd</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

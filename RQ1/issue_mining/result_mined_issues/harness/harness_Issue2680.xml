@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2680</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2680</ISSUEURL>
+  <TITLE>[PROPOSAL] Drone Custom Stage Definitions</TITLE>
+  <DESCRIPTION>This proposal is to create a new category of plugin for Drone, which I am tentatively describing as Custom Stage Definitions, which are heavily inspired by custom resource definitions for Kubernetes. Today a pipeline is a series of steps that execute in Docker containers. These pipelines are classified as Docker pipelines. When the `type` field is empty we assume this is the default pipeline type. ```text kind: pipeline ``` The goal is to allow additional types of pipelines with their own custom yaml syntax. For example, we could have a knative plugin that uses knative syntax. ```diff kind: pipeline +type: knative ``` or a pipeline that runs commands directly on the host machine: ```diff kind: pipeline +type: exec ``` Each custom stage provider would be responsible for parsing the body of the yaml, interpreting and executing the contents. For example: ```text kind: pipeline type: exec platform: os: darwin arch: amd64 steps: - name: build commands: - go build - go test ``` ## Kinds The `kind` field could be used to create stages that do not qualify as pipelines. For example maybe we want stages to handle approvals: ```text kind: approval ``` or highly customized deployment strategies: ```text kind: deployment type: redblack|canary ``` ## Design I will begin moving the agent &lt;&gt; server code to the [runner-go](https://github.com/drone/runner-go) library and I will create a starter project for creating custom stage operators. You can think of this as, effectively, creating your own Drone agent. Drone will ship with the default Docker pipeline runner only. All other runners will be community contributed and managed. I will create a separate organization, called [drone-runners](https://github.com/drone-runners), to help organize community development. ## Why? I realized that the core Drone team is too inexperienced with Kubernetes and is stretched too thin to offer the Kubernetes runtime. Instead we can open this up to the community, and hand over control, just like we did with plugins years ago. Plugins quickly became one of the defining and most loved features in Drone. I believe Custom Stage Definition will have a similar impact on the project and community. I envision the community creating all sorts of interesting runners: - exec runner launches builds on the host machine - chroot runner, similar to exec, but in a chroot - tekton runner - virtualbox runner - vmware vsphere runner (for osx) - aws runner (launches ad-hoc ephemeral vms) - gcp runner (launches ad-hoc ephemeral vms) - digitalocean runner (launches ad-hoc ephemeral vms)</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>40</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [CODE-2338]: Add dry run rules param to create branch API (#2679) * return struct instead of pointer in deleteBranch and createBranch methods * feat: [CODE-2338]: Add dry run rules param to create branch API</MESSAGE>
+    <SHA>80105035f46640f35c087a5932b52e0da43ab1b3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: [CODE-2338]: Add dry run rules param to create branch API (#2680) * addressed review comments * Merge branch 'main' of https://git0.harness.io/l7B_kbSEQD2wjrM7PShm5w/PROD/Harness_Commons/gitness into CODE-2346 * feat: [CODE-2346]: Add an option to restore branch for merged/closed PR * feat: [CODE-2338]: Add dry run rules param to create branch API</MESSAGE>
+      <SHA>2f4b0036d19cbe81d11e5ae78ee75012af49bb4d</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/framework/strings/stringTypes.ts</FILE>
+        <FILE>web/src/i18n/strings.en.yaml</FILE>
+        <FILE>web/src/pages/PullRequest/Conversation/PullRequestActionsBox/PullRequestActionsBox.tsx</FILE>
+        <FILE>web/src/pages/PullRequest/Conversation/PullRequestOverviewPanel/PullRequestOverviewPanel.module.scss</FILE>
+        <FILE>web/src/pages/PullRequest/Conversation/PullRequestOverviewPanel/PullRequestOverviewPanel.module.scss.d.ts</FILE>
+        <FILE>web/src/pages/PullRequest/Conversation/PullRequestOverviewPanel/PullRequestOverviewPanel.tsx</FILE>
+        <FILE>web/src/pages/PullRequest/Conversation/PullRequestOverviewPanel/PullRequestPanelSections.tsx</FILE>
+        <FILE>web/src/pages/PullRequest/Conversation/PullRequestOverviewPanel/sections/BranchActionsSection.tsx</FILE>
+        <FILE>web/src/pages/PullRequest/PullRequestUtils.tsx</FILE>
+        <FILE>web/src/services/code/index.tsx</FILE>
+        <FILE>web/src/services/code/swagger.yaml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

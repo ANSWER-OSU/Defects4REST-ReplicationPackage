@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>282</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/282</ISSUEURL>
+  <TITLE>Issues when handling spaces</TITLE>
+  <DESCRIPTION>Hey! Not sure if these issues are sqlite-specific or apply to all databases. **Description** Creating a database with spaces within its name, or creating a column with spaces within its name, cause issues. When creating a database containing space, while the table is properly created, it can't be accessed and modified by nocodb anymore, details in the next section. When creating a column name with a space, the column value is injected within the query itself unescaped, which will fail and is a SQL injection. This is an issue for &quot;normal&quot; columns as only the first segment will be the resulting column name: `test col` will have an actual name of of `test`, while nocobd still tries to insert into `test col`. **Steps To Reproduce** 1. Create a new table `test table` 1.1. The resulting table within the database is `xa1_test table`, should likely be normalized to `test_table` 2. Attempting to save a value has an error: Attempting to access a non-existing route (404) ![image](https://user-images.githubusercontent.com/9059487/122080600-62d3c400-cdcc-11eb-99dd-dfbc3ec4fcd5.png) **Steps To Reproduce** 1. Create a new column `col with space` 1.1. The resulting table within the db is `xa1_col`, due to a lack of sanitization when inserting the value. 2. Attempt inserting a row 3. The insertion will fail with the message _The table X does not have a column named `col with space`_ **Steps To Reproduce** 1. Create a new column `col with space 2` 2. The insertion fails due to an invalid sql query. ![image](https://user-images.githubusercontent.com/9059487/122081071-c827b500-cdcc-11eb-8735-ea90690d2220.png) **Expected behavior** All of the above working. For values with spaces, I would expect an internal normalized name to be generated, with an external nice value to be mapped and used within the app. I believe this is already partially done for the view, as the tables are all underscores, but it does not work with the spaces within the column and table names. --- NocoDB used as docker : false NocoDB version : `0.9.31` (latest npm release) Database used in NC_DB URL : sqlite3 Database on which spreadsheet is created : sqlite3 OS on which NocoDB is running : Windows Node.js version if running as node : 14.16.0</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>25</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #284 from nocodb/fix/project-role-loading-fix Fixed project roles reseting when we open a project though workspace page</MESSAGE>
+    <SHA>327d264ccc063b7a616f5789eea7cb4c2c2df32b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #282 from nocodb/pw_workspaces PlayWright WorkSpaces</MESSAGE>
+      <SHA>1e476cab9cca6ad4efe3c131d07e9300e69c22d3</SHA>
+      <PATCHEDFILES>
+        <FILE>.gitignore</FILE>
+        <FILE>packages/nc-gui/components/workspace/CreateDlg.vue</FILE>
+        <FILE>packages/nc-gui/layouts/new.vue</FILE>
+        <FILE>packages/nc-gui/pages/index/index/index.vue</FILE>
+        <FILE>packages/nocodb/src/lib/services/test/TestResetService/index.ts</FILE>
+        <FILE>packages/nocodb/src/lib/services/test/TestResetService/resetMetaSakilaSqliteProject.ts</FILE>
+        <FILE>tests/playwright/pages/Dashboard/index.ts</FILE>
+        <FILE>tests/playwright/pages/WorkspacePage.ts</FILE>
+        <FILE>tests/playwright/pages/WorkspacePage/ContainerPage.ts</FILE>
+        <FILE>tests/playwright/pages/WorkspacePage/HeaderPage.ts</FILE>
+        <FILE>tests/playwright/pages/WorkspacePage/LeftSideBarPage.ts</FILE>
+        <FILE>tests/playwright/pages/WorkspacePage/index.ts</FILE>
+        <FILE>tests/playwright/playwright.config.ts</FILE>
+        <FILE>tests/playwright/setup/index.ts</FILE>
+        <FILE>tests/playwright/tests/docs/docsAcl.spec.ts</FILE>
+        <FILE>tests/playwright/tests/nocohub/hubDashboard.spec.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

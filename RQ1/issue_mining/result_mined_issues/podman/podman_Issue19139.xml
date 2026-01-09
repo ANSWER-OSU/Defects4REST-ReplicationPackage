@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19139</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/19139</ISSUEURL>
+  <TITLE>Containers created using docker compose have StopTimeout set to 0</TITLE>
+  <DESCRIPTION>### Issue Description When using Docker Compose with Podman, my services have not been shutting down cleanly. After using strace on the hostto confirm that the container PID 1 process was also receiving SIGKILL, I've realized that the container's `StopTimeout` is set to 0 in the `podman inspect` output. For comparison, I created a container using `podman run`, and that container had a `StopTimeout` of 10. ### Steps to reproduce the issue Steps to reproduce the issue 1. Write a compose file. I suspect that the only requirement here is that `stop_grace_period` is _not_ set for the service in question. 2. `sudo env DOCKER_BUILDKIT=0 /usr/libexec/docker/cli-plugins/docker-compose --host unix:///var/run/podman/podman.sock --file=compose.yaml up --no-start` (disabling BUILDKIT is probably not necessary here) 3. `inspect` the container created for the compose project 4. Edit the compose file to set `stop_grace_period` to a non-zero value for the service in question 5. Repeat steps 2 &amp; 3 6. `sudo podman run whatever_suitable_image /bin/true` 7. `inspect` the container created for the `run` command ### Describe the results you received `StopTimeout` is set to 0 when the compose file has no value for `stop_grace_period`, the configured value when `stop_grace_period` is set, and is set to 10 for the container created by `run`. ### Describe the results you expected `StopTimeout` should be set to the default (10 in my case) if no other value is set (e.g. `stop_grace_period`) ### podman info output ```yaml host: arch: amd64 buildahVersion: 1.29.0 cgroupControllers: - cpuset - cpu - io - memory - hugetlb - pids - rdma - misc cgroupManager: systemd cgroupVersion: v2 conmon: package: conmon-2.1.7-1.el9_2.x86_64 path: /usr/bin/conmon version: 'conmon version 2.1.7, commit: e6cdc9a4d6319e039efa13e532c1e58b713c904d' cpuUtilization: idlePercent: 99.02 systemPercent: 0.27 userPercent: 0.72 cpus: 2 distribution: distribution: '&quot;rocky&quot;' version: &quot;9.1&quot; eventLogger: journald hostname: ******* idMappings: gidmap: null uidmap: null kernel: 5.14.0-162.23.1.el9_1.x86_64 linkmode: dynamic logDriver: journald memFree: 3744948224 memTotal: 8050937856 networkBackend: netavark ociRuntime: name: crun package: crun-1.8.4-1.el9_2.x86_64 path: /usr/bin/crun version: |- crun version 1.8.4 commit: 5a8fa99a5e41facba2eda4af12fa26313918805b rundir: /run/crun spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +CRIU +YAJL os: linux remoteSocket: exists: true path: /run/podman/podman.sock security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: false seccompEnabled: true seccompProfilePath: /usr/share/containers/seccomp.json selinuxEnabled: true serviceIsRemote: false slirp4netns: executable: /bin/slirp4netns package: slirp4netns-1.2.0-3.el9.x86_64 version: |- slirp4netns version 1.2.0 commit: 656041d45cfca7a4176f6b7eed9e4fe6c11e8383 libslirp: 4.4.0 SLIRP_CONFIG_VERSION_MAX: 3 libseccomp: 2.5.2 swapFree: 0 swapTotal: 0 uptime: 714h 32m 43.00s (Approximately 29.75 days) plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan volume: - local registries: search: - registry.access.redhat.com - registry.redhat.io - docker.io store: configFile: /etc/containers/storage.conf containerStore: number: 10 paused: 0 running: 9 stopped: 1 graphDriverName: overlay graphOptions: overlay.mountopt: nodev,metacopy=on graphRoot: /var/lib/containers/storage graphRootAllocated: 31990005760 graphRootUsed: 29566701568 graphStatus: Backing Filesystem: xfs Native Overlay Diff: &quot;false&quot; Supports d_type: &quot;true&quot; Using metacopy: &quot;true&quot; imageCopyTmpDir: /var/tmp imageStore: number: 380 runRoot: /run/containers/storage transientStore: false volumePath: /var/lib/containers/storage/volumes version: APIVersion: 4.4.1 Built: 1683632637 BuiltTime: Tue May 9 11:43:57 2023 GitCommit: &quot;&quot; GoVersion: go1.19.6 Os: linux OsArch: linux/amd64 Version: 4.4.1 ``` ### Podman in a container No ### Privileged Or Rootless Privileged ### Upstream Latest Release No ### Additional environment details _No response_ ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>50</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19727 from vrothberg/fix-19715 kube: notifyproxy: close once</MESSAGE>
+    <SHA>32f7bb131a477169ad3ffa34b30bacced6f2ea56</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Set StopTimeout for compat API if not set by client Currently containers created via DOCKER API without specifying StopTimeout are defaulting to 0 seconds. This change should default them to setting in containers.conf normally 10 seconds. Fixes: https://github.com/containers/podman/issues/19139 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>d2ec127c1310beb04c79028986eadede2e390505</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/compat/containers_create.go</FILE>
+        <FILE>test/apiv2/20-containers.at</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Set StopTimeout for service-container started under podman kube play Fixes: https://github.com/containers/podman/issues/19139 Service containers are defaulting to 0 seconds for Timeout rather then the settings in containers.conf. Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>f32e954b8a472b58b8a1918d5de16866f4917807</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/infra/abi/play.go</FILE>
+        <FILE>test/apiv2/20-containers.at</FILE>
+        <FILE>test/system/700-play.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>328</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/328</ISSUEURL>
+  <TITLE>fatal error: concurrent map read and map write</TITLE>
+  <DESCRIPTION>## Version - SeaweedFS: version 0.71 beta linux amd64 - Go: go version go1.6.1 linux/amd64 ## Problem I encounter this error in one **volume server** when I **read &amp; write to same collection** heavily. &gt; fatal error: concurrent map read and map write &gt; &gt; goroutine 2258 [running]: &gt; runtime.throw(0xe4f180, 0x21) &gt; /usr/local/go/src/runtime/panic.go:530 +0x90 fp=0xc82601d280 sp=0xc82601d268 &gt; runtime.mapaccess2_fast64(0xaecc60, 0xc823a5ccf0, 0x1fd21d2, 0x453096, 0xc82001c00c) &gt; /usr/local/go/src/runtime/hashmap_fast.go:157 +0x5a fp=0xc82601d2a0 sp=0xc82601d280 &gt; github.com/chrislusf/seaweedfs/go/storage.(_CompactSection).Get(0xc8248370c0, 0x1fd21d2, 0x0, 0x0) &gt; /home/xxr/golang/src/github.com/chrislusf/seaweedfs/go/storage/compact_map.go:82 +0x59 fp=0xc82601d2d8 sp=0xc82601d2a0 &gt; github.com/chrislusf/seaweedfs/go/storage.(_CompactMap).Get(0xc825f44180, 0x1fd21d2, 0xf0d9c1, 0xc800000002) &gt; /home/xxr/golang/src/github.com/chrislusf/seaweedfs/go/storage/compact_map.go:150 +0x91 fp=0xc82601d318 sp=0xc82601d2d8 &gt; github.com/chrislusf/seaweedfs/go/storage.(_NeedleMap).Get(0xc825f44180, 0x1fd21d2, 0x2, 0x42ee47) &gt; /home/xxr/golang/src/github.com/chrislusf/seaweedfs/go/storage/needle_map_memory.go:92 +0x32 fp=0xc82601d340 sp=0xc82601d318 &gt; github.com/chrislusf/seaweedfs/go/storage.(_Volume).readNeedle(0xc823984980, 0xc829756dc0, 0xc823984980, 0x0, 0x0) &gt; /home/xxr/golang/src/github.com/chrislusf/seaweedfs/go/storage/volume.go:286 +0x76 fp=0xc82601d408 sp=0xc82601d340 &gt; github.com/chrislusf/seaweedfs/go/storage.(_Store).ReadVolumeNeedle(0xc8201fe080, 0xc8000000f4, 0xc829756dc0, 0x4, 0x0, 0x0) &gt; /home/xxr/golang/src/github.com/chrislusf/seaweedfs/go/storage/store.go:329 +0x67 fp=0xc82601d488 sp=0xc82601d408 &gt; github.com/chrislusf/seaweedfs/go/weed/weed_server.(_VolumeServer).GetOrHeadHandler(0xc8202000e0, 0x7fa61fc93478, 0xc824604dd0, 0xc82beac1c0) &gt; /home/xxr/golang/src/github.com/chrislusf/seaweedfs/go/weed/weed_server/volume_server_handlers_read.go:67 +0x174d fp=0xc82601da88 sp=0xc82601d488 &gt; github.com/chrislusf/seaweedfs/go/weed/weed_server.(_VolumeServer).privateStoreHandler(0xc8202000e0, 0x7fa61fc93478, 0xc824604dd0, 0xc82beac1c0) &gt; /home/xxr/golang/src/github.com/chrislusf/seaweedfs/go/weed/weed_server/volume_server_handlers.go:28 +0xf6 fp=0xc82601dad0 sp=0xc82601da88 &gt; github.com/chrislusf/seaweedfs/go/weed/weed_server.(_VolumeServer).(github.com/chrislusf/seaweedfs/go/weed/weed_server.privateStoreHandler)-fm(0x7fa61fc93478, 0xc824604dd0, 0xc82b &gt; eac1c0) &gt; /home/xxr/golang/src/github.com/chrislusf/seaweedfs/go/weed/weed_server/volume_server.go:64 +0x3e fp=0xc82601daf8 sp=0xc82601dad0 &gt; net/http.HandlerFunc.ServeHTTP(0xc82053e170, 0x7fa61fc93478, 0xc824604dd0, 0xc82beac1c0) &gt; /usr/local/go/src/net/http/server.go:1618 +0x3a fp=0xc82601db18 sp=0xc82601daf8 &gt; net/http.(_ServeMux).ServeHTTP(0xc8201d4750, 0x7fa61fc93478, 0xc824604dd0, 0xc82beac1c0) &gt; /usr/local/go/src/net/http/server.go:1910 +0x17d fp=0xc82601db70 sp=0xc82601db18 &gt; net/http.serverHandler.ServeHTTP(0xc8201fe400, 0x7fa61fc93478, 0xc824604dd0, 0xc82beac1c0) &gt; /usr/local/go/src/net/http/server.go:2081 +0x19e fp=0xc82601dbd0 sp=0xc82601db70 &gt; net/http.(_conn).serve(0xc827695b00) &gt; /usr/local/go/src/net/http/server.go:1472 +0xf2e fp=0xc82601df98 sp=0xc82601dbd0 &gt; runtime.goexit() &gt; /usr/local/go/src/runtime/asm_amd64.s:1998 +0x1 fp=0xc82601dfa0 sp=0xc82601df98 &gt; created by net/http.(*Server).Serve &gt; /usr/local/go/src/net/http/server.go:2137 +0x44e</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Udm docker (#320) * add docker file for mysql and filer * update docker build * add docker compose for udm add docker file for udm multi arch build (#337)</MESSAGE>
+    <SHA>16b4524b6d67e0d67dbfd86de82023baec644849</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>udm storage backend (#318) * udm storage backend * update proto update proto (#328) remove trim (#329) add read super lock api (#333) Signed-off-by: lou &lt;alex1988@outlook.com&gt; transparent recall (#341) * transparent recall switch Signed-off-by: lou &lt;alex1988@outlook.com&gt; * trivial Signed-off-by: lou &lt;alex1988@outlook.com&gt; * update after review Signed-off-by: lou &lt;alex1988@outlook.com&gt; --------- Signed-off-by: lou &lt;alex1988@outlook.com&gt;</MESSAGE>
+      <SHA>19608ad3bb815540bac8d023f8ef1fe066f23833</SHA>
+      <PATCHEDFILES>
+        <FILE>docker/master-udm.toml</FILE>
+        <FILE>weed/storage/backend/udm/Makefile</FILE>
+        <FILE>weed/storage/backend/udm/api/v1/storage.pb.go</FILE>
+        <FILE>weed/storage/backend/udm/api/v1/storage.proto</FILE>
+        <FILE>weed/storage/backend/udm/api/v1/storage_grpc.pb.go</FILE>
+        <FILE>weed/storage/backend/udm/backend.go</FILE>
+        <FILE>weed/storage/backend/udm/grpc_client.go</FILE>
+        <FILE>weed/storage/backend/udm/sample_grpc_server.go</FILE>
+        <FILE>weed/storage/backend/udm/third_party/google/protobuf/empty.proto</FILE>
+        <FILE>weed/storage/volume_info/volume_info.go</FILE>
+        <FILE>weed/storage/volume_tier.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

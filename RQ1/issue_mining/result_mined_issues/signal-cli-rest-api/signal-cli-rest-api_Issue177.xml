@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>177</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/177</ISSUEURL>
+  <TITLE>/v1/groups/{number}/{groupid}/block endpoint does not do anything (JSON-RPC)</TITLE>
+  <DESCRIPTION>### The problem This is the debug log: ``` time=&quot;2021-11-01T19:24:49+01:00&quot; level=debug msg=&quot;full command: {\&quot;jsonrpc\&quot;:\&quot;2.0\&quot;,\&quot;method\&quot;:\&quot;updateGroup\&quot;,\&quot;id\&quot;:\&quot;983f3b8b-13f0-48f7-a771-8db6329922f6\&quot;,\&quot;params\&quot;:{\&quot;groupId\&quot;:\&quot;&lt;id&gt;\&quot;}}&quot; [GIN] 2021/11/01 - 19:24:49 | 204 | 4.440421ms | 192.168.X.Y | POST &quot;/v1/groups/+49&lt;number&gt;/group.&lt;id&gt;/block&quot; ``` This looks like an updateGroup call without any meaningful parameters, and indeed the group is not blocked afterwards: ``` { &quot;name&quot;: &quot;Testgruppe X&quot;, &quot;id&quot;: &quot;group.&lt;id&gt;&quot;, &quot;internal_id&quot;: &quot;&lt;id&gt;&quot;, &quot;members&quot;: [ &quot;+49&lt;number 1&gt;&quot;, &quot;+49&lt;number 2&gt;&quot; ], &quot;blocked&quot;: false, &quot;pending_invites&quot;: [], &quot;pending_requests&quot;: [], &quot;invite_link&quot;: &quot;&quot; }, ``` To my understanding, [this](https://github.com/AsamK/signal-cli/blob/master/run_tests.sh#L106) is what the command should look like. I tried to test this, but signal-cli told me &quot;This command doesn't work on linked devices.&quot; so it looks like I can't verify on my host. Writing this out made me notice that the command was never gonna work via the API in the first place (as it is a linked device). However, the debug log still looks wrong. ### Are you using the latest released version? - [X] Yes ### Have you read the troubleshooting page? - [X] Yes ### What type of installation are you running? signal-cli-rest-api Docker Container ### In which mode are you using the docker container? JSON-RPC Mode ### What's the architecture of your host system? armv7 ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>16</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fixed swagger documentation * some endpoints had a wrong HTTP status code in the swagger documentation. see #175</MESSAGE>
+    <SHA>d4b2dbea7f5c7aab75fd34628ffb00e373400653</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fixed bug in JSON-RPC mode * use signal-cli's 'block' command to block a group see #177</MESSAGE>
+      <SHA>f472e519849a6dc3ae90e456e4b63905067a1e7b</SHA>
+      <PATCHEDFILES>
+        <FILE>src/client/client.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fixed bug in JSON-RPC mode * use signal-cli's 'block' command to block a group see #177</MESSAGE>
+      <SHA>00bc50ef52c760a008328b00d51b410fb3d359a6</SHA>
+      <PATCHEDFILES>
+        <FILE>src/client/client.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

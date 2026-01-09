@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5231</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/5231</ISSUEURL>
+  <TITLE>failed to specify '-dataCenter' when upload files</TITLE>
+  <DESCRIPTION>Environments: - system: Ubuntu 22.04 amd64 - weed: version 30GB 3.61 linux amd64 I did `weed upload -master localhost:9333 -dataCenter dc index.py`, then I got ``` assign failure 1: Example: weed upload -master=localhost:9333 file1 [file2 file3] weed upload -master=localhost:9333 -dir=one_directory -include=*.pdf Default Usage: -collection string optional collection name -dataCenter string optional data center name -debug verbose debug information ...(omission) ``` But if I don't specify the dataCenter, ``` $ weed upload -master localhost:9333 index.py [{&quot;fileName&quot;:&quot;index.py&quot;,&quot;url&quot;:&quot;myserverip:8080/8,0efe8ccccf&quot;,&quot;fid&quot;:&quot;8,0efe8ccccf&quot;,&quot;size&quot;:3474}] ``` It worked correctly. I tried to replace the space to equal (-dataCenter=dc) but nothing different. Is this a bug?</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'master' into mq-subscribe</MESSAGE>
+    <SHA>a8ddbf9ed2cebe2cafc518a1e7269a94f8332106</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>return dir assign counter fix https://github.com/seaweedfs/seaweedfs/issues/5231</MESSAGE>
+      <SHA>d4e66cc1402499742c8f9f552cb49f0ad2c35c3c</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/topology/volume_layout.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>return dir assign counter fix https://github.com/seaweedfs/seaweedfs/issues/5231</MESSAGE>
+      <SHA>025f8eb37bdd47b71dcc7d8d3f72ae2f16e19c0a</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/topology/volume_layout.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

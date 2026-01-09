@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1212</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/1212</ISSUEURL>
+  <TITLE>Rejected post commit hook but commit is built</TITLE>
+  <DESCRIPTION>I have Drone running as a docker container, connected to a local GitLab instance. Every time I push a commit, `droned` logs the following messages: ``` 2015/09/23 22:24:35 Rejected post commit hook for [repository]. Token mismatch 2015/09/23 22:24:35 Rejected post commit hook for [repository]. Token mismatch 2015/09/23 22:24:35 Rejected post commit hook for [repository]. Token mismatch starting build 2015/09/23 22:24:57 dial tcp :0: connection refused 2015/09/23 22:24:57 subscription's close channel received message ``` The build _runs_ just fine, but I'd like to know what's causing these messages. Reading [hook.go](https://github.com/drone/drone/blob/bdd4742171f359098953751e792d28fe2c8947ac/server/handler/hook.go#L66) it looks like if the post-commit hook is rejected the build should never even start.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix local dev setup while producing MFE to be embed into Harness Platform (#1225)</MESSAGE>
+    <SHA>b4902cd6d52fbb2bd7235211b0dcf743c3641e1e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>introduce init states for the refupdater (#1212)</MESSAGE>
+      <SHA>5076c71b78f1ec6c95b3f9f996b74264fabff06d</SHA>
+      <PATCHEDFILES>
+        <FILE>git/hook/refupdate.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

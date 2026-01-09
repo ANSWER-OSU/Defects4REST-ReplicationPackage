@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4909</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/4909</ISSUEURL>
+  <TITLE>when job deployed to container group fails to connect or loses connection, job status should be &quot;ERROR&quot;</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY &lt;!-- Briefly describe the problem. --&gt; This is a known issue of #4189 that will be resolved in follow up PR. When a job deployed to a container group fails after the pod has been deployed from never being able to connect (no rsync on container for example) or from losing connection (pod prematurely exits/is killed) the job gets failure state &quot;failed&quot; instead of &quot;error&quot;, although error is put in `result_traceback`. ##### STEPS TO REPRODUCE &lt;!-- Please describe exactly how to reproduce the problem. --&gt; 1) create a Container Group but override container `args` to be `sleep 5` so it will exit too fast 2) Create an job template with our test playbooks to run `sleep.yml` for 45 seconds 3) Assign Container Group to JT 4) launch job ##### EXPECTED RESULTS &lt;!-- What did you expect to happen when running the steps above? --&gt; Job fails with state `error` and get traceback ##### ACTUAL RESULTS &lt;!-- What actually happened? --&gt; Job fails with state `failed` and traceback</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>17</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Set omitted runner event line lengths to 0 runner_on_start events have zero-length strings for their stdout fields. We don't want to display these in the ui so we omit them. Although the stdout field is an empty string, it still has a recorded line length of 1 that we must account for. Since we're not rendering the blank line, we must also go back and set the event record's line length to 0 in order to avoid deleting too many lines when we pop or shift events off of the view while scrolling.</MESSAGE>
+    <SHA>2ba7186060c4a633211d082a138f5d2e4a458e2a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>when isolated or container jobs fail to launch, set job status to error a status of error makes more sense, because failed generally points to an issue with the playbook itself, while error is more generally used for reporting issues internal to Tower see: https://github.com/ansible/awx/issues/4909</MESSAGE>
+      <SHA>a2f860807403bc4664c190c8deaea9066ea0f44c</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/isolated/manager.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>when isolated or container jobs fail to launch, set job status to error a status of error makes more sense, because failed generally points to an issue with the playbook itself, while error is more generally used for reporting issues internal to Tower see: https://github.com/ansible/awx/issues/4909</MESSAGE>
+      <SHA>aab1487e28b8a8277ebf20b626a746b20c14dd0b</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/isolated/manager.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>when isolated or container jobs fail to launch, set job status to error a status of error makes more sense, because failed generally points to an issue with the playbook itself, while error is more generally used for reporting issues internal to Tower see: https://github.com/ansible/awx/issues/4909</MESSAGE>
+      <SHA>6dfc714c75b47314894e1e59c35c4c525914367c</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/isolated/manager.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

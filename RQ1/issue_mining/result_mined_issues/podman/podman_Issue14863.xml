@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14863</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14863</ISSUEURL>
+  <TITLE>Cirrus: new API clobbers past (flake) runs</TITLE>
+  <DESCRIPTION>The new logformatter URL mechanism, after #14608, has a serious flaw: flake URLs are lost. Reason: the new URLs include the **BuildID**, and **TaskName**, but not the **TaskID**. TaskID is the crucial one for linking to a flake log. Without TaskID, we have something like `/build/12345/int this that`, but the `int this that` on a successful run clobbers the one of the flaked run. @cevich let's talk about this upon your return please.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14181 from umohnani8/kube-hostname Add ports and hostname correctly in kube yaml</MESSAGE>
+    <SHA>810cbf1fb9411f75868b82c1071937374e9d57e4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>logformatter: link by *task ID*, not build ID Reason: task IDs are unique and permanent; linking by build ID and task name is non-unique, because Re-run. Fixes: #14863 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>3ed323e1bb76ff195fa10cf4f69a054ecdb47496</SHA>
+      <PATCHEDFILES>
+        <FILE>contrib/cirrus/logformatter</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>logformatter: link by *task ID*, not build ID Reason: task IDs are unique and permanent; linking by build ID and task name is non-unique, because Re-run. Fixes: #14863 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>b2f3b28c6a4548e0982f2ead9cc4f3acc8f27f82</SHA>
+      <PATCHEDFILES>
+        <FILE>contrib/cirrus/logformatter</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

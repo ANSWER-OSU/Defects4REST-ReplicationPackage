@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2397</ISSUENO>
+  <ISSUEURL>https://github.com/MobSF/Mobile-Security-Framework-MobSF/issues/2397</ISSUEURL>
+  <TITLE>[BUG] app_icon is missing for iOS-ipa Static scans</TITLE>
+  <DESCRIPTION>## ENVIRONMENT ``` OS and Version: Linux ubuntu-ad 6.8.0-35-generic Python Version: 3.12.3 MobSF Version: v4.0.3 (since v3.7.6) ``` ## EXPLANATION OF THE ISSUE ``` Any IPA scanning generates a PNG file for the icon but it results unreadable (CgBI format). This is happening since v3.7.6 both with docker image and with local build from scratch. ``` ## STEPS TO REPRODUCE THE ISSUE ``` 1. Run mobsf with persistence `docker run -it --rm --name mobsf -p 8000:8000 -v ~/docker/mobsf:/home/mobsf/.MobSF opensecurity/mobile-security-framework-mobsf:latest` 2. Upload `UnCrackable-Level1.ipa` (any ipa has the bug) file and wait for scanning completion. 3. Generated icon is missing/error. 4. Icon has **CgBI** file format, Apple's proprietary PNG extension. ``` I have tried the [CgbiPngFix](https://github.com/poolqa/CgbiPngFix) tool and it's working. You could integrate it someway in MobSF. ## SCREENSHOTS ![image](https://github.com/MobSF/Mobile-Security-Framework-MobSF/assets/81392234/6451cb25-941d-4ea3-9fcc-66b2bf1f0a94) ![image](https://github.com/MobSF/Mobile-Security-Framework-MobSF/assets/81392234/06252bc2-c303-4808-8b6c-8fcf31df97c4) ![image](https://github.com/MobSF/Mobile-Security-Framework-MobSF/assets/81392234/7e10a5af-1634-4cee-84ae-5fe0139ec25c) ## LOG FILE ``` [INFO] 05/Jun/2024 06:54:37 - Author: Ajin Abraham | opensecurity.in [INFO] 05/Jun/2024 06:54:37 - Mobile Security Framework v4.0.3 [INFO] 05/Jun/2024 06:54:37 - OS Environment: Linux (ubuntu 22.04 Jammy Jellyfish) Linux-6.8.0-35-generic-x86_64-with-glibc2.35 [INFO] 05/Jun/2024 06:54:37 - MobSF Basic Environment Check [INFO] 05/Jun/2024 06:54:37 - Checking for Update. [INFO] 05/Jun/2024 06:54:37 - No updates available. [INFO] 05/Jun/2024 06:55:19 - MIME Type: application/octet-stream FILE: UnCrackable-Level1.ipa [INFO] 05/Jun/2024 06:55:19 - Performing Static Analysis of iOS IPA [INFO] 05/Jun/2024 06:55:19 - iOS Binary (IPA) Analysis Started [INFO] 05/Jun/2024 06:55:19 - Generating Hashes [INFO] 05/Jun/2024 06:55:19 - Extracting IPA [INFO] 05/Jun/2024 06:55:19 - Unzipping [INFO] 05/Jun/2024 06:55:19 - Get Files, BIN Plist -&gt; XML, and Normalize [WARNING] 05/Jun/2024 06:55:19 - Failed to convert plist [INFO] 05/Jun/2024 06:55:19 - iOS Info.plist Analysis Started [INFO] 05/Jun/2024 06:55:19 - Finding Info.plist in iOS Binary [INFO] 05/Jun/2024 06:55:19 - Checking Permissions [INFO] 05/Jun/2024 06:55:19 - Checking for Insecure Connections [INFO] 05/Jun/2024 06:55:19 - Fetching Details from App Store: sg.vp.UnCrackable1 [WARNING] 05/Jun/2024 06:55:21 - Unable to get app details. [INFO] 05/Jun/2024 06:55:21 - Starting Binary Analysis [INFO] 05/Jun/2024 06:55:21 - Running MachO Analysis on: UnCrackable Level 1 [INFO] 05/Jun/2024 06:55:21 - Getting Binary Information [INFO] 05/Jun/2024 06:55:21 - Dumping classes [INFO] 05/Jun/2024 06:55:21 - Running jtool against the binary for dumping classes [INFO] 05/Jun/2024 06:55:21 - Running strings against the Binary [INFO] 05/Jun/2024 06:55:21 - Library Binary Analysis Started [INFO] 05/Jun/2024 06:55:21 - Framework Binary Analysis Started [INFO] 05/Jun/2024 06:55:21 - Fetching icon path [INFO] 05/Jun/2024 06:55:21 - Starting IPA URL and Email Extraction [INFO] 05/Jun/2024 06:55:21 - Performing Malware Check on extracted Domains [INFO] 05/Jun/2024 06:55:23 - Maltrail Database is outdated! [INFO] 05/Jun/2024 06:55:23 - Updating Maltrail Database [INFO] 05/Jun/2024 06:55:24 - Finished URL and Email Extraction [INFO] 05/Jun/2024 06:55:25 - Trackers Database is outdated! [INFO] 05/Jun/2024 06:55:25 - Updating Trackers Database.... [INFO] 05/Jun/2024 06:55:25 - Detecting Trackers from Domains [INFO] 05/Jun/2024 06:55:25 - Detecting Firebase URL(s) [INFO] 05/Jun/2024 06:55:25 - Connecting to DB [INFO] 05/Jun/2024 06:55:25 - Saving to Database [INFO] 05/Jun/2024 06:55:25 - Analysis is already Done. Fetching data from the DB... [WARNING] 05/Jun/2024 06:55:33 - Not Found: /favicon.ico ``` Thanks &lt;!-- BEFORE POSTING YOUR ISSUE/BUG - These comments won't show up when you submit the issue. - GitHub issues ARE NOT FOR FEATURE REQUESTS, SUPPORT, DISCUSSIONS AND QUESTIONS! - If you have questions, use our slack channel. Join MobSF Slack channel: https://bit.ly/3mCMNOx - Reproduce issue in the latest master and try to add as much detail as possible. - Search this repository (top of the page) for the issue and it has not been fixed or reported already. - Once you open a bug, you should also provide additional information if requested. - Failure to do so in 25 days will result in closure of the bug without further communication. --&gt;</DESCRIPTION>
+  <REPONAME>Mobile-Security-Framework-MobSF</REPONAME>
+  <TIMEDIFFERENCEDAYS>154</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix lint</MESSAGE>
+    <SHA>744a7f483ba5f2a6d8e900fc77e10ef27c6364ba</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Uncrush PNG on popular Windows and Linux arch, Fixes #2397</MESSAGE>
+      <SHA>d82acb7928369efd09034ecedc9c5c8d1b924a0a</SHA>
+      <PATCHEDFILES>
+        <FILE>mobsf/StaticAnalyzer/tools/ios/CgbiPngFix/CgbiPngFix.exe</FILE>
+        <FILE>mobsf/StaticAnalyzer/tools/ios/CgbiPngFix/CgbiPngFix_amd64</FILE>
+        <FILE>mobsf/StaticAnalyzer/tools/ios/CgbiPngFix/CgbiPngFix_arm64</FILE>
+        <FILE>mobsf/StaticAnalyzer/views/ios/icon_analysis.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>4.1.5 (#2445) * Support custom home from environment variables * Reduce iOS binary findings severity to warning from high * Code QA and dependency updates * docker-compose QA, added example nginx config * Added docker-compose_swarm.yml by @antonkap add support for docker secrets * IPA PNG Uncrush support for Windows and Linux #2397</MESSAGE>
+      <SHA>e5af3a8219e2a7b4078fab6a3b5d5a66900e7cf1</SHA>
+      <PATCHEDFILES>
+        <FILE>.sonarcloud.properties</FILE>
+        <FILE>docker-compose.yml</FILE>
+        <FILE>docker/docker-compose.yml</FILE>
+        <FILE>docker/docker-compose_swarm.yml</FILE>
+        <FILE>docker/nginx.conf</FILE>
+        <FILE>mobsf/MobSF/init.py</FILE>
+        <FILE>mobsf/MobSF/settings.py</FILE>
+        <FILE>mobsf/MobSF/utils.py</FILE>
+        <FILE>mobsf/MobSF/views/api/api_middleware.py</FILE>
+        <FILE>mobsf/MobSF/views/home.py</FILE>
+        <FILE>mobsf/StaticAnalyzer/tests.py</FILE>
+        <FILE>mobsf/StaticAnalyzer/tools/ios/CgbiPngFix/CgbiPngFix.exe</FILE>
+        <FILE>mobsf/StaticAnalyzer/tools/ios/CgbiPngFix/CgbiPngFix_amd64</FILE>
+        <FILE>mobsf/StaticAnalyzer/tools/ios/CgbiPngFix/CgbiPngFix_arm64</FILE>
+        <FILE>mobsf/StaticAnalyzer/views/android/views/source_tree.py</FILE>
+        <FILE>mobsf/StaticAnalyzer/views/ios/icon_analysis.py</FILE>
+        <FILE>mobsf/StaticAnalyzer/views/ios/rules/ipa_rules.py</FILE>
+        <FILE>poetry.lock</FILE>
+        <FILE>pyproject.toml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

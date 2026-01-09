@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>226</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/226</ISSUEURL>
+  <TITLE>Error: Can't find npm module when deploying with Dockerfile</TITLE>
+  <DESCRIPTION>I have a project that successfully runs with docker when doing: ``` docker build -t myimage . docker run -p 80:3000 -e PORT=3000 -e ROOT_URL=http://example.com myimage ``` But when deploying with `now -e PORT=3000 -e ROOT_URL=http://example.com` I get: ``` /programs/server/boot.js:348 }).run(); ^ Error: Can't find npm module 'meteor-deque'. Did you forget to call 'Npm.depends' in package.js within the 'meteor' package? at Object.require (/programs/server/boot.js:200:17) at packages/meteor.js:677:32 at packages/meteor.js:846:4 at packages/meteor.js:1380:3 at /programs/server/boot.js:295:34 at Array.forEach (native) at Function._.each._.forEach (/programs/server/node_modules/underscore/underscore.js:79:11) at /programs/server/boot.js:128:5 at /programs/server/boot.js:344:5 at Function.run (/programs/server/profile.js:480:12) ``` I posted my entire repo here: https://github.com/mazlix/now-docker-deploy-issue in case anyone would like to reproduce (by doing what I did above [running `docker build/run` works and `now` fails] Here's just the Dockerfile: ``` FROM node:boron ENV NPM_CONFIG_LOGLEVEL warn RUN mkdir -p programs/server/ COPY programs/server/package.json programs/server/package.json WORKDIR programs/server/ RUN npm install COPY . ../../ WORKDIR ../../ EXPOSE 3000 CMD [&quot;node&quot;, &quot;main.js&quot;] ``` Is there anywhere in the docs where I can see exactly what the docker build/run commands are?</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Publish - @now/python@0.0.41-canary.1</MESSAGE>
+    <SHA>183b1171520b7134119dce14d1820e28560ed0d8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-python] Add missing `base64` import and fix coding style (#226)</MESSAGE>
+      <SHA>702f56b9b53555268d41936225abab08625c4cad</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-python/now_handler.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

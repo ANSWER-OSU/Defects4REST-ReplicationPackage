@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18884</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18884</ISSUEURL>
+  <TITLE>`deserialize_object()` does not account for resolved tags in object data</TITLE>
+  <DESCRIPTION>### Deployment Type NetBox Cloud ### NetBox Version v4.2.5 ### Python Version 3.10 ### Steps to Reproduce 1. Create an object with one or more tags assigned. (In this example, we use a tenant.) 2. Serialize the object using the `serialize_object()` utility function. ```python from pprint import pprint from tenancy.models import Tenant from utilities.serialization import serialize_object, deserialize_object tenant = Tenant.objects.first() data = serialize_object(tenant) pprint(data) ``` The output data is below: ```python {'comments': '', 'created': '2020-12-19T00:00:00Z', 'custom_fields': {'cust_id': 'CYB01'}, 'description': '', 'group': 1, 'last_updated': '2025-03-12T18:02:59.743Z', 'name': 'Cyberdyne Systems', 'slug': 'cyberdyne', 'tags': ['Alpha', 'Bravo', 'Charlie']} ``` 3. Attempt to deserialize the serialized data back into the object. ```python deserialize_object(Tenant, data) ``` ### Expected Behavior `deserialize_object()` should return the deserialized object with all attributes set correctly. ### Observed Behavior A DeserializationError is raised: ``` django.core.serializers.base.DeserializationError: ['“Alpha” value must be an integer.']: (tenancy.tenant:pk=None) field_value was 'Alpha' ``` This occurs because the function does not account for the tags being specified by name rather than by numeric primary key.</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Change JSONField, prepare_value to output str with enclosing &quot; (#18846)</MESSAGE>
+    <SHA>749a83d7427b7ddc911eed68cdcb931f34f8efa7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #18884: Handle tag assignments manually within deserialize_object</MESSAGE>
+      <SHA>03f178b04ebf25894d4cdf516a800c2517a11b97</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/utilities/serialization.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #18884: Handle tag assignments manually within deserialize_object (#18908)</MESSAGE>
+      <SHA>f86647dc28d61d77a7f4f8fa946d880c75db6f50</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/utilities/serialization.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

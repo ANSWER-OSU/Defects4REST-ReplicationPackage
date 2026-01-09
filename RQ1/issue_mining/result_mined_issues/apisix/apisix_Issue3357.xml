@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3357</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/3357</ISSUEURL>
+  <TITLE>bug: failed to match the host which contains uppercase letters</TITLE>
+  <DESCRIPTION>here is a case: ```shell $ curl -i http://127.0.0.1:9080/apisix/admin/routes/1 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d ' { &quot;uri&quot;: &quot;/hello&quot;, &quot;hosts&quot;: [&quot;A.COM&quot;], &quot;upstream&quot;: { &quot;type&quot;: &quot;roundrobin&quot;, &quot;nodes&quot;: { &quot;127.0.0.1:1980&quot;: 1 } } }' $ curl http://127.0.0.1:9080/hello -H 'host: a.com' {&quot;error_msg&quot;:&quot;404 Route Not Found&quot;} $ curl http://127.0.0.1:9080/hello -H 'host: A.COM' {&quot;error_msg&quot;:&quot;404 Route Not Found&quot;} ... ...</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>test: add more test to check if checker is stopped. (#3350) Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+    <SHA>da99a03cbf42bc740ab53f5395e60cc8d5f8e5bc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: ignore the case of configured host Fix #3357. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>d708c605228cec405e7cd09b7ed862cef2e40bb4</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/http/route.lua</FILE>
+        <FILE>apisix/http/router/radixtree_host_uri.lua</FILE>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+        <FILE>t/node/route-host.t</FILE>
+        <FILE>t/router/radixtree-host-uri2.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: ignore the case of configured host Fix #3357. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>ff9356a580d329d3f082cd71f4a826269fac20f6</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/http/route.lua</FILE>
+        <FILE>apisix/router.lua</FILE>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+        <FILE>t/node/route-host.t</FILE>
+        <FILE>t/router/radixtree-host-uri2.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: ignore the case of configured host (#3377) Fix #3357. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>d698220341776791f6e34568e0a17d52ab517919</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/http/route.lua</FILE>
+        <FILE>apisix/router.lua</FILE>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+        <FILE>t/node/route-host.t</FILE>
+        <FILE>t/router/radixtree-host-uri2.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

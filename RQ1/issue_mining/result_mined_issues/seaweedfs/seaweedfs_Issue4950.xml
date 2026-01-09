@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4950</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/4950</ISSUEURL>
+  <TITLE>Filer's tikv filestore's prefix query error</TITLE>
+  <DESCRIPTION>Assuming I use the mini mc client. Add an mc config: ``` # mc config host add storage &quot;${S3_ENDPOINT}&quot; ${S3_ACCESSKEY} ${S3_SECRETKEY} --lookup path --api s3v4 ``` Upload a file using the s3 API: ``` # mc cp /opt/go/bin/go storage/opt/go/bin/go ``` Test prefix query: ``` # mc ls storage/opt/go/ ``` The above command output is empty. Test prefix query: ``` # mc ls storage/opt/go/bin/ ``` The above command output is empty. Test prefix query: ``` # mc ls storage/opt/go/bin/g [2023-10-26 08:40:29 CST] 12MiB STANDARD go ``` The above command outputs normal results. Test prefix query: ``` # mc ls storage/opt/go/bin/go ``` The above command output is empty. Other implementations such as leveldb, sqlite, and rocksdb can all return correctly. I suspect it's the problem with this function: https://github.com/seaweedfs/seaweedfs/blob/master/weed/filer/tikv/tikv_store.go#L210</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix copying .vif file in VolumeCopy (#4943) closes #4934 fixes #2633 might fix #3528</MESSAGE>
+    <SHA>8b39bbbe2fa34704ad46cb717471220e8002c360</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix: issues #4950</MESSAGE>
+      <SHA>bc5e30cbd47d0aac4f9abd7bb8f3e28146e53c08</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filer/tikv/tikv_store.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix: issues #4950 (#4952)</MESSAGE>
+      <SHA>bf839651ecdcb400d7707349b1c0a2016a570782</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filer/tikv/tikv_store.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix: issues #4950 (#4952)</MESSAGE>
+      <SHA>0dc4f372c58fee1ac5b30e346b2641f85deb61f5</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filer/tikv/tikv_store.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

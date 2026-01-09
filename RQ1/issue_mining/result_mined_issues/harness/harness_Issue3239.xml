@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3239</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/3239</ISSUEURL>
+  <TITLE>CockroachDB query of dashboard repos is relatively slow</TITLE>
+  <DESCRIPTION>The following query statement is very slow to query in the crdb database ![image](https://user-images.githubusercontent.com/1785778/178662505-44ba6bed-f478-4f01-8aef-9bf8f23c2be6.png) ``` SELECT repo_id, repo_uid, repo_user_id, repo_namespace, repo_name, repo_slug, repo_scm, repo_clone_url, repo_ssh_url, repo_html_url, repo_active, repo_private, repo_visibility, repo_branch, repo_counter, repo_config, repo_timeout, repo_throttle, repo_trusted, repo_protected, repo_no_forks, repo_no_pulls, repo_cancel_pulls, repo_cancel_push, repo_cancel_running, repo_synced, repo_created, repo_updated, repo_version, repo_signer, repo_secret, build_id, build_repo_id, build_trigger, build_number, build_parent, build_status, build_error, build_event, build_action, build_link, build_timestamp, build_title, build_message, build_before, build_after, build_ref, build_source_repo, build_source, build_target, build_author, build_author_name, build_author_email, build_author_avatar, build_sender, build_params, build_cron, build_deploy, build_deploy_id, build_debug, build_started, build_finished, build_created, build_updated, build_version FROM repos LEFT JOIN builds ON build_id = ( SELECT DISTINCT ON (build_repo_id) build_id FROM builds WHERE builds.build_repo_id = repos.repo_id ORDER BY build_repo_id, build_id DESC ) INNER JOIN perms ON perms.perm_repo_uid = repos.repo_uid WHERE perms.perm_user_id = _ ORDER BY repo_slug ASC ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>16</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: [CODE-2760] exclude principal calls from readonly Editor (#3234) * fix: [CODE-2760] exclude principal calls from readonly Editor</MESSAGE>
+    <SHA>0ce1cde6c80d4746f87c36d12523b059dd287572</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: [ML-531]: Introduce conversations into request DTOs for AI Devops (#3239) * Merge branch 'main' into yogesh/ML-531-conversationsDTO * Fixed Lint issues * transfer fields from handler to controller * Add to controller object * Add conversation DTOS</MESSAGE>
+      <SHA>a94be356c44a05bd546d81b58cd14df91c121c63</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/controller/aiagent/generate_pipeline_step.go</FILE>
+        <FILE>app/api/controller/aiagent/types/common.go</FILE>
+        <FILE>app/api/controller/aiagent/types/step.go</FILE>
+        <FILE>types/aigenerate/step.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

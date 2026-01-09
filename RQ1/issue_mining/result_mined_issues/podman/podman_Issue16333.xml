@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16333</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16333</ISSUEURL>
+  <TITLE>Nil pointer dereference on FreeBSD if pf is not enabled</TITLE>
+  <DESCRIPTION>**Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind bug **Description** Attempting to run a container on a FreeBSD host where the pf kernel module is not loaded causes a nil pointer reference. The CNI setup fails with an appropriate error but later podman segfaults in (*Container).addNetworkNamespace. Looks like some error handling is missing, either in networking_freebsd.go or container_internal_freebsd.go ``` panic: runtime error: invalid memory address or nil pointer dereference [signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x1be85c9] goroutine 1 [running]: github.com/containers/podman/v4/libpod.(*Container).addNetworkNamespace(...) /wrkdirs/usr/ports/sysutils/podman/work/podman-a77ac5be8/libpod/container_internal_freebsd.go:175 github.com/containers/podman/v4/libpod.(*Container).generateSpec(0xc0003e4680, {0x76fe08, 0xc000326000}) /wrkdirs/usr/ports/sysutils/podman/work/podman-a77ac5be8/libpod/container_internal_common.go:122 +0x1c9 ... ``` **Steps to reproduce the issue:** 1. service pf stop &amp;&amp; kldunload pf 2. podman run quay.io/dougrabson/hello **Describe the results you received:** Segfault as decribed above **Describe the results you expected:** Podman should report the error **Additional information you deem important (e.g. issue happens only occasionally):** Only affects FreeBSD</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>31</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #16580 from giuseppe/specgen-support-cdi-devices specgen: support CDI devices from containers.conf</MESSAGE>
+    <SHA>ab7f6095a17bd50477c30fc8c127a8604b5693a6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>libpod: Add checks to avoid nil pointer dereference if network setup fails This addresses #16333 although that issue was also avoided by changes in PR #16554. [NO NEW TESTS NEEDED] Signed-off-by: Doug Rabson &lt;dfr@rabson.org&gt;</MESSAGE>
+      <SHA>07940764c1d6f8e8c12a433d9f9acee079bd06af</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_internal_freebsd.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

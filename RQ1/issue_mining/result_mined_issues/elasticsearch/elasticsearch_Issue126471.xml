@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126471</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126471</ISSUEURL>
+  <TITLE>[CI] HttpCertificateCommandTests testGenerateMultipleCertificateWithNewCA failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7537 / encryption-at-rest](https://gradle-enterprise.elastic.co/s/lpz42hamzc4g2) - [elasticsearch-pull-request #67006 / part-4](https://gradle-enterprise.elastic.co/s/x46ehaqz6u6da) - [elasticsearch-periodic-platform-support #7545 / almalinux-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/jyhe3zsy5hwyu) - [elasticsearch-intake #21508 / part4](https://gradle-enterprise.elastic.co/s/izk2knvfh2qd2) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:security:cli:test&quot; --tests &quot;org.elasticsearch.xpack.security.cli.HttpCertificateCommandTests.testGenerateMultipleCertificateWithNewCA&quot; -Dtests.seed=3385ED15607E6F4B -Dtests.locale=en-VC -Dtests.timezone=Atlantic/Faroe -Druntime.java=24 ``` **Applicable branches:** 9.0 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.security.cli.HttpCertificateCommandTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testGenerateMultipleCertificateWithNewCA),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: keyUsage bit [5] not expected to be set: [] Expected: &lt;false&gt; but: was &lt;true&gt; ``` **Issue Reasons:** - [9.0] 4 failures in test testGenerateMultipleCertificateWithNewCA (4.1% fail rate in 97 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.test.rest.XPackRestIT test {p0=transform/transforms_start_stop/Test start/stop only starts/stops specified transform} #126466</MESSAGE>
+    <SHA>b83a86e07044cb6e74c4983751b4f7e16c424887</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.security.cli.HttpCertificateCommandTests testGenerateMultipleCertificateWithNewCA #126471</MESSAGE>
+      <SHA>2c0b71f99d25345d744ae2307aa2a962930af2fb</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

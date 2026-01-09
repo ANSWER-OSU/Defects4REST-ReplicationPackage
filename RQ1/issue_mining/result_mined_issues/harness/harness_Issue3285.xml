@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3285</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/3285</ISSUEURL>
+  <TITLE>Drone build without ipv6 interface error</TITLE>
+  <DESCRIPTION>i set the docker daemon.json, its means i enable ipv6 at docker. ``` { &quot;ipv6&quot;: true, &quot;fixed-cidr-v6&quot;: &quot;2001:db8:1::/64&quot; } ``` also i can run alpine on host with ipv6 successful. but let drone runner docker do it, i don't know how it works, because host docker network bridge not have any 172.19.x.x ip. ``` &quot;b86e3bed93598cf767afd89fd3de8cc500d6630c952656ee44a6ac8228396619&quot;: { &quot;Name&quot;: &quot;drone-runner&quot;, &quot;EndpointID&quot;: &quot;37feadaa4f6dfff551d8c5f84eaca478498755c4b2a00642c935f9ca052e434e&quot;, &quot;MacAddress&quot;: &quot;02:42:ac:11:00:05&quot;, &quot;IPv4Address&quot;: &quot;172.17.0.5/16&quot;, &quot;IPv6Address&quot;: &quot;2001:db8:1::242:ac11:5/64&quot; } ``` so I'm trying to figure out what it's doing with /var/run/docker.sock, and it looks like it's creating a completely different docker network and without ipv6. ``` latest: Pulling from library/alpine Digest: sha256:bc41182d7ef5ffc53a40b044e725193bc10142a1243f395ee852a8d9730fc2ad Status: Image is up to date for alpine:latest + ip addr 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1000 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127.0.0.1/8 scope host lo valid_lft forever preferred_lft forever 28: eth0@if29: &lt;BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN&gt; mtu 1500 qdisc noqueue state UP link/ether 02:42:ac:13:00:02 brd ff:ff:ff:ff:ff:ff inet 172.19.0.2/16 brd 172.19.255.255 scope global eth0 valid_lft forever preferred_lft forever + ping * PING * (*): 56 data bytes ping: sendto: Address not available ``` and i set --env DRONE_RUNNER_NETWORKS=bridge \, but its not working. and i use dind to test my guess, i find that runner will create random docker network, so can i control it behavior? Forgive me for my English proficiency in machine translation.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>69</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [CDE-577]: fix jetbrains ide issues (#3281) * feat: [CDE-577]: fix jetbrains ide issues</MESSAGE>
+    <SHA>c54b82706e1b8639af5ed48caa83013cb4d0f148</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[feat]: [AH-147]: generic and maven api contract (#3285) * [feat]: [AH-147]: generic and maven api contract</MESSAGE>
+      <SHA>862ce90d2177c10af42ec4f103ba21d86f41159b</SHA>
+      <PATCHEDFILES>
+        <FILE>registry/app/api/controller/metadata/get_artifact_detail.go</FILE>
+        <FILE>registry/app/api/controller/metadata/get_artifact_files.go</FILE>
+        <FILE>registry/app/api/openapi/api.yaml</FILE>
+        <FILE>registry/app/api/openapi/contracts/artifact/services.gen.go</FILE>
+        <FILE>registry/app/api/openapi/contracts/artifact/types.gen.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

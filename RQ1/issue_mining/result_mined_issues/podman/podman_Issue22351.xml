@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>22351</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/22351</ISSUEURL>
+  <TITLE>Latest docs.podman.io Reference page has a circular dependency.</TITLE>
+  <DESCRIPTION>### Issue Description When going to this URL https://docs.podman.io/en/latest/_static/api.html, you receive: ``` Something went wrong... Self-referencing circular pointer Stack trace ReDoc Version: 2.0.0-rc.75 Commit: d7440fb ``` This can also happen if you go to docs.podman.io-&gt;reference-&gt;latest This appears to be an issue only with latest, the other links on that page pointing to particular versions are working fine. @baude any thoughts? ### Steps to reproduce the issue Steps to reproduce the issue 1. See description 2. 3. ### Describe the results you received Error page ### Describe the results you expected API documentation page ### podman info output ```yaml N/A ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details Additional environment details ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>install swagger from source First of all this removes the need for a network connection, second renovate can update the version as it is tracked in go.mod. However the real important part is that the binary downloads are broken[1]. For some reason the swagger created with them does not include all the type information for the examples. However when building from source the same thing works fine. [1] https://github.com/go-swagger/go-swagger/issues/2842 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+    <SHA>5e9725983df92a6a6f01fb4eb59ee96bbd3961e0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>swagger fix infinitive recursion on some types Commit 668d517af9 moved a lot of type definitions and by that also copied a bucnh of swagger:model comments, this caused swagger to create a incorrect yaml that can no longer be parsed by redoc due &quot;Self-referencing circular pointer&quot;. The yaml basically defined the type with a name and the pointed to the same name definition again so it caused a infinitive recursion where redoc just throws an error but the swagger style ignored the case so it seemed like it worked but obviously the type information was not working. Fixes #22351 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>e8055904e10eaecc5cbba0bd2bbd9725235ec7d6</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/entities/images.go</FILE>
+        <FILE>pkg/domain/entities/manifest.go</FILE>
+        <FILE>pkg/domain/entities/network.go</FILE>
+        <FILE>pkg/domain/entities/system.go</FILE>
+        <FILE>pkg/domain/entities/types/auth.go</FILE>
+        <FILE>pkg/domain/entities/volumes.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>swagger fix infinitive recursion on some types Commit 668d517af9 moved a lot of type definitions and by that also copied a bucnh of swagger:model comments, this caused swagger to create a incorrect yaml that can no longer be parsed by redoc due &quot;Self-referencing circular pointer&quot;. The yaml basically defined the type with a name and the pointed to the same name definition again so it caused a infinitive recursion where redoc just throws an error but the swagger style ignored the case so it seemed like it worked but obviously the type information was not working. Fixes #22351 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>d33cdd32f2ff8f766b98abe7224281e4c23d6a40</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/entities/images.go</FILE>
+        <FILE>pkg/domain/entities/manifest.go</FILE>
+        <FILE>pkg/domain/entities/network.go</FILE>
+        <FILE>pkg/domain/entities/system.go</FILE>
+        <FILE>pkg/domain/entities/types/auth.go</FILE>
+        <FILE>pkg/domain/entities/volumes.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

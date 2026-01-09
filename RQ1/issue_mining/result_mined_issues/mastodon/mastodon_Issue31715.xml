@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>31715</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/31715</ISSUEURL>
+  <TITLE>Admin emails use user's localization rather than server's</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem 1. Be an admin of an instance 2. Require verification for new accounts 3. As another user: Make a new account with a non default localization 4. As an admin: Receive email with wrong localization ### Expected behaviour Email to admin should be standard/default localization ### Actual behaviour Email to admin is sent in the user's localization ### Detailed description If a user sets their language to some other language the email that comes to the admin of the instance to verify them is of that localization rather than the instances default. User has this selected: ![image](https://github.com/user-attachments/assets/f2292a75-27ce-4ae8-abf5-0b54a3d00adf) Email received **to the admin:** ![image](https://github.com/user-attachments/assets/b97f9dfa-33e1-4e9d-8d92-14f89cf803bd) Translation: ``` New account up for review on fuzzies.wtf The details of the new account are below. You can approve or reject this application. ``` ### Mastodon instance fuzzies.wtf ### Mastodon version v4.3.0-alpha.5+no-portals ### Technical details - Ruby version: ruby 3.3.4 (2024-07-09 revision be1089c8ec) [x86_64-linux] - Node.js version: v20.17.0</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Allow `POST /oauth/revoke` through CORS (#31743)</MESSAGE>
+    <SHA>ee55d20fd57fefc3bd865fb0a172bd64e908af3b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix email language when recipient has no selected locale Fixes #31715</MESSAGE>
+      <SHA>dc9f51d79671eb3c617597cf1542d8455b6e2d92</SHA>
+      <PATCHEDFILES>
+        <FILE>app/mailers/application_mailer.rb</FILE>
+        <FILE>app/mailers/user_mailer.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix email language when recipient has no selected locale Fixes #31715</MESSAGE>
+      <SHA>8548473aeae6c18aa336ce8d9585a8dc330f061e</SHA>
+      <PATCHEDFILES>
+        <FILE>app/mailers/application_mailer.rb</FILE>
+        <FILE>app/mailers/user_mailer.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

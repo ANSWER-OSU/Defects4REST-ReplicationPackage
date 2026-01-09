@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>116</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/116</ISSUEURL>
+  <TITLE>Feature request: environment variables via package.json</TITLE>
+  <DESCRIPTION>From Slack: jimpick [12:10 PM] Trying out now secrets. Very nice! [12:11] I've got a { ..., now: { alias: 'myalias.now.sh' } } in package.json... [12:11] (but more JSONy :-) [12:12] And { ... &quot;scripts&quot;: { &quot;deploy&quot;: &quot;now -e CONSUMER_KEY=@consumer_key -e CONSUMER_SECRET=@consumer_secret &amp;&amp; now alias&quot; } } (edited) [12:12] It would be nice if the now cli could deduce those -e arguments from the &quot;now&quot; section in package.json. That would really clean that line up. easyrider [12:13 PM] joined #now jimpick [12:14 PM] maybe { ... &quot;now&quot;: { &quot;alias&quot;: &quot;myalias.now.sh&quot;, &quot;environment&quot;: { &quot;CONSUMER_KEY&quot;: &quot;@consumer_key&quot;, &quot;CONSUMER_SECRET&quot;: &quot;@consumer_secret&quot; } } } ? (edited) [12:14] just a thought... [12:15] then I could just do { ... &quot;scripts&quot;: { &quot;deploy&quot;: &quot;now &amp;&amp; now alias&quot; } } (edited) jamo [12:17 PM] :+1: jimpick [12:17 PM] sorry, i suck at typing JSON jamo [12:17 PM] at least I got the idea :slightly_smiling_face: [12:17] that soulds something we definitely should have jimpick [12:18 PM] cool jamo [12:18 PM] so that it won't get lost to slack logs before someone finds time to implement it, would you mind adding the feature request here: https://github.com/zeit/now/issues/new</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>18</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Ignore special files on deploy (#115) Fixes #112</MESSAGE>
+    <SHA>1de3b40fc438011ccfd4e92e56e6bdc51c9b4c7a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add `now.env` in package.json as env source This adds package.json as new source for environment variables, which are merged with `-e` CLI arguments (CLI args take precedence). With the ability to specify environment variables in package.json, developers don't need to remember which `-e` arguments to add, and can simply run `now`. ```json &quot;now&quot;: { &quot;env&quot;: { &quot;foo&quot;: &quot;bar&quot; } } ``` The above is the same as running: ``` now -e foo=bar ``` Fixes #116</MESSAGE>
+      <SHA>3486bc6d0d1eef0e988fe419cf946b318e127bda</SHA>
+      <PATCHEDFILES>
+        <FILE>bin/now-deploy.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add `now.env` in package.json as env source (#119) This adds package.json as new source for environment variables, which are merged with `-e` CLI arguments (CLI args take precedence). With the ability to specify environment variables in package.json, developers don't need to remember which `-e` arguments to add, and can simply run `now`. ```json &quot;now&quot;: { &quot;env&quot;: { &quot;foo&quot;: &quot;bar&quot; } } ``` The above is the same as running: ``` now -e foo=bar ``` Fixes #116</MESSAGE>
+      <SHA>ec76f6b7068574f9d6c5ebae24b38b74853472a4</SHA>
+      <PATCHEDFILES>
+        <FILE>bin/now-deploy.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

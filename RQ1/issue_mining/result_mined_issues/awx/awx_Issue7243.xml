@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7243</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/7243</ISSUEURL>
+  <TITLE>500 error on unauthenticated HTTP GET to nested workflow endpoint</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY Not a huge deal, just something I noticed while debugging some unrelated test failures: If you make a GET request to ` api/v2/workflow_job_template_nodes/n/create_approval_template/` when unauthenticated, you'll get a 500 instead of a 401. It seems to work fine if you're logged in. ##### STEPS TO REPRODUCE - make a workflow with nodes - log out - open browser dev tools and network tab - visit ` api/v2/workflow_job_template_nodes/n/create_approval_template/` in api browser ##### EXPECTED RESULTS 401 ##### ACTUAL RESULTS 500 ##### ADDITIONAL INFORMATION ![Screenshot from 2020-06-03 19-11-23](https://user-images.githubusercontent.com/9753817/83697865-08efca00-a5ce-11ea-9d0c-0173751041df.png)</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>357</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9713 from jakemcdermott/fix-9701 Don't append a slash to file paths for #9701 Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt; Reviewed-by: Shane McDonald &lt;me@shanemcd.com&gt; Reviewed-by: Alex Corey &lt;Alex.swansboro@gmail.com&gt;</MESSAGE>
+    <SHA>f75a0ca1b622103ca2e1bfce8c8aef4acd02ffb6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix an HTTP 500 error for unauthenticated users see: https://github.com/ansible/awx/issues/7243</MESSAGE>
+      <SHA>6062d1ec9f27006603257ff0b01a7d3dbbec2874</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/views/__init__.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9725 from ryanpetrello/500-unauth-wf-approval fix an HTTP 500 error for unauthenticated users see: #7243 Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt;</MESSAGE>
+      <SHA>ba2fd6f801f9f54d810cf95496d20792209be1a5</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/views/__init__.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16076</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16076</ISSUEURL>
+  <TITLE>sdnotify play kube policies: podman container wait, hangs</TITLE>
+  <DESCRIPTION>``` [+1368s] not ok 310 sdnotify : play kube - with policies ... $ podman container inspect test_pod-a --format {{.Config.SdNotifySocket}} /var/tmp/-podman-notify-proxy.sock54032352 $ podman logs test_pod-a /run/notify/notify.sock READY $ podman exec test_pod-a /bin/touch /stop $ podman container inspect 9cffc8377ee1-service --format {{.State.ConmonPid}} 98526 $ podman container wait test_pod-a timeout: sending signal TERM to command ?/var/tmp/go/src/github.com/containers/podman/bin/podman? [ rc=124 (** EXPECTED 0 **) ] *** TIMED OUT *** ``` * fedora-36 : sys podman fedora-36 rootless host * PR #16034 * [10-03 15:32](https://api.cirrus-ci.com/v1/artifact/task/4652967281295360/html/sys-podman-fedora-36-rootless-host.log.html#t--00310) * [10-03 11:37](https://api.cirrus-ci.com/v1/artifact/task/5594309993955328/html/sys-podman-fedora-36-rootless-host.log.html#t--00310) * fedora-36 : sys podman fedora-36 root host * PR #15794 * [09-14 14:10](https://api.cirrus-ci.com/v1/artifact/task/5067724438110208/html/sys-podman-fedora-36-root-host.log.html#t--00305) * fedora-36 : sys podman fedora-36 rootless host * PR #15846 * [09-29 10:32](https://api.cirrus-ci.com/v1/artifact/task/5592796655517696/html/sys-podman-fedora-36-rootless-host.log.html#t--00305) * PR #15844 * [09-17 08:32](https://api.cirrus-ci.com/v1/artifact/task/6313591002365952/html/sys-podman-fedora-36-rootless-host.log.html#t--00305) * PR #15796 * [09-14 09:34](https://api.cirrus-ci.com/v1/artifact/task/5520403421462528/html/sys-podman-fedora-36-rootless-host.log.html#t--00305) * PR #15786 * [09-14 13:49](https://api.cirrus-ci.com/v1/artifact/task/4825809096540160/html/sys-podman-fedora-36-rootless-host.log.html#t--00305) * PR #15072 * [09-15 09:34](https://api.cirrus-ci.com/v1/artifact/task/5670450922520576/html/sys-podman-fedora-36-rootless-host.log.html#t--00305) * fedora-36 : sys podman fedora-36 rootless host * PR #15933 * [09-26 12:53](https://api.cirrus-ci.com/v1/artifact/task/6087922045681664/html/sys-podman-fedora-36-rootless-host.log.html#t--00309) * fedora-36-aarch64 : sys podman fedora-36-aarch64 root host * PR #15910 * [09-24 09:08](https://api.cirrus-ci.com/v1/artifact/task/5557962272931840/html/sys-podman-fedora-36-aarch64-root-host.log.html#t--00308) * fedora-36 : sys podman fedora-36 rootless host * PR #15753 * [09-12 22:10](https://api.cirrus-ci.com/v1/artifact/task/6085149208084480/html/sys-podman-fedora-36-rootless-host.log.html#t--00304) * fedora-36 : sys podman fedora-36 root host * PR #15695 * [09-09 07:22](https://api.cirrus-ci.com/v1/artifact/task/5808828905160704/html/sys-podman-fedora-36-root-host.log.html#t--00302) Looks like Sept 9 is the first logged instance. So far, f36 only (both amd64 and aarch64), root and rootless.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>62</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #16083 from dfr/freebsd-pod Add support for 'podman pod' on FreeBSD</MESSAGE>
+    <SHA>bb0b1849d7102c2f9212ebaaeb332519a92c5d3c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>play kube: notifyproxy: listen before starting the pod Starting listening for the READY messages on the sdnotify proxies before starting the Pod. Otherwise, we may be missing messages. [NO NEW TESTS NEEDED] as it's hard to test this very narrow race. Related to but may not be fixing #16076. Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>7b84a3a434b026a8a45cf92196ffee420ecf587a</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/systemd/notifyproxy/notifyproxy.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>play kube: notifyproxy: listen before starting the pod Starting listening for the READY messages on the sdnotify proxies before starting the Pod. Otherwise, we may be missing messages. [NO NEW TESTS NEEDED] as it's hard to test this very narrow race. Related to but may not be fixing #16076. Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>095aa5c3a715eebd0fee90181900b373fafbbe15</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/systemd/notifyproxy/notifyproxy.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>notifyproxy: fix container watcher The notify proxy has a watcher to check whether the container has left the running state. In that case, Podman should stop waiting for the ready message to prevent a dead lock. Fix this watcher but adding a loop. Fixes the dead lock in #16076 surfacing in a timeout. The underlying issue persists though. Also use a timer in the select statement to prevent the goroutine from running unnecessarily long [NO NEW TESTS NEEDED] Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>c4ebe9e2ad77f34151ac59c8bf747790be2bd6d7</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/systemd/notifyproxy/notifyproxy.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

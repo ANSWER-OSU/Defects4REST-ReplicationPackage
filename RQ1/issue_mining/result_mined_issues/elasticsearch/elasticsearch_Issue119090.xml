@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>119090</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/119090</ISSUEURL>
+  <TITLE>[CI] ShapeQueryBuilderOverShapeTests testToQuery failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5454 / single-processor-node-tests](https://gradle-enterprise.elastic.co/s/pcrfgfaupreb4) - [elasticsearch-periodic-platform-support #5443 / rocky-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/5w5kyjemawt6y) - [elasticsearch-pull-request #47746 / part-2](https://gradle-enterprise.elastic.co/s/tiqdnlio7fczg) - [elasticsearch-periodic #5454 / openjdk21_checkpart2_java-matrix](https://gradle-enterprise.elastic.co/s/r3asp5hoe54cu) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:spatial:test&quot; --tests &quot;org.elasticsearch.xpack.spatial.index.query.ShapeQueryBuilderOverShapeTests.testCacheability&quot; -Dtests.seed=D99A8066BB850AFC -Dtests.configure_test_clusters_with_one_processor=true -Dtests.locale=nl-BE -Dtests.timezone=Pacific/Majuro -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.spatial.index.query.ShapeQueryBuilderOverShapeTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testToQuery),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.index.query.QueryShardException: CONTAINS query relation not supported for Field [mapped_shape]. ``` **Issue Reasons:** - [main] 4 failures in test testToQuery (1.5% fail rate in 274 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.multi_node.EsqlClientYamlIT org.elasticsearch.xpack.esql.qa.multi_node.EsqlClientYamlIT #119086</MESSAGE>
+    <SHA>bdd6da59b1d8e72d7188a5233ba06433304d3138</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.spatial.index.query.ShapeQueryBuilderOverShapeTests testToQuery #119090</MESSAGE>
+      <SHA>896818c880c55f0ca1a519fe96f78b406a576f95</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Address shape query builders testToQuery failures With broadening of index versions tested in AbstractQueryBuilder, we need to restore compatibility with 7x index versions that has been removed. Closes #119090 Closes #119091</MESSAGE>
+      <SHA>a56646b12b53999b3df31f6eea1f3434a059caa5</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/spatial/src/test/java/org/elasticsearch/xpack/spatial/index/query/GeoShapeQueryBuilderGeoShapeTests.java</FILE>
+        <FILE>x-pack/plugin/spatial/src/test/java/org/elasticsearch/xpack/spatial/index/query/ShapeQueryBuilderOverShapeTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Address shape query builders testToQuery failures (#119096) With broadening of index versions tested in AbstractQueryBuilder, we need to restore compatibility with 7x index versions that has been removed. Closes #119090 Closes #119091</MESSAGE>
+      <SHA>6983f9ab5a0cb5dd7300a95bdb31493889999193</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/spatial/src/test/java/org/elasticsearch/xpack/spatial/index/query/GeoShapeQueryBuilderGeoShapeTests.java</FILE>
+        <FILE>x-pack/plugin/spatial/src/test/java/org/elasticsearch/xpack/spatial/index/query/ShapeQueryBuilderOverShapeTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.spatial.index.query.ShapeQueryBuilderOverShapeTests testToQuery #119090</MESSAGE>
+      <SHA>e000a83270ff16f4e83f0f808e677531c5ca1758</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Address shape query builders testToQuery failures (#119096) With broadening of index versions tested in AbstractQueryBuilder, we need to restore compatibility with 7x index versions that has been removed. Closes #119090 Closes #119091</MESSAGE>
+      <SHA>72a4f365459e02b7ae71d49bfc5b992ddc3bd12b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/spatial/src/test/java/org/elasticsearch/xpack/spatial/index/query/GeoShapeQueryBuilderGeoShapeTests.java</FILE>
+        <FILE>x-pack/plugin/spatial/src/test/java/org/elasticsearch/xpack/spatial/index/query/ShapeQueryBuilderOverShapeTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

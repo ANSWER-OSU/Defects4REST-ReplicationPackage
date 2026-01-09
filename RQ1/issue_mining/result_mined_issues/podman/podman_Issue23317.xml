@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23317</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23317</ISSUEURL>
+  <TITLE>podman ps: output unreadable with many exposed ports</TITLE>
+  <DESCRIPTION>### Issue Description After a recent upgrade from 5.0.3 to 5.1.0, I noticed that podman ps is unreadable. This is due to my FreeSWITCH container, which uses a macvlan network and has many exposed ports (see [here](https://github.com/signalwire/freeswitch/blob/master/docker/master/Dockerfile#L49-L59)). Prior to 5.1, this and other containers using macvlan networks would not list any ports at all. This appears to be intended behaviour introduced by PR https://github.com/containers/podman/pull/22319 Is it possible to add a flag to mute port information for macvlan containers? ### Steps to reproduce the issue Steps to reproduce the issue...using adguardhome as an example: ``` $ sudo podman network create -d macvlan adguard $ sudo podman run -d --network adguard docker.io/adguard/adguardhome:latest $ sudo podman ps CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES 55463e58fa91 docker.io/adguard/adguardhome:latest --no-check-update... 26 minutes ago Up 26 minutes 53/udp, 53/tcp, 67/udp, 68/udp, 80/tcp, 443/tcp, 443/udp, 853/tcp, 853/udp, 3000/tcp, 3000/udp, 5443/udp, 5443/tcp, 6060/tcp adguardhome ``` ### Describe the results you received ``` $ sudo podman ps CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES 55463e58fa91 docker.io/adguard/adguardhome:latest --no-check-update... 26 minutes ago Up 26 minutes 53/udp, 53/tcp, 67/udp, 68/udp, 80/tcp, 443/tcp, 443/udp, 853/tcp, 853/udp, 3000/tcp, 3000/udp, 5443/udp, 5443/tcp, 6060/tcp adguardhome ``` ### Describe the results you expected ``` $ sudo podman ps CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES 55463e58fa91 docker.io/adguard/adguardhome:latest --no-check-update... 26 minutes ago Up 26 minutes adguardhome ``` ### podman info output ```yaml host: arch: amd64 buildahVersion: 1.36.0 cgroupControllers: - cpu - memory - pids cgroupManager: systemd cgroupVersion: v2 conmon: package: conmon-2.1.10-1.fc40.x86_64 path: /usr/bin/conmon version: 'conmon version 2.1.10, commit: ' cpuUtilization: idlePercent: 98.77 systemPercent: 0.61 userPercent: 0.61 cpus: 4 databaseBackend: boltdb distribution: distribution: fedora variant: coreos version: &quot;40&quot; eventLogger: journald freeLocks: 2045 hostname: falcon idMappings: gidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 100000 size: 65536 uidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 100000 size: 65536 kernel: 6.8.11-300.fc40.x86_64 linkmode: dynamic logDriver: journald memFree: 9361956864 memTotal: 12185284608 networkBackend: netavark networkBackendInfo: backend: netavark dns: package: aardvark-dns-1.11.0-1.fc40.x86_64 path: /usr/libexec/podman/aardvark-dns version: aardvark-dns 1.11.0 package: netavark-1.11.0-1.fc40.x86_64 path: /usr/libexec/podman/netavark version: netavark 1.11.0 ociRuntime: name: crun package: crun-1.15-1.fc40.x86_64 path: /usr/bin/crun version: |- crun version 1.15 commit: e6eacaf4034e84185fd8780ac9262bbf57082278 rundir: /run/user/1000/crun spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +CRIU +LIBKRUN +WASM:wasmedge +YAJL os: linux pasta: executable: /usr/bin/pasta package: passt-0^20240510.g7288448-1.fc40.x86_64 version: | pasta 0^20240510.g7288448-1.fc40.x86_64 Copyright Red Hat GNU General Public License, version 2 or later &lt;https://www.gnu.org/licenses/old-licenses/gpl-2.0.html&gt; This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. remoteSocket: exists: false path: /run/user/1000/podman/podman.sock rootlessNetworkCmd: pasta security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: true seccompEnabled: true seccompProfilePath: /usr/share/containers/seccomp.json selinuxEnabled: true serviceIsRemote: false slirp4netns: executable: /usr/bin/slirp4netns package: slirp4netns-1.2.2-2.fc40.x86_64 version: |- slirp4netns version 1.2.2 commit: 0ee2d87523e906518d34a6b423271e4826f71faf libslirp: 4.7.0 SLIRP_CONFIG_VERSION_MAX: 4 libseccomp: 2.5.5 swapFree: 0 swapTotal: 0 uptime: 22h 45m 49.00s (Approximately 0.92 days) variant: &quot;&quot; plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan - ipvlan volume: - local registries: search: - registry.fedoraproject.org - registry.access.redhat.com - docker.io store: configFile: /var/home/core/.config/containers/storage.conf containerStore: number: 2 paused: 0 running: 2 stopped: 0 graphDriverName: overlay graphOptions: {} graphRoot: /var/home/core/.local/share/containers/storage graphRootAllocated: 511561764864 graphRootUsed: 21785911296 graphStatus: Backing Filesystem: xfs Native Overlay Diff: &quot;true&quot; Supports d_type: &quot;true&quot; Supports shifting: &quot;false&quot; Supports volatile: &quot;true&quot; Using metacopy: &quot;false&quot; imageCopyTmpDir: /var/tmp imageStore: number: 5 runRoot: /run/user/1000/containers transientStore: false volumePath: /var/home/core/.local/share/containers/storage/volumes version: APIVersion: 5.1.0 Built: 1716940800 BuiltTime: Wed May 29 00:00:00 2024 GitCommit: &quot;&quot; GoVersion: go1.22.3 Os: linux OsArch: linux/amd64 Version: 5.1.0 ``` ### Podman in a container No ### Privileged Or Rootless Privileged ### Upstream Latest Release No ### Additional environment details Additional environment details ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>97</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ps: do not loop over prot protocol This can never included a comma in the protocol so it just complicated things for no reason, we never needed this and commit edc3dc5e11 already ensures this cannot happen. Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+    <SHA>26c9e87529665cbf9e04875c50f9e8903af43906</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ps: fix display of exposed ports This fixes two problems, first if a port is published and exposed it should not be shown twice. It is enough to show the published one. Second, if there is a huge range the ports were no grouped causing the output to be unreadable basically. Now we group exposed ports like we do with the normal published ports. Fixes #23317 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>a564967fded4626a6b2d9e23c7c44f4fb924942b</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/containers/ps.go</FILE>
+        <FILE>cmd/podman/containers/ps_test.go</FILE>
+        <FILE>test/e2e/run_networking_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ps: fix display of exposed ports This fixes two problems, first if a port is published and exposed it should not be shown twice. It is enough to show the published one. Second, if there is a huge range the ports were no grouped causing the output to be unreadable basically. Now we group exposed ports like we do with the normal published ports. Fixes #23317 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>f4eee7f79652c63bea37e38acc75b9407a9360bc</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/containers/ps.go</FILE>
+        <FILE>cmd/podman/containers/ps_test.go</FILE>
+        <FILE>test/e2e/run_networking_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ps: fix display of exposed ports This fixes two problems, first if a port is published and exposed it should not be shown twice. It is enough to show the published one. Second, if there is a huge range the ports were no grouped causing the output to be unreadable basically. Now we group exposed ports like we do with the normal published ports. Fixes #23317 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>0cdb9b3b2294de552faccf4804586ef36eb29ca9</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/containers/ps.go</FILE>
+        <FILE>cmd/podman/containers/ps_test.go</FILE>
+        <FILE>test/e2e/run_networking_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

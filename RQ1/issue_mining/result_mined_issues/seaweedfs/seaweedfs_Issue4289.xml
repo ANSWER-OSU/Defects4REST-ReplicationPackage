@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4289</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/4289</ISSUEURL>
+  <TITLE>File size is different from the sum of chunks (from meta.cat)</TITLE>
+  <DESCRIPTION>**Describe the bug** The Filer has different views on the size of the file, leading to file corruption The file is in a directory that is pointing to an Azure Storage remote. **System Setup** ``` &gt; weed version version 30GB 3.42 8821d6b1619b7a55b515a98391193297e77cbe52 linux amd64 &gt; /usr/local/bin/weed -v=3 -logdir=/mnt/seaweed_bcminioresearch/logs server -master.dir=/mnt/seaweed_bcminioresearch/master -volume.index=leveldb -volume.max=8 -filer.dirListLimit=10000 -metricsPort=9327 -dir=/mnt/seaweed_bcminioresearch -s3 &gt; lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 22.10 Release: 22.10 Codename: kinetic ``` **Screenshots** ``` # in weed shell &gt; meta.cat /buckets/bcminioresearch/models/datasets/credit/global_credit_data_monthly/live/_metadata { &quot;name&quot;: &quot;_metadata&quot;, &quot;isDirectory&quot;: false, &quot;chunks&quot;: [ { &quot;fileId&quot;: &quot;28,4231f9c5edef&quot;, &quot;offset&quot;: &quot;0&quot;, &quot;size&quot;: &quot;1225797&quot;, &quot;modifiedTsNs&quot;: &quot;1678106055&quot;, &quot;eTag&quot;: &quot;b53111d5&quot;, &quot;sourceFileId&quot;: &quot;&quot;, &quot;fid&quot;: { &quot;volumeId&quot;: 28, &quot;fileKey&quot;: &quot;16945&quot;, &quot;cookie&quot;: 4190498287 }, &quot;sourceFid&quot;: null, &quot;cipherKey&quot;: &quot;&quot;, &quot;isCompressed&quot;: false, &quot;isChunkManifest&quot;: false } ], &quot;attributes&quot;: { &quot;fileSize&quot;: &quot;1236149&quot;, &quot;mtime&quot;: &quot;1678264028&quot;, &quot;fileMode&quot;: 420, &quot;uid&quot;: 0, &quot;gid&quot;: 0, &quot;crtime&quot;: &quot;0&quot;, &quot;mime&quot;: &quot;&quot;, &quot;ttlSec&quot;: 0, &quot;userName&quot;: &quot;&quot;, &quot;groupName&quot;: [], &quot;symlinkTarget&quot;: &quot;&quot;, &quot;md5&quot;: &quot;&quot;, &quot;rdev&quot;: 0, &quot;inode&quot;: &quot;0&quot; }, &quot;extended&quot;: {}, &quot;hardLinkId&quot;: &quot;&quot;, &quot;hardLinkCounter&quot;: 0, &quot;content&quot;: &quot;&quot;, &quot;remoteEntry&quot;: { &quot;storageName&quot;: &quot;azure&quot;, &quot;lastLocalSyncTsNs&quot;: &quot;0&quot;, &quot;remoteETag&quot;: &quot;0x8DB1FAEE885E3FA&quot;, &quot;remoteMtime&quot;: &quot;1678264028&quot;, &quot;remoteSize&quot;: &quot;1236149&quot; }, &quot;quota&quot;: &quot;0&quot; }chunks 1 meta size: 116 gzip:144 ``` You'll notice that `atttributes.fileSize` and `chunks[0].size` are different. **Expected behavior** The file has only one chunk, I would have expected those two to be the same</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>45</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>avoid overwriting variables fix https://github.com/seaweedfs/seaweedfs/issues/4365</MESSAGE>
+    <SHA>ff7b6d779e725e6b07b63d12d6c7cebec24fdd57</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>reset local file content if remote file is updated fix https://github.com/seaweedfs/seaweedfs/issues/4289</MESSAGE>
+      <SHA>e1b92bc701454285af15c7fb57a1645ba277e3c4</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/shell/command_remote_mount.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

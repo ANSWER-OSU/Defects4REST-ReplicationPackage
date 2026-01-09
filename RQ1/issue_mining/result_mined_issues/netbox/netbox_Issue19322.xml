@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19322</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/19322</ISSUEURL>
+  <TITLE>Bulk import URL path is incorrect</TITLE>
+  <DESCRIPTION>### Deployment Type Self-hosted ### NetBox Version v4.2.8 ### Python Version 3.10 ### Steps to Reproduce 1. Navigate to the bulk import view for any object type (e.g. sites). ### Expected Behavior The URL should end in `/import/` (e.g. `/dcim/sites/import/`). ### Observed Behavior The URL ends with `/bulk_import/` (the view name). I believe this is an inadvertent change from #17752, which was implemented in v4.2.0. Each of the bulk import views should specify a `path` similar to the bulk edit &amp; bulk delete views: ```python @register_model_view(Site, 'bulk_import', path='import', detail=False) class SiteBulkImportView(generic.BulkImportView): ... ```</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update source translation strings</MESSAGE>
+    <SHA>e58815bb1ad0a3f8a21a77da5a39bd88bd51a665</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #19322: Correct URL paths for bulk import views</MESSAGE>
+      <SHA>5a42233b80b77ea3b4e6aa7220519cd88e673e07</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/circuits/views.py</FILE>
+        <FILE>netbox/core/views.py</FILE>
+        <FILE>netbox/dcim/views.py</FILE>
+        <FILE>netbox/extras/views.py</FILE>
+        <FILE>netbox/ipam/views.py</FILE>
+        <FILE>netbox/tenancy/views.py</FILE>
+        <FILE>netbox/users/views.py</FILE>
+        <FILE>netbox/virtualization/views.py</FILE>
+        <FILE>netbox/vpn/views.py</FILE>
+        <FILE>netbox/wireless/views.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #19322: Correct URL paths for bulk import views (#19323)</MESSAGE>
+      <SHA>37cfc50202548d6ac7dcffa20e45153b10076784</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/circuits/views.py</FILE>
+        <FILE>netbox/core/views.py</FILE>
+        <FILE>netbox/dcim/views.py</FILE>
+        <FILE>netbox/extras/views.py</FILE>
+        <FILE>netbox/ipam/views.py</FILE>
+        <FILE>netbox/tenancy/views.py</FILE>
+        <FILE>netbox/users/views.py</FILE>
+        <FILE>netbox/virtualization/views.py</FILE>
+        <FILE>netbox/vpn/views.py</FILE>
+        <FILE>netbox/wireless/views.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

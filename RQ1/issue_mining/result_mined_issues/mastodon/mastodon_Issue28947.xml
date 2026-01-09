@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>28947</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/28947</ISSUEURL>
+  <TITLE>New compose interface chokes on uppercase language codes</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem I am using mastodon.social with the new (beta?) compose UI. Now below the status I am typing there is a box with a little 文A icon and the word &quot;English&quot;, indicating my post language. (There are several things I don't like about the new compose UI, but I do like this one change because it makes it harder to post with the wrong language metadata set.) But! Consider this one post (or in general, any post by the user @suricrasia@lethargic.talkative.fish), which breaks the &quot;English&quot; box: https://lethargic.talkative.fish/@suricrasia/statuses/01HN1NGM7F2N63PJYE5W2YTPY9 To reproduce, bring up this post (for example by entering it into the Mastodon search box) and hit reply. ### Expected behaviour When replying to a post, Mastodon's current behavior is to copy the original poster's language field into your own. Suricrasia is speaking English. Therefore, I assume replying to Suricrasia, my language will be set to English. For example: ![image](https://github.com/mastodon/mastodon/assets/277318/da37504a-c835-4761-8cff-29ede6fa7608) ![image](https://github.com/mastodon/mastodon/assets/277318/17a5f64c-fa16-4ba1-b3fb-28f001bcd406) ### Actual behaviour The language is set to the letters &quot;EN&quot;. ![image](https://github.com/mastodon/mastodon/assets/277318/04ebee4d-5716-41e4-bccb-a3eceff358f4) I don't actually know what happens to my status language code if I send this reply. ### Detailed description I suspect this may be a variant of issue #19302, that mastodon.social in general chokes on language codes with dialects such as en-US (I think in the past I remember noticing this same user posting with en-US language). ~~If my guess is correct, this means #19302 has got worse because rather than &quot;en-US&quot; being relayed verbatim, which may be confusing to some users, it has been changed to &quot;EN&quot; which both will confuse some users and also is (if my guess is right) incorrect.~~ EDIT: Not quite ### Mastodon instance mastodon.social ### Mastodon version v4.3.0-alpha.0+pr-28119-b84fe92 lethargic.talkative.fish, the source of the problematic status, says it is running GoToSocial v0.12.0 git-5fd2e42 ### Browser name and version Chrome 120.0.6099.227 (Official Build) (64-bit) I am running with uBlock. I usually run with Stylus but for these tests/screenshots I have disabled it and reloaded the page. ### Operating system Windows 10 ### Technical details _No response_</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>118</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Remove unused account record in api/v2/admin/accounts spec (#30397)</MESSAGE>
+    <SHA>3a862439dfc989c6c5741e007c2f4e0335fffe33</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Normalize language code of incoming posts Fixes #28947</MESSAGE>
+      <SHA>8a7cec7601f8b0dc5903ceee0b8217d666bfeafb</SHA>
+      <PATCHEDFILES>
+        <FILE>app/helpers/languages_helper.rb</FILE>
+        <FILE>app/lib/activitypub/parser/status_parser.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Normalize language code of incoming posts Fixes #28947</MESSAGE>
+      <SHA>50d562e5dbb8d12786acec3a8dc6591e6592153b</SHA>
+      <PATCHEDFILES>
+        <FILE>app/lib/activitypub/parser/status_parser.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Normalize language code of incoming posts Fixes #28947</MESSAGE>
+      <SHA>5196189e862755ec72e9d683abc70a2b3d4f974c</SHA>
+      <PATCHEDFILES>
+        <FILE>app/lib/activitypub/parser/status_parser.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Normalize language code of incoming posts Fixes #28947</MESSAGE>
+      <SHA>5de2f40fca13aed2ddfd6a8efb8331af2dc60a8c</SHA>
+      <PATCHEDFILES>
+        <FILE>app/lib/activitypub/parser/status_parser.rb</FILE>
+        <FILE>spec/lib/activitypub/parser/status_parser_spec.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Normalize language code of incoming posts Fixes #28947</MESSAGE>
+      <SHA>80fdd6aa61897717782c72dbcd7424c994de4e3b</SHA>
+      <PATCHEDFILES>
+        <FILE>app/lib/activitypub/parser/status_parser.rb</FILE>
+        <FILE>spec/lib/activitypub/parser/status_parser_spec.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

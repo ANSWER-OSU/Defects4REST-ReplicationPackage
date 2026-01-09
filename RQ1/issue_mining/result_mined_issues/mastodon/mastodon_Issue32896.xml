@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>32896</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/32896</ISSUEURL>
+  <TITLE>“Websites allowed to credit you” field has autocorrect enabled</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem 1. Navigate to Settings &gt; Public Profile &gt; Verification 2. Try to type one or more website addresses into the “Websites allowed to credit you” field ### Expected behaviour it accepts that you’ve typed a website address ### Actual behaviour autocorrect changes what you’ve typed to English words, inserts spaces between “words”, and spellcheck gives you a red underline if you type a domain that isn’t an English word (or whatever the browser language is set to) ### Detailed description Website addresses don’t tend to be spelled correctly or grammatically correct in whatever language someone is browsing in, so autocorrect/autocomplete and spell check are not appropriate here. I shouldn’t have to carefully decline all of my autocorrect suggestions to avoid having the website address be misspelled. ### Mastodon instance mastodon.online, mastodon.gamedev.place ### Mastodon version v4.3.1 ### Browser name and version Safari ### Operating system iPadOS 18.2b3 ### Technical details This field should probably have `autocorrect=“off”`, `autocomplete=“off”`, `autocapitalize=“none”`, and `spellcheck=“false”`. Or better yet, instead of one textarea for entering multiple URLs, use multiple `&lt;input type=“url”&gt;` elements so the browser can do the correct thing on its own and also show a more appropriate keyboard.</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Improve display of statuses in admin panel (#30813)</MESSAGE>
+    <SHA>ddfb3d123bb4195f0b086fe19bc90700fa5170b4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix domain attribution field having autocorrect and autocapitalize enabled Fixes #32896</MESSAGE>
+      <SHA>afb5177299768ccc1888365f5a0db0f4cdd66d49</SHA>
+      <PATCHEDFILES>
+        <FILE>app/views/settings/verifications/show.html.haml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

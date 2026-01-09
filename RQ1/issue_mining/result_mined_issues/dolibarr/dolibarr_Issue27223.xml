@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>27223</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/27223</ISSUEURL>
+  <TITLE>E-Mailcollector: Filter &quot;is an answer&quot; not working in languages other than English</TITLE>
+  <DESCRIPTION>### Bug see htdocs/emailcollector/class/emailcollector.class.php, line #1675 (V18): ``` $isanswer = 0; if (preg_match('/Re\s*:\s+/i', $headers['Subject'])) { $isanswer = 1; } ``` This solution to check if there is a &quot;Re&quot; in the subject of the mail is not working if the language of the mail-client is different than English. Eg in German there is &quot;AW&quot; instead of &quot;Re&quot; ### Environment Version V18 ### Environment OS n/a ### Environment Web server n/a ### Environment PHP n/a ### Environment Database n/a ### Environment URL(s) _No response_ ### Expected and actual behavior There should be a solution that does not refer to the text in the subject of the mail. Two lines are also commented out in the code, but it is not clear why: ``` //if ($headers['In-Reply-To'] != $headers['Message-ID'] &amp;&amp; empty($headers['References'])) $isanswer = 1; // If in-reply-to differs of message-id, this is a reply //if ($headers['In-Reply-To'] != $headers['Message-ID'] &amp;&amp; !empty($headers['References']) &amp;&amp; strpos($headers['References'], $headers['Message-ID']) !== false) $isanswer = 1; ``` @eldy Do you know why these two lines are commented out? For me it seems that this would be a much better solution ### Steps to reproduce the behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>341</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix no display of extrafields in bankentries_list (#32149) * Fix no display of extrafields in bankentries_list * fix error * fix comment --------- Co-authored-by: Hystepik &lt;lmarcouiller@nltechno.com&gt;</MESSAGE>
+    <SHA>1080d0718c3c62ee4028d28435f5b4f16c3b145f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #27223</MESSAGE>
+      <SHA>f7078d2d1a6129f024454a91e3e0d1a0ed86d281</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/emailcollector/class/emailcollector.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #27223 (#32173)</MESSAGE>
+      <SHA>06808b38b5e54956b66badb392767f4150d2f114</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/emailcollector/class/emailcollector.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

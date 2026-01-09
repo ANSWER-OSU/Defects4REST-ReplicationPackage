@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>27686</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/27686</ISSUEURL>
+  <TITLE>&quot;Failed to compile&quot; error on development server</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem 1. `git clone https://github.com/mastodon/mastodon.git` 2. `bundle install` 3. `yarn install` 4. `foreman start` 5. Visit 'localhost:3000' in browser ### Expected behaviour Page renders successfully ### Actual behaviour Get &quot;Failed to compile&quot; error message ### Detailed description The full message is: &gt; Failed to compile. &gt; &gt; ./app/javascript/mastodon/features/emoji/emoji_unicode_mapping_light.ts 18:15-32 &gt; &quot;export 'unicodeToFilename' was not found in './unicode_to_filename' - 0e3401bc1c24fc1f6d7e04e9d2 appears to be the commit when the issue was introduced. - JS tests (`yarn run test`) are passing. - If I manually set `NODE_ENV=production` then the site _does_ render successfully. ```shell RAILS_ENV=development ./bin/rails tmp:clear assets:clean NODE_ENV=production foreman start ``` ### Mastodon instance localhost ### Mastodon version 3bf2a7296e6d80d5cd9d5d3cba1507af6ba83dfd ### Technical details OS: Ubuntu 23.10 `ruby --version` &gt; ruby 3.2.2 (2023-03-30 revision e51014f9c0) [x86_64-linux] `node --version` &gt; v20.9.0</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Use Immutable `Record` for accounts in Redux state (#26559)</MESSAGE>
+    <SHA>3bf2a7296e6d80d5cd9d5d3cba1507af6ba83dfd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Use a wrapper file to export exports used in preval-ed modules as CJS In https://github.com/mastodon/mastodon/pull/27333 I added `useBuiltIns: &quot;usage&quot;`, which causes Babel to inject polyfills into those files. The polyfills are injected using ESM `import` symtax, which disables the handling of `export.` (CommonJS exports). This causes the build in dev to fail, because in dev Babel does not convert the exports to CJS (not sure why). By using a simple wrapper file to re-export to CJS, we avoid having Babel inject anything in the wrapper file, so it is correctly processed as CJS, and exports work. We have plans to rewrite the emoji-related code in the future, which will remove the need for `preval`, and switching to Vite should also solve this. Fixes #27686</MESSAGE>
+      <SHA>a70261d0ea3b63d7b41c4bdaa6116b4fe6d37374</SHA>
+      <PATCHEDFILES>
+        <FILE>app/javascript/mastodon/features/emoji/emoji_compressed.js</FILE>
+        <FILE>app/javascript/mastodon/features/emoji/emoji_mart_data_light.ts</FILE>
+        <FILE>app/javascript/mastodon/features/emoji/emoji_unicode_mapping_light.ts</FILE>
+        <FILE>app/javascript/mastodon/features/emoji/unicode_to_names.js</FILE>
+        <FILE>app/javascript/mastodon/features/emoji/unicode_to_names_cjs.js</FILE>
+        <FILE>app/javascript/mastodon/features/emoji/unicode_to_unified_name.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

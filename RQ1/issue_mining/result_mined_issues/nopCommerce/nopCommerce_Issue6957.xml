@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6957</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6957</ISSUEURL>
+  <TITLE>Conditional product attributes not hidden on page load</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.60.x Steps to reproduce the problem: 1. Open the following product in the backend &quot;adidas Consortium Campus 80s Running Shoes&quot; 2. Navigate to the product attributes section 3. Select the color product attribute 4. Go to the condition section 5. Select a condition for the attribute, i.e. for &quot;Size&quot; and value &quot;8&quot; 6. Save the page 7. Open the following product in the frontend: &quot;adidas Consortium Campus 80s Running Shoes&quot; 8. Potentially refresh the page multiple times Immediately after the page you load, you will see the &quot;color&quot; product attribute a small amount of time, before the JavaScript kicks in. Imagin having about 6 product attributes assigned to a product, most of them with a condition on another product attribute. After the page loads the customer will initially see a very long list of product attributes for a short moment, even though he might only be required to select a few of them. For our customer this has already caused multiple of his customers complaining that the page is moving this much but not showing everything. Some customers even thought that this might be a bug. --- We would expect that the visibility check for the product attributes is already checked on the c# side, during the rendering of the page. That would cause a much smoother customer experience.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>320</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '4.70-bug-fixes' into develop</MESSAGE>
+    <SHA>ada93a8e8da17197ecc8c9b1fc069040c24f697f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6957 Conditional product attributes hidden on page load</MESSAGE>
+      <SHA>92c04bf302c4ee48edb47fe6c4512d9d599fea17</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Views/Product/_ProductAttributes.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

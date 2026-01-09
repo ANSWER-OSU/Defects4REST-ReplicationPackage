@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>306</ISSUENO>
+  <ISSUEURL>https://github.com/strapdata/elassandra/issues/306</ISSUEURL>
+  <TITLE>Can't change search strategy for existing index</TITLE>
+  <DESCRIPTION>Hi ! Elassandra version: 6.2.3.17 OS version: Ubuntu 18.04.2 LTS ``` $ java -version openjdk version &quot;1.8.0_222&quot; OpenJDK Runtime Environment (build 1.8.0_222-8u222-b10-1ubuntu1~18.04.1-b10) OpenJDK 64-Bit Server VM (build 25.222-b10, mixed mode) ``` I'm trying to change search strategy for existing index in the following way: ``` curl -XPUT -H &quot;Content-Type: application/json&quot; &quot;http://hostname:9200/index_name/_settings&quot; -d '{ &quot;settings&quot; : { &quot;index.search_strategy_class&quot;:&quot;RandomSearchStrategy&quot; } }' ``` And getting the following error: ``` { &quot;error&quot;: { &quot;root_cause&quot;: [ { &quot;type&quot;: &quot;illegal_state_exception&quot;, &quot;reason&quot;: &quot;rejecting cluster state version [205] uuid [lDkCWhnVRMWTts3x7uMrmA] received from [f9ed38c8-b7e0-4944-a0fe-4af6b5c6eb84]&quot; } ], &quot;type&quot;: &quot;illegal_state_exception&quot;, &quot;reason&quot;: &quot;rejecting cluster state version [205] uuid [lDkCWhnVRMWTts3x7uMrmA] received from [f9ed38c8-b7e0-4944-a0fe-4af6b5c6eb84]&quot; }, &quot;status&quot;: 500 } ``` In logs I see the following ``` 2019-09-16 17:42:14,482 WARN [elasticsearch[hostname][masterService#updateTask][T#1]] CassandraDiscovery.java:1100 onNewClusterStateFailed failed while applying cluster state locally source=update-settings java.lang.IllegalStateException: rejecting cluster state version [205] uuid [lDkCWhnVRMWTts3x7uMrmA] received from [f9ed38c8-b7e0-4944-a0fe-4af6b5c6eb84] at org.elassandra.discovery.CassandraDiscovery.processNextCommittedClusterState(CassandraDiscovery.java:1196) at org.elassandra.discovery.CassandraDiscovery.publishLocalUpdate(CassandraDiscovery.java:1110) at org.elassandra.discovery.CassandraDiscovery.publish(CassandraDiscovery.java:883) at org.elasticsearch.cluster.service.MasterService.runTasks(MasterService.java:251) at org.elasticsearch.cluster.service.MasterService$Batcher.run(MasterService.java:152) at org.elasticsearch.cluster.service.TaskBatcher.runIfNotProcessed(TaskBatcher.java:150) at org.elasticsearch.cluster.service.TaskBatcher$BatchedTask.run(TaskBatcher.java:188) at org.elasticsearch.common.util.concurrent.ThreadContext$ContextPreservingRunnable.run(ThreadContext.java:573) at org.elasticsearch.common.util.concurrent.PrioritizedEsThreadPoolExecutor$TieBreakingPrioritizedRunnable.runAndClean(PrioritizedEsThreadPoolExecutor.java:244) at org.elasticsearch.common.util.concurrent.PrioritizedEsThreadPoolExecutor$TieBreakingPrioritizedRunnable.run(PrioritizedEsThreadPoolExecutor.java:207) at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) at java.lang.Thread.run(Thread.java:748) ``` I successfully changed search strategy with the same request on Elassandra 5.5.0.24. According to the documentation https://elassandra.readthedocs.io/en/latest/operations.html?highlight=randomsearchstrategy#optimizing-search-requests it should work. Could you please help me with changing of the search strategy ?</DESCRIPTION>
+  <REPONAME>elassandra</REPONAME>
+  <TIMEDIFFERENCEDAYS>16</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update documentation</MESSAGE>
+    <SHA>93f4a0461c971334ce14fb83b40a96fea6fde8ce</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix index setting update issue #306</MESSAGE>
+      <SHA>7462a58b5c25476260a0f73636e302afd67a62ca</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elasticsearch/cluster/metadata/MetaDataUpdateSettingsService.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

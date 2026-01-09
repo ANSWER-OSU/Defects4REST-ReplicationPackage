@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7314</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7314</ISSUEURL>
+  <TITLE>RePostPayment fails with System.InvalidOperationException: Headers are read-only, response has already started.</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.6+ Steps to reproduce the problem: Calling RePostPayment fails with &quot;System.InvalidOperationException: Headers are read-only, response has already started.&quot; at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpHeaders.ThrowHeadersReadOnlyException() at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpResponseHeaders.Microsoft.AspNetCore.Http.IHeaderDictionary.set_ContentType(StringValues value) at Microsoft.AspNetCore.Http.DefaultHttpResponse.set_ContentType(String value) at Microsoft.AspNetCore.Mvc.Infrastructure.ContentResultExecutor.ExecuteAsync(ActionContext context, ContentResult result) at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.&lt;InvokeNextResultFilterAsync&gt;g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted) at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context) at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State&amp; next, Scope&amp; scope, Object&amp; state, Boolean&amp; isCompleted) at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters() --- End of stack trace from previous location --- https://github.com/nopSolutions/nopCommerce/blob/020f7571c2f37beedc33c8bfb04ab53565623c1b/src/Presentation/Nop.Web/Controllers/OrderController.cs#L237 Will write the form to the body. https://github.com/nopSolutions/nopCommerce/blob/020f7571c2f37beedc33c8bfb04ab53565623c1b/src/Presentation/Nop.Web/Controllers/OrderController.cs#L242 Will try to set Content Type header because of Content(&quot;Redirected&quot;). ---------------------------- Consider &quot;return new EmptyResult()&quot; instead of &quot;Content(&quot;Redirected&quot;)&quot;, along with adding a &lt;noscript&gt; wrapped text &quot;please enable javascript&quot; or similar, to RemotePost https://github.com/nopSolutions/nopCommerce/blob/020f7571c2f37beedc33c8bfb04ab53565623c1b/src/Presentation/Nop.Web.Framework/RemotePost.cs#L115</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue-7313-price-decimal-separator' into 4.70-bug-fixes</MESSAGE>
+    <SHA>2f5a528d06526b58ddd570a030e4de4b3d64f70f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7314 Fixed possible eroor with &quot;Headers are read-only&quot; on RePostPayment method</MESSAGE>
+      <SHA>536e1d08e1373f874a542ce11aadf66aa871e772</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Controllers/OrderController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2125</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/2125</ISSUEURL>
+  <TITLE>[filer] Error delete many files with SQL</TITLE>
+  <DESCRIPTION>**Describe the bug** Error filer store delete Folder Children See https://fromdual.com/keep-your-galera-cluster-up-and-running-by-all-means ``` filer_1 | I0611 10:13:05 1 abstract_sql_store.go:282] delete /buckets/registry/docker/registry/v2/blobs/sha256 SQL DELETE FROM `filemeta` WHERE dirhash=? AND directory=? -4910119483806141165 filer_1 | I0611 10:13:05 1 filer_delete_entry.go:39] delete directory /buckets/registry: filer store delete: deleteFolderChildren /buckets/registry/docker/registry/v2/blobs/sha256: Error 1180: wsrep_max_ws_rows exceeded filer_1 | I0611 10:13:05 1 error_handler.go:79] status 500 application/xml: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; filer_1 | &lt;Error&gt;&lt;Code&gt;InternalError&lt;/Code&gt;&lt;Message&gt;We encountered an internal error, please try again.&lt;/Message&gt;&lt;Resource&gt;/registry&lt;/Resource&gt;&lt;RequestId&gt;1623406385367150308&lt;/RequestId&gt;&lt;BucketName&gt;registry&lt;/BucketName&gt;&lt;/Error&gt; ``` **System Setup** ```master branch``` **Expected behavior** force small transactions when deleting Folder Children</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #2127 from nagy/check-history-error Check for history file errors as well</MESSAGE>
+    <SHA>ebe971da2e12bc155819ba1e60f720513d0cfc20</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>avoid crashes Galera Cluster https://github.com/chrislusf/seaweedfs/issues/2125</MESSAGE>
+      <SHA>6aa1a56ec87ca63f7a072eb6c9599e06fbb5ca9a</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filer/abstract_sql/abstract_sql_store.go</FILE>
+        <FILE>weed/filer/cassandra/cassandra_store.go</FILE>
+        <FILE>weed/filer/elastic/v7/elastic_store.go</FILE>
+        <FILE>weed/filer/etcd/etcd_store.go</FILE>
+        <FILE>weed/filer/filer.go</FILE>
+        <FILE>weed/filer/filer_delete_entry.go</FILE>
+        <FILE>weed/filer/filerstore.go</FILE>
+        <FILE>weed/filer/filerstore_translate_path.go</FILE>
+        <FILE>weed/filer/filerstore_wrapper.go</FILE>
+        <FILE>weed/filer/hbase/hbase_store.go</FILE>
+        <FILE>weed/filer/leveldb/leveldb_store.go</FILE>
+        <FILE>weed/filer/leveldb2/leveldb2_store.go</FILE>
+        <FILE>weed/filer/leveldb3/leveldb3_store.go</FILE>
+        <FILE>weed/filer/mongodb/mongodb_store.go</FILE>
+        <FILE>weed/filer/mysql/mysql_sql_gen.go</FILE>
+        <FILE>weed/filer/redis/universal_redis_store.go</FILE>
+        <FILE>weed/filer/redis2/universal_redis_store.go</FILE>
+        <FILE>weed/filer/rocksdb/rocksdb_store.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

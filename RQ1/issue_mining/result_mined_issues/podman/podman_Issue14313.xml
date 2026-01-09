@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14313</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14313</ISSUEURL>
+  <TITLE>podman image scp should allow specifying image by hash name with remote connection</TITLE>
+  <DESCRIPTION>**Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind feature **Description** `podman image scp` should allow specifying image by hash name, even with remove connections. **Steps to reproduce the issue:** 1. Setup two remote connections, in my case `aarch64` and `x86_64`. 2. Try to `podman image save` and `podman image load` from one connection to another using only an image hash, it works: ``` [root@e988f777948b /]# podman -c aarch64 image save 73440715a548019127335111c8b8c94b443f7a6024bcfd0a3a07835e5e5d2659 | podman -c x86_64 image load Loaded image(s): sha256:73440715a548019127335111c8b8c94b443f7a6024bcfd0a3a07835e5e5d2659 ``` 3. Try a similar thing with podman scp, it fails: ``` [root@e988f777948b /]# podman image scp aarch64::73440715a548019127335111c8b8c94b443f7a6024bcfd0a3a07835e5e5d2659 x86_64:: Error: invalid repository name (73440715a548019127335111c8b8c94b443f7a6024bcfd0a3a07835e5e5d2659), cannot specify 64-byte hexadecimal strings ``` **Describe the results you received:** Error: invalid repository name (73440715a548019127335111c8b8c94b443f7a6024bcfd0a3a07835e5e5d2659), cannot specify 64-byte hexadecimal strings **Describe the results you expected:** It should work with no error when specifying an image by hash. **Output of `podman version`:** ``` [root@e988f777948b /]# podman version Client: Podman Engine Version: 4.2.0-dev API Version: 4.2.0-dev Go Version: go1.16.15 Git Commit: 68e45555b3dfc9662ce71b6ff548b43c9ea8d50c Built: Mon May 9 18:23:55 2022 OS/Arch: linux/amd64```</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>103</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>TODO: podman image scp remote support &amp; podman image scp tagging add support for podman-remote image scp as well as direct access via the API. This entailed a full rework of the layering of image scp functions as well as the usual API plugging and type creation also, implemented podman image scp tagging. which makes the syntax much more readable and allows users t tag the new image they are loading to the local/remote machine: allow users to pass a &quot;new name&quot; for the image they are transferring `podman tag` as implemented creates a new image im `image list` when tagging, so this does the same meaning that when transferring images with tags, podman on the remote machine/user will load two images ex: `podman image scp computer1::alpine computer2::foobar` creates alpine:latest and localhost/foobar on the remote host implementing tags means removal of the flexible syntax. In the currently released podman image scp, the user can either specify `podman image scp source::img dest::` or `podman image scp dest:: source::img`. However, with tags this task becomes really hard to check which is the image (src) and which is the new tag (dst). Removal of that streamlines the arg parsing process Signed-off-by: cdoern &lt;cbdoer23@g.holycross.edu&gt;</MESSAGE>
+    <SHA>d4f695ce67c3a8c6b2b86c46853c633742bc01bb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Allow podman image scp to use an image ID currently, podman image scp is being roo rigid on image validation. the `ValidateImageName` function has been switched to merely parsing an image name if there is one rather than erroring out if given anything but `$IMGNAME:VERSION`. The image itself is validated down the line during the save/load functions so this check was an unecessary blocker resolves #14313 Signed-off-by: cdoern &lt;cdoern@redhat.com&gt;</MESSAGE>
+      <SHA>c1fa1d613b07433ec125cae48c6a3601f41580b2</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/utils/utils.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

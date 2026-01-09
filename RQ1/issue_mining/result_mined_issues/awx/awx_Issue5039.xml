@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5039</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/5039</ISSUEURL>
+  <TITLE>Outlier role association/disassociation activity stream entries when changed project's organization</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY If you change the organization of the project, is shows changes in some roles, but not other roles. ##### ENVIRONMENT * AWX version: 7.0.0 * AWX install method: openshift, minishift, docker on linux, docker for mac, boot2docker * Ansible version: N/A * Operating System: * Web Browser: ##### STEPS TO REPRODUCE Modify the organization of a project. Check the activity stream. ##### EXPECTED RESULTS 1 entry that the organization of the project was changed. That permissions also change is implied. ##### ACTUAL RESULTS 2 additional unexpected entries ![Screen Shot 2019-10-18 at 11 21 04 AM](https://user-images.githubusercontent.com/1385596/67107013-a27e7e80-f199-11e9-8983-56ce9f00d5ef.png) ##### ADDITIONAL INFORMATION Some content of one of those unwanted entries ```json { &quot;action&quot;: &quot;disassociate&quot;, &quot;object1&quot;: &quot;project&quot;, &quot;object1_pk&quot;: 25, &quot;object2&quot;: &quot;organization&quot;, &quot;object2_pk&quot;: 163, &quot;relationship&quot;: &quot;awx.main.models.rbac.Role_parents&quot; } ```</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>143</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #5038 from ansible/10412 Resolves infinite loop</MESSAGE>
+    <SHA>33233e65c81cb15831fd7851643f6149612235c7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #5039 from ansible/backport_awx_ee_org_fix Make ExecutionEnvironment awxkit class able to handle null values in payload</MESSAGE>
+      <SHA>c31ae9e47037c22a68a96e617554452a09600b24</SHA>
+      <PATCHEDFILES>
+        <FILE>awxkit/awxkit/api/pages/execution_environments.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

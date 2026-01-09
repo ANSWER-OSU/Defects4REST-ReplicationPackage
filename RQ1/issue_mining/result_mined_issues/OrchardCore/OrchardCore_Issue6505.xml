@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6505</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/6505</ISSUEURL>
+  <TITLE>Serve static content of web application to all tenants</TITLE>
+  <DESCRIPTION>When static contents are added to web application `wwwroot ` which are not embedded in assembly - i.e. static content added by Blazor web assembly or static css, javascript or images etc, `app.UseStaticFiles()` only serves content for `Default` tenant. In multi-tenant scenario, If there is `'wwwroot/appfile1.html'` and have `Default`, `tenant1`, `tenant2` then it should serve `appfile1.html` to all tenants relative to tenant prefix. i.e. for default tenant `appfile1.html` should be served with url `/appfile1.html` and for `tenant1`and `tenant2` served with url `/tenant1/appfile1.html` and `/tenant2/appfile1.html`. Ref issue # https://github.com/OrchardCMS/OrchardCore/issues/6474#issuecomment-649139631 /cc @jtkech</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>434</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Use step model for OpenId server settings deploy (#10109)</MESSAGE>
+    <SHA>bb87856f0b386dbc1b0900b257553ff0b7bd9bc1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Use of IPostConfigureOptions&lt;StaticFileOptions&gt; to configure StaticFileOptions Fixes #6505 #2966</MESSAGE>
+      <SHA>e0dbe3f31d0aec9f7643a8031b4f37b6a4024a98</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore/Modules/Extensions/ConfigureModuleStaticFileOptions.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore/Modules/Extensions/ServiceCollectionExtensions.cs</FILE>
+        <FILE>src/docs/reference/core/Modules/README.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Use of new StaticFileOptions for Modules (#10118) Fixes #6505 Fixes #2966</MESSAGE>
+      <SHA>ac1402bb08e7a222be333ee620c19f07bba95d4d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore/Modules/Extensions/ServiceCollectionExtensions.cs</FILE>
+        <FILE>src/docs/reference/core/Modules/README.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

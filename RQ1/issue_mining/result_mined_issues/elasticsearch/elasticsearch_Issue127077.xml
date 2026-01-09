@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127077</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/127077</ISSUEURL>
+  <TITLE>[CI] EntitlementInitializationTests testValidationFailForRead failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7729 / openjdk21_checkpart1_java-fips-matrix](https://gradle-enterprise.elastic.co/s/xh4qwlu3u252w) - [elasticsearch-periodic #7729 / openjdk23_entitlements_false_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/wpsbevhqoznys) - [elasticsearch-periodic #7729 / openjdk21_entitlements_true_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/nllr5xr6bcq36) - [elasticsearch-periodic #7729 / openjdk21_entitlements_false_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/x4l534pvd7fho) - [elasticsearch-periodic #7729 / openjdk23_entitlements_true_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/s65lwxueq4n3o) - [elasticsearch-periodic #7723 / openjdk23_entitlements_true_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/nyckvzl5uti7w) - [elasticsearch-periodic #7723 / openjdk23_entitlements_false_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/lpy5mda7maeae) - [elasticsearch-periodic #7723 / openjdk21_entitlements_true_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/5qtyfruit7ypw) - [elasticsearch-periodic #7723 / openjdk21_checkpart1_java-fips-matrix](https://gradle-enterprise.elastic.co/s/ipkkwq5cv4gic) - [elasticsearch-periodic #7723 / openjdk21_entitlements_false_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/afkumtg7ofbkm) **Reproduction Line:** ``` ./gradlew &quot;:libs:entitlement:test&quot; --tests &quot;org.elasticsearch.entitlement.initialization.EntitlementInitializationTests.testValidationFailForRead&quot; -Dtests.seed=160B3635076E245D -Dtests.locale=ewo-CM -Dtests.timezone=Asia/Magadan -Druntime.java=21 -Dtests.fips.enabled=true ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.entitlement.initialization.EntitlementInitializationTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testValidationFailForRead),title:'Test',type:optionsListControl))))) **Failure Message:** ``` junit.framework.AssertionFailedError: Unexpected exception type, expected IllegalArgumentException but got java.security.AccessControlException: access denied (&quot;java.io.FilePermission&quot; &quot;/opt/buildkite-agent/.java/openjdk21/conf&quot; &quot;read&quot;) ``` **Issue Reasons:** - [main] 5 consecutive failures in test testValidationFailForRead - [main] 2 consecutive failures in step openjdk21_checkpart1_java-fips-matrix - [main] 2 consecutive failures in step openjdk23_entitlements_false_checkpart1_java-matrix - [main] 2 consecutive failures in step openjdk21_entitlements_true_checkpart1_java-matrix - [main] 2 consecutive failures in step openjdk21_entitlements_false_checkpart1_java-matrix - [main] 2 consecutive failures in step openjdk23_entitlements_true_checkpart1_java-matrix - [main] 10 failures in test testValidationFailForRead (13.2% fail rate in 76 executions) - [main] 2 failures in step openjdk21_checkpart1_java-fips-matrix (100.0% fail rate in 2 executions) - [main] 2 failures in step openjdk23_entitlements_false_checkpart1_java-matrix (100.0% fail rate in 2 executions) - [main] 2 failures in step openjdk21_entitlements_true_checkpart1_java-matrix (100.0% fail rate in 2 executions) - [main] 2 failures in step openjdk21_entitlements_false_checkpart1_java-matrix (100.0% fail rate in 2 executions) - [main] 2 failures in step openjdk23_entitlements_true_checkpart1_java-matrix (100.0% fail rate in 2 executions) - [main] 2 failures in pipeline elasticsearch-periodic (100.0% fail rate in 2 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.packaging.test.DockerTests test026InstallBundledRepositoryPlugins #127081</MESSAGE>
+    <SHA>d5332ce2bc97bae9327cbc774c9880d22f6588ae</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Make sure SM isn't running alongside entitlements tests closes #127077</MESSAGE>
+      <SHA>a1e147bcbc1fef3055afb42c077bc7dd7b5e6c90</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/initialization/EntitlementInitializationTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Make sure SM isn't running alongside entitlements tests (#127082) closes #127077</MESSAGE>
+      <SHA>bc59bd57ef14c0ccd9bd40f871f81ee4d9da3fec</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/initialization/EntitlementInitializationTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Make sure SM isn't running alongside entitlements tests (#127082) closes #127077</MESSAGE>
+      <SHA>0af1a5d28ece592671d96b05598a6474db50d60c</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/initialization/EntitlementInitializationTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Make sure SM isn't running alongside entitlements tests (#127082) closes #127077</MESSAGE>
+      <SHA>e3cb847034e44af50369521d2d085020561327cc</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/initialization/EntitlementInitializationTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Make sure SM isn't running alongside entitlements tests (#127082) closes #127077</MESSAGE>
+      <SHA>0d2bc75301c2d177dff5f611ee471a4a4fc0a7d1</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/initialization/EntitlementInitializationTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Make sure SM isn't running alongside entitlements tests (#127082) (#127083) closes #127077</MESSAGE>
+      <SHA>4b6e8d9f392b488b3676829000df264773c524e8</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/initialization/EntitlementInitializationTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Make sure SM isn't running alongside entitlements tests (#127082) (#127084) closes #127077</MESSAGE>
+      <SHA>cac61e7832861edcada8b42395cdff4fcac848a9</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/initialization/EntitlementInitializationTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Make sure SM isn't running alongside entitlements tests (#127082) (#127085) closes #127077</MESSAGE>
+      <SHA>99e463100a56652a64b36039b5ce00cef0ec57d4</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/initialization/EntitlementInitializationTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

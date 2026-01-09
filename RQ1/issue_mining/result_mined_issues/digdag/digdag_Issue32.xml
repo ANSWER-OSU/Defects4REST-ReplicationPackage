@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>32</ISSUENO>
+  <ISSUEURL>https://github.com/treasure-data/digdag/issues/32</ISSUEURL>
+  <TITLE>digdag schedules output timezones confusing</TITLE>
+  <DESCRIPTION>`next session time` and `next runs at` timezones are different, which is a bit confusing. ``` $ digdag schedules 2016-04-11 14:46:04 -0700: Digdag v0.5.9 Schedules: id: 2 repository: dano-churn-prediction-poc workflow: +main next session time: 2016-04-13 00:00:00 +0900 next runs at: 2016-04-12 15:00:00 -0700 (24h 13m 55s later) 1 entries. Use `digdag workflows +NAME` to show workflow details. ```</DESCRIPTION>
+  <REPONAME>digdag</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>WM-1340 add tests in schedulers (#31) * Add tests for schedulers. * Update DailySchedulerTest</MESSAGE>
+    <SHA>38b565c00a742576f2b44c3c7714158be39a29bc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add start/end in schedule (#32) Implement start/end in daily&gt;, hourly&gt;, minutes_interval&gt;, monthly&gt; and weekly&gt;.</MESSAGE>
+      <SHA>f8d569f9dcc8ef5c4d1f93f1f8983eb9a03bc018</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-core/src/main/java/io/digdag/core/schedule/ScheduleExecutor.java</FILE>
+        <FILE>digdag-docs/src/scheduling_workflow.rst</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/BaseScheduler.java</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/CronScheduler.java</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/CronSchedulerFactory.java</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/DailySchedulerFactory.java</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/HourlySchedulerFactory.java</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/MinutesIntervalSchedulerFactory.java</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/MonthlySchedulerFactory.java</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/ScheduleConfigHelper.java</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/SchedulerModule.java</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/WeeklySchedulerFactory.java</FILE>
+        <FILE>digdag-standards/src/test/java/io/digdag/standards/scheduler/CronSchedulerTest.java</FILE>
+        <FILE>digdag-standards/src/test/java/io/digdag/standards/scheduler/DailySchedulerTest.java</FILE>
+        <FILE>digdag-standards/src/test/java/io/digdag/standards/scheduler/HourlySchedulerTest.java</FILE>
+        <FILE>digdag-standards/src/test/java/io/digdag/standards/scheduler/MinutesIntervalSchedulerTest.java</FILE>
+        <FILE>digdag-standards/src/test/java/io/digdag/standards/scheduler/MonthlySchedulerTest.java</FILE>
+        <FILE>digdag-standards/src/test/java/io/digdag/standards/scheduler/ScheduleConfigHelperTest.java</FILE>
+        <FILE>digdag-standards/src/test/java/io/digdag/standards/scheduler/SchedulerTestHelper.java</FILE>
+        <FILE>digdag-standards/src/test/java/io/digdag/standards/scheduler/WeeklySchedulerTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Backport start/end options in schedule (#1750) * Add tests in schedulers (#31) * Add start/end in schedule (#32) Implement start/end in daily&gt;, hourly&gt;, minutes_interval&gt;, monthly&gt; and weekly&gt;.</MESSAGE>
+      <SHA>3356327420745234b1a4c7764b01add494155d06</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-core/src/main/java/io/digdag/core/schedule/ScheduleExecutor.java</FILE>
+        <FILE>digdag-docs/src/scheduling_workflow.rst</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/BaseScheduler.java</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/CronScheduler.java</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/CronSchedulerFactory.java</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/DailySchedulerFactory.java</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/HourlySchedulerFactory.java</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/MinutesIntervalSchedulerFactory.java</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/MonthlySchedulerFactory.java</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/ScheduleConfigHelper.java</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/SchedulerModule.java</FILE>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/scheduler/WeeklySchedulerFactory.java</FILE>
+        <FILE>digdag-standards/src/test/java/io/digdag/standards/scheduler/CronSchedulerTest.java</FILE>
+        <FILE>digdag-standards/src/test/java/io/digdag/standards/scheduler/DailySchedulerTest.java</FILE>
+        <FILE>digdag-standards/src/test/java/io/digdag/standards/scheduler/HourlySchedulerTest.java</FILE>
+        <FILE>digdag-standards/src/test/java/io/digdag/standards/scheduler/MinutesIntervalSchedulerTest.java</FILE>
+        <FILE>digdag-standards/src/test/java/io/digdag/standards/scheduler/MonthlySchedulerTest.java</FILE>
+        <FILE>digdag-standards/src/test/java/io/digdag/standards/scheduler/ScheduleConfigHelperTest.java</FILE>
+        <FILE>digdag-standards/src/test/java/io/digdag/standards/scheduler/SchedulerTestHelper.java</FILE>
+        <FILE>digdag-standards/src/test/java/io/digdag/standards/scheduler/WeeklySchedulerTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

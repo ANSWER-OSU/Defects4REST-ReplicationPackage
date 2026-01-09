@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4771</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/4771</ISSUEURL>
+  <TITLE>CLI: Sometimes characters in monitoring stdout get transformed in incorrect ways</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY &lt;!-- Briefly describe the problem. --&gt; In certain environments using `monitor` for watching sdtout of adhoc commands leads to characters getting transformed. ##### STEPS TO REPRODUCE &lt;!-- Please describe exactly how to reproduce the problem. --&gt; Still unclear on this, have one environment in particular that reproduces it (but not sure how it is different than my local setup) ##### EXPECTED RESULTS &lt;!-- What did you expect to happen when running the steps above? --&gt; When comparing stdout from `api/v2/ad_hoc_commands/ID/` to local stdout, they should be the same ##### ACTUAL RESULTS &lt;!-- What actually happened? --&gt; Small aberrations like: `prepare_env()\x1b[0m` getting transformed to `prepare_en…\x1b[0m` (notice the `v()` in `prepare_env()` has been transformed to `…` ##### ADDITIONAL INFORMATION &lt;!-- Include any links to sosreport, database dumps, screenshots or other information. --&gt; This happened in a python3 install</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>42</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Allow the job event list views to take a no_truncate GET param</MESSAGE>
+    <SHA>e672e68a02d03090db7868fd7ca60613950f9b7e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Force the CLI to use no_truncate for the monitor calls</MESSAGE>
+      <SHA>cf89108edffeea2b2e594150159193eb5eb0be88</SHA>
+      <PATCHEDFILES>
+        <FILE>awxkit/awxkit/cli/stdout.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

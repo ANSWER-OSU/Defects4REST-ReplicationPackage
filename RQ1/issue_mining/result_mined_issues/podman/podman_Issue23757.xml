@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23757</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23757</ISSUEURL>
+  <TITLE>remote: start --attach: can only attach to created or running containers: container state improper</TITLE>
+  <DESCRIPTION>Looks like one of those long-time flakes that is no longer masked by ginkgo retry: ``` # podman something-something mycontainer ... # podman start -a mycontainer ...&quot;Error attaching to container xxx: can only attach to created or running containers: container state improper&quot; ``` (Suggestion: instrument that error message to display what the container state actually is) * debian-13 : int remote debian-13 root host sqlite [remote] * PR #23679 * [08-21 22:11](https://api.cirrus-ci.com/v1/artifact/task/4655418843070464/html/int-remote-debian-13-root-host-sqlite.log.html#t--Podman-run-podman-run-limits-test--1) in Podman run podman run limits test * fedora-40 : int remote fedora-40 root host sqlite [remote] * [08-19 08:01](https://api.cirrus-ci.com/v1/artifact/task/5415255935811584/html/int-remote-fedora-40-root-host-sqlite.log.html#t--Podman-run-podman-run-limits-test--1) in Podman run podman run limits test * rawhide : int remote rawhide root host sqlite [remote] * PR #23751 * [08-26 08:57](https://api.cirrus-ci.com/v1/artifact/task/5611875310764032/html/int-remote-rawhide-root-host-sqlite.log.html#t--Podman-privileged-container-tests-podman-privileged-should-restart-after-host-devices-change--1) in Podman privileged container tests podman privileged should restart after host devices change | x | x | x | x | x | x | | ---: | ---: | ---: | ---: | ---: | ---: | | int(3) | remote(3) | fedora-40(1) | root(3) | host(3) | sqlite(3) | | | | debian-13(1) | | | | | | | rawhide(1) | | | |</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23749 from Luap99/netlink update github.com/vishvananda/netlink to v1.3.0</MESSAGE>
+    <SHA>9ad3e84cb3c031b78a7f07c7c592f19bc3385f2e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix races in the HTTP attach API This is very similar to commit 3280da0500, we cannot check the state then unlock to then lock again and do the action. Everything must happen under one lock. To fix this move the code into the HTTPAttach function in libpod. The locking here is a bit weird because attach blocks for the lifetime of attach which can be very long so we must unlock before performing the attach. Fixes #23757 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>bf74797c6906cf9c47a71c13caeff8f771639258</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_api.go</FILE>
+        <FILE>pkg/api/handlers/compat/containers_attach.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

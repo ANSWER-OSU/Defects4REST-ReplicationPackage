@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18955</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18955</ISSUEURL>
+  <TITLE>Dropdown widgets for required fields should not include a &quot;clear&quot; button</TITLE>
+  <DESCRIPTION>### Deployment Type NetBox Cloud ### NetBox Version v4.2.5 ### Python Version 3.10 ### Steps to Reproduce In many forms (the site edit form, for instance), required choice fields include a &quot;clear&quot; button (an X within a circle) toward the righthand side of the field which clears any selected value. ![Image](https://github.com/user-attachments/assets/cad296b5-282b-4980-92c8-1d6a008a0851) ### Expected Behavior It should not be possible to clear the selected value of a field for which a value must be specified. The presence of the &quot;clear&quot; button may be confusing to the user. The clear button is a [Tom Select plugin](https://tom-select.js.org/plugins/clear-button/). It can be disabled for required fields by altering the logic [here](https://github.com/netbox-community/netbox/blob/43840e6a72416a5e0c963b230f9471308a29e3e1/netbox/project-static/src/select/config.ts#L8-L12). ### Observed Behavior See above.</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>22</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update source translation strings</MESSAGE>
+    <SHA>28e62d21a932d212fb4273ee5d6d8c55b87114a8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #18955: Include the &quot;clear&quot; button only for non-required dropdown fields (#18971) * Include the 'clear' button only for non-required fields * Apply the 'required' attribute for mandatory &lt;select&gt; fields * Recompile static assets</MESSAGE>
+      <SHA>6ed41f66802dd44bbf0ca79b9adbd5be09268d02</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/project-static/dist/netbox.js</FILE>
+        <FILE>netbox/project-static/dist/netbox.js.map</FILE>
+        <FILE>netbox/project-static/src/select/config.ts</FILE>
+        <FILE>netbox/templates/django/forms/widgets/select.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

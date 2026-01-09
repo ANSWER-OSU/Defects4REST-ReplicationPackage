@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24418</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/24418</ISSUEURL>
+  <TITLE>Add support for `--pids-limit` in kube</TITLE>
+  <DESCRIPTION>### Feature request description Hi, Currently, there is no equivalent of the `--pids-limit` option in `podman kube play`. Would it be possible to add such an option? I would be interested in having the option to limit the number of processes that can run simultaneously in a pod or in a container (depending on whether or not the `shareProcessNamespace` option has been enabled inside the pod's definition). ### Suggest potential solution Maybe this could be handled as a new (podman-specific) annotation, or as a new command-line option? I think a new annotation makes more sense. That way, running `podman kube generate` on a container/pod where the `--pids-limit` option has been set would keep track of its value (so that running `podman kube play` on the generated YAML file would retain the same value). ### Have you considered any alternatives? I'm not aware of any alternative solution to this problem. ### Additional context AFAIK there is no strict equivalent to this option in Kubernetes either. The closest thing I could find is https://kubernetes.io/docs/concepts/policy/pid-limiting/#pod-pid-limits which sets a global PID limit on the node running the pods, rather than on individual containers/pods.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>147</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #25636 from giuseppe/update-common-20-march-2025 vendor: update c/common</MESSAGE>
+    <SHA>3e247db6dc3b112863f8c18c918382d61801eb67</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add support for --pids-limit in podman kube play. This commit adds new annotation called: io.podman.annotations.pids-limit/$ctrname This annotation is used to define the PIDsLimit for a particular pod. It is also automatically defined when newly added --pids-limit option is used. Fixes: #24418 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>8a8dfab5b8eebc50e5b00cd5c083e4d5c9e0874d</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/kube/play.go</FILE>
+        <FILE>docs/source/markdown/options/pids-limit.md</FILE>
+        <FILE>docs/source/markdown/podman-kube-play.1.md.in</FILE>
+        <FILE>libpod/define/annotations.go</FILE>
+        <FILE>pkg/domain/entities/play.go</FILE>
+        <FILE>pkg/domain/infra/abi/play.go</FILE>
+        <FILE>pkg/specgen/generate/kube/kube.go</FILE>
+        <FILE>pkg/specgenutil/specgen.go</FILE>
+        <FILE>test/e2e/play_kube_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add support for --pids-limit in podman kube play. This commit adds new annotation called: io.podman.annotations.pids-limit/$ctrname This annotation is used to define the PIDsLimit for a particular pod. It is also automatically defined when newly added --pids-limit option is used. Fixes: #24418 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>fcecfe37a821b14b7da335efdbb07163c54b1868</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/kube/play.go</FILE>
+        <FILE>docs/source/markdown/options/pids-limit.md</FILE>
+        <FILE>docs/source/markdown/podman-kube-play.1.md.in</FILE>
+        <FILE>libpod/define/annotations.go</FILE>
+        <FILE>pkg/api/handlers/libpod/kube.go</FILE>
+        <FILE>pkg/bindings/kube/kube.go</FILE>
+        <FILE>pkg/bindings/kube/types.go</FILE>
+        <FILE>pkg/domain/entities/play.go</FILE>
+        <FILE>pkg/domain/infra/abi/play.go</FILE>
+        <FILE>pkg/domain/infra/tunnel/kube.go</FILE>
+        <FILE>pkg/specgen/generate/kube/kube.go</FILE>
+        <FILE>pkg/specgenutil/specgen.go</FILE>
+        <FILE>test/e2e/play_kube_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add support for --pids-limit in podman kube play. This commit adds new annotation called: io.podman.annotations.pids-limit/$ctrname This annotation is used to define the PIDsLimit for a particular pod. It is also automatically defined when newly added --pids-limit option is used. Fixes: #24418 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>0c7b2e219318c518d02fb3f9d2e702eaec17d230</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/kube/play.go</FILE>
+        <FILE>docs/source/markdown/options/pids-limit.md</FILE>
+        <FILE>docs/source/markdown/podman-kube-play.1.md.in</FILE>
+        <FILE>libpod/define/annotations.go</FILE>
+        <FILE>pkg/api/handlers/libpod/kube.go</FILE>
+        <FILE>pkg/bindings/kube/kube.go</FILE>
+        <FILE>pkg/bindings/kube/types.go</FILE>
+        <FILE>pkg/bindings/kube/types_play_options.go</FILE>
+        <FILE>pkg/domain/entities/play.go</FILE>
+        <FILE>pkg/domain/infra/abi/play.go</FILE>
+        <FILE>pkg/domain/infra/tunnel/kube.go</FILE>
+        <FILE>pkg/specgen/generate/kube/kube.go</FILE>
+        <FILE>pkg/specgenutil/specgen.go</FILE>
+        <FILE>test/e2e/play_kube_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add support for pids-limit annotation for podman kube play. This commit adds new annotation called: io.podman.annotations.pids-limit/$ctrname This annotation is used to define the PIDsLimit for a particular pod. It is also automatically defined when newly added --pids-limit option is used. Fixes: #24418 Signed-off-by: Jan Kaluza &lt;jkaluza@redhat.com&gt;</MESSAGE>
+      <SHA>f15b0887c7fe0fc722a24fa3b2a8ed188f136707</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-kube-play.1.md.in</FILE>
+        <FILE>libpod/define/annotations.go</FILE>
+        <FILE>pkg/specgen/generate/kube/kube.go</FILE>
+        <FILE>pkg/specgenutil/specgen.go</FILE>
+        <FILE>test/e2e/play_kube_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

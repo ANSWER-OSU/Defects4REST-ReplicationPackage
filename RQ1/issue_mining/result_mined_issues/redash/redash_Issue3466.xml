@@ -1,0 +1,132 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3466</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/3466</ISSUEURL>
+  <TITLE>Rewrite Extensions registry not to depend on Flask app</TITLE>
+  <DESCRIPTION>- [ ] Rewrite Extensions registry not to depend on Flask app - [ ] Bring back support for `add_periodic_tasks` (disabled in #3465)</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>95</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update Amazon Elasticsearch Service image (#3567)</MESSAGE>
+    <SHA>685c7713e4e699f39e980007bc020d601df43b85</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Decouple extensions from Flask app. This separates the extension registry from the Flask app and also introduces a separate registry for preriodic tasks. Fix #3466.</MESSAGE>
+      <SHA>573eb527b2c2cc89bb0504f5c6ebd65afc677412</SHA>
+      <PATCHEDFILES>
+        <FILE>bin/bundle-extensions</FILE>
+        <FILE>redash/extensions.py</FILE>
+        <FILE>redash/worker.py</FILE>
+        <FILE>requirements.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Split redash/__init__.py to prevent import time side-effects. Refs #3569 and #3466.</MESSAGE>
+      <SHA>544af1c089ebbde26214157820a7354ab06dcb4a</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/__init__.py</FILE>
+        <FILE>redash/app.py</FILE>
+        <FILE>redash/cli/__init__.py</FILE>
+        <FILE>redash/metrics/celery.py</FILE>
+        <FILE>redash/monitor.py</FILE>
+        <FILE>redash/settings/__init__.py</FILE>
+        <FILE>redash/tasks/queries.py</FILE>
+        <FILE>redash/utils/routes.py</FILE>
+        <FILE>redash/worker.py</FILE>
+        <FILE>redash/wsgi.py</FILE>
+        <FILE>tests/__init__.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Decouple extensions from Flask app. This separates the extension registry from the Flask app and also introduces a separate registry for preriodic tasks. Fix #3466.</MESSAGE>
+      <SHA>3b35712b3ef80a8c40724f0404513590f3a10b88</SHA>
+      <PATCHEDFILES>
+        <FILE>bin/bundle-extensions</FILE>
+        <FILE>redash/extensions.py</FILE>
+        <FILE>redash/worker.py</FILE>
+        <FILE>requirements.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Split redash/__init__.py to prevent import time side-effects. Refs #3569 and #3466.</MESSAGE>
+      <SHA>7b944c7b219182c7490dd21e69601e12494de811</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/__init__.py</FILE>
+        <FILE>redash/app.py</FILE>
+        <FILE>redash/cli/__init__.py</FILE>
+        <FILE>redash/metrics/celery.py</FILE>
+        <FILE>redash/settings/__init__.py</FILE>
+        <FILE>redash/tasks/queries.py</FILE>
+        <FILE>redash/utils/routes.py</FILE>
+        <FILE>redash/worker.py</FILE>
+        <FILE>redash/wsgi.py</FILE>
+        <FILE>tests/__init__.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Split redash/__init__.py to prevent import time side-effects. (#3601) ## What type of PR is this? (check all applicable) &lt;!-- Please leave only what's applicable --&gt; - [x] Refactor - [x] Bug Fix ## Description This basically makes sure that when import the redash package we don't accidentally trigger import-time side-effects such as requiring Redis. Refs #3569 and #3466.</MESSAGE>
+      <SHA>aa9d2466cdfc1972390a80b7c4bba2121e49f11c</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/__init__.py</FILE>
+        <FILE>redash/app.py</FILE>
+        <FILE>redash/cli/__init__.py</FILE>
+        <FILE>redash/handlers/base.py</FILE>
+        <FILE>redash/settings/__init__.py</FILE>
+        <FILE>redash/tasks/queries.py</FILE>
+        <FILE>redash/worker.py</FILE>
+        <FILE>tests/__init__.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Decouple extensions from Flask app. This separates the extension registry from the Flask app and also introduces a separate registry for preriodic tasks. Fix #3466.</MESSAGE>
+      <SHA>1e8eabebaa01f66f03b0b1f16296df9df5575beb</SHA>
+      <PATCHEDFILES>
+        <FILE>bin/bundle-extensions</FILE>
+        <FILE>redash/extensions.py</FILE>
+        <FILE>redash/worker.py</FILE>
+        <FILE>requirements.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Decouple extensions from Flask app. (#3569) * Decouple extensions from Flask app. This separates the extension registry from the Flask app and also introduces a separate registry for preriodic tasks. Fix #3466. * Address review feedback. * Update redash/extensions.py Co-Authored-By: jezdez &lt;jannis@leidel.info&gt; * Minor comment in requirements. * Refactoring after getting feedback. * Uncoupled bin/bundle-extensions from Flas app instance. * Load bundles in bundle script and don’t rely on Flask. * Upgraded to importlib-metadata 0.9. * Add missing requirement. * Fix TypeError. * Added requirements for bundle_extension script. * Install bundles requirement file correctly. * Decouple bundle loading code from Redash. * Install bundle requirements from requirements.txt. * Use circleci/node for build-docker-image step, too.</MESSAGE>
+      <SHA>07c95309846f17e7fc1c455b7f1d8cf4a9b9ef49</SHA>
+      <PATCHEDFILES>
+        <FILE>.circleci/config.yml</FILE>
+        <FILE>Dockerfile</FILE>
+        <FILE>bin/bundle-extensions</FILE>
+        <FILE>redash/extensions.py</FILE>
+        <FILE>redash/worker.py</FILE>
+        <FILE>requirements.txt</FILE>
+        <FILE>requirements_bundles.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Split redash/__init__.py to prevent import time side-effects. (#3601) ## What type of PR is this? (check all applicable) &lt;!-- Please leave only what's applicable --&gt; - [x] Refactor - [x] Bug Fix ## Description This basically makes sure that when import the redash package we don't accidentally trigger import-time side-effects such as requiring Redis. Refs #3569 and #3466.</MESSAGE>
+      <SHA>12a824b5ca95e2ac2c88010a68ff1cfb3e34ff1a</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/__init__.py</FILE>
+        <FILE>redash/app.py</FILE>
+        <FILE>redash/cli/__init__.py</FILE>
+        <FILE>redash/handlers/base.py</FILE>
+        <FILE>redash/settings/__init__.py</FILE>
+        <FILE>redash/tasks/queries.py</FILE>
+        <FILE>redash/worker.py</FILE>
+        <FILE>tests/__init__.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Decouple extensions from Flask app. (#3569) * Decouple extensions from Flask app. This separates the extension registry from the Flask app and also introduces a separate registry for preriodic tasks. Fix #3466. * Address review feedback. * Update redash/extensions.py Co-Authored-By: jezdez &lt;jannis@leidel.info&gt; * Minor comment in requirements. * Refactoring after getting feedback. * Uncoupled bin/bundle-extensions from Flas app instance. * Load bundles in bundle script and don’t rely on Flask. * Upgraded to importlib-metadata 0.9. * Add missing requirement. * Fix TypeError. * Added requirements for bundle_extension script. * Install bundles requirement file correctly. * Decouple bundle loading code from Redash. * Install bundle requirements from requirements.txt. * Use circleci/node for build-docker-image step, too.</MESSAGE>
+      <SHA>cd5e2fe243a4f61bb0eaf4530e62c83a5db77187</SHA>
+      <PATCHEDFILES>
+        <FILE>.circleci/config.yml</FILE>
+        <FILE>Dockerfile</FILE>
+        <FILE>bin/bundle-extensions</FILE>
+        <FILE>redash/extensions.py</FILE>
+        <FILE>redash/worker.py</FILE>
+        <FILE>requirements.txt</FILE>
+        <FILE>requirements_bundles.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

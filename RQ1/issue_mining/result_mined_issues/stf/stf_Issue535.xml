@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>535</ISSUENO>
+  <ISSUEURL>https://github.com/openstf/stf/issues/535</ISSUEURL>
+  <TITLE>DB is not initialized</TITLE>
+  <DESCRIPTION>**DB is not initialized when running stf local first time** &gt; FTL/reaper 12089 [reaper001] Unable to load initial state { ReqlOpFailedError: Database `stf` does not exist in: &gt; r.table(&quot;devices&quot;).getAll(true, {&quot;index&quot;: &quot;present&quot;}) &gt; ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ &gt; at ReqlOpFailedError.ReqlError [as constructor] (/stf/node_modules/rethinkdb/errors.js:23:13) &gt; at ReqlOpFailedError.ReqlRuntimeError [as constructor] (/stf/node_modules/rethinkdb/errors.js:90:51) &gt; at ReqlOpFailedError.ReqlAvailabilityError [as constructor] (/stf/node_modules/rethinkdb/errors.js:167:56) &gt; at new ReqlOpFailedError (/stf/node_modules/rethinkdb/errors.js:178:52) &gt; at mkErr (/stf/node_modules/rethinkdb/util.js:177:10) &gt; at TcpConnection.Connection._processResponse (/stf/node_modules/rethinkdb/net.js:152:16) &gt; at TcpConnection.Connection._data (/stf/node_modules/rethinkdb/net.js:122:12) &gt; at Socket.&lt;anonymous&gt; (/stf/node_modules/rethinkdb/net.js:683:32) &gt; at emitOne (events.js:96:13) &gt; at Socket.emit (events.js:188:7) &gt; at readableAddChunk (_stream_readable.js:176:18) &gt; at Socket.Readable.push (_stream_readable.js:134:10) &gt; at TCP.onread (net.js:548:20) &gt; From previous event: &gt; at GetAll.TermBase.run (/stf/node_modules/rethinkdb/ast.js:135:12) &gt; at /stf/lib/db/index.js:129:14 &gt; at runCallback (timers.js:637:20) &gt; at tryOnImmediate (timers.js:610:5) &gt; at processImmediate [as _immediateCallback] (timers.js:582:5) &gt; From previous event: &gt; at db.run (/stf/lib/db/index.js:128:23) &gt; at dbapi.loadPresentDevices (/stf/lib/db/api.js:401:13) &gt; at loadInitialState (/stf/lib/units/reaper/index.js:83:18) &gt; at module.exports (/stf/lib/units/reaper/index.js:125:3) &gt; at Object.module.exports.handler (/stf/lib/cli/reaper/index.js:42:39) &gt; at Object.self.runCommand (/stf/node_modules/yargs/lib/command.js:170:22) &gt; at parseArgs (/stf/node_modules/yargs/yargs.js:920:28) &gt; at Object.get [as argv] (/stf/node_modules/yargs/yargs.js:860:16) &gt; at Object.&lt;anonymous&gt; (/stf/lib/cli/index.js:40:3) &gt; at Module._compile (module.js:570:32) &gt; at Object.Module._extensions..js (module.js:579:10) &gt; at Module.load (module.js:487:32) &gt; at tryModuleLoad (module.js:446:12) &gt; at Function.Module._load (module.js:438:3) &gt; at Module.runMain (module.js:604:10) &gt; at run (bootstrap_node.js:394:7) &gt; at startup (bootstrap_node.js:149:9) &gt; at bootstrap_node.js:509:3 &gt; name: 'ReqlOpFailedError', &gt; msg: 'Database `stf` does not exist.', &gt; frames: [], &gt; message: 'Database `stf` does not exist in:\nr.table(&quot;devices&quot;).getAll(true, {&quot;index&quot;: &quot;present&quot;})\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^' } &gt; FTL/util:lifecycle 12089 [reaper001] Shutting down due to fatal error &gt; FTL/cli:local 12083 [*] Child process had an error ExitError: Exit code &quot;1&quot; &gt; at ChildProcess.&lt;anonymous&gt; (/stf/lib/util/procutil.js:49:23) &gt; at emitTwo (events.js:106:13) &gt; at ChildProcess.emit (events.js:191:7) &gt; at Process.ChildProcess._handle.onexit (internal/child_process.js:215:12) &gt; INF/cli:local 12083 [*] Shutting down all child processes last line of lib/cli/local/index.js ```javascript return procutil.fork(__filename, ['migrate']) .done(run) ``` should be ```javascript return procutil.fork(path.resolve(__dirname, '..'), ['migrate']).done(run) ```</DESCRIPTION>
+  <REPONAME>stf</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Don't allow the processor unit to run before we're able to connect to the database. This caused an issue when the database started up slowly, but the processor connected to the app/dev dealers regardless. Any received messages requiring database connectivity would cause the processor to die (and be restarted by systemd), causing lost messages on occasion.</MESSAGE>
+    <SHA>385acc4ff2062eba85ca78c3a6807f22c8500854</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix incorrect migrate file path in stf local. Fixes #535 and #509.</MESSAGE>
+      <SHA>083a2a1f92534e03137f261d294d793a5101815e</SHA>
+      <PATCHEDFILES>
+        <FILE>lib/cli/local/index.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix incorrect migrate file path in stf local. Fixes #535 and #509.</MESSAGE>
+      <SHA>c6ac1878b3be6afeed430651817d50745b0ad8ad</SHA>
+      <PATCHEDFILES>
+        <FILE>lib/cli/local/index.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

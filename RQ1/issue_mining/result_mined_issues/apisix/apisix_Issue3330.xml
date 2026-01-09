@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3330</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/3330</ISSUEURL>
+  <TITLE>bug: /apisix/prometheus/metrics cannot access</TITLE>
+  <DESCRIPTION>### Issue description ### Environment * apisix version (cmd: `apisix version`): apache/apisix-2.2 docker * OS: (cmd: `uname -a`) Linux gateway 3.10.0-957.el7.x86_64 #1 SMP Thu Nov 8 23:39:32 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux * OpenResty / Nginx version: (cmd: `nginx -V` or `openresty -V`) ### Minimal test code / Steps to reproduce the issue 1. request GET /apisix/prometheus/metrics 2. it's not accessible ### What's the actual result? (including assertion message &amp; call stack if applicable) broken ``` 2021/01/19 02:10:44 [error] 43#43: *10729051 failed to run header_filter_by_lua*: /usr/local/apisix/apisix/core/lrucache.lua:159: invalid value (nil) at index 1 in table for 'concat' stack traceback: [C]: in function 'concat' /usr/local/apisix/apisix/core/lrucache.lua:159: in function 'plugin_ctx' /usr/local/apisix/apisix/plugins/cors.lua:168: in function 'phase_func' /usr/local/apisix/apisix/init.lua:164: in function 'run_plugin' /usr/local/apisix/apisix/init.lua:625: in function 'common_phase' /usr/local/apisix/apisix/init.lua:662: in function 'http_header_filter_phase' header_filter_by_lua:2: in main chunk, client: 10.9.6.206, server: , request: &quot;GET /apisix/prometheus/metrics HTTP/1.1&quot;, host: &quot;10.9.6.225&quot; ``` ### What's the expected result? access ok</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>docs: fix Markdown link (#3313)</MESSAGE>
+    <SHA>0ce72405c861eb4c4617634435ef7deb26ff24cf</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: set conf info when global rule is hit without matched rule Fix #3330 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>b04d7ae6234bbe4f5ccff8e60df5b6b2a067359d</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>t/config-center-yaml/global-rule.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: set conf info when global rule is hit without matched rule (#3332) Fix #3330 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>b78c87a158b1eb5926dc70b462f1ae4c4eab8ec5</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>t/config-center-yaml/global-rule.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

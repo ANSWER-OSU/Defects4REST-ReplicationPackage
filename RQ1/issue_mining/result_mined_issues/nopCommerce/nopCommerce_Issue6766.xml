@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6766</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6766</ISSUEURL>
+  <TITLE>GetOrderTotalDiscountAsync performance</TITLE>
+  <DESCRIPTION>nopCommerce version: All Steps to reproduce the problem: When you have lot of discounts; for example 30K. Once the GetOrderTotalDiscountAsync inside OrderTotalCalculationService.cs is called, all discounts will be retrieved, then for each discount it will validate if it is applied by customer by calling (_discountService.ValidateDiscountAsync()) method. Inside ValidateDiscountAsync it will parse the applied discounts each time for each the 30K discount. Why not just get the applied discounts codes for the customer and find them inside the 30K. This will help to improve the performance alot.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>31</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Typo fix : productAttrubute =&gt; productAttribute (#6776)</MESSAGE>
+    <SHA>453bd34865a379cc0e36d6ef40971fbcb03eaad5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>moved the ParseAppliedDiscountCouponCodesAsync() to outside the foreach statements in both GetOrderTotalDiscountAsync and GetOrderSubTotalDiscountAsync #6766</MESSAGE>
+      <SHA>f8ef74092d8396fc592349f2a6ca9c2d557c0576</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderTotalCalculationService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6766 Performance optimization of GetOrderTotalDiscountAsync and GetOrderSubTotalDiscountAsync methods Moved the ParseAppliedDiscountCouponCodesAsync call to outside the foreach statements in both GetOrderTotalDiscountAsync and GetOrderSubTotalDiscountAsync --------- Co-authored-by: takinniyi &lt;takinniyi@coure-tech.com&gt;</MESSAGE>
+      <SHA>2753868a91af066ee04de197b5a26f9f90e5160a</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderTotalCalculationService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6766 Performance. Removed the shorthand overload of the ValidateDiscountAsync method</MESSAGE>
+      <SHA>2a778e4eac4521d4be701e5653c34457b3f24ebc</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Catalog/PriceCalculationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Discounts/DiscountService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Discounts/IDiscountService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderTotalCalculationService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/ShoppingCartModelFactory.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>292</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/292</ISSUEURL>
+  <TITLE>--no-clipboard is ignored when using now.json</TITLE>
+  <DESCRIPTION>Starting a command: ```bash now --docker --alias applaudience-showtime-data-sources-worker --no-clipboard --debug ``` Ends with: ``` &gt; Success! Alias created (...): https://applaudience-showtime-data-sources-worker.now.sh now points to https://applaudienceshowtime-data-sources-worker-ryhbkahjqh.now.sh (...) [copied to clipboard] &gt; Deployment complete! ``` I am suspecting this is because options are not correctly merged with now.json.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>644</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add note about @now/next not supporting distDir (#289) `now-builders` can't parse `next.config.js` because it can hold functions. It expects `/.next` as the build output. Closes: #288</MESSAGE>
+    <SHA>7ff9e810fffd7f18ca44e0106586f04df6dac39b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-python] Add `setup.cfg` file before running `pip install` (#292) * [now-python] Add `setup.cfg` file before running `pip install` See: https://stackoverflow.com/a/44728772/376773 The `setup.cfg` is required for `now dev` on MacOS, where without this file being present in the src dir then this error happens: distutils.errors.DistutilsOptionError: must supply either home or prefix/exec-prefix -- not both * Only create the `seup.cfg` file once</MESSAGE>
+      <SHA>5b03109ba76f4ca10d697c38f0afd084b9c76dd5</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-python/index.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now-python] Run `pip` from within the installation directory (#295) Otherwise the `setup.cfg` file is not respected (see #292).</MESSAGE>
+      <SHA>bfb67d10ec158c166d7d459b95168d0f18ae629c</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-python/index.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

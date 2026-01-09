@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121249</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121249</ISSUEURL>
+  <TITLE>[CI] RemoteClusterSecurityEsqlIT testCrossClusterAsyncQueryStop failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6062 / rhel-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/oqql4mv65durg) - [elasticsearch-pull-request #53217 / checkpart4_release-tests](https://gradle-enterprise.elastic.co/s/ounrokmb3uotu) - [elasticsearch-pull-request #53073 / checkpart4_release-tests](https://gradle-enterprise.elastic.co/s/qprvfbcfevmiq) - [elasticsearch-pull-request #52965 / checkpart4_release-tests](https://gradle-enterprise.elastic.co/s/n6g4wyr4veads) - [elasticsearch-pull-request #52925 / part-4](https://gradle-enterprise.elastic.co/s/tbrzjkmjzuou2) - [elasticsearch-pull-request #52823 / checkpart4_release-tests](https://gradle-enterprise.elastic.co/s/siw2mspian3bi) - [elasticsearch-pull-request #52785 / part-4](https://gradle-enterprise.elastic.co/s/wf2bkgwe6trpg) - [elasticsearch-pull-request #52753 / part-4](https://gradle-enterprise.elastic.co/s/cpvxwpc7ii7qc) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:security:qa:multi-cluster:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.remotecluster.RemoteClusterSecurityEsqlIT.testCrossClusterAsyncQueryStop&quot; -Dtests.seed=8E517D83CCAB7558 -Dtests.locale=en-TZ -Dtests.timezone=Asia/Damascus -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.remotecluster.RemoteClusterSecurityEsqlIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testCrossClusterAsyncQueryStop),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: &lt;false&gt; but: was &lt;true&gt; ``` **Issue Reasons:** - [main] 4 consecutive failures in step checkpart4_release-tests - [main] 8 failures in test testCrossClusterAsyncQueryStop (1.0% fail rate in 802 executions) - [main] 3 failures in step part-4 (0.8% fail rate in 364 executions) - [main] 4 failures in step checkpart4_release-tests (100.0% fail rate in 4 executions) - [main] 7 failures in pipeline elasticsearch-pull-request (2.0% fail rate in 355 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Enable preview features for entitlements projects in IDEA (#121235)</MESSAGE>
+    <SHA>231a616b23b9504a172c08c5530e554ae3030c0d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.remotecluster.RemoteClusterSecurityEsqlIT testCrossClusterAsyncQueryStop #121249</MESSAGE>
+      <SHA>55f2db853e81dbb694b899c90c51cb4fd1580632</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

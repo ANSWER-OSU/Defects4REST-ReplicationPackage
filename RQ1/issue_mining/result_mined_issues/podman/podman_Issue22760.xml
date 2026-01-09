@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>22760</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/22760</ISSUEURL>
+  <TITLE>podman healthcheck + sdnotify: Error: container is stopped</TITLE>
+  <DESCRIPTION>``` &lt;+015ms&gt; # # podman run --name IK28z8EJtw --health-cmd=touch /terminate --sdnotify=healthy quay.io/libpod/testimage:20240123 sh -c while test \! -e /terminate; do sleep 0.1; done; echo finished &lt;+572ms&gt; # finished # Error: container is stopped &lt;+004ms&gt; # [ rc=126 (** EXPECTED 0 **) ] ``` Reproducer fails within seconds on 1mt: ```console # while :;do bin/podman run --health-cmd=&quot;touch /terminate&quot; --sdnotify=healthy quay.io/libpod/testimage:20240123 sh -c &quot;while test \! -e /terminate; do sleep 0.1; done; echo finished&quot; || break; done finished finished finished finished finished finished finished finished finished finished Error: container is stopped ``` While I'm at it, this is probably a bug too: (above command, with `run --rm`, fails instantly): ```console # bin/podman run --rm --health-cmd=&quot;touch /terminate&quot; --sdnotify=healthy quay.io/libpod/testimage:20240123 sh -c &quot;while test \! -e /terminate; do sleep 0.1; done; echo finished&quot; finished # echo $? 127 ``` Almost certainly related to #22658. @giuseppe PTAL. Only seen on aarch64, but that's consistent with the previous flake that you fixed in your PR. * fedora-40-aarch64 : sys podman fedora-40-aarch64 root host sqlite * PR #22731 * [05-16 18:10](https://api.cirrus-ci.com/v1/artifact/task/4666751898615808/html/sys-podman-fedora-40-aarch64-root-host-sqlite.log.html#t--00442) in [sys] [260] sdnotify : healthy * [05-16 16:49](https://api.cirrus-ci.com/v1/artifact/task/6395645383147520/html/sys-podman-fedora-40-aarch64-root-host-sqlite.log.html#t--00442) in [sys] [260] sdnotify : healthy | x | x | x | x | x | x | | ---: | ---: | ---: | ---: | ---: | ---: | | sys(2) | podman(2) | fedora-40-aarch64(2) | root(2) | host(2) | sqlite(2) |</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #22750 from containers/renovate/golangci-golangci-lint-1.x [CI:DOCS] Update dependency golangci/golangci-lint to v1.58.2</MESSAGE>
+    <SHA>fa05adba679dd7d22d30551dc09e72dcf4a6cc96</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>libpod: wait another interval for healthcheck wait for another interval when the container transitioned to &quot;stopped&quot; to give more time to the healthcheck status to change. Closes: https://github.com/containers/podman/issues/22760 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>e166f6bfe01a30fb82a20d5774fc8ed696a92164</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_api.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

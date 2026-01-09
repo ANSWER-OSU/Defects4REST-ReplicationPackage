@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3247</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/3247</ISSUEURL>
+  <TITLE>DSpace 6 build fails using latest Maven version due to blocking of restlet m2 repository</TITLE>
+  <DESCRIPTION>**Describe the bug** Using the latest version of maven (3.8.1), building DSpace 6 (or DSpace 5), the build fails with a message like the following (formatted for readability): ``` [ERROR] Failed to execute goal on project dspace-solr: Could not resolve dependencies for project org.dspace:dspace-solr:war:6.4-SNAPSHOT: Failed to collect dependencies at org.apache.solr:solr-core:jar:4.10.4 -&gt; org.restlet.jee:org.restlet:jar:2.1.1: Failed to read artifact descriptor for org.restlet.jee:org.restlet:jar:2.1.1: Could not transfer artifact org.restlet.jee:org.restlet:pom:2.1.1 from/to maven-default-http-blocker (http://0.0.0.0/): Blocked mirror for repositories: [ maven-snapshots (http://oss.sonatype.org/content/repositories/snapshots, default, snapshots), maven-restlet (http://maven.restlet.org, default, releases+snapshots), apache.snapshots (http://repository.apache.org/snapshots, default, disabled) ] -&gt; [Help 1] ``` This is failing due to a security measure added to maven 3.8.1 ([see release notes](https://maven.apache.org/docs/3.8.1/release-notes.html)). This measure prevents the use of plain old http maven repositories in order to reduce the chance of man-in-the-middle attacks. **To Reproduce** Steps to reproduce the behavior: 1. Clear out your ~/.m2/repository/org/restlet/ directory, if present (this may not be wholly necessary, but it ensures maven will be forced to try to download the library in any case). 2. Make sure you're using the latest version of maven (currently 3.8.1) 3. Try to build dspace...the build should fail with an error like the above. **Expected behavior** It should successfully build, as it does with Maven 3.8.0 and below.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>133</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add ilri/post-ciat-pdfs.py I used this to download a bunch of PDFs from the CIAT Library server that was being decommissioned, and upload them to the relevant items on CGSpace (the items were previously uploaded as metadata-only).</MESSAGE>
+    <SHA>c43b3aaec8956117ca9edaa1cefd00d3c2c0767d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fixes DSpace#3247</MESSAGE>
+      <SHA>9eb71712e997f5a59b4c17bbe8426ea55e518dd9</SHA>
+      <PATCHEDFILES>
+        <FILE>pom.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merged in task/dspace-cris-2023_02_x/DSC-2092 (pull request #3247) [DSC-2092] Approved-by: Giuseppe Digilio</MESSAGE>
+      <SHA>66b1f9661b1fb3308d3adfb017fd86fa3431f307</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/content/authority/RorOrgUnitAuthority.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/importer/external/ror/service/RorImportMetadataSourceService.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/importer/external/ror/service/RorImportMetadataSourceServiceImpl.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/importer/external/ror/service/RorServicesFactory.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/importer/external/ror/service/RorServicesFactoryImpl.java</FILE>
+        <FILE>dspace-api/src/main/resources/spring/spring-dspace-addon-import-services.xml</FILE>
+        <FILE>dspace-server-webapp/src/test/java/org/dspace/app/rest/RorOrgUnitAuthorityIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

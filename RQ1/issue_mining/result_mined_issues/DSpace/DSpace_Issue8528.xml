@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8528</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/8528</ISSUEURL>
+  <TITLE>Refreshing spider files fails with null pointer exception</TITLE>
+  <DESCRIPTION>**Describe the bug** Running the cron job /dspace/bin/dspace stats-util -u fails with a null pointer exception because the Project of the Get request is null. Adding a Project before the Get gets excecuted fixes that. [This](https://github.com/DSpace/DSpace/blob/main/dspace-api/src/main/java/org/dspace/statistics/util/StatisticsClient.java#L138) is the Get request. Changing it to this: ```java Get get = new Get(); get.setProject(new org.apache.tools.ant.Project()); // THIS IS THE FIX get.setDest(new File(spiders, url.getHost() + url.getPath().replace(&quot;/&quot;, &quot;-&quot;))); get.setSrc(url); get.setUseTimestamp(true); get.execute(); ``` **To Reproduce** 1. Run this on command line: `/dspace/bin/dspace stats-util -u` **Expected behavior** It should download the spider files.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #8503 from alanorth/update-pdfbox Update PDFBox dependency to version 2.0.27</MESSAGE>
+    <SHA>2a6b457f5ab3fc30d8aa174716f8bda5701321b7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #8528, refreshing spider files causes null pointer.</MESSAGE>
+      <SHA>6f02dd502de54d8c177fda99004232288522de4c</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/statistics/util/StatisticsClient.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #8531 from christian-scheible/refresh_spider_file_bugfix Fixes #8528, refreshing spider files causes null pointer.</MESSAGE>
+      <SHA>78cc75e1805fd386c3e8de0ef6f76d66c2496da5</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/statistics/util/StatisticsClient.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

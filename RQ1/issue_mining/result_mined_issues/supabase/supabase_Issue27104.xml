@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>27104</ISSUENO>
+  <ISSUEURL>https://github.com/supabase/supabase/issues/27104</ISSUEURL>
+  <TITLE>Flutter User Management Tutorial fails to catch and display many errors</TITLE>
+  <DESCRIPTION># Improve documentation ## Link [Add a link to the page which needs improvement (if relevant)](https://supabase.com/docs/guides/getting-started/tutorials/with-flutter?platform=android#get-the-api-keys) ## Describe the problem SnackBars are not being displayed properly, so errors are swallowed from the user perspective. onError is not implemented for supabase sdk calls, so errors are being swallowed there too from a developer and user persepective. Makes it hard and confusing to follow along as a new flutter user. ## Describe the improvement Change all calls in the documentation of `SnackBar(...); ` to `ScaffoldMessenger.of(context).showSnackBar(SnackBar(....)); ` I don't know if this is a recent change to flutter or something but you can't just construct a SnackBar widget and expect it to be displayed, you must show it. Add an onError handler to this block in login_page.dart. ``` @override void initState() { _authStateSubscription = supabase.auth.onAuthStateChange.listen((data) { if (_redirecting) return; final session = data.session; if (session != null) { _redirecting = true; Navigator.of(context).pushReplacementNamed('/account'); } }); super.initState(); } ``` ## Additional context</DESCRIPTION>
+  <REPONAME>supabase</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update with-flutter.mdx to reflect code changes to login_page.dart and account_page.dart</MESSAGE>
+    <SHA>153297d2d468cb53bc3bae72b560ff42d8b87394</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix code samples for login_page.dart and account_page.dart to reflect fixes in #27104</MESSAGE>
+      <SHA>29014bca1cb6d65d44b780b122336daf28ab26c9</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/docs/content/guides/getting-started/tutorials/with-flutter.mdx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix code samples for login_page.dart and account_page.dart to reflect fixes in #27104</MESSAGE>
+      <SHA>9a158743eced305fe131d0a59616ce818e882f01</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/docs/content/guides/getting-started/tutorials/with-flutter.mdx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix code samples for login_page.dart and account_page.dart to reflect fixes in #27104</MESSAGE>
+      <SHA>e3f4e45e20ca7fdc43cafdb2ebbcc2d2ce775849</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/docs/content/guides/getting-started/tutorials/with-flutter.mdx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix code samples for login_page.dart and account_page.dart to reflect fixes in #27104</MESSAGE>
+      <SHA>ecb82c257e8cadb18aa8e5963a370a21a3317ba5</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/docs/content/guides/getting-started/tutorials/with-flutter.mdx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix code samples for login_page.dart and account_page.dart to reflect fixes in #27104</MESSAGE>
+      <SHA>add2cedcec005ea7297e2a207016edd172df76a0</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/docs/content/guides/getting-started/tutorials/with-flutter.mdx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix code samples for login_page.dart and account_page.dart to reflect fixes in #27104</MESSAGE>
+      <SHA>2852e32261d3f3a7f63aee9d8dd10de055eb42c2</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/docs/content/guides/getting-started/tutorials/with-flutter.mdx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix code samples for login_page.dart and account_page.dart to reflect fixes in #27104</MESSAGE>
+      <SHA>bf639b43d9c9d7bc64c7aa3b32b0faf36914fe3a</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/docs/content/guides/getting-started/tutorials/with-flutter.mdx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix errors being swallowed in account_page.dart and login_page.dart fixes #27104 (#27143) * Refactor login_page with a _showSnackBar function * Add an onError block to onAuthStateChange Errors get swallowed without this error handler, I noticed it when I had requested too many magic link emails, there was no feedback in the ui, nor in the logs in the console. * Fix SnackBars not being displayed and add a _showSnackBar function * Fix code samples for login_page.dart and account_page.dart to reflect fixes in #27104 * Fix isError not being passed for an Unexpected Error in login_page * Update flutter user management example to a more modern code * Update the guide to match the new content * run formatter * got rid of excess code and minor format fix --------- Co-authored-by: dshukertjr &lt;dshukertjr@gmail.com&gt;</MESSAGE>
+      <SHA>33c7e812c4e9a62dbdd03d50d28f2cf01f47693f</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/docs/content/guides/getting-started/tutorials/with-flutter.mdx</FILE>
+        <FILE>examples/user-management/flutter-user-management/ios/Flutter/AppFrameworkInfo.plist</FILE>
+        <FILE>examples/user-management/flutter-user-management/ios/Podfile</FILE>
+        <FILE>examples/user-management/flutter-user-management/ios/Podfile.lock</FILE>
+        <FILE>examples/user-management/flutter-user-management/ios/Runner.xcodeproj/project.pbxproj</FILE>
+        <FILE>examples/user-management/flutter-user-management/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme</FILE>
+        <FILE>examples/user-management/flutter-user-management/lib/components/avatar.dart</FILE>
+        <FILE>examples/user-management/flutter-user-management/lib/main.dart</FILE>
+        <FILE>examples/user-management/flutter-user-management/lib/pages/account_page.dart</FILE>
+        <FILE>examples/user-management/flutter-user-management/lib/pages/login_page.dart</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

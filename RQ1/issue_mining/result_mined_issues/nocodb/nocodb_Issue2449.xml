@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2449</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/2449</ISSUEURL>
+  <TITLE>issue while upgrading from 0.84.14 to 0.91.10 - migration failed</TITLE>
+  <DESCRIPTION>**Please enter the following details** ``` NocoDB used as docker : true NocoDB version : **0.84.14** Database used in NC_DB URL : pg Project was created by clicking : New Project by connecting to external database Database on which spreadsheet is created : mysql OS on which NocoDB is running : Linux ``` **Steps To Reproduce** I have projects already running on 0.84.14, so upgrading the version to 0.90.0 provides with &lt;img width=&quot;1407&quot; alt=&quot;Screenshot 2022-06-22 at 9 02 41 AM&quot; src=&quot;https://user-images.githubusercontent.com/88304484/174990109-9be1b6d0-41f9-490f-bbf8-c74eb2f25b75.png&quot;&gt; i was able to reproduce the issue locally as well. 1. Run command below: ``` docker run -d -p 8080:8080 \ -e NC_DB=&quot;mysql2://host.docker.internal:3306?u=root&amp;p=password&amp;d=d1&quot; \ -e NC_AUTH_JWT_SECRET=&quot;569a1821-0a93-45e8-87ab-eb857f20a010&quot; \ nocodb/nocodb:0.90.0 ``` 2. go to, localhost:8080 3. cant get /dashboard i have attached my ecs logs here as well. [log-events-viewer-result.csv](https://github.com/nocodb/nocodb/files/8956179/log-events-viewer-result.csv)</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>24</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #2549 from nocodb/fix/added-space-removal-logic-to-table-name-on-creation fix: Removed auto snake casing for table name on creation</MESSAGE>
+    <SHA>59b942164b2a843cda8afae510d621347fa4f907</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: skip meta migration if associated project doesn't exist re #2449 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>e1aa5f598cb2bb21eb48a32fdd99ecec5045f10a</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/version-upgrader/ncProjectUpgraderV2_0090000.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

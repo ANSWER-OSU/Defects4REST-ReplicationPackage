@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16057</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/16057</ISSUEURL>
+  <TITLE>Ghost appears to redundantly create Stripe Customer objects via API</TITLE>
+  <DESCRIPTION>### Issue Summary While this isn't high impact, it appears that checkouts initiated in Ghost to create new subscriptions will redundantly create customer objects in Stripe, with one copy having only a name/email address and the other copy having the actual subscription inside of it. This will pollute search results and make customer counts inaccurate. Note here, for example, how the count of new customers is almost 2X the count of new successful payments. &lt;img width=&quot;680&quot; alt=&quot;スクリーンショット 2023-01-03 10 25 20&quot; src=&quot;https://user-images.githubusercontent.com/32929/210289537-65d2f069-15b2-43af-bfcf-2f6db9e714c1.png&quot;&gt; I believe I've figured out what is happening via Ghost's invocation of Stripe APIs. Here's what the history of API calls looks like for a single new subscriber: &lt;img width=&quot;561&quot; alt=&quot;スクリーンショット 2023-01-03 10 17 43&quot; src=&quot;https://user-images.githubusercontent.com/32929/210289211-f6eacd83-a02b-458c-88bb-fad8ced723ca.png&quot;&gt; We see Ghost pre-creating a Customer object prior to creating a Checkout session, which is one valid way to do it. However, the call to create the checkout session (POST /v1/checkout/sessions) does not reference the created Customer object. This results in Stripe creating a second Customer &quot;at need&quot;, per the description [here](https://stripe.com/docs/api/checkout/sessions/create) &gt; customer: ... If blank for Checkout Sessions in payment or subscription mode, Checkout will create a new Customer object based on information provided during the payment flow. The fix is simple, I think: cause the /v1/checkout/sessions POST API call to contain the customer ID, which will look something like cust_... , in the request. There's some cleanup which could be done relatively trivially by Ghost on users' behalf, or in the alternative, you could release a snippet for users to query their Stripe API, search for the empty customers that duplicate live customers, and delete the empties. (I might write a script for this.) ### Steps to Reproduce I think this should be observable for any Ghost instance making new subscriptions against Stripe. 1. Connect Ghost to Stripe. 2. Start a new paid subscription using a new email address. 3. Wait a few seconds for bookkeeping to happen. 4. Check the associated Stripe account; you will likely see two new customer objects, one with only the name/email and the other with the name/email and associated subscription/payment method/etc. ### Ghost Version Current version via Ghost Pro hosting ### Node.js Version Current version via Ghost Pro hosting ### How did you install Ghost? Current version via Ghost Pro hosting ### Database type MySQL 5.7 ### Browser &amp; OS version _No response_ ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update metascraper to v5.32.4</MESSAGE>
+    <SHA>af91df561c7eefbcef98884dd6583f8b70b4ed56</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Stops Ghost from creating redundant Stripe Customer objects via the API when customers subscribe. closes #16057 A minor bug fix which will prevent Ghost from creating redundant, empty Customer objects in the Stripe API. This will make your Stripe Dashboard stats more accurate and make searching for Customers easier.</MESSAGE>
+      <SHA>4b176d3e8e2009e5bb31e8bb4f26cbe4402ebb6b</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/stripe/lib/StripeAPI.js</FILE>
+        <FILE>ghost/stripe/test/unit/lib/StripeAPI.test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Stopped creating redundant Stripe Customers for Members fixes https://github.com/TryGhost/Ghost/issues/16057 Briefly, Ghost created two Customer objects via the Stripe API when an existing subscriber would upgrade to a paid subscription, one in an API call to create the Customer and then a second as a side effect of an API call to create a Checkout session for the user. The fix is passing the reference to the Customer object to the API call to create the Checkout session; Stripe will no longer redundantly create a Customer object in this case. This largely impacts the owner's experience of the Stripe Dashboard; it will correct their new Customer count (going forward) and make searches for users by name or email address return one responsive object which has the actual subscription in it versus returning two and forcing them to look in each to e.g. refund a transaction or similar.</MESSAGE>
+      <SHA>559ca9d866d1b926fdcc5f0d2b717c18ccb4d0c7</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/stripe/lib/StripeAPI.js</FILE>
+        <FILE>ghost/stripe/test/unit/lib/StripeAPI.test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23028</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23028</ISSUEURL>
+  <TITLE>podman tries to make user-executable directory world-executable (rootless)</TITLE>
+  <DESCRIPTION>### Issue Description When a directory in the path configured in `containers.conf` is not world-executable podman fails to run containers: ``` admin@bastion:~&gt; cat ~/.config/containers/storage.conf [storage] driver = &quot;overlay&quot; runroot = &quot;/app/admin/ee/runroot&quot; graphroot = &quot;/app/admin/ee/graphroot&quot; rootless_storage_path = &quot;/app/admin/ee/storage&quot; [storage.options] pull_options = {enable_partial_images = &quot;false&quot;, use_hard_links = &quot;false&quot;, ostree_repos=&quot;&quot;} [storage.options.overlay] mountopt = &quot;nodev,metacopy=on&quot; admin@bastion:~&gt; id uid=4444(admin) gid=4444(admin) groups=4444(admin),10(wheel) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 admin@bastion:~&gt; ls -alZ /app total 0 drwxr-x---. 3 root admin unconfined_u:object_r:default_t:s0 19 2024-06-07 12:53 . dr-xr-xr-x. 19 root root system_u:object_r:root_t:s0 246 2024-06-06 12:46 .. drwxr-x--x. 3 admin admin unconfined_u:object_r:container_var_lib_t:s0 16 2024-06-07 13:28 admin admin@bastion:~&gt; strace -ff podman run -ti test-container uname 2&gt;&amp;1 | grep chmod | grep -i perm [pid 3400] fchmodat(AT_FDCWD, &quot;/app&quot;, 0751) = -1 EPERM (Operation not permitted) [pid 3400] rt_sigreturn({mask=[]}Error: chmod /app: operation not permitted admin@bastion:~&gt; podman version Client: Podman Engine Version: 4.9.4-rhel API Version: 4.9.4-rhel Go Version: go1.21.7 (Red Hat 1.21.7-2.module+el8.10.0+21638+b01be198) Built: Mon Jun 10 14:56:14 2024 OS/Arch: linux/amd64 admin@bastion:~&gt; ``` The top-level directory is already user-readable/executable but podman still tries to make it world-executable. If doing &quot;chmod o+x /app&quot; as root then the test would work as expected. If this is indeed required then at least the error message should be clearer. ### Steps to reproduce the issue See above - any directory in the path, even if user-readable/executable, not world-executable will cause podman to fail. ### Describe the results you received Directories must be world-executable or podman fails. ### Describe the results you expected It is enough for directories to be owned and accessible by the user. ### podman info output ```yaml If you are unable to run podman info for any reason, please provide the podman version, operating system and its version and the architecture you are running. ``` ### Podman in a container No ### Privileged Or Rootless Rootless ### Upstream Latest Release No ### Additional environment details Additional environment details ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>libpod: avoid chowning the rundir to root in the userns so it is possible to remove the code to make the entire directory world accessible. Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+    <SHA>08a8429459fdeddec73ffb8e5efe339f6312dba1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>libpod: intermediate mount if UID not mapped into the userns if the current user is not mapped into the new user namespace, use an intermediate mount to allow the mount point to be accessible instead of opening up all the parent directories for the mountpoint. Closes: https://github.com/containers/podman/issues/23028 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>49eb5af3013ef64bd017a1fd545c802e3eb230a1</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_internal.go</FILE>
+        <FILE>libpod/container_internal_common.go</FILE>
+        <FILE>libpod/oci_conmon_common.go</FILE>
+        <FILE>libpod/oci_conmon_freebsd.go</FILE>
+        <FILE>libpod/oci_conmon_linux.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

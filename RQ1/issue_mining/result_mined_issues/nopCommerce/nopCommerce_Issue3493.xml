@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3493</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3493</ISSUEURL>
+  <TITLE>Issue with State localization.</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.10 Steps to reproduce the problem: **1 - Please add one language at admin side** in my case i add Arabic language. Name = Arabic Language Culture = Arabic (Egypt). ar-EG Unique seo = ar Righ to left = checked Published = checked Display order = 1 Now click on save button. **2 - now open country USA go to state province tab.** After that Please edit first state of USA country. Add القوات المسلحة الأمريكتين in arabic language After click on save again open this in edit mode. Value is not shown there. After Carefully examine. **I got one solution.** here it is. Go PrepareStateProvinceModel in which you can find below code localizedModelConfiguration = (locale, languageId) =&gt; { locale.Name = _localizationService.GetLocalized(**country**, entity =&gt; entity.Name, languageId, false, false); }; here i change country to **state** in the first parameter of GetLocalized method and it is working fine with that.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#3341 Fixed one language default value bug</MESSAGE>
+    <SHA>2264abf2ca55227cfaffcb41f13fa39bb0a78735</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3493 State localization fixed</MESSAGE>
+      <SHA>834cac2e42f2317042683b89d0b3e82ad0c904d4</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/CountryModelFactory.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

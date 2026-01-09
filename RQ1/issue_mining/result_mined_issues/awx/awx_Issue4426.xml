@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4426</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/4426</ISSUEURL>
+  <TITLE>Add RBAC rules to side-nav</TITLE>
+  <DESCRIPTION>##### SUMMARY The side-nav in `ui_next` does not have any RBAC rules baked in yet. This issue will be used to track that work. https://github.com/ansible/awx/blob/devel/awx/ui/client/lib/components/layout/layout.partial.html can be used as a reference. In general, we want to do the following: 1. Hide Settings, Management Jobs, and Credential Types from _all users except system administrators and system auditors_. Note that these two flags come from `/api/v2/me` (is_superuser, is_system_auditor). 2. Hide Instance Groups and Integrations (Applications) from _all users except system administrators, system auditors, and org administrators_. Determining whether a user is an org admin is done with a request to `/api/v2/users/:user_id/admin_of_organizations/` and checking that the count is greater than one. 3. Hide Notifications from _all users except system administrators, system auditors, org administrators, and notification administrators_. Determining whether a user is an org admin is done with a request to `api/v2/organizations/?role_level=notification_admin_role` and checking that the count is greater than one. If none of the `Administration` or `Settings` options are shown to a user then those headers should be hidden as well.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>679</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9149 from vladdoster/patch-1 (docs) update README.md Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>83372d6f031c8daf351daaaad80bdf20c3c2451e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add RBAC rules to side-nav Add RBAC rules to side-na See: https://github.com/ansible/awx/issues/4426</MESSAGE>
+      <SHA>e72513f73fbcfd1f99b1ea2738575bb6c0528f82</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/App.jsx</FILE>
+        <FILE>awx/ui_next/src/components/AppContainer/AppContainer.jsx</FILE>
+        <FILE>awx/ui_next/src/routeConfig.js</FILE>
+        <FILE>awx/ui_next/src/routeConfig.test.js</FILE>
+        <FILE>awx/ui_next/src/screens/Login/Login.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Login/Login.test.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add RBAC rules to side-nav Add RBAC rules to side-nav. See: https://github.com/ansible/awx/issues/4426</MESSAGE>
+      <SHA>5ba38b3f6c1663f5d35c66531cc2393de632efd0</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/App.jsx</FILE>
+        <FILE>awx/ui_next/src/components/AppContainer/AppContainer.jsx</FILE>
+        <FILE>awx/ui_next/src/routeConfig.js</FILE>
+        <FILE>awx/ui_next/src/routeConfig.test.js</FILE>
+        <FILE>awx/ui_next/src/screens/Login/Login.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Login/Login.test.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add RBAC rules to side-nav Add RBAC rules to side-nav. See: https://github.com/ansible/awx/issues/4426</MESSAGE>
+      <SHA>a0a0b5b6d87f34f8d820282c374a691482a75ca2</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/App.jsx</FILE>
+        <FILE>awx/ui_next/src/components/AppContainer/AppContainer.jsx</FILE>
+        <FILE>awx/ui_next/src/routeConfig.js</FILE>
+        <FILE>awx/ui_next/src/routeConfig.test.js</FILE>
+        <FILE>awx/ui_next/src/screens/Login/Login.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Login/Login.test.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

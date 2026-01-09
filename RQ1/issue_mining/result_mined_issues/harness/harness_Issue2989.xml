@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2989</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2989</ISSUEURL>
+  <TITLE>Can't login to Gogs</TITLE>
+  <DESCRIPTION>I have the following composefile ``` version: '3' services: # https://developpaper.com/build-your-own-ci-cd-system-with-drone-and-gogs/ drone-server: container_name: 'drone-server' image: drone/drone:latest ports: - &quot;8080:80&quot; - 8843:443 - 9000 volumes: - ./drone:/var/lib/drone/ - /var/run/docker.sock:/var/run/docker.sock environment: - DRONE_OPEN=true - DRONE_SERVER_HOST=drone-server - DRONE_DEBUG=true - DRONE_GIT_ALWAYS_AUTH=false - DRONE_GOGS=true - DRONE_GOGS_SKIP_VERIFY=false - DRONE_GOGS_SERVER=http://gogs:3000 - DRONE_PROVIDER=gogs - DRONE_DATABASE_DATASOURCE=/var/lib/drone/drone.sqlite - DRONE_DATABASE_DRIVER=sqlite3 - DRONE_SERVER_PROTO=http - DRONE_RPC_SECRET=ALQU2M0KdptXUdTPKcEwHww - DRONE_SECRET=ALQU2M0KdptXUdTPKcEwHww gogs: container_name: 'gogs' image: hypriot/rpi-gogs-raspbian:latest ports: - &quot;10022:22&quot; - &quot;3000:3000&quot; volumes: - ./data/gogs:/data depends_on: - mysql mysql: container_name: 'mysql' image: &quot;hypriot/rpi-mysql&quot; volumes: - ./gogs/mysql:/var/lib/mysql ports: - 3308:3306 command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci environment: MYSQL_ROOT_PASSWORD: pass MYSQL_DATABASE: gogs MYSQL_USER: gogs MYSQL_PASSWORD: pass TZ: Europe/London drone-agent: container_name: 'drone-agent' image: drone/agent:latest volumes: - /var/run/docker.sock:/var/run/docker.sock depends_on: - drone-server environment: - DRONE_RPC_SERVER=http://drone-server - DRONE_RPC_SECRET=ALQU2M0KdptXUdTPKcEwHww - DRONE_DEBUG=true - DRONE_SERVER=drone-server:9000 - DRONE_SECRET=ALQU2M0KdptXUdTPKcEwHww - DRONE_MAX_PROCS=5 ``` When trying to login to drone, Gogs will return `gogs | [Macaron] Completed /api/v1/user 404 Not Found in 7.359052ms `. From a little reading this seems to be an issue with authentication. What else can I do to debug?</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [CDE-470]: remove redundant logging lines for post commands gitspaces (#2988) * feat: [CDE-470]: remove redundant logging lines for post commands gitspaces</MESSAGE>
+    <SHA>94ec638b7b6ec367b37b8e6001384e29f5c2fe1a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: [CDE-483]: modify remove gitspace func (#2989) * add debug log * capture error * modify remove gitspace func</MESSAGE>
+      <SHA>622f6d232cd5e5d737e98bb9bb71137219e652c1</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/controller/gitspace/delete.go</FILE>
+        <FILE>app/services/gitspace/action_delete.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

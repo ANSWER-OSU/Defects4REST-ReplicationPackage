@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3281</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/3281</ISSUEURL>
+  <TITLE>Restriction of email domains for self-registration has no effect</TITLE>
+  <DESCRIPTION>**Describe the bug** Setting &quot;authentication-password.domain.valid = example.com&quot; in the local.cfg file has no effect. Self-registration is still possible with other email domains. **Expected behavior** When &quot;authentication-password.domain.valid&quot; is specified in local.cfg, self-registration should only be possible with the respective domains. Related to #3272</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>623</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[task 97298] only check for allowed domains on register</MESSAGE>
+    <SHA>507189a828e55c46d4da104283f5e41c28eb4f29</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>97298: #3281 Self-register - type param</MESSAGE>
+      <SHA>3dc98bae78278f4d7d552bff37c32ec04fba1908</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/repository/RegistrationRestRepository.java</FILE>
+        <FILE>dspace-server-webapp/src/test/java/org/dspace/app/rest/RegistrationRestRepositoryIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>97298: #3281 Self-register - fix, needs existent user for forgot</MESSAGE>
+      <SHA>6a594cb62b0921b6f6cd74796f6f56405ff68e51</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/repository/RegistrationRestRepository.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

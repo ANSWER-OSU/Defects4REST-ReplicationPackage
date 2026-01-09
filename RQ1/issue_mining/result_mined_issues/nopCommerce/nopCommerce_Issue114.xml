@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>114</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/114</ISSUEURL>
+  <TITLE>We should handle maximum length EF validation rules before saving</TITLE>
+  <DESCRIPTION>Had an issue come to me yesterday where a category page couldn't be saved. Basically, the user was trying to update their meta keywords on the seo tab and went beyond the 400 character limit. Property: MetaKeywords Error: The field MetaKeywords must be a string or array type with a maximum length of '400' is the error thrown...however, the user gets the white &quot;error screen&quot; and they don't know what happened. Source: http://www.nopcommerce.com/boards/t/31729/validation-message-for-meta-keywords-exceeding-400-characters-not-firing.aspx We can use the following code to load validation rule (maximum length). Just refactor it to enumerate through all properties and saved entities (graph). Note that it can affect performance. ``` var type = ObjectContext.GetObjectType(entity.GetType()); var typeName = ObjectContext.GetObjectType(entity.GetType()).AssemblyQualifiedName; int? maxLength = _context.GetColumnMaxLength(typeName, &quot;PropertyName&quot;); ``` Also see work item #99</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>54</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'develop' of https://github.com/nopSolutions/nopCommerce into develop</MESSAGE>
+    <SHA>f2b1713b920cde7394997ad87a86f0ae4bfb1cfe</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#114 Added processing a maximum length of string fields before saving</MESSAGE>
+      <SHA>6325ba14fff3f72cf2237dffee991c547b49bfd7</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Data/DbContextExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Validators/BaseNopValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Blogs/BlogPostValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Catalog/CategoryValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Catalog/ManufacturerValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Catalog/ProductAttributeValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Catalog/ProductAttributeValueModelValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Catalog/ProductReviewValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Catalog/ProductTagValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Catalog/ProductValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Common/AddressAttributeValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Common/AddressAttributeValueValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Customers/CustomerAttributeValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Customers/CustomerAttributeValueValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Customers/CustomerRoleValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Customers/CustomerValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Directory/CountryValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Directory/MeasureDimensionValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Directory/MeasureWeightValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Directory/StateProvinceValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Discounts/DiscountValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Forums/ForumGroupValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Forums/ForumValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Localization/LanguageValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Messages/EmailAccountValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Messages/MessageTemplateValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Messages/NewsLetterSubscriptionValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Messages/QueuedEmailValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/News/NewsItemValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Orders/CheckoutAttributeValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Orders/CheckoutAttributeValueValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Shipping/DeliveryDateValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Shipping/ShippingMethodValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Shipping/WarehouseValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Stores/StoreValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Tax/TaxCategoryValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Validators/Vendors/VendorValidator.cs</FILE>
+        <FILE>src/Tests/Nop.Web.MVC.Tests/Admin/Validators/Catalog/CategoryValidatorTests.cs</FILE>
+        <FILE>src/Tests/Nop.Web.MVC.Tests/Admin/Validators/Catalog/ManufacturerValidatorTests.cs</FILE>
+        <FILE>src/Tests/Nop.Web.MVC.Tests/Admin/Validators/Vendors/VendorValidatorTests.cs</FILE>
+        <FILE>src/Tests/Nop.Web.MVC.Tests/Nop.Web.MVC.Tests.csproj</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

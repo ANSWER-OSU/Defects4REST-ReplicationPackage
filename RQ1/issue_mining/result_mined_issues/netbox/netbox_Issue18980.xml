@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18980</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18980</ISSUEURL>
+  <TITLE>Optimize bulk updates of custom field values when custom fields are added/removed</TITLE>
+  <DESCRIPTION>### NetBox version v4.2.5 ### Feature type Change to existing functionality ### Proposed functionality This FR intends to capture an opportunity to improve performance when a custom field is added to or removed from a model which has many thousands of records. Whenever a custom field is added, its `populate_initial_data()` method is called to automatically populate the field's default value on all objects: https://github.com/netbox-community/netbox/blob/7db0765ed2bf7098bab17cb71e389ffbfde34ceb/netbox/extras/models/customfields.py#L279-L289 The current approach is suboptimal, as it requires loading each individual object into memory to effect the change. I believe we can optimize this by mutating the JSON data directly within the query: ```python from django.db.models import F, Func, Value from django.db.models import JSONField def bulk_update_cf_value(model, field_name, new_value): model.objects.update( custom_field_data=Func( F('custom_field_data'), Value([field_name]), Value(new_value, JSONField()), function='jsonb_set' ) ) bulk_update_cf_value(Site, &quot;test1&quot;, &quot;abc123&quot;) ``` This allows us to update the value of a specific key for all objects without first loading each into memory. Similar approaches will be needed for the `remove_stale_data()` and `rename_object_data()` methods on CustomField as well. ### Use case This should result in a dramatic reduction in the time required to bulk update custom field data, particularly when many thousands of records are affected. ### Database changes N/A ### External dependencies N/A</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update source translation strings</MESSAGE>
+    <SHA>8ab73501d134aede9cbee52992d6973c1e3b109c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Closes #18980: Optimize update of object data when adding/removing custom fields (#18983) * Employ native PostgreSQL functions for updating object JSON data when adding/removing custom fields * Optimize rename_object_data() * remove_stale_data() should validate model class</MESSAGE>
+      <SHA>af5a600583eca91ca207f6b6303ec0c42fb41d14</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/extras/models/customfields.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

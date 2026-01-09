@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>283</ISSUENO>
+  <ISSUEURL>https://github.com/strapdata/elassandra/issues/283</ISSUEURL>
+  <TITLE>Elassandra multi data center replication</TITLE>
+  <DESCRIPTION>I have setup multi data center elassandra cluster. Created keyspace with `RF=2` and a table `connects` ``` CREATE KEYSPACE IF NOT EXISTS mystiko WITH replication = { 'class':'NetworkTopologyStrategy', 'DC1':'2', 'DC2':'2' }; CREATE TABLE IF NOT EXISTS mystiko.connects ( account TEXT, salt TEXT, signature TEXT, verified BOOLEAN, timestamp TIMESTAMP, PRIMARY KEY(account) ); ``` Then created elastic index with the `connects` table from DC1 node. ``` curl -XPUT &quot;http://172.31.20.177:9200/connects&quot; -d '{ &quot;settings&quot;:{ &quot;keyspace&quot;: &quot;mystiko&quot; }, &quot;mappings&quot;: { &quot;connects&quot; : { &quot;discover&quot; : &quot;.*&quot; } } } ' ``` When I'm looking at the elastic index replications, in one data center it gives `3` and other data center it gives `1`. Is this the known behavior of elassandra? DC1 ``` &quot;settings&quot; : { &quot;index&quot; : { &quot;keyspace&quot; : &quot;mystiko&quot;, &quot;number_of_shards&quot; : &quot;1&quot;, &quot;provided_name&quot; : &quot;connects&quot;, &quot;creation_date&quot; : &quot;1556749099033&quot;, &quot;number_of_replicas&quot; : &quot;3&quot;, &quot;uuid&quot; : &quot;GUEyLFy6S_m7k39hPqD7lg&quot;, &quot;version&quot; : { &quot;created&quot; : &quot;5050099&quot; } } }, ``` DC2 ``` &quot;settings&quot; : { &quot;index&quot; : { &quot;keyspace&quot; : &quot;mystiko&quot;, &quot;number_of_shards&quot; : &quot;1&quot;, &quot;provided_name&quot; : &quot;connects&quot;, &quot;creation_date&quot; : &quot;1556749099033&quot;, &quot;number_of_replicas&quot; : &quot;1&quot;, &quot;uuid&quot; : &quot;GUEyLFy6S_m7k39hPqD7lg&quot;, &quot;version&quot; : { &quot;created&quot; : &quot;5050099&quot; } } } ``` Is there any way to have the same elastic replication on each data center?</DESCRIPTION>
+  <REPONAME>elassandra</REPONAME>
+  <TIMEDIFFERENCEDAYS>230</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add support cql for attributes for geo_shape (#282)</MESSAGE>
+    <SHA>63d13aeb538d83ac15373879977ba4ba187cee9f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix number_of_replica in a multi-dc configuration #283</MESSAGE>
+      <SHA>4da1b6e04ca76a53b60d1b3f83ddf6e6bf796407</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elasticsearch/cluster/metadata/MetaDataCreateIndexService.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

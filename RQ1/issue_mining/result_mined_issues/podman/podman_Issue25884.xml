@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>25884</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/25884</ISSUEURL>
+  <TITLE>Allow setting files media type with `podman artifact add`</TITLE>
+  <DESCRIPTION>### Feature request description The media type of artifacts files is derived from [the first 512 bytes of the file](https://github.com/containers/podman/blob/main/pkg/libartifact/store/store.go) using go standard library [net/http#DetectContentType](https://pkg.go.dev/net/http#DetectContentType). The media type can be incorrect and a source of error when the artifact gets pushed to an OCI container image registry. Consider the following example: ``` # run Zot (https://zotregistry.dev) on localhost:5001 podman run -d -p &quot;127.0.0.1:5001:5000&quot; --name zot ghcr.io/project-zot/zot-minimal-linux-amd64:latest # create hello.yaml and an artifact hello:latest echo &quot;foo: bar&quot; &gt; hello.yaml podman artifact add localhost:5001/hello/hello:latest ./hello.yaml # verify that the layer's media type is `text/plain; charset=utf-8` podman artifact inspect localhost:5001/hello/hello:latest | jq '.Manifest.layers[].mediaType' # push it to Zot podman artifact push docker://localhost:5001/hello/hello:latest ``` Pushing the artifact returns an error: ``` Error: invalid reference format ``` The media type inferred by `DetectContentType` (`text/plain; charset=utf-8`) is the issue: - It includes the `charset` parameter and [the support for media types parameters is controversial](https://github.com/opencontainers/image-spec/pull/1182) - It's not accurate (`text/yaml` would be more appropriate) ### Suggest potential solution To address these cases, `podman artifact add` should have a flag to specify the files' media types.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #25789 from jankaluza/23292 Replace podman pause image with rootfs.</MESSAGE>
+    <SHA>51c4df131668a839ef3f8dbe8de891d23e7ab4e3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add ability to set layer media type for artifacts in #25884, it was pointed out that the standard detection used to determine the artifact's file type can be wrong. in those cases, it would be handy for the user to be able to override the media type of the layer. as such, added a new option called `--file-type`, which is optional, and allows users to do just that. `podman artifact add --file-type text/yaml quay.io/artifact/config:latest ./config.yaml ` Fixes: #25884 Signed-off-by: Brent Baude &lt;bbaude@redhat.com&gt;</MESSAGE>
+      <SHA>edf334983a9ded113297aff5f405951526abcf21</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/artifact/add.go</FILE>
+        <FILE>docs/source/markdown/podman-artifact-add.1.md.in</FILE>
+        <FILE>pkg/domain/entities/artifact.go</FILE>
+        <FILE>pkg/domain/infra/abi/artifact.go</FILE>
+        <FILE>pkg/libartifact/store/store.go</FILE>
+        <FILE>pkg/libartifact/types/config.go</FILE>
+        <FILE>test/e2e/artifact_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add ability to set layer media type for artifacts in #25884, it was pointed out that the standard detection used to determine the artifact's file type can be wrong. in those cases, it would be handy for the user to be able to override the media type of the layer. as such, added a new option called `--file-type`, which is optional, and allows users to do just that. `podman artifact add --file-type text/yaml quay.io/artifact/config:latest ./config.yaml ` Fixes: #25884 Signed-off-by: Brent Baude &lt;bbaude@redhat.com&gt;</MESSAGE>
+      <SHA>fdfed9979f884b8505b549319473dd2fc2983efa</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/artifact/add.go</FILE>
+        <FILE>docs/source/markdown/podman-artifact-add.1.md.in</FILE>
+        <FILE>pkg/domain/entities/artifact.go</FILE>
+        <FILE>pkg/domain/infra/abi/artifact.go</FILE>
+        <FILE>pkg/libartifact/store/store.go</FILE>
+        <FILE>pkg/libartifact/types/config.go</FILE>
+        <FILE>test/e2e/artifact_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

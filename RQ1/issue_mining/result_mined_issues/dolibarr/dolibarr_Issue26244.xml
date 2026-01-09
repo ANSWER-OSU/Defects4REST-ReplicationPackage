@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>26244</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/26244</ISSUEURL>
+  <TITLE>Interventions with multilines -&gt; display like if it was duplicate interventions and bug</TITLE>
+  <DESCRIPTION>### Bug If i make an intervention with 3 lines like that: ![image](https://github.com/Dolibarr/dolibarr/assets/1468823/ca7ef2b2-3bf4-4a3c-9684-91c9d99ed041) intervention list make 3 lines: ![image](https://github.com/Dolibarr/dolibarr/assets/1468823/17274bd4-0e36-4187-b451-cc2d7a81f2bc) that's not really a bug due to filters against lines ![image](https://github.com/Dolibarr/dolibarr/assets/1468823/e12c283c-4ea0-4338-bbae-3e85b2e0a5ee) but massaction &quot;delete&quot; can't delete that intervention, even if i select all lines ![image](https://github.com/Dolibarr/dolibarr/assets/1468823/9db38ff4-4237-453b-b672-93b9e6ec57dd) and after that &quot;try to delete via mass action&quot; the bug is if i'm going to the card and delete the card everything seems ok, intervention list is empty BUT i could NEVER validate a new intervention due to that bug: ![image](https://github.com/Dolibarr/dolibarr/assets/1468823/5d2a762b-7ddd-470d-8fce-02dfb610df89) That's a race condition with massaction delete + intervention with multiline + delete intervention via globalcard ... ### Environment Version _No response_ ### Environment OS _No response_ ### Environment Web server _No response_ ### Environment PHP _No response_ ### Environment Database _No response_ ### Environment URL(s) _No response_ ### Expected and actual behavior _No response_ ### Steps to reproduce the behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>FIX #26195 - Various payment - List of project excluded those assigned to third parties (#26222)</MESSAGE>
+    <SHA>95a15ae6f99e18ee88e2ef3e30e419a7fbf0ea76</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix #26244 todelete could contains dupplicate val</MESSAGE>
+      <SHA>2a3f6f5597a3f8baf74165f80664ccabf0c5d339</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/actions_massactions.inc.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix #26244 todelete could contains dupplicate val (#26245)</MESSAGE>
+      <SHA>e4987c8f3bc22f64eac05e7bcb0fbaf7fa245670</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/actions_massactions.inc.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

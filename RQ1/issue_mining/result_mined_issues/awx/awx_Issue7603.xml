@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7603</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/7603</ISSUEURL>
+  <TITLE>Enable html in custom login text</TITLE>
+  <DESCRIPTION>### summary see: https://github.com/ansible/awx/pull/7585 --&gt; https://github.com/ansible/awx/issues/7600 - Could try to use `__dangerouslySetInnerHTML` along with `html-entities` to sanitize (like we do for job events: https://github.com/ansible/awx/blob/devel/awx/ui_next/src/screens/Job/JobOutput/JobEvent.jsx#L55) - If that doesn't work we'd probably need to first put in a request to pf-react to explicitly enable passing a `React.ReactNode` to the LoginPage component for the `textContent` prop like they do for the `helperText` prop: https://patternfly-react.surge.sh/documentation/react/components/loginpage</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>270</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9642 from mabashian/9640-workflow-output Only attempt to fetch event options on non workflow jobs SUMMARY link #9640 This was fallout from output search filtering. We need this request for non workflow jobs so that we can build the search options. ISSUE TYPE Bugfix Pull Request COMPONENT NAME UI Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+    <SHA>3878d8f7d8acb4af3a25f4062b86e336dfab4884</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9519 from mabashian/7603-custom-login Adds support for html in custom login text SUMMARY link #7603 I couldn't come up with a way to do this without breaking up the component and discontinuing use of the LoginPage PF component. This is because LoginPage expects the textContent component (what we use to display the custom login text) to be a string. By using the underlying LoginPage components I reconstructed the login page and got more control over that prop. The custom message in the old UI supported both strings and HTML: So we need to support rendering HTML but we need to do it in a safe way. Our solution to that was https://docs.angularjs.org/api/ngSanitize. React doesn't seem to have anything like this built in so I went looking for outside help. html-entities is already included in our project but as best as I can tell that lib is mainly focused on swapping special characters out for html entities. I wanted something that was going to strip the HTML of bits that could be exploited by a malicious actor. I settled on https://www.npmjs.com/package/sanitize-html because it was a) small and b) actively maintained. The API was simple and let me sanitize the HTML before setting it using dangerouslySetInnerHTML. If we need to tweak the configuration away from the default values then we can certainly do that. ISSUE TYPE Feature Pull Request COMPONENT NAME UI Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt;</MESSAGE>
+      <SHA>cfff30f024b0f01609562a994b8c70ce77f55954</SHA>
+      <PATCHEDFILES>
+        <FILE>CHANGELOG.md</FILE>
+        <FILE>awx/ui_next/package-lock.json</FILE>
+        <FILE>awx/ui_next/package.json</FILE>
+        <FILE>awx/ui_next/src/screens/Login/Login.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Login/Login.test.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>21482</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/21482</ISSUEURL>
+  <TITLE>podman machine on Windows WSL2 does not stop &quot;autoremove&quot; containers depending on Windows machine</TITLE>
+  <DESCRIPTION>### Issue Description We are encountering different behaviours of the same podman machine server (4.9.0) on two different Windows machines (both W11). We are using WSL2 to run the machines on both sides. On the first machine, we have a container marked as &quot;Autoremove&quot; running, when we stop and restart the podman machine, the container has been deleted. On the second machine, with the same container marked as &quot;Autoremove&quot;, when the podman machine is stopped and restarted, the container is still present (and stopped) after the restart. I'm not sure if is related to Windows version or not, but what is the expected behaviour? Deleted or not deleted? Do you have an idea where the difference of behaviour could come from? ### Steps to reproduce the issue Steps to reproduce the issue 1. podman run -d --rm nginx 2. podman machine stop 3. podman machine start 4. podman container list --all ### Describe the results you received An empty list on first machine, a stopped container on second machine. ### Describe the results you expected An empty list on both versions ### podman info output ```yaml Client: Podman Engine Version: 4.9.1 API Version: 4.9.1 Go Version: go1.21.6 Git Commit: 118829d7fc68c34d5a317cda90b69884f3446f5c Built: Thu Feb 1 15:09:25 2024 OS/Arch: windows/amd64 Server: Podman Engine Version: 4.9.0 API Version: 4.9.0 Go Version: go1.21.6 Built: Wed Jan 24 11:07:27 2024 OS/Arch: linux/amd64 ``` ### Podman in a container No ### Privileged Or Rootless Rootless ### Upstream Latest Release Yes ### Additional environment details First machine (container deleted): ``` wsl --version WSL version: 2.0.9.0 Kernel version: 5.15.133.1-1 WSLg version: 1.0.59 MSRDC version: 1.2.4677 Direct3D version: 1.611.1-81528511 DXCore version: 10.0.25131.1002-220531-1700.rs-onecore-base2-hyp Windows version: 10.0.22631.3007 ``` Second machine (container not deleted): ``` Versione WSL: 2.0.14.0 Versione kernel: 5.15.133.1-1 Versione WSLg: 1.0.59 Versione MSRDC: 1.2.4677 Versione Direct3D: 1.611.1-81528511 Versione DXCore: 10.0.25131.1002-220531-1700.rs-onecore-base2-hyp Versione di Windows: 10.0.22621.3007 ```` ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #21530 from Luap99/netavark-skip test/e2e: unskip netavark macvlan/ipvlan tests</MESSAGE>
+    <SHA>22b1650619070e529ea176c13ab0e6767862ce7d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Remove leftover autoremove containers during refresh During system shutdown, Podman should go down gracefully, meaning that we have time to spawn cleanup processes which remove any containers set to autoremove. Unfortunately, this isn't always the case. If we get a SIGKILL because the system is going down immediately, we can't recover from this, and the autoremove containers are not removed. However, we can pick up any leftover autoremove containers when we refesh the DB state, which is the first thing Podman does after a reboot. By detecting any autoremove containers that have actually run (a container that was created but never run doesn't need to be removed) at that point and removing them, we keep the fresh boot clean, even if Podman was terminated abnormally. Fixes #21482 [NO NEW TESTS NEEDED] This requires a reboot to realistically test. Signed-off-by: Matt Heon &lt;mheon@redhat.com&gt;</MESSAGE>
+      <SHA>9983e87440760883b2a8ecd83d93f1b0dd78d44a</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/runtime.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

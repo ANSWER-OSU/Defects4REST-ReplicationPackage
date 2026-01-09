@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3708</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/3708</ISSUEURL>
+  <TITLE>[DS-333] Adjust SWORD ingest crosswalk to store bibliographic citation</TITLE>
+  <DESCRIPTION>&lt;i&gt;Imported from JIRA &lt;a href=&quot;https://jira.lyrasis.org/browse/DS-333&quot;&gt;[DS-333]&lt;/a&gt; created by stuartlewis&lt;/i&gt; &lt;p&gt;SWORD deposits using the SWAP/mets packaging format do not process elements marked as &lt;a href=&quot;http://purl.org/eprint/terms/bibliographicCitation&quot; class=&quot;external-link&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot;&gt;http://purl.org/eprint/terms/bibliographicCitation&lt;/a&gt;&lt;/p&gt; &lt;p&gt;To fix, add the following lines to config/crosswalks/sword-swap-ingest.xsl:&lt;/p&gt; &lt;p&gt;&lt;!-- bibliographic citation element: dc.identifier.citation --&gt;&lt;br/&gt; &lt;xsl:if test=&quot;./@epdcx:propertyURI='http://purl.org/eprint/terms/bibliographicCitation'&quot;&gt;&lt;br/&gt; &lt;dim:field mdschema=&quot;dc&quot; element=&quot;identifier&quot; qualifier=&quot;citation&quot;&gt;&lt;br/&gt; &lt;xsl:value-of select=&quot;epdcx:valueString&quot;/&gt;&lt;br/&gt; &lt;/dim:field&gt;&lt;br/&gt; &lt;/xsl:if&gt;&lt;/p&gt;</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merged in task/dspace-cris-2023_02_x/DSC-2192 (pull request #3545) Task/dspace cris 2023 02 x/DSC-2192 Approved-by: Vincenzo Mecca</MESSAGE>
+    <SHA>5acdf5c396b74499a2d43246a970b30d50b100bf</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merged in task/dspace-cris-2023_02_x/IIIF-180 (pull request #3708) [IIIF-180] Passed machine token to image server. Approved-by: Vincenzo Mecca</MESSAGE>
+      <SHA>2bcb50d7b7a29c336a2ae8f2e0faab09855ecfcd</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace/config/modules/iiifuploader.cfg</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

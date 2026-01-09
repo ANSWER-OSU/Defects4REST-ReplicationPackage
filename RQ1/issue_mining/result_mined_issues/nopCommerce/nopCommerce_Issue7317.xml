@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7317</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7317</ISSUEURL>
+  <TITLE>Address string formatting</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.70.4 Steps to reproduce the problem: FormatAddressAsync in Libraries\Nop.Services\Common\AddressService is applying the address format twice which jumbles the address returned in the object formatString. FormatAddressAsync returns two objects - an array of address items and a string. The array lists the items in the order specified in the local string resource Address.LineFormat and appears to be correct. However, the format is applied twice to the string so the address is jumbled in the string object. This results in the address being shown in the correct format for places like the Order tab of the customer Account page which use the array, but for places that use the string, such as the One Page Checkout address drop down, the address is jumbled. Background: Judging by the way that FormatAddressAsync uses local resource Address.LineFormat to order the FieldsList array it appears that the purpose of the string resource Address.LineFormat is to allow us to choose the formatting of address lines that best suits the locale. With the default of &quot;{0}{1}{2}{3}{4}{5}{6}&quot; the address is formatted as country, stateProvince, City, County, Address 1, Address2, ZipPostalCode. As we require the format to be Address Line 1, Address Line 2, City, StateProvince, ZipPostalCode, Country we have changed the Address.LineFormat string to be &quot;{4}{5}{2}{1}{6}{0}{3}&quot;. (County is not required) This places Address Line 1 in the 1st element of the array, Address Line 2 in the second element and so forth. The format &quot;{4}{5}{2}{1}{6}{0}{3}&quot; is then applied a second time to obtain the formatString object. ZipPostalCode which is in the 4th array element is placed in the first position of the string because Address.FormatLine has the element {4} first. Country, which is in the 5th element of the array ends up in the second position of the string. Address Line 1 which resides in array element 0 is placed in the 5th position because that's where {0} is the format. Etc. So the array has the order Address Line 1, Address Line 2, City, StateProvince, ZipPostalCode, Country, County while the string has the order ZipPostalCode, Country, City, Address Line 2, County, Address Line 1, StateProvice Solution: Is it possible to have the string return the address items in the same order as the array?</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7309 Added missing jquery-migrate.js file</MESSAGE>
+    <SHA>c24c847a4156f4ef3c41303c652e520c8903f606</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7317 Fixed address string formatting</MESSAGE>
+      <SHA>8f9b599076202db17b10d78a73f53d6783b80cc5</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Common/AddressService.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Services.Tests/Common/AddressServiceTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3620</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3620</ISSUEURL>
+  <TITLE>[aligo] optimization topology struct</TITLE>
+  <DESCRIPTION>https://github.com/essentialkaos/aligo ``` go install github.com/essentialkaos/aligo aligo check weed/topology ``` ``` Struct Collection (collection.go:12) fields order can be optimized (40 → 33) type Collection struct { Name string volumeSizeLimit uint64 storageType2VolumeLayout *util.ConcurrentReadMap replicationAsMin bool } Struct NodeImpl (node.go:40) fields order can be optimized (112 → 108) type NodeImpl struct { id NodeId // - parent Node // - nodeType string // - value interface{} // - diskUsages *DiskUsages // - children map[NodeId]Node // - RWMutex sync.RWMutex // lock children maxVolumeId needle.VolumeId // - } Struct Topology (topology.go:26) fields order can be optimized (304 → 297) type Topology struct { NodeImpl NodeImpl Sequence sequence.Sequencer RaftServer raft.Server vacuumLockCounter int64 collectionMap *util.ConcurrentReadMap ecShardMap map[needle.VolumeId]*..EcShardL… pulse int64 volumeSizeLimit uint64 chanFullVolumes chan storage.VolumeInfo chanCrowdedVolumes chan storage.VolumeInfo Configuration *Configuration HashicorpRaft *hashicorpRaft.Raft UuidMap map[string][]string ecShardMapLock sync.RWMutex RaftServerAccessLock sync.RWMutex UuidAccessLock sync.RWMutex replicationAsMin bool } Struct VolumeLayout (volume_layout.go:106) fields order can be optimized (156 → 149) type VolumeLayout struct { growRequestTime time.Time // - writables []needle.VolumeId // transient array of writable volume id diskType storage/types.DiskType // - rp *super_block.ReplicaPlacement // - ttl *storage/needle.TTL // - vid2location map[storage/needle.VolumeId]*..… // - crowded map[storage/needle.VolumeId]str… // - readonlyVolumes *volumesBinaryState // readonly volumes oversizedVolumes *volumesBinaryState // oversized volumes volumeSizeLimit uint64 // - accessLock sync.RWMutex // - growRequestCount int32 // - replicationAsMin bool // - } ---------------------------------------------------------------------------------------- ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>179</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'master' of https://github.com/seaweedfs/seaweedfs</MESSAGE>
+    <SHA>7de112943b2548183c0dfe594600479489c0bced</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>aligo topology https://github.com/seaweedfs/seaweedfs/issues/3620</MESSAGE>
+      <SHA>86083afa2f361a1f1b8c5df5737a1297511a1421</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/topology/collection.go</FILE>
+        <FILE>weed/topology/node.go</FILE>
+        <FILE>weed/topology/topology.go</FILE>
+        <FILE>weed/topology/volume_layout.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

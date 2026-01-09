@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2434</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/2434</ISSUEURL>
+  <TITLE>[s3] HeadBucketHandler forbidden if is not super Admin or Owner</TITLE>
+  <DESCRIPTION>**Describe the bug** HeadBucketHandler forbidden if is not super Admin ``` I1110 17:30:03 1 auth_credentials.go:225] user name: bennu actions: [Admin:bennu-*], action: Admin I1110 17:30:03 1 s3api_bucket_handlers.go:171] HeadBucketHandler bennu-client-files I1110 17:30:03 1 error_handler.go:79] status 403 application/xml: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;Error&gt;&lt;Code&gt;AccessDenied&lt;/Code&gt;&lt;Message&gt;Access Denied.&lt;/Message&gt;&lt;Resource&gt;/&lt;/Resource&gt;&lt;RequestId&gt;1636565403160014337&lt;/RequestId&gt;&lt;BucketName&gt;bennu-client-files&lt;/BucketName&gt;&lt;/Error&gt; ``` ``` aws --profile bennu --endpoint-url http://localhost:8333 s3api head-bucket --bucket bennu-client-files --debug ``` I don't quite understand what is being cheked here https://github.com/chrislusf/seaweedfs/blob/35c37562bc34393853de1c54ed06740bdffdf919/weed/s3api/s3api_bucket_handlers.go#L195 ``` &gt; fs.meta.cat /buckets/bennu-client-files { &quot;name&quot;: &quot;bennu-client-files&quot;, &quot;isDirectory&quot;: true, &quot;chunks&quot;: [ ], &quot;attributes&quot;: { &quot;fileSize&quot;: &quot;0&quot;, &quot;mtime&quot;: &quot;1633508622&quot;, &quot;fileMode&quot;: 2147484159, &quot;uid&quot;: 0, &quot;gid&quot;: 0, &quot;crtime&quot;: &quot;1633508622&quot;, &quot;mime&quot;: &quot;&quot;, &quot;replication&quot;: &quot;&quot;, &quot;collection&quot;: &quot;&quot;, &quot;ttlSec&quot;: 0, &quot;userName&quot;: &quot;&quot;, &quot;groupName&quot;: [ ], &quot;symlinkTarget&quot;: &quot;&quot;, &quot;md5&quot;: null, &quot;diskType&quot;: &quot;&quot; }, &quot;extended&quot;: { &quot;s3-identity-id&quot;: &quot;c2VydmljZS1saWJyYXJ5&quot; }, &quot;hardLinkId&quot;: null, &quot;hardLinkCounter&quot;: 0, &quot;content&quot;: null, &quot;remoteEntry&quot;: null } ``` **System Setup** ``` 2.75 ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix same dc and other dc</MESSAGE>
+    <SHA>3d87aa767da1f5ae1b06c76676e26d507e9ee6e7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Avoid forbiddening for HeadBucketHandler if owners are specified https://github.com/chrislusf/seaweedfs/issues/2434</MESSAGE>
+      <SHA>40abae7caa64d766b6eceab4f51106121b675523</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/s3api/s3api_bucket_handlers.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

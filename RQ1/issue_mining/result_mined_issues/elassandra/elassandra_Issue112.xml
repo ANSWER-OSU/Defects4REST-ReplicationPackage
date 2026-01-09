@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>112</ISSUENO>
+  <ISSUEURL>https://github.com/strapdata/elassandra/issues/112</ISSUEURL>
+  <TITLE>Don't search over SETS</TITLE>
+  <DESCRIPTION>Assume we have following mapping - with list and set ``` PUT /es_issue_search_set { &quot;mappings&quot;: { &quot;tab_list&quot;: { &quot;properties&quot;: { &quot;items&quot;: { &quot;type&quot;: &quot;object&quot;, &quot;cql_collection&quot;: &quot;list&quot;, &quot;cql_udt_name&quot;: &quot;item&quot;, &quot;properties&quot;: { &quot;name&quot;: { &quot;type&quot;: &quot;string&quot;, &quot;index&quot;: &quot;not_analyzed&quot;, &quot;cql_collection&quot;: &quot;singleton&quot; } } }, &quot;item&quot;: { &quot;type&quot;: &quot;object&quot;, &quot;cql_collection&quot;: &quot;singleton&quot;, &quot;cql_udt_name&quot;: &quot;item&quot;, &quot;properties&quot;: { &quot;name&quot;: { &quot;type&quot;: &quot;string&quot;, &quot;index&quot;: &quot;not_analyzed&quot;, &quot;cql_collection&quot;: &quot;singleton&quot; } } } } }, &quot;tab_set&quot;: { &quot;properties&quot;: { &quot;items&quot;: { &quot;type&quot;: &quot;object&quot;, &quot;cql_collection&quot;: &quot;set&quot;, &quot;cql_udt_name&quot;: &quot;item&quot;, &quot;properties&quot;: { &quot;name&quot;: { &quot;type&quot;: &quot;string&quot;, &quot;index&quot;: &quot;not_analyzed&quot;, &quot;cql_collection&quot;: &quot;singleton&quot; } } }, &quot;item&quot;: { &quot;type&quot;: &quot;object&quot;, &quot;cql_collection&quot;: &quot;singleton&quot;, &quot;cql_udt_name&quot;: &quot;item&quot;, &quot;properties&quot;: { &quot;name&quot;: { &quot;type&quot;: &quot;string&quot;, &quot;index&quot;: &quot;not_analyzed&quot;, &quot;cql_collection&quot;: &quot;singleton&quot; } } } } } } } ``` Then we insert some data ``` use es_issue_search_set; insert into tab_list (&quot;_id&quot;,item,items) values ('1',{name:'hello'},[{name:'world'},{name:'heaven'}]) insert into tab_set (&quot;_id&quot;,item,items) values ('1',{name:'hello'},{{name:'world'},{name:'heaven'}}) ``` Then we execute following search: ``` POST /es_issue_search_set/_search { &quot;query&quot;: { &quot;query_string&quot;: { &quot;query&quot;: &quot;hello&quot; } } } ``` - as result - it's OK - both items returned (while it's in `item` subobject) But if we try to find with ``` POST /es_issue_search_set/_search { &quot;query&quot;: { &quot;query_string&quot;: { &quot;query&quot;: &quot;world&quot; } } } ``` - it fails - only `tab_list`'s record returned, while `tab_set` ignored It's not about mapping. It's about real type in CASSANDRA. If you create tables manually with SET as type and create mapping with LIST as mapping-type - it will not search, but if you map LIST as SET - all will be working. Just `DELETE /s32` and recreate it's mapping with swapping LIST and SET - it will be still show recotd from tab_list - sets will be ignored</DESCRIPTION>
+  <REPONAME>elassandra</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Improve debug message</MESSAGE>
+    <SHA>d3754cb793e45dae801f1189078bf3a52c0c2b53</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #157 (regression of #112)</MESSAGE>
+      <SHA>b3bba717ca96d6c73a5bfa5e51900e29fe6a9bc9</SHA>
+      <PATCHEDFILES>
+        <FILE>core/src/main/java/org/elassandra/index/ElasticSecondaryIndex.java</FILE>
+        <FILE>core/src/test/java/org/elassandra/CqlTypesTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>216</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/216</ISSUEURL>
+  <TITLE>Helpful warning about missing projects.cfg</TITLE>
+  <DESCRIPTION>Currently when executing `annif` after a fresh PyPI install I get this: ``` Traceback (most recent call last): File &quot;/home/oisuomin/tmp/annif-pypi/annif-venv/lib/python3.5/site-packages/flask/cli.py&quot;, line 529, in list_commands rv.update(info.load_app().cli.list_commands(ctx)) File &quot;/home/oisuomin/tmp/annif-pypi/annif-venv/lib/python3.5/site-packages/flask/cli.py&quot;, line 367, in load_app app = call_factory(self, self.create_app) File &quot;/home/oisuomin/tmp/annif-pypi/annif-venv/lib/python3.5/site-packages/flask/cli.py&quot;, line 110, in call_factory return app_factory(*arguments, script_info=script_info) File &quot;/home/oisuomin/tmp/annif-pypi/annif-venv/lib/python3.5/site-packages/annif/__init__.py&quot;, line 36, in create_app annif.project.initialize_projects(cxapp.app) File &quot;/home/oisuomin/tmp/annif-pypi/annif-venv/lib/python3.5/site-packages/annif/project.py&quot;, line 219, in initialize_projects projects_file, datadir, init_projects) File &quot;/home/oisuomin/tmp/annif-pypi/annif-venv/lib/python3.5/site-packages/annif/project.py&quot;, line 200, in _create_projects with open(projects_file) as projf: FileNotFoundError: [Errno 2] No such file or directory: 'projects.cfg' ``` We should avoid displaying a traceback and instead explain that `projects.cfg` is missing and that `ANNIF_PROJECTS` can be used to specify where to look for it.</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Bump version: 0.36.4 → 0.36.5</MESSAGE>
+    <SHA>2630bc5e128da1c625acf754d6ef75e8ca735b05</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Helpful warning when projects.cfg file is missing. Fixes #216</MESSAGE>
+      <SHA>c95d3d9d32bd5df15b3adefc1e746ae7407743f6</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/project.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add unit test that checks for how missing projects.cfg is handled (#216)</MESSAGE>
+      <SHA>fed9483587b7daa962ee48e13dbfa063d801c710</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/default_config.py</FILE>
+        <FILE>tests/test_project.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #217 from NatLibFi/issue216-missing-projects-cfg Helpful warning when projects.cfg file is missing. Fixes #216</MESSAGE>
+      <SHA>1a7891d719ba425726ed6382198a6a1ca1f375aa</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/default_config.py</FILE>
+        <FILE>annif/project.py</FILE>
+        <FILE>tests/test_project.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

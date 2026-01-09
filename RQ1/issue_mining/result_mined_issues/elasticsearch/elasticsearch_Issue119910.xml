@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>119910</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/119910</ISSUEURL>
+  <TITLE>[CI] CrossClusterEsqlRCS2EnrichUnavailableRemotesIT testEsqlEnrichWithSkipUnavailable failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #5818 / windows-2022_checkpart4_platform-support-windows](https://gradle-enterprise.elastic.co/s/k37z6hgwofdwg) - [elasticsearch-periodic-platform-support #5808 / windows-2019_checkpart4_platform-support-windows](https://gradle-enterprise.elastic.co/s/ksuei2avuockm) - [elasticsearch-periodic-platform-support #5768 / windows-2019_checkpart4_platform-support-windows](https://gradle-enterprise.elastic.co/s/hu7snhbwe3xjo) - [elasticsearch-periodic-platform-support #5763 / windows-2019_checkpart4_platform-support-windows](https://gradle-enterprise.elastic.co/s/5poavncgbqwwe) - [elasticsearch-periodic-platform-support #5763 / windows-2022_checkpart4_platform-support-windows](https://gradle-enterprise.elastic.co/s/2anigsjodtxi4) **Reproduction Line:** ``` gradlew &quot;:x-pack:plugin:security:qa:multi-cluster:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.remotecluster.CrossClusterEsqlRCS2EnrichUnavailableRemotesIT.testEsqlEnrichWithSkipUnavailable&quot; -Dtests.seed=B016FE1422A86EB3 -Dtests.locale=en-SE -Dtests.timezone=America/Creston -Druntime.java=23 ``` **Applicable branches:** 8.17 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.remotecluster.CrossClusterEsqlRCS2EnrichUnavailableRemotesIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testEsqlEnrichWithSkipUnavailable),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: &quot;connect_transport_exception&quot; but: was &quot;node_disconnected_exception&quot; ``` **Issue Reasons:** - [8.17] 5 failures in test testEsqlEnrichWithSkipUnavailable (1.4% fail rate in 358 executions) - [8.17] 2 failures in step windows-2022_checkpart4_platform-support-windows (16.7% fail rate in 12 executions) - [8.17] 3 failures in step windows-2019_checkpart4_platform-support-windows (27.3% fail rate in 11 executions) - [8.17] 4 failures in pipeline elasticsearch-periodic-platform-support (33.3% fail rate in 12 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Permissions required for stateful agentless integrations (#118644) Closes elastic/security-team#11102 Closes elastic/security-team#11104 This allows agentless integrations (via elastic/beats#41446, elastic/kibana#203810) to write to agentless-* indices. Each index is created on-demand by the filebeat client and kibana conditionally extends the API key permissions to allow writing to the index.</MESSAGE>
+    <SHA>3c184b912c21282419d9ac4b5b71d04215e2b30e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes https://github.com/elastic/elasticsearch/issues/119910</MESSAGE>
+      <SHA>43ec53fd7188adec2172bd919b9fb1187960208d</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/CrossClusterEsqlRCS1EnrichUnavailableRemotesIT.java</FILE>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/CrossClusterEsqlRCS2EnrichUnavailableRemotesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes https://github.com/elastic/elasticsearch/issues/119910</MESSAGE>
+      <SHA>4c78cef761f74211b746fde45e9aa6c0d1312f53</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/CrossClusterEsqlRCS1EnrichUnavailableRemotesIT.java</FILE>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/CrossClusterEsqlRCS2EnrichUnavailableRemotesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix CrossClusterEsqlRCSEnrichUnavailableRemotesIT failing tests Fixes https://github.com/elastic/elasticsearch/issues/119910 (#119977)</MESSAGE>
+      <SHA>cbc39aa11c9a58bf6922f3d6c7a8519efdbc1353</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/CrossClusterEsqlRCS1EnrichUnavailableRemotesIT.java</FILE>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/CrossClusterEsqlRCS2EnrichUnavailableRemotesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix CrossClusterEsqlRCSEnrichUnavailableRemotesIT failing tests Fixes https://github.com/elastic/elasticsearch/issues/119910 (#119977)</MESSAGE>
+      <SHA>2e31f8e0d97d3012f7da6fbb6787c10affca956b</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/CrossClusterEsqlRCS1EnrichUnavailableRemotesIT.java</FILE>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/CrossClusterEsqlRCS2EnrichUnavailableRemotesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix CrossClusterEsqlRCSEnrichUnavailableRemotesIT failing tests Fixes https://github.com/elastic/elasticsearch/issues/119910 (#119977)</MESSAGE>
+      <SHA>11425debc111d8766056b7b1b30100616a0a5fa0</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/CrossClusterEsqlRCS1EnrichUnavailableRemotesIT.java</FILE>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/CrossClusterEsqlRCS2EnrichUnavailableRemotesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix CrossClusterEsqlRCSEnrichUnavailableRemotesIT failing tests (#120070) Fixes https://github.com/elastic/elasticsearch/issues/119910 (#119977)</MESSAGE>
+      <SHA>77e07c5ea284b3655badb2d8d7b4201e0cef890b</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/CrossClusterEsqlRCS1EnrichUnavailableRemotesIT.java</FILE>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/CrossClusterEsqlRCS2EnrichUnavailableRemotesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix CrossClusterEsqlRCSEnrichUnavailableRemotesIT failing tests (#120069) Fixes https://github.com/elastic/elasticsearch/issues/119910 (#119977)</MESSAGE>
+      <SHA>6d6311f3f589133fc3f7aadf839f7b1a2bc90bfa</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/CrossClusterEsqlRCS1EnrichUnavailableRemotesIT.java</FILE>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/CrossClusterEsqlRCS2EnrichUnavailableRemotesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix CrossClusterEsqlRCSEnrichUnavailableRemotesIT failing tests Fixes https://github.com/elastic/elasticsearch/issues/119910 (#119977)</MESSAGE>
+      <SHA>278709ad03b34b64d1ca074f945e121328143ed5</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/CrossClusterEsqlRCS1EnrichUnavailableRemotesIT.java</FILE>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/CrossClusterEsqlRCS2EnrichUnavailableRemotesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

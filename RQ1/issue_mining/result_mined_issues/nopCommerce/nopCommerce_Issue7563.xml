@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7563</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7563</ISSUEURL>
+  <TITLE>Migration process runs before permissions are inserted, causing missing permission mappings during upgrade from 4.7 to 4.8</TITLE>
+  <DESCRIPTION>The purpose of AclMigration.cs in Nop.Web.Framework appears to be migrating existing permission mappings from nopCommerce 4.7 permissions to the new 4.8 permissions. However, the new permissions must exist in the PermissionRecord table before old mappings can be migrated. The only place where new permissions are inserted is InsertPermissionsAsync(), which runs after database migrations in StartEngineAsync(). With a permission record to map to some customer role mappings are lost during migration. Steps to reproduce: 1. Start with a 4.7 database with custom permissions (e.g. a custom customer role with access to the admin menu). 2. Upgrade to nopCommerce 4.8. 3. Observe that the mappings for the custom customer role are missing because they were not migrated to the new permissions. Expected behaviour: New permissions should be inserted before AclMigration runs and old mappings should be transferred to the corresponding new permissions. Suggestion: Could another step be added to the migration process to add the new permissions before AclMigration runs?</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7529 Infinite recursion in product import (#7536) * fix the issue of 7529 - Infinite recursion in product import * Checking added to ignore recursion on product import * remove _catalogSettings.ExportImportProductsCountInOneFile checking (cherry picked from commit 0ee8c5c8c6880827eb0a8cffa35ae9d496eae6ca)</MESSAGE>
+    <SHA>1cddfab8fb51489c8215b2514c73699e6ea3f45a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7563 Migration process runs before permissions are inserted, causing missing permission mappings during upgrade from 4.7 to 4.8</MESSAGE>
+      <SHA>f821158ce48fa5b077ef7ea1521cff753b4588aa</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ApplicationBuilderExtensions.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

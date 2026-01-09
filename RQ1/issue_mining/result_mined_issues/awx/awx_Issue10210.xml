@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>10210</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/10210</ISSUEURL>
+  <TITLE>Expose the output of the EE resolver in the job template detail API endpoints</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Feature Idea ##### SUMMARY It seems like it would be useful and would mitigate some confusion to expose which EE would be used when executing a template that doesn't have an EE explicitly assigned. **Clarification**: template detail endpoints.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>30</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #10351 from AlanCoding/sliced_ee Skip sliced jobs from the workflow EE logic Addressing some unanticipated fallout from #10305 Sliced jobs rely on creating a workflow job, but they do not have a workflow_job_template, so in those cases, that was causing a traceback. 2021-06-03 20:10:52,319 ERROR [a17ebd7f] awx.main.dispatch Worker failed to run task awx.main.tasks.RunJob(*[341], **{} Traceback (most recent call last): File &quot;/awx_devel/awx/main/dispatch/worker/task.py&quot;, line 90, in perform_work result = self.run_callable(body) File &quot;/awx_devel/awx/main/dispatch/worker/task.py&quot;, line 65, in run_callable return _call(*args, **kwargs) File &quot;/awx_devel/awx/main/tasks.py&quot;, line 759, in _wrapped return f(self, *args, **kwargs) File &quot;/awx_devel/awx/main/tasks.py&quot;, line 1264, in run self.instance = self.update_model(self.instance.pk, execution_environment=self.instance.resolve_execution_environment()) File &quot;/awx_devel/awx/main/models/mixins.py&quot;, line 477, in resolve_execution_environment if wf_template.execution_environment is not None: AttributeError: 'NoneType' object has no attribute 'execution_environment' that is fixed with this, at least for my one simple test case This left jobs hanging out in &quot;waiting&quot; status, which is really not good. Reviewed-by: Jeff Bradberry &lt;None&gt;</MESSAGE>
+    <SHA>c7dd3996df32029395179ff61370d4960c1f6579</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #10322 from jbradberry/show-ee-resolver Expose the EE resolver to the API SUMMARY This change exposes the output of .resolve_execution_environment() for job templates as a new summary field in the API. Note that this is only exposed for the detail views, not the list views. Also, there is the caveat for job templates that may be run under workflows that the workflow EE might override the results of this value. related #10210 ISSUE TYPE Feature Pull Request COMPONENT NAME API AWX VERSION Reviewed-by: Shane McDonald &lt;me@shanemcd.com&gt; Reviewed-by: Christian Adams &lt;rooftopcellist@gmail.com&gt; Reviewed-by: Chris Meyers &lt;None&gt; Reviewed-by: Jeff Bradberry &lt;None&gt;</MESSAGE>
+      <SHA>3e5ee9d57a2bad3f78141e5a17842fd9483141f5</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/serializers.py</FILE>
+        <FILE>awx/main/models/mixins.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

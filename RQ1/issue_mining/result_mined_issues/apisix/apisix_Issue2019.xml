@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2019</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2019</ISSUEURL>
+  <TITLE>bug: limit-conn cache never update</TITLE>
+  <DESCRIPTION>### Issue description Hello, I have a consumer who use limit-conn plugin and set value of conn to 10, But when I update the value of conn, like 20. It will still limit connection number to 10. I find there is a cache mechanism in this plugin like: ![image](https://user-images.githubusercontent.com/12098805/89635146-22b4d280-d8d9-11ea-8e51-2414a50f655d.png) How could I fix this problem? Also, what's the structure of lim? Could I get the value of conn in lim, thus I can compare like: if lim.conn ~= conf.conn then .... ### Environment * apisix version (cmd: `apisix version`): 1.4 * OS: docker image ### Minimal test code / Steps to reproduce the issue 1. 2. 3. ### What's the actual result? (including assertion message &amp; call stack if applicable) ### What's the expected result?</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>bugfix: comparing etcd key's modifiedIndex as a number may cause an error when access to prometheus exporter api (#2035) fix #2025</MESSAGE>
+    <SHA>04c270814a1c0a188e5806602e1b62a47f90885e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>bugfix: when the plug-in configuration that is bound to the consumer is (#2028) fix #2019</MESSAGE>
+      <SHA>6c8a6c3c54c5940f32808c0b45e52c8d9d2c2a3d</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>apisix/plugin.lua</FILE>
+        <FILE>apisix/plugins/basic-auth.lua</FILE>
+        <FILE>apisix/plugins/jwt-auth.lua</FILE>
+        <FILE>apisix/plugins/key-auth.lua</FILE>
+        <FILE>t/node/consumer-plugin.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

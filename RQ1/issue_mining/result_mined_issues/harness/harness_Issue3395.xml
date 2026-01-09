@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3395</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/3395</ISSUEURL>
+  <TITLE>Pipelines are not being triggered when gitness is deployed behind reverse proxy</TITLE>
+  <DESCRIPTION>Hello, i started moving away all my repositories from github and github actions to gitness. I have a VPS running gitness inside a docker container using the following docker compose file: ```yaml version: '3.3' services: gitness: ports: - '3000:3000' volumes: - '/var/run/docker.sock:/var/run/docker.sock' - './data:/data' container_name: gitness restart: always image: harness/gitness environment: GITNESS_USER_SIGNUP_ENABLED: false GITNESS_NESTED_SPACES_ENABLED: true GITNESS_URL_BASE: https://$DOMAIN GITNESS_URL_GIT: https://$DOMAIN/git GITNESS_URL_API: https://$DOMAIN/api GITNESS_URL_UI: https://$DOMAIN GITNESS_HTTP_PROTO: https GITNESS_CI_PARALLEL_WORKERS: 4 ``` OBS: replaced my actual domain name with $DOMAIN The gitnes is being served behind a caddy reverse proxy: ``` $DOMAIN { reverse_proxy localhost:3000 } ``` The pipeline: ```yaml version: 1 kind: pipeline spec: stages: - name: build type: ci spec: steps: - name: build type: run spec: container: mcr.microsoft.com/dotnet/sdk:8.0 envs: SLEET_FEED_CONNECTIONSTRING: ${{secrets.get(&quot;SLEET_FEED_CONNECTIONSTRING&quot;)}} SLEET_FEED_CONTAINER: ${{secrets.get(&quot;SLEET_FEED_CONTAINER&quot;)}} SLEET_FEED_TYPE: ${{secrets.get(&quot;SLEET_FEED_TYPE&quot;)}} script: |- dotnet nuget add source https://$DOMAIN/sleet/index.json --name sleet dotnet tool install -g sleet export PATH=&quot;$PATH:/root/.dotnet/tools&quot; export NUGET_VERSION=$(date --utc '+%Y.%m.%d.%H%M' | sed 's/\.\(0*\)/./g') echo $NUGET_VERSION dotnet pack ./src/AutoSystem.Devops/AutoSystem.Devops.csproj -p:PackageVersion=$NUGET_VERSION -o ./nuget sleet push ./nuget --skip-existing ``` Using the UI, API, cloning projects and running pipelines manually are all working correctly, but when i commit something the pipelines are not being triggered, am i missing a configuration about webhooks or something?</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>15</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: [CODE-3173]: remove zero reference updated check (#3408) * remove zero reference updated check</MESSAGE>
+    <SHA>01956e255ab404851502e9d066da798821ea0921</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: [AH-944]: version header content refactor (#3395) * feat: [AH-944]: version header content refactor</MESSAGE>
+      <SHA>cfa0e7c4644bb8f3cd55ba3443dd7d8aa50d1791</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/ar/pages/version-details/GenericVersion/GenericVersionHeader.tsx</FILE>
+        <FILE>web/src/ar/pages/version-details/GenericVersion/GenericVersionType.tsx</FILE>
+        <FILE>web/src/ar/pages/version-details/GenericVersion/components/GenericVersionName/GenericVersionName.tsx</FILE>
+        <FILE>web/src/ar/pages/version-details/HelmVersion/HelmVersionHeader.tsx</FILE>
+        <FILE>web/src/ar/pages/version-details/HelmVersion/HelmVersionType.tsx</FILE>
+        <FILE>web/src/ar/pages/version-details/HelmVersion/components/HelmVersionName/HelmVersionName.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2953</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/2953</ISSUEURL>
+  <TITLE>History level switching failure</TITLE>
+  <DESCRIPTION>**Describe the bug** OneTaskProcess is started with the `HistoryLevel.NONE` and `DefaultHistoryManager`. When `HistoryLevel.NONE` is switched to `HistoryLevel.ACTIVITY`, and a task from the process instance is completed, null pointer exception is thrown: ``` nullPointerException is thrown in class org.flowable.engine.impl.history.DefaultHistoryManager (Line 185), the variable &quot;historicActivityInstance &quot; is null. ``` The same problem can occur when process instance is upgraded to the newer version with higher `HistoryLevel`. **Expected behavior** `taskService.completeTask()` passes correctly. **Solution proposal:** https://github.com/flowable/flowable-engine/pull/2954</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>change history level fix</MESSAGE>
+    <SHA>579df632b964a7648509e150b579ec155f1842f8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2953 code style fixes</MESSAGE>
+      <SHA>e543a3e0efa6ab77f04f9dd2d4eda13bda93cba1</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/api/history/ChangeHistoryLevelTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#2953 History level change NONE -&gt; ACTIVITY causes NPE (#2954) * change history level fix * change history level fix * #2953 code style fixes Co-authored-by: martin.grofcik &lt;gromar01@gmail.com&gt;</MESSAGE>
+      <SHA>1a27369ff9e361d878c4529fae5268b91d7503d2</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/history/DefaultHistoryManager.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/api/history/ChangeHistoryLevelTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#2953 History level change NONE -&gt; ACTIVITY causes NPE (#2954) * change history level fix * change history level fix * #2953 code style fixes Co-authored-by: martin.grofcik &lt;gromar01@gmail.com&gt;</MESSAGE>
+      <SHA>b858d1380ce6a53ed4220a5216b2ee586ccb337f</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/history/DefaultHistoryManager.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/api/history/ChangeHistoryLevelTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

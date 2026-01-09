@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122810</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122810</ISSUEURL>
+  <TITLE>[CI] EsqlActionBreakerIT class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6475 / openjdk24_entitlements_true_checkpart3_java-matrix](https://gradle-enterprise.elastic.co/s/eai77rlx2fgh4) - [elasticsearch-pull-request #57332 / part-3](https://gradle-enterprise.elastic.co/s/ybbhsetej6urg) - [elasticsearch-pull-request #57149 / part-3](https://gradle-enterprise.elastic.co/s/htwd7vgetoswk) - [elasticsearch-pull-request #56724 / part-3](https://gradle-enterprise.elastic.co/s/p7uxkv4vwrqhc) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.esql.action.EsqlActionBreakerIT.testFromStatsGroupingAvg&quot; -Dtests.seed=5B781C0629C87C8F -Dtests.jvm.argline=&quot;-Des.entitlements.enabled=true&quot; -Dtests.locale=bho -Dtests.timezone=Australia/Broken_Hill -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.action.EsqlActionBreakerIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.xpack.esql.action.EsqlActionBreakerIT),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Request breaker not reset to 0 on node: node_s1 Expected: &lt;0L&gt; but: was &lt;96L&gt; ``` **Issue Reasons:** - [main] 4 failures in class org.elasticsearch.xpack.esql.action.EsqlActionBreakerIT (0.4% fail rate in 944 executions) - [main] 3 failures in step part-3 (1.0% fail rate in 306 executions) - [main] 3 failures in pipeline elasticsearch-pull-request (1.0% fail rate in 315 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[Test] Separate testAcceptsMismatchedServerlessBuildHash (#122570) This PR moves TransportServiceHandshakeTests.testAcceptsMismatchedServerlessBuildHash to its own test job to ensure the expected system property is always set correctly. Resolves: #122565</MESSAGE>
+    <SHA>2eb0d00b8f792fd627ba6dc0304b786877ee8e34</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.EsqlActionBreakerIT org.elasticsearch.xpack.esql.action.EsqlActionBreakerIT #122810</MESSAGE>
+      <SHA>19fe0a480cfe2af84e5a44b28e31ea53ec08186d</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

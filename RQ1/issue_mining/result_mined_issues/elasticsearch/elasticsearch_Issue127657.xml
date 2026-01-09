@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127657</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/127657</ISSUEURL>
+  <TITLE>[CI] DenseVectorFieldMapperTests testRescoreVectorOldIndexVersion failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #22570 / part1](https://gradle-enterprise.elastic.co/s/e2pqrswvlfkgs) - [elasticsearch-pull-request #70349 / part-1](https://gradle-enterprise.elastic.co/s/5e7lv65naee5w) - [elasticsearch-intake #22568 / part1](https://gradle-enterprise.elastic.co/s/ddvkuebl4ola6) **Reproduction Line:** ``` ./gradlew &quot;:server:test&quot; --tests &quot;org.elasticsearch.index.mapper.vectors.DenseVectorFieldMapperTests.testRescoreVectorOldIndexVersion&quot; -Dtests.seed=259C644E7360502E -Dtests.locale=sg-Latn-CF -Dtests.timezone=Etc/Zulu -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.index.mapper.vectors.DenseVectorFieldMapperTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testRescoreVectorOldIndexVersion),title:'Test',type:optionsListControl))))) **Failure Message:** ``` junit.framework.AssertionFailedError: Expected exception MapperParsingException but no exception was thrown ``` **Issue Reasons:** - [main] 2 consecutive failures in step part1 - [main] 2 consecutive failures in pipeline elasticsearch-intake - [main] 3 failures in test testRescoreVectorOldIndexVersion (1.7% fail rate in 180 executions) - [main] 2 failures in step part1 (14.3% fail rate in 14 executions) - [main] 2 failures in pipeline elasticsearch-intake (14.3% fail rate in 14 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add min_over_time (#127649) This change adds support for `min_over_time` in time-series data streams. Similar to `max_over_time`, `min_over_time` is translated to compute the min per time-series first. For example: ``` TS my-metrics | STATS SUM(min_over_time(memory_usage)) BY cluster, bucket(@timestamp, 1 minute) ``` is translated into: ``` TS my-metrics | STATS min_memory_usage=min(memory_usage), cluster=VALUES(cluster) BY _tsid, ts=bucket(@timestamp, 1 minute) | STATS sum(min_memory_usage) BY cluster, ts ```</MESSAGE>
+    <SHA>c38338e95d716553510fc6ef903635a141e4883d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.index.mapper.vectors.DenseVectorFieldMapperTests testRescoreVectorOldIndexVersion #127657</MESSAGE>
+      <SHA>9801d45d491528ca00c57c1b18de0967e0d432fe</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixing test failure #127657</MESSAGE>
+      <SHA>944c5cc7b28a175ada8d930ebe073930ee47ac2b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/index/mapper/vectors/DenseVectorFieldMapperTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixing test failure #127657 (#127659)</MESSAGE>
+      <SHA>ba37435e168a1a7338fd1f5f06ec4cbd1b07c530</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/index/mapper/vectors/DenseVectorFieldMapperTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

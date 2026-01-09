@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122440</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122440</ISSUEURL>
+  <TITLE>[CI] CsvTests class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6363 / release-tests](https://gradle-enterprise.elastic.co/s/ut24zqzaryqvw) - [elasticsearch-pull-request #56579 / checkpart3_release-tests](https://gradle-enterprise.elastic.co/s/3mq3d3g2icavo) - [elasticsearch-pull-request #56558 / checkpart3_release-tests](https://gradle-enterprise.elastic.co/s/orqr4fh3lk63c) - [elasticsearch-pull-request #56539 / checkpart3_release-tests](https://gradle-enterprise.elastic.co/s/pxo3ikc72ix4e) - [elasticsearch-pull-request #56517 / checkpart3_release-tests](https://gradle-enterprise.elastic.co/s/pnz4hj7q655lm) - [elasticsearch-pull-request #56516 / checkpart3_release-tests](https://gradle-enterprise.elastic.co/s/uimyjw5ptzx52) - [elasticsearch-pull-request #56005 / part-3](https://gradle-enterprise.elastic.co/s/2j7c6xtfonoho) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:test&quot; --tests &quot;org.elasticsearch.xpack.esql.CsvTests&quot; -Dtests.method=&quot;test {inlinestats.MaxOfLongByEvaledKeyword}&quot; -Dtests.seed=2FD84F3320B9011E -Dbuild.snapshot=false -Dtests.jvm.argline=&quot;-Dbuild.snapshot=false&quot; -Dlicense.key=x-pack/license-tools/src/test/resources/public.key -Dtests.locale=fr-MG -Dtests.timezone=Europe/Zaporozhye -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.CsvTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.xpack.esql.CsvTests),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.xpack.esql.parser.ParsingException: line 4:3: mismatched input 'INLINESTATS' expecting {'dissect', 'drop', 'enrich', 'eval', 'grok', 'keep', 'limit', 'mv_expand', 'rename', 'sort', 'stats', 'where', 'lookup'} ``` **Issue Reasons:** - [main] 7 failures in class org.elasticsearch.xpack.esql.CsvTests (1.1% fail rate in 620 executions) - [main] 5 failures in step checkpart3_release-tests (21.7% fail rate in 23 executions) - [main] 6 failures in pipeline elasticsearch-pull-request (2.2% fail rate in 274 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Don't run the csv tests for inlinestats in non-snapshot tests (#122407)</MESSAGE>
+    <SHA>f8fb3c3d847c93ee5e8a95799e808735cb280680</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.CsvTests org.elasticsearch.xpack.esql.CsvTests #122440</MESSAGE>
+      <SHA>ecde1cad9d2f2083630b7269480f0cbbff7e5617</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

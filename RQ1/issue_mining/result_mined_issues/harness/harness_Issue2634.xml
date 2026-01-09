@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2634</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2634</ISSUEURL>
+  <TITLE>trigger should handle skipped dependencies</TITLE>
+  <DESCRIPTION>Scenario: Multiple pipelines with dependencies: ``` --- kind: pipeline name: testing steps: - name: test --- kind: pipeline name: build steps: - name: build depends_on: testing --- kind: pipeline name: notification steps: - name: notify depends_on: build trigger: status: - success - failure ``` This pipeline will run forever (till manual killing) if testing pipeline failed. As result, of failing testing pipeline build pipeline will be skipped and notifications will stay in `waiting on dependencies`. I try to add `- skipped` or `- skip` to the pipeline trigger, but this seems not to work. Sometimes e.g. for notification tasks it would be nice to have an option to always run a pipeline/task maybe something like ``` trigger: status: always ``` Here is a currently running demo: https://cloud.drone.io/xoxys/drone-webhook/5</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>29</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ability to set cookie secure flag, closes #2671</MESSAGE>
+    <SHA>16707c4bdb27e117426c19f39d8b14157ed3a2f3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #2681 from drone/issue/2634 Fix for issue #2634</MESSAGE>
+      <SHA>8307d816ffc10da549a7831e13bea2688a3d06bb</SHA>
+      <PATCHEDFILES>
+        <FILE>go.sum</FILE>
+        <FILE>handler/api/api.go</FILE>
+        <FILE>trigger/dag/dag.go</FILE>
+        <FILE>trigger/dag/dag_test.go</FILE>
+        <FILE>trigger/trigger.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat: [CDE-286]: Moving user and git mgmt to respective services. (#2634) * feat: [CDE-286]: Moving user and git mgmt to respective services.</MESSAGE>
+      <SHA>38023da2db467f6565d38b82d53ae6c8c9c3d185</SHA>
+      <PATCHEDFILES>
+        <FILE>app/gitspace/orchestrator/container/embedded_docker.go</FILE>
+        <FILE>app/gitspace/orchestrator/container/wire.go</FILE>
+        <FILE>app/gitspace/orchestrator/git/git.go</FILE>
+        <FILE>app/gitspace/orchestrator/git/git_impl.go</FILE>
+        <FILE>app/gitspace/orchestrator/git/script/install_git.sh</FILE>
+        <FILE>app/gitspace/orchestrator/git/wire.go</FILE>
+        <FILE>app/gitspace/orchestrator/template/template.go</FILE>
+        <FILE>app/gitspace/orchestrator/template/templates/clone_code.sh</FILE>
+        <FILE>app/gitspace/orchestrator/template/templates/manage_user.sh</FILE>
+        <FILE>app/gitspace/orchestrator/template/templates/setup_git_credentials.sh</FILE>
+        <FILE>app/gitspace/orchestrator/user/user.go</FILE>
+        <FILE>app/gitspace/orchestrator/user/user_impl.go</FILE>
+        <FILE>app/gitspace/orchestrator/user/wire.go</FILE>
+        <FILE>app/services/gitspaceinfraevent/handler.go</FILE>
+        <FILE>cmd/gitness/wire.go</FILE>
+        <FILE>cmd/gitness/wire_gen.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

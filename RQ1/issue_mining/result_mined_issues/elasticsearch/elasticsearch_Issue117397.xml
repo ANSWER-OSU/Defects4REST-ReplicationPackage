@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117397</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/117397</ISSUEURL>
+  <TITLE>[CI] EsqlActionTaskIT testCancelRequestWhenFailingFetchingPages failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #5010 / oraclelinux-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/rrchati7etfvi) - [elasticsearch-periodic-platform-support #5010 / amazonlinux-2_platform-support-aws](https://gradle-enterprise.elastic.co/s/p3gc2y4rbt4a2) - [elasticsearch-periodic #5032 / graalvm-ce17_checkpart3_java-matrix](https://gradle-enterprise.elastic.co/s/7ae6caz6kqwdu) - [elasticsearch-periodic-platform-support #5004 / rocky-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/7apd62hzil3iw) - [elasticsearch-periodic #5026 / openjdk23_checkpart3_java-matrix](https://gradle-enterprise.elastic.co/s/g3xyt5eyxslig) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.esql.action.EsqlActionTaskIT.testCancelRequestWhenFailingFetchingPages&quot; -Dtests.seed=624E7DA82F780A10 -Dtests.locale=en-CA -Dtests.timezone=Africa/Abidjan -Druntime.java=23 ``` **Applicable branches:** 8.17 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.action.EsqlActionTaskIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testCancelRequestWhenFailingFetchingPages),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: a value greater than &lt;0&gt; but: &lt;0&gt; was equal to &lt;0&gt; ``` **Issue Reasons:** - [8.17] 5 failures in test testCancelRequestWhenFailingFetchingPages (5.2% fail rate in 97 executions) - [8.17] 2 failures in pipeline elasticsearch-periodic-platform-support (50.0% fail rate in 4 executions) - [8.17] 2 failures in pipeline elasticsearch-periodic (50.0% fail rate in 4 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>bump hadoop hdfs to 3.4.1 (#117263) This commit bump hadoop hdfs to 3.4.1 (for repository-hdfs) .</MESSAGE>
+    <SHA>f13c1ee86775467ecbd48bd4bde5cd5e87dcf9ea</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.EsqlActionTaskIT testCancelRequestWhenFailingFetchingPages #117397</MESSAGE>
+      <SHA>de1390708a74387d4a6b141e20cca1ce6d73b325</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.EsqlActionTaskIT testCancelRequestWhenFailingFetchingPages #117397</MESSAGE>
+      <SHA>f8151f001a2cee2e0222990930cb08bf957f8e97</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix testCancelRequestWhenFailingFetchingPages (#117437) Each data-node request involves two exchange sinks: an external one for fetching pages from the coordinator and an internal one for node-level reduction. Currently, the test selects one of these sinks randomly, leading to assertion failures. This update ensures the test consistently selects the external exchange sink. Closes #117397</MESSAGE>
+      <SHA>d22a946fa736f4b08b9e0ec655afff4c5446c4d4</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/esql/src/internalClusterTest/java/org/elasticsearch/xpack/esql/action/EsqlActionTaskIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix testCancelRequestWhenFailingFetchingPages (#117437) Each data-node request involves two exchange sinks: an external one for fetching pages from the coordinator and an internal one for node-level reduction. Currently, the test selects one of these sinks randomly, leading to assertion failures. This update ensures the test consistently selects the external exchange sink. Closes #117397</MESSAGE>
+      <SHA>ae1d39bd38b0dc7263915f43a5a555de0593798f</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/esql/src/internalClusterTest/java/org/elasticsearch/xpack/esql/action/EsqlActionTaskIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

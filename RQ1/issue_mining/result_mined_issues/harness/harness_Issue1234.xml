@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1234</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/1234</ISSUEURL>
+  <TITLE>Improve Dashboard, Repo List, Feed</TITLE>
+  <DESCRIPTION>One major change that comes with 0.4 is that we no longer sync your complete repository list in the database (for reasons described in #776). Instead we use the GitHub API to fetch your repository list and your repository permissions live. One disadvantage to this approach is that we don't have a simple way (like a database join) to tell Drone to quickly give me a list of all repositories I have access to, or a build feed for all repositories I have access to. I believe the solution is to fetch the list of all repositories from GitHub and then to create a really big `IN` statement. The `IN` operator will get passed the list of all repository names from GitHub as demonstrated in the following example: ``` sql select * from repos where repo_full_name IN (?,?,?,?,?,?.....................,?,?,?,?) ``` I even have a function already stubbed out in the code: ``` Go func GetRepoListOf(db meddler.DB, listof []string) ([]*Repo, error) { var repos = []*Repo{} var length = len(listof) var qs = make([]string, length, length) var in = make([]interface{}, length, length) for i, repo := range listof { qs[i] = &quot;?&quot; in[i] = repo } var stmt = &quot;SELECT * FROM repos WHERE repo_id IN (&quot; + strings.Join(qs, &quot;,&quot;) + &quot;)&quot; var err = meddler.QueryAll(db, &amp;repos, database.Rebind(stmt), in...) return repos, err } ``` According to the documentation sqlite can hold a maximum of 999 parameters in the `IN` statement, and mysql and postgres [1] can hold tens of thousands of parameters. I remember doing this about 10 years ago to query an Oracle database with a few million rows and it worked quite well. So I'm pretty confident this approach is technically feasible, however, I still want to understand the performance implications on large datasets for the database vendors that we support. Until I have benchmarks that support the above design, we implement the following workarounds: 1. The `/user/repos` endpoint returns a list of all repositories to which the user has authored a commit, based on data in the `builds` table 2. The `/user/feed` endpoint returns a list of all builds the user has authored I am proactively logging this issue to explain why the behavior is currently different and might appear broken, to assure everyone this is just a temporary workaround, and that I hope to have the proposed changes in place prior to the final 0.4 release. --- [1] consider described optimization for postgres https://www.datadoghq.com/blog/100x-faster-postgres-performance-by-changing-1-line/</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>filter list using the full name</MESSAGE>
+    <SHA>4f7199b5ffce63786cbbcac1ddd78b1a0d7b1708</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>some initial work on #1234</MESSAGE>
+      <SHA>fa8c657005e906d1fb6d038f9de2ced8cda53fcd</SHA>
+      <PATCHEDFILES>
+        <FILE>controller/pages.go</FILE>
+        <FILE>model/repo.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: [code-1802]: fix issue on select project (#1234)</MESSAGE>
+      <SHA>175f26e9fefe8a9489c713dd7e850494b2f3cb3e</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/pages/Home/Home.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,61 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>22995</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/22995</ISSUEURL>
+  <TITLE>Which version of runc is actually used by podman 5.x?</TITLE>
+  <DESCRIPTION>### Issue Description Prisma Cloud is reporting a lot of vulnerabilities on my fresh podman 5.1.1 setup CVE-2024-21626 fixed in runc 1.1.12 CVE-2023-27561 fixed in runc 1.1.5 CVE-2023-28642 fixed in runc 1.1.5 CVE-2022-29162 fixed in runc 1.1.2 CVE-2023-25809 fixed in runc 1.1.5 Where on the other hand it seems fine with my ancient podman 3.0.1 on another VM I'm not familiar with Go but it does seem that https://github.com/containers/podman/commit/91b8f208a2759c9b5cc5e82e885937350a73ecac made podman use runc v1.1.1-0.20240131200429-02120488a4c0 Which would lead more towards a false positive from Prisma Cloud (yes, it's v1.1.1, but with patches to fix the CVEs) But on the other hand we have some version bumping like https://github.com/containers/podman/commit/90d6e92f2fa8c05a1ed6f08d1add054f69e8b6bc that seems to want to upgrade to runc v1.1.12, but this just seems to get &quot;aliased&quot; back to v1.1.1-0.20230904132852-a0466dd76f23 (sorry for the wording which is probably incorrect, I don't know Go) `podman info` says: ``` ociRuntime: name: runc package: cri-o-runc_100:1.1.12-1_amd64 path: /usr/lib/cri-o-runc/sbin/runc version: |- runc version unknown spec: 1.0.2-dev go: go1.22.4 libseccomp: 2.5.1 ``` podman was setup on Debian 11 bullseye thanks to alvistack ``` echo 'deb http://download.opensuse.org/repositories/home:/alvistack/Debian_11/ /' | sudo tee /etc/apt/sources.list.d/home:alvistack.list sudo apt install gpg --no-install-recommends curl -fsSL https://download.opensuse.org/repositories/home:alvistack/Debian_11/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_alvistack.gpg &gt; /dev/null sudo apt update sudo apt install podman podman-netavark ``` ### Steps to reproduce the issue - ### Describe the results you received - ### Describe the results you expected - ### podman info output ```yaml - ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details Additional environment details ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #22733 from nalind/system-check Add `podman system check`</MESSAGE>
+    <SHA>00bcd9aa818f66b3f669256e9df76285a0fbe8a1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Drop pin on a specific runc version I don't think we have a good reason to remain pinned on this specific commit. Let's just drop the pin. Fixes #22995 Signed-off-by: Matt Heon &lt;mheon@redhat.com&gt;</MESSAGE>
+      <SHA>8aa32b672902e2334f3645fd89c8acb2187e5634</SHA>
+      <PATCHEDFILES>
+        <FILE>go.mod</FILE>
+        <FILE>go.sum</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/NOTICE</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/apparmor/apparmor_linux.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/cgroups.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/file.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/fs/cpu.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/fs/cpuset.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/fs/devices.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/fs/fs.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/fs/paths.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/fs2/cpu.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/fs2/defaultpath.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/fs2/fs2.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/fs2/memory.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/fs2/misc.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/fs2/psi.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/stats.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/utils.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/v1_utils.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/configs/blkio_device.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/configs/cgroup_linux.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/configs/config.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/configs/config_linux.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/configs/mount.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/configs/mount_linux.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/configs/mount_unsupported.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/configs/namespaces_linux.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/configs/namespaces_syscall.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/user/lookup_deprecated.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/user/user_deprecated.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/userns/userns.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/userns/userns_fuzzer.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/userns/userns_linux.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/userns/userns_unsupported.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/userns/usernsfd_linux.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/utils/cmsg.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/utils/utils.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/utils/utils_unix.go</FILE>
+        <FILE>vendor/modules.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

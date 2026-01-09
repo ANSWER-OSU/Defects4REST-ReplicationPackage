@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19225</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/19225</ISSUEURL>
+  <TITLE>GraphQL filter functionality missing in v4.3.0-beta1</TITLE>
+  <DESCRIPTION>### Deployment Type Self-hosted ### NetBox Version v4.3.0-beta1 ### Python Version 3.12 ### Steps to Reproduce 1. Attempt to write a GraphQL query to filter `circuit_list` by 1 or more sites. Or filter an `ip_address_list` by the device or VM they belong to. ### Expected Behavior Filters exist to filter circuits by the site one of their terminations belongs to, filters exist to filter IP addresses based on the device or virtual machine they're attached to. Example query for circuits based on site entries that works pre-4.2: ```graphql query siteCircuits($sites: [String!]) { circuit_list(filters: {site: $sites}) { id cid provider { name } termination_z { termination { ... on SiteType { id name } } } } } ``` The `$sites` variable is: ``` { &quot;sites&quot;: [ &quot;dm-albany&quot;, &quot;dm-rochester&quot; ] } ``` ### Observed Behavior No filters exist to do this on IPAddress or Circuit filter options in GraphQL in 4.3-beta1. For circuits, the closest I can get is 'reversing' the query and querying circuit terminations instead. ```graphql query MyQuery { circuit_termination_list( filters: {termination_type: {app_label: {exact: &quot;dcim&quot;}, model: {exact: &quot;site&quot;}}, termination_id: &quot;7&quot;} ) { termination { ... on SiteType { id name } } term_side circuit { cid commit_rate install_date id provider { id name } provider_account { account id name } } } } ``` However: this requires the NetBox ID of the site to be known (instead of being able to use the slug today), and the only way to filter on multiple related-object IDs is to do a verbose &quot;OR&quot; operator instead of being able to do `termination_id: {in_list: [1, 2, 3, 4]}` (for circuit terminations, not circuits). In the case of IP Addresses you can't even do a filter such as `assigned_object_id: {in_list: [1, 2, 3, 4]}` (for IP Addresses) using multiple interface IDs from a single device. As has always been the case since GraphQL was introduced, you could write a more &quot;indirect&quot; query starting with the device_list, and adding interfaces for the device, and each interface's IP Addresses nested within, but this is a significant change from previous behavior and also limits the flexibility &amp; functionality of the GraphQL API. There maybe be other GraphQL objects that are impacted, these are just the two most immediate cases that I've uncovered. Not being able to filter by multiple IDs (even using standard GraphQL syntax of &quot;`some_object_id: {in_list: [1, 2, 3, 4]}`&quot;) is a big hindrance, but being able to filter by indirect relationships is very valuable and is how the NetBox GraphQL API has worked for quite a while now.</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixes #19213: Fix dropdown field rendering by reverting to Tabler v1.0 (#19232)</MESSAGE>
+    <SHA>24d4847dc598d7ee8c050e22703edbc2ec59fa2a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #19238 from netbox-community/19225-graphql-filters Fixes #19225: Extend GraphQL filters</MESSAGE>
+      <SHA>b8805c93b146061e886fa759fa2406a0c996b8e0</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/circuits/graphql/filters.py</FILE>
+        <FILE>netbox/dcim/graphql/filter_mixins.py</FILE>
+        <FILE>netbox/dcim/graphql/filters.py</FILE>
+        <FILE>netbox/ipam/graphql/filters.py</FILE>
+        <FILE>netbox/netbox/graphql/filter_mixins.py</FILE>
+        <FILE>netbox/tenancy/graphql/filters.py</FILE>
+        <FILE>netbox/virtualization/graphql/filter_mixins.py</FILE>
+        <FILE>netbox/virtualization/graphql/filters.py</FILE>
+        <FILE>netbox/vpn/graphql/filters.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

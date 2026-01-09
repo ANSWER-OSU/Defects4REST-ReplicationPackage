@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8239</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/8239</ISSUEURL>
+  <TITLE>feat: Support adding header in proxy-rewrite plugin</TITLE>
+  <DESCRIPTION>### Description Currently, proxy-rewrite plugin only supports set / delete headers. The limitation makes some operations impossible. This feature is required to implement [Gateway API HTTPHeaderFilter](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io%2fv1beta1.HTTPHeaderFilter). * Similar to #7794 ## Expect ```json { &quot;proxy-rewrite&quot;: { &quot;headers&quot;: { &quot;add&quot;: { &quot;X-Server-id&quot;: 3, &quot;X-Server-status&quot;: &quot;on&quot;, &quot;X-Server-balancer_addr&quot;: &quot;$balancer_ip:$balancer_port&quot; } } } } ``` ## Actual ```json { &quot;proxy-rewrite&quot;: { &quot;headers&quot;: { &quot;X-Api-Version&quot;: &quot;v1&quot;, &quot;X-Api-Engine&quot;: &quot;apisix&quot;, &quot;X-Api-useless&quot;: &quot;&quot; } } } ```</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>18</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: add method that parse ip from /etc/hosts in high priority (#8270) Co-authored-by: MaChao &lt;chao.ma@transwarp.io&gt; Fixes https://github.com/apache/apisix/issues/5233</MESSAGE>
+    <SHA>6dbf9761e5d8851fef8b2fd8262d6d7cf3000f78</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: proxy-rewrite support config add set and remove header (#8336) Co-authored-by: 罗泽轩 &lt;spacewanderlzx@gmail.com&gt; Fixes https://github.com/apache/apisix/issues/8239</MESSAGE>
+      <SHA>01b4b49eb2ba642b337f7a1fbe1894a77942910b</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/request.lua</FILE>
+        <FILE>apisix/plugins/proxy-rewrite.lua</FILE>
+        <FILE>docs/en/latest/plugins/proxy-rewrite.md</FILE>
+        <FILE>docs/zh/latest/plugins/proxy-rewrite.md</FILE>
+        <FILE>t/plugin/proxy-rewrite3.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

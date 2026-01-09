@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>533</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/533</ISSUEURL>
+  <TITLE>`now` eagerly deploys on first run</TITLE>
+  <DESCRIPTION>## Problem I just installed `now` and ran it, expecting to see some usage info. Instead, the CLI starting deploying my current working directory. This scared me a little, especially when nothing happened when I repeatedly hit `ˆC`. Seems kinda like a security risk. &lt;img width=&quot;632&quot; alt=&quot;screen shot 2017-05-11 at 5 30 44 pm&quot; src=&quot;https://cloud.githubusercontent.com/assets/2289/25977379/1e5a0e08-3670-11e7-9969-3ffdbcff39a8.png&quot;&gt; ## A Proposed Solution The first time I run `now` and authenticate my email, I think the CLI should say something like: ``` ❯ now &gt; Enter your email: zeke@sikelianos.com &gt; Please follow the link sent to zeke@sikelianos.com to log in. &gt; Verify that the provided security code in the email matches Lively Squid. ✔ Confirmed email address! Run `now` to deploy the current directory, or `now --help` for usage info. ```</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Improve scaling for static deployments</MESSAGE>
+    <SHA>84204d7b59d4c830521961fd341e5de9f6247bf3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>show usage message upon login Rather than eagerly deploying upon first usage. Fixes #533.</MESSAGE>
+      <SHA>5e417f716583fe9d0c251b717b6e65750c5914c2</SHA>
+      <PATCHEDFILES>
+        <FILE>bin/now-deploy.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>show usage message upon login (#556) Rather than eagerly deploying upon first usage. Fixes #533.</MESSAGE>
+      <SHA>cde26475877d4124ddd3876fbef5c11f3fd5e0f9</SHA>
+      <PATCHEDFILES>
+        <FILE>bin/now-deploy.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now-rust] Install rust with rustup &amp; convert now-rust to typescript (#533) * fix: Don't try and install rust and openssl during development * feat: Convert now-rust to typescript * Fix some typescript errors * feat: Fix types for now-rust * fix: Fix typo in type name * fix: Small cleanups and tweaks from the PR review * fix: Increase test timeout duration - Add built JS files from now-build-utils to the eslintignore file * fix: Compile to dist directory and don't lint now-rust * fix: Only ignore linting for now-rust's dist dir</MESSAGE>
+      <SHA>3a122ea950d5cda29023193fde98fe5e96079005</SHA>
+      <PATCHEDFILES>
+        <FILE>.eslintignore</FILE>
+        <FILE>packages/now-build-utils/src/index.ts</FILE>
+        <FILE>packages/now-rust/.gitignore</FILE>
+        <FILE>packages/now-rust/index.ts</FILE>
+        <FILE>packages/now-rust/install-rust.ts</FILE>
+        <FILE>packages/now-rust/package.json</FILE>
+        <FILE>packages/now-rust/test/test.js</FILE>
+        <FILE>packages/now-rust/tsconfig.json</FILE>
+        <FILE>test/lib/deployment/now-deploy.js</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

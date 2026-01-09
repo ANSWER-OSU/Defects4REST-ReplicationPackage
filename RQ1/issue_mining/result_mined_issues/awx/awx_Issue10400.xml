@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>10400</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/10400</ISSUEURL>
+  <TITLE>Advanced search by groups not working in hosts list</TITLE>
+  <DESCRIPTION>&lt;!-- Issues are for **concrete, actionable bugs and feature requests** only - if you're just asking for debugging help or technical support, please use: - http://webchat.freenode.net/?channels=ansible-awx - https://groups.google.com/forum/#!forum/awx-project We have to limit this because of limited volunteer time to respond to issues! --&gt; ##### ISSUE TYPE - Bug Report ##### SUMMARY While working on https://github.com/ansible/awx/issues/9232 I realized that the user can not use the OR operator with the key `Groups` the host_filter is not adding `or__` I've found this in host lists, however, this may happen in other places with different keys. ##### STEPS TO REPRODUCE 1. Go to host list 2. Do an advanced search using the key `Groups` type the name of the group ##### EXPECTED RESULTS To list all hosts within the group ##### ACTUAL RESULTS The OR operator is not defined and the user can't filter by groups using advanced search ![image](https://user-images.githubusercontent.com/12464858/121255680-12b3a980-c882-11eb-8c13-036a8eee8e43.png) this issue was reported here initially https://github.com/ansible/awx/issues/9389 Note that https://github.com/ansible/awx/pull/10347 is not addressing this.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #10413 from AlexSCorey/10404-RoleAccessSaveButton fixes next button and internationalizes nav buttons on wizard SUMMARY Resolves #10404 and it internationalizes the next button. ISSUE TYPE Bugfix Pull Request COMPONENT NAME UI AWX VERSION ADDITIONAL INFORMATION Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+    <SHA>2e0dd61bb63d729054e97b9cf3560b3f6bc63d4f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #10416 from mabashian/10400-search-keys Addresses bug where advanced search by groups wasn't working on host list SUMMARY link #10400 OK so this got a bit more complicated than I wanted it to but I think on the whole this is a nice improvement. In the initial bug report it was noted that we were ignoring the or/not operators when searching on a related key (in this case it was groups). We were also ignoring the modifier at the end (icontains, exact, startswith, etc). Since we were always defaulting to __search for these types of keys this was actually valid. The API doesn't like us attempting to do something like ?or__groups__search=foo or ?groups__search__icontains because they aren't valid. So, I changed the UX a little bit. A user can still do a fuzzy search on a related key but the prefix is disabled in this case: I changed the third dropdown (specifically for related keys) to contain the following options: search, id, name__icontains which I think would be the three most general cases. id and name__icontains do allow for prefixing (or, not, and). This should make searching on related keys a little bit easier and a little bit more flexible since name and id weren't possible in the UI before. Once place where this is a little different is the host filter in the smart inventory form. Using __search currently throws an error when the user attempts to save. I believe this is an API bug and will file it as such but for now I prevent users from attempting to use __search by removing it as an option for this particular list. When this bug gets fixed in the API we can remove this logic. I also noticed that there was a bug where or__ search terms were being converted to and when using the Smart Inventory button on the host list so I fixed that. Here's the fix in action: ISSUE TYPE Bugfix Pull Request COMPONENT NAME UI Reviewed-by: Kersom &lt;None&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+      <SHA>63aacd4e38abb0c453d17ba3d5667976bdb8e1ca</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/components/DataListToolbar/DataListToolbar.jsx</FILE>
+        <FILE>awx/ui_next/src/components/Lookup/HostFilterLookup.jsx</FILE>
+        <FILE>awx/ui_next/src/components/Lookup/shared/HostFilterUtils.jsx</FILE>
+        <FILE>awx/ui_next/src/components/Lookup/shared/HostFilterUtils.test.jsx</FILE>
+        <FILE>awx/ui_next/src/components/Search/AdvancedSearch.jsx</FILE>
+        <FILE>awx/ui_next/src/components/Search/AdvancedSearch.test.jsx</FILE>
+        <FILE>awx/ui_next/src/components/Search/Search.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Host/HostList/HostList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Host/HostList/SmartInventoryButton.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/shared/SmartInventoryForm.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

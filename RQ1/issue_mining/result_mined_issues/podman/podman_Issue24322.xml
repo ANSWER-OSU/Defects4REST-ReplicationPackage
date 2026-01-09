@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24322</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/24322</ISSUEURL>
+  <TITLE>podman-system-generator ignores RemainAfterExit from .build Quadlet</TITLE>
+  <DESCRIPTION>### Issue Description I've created a `.build` quadlet file which runs perfectly at the user context. Since the service is supposed to be started by a systemd.timer I've set `RemainAfterExit=no`, but the `podman-system-generator` generates a systemd.service file where the Option `RemainAfterExit` ist set to `yes`. Therefore the service never stops and can not be started again by a systemd.timer ### Steps to reproduce the issue Steps to reproduce the issue 1. Create a basic `hetznerDNSUpdate.build` file: ``` [Unit] Description=Build Hetzner DNS Updater [Service] RemainAfterExit=no [Build] ImageTag=localhost/hetznerdnsupdate:latest SetWorkingDirectory=/home/channappel/hetznerDocker Pull=newer ``` 2. Run `/usr/lib/systemd/system-generators/podman-system-generator --user --dryrun` ### Describe the results you received At the `[Service]` Section the Option is set to `RemainAfterExit=yes` ```bash /usr/lib/systemd/system-generators/podman-system-generator --user --dryrun quadlet-generator[13723]: Error occurred resolving path &quot;/etc/containers/systemd/users&quot;: lstat /etc/containers/systemd/users: no such file or directory quadlet-generator[13723]: Error occurred resolving path &quot;/etc/containers/systemd/users/1000&quot;: lstat /etc/containers/systemd/users: no such file or directory quadlet-generator[13723]: Loading source unit file /home/channappel/.config/containers/systemd/hetznerDNSUpdate.build ---hetznerDNSUpdate-build.service--- [Unit] Wants=network-online.target After=network-online.target Description=Build Hetzner DNS Updater RequiresMountsFor=%t/containers SourcePath=/home/channappel/.config/containers/systemd/hetznerDNSUpdate.build [Service] Type=oneshot RemainAfterExit=yes ExecStart=/usr/bin/podman build --pull=newer --tag=localhost/hetznerdnsupdate:latest /home/channappel/hetznerDocker SyslogIdentifier=%N [X-Build] ImageTag=localhost/hetznerdnsupdate:latest SetWorkingDirectory=/home/channappel/hetznerDocker Pull=newer ``` ### Describe the results you expected At the `[Service]` Section the Option is set to `RemainAfterExit=no` as specified in the `hetznerDNSUpdate.build` File. ```bash /usr/lib/systemd/system-generators/podman-system-generator --user --dryrun quadlet-generator[13723]: Error occurred resolving path &quot;/etc/containers/systemd/users&quot;: lstat /etc/containers/systemd/users: no such file or directory quadlet-generator[13723]: Error occurred resolving path &quot;/etc/containers/systemd/users/1000&quot;: lstat /etc/containers/systemd/users: no such file or directory quadlet-generator[13723]: Loading source unit file /home/channappel/.config/containers/systemd/hetznerDNSUpdate.build ---hetznerDNSUpdate-build.service--- [Unit] Wants=network-online.target After=network-online.target Description=Build Hetzner DNS Updater RequiresMountsFor=%t/containers SourcePath=/home/channappel/.config/containers/systemd/hetznerDNSUpdate.build [Service] Type=oneshot RemainAfterExit=no ExecStart=/usr/bin/podman build --pull=newer --tag=localhost/hetznerdnsupdate:latest /home/channappel/hetznerDocker SyslogIdentifier=%N [X-Build] ImageTag=localhost/hetznerdnsupdate:latest SetWorkingDirectory=/home/channappel/hetznerDocker Pull=newer ``` ### podman info output ```bash podman info host: arch: amd64 buildahVersion: 1.37.3 cgroupControllers: - cpu - memory - pids cgroupManager: systemd cgroupVersion: v2 conmon: package: conmon-2.1.12-2.fc40.x86_64 path: /usr/bin/conmon version: 'conmon version 2.1.12, commit: ' cpuUtilization: idlePercent: 95.64 systemPercent: 0.6 userPercent: 3.76 cpus: 12 databaseBackend: boltdb distribution: distribution: fedora variant: server version: &quot;40&quot; eventLogger: journald freeLocks: 2048 hostname: caracal.flusk.com idMappings: gidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 100000 size: 65536 uidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 100000 size: 65536 kernel: 6.11.3-200.fc40.x86_64 linkmode: dynamic logDriver: journald memFree: 13954265088 memTotal: 67304443904 networkBackend: netavark networkBackendInfo: backend: netavark dns: package: aardvark-dns-1.12.2-2.fc40.x86_64 path: /usr/libexec/podman/aardvark-dns version: aardvark-dns 1.12.2 package: netavark-1.12.2-1.fc40.x86_64 path: /usr/libexec/podman/netavark version: netavark 1.12.2 ociRuntime: name: crun package: crun-1.17-1.fc40.x86_64 path: /usr/bin/crun version: |- crun version 1.17 commit: 000fa0d4eeed8938301f3bcf8206405315bc1017 rundir: /run/user/1000/crun spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +CRIU +LIBKRUN +WASM:wasmedge +YAJL os: linux pasta: executable: /usr/bin/pasta package: passt-0^20240906.g6b38f07-1.fc40.x86_64 version: | pasta 0^20240906.g6b38f07-1.fc40.x86_64 Copyright Red Hat GNU General Public License, version 2 or later &lt;https://www.gnu.org/licenses/old-licenses/gpl-2.0.html&gt; This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. remoteSocket: exists: true path: /run/user/1000/podman/podman.sock rootlessNetworkCmd: pasta security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: true seccompEnabled: true seccompProfilePath: /usr/share/containers/seccomp.json selinuxEnabled: true serviceIsRemote: false slirp4netns: executable: /usr/bin/slirp4netns package: slirp4netns-1.2.2-2.fc40.x86_64 version: |- slirp4netns version 1.2.2 commit: 0ee2d87523e906518d34a6b423271e4826f71faf libslirp: 4.7.0 SLIRP_CONFIG_VERSION_MAX: 4 libseccomp: 2.5.5 swapFree: 25430056960 swapTotal: 25430056960 uptime: 3h 58m 8.00s (Approximately 0.12 days) variant: &quot;&quot; plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan - ipvlan volume: - local registries: search: - registry.fedoraproject.org - registry.access.redhat.com - docker.io store: configFile: /home/channappel/.config/containers/storage.conf containerStore: number: 0 paused: 0 running: 0 stopped: 0 graphDriverName: overlay graphOptions: {} graphRoot: /home/channappel/.local/share/containers/storage graphRootAllocated: 536860426240 graphRootUsed: 290320703488 graphStatus: Backing Filesystem: xfs Native Overlay Diff: &quot;false&quot; Supports d_type: &quot;true&quot; Supports shifting: &quot;true&quot; Supports volatile: &quot;true&quot; Using metacopy: &quot;false&quot; imageCopyTmpDir: /var/tmp imageStore: number: 12 runRoot: /run/user/1000/containers transientStore: false volumePath: /home/channappel/.local/share/containers/storage/volumes version: APIVersion: 5.2.3 Built: 1727136000 BuiltTime: Tue Sep 24 02:00:00 2024 GitCommit: &quot;&quot; GoVersion: go1.22.7 Os: linux OsArch: linux/amd64 Version: 5.2.3 ``` ### Podman in a container No ### Privileged Or Rootless Rootless ### Upstream Latest Release No ### Additional environment details Baremetal Fedora Server 40 ### Additional information None</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>16</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #24327 from rst0git/pod-restore Enable pod restore with crun</MESSAGE>
+    <SHA>4319fac0a79b7a0c901c308cf26e135223a24579</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Honor users requests in quadlet files Fixes: https://github.com/containers/podman/issues/24322 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>63ed321e85cc7c3a8b628ba1d53ddc14aa425954</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/systemd/quadlet/quadlet.go</FILE>
+        <FILE>test/e2e/quadlet/build.multiple-tags.container</FILE>
+        <FILE>test/e2e/quadlet/network.build</FILE>
+        <FILE>test/e2e/quadlet/network.kube</FILE>
+        <FILE>test/e2e/quadlet/volume.build</FILE>
+        <FILE>test/e2e/quadlet/volume.pod</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Honor users requests in quadlet files Fixes: https://github.com/containers/podman/issues/24322 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>70f55e0840c17372ff69a9376e2c22bbeb2ec5e9</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/systemd/quadlet/quadlet.go</FILE>
+        <FILE>test/e2e/quadlet/build.multiple-tags.container</FILE>
+        <FILE>test/e2e/quadlet/network.build</FILE>
+        <FILE>test/e2e/quadlet/network.kube</FILE>
+        <FILE>test/e2e/quadlet/volume.build</FILE>
+        <FILE>test/e2e/quadlet/volume.pod</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Honor users requests in quadlet files Fixes: https://github.com/containers/podman/issues/24322 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>24d31a5174dd763fd427c40e528cac310265e7cc</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/systemd/quadlet/quadlet.go</FILE>
+        <FILE>test/e2e/quadlet/basic.build</FILE>
+        <FILE>test/e2e/quadlet/ipv6.network</FILE>
+        <FILE>test/e2e/quadlet/network.build</FILE>
+        <FILE>test/e2e/quadlet/uid.volume</FILE>
+        <FILE>test/e2e/quadlet/volume.build</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Honor users requests in quadlet files Fixes: https://github.com/containers/podman/issues/24322 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>9272dc882beefc9cb3f7351857c62862122de26c</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/systemd/quadlet/quadlet.go</FILE>
+        <FILE>test/e2e/quadlet/basic.build</FILE>
+        <FILE>test/e2e/quadlet/ipv6.network</FILE>
+        <FILE>test/e2e/quadlet/network.build</FILE>
+        <FILE>test/e2e/quadlet/uid.volume</FILE>
+        <FILE>test/e2e/quadlet/volume.build</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Honor users requests in quadlet files Fixes: https://github.com/containers/podman/issues/24322 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>c6be5a66848fe5235dcd7100e6b44860fe4f6e54</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/systemd/quadlet/quadlet.go</FILE>
+        <FILE>test/e2e/quadlet/basic.build</FILE>
+        <FILE>test/e2e/quadlet/ipv6.network</FILE>
+        <FILE>test/e2e/quadlet/network.build</FILE>
+        <FILE>test/e2e/quadlet/uid.volume</FILE>
+        <FILE>test/e2e/quadlet/volume.build</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

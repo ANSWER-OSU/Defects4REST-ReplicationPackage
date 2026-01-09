@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126370</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126370</ISSUEURL>
+  <TITLE>[CI] EsqlSpecIT test {rerank.Reranker using a single field SYNC} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7483 / oraclelinux-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/rmxz6fvp6yhq2) - [elasticsearch-periodic-platform-support #7483 / oraclelinux-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/o3fplvs2s55ri) - [elasticsearch-periodic #7447 / single-processor-node-tests](https://gradle-enterprise.elastic.co/s/uu5jpar6r27ui) - [elasticsearch-periodic #7440 / concurrent-search-tests](https://gradle-enterprise.elastic.co/s/hnbzduego5mku) - [elasticsearch-pull-request #66519 / part-3](https://gradle-enterprise.elastic.co/s/yxutbxmhmr4cy) - [elasticsearch-pull-request #66516 / part-3](https://gradle-enterprise.elastic.co/s/3om4wqoztf7ka) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:multi-node:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT&quot; -Dtests.method=&quot;test {rerank.Reranker using another sort order SYNC}&quot; -Dtests.seed=158FF6085345BBBA -Dtests.locale=af-Latn-ZA -Dtests.timezone=IET -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Brerank.Reranker%20using%20a%20single%20field%20SYNC%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Data mismatch: row 0 column 3:a list containing row 0 column 3:0: expected &lt;0.02222&gt; but was &lt;0.02273&gt; row 1 column 3:a list containing row 1 column 3:0: expected &lt;0.01515&gt; but was &lt;0.01493&gt; Actual: book_no:keyword | title:text | author:text | _score:double 4536 | War and Peace (Signet Classics) | [John Hockenberry, Leo Tolstoy, Pat Conroy] | 0.02273 2776 | The Devil and Other Stories (Oxford World's Classics) | Leo Tolstoy | 0.01493 5327 | War and Peace | Leo Tolstoy | 0.03846 Expected: book_no:keyword | title:text | author:text | _score:double 4536 | War and Peace (Signet Classics) | [John Hockenberry, [truncated] ``` **Issue Reasons:** - [main] 2 consecutive failures in test test {rerank.Reranker using a single field SYNC} - [main] 6 failures in test test {rerank.Reranker using a single field SYNC} (4.9% fail rate in 123 executions) - [main] 2 failures in step part-3 (12.5% fail rate in 16 executions) - [main] 2 failures in pipeline elasticsearch-periodic (50.0% fail rate in 4 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (12.5% fail rate in 16 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT test {rerank.Reranker using a single field ASYNC} #126369</MESSAGE>
+    <SHA>947d33bf0ff6aa05b80244f86218c472a8368fce</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT test {rerank.Reranker using a single field SYNC} #126370</MESSAGE>
+      <SHA>ea440aa0b85442bd4353035b369f873b79ca2271</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16903</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16903</ISSUEURL>
+  <TITLE>Add support for volume subpaths in container create/run</TITLE>
+  <DESCRIPTION>&lt;!-- --------------------------------------------------- BUG REPORT INFORMATION --------------------------------------------------- Use the commands below to provide key information from your environment: You do NOT have to include this information if this is a FEATURE REQUEST **NOTE** A large number of issues reported against Podman are often found to already be fixed in more current versions of the project. Before reporting an issue, please verify the version you are running with `podman version` and compare it to the latest release documented on the top of Podman's [README.md](../README.md). If they differ, please update your version of Podman to the latest possible and retry your command before creating an issue. Also, there is a running list of known issues in the [Podman Troubleshooting Guide](https://github.com/containers/podman/blob/main/troubleshooting.md), please reference that page before opening a new issue. If you are filing a bug against `podman build`, please instead file a bug against Buildah (https://github.com/containers/buildah/issues). Podman build executes Buildah to perform container builds, and as such the Buildah maintainers are best equipped to handle these bugs. --&gt; **Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind feature **Description** subpaths now work in podman play kube and allow users to supply a subset of a volume to mount in a container, add the same capability in container create/run</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>140</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add support for hostPath and configMap subpath usage podman play kube now supports and has tests for the subpath field when using a hostPath volume type and a configMap volume type. The hostpath works similarly to the named volume, allowing a user to specify a whole directory but also a specific file or subdir within that mount. Config Maps operate the same way but specifically allow users to mount specific data in a subpath alongside the existing data resolves #16828 Signed-off-by: Charlie Doern &lt;cbddoern@gmail.com&gt;</MESSAGE>
+    <SHA>492b387d885c5269caee4f3b49cfcc150c0c88d0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>add support for subpath with the -v flag support subpaths for named volumes when using the -v flag in podman create/run the syntax is as follows `-v NAMED_VOL/sub/path/to/mount` resolves #16903 Signed-off-by: Charlie Doern &lt;cbddoern@gmail.com&gt;</MESSAGE>
+      <SHA>61594a4d2945e403485e65ecee2b05646e83762b</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/specgen/volumes.go</FILE>
+        <FILE>test/e2e/create_test.go</FILE>
+        <FILE>test/e2e/play_kube_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

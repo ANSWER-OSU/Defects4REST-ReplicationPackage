@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2683</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2683</ISSUEURL>
+  <TITLE>Make static files configurable from admin portal or blacklist certain types by default</TITLE>
+  <DESCRIPTION>NopCommonStartup.cs has the following code ``` application.UseStaticFiles(new StaticFileOptions { FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @&quot;Plugins&quot;)), RequestPath = new PathString(&quot;/Plugins&quot;), OnPrepareResponse = ctx =&gt; { if (!string.IsNullOrEmpty(nopConfig.StaticFilesCacheControl)) ctx.Context.Response.Headers.Append(HeaderNames.CacheControl, nopConfig.StaticFilesCacheControl); } }); ``` Now this code seems a bit dangerous as people may include static files unknowingly in their plugin folder. Eg I stored a .pfx key which I used for xero integration. This file was hosted by default in my development environment. Had I not done some security checks I would not have seen this and store.com/plugins/pluginname/privatekey.pfx could be downloaded. Can we add the ability to blacklist certain file extensions from the plugins folder? Eg I have added the following code as a temporary workaround. We could easily store these extensions somewhere else, or even simply hard code the extensions of files which would be dubious to host. var provider2 = new FileExtensionContentTypeProvider(); provider2.Mappings.Remove(&quot;.pfx&quot;); provider2.Mappings.Remove(&quot;.cs&quot;); //This is not included by default provider2.Mappings.Remove(&quot;.cshtml&quot;); //This is not included by default provider2.Mappings.Remove(&quot;.dll&quot;); //This is not included by default provider2.Mappings.Remove(&quot;.config&quot;); //This is not included by default provider2.Mappings.Remove(&quot;.db&quot;); provider2.Mappings.Remove(&quot;.old&quot;); provider2.Mappings.Remove(&quot;.ps1&quot;); provider2.Mappings.Remove(&quot;.txt&quot;); provider2.Mappings.Remove(&quot;.json&quot;); application.UseStaticFiles(new StaticFileOptions { FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @&quot;Plugins&quot;)), RequestPath = new PathString(&quot;/Plugins&quot;), ContentTypeProvider = provider2, OnPrepareResponse = ctx =&gt; { if (!string.IsNullOrEmpty(nopConfig.StaticFilesCacheControl)) ctx.Context.Response.Headers.Append(HeaderNames.CacheControl, nopConfig.StaticFilesCacheControl); } }); edit: I am using the latest develop branch commit of 4.00</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#2677 Fix exception on authentication SignIn method</MESSAGE>
+    <SHA>b04cc5df8179ed2f337fbe1bb48b49ee8bcb9775</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2683 Added the blacklist of static file extensions for plugin directory</MESSAGE>
+      <SHA>3dda6bc55389e28c14c6bfa3dcd191a28a5d7026</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Security/SecuritySettings.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/NopCommonStartup.cs</FILE>
+        <FILE>upgradescripts/3.90-4.00 (under development)/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

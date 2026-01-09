@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3286</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/3286</ISSUEURL>
+  <TITLE>Thumbnail resolution should happen on the rest side</TITLE>
+  <DESCRIPTION>**Is your feature request related to a problem? Please describe.** Finding the correct thumbnail for an item or a bitstream is every slow at the moment, because it is done client side. The UI has to download the entire thumbnail bundle, ignoring pagination, to compare filenames with bitstreams in the ORIGINAL bundle and find a match. We've never had much issues with this because we've never used DSpace 7 in a situation where we had a lot of items with a lot of bitstreams and thumbnails. If you do the performance becomes very poor in situations where you need to resolve multiple thumbnails quickly, e.g. the search result grid view. **Describe the solution you'd like** I propose we add an optional thumbnail link to bitstreams. If a bitstream is in the ORIGINAL bundle, rest should check if there's a matching thumbnail. If there is, add a `thumbnail` link to the links section of the ORIGINAL bitstream, with the self link to the THUMBNAIL bitstream (or to a new `/bitstreams/:uuid/thumbnail` alias if that's preferable) Items should get a thumbnail link as well, for the default thumbnail that should be used for that item (best to check dspace 6 for the exact logic to determine which one that is, because as it stands the UI just picks the first one it finds). We should get that both for items retrieved directly, as well as discovery results. For performance it would be probably good if this would happen using a projection: by default the links aren't added, but if you ask for the thumbnail projection they are. However I don't think we've used projections that way before, so if this adds a significant amount of extra effort we can drop that requirement for now.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>34</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9728 from atmire/w2p-116609_improve-running-process-observability-main Improve observability of running processes + Fail them during startup</MESSAGE>
+    <SHA>1b16a55335101ddec7776c020bee30ff1ac17d36</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Difficult to find users to delete from group in large groups #3286</MESSAGE>
+      <SHA>2b9f730ef0f7ae76d9871ff1de613a971fbf3b55</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/eperson/EPersonServiceImpl.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/eperson/dao/EPersonDAO.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/eperson/dao/impl/EPersonDAOImpl.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/eperson/service/EPersonService.java</FILE>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/repository/EPersonRestRepository.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

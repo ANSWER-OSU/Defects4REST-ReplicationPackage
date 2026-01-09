@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3843</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/3843</ISSUEURL>
+  <TITLE>Request help: Using upstream_route, all requests go to node 1. How to evenly distribute the requests to all nodes?</TITLE>
+  <DESCRIPTION># 环境 centos 7.9 x64，通过rpm安装的apisix-2.4-0.x86_64。 etcd版本为3.4.13，rpm安装，装好后没有修改任何配置，直接启动运行。 # 需求： 用apisix做负载均衡，把请求分配到后端172.16.10.241:6500 （1号节点）和 172.16.10.242:6500（2号节点）上，6500端口是业务系统定义的非web端口。 # apisix的配置文件 /usr/local/apisix/conf/config.yaml的内容： ``` etcd: host: - &quot;http://127.0.0.1:2379&quot; apisix: admin_key: - name: &quot;admin&quot; key: edd1c9f034335f136f87ad84b625c8f2 role: admin stream_proxy: tcp: - 6500 ``` # 操作命令 ``` curl http://127.0.0.1:9080/apisix/admin/stream_routes/1 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f2' -X PUT -d ' { &quot;upstream&quot;: { &quot;nodes&quot;: { &quot;172.16.10.241:6500&quot;: 1 }, &quot;type&quot;: &quot;roundrobin&quot; } }' ``` ``` curl http://127.0.0.1:9080/apisix/admin/stream_routes/2 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f2' -X PUT -d ' { &quot;upstream&quot;: { &quot;nodes&quot;: { &quot;172.16.10.242:6500&quot;: 1 }, &quot;type&quot;: &quot;roundrobin&quot; } }' ``` # 查看stream_route： ` curl http://127.0.0.1:9080/apisix/admin/stream_routes/ -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f2' ` # 输出 ``` { &quot;count&quot;:&quot;3&quot;, &quot;node&quot;:{ &quot;key&quot;:&quot;\/apisix\/stream_routes&quot;, &quot;nodes&quot;:[ { &quot;createdIndex&quot;:1595, &quot;value&quot;:{ &quot;upstream&quot;:{ &quot;pass_host&quot;:&quot;pass&quot;, &quot;nodes&quot;:{&quot;172.16.10.241:6500&quot;:1}, &quot;scheme&quot;:&quot;http&quot;, &quot;hash_on&quot;:&quot;vars&quot;, &quot;type&quot;:&quot;roundrobin&quot; }, &quot;id&quot;:&quot;1&quot; }, &quot;modifiedIndex&quot;:1595, &quot;key&quot;:&quot;\/apisix\/stream_routes\/1&quot; }, { &quot;createdIndex&quot;:1596, &quot;value&quot;:{ &quot;upstream&quot;:{ &quot;pass_host&quot;:&quot;pass&quot;, &quot;nodes&quot;:{&quot;172.16.10.242:6500&quot;:1}, &quot;scheme&quot;:&quot;http&quot;, &quot;hash_on&quot;:&quot;vars&quot;, &quot;type&quot;:&quot;roundrobin&quot; }, &quot;id&quot;:&quot;2&quot; }, &quot;modifiedIndex&quot;:1596, &quot;key&quot;:&quot;\/apisix\/stream_routes\/2&quot; } ], &quot;dir&quot;:true }, &quot;action&quot;:&quot;get&quot; } ``` 在多台电脑上用telnet访问apisix服务器的6500端口，发现只有1号节点上有来自apisix服务器的网络连接，2号节点上一个也没有。 请问如何把对6500端口的访问平均分布到所有节点上？</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: extend init configuration validation with jsonschema (#3860) Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+    <SHA>b17feb59bbb7d22aaf9e584a6e10e5355ceacace</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: priority for nonarray upstream node in stream Fix #3843 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>71a28314558c2bc0a25dc5e9c69816e7a2a45dd3</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/upstream.lua</FILE>
+        <FILE>t/stream-node/priority-balancer.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

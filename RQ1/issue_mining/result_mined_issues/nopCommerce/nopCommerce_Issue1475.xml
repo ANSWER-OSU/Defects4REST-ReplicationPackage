@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1475</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/1475</ISSUEURL>
+  <TITLE>Discount for combination overriden price is not applied</TITLE>
+  <DESCRIPTION>Some times we need to have different price for each product combination. Then the only option to do it is to use Overriden Price property. But for these prices discounts are not applied (but should): In GetUnitPrice there is a check: if (combination != null &amp;&amp; combination.OverriddenPrice.HasValue) then discount is not applied. A way to fix it: **decimal? initialprice = null; if (combination != null &amp;&amp; combination.OverriddenPrice.HasValue) { initialprice = combination.OverriddenPrice.Value; }** finalPrice = GetFinalPrice(product, customer, attributesTotalPrice, includeDiscounts, qty, product.IsRental ? rentalStartDate : null, product.IsRental ? rentalEndDate : null, out discountAmount, out appliedDiscount, **initialprice**); In GetFinalPrice //initial price decimal price; if (InitialPrice.HasValue) price = InitialPrice.Value; else price = product.Price;</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'develop' of https://github.com/nopSolutions/nopCommerce into develop</MESSAGE>
+    <SHA>68ead69272cd7656f5c34e85a010e8b7a3f2a8fb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#1475 Discount were not applied for combinations with overriden price</MESSAGE>
+      <SHA>f88175439971cbe8c420191154f99040b18fd42a</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Catalog/Cache/PriceCacheEventConsumer.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/PriceCalculationService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

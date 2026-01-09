@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>29371</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/29371</ISSUEURL>
+  <TITLE>PHP errors on separator type extrafield update</TITLE>
+  <DESCRIPTION>### Bug When we update a separator type extrafield (on company configuration for example), we have two errors due to a variable not instantiated on extrafield.class.php file and explode() function on actions_extrafields.inc.php. ![Capture d’écran 2024-04-17 à 11 22 41](https://github.com/Dolibarr/dolibarr/assets/9167207/52789dcb-a0d5-4209-a5ab-fdf17cbbb30a) $param_ligne does not always contain a comma and in this case, we get the warning. ![Capture d’écran 2024-04-17 à 11 41 42](https://github.com/Dolibarr/dolibarr/assets/9167207/0240decf-6e7c-4803-91fd-1eb77209bbcd) If $type is &quot;separate&quot;, $result is not instantiated. ![Capture d’écran 2024-04-17 à 11 17 51](https://github.com/Dolibarr/dolibarr/assets/9167207/c2b96c85-a20c-4a38-afa1-6ad017bfc666) I updated separator without parameters : ![Capture d’écran 2024-04-17 à 11 43 39](https://github.com/Dolibarr/dolibarr/assets/9167207/e4d89195-3312-4f47-8a86-1e434000e565) ### Dolibarr Version 19.0.1 ### Environment PHP 8.2.10 ### Environment Database MySQL or MariaDB 10.3.39-MariaDB-0+deb10u1 ### Steps to reproduce the behavior and expected behavior Add a separator extrafield on an object and modify it : ![Capture d’écran 2024-04-17 à 11 43 39](https://github.com/Dolibarr/dolibarr/assets/9167207/88a00b58-9c71-4f17-98c3-ae337673eb01) ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>146</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Qual isolate commande fournisseur line class to separate file (#30898) * Moved supplier order line class to separate file. Removed unnecessary requires. * Updated PHPDoc --------- Co-authored-by: Laurent Destailleur &lt;eldy@destailleur.fr&gt;</MESSAGE>
+    <SHA>f9a0d409a67e8cd7776fa90e3c03de8224a6c614</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[#29371] Fixed : Php wanring on separate type extra field update</MESSAGE>
+      <SHA>51ac11ea8be6c5ca876f8ce2ddb72ad98b8108b5</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/class/extrafields.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[#29371] Fixed : Php wanring on separate type extra field update (#30910) Co-authored-by: TREBUCHET &lt;ravi@code42.fr&gt;</MESSAGE>
+      <SHA>c4a19f4022990a1e38ba5ed51f8e651b9c362ca0</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/class/extrafields.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[#29371] Fixed : Php wanring on separate type extra field update (#30910) Co-authored-by: TREBUCHET &lt;ravi@code42.fr&gt;</MESSAGE>
+      <SHA>d76f689bc2ae5023310b6c2c5b9cff412ca2a650</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/class/extrafields.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

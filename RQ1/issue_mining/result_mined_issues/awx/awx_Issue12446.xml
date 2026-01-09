@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>12446</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/12446</ISSUEURL>
+  <TITLE>[Task Manager][devel environment] In development environment, expose view that calls task manager(s) for use with debug toolbar</TITLE>
+  <DESCRIPTION>### Please confirm the following - [X] I agree to follow this project's [code of conduct](https://docs.ansible.com/ansible/latest/community/code_of_conduct.html). - [X] I have checked the [current issues](https://github.com/ansible/awx/issues) for duplicates. - [X] I understand that AWX is open source software provided for free and that I might not receive a timely response. ### Feature Summary We've been hacking the development environment to call the task manager in a view so we can use the DjangoDebugToolbar to debug queries made in the task manager. This is a great hack but takes time to set up and communicate to other devs, and patches get stale. Instead, we can have a view dedicated to this https://github.com/ansible/awx/blob/f5c176701b0551e179bb4ef663b57fd3a6ba6f0a/awx/api/urls/urls.py#L146-L149 We also may want to introduce a setting for development where we short circuit the regular schedule_task_manager() function and call the _schedule() functions directly in this view. ### Select the relevant components - [ ] UI - [X] API - [ ] Docs - [ ] Collection - [ ] CLI - [X] Other</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>workflow manager own get_tasks</MESSAGE>
+    <SHA>cf88f4748a496b3986289777de72b9676831a902</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>add debug views for task manager(s) implement https://github.com/ansible/awx/issues/12446 in development environment, enable set of views that run the task manager(s). Also introduce a setting that disables any calls to schedule() that do not originate from the debug views when in the development environment. With guards around both if we are in the development environment and the setting, I think we're pretty safe this won't get triggered unintentionally.</MESSAGE>
+      <SHA>ca2964b8028e5e9a920b459dffafab83c11c9748</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/urls/debug.py</FILE>
+        <FILE>awx/api/urls/urls.py</FILE>
+        <FILE>awx/api/views/debug.py</FILE>
+        <FILE>awx/main/scheduler/task_manager.py</FILE>
+        <FILE>awx/settings/development.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>add debug views for task manager(s) implement https://github.com/ansible/awx/issues/12446 in development environment, enable set of views that run the task manager(s). Also introduce a setting that disables any calls to schedule() that do not originate from the debug views when in the development environment. With guards around both if we are in the development environment and the setting, I think we're pretty safe this won't get triggered unintentionally.</MESSAGE>
+      <SHA>0a263a5b155b7523022a8a3ce252c3a609ed81fe</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/urls/debug.py</FILE>
+        <FILE>awx/api/urls/urls.py</FILE>
+        <FILE>awx/api/views/debug.py</FILE>
+        <FILE>awx/main/scheduler/task_manager.py</FILE>
+        <FILE>awx/settings/development.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>add debug views for task manager(s) implement https://github.com/ansible/awx/issues/12446 in development environment, enable set of views that run the task manager(s). Also introduce a setting that disables any calls to schedule() that do not originate from the debug views when in the development environment. With guards around both if we are in the development environment and the setting, I think we're pretty safe this won't get triggered unintentionally.</MESSAGE>
+      <SHA>af78c78bbbf6535111901a640eadbb03023e9f07</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/urls/debug.py</FILE>
+        <FILE>awx/api/urls/urls.py</FILE>
+        <FILE>awx/api/views/debug.py</FILE>
+        <FILE>awx/main/scheduler/task_manager.py</FILE>
+        <FILE>awx/settings/development.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>add debug views for task manager(s) implement https://github.com/ansible/awx/issues/12446 in development environment, enable set of views that run the task manager(s). Also introduce a setting that disables any calls to schedule() that do not originate from the debug views when in the development environment. With guards around both if we are in the development environment and the setting, I think we're pretty safe this won't get triggered unintentionally.</MESSAGE>
+      <SHA>fc9e72cd0e97327d6951d6887929c25122d62fc6</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/urls/debug.py</FILE>
+        <FILE>awx/api/urls/urls.py</FILE>
+        <FILE>awx/api/views/debug.py</FILE>
+        <FILE>awx/main/scheduler/task_manager.py</FILE>
+        <FILE>awx/settings/development.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>add debug views for task manager(s) implement https://github.com/ansible/awx/issues/12446 in development environment, enable set of views that run the task manager(s). Also introduce a setting that disables any calls to schedule() that do not originate from the debug views when in the development environment. With guards around both if we are in the development environment and the setting, I think we're pretty safe this won't get triggered unintentionally. use MODE to determine if we are in devel env Also, move test for skipping task managers to the tasks file</MESSAGE>
+      <SHA>ad08eafb9a8ed775dc0cf21eb38e443651e11184</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/urls/debug.py</FILE>
+        <FILE>awx/api/urls/urls.py</FILE>
+        <FILE>awx/api/views/debug.py</FILE>
+        <FILE>awx/main/scheduler/tasks.py</FILE>
+        <FILE>awx/settings/development.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

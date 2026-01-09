@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2575</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/2575</ISSUEURL>
+  <TITLE>Encoding error on alert email : &quot;Mail send error&quot;</TITLE>
+  <DESCRIPTION>Hello Arik and the Redash team, thanks for this awesome open source project! I just want to submit a small issue ### Issue Summary Alert is not sending email with characters such as &quot;ô&quot; in the name. ### Steps to Reproduce 1. Create a query 2. Create an alert on this query 3. In the name of the alert, set a character such as &quot;ô&quot; 4. Check the log file of the worker : ``` Mail send error. Traceback (most recent call last): File &quot;/app/redash/destinations/email.py&quot;, line 48, in notify subject=subject_template.format(alert_name=alert_name, state=state), UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 31: ordinal not in range(128) ``` [File &quot;/app/redash/destinations/email.py&quot;, line 48](https://github.com/getredash/redash/blob/672c86efaa4eee7ed4295fe021431409e418de57/redash/destinations/email.py#L48) I think it should be printed encoded into utf-8. ### Technical details: * Redash Version: Redash 4.0.1+b4038 * Browser/OS: Chrome/Linux * How did you install Redash: setup using Docker</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>281</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #2542 from emtwo/emtwo/xaxis Closes #2541: x-axis improvements.</MESSAGE>
+    <SHA>5c1d2c88770c4729d21b3cacec32fe7ec0ef39e5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Use unicode string for alert email subject. #2575</MESSAGE>
+      <SHA>2cd750b159cffb7debb0272b348d0e9c10e7795f</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/settings/__init__.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #2575 - Use full text search ranking when searching in list views. This applies to the queries, dashboard and users views.</MESSAGE>
+      <SHA>6616e3d6f2b1c36296e911c89f3ef2261e5946f7</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/lib/list-ctrl.js</FILE>
+        <FILE>client/app/lib/pagination/live-paginator.js</FILE>
+        <FILE>redash/handlers/base.py</FILE>
+        <FILE>redash/handlers/dashboards.py</FILE>
+        <FILE>redash/handlers/favorites.py</FILE>
+        <FILE>redash/handlers/queries.py</FILE>
+        <FILE>redash/handlers/users.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

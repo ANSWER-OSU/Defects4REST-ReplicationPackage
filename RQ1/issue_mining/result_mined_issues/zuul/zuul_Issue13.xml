@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>13</ISSUENO>
+  <ISSUEURL>https://github.com/Netflix/zuul/issues/13</ISSUEURL>
+  <TITLE>Change the default response code</TITLE>
+  <DESCRIPTION>For requests processed by Zuul, the default response code is 200. Returning a 200 has the potential to mask issues with routing filter changes. Making the default response status a 500 will allow for finding issues earlier. When a request is proxied to a backend, the status code for the proxy action is set by Zuul based on the response from the backend. However if the filter is not a static response filter and the response never enters the route/proxy filter process an empty response is sent out by zuul with a 200. Changes need to be made to prevent it from happening.</DESCRIPTION>
+  <REPONAME>zuul</REPONAME>
+  <TIMEDIFFERENCEDAYS>58</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Issue #12 - Filters have the wrong package name</MESSAGE>
+    <SHA>16575d71bae8f2503ce3a0388d36de3f5f5e0e9e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Issue #13 - Change the default response code</MESSAGE>
+      <SHA>e7859452e26b05ab35bca05b5c8b63fb92842bc2</SHA>
+      <PATCHEDFILES>
+        <FILE>zuul-core/src/main/groovy/com/netflix/zuul/filters/StaticResponseFilter.groovy</FILE>
+        <FILE>zuul-core/src/main/java/com/netflix/zuul/ZuulRunner.java</FILE>
+        <FILE>zuul-core/src/main/java/com/netflix/zuul/context/RequestContext.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

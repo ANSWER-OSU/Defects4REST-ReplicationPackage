@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9012</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/9012</ISSUEURL>
+  <TITLE>Observability and metrics - Save to Redis</TITLE>
+  <DESCRIPTION>TL;DR Store metrics in Redis so they are accessible to the API. Metrics live in various process spaces but we want to display/view them via other process memory spaces. For example, metrics about the task manager come from a dispatcher process that runs task manager code. The dispatcher processes space may be short lived. We want to present or view, in the API, the metrics that occur in the task manager, but the API is a separate process. We need some IPC mechanism to accomplish this. We can use Redis. Another consumer of the metrics data would be a periodic task that outputs the values to a file on disk. This file can be collected by sosreport for offline reconstruction of past performance. Yet another consumer of this data could be a command line tool to aid in debugging performance live. ### Requirements 1. Metric data stored in Redis should be convertible to Prometheus data types: Counter, Gauge, Histogram, Summary https://prometheus.io/docs/concepts/metric_types/ . We should serialize the metrics into JSON (look for a fast JSON serialize/serialize lib) 2. Metrics should be stored efficiently. Maybe metrics about metrics overhead. We can use the Redis hash data type to store key -&gt; value metrics https://redis.io/commands#hash possible organization: Single Hash ``` HMSET awx_metrics task_manager_pending_total 2 HMSET awx_metrics task_manager_running_total 5 HMSET awx_metrics api_jobs_created 100 HMSET awx_metrics api_workflow_jobs_created 5 HMSET awx_metrics callback_receiver_events_processed 10000 ``` Multiple Hashes ``` HMSET awx_metrics_task_manager pending_total 2 HMSET awx_metrics_task_manager running_total 5 HMSET awx_metrics_api jobs_created 100 HMSET awx_metrics_api workflow_jobs_created 5 HMSET awx_metrics_callback_receiver events_processed 10000 ``` #### Notes There will be many cases were many metrics need to be updated for a subsystem per &quot;loop&quot;. It can be costly to perform multiple redis operations per-loop if we are in a critical section (i.e. the callback receiver). We could try to use redis async but this can complicate the code. Instead, we should use redis pipeline feature. You can think of the pipeline feature as batching or a transaction.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>79</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update minikube.md</MESSAGE>
+    <SHA>f8a698d12727692eb96b8fc59d4dfa3f13fc86f5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9461 from fosterseth/feat_metrics_via_redis Add subsystem metrics that propagate through Redis SUMMARY #9019 -- list of metrics and their purpose / description #9012 #9056 #8629 Use Redis to store metrics pertaining to the performance and health of subsystems such as the callback receiver and task manager. It is thread / multiprocess safe and should be fast enough to handle a high volume of data. This data shows up at the /api/v2/metrics endpoint You can filter down nodes using /api/v2/metrics/?subsystemonly=1&amp;node=awx-1 You can also filter down to a specific metric, /api/v2/metrics/?subsystemonly=1&amp;metrics=callback_receiver_events_insert_db_seconds&amp;node=awx-1 ISSUE TYPE Feature Pull Request COMPONENT NAME API AWX VERSION awx: 17.0.1 Reviewed-by: Ryan Petrello &lt;None&gt; Reviewed-by: Chris Meyers &lt;None&gt; Reviewed-by: Seth Foster &lt;None&gt; Reviewed-by: Elijah DeLee &lt;kdelee@redhat.com&gt;</MESSAGE>
+      <SHA>6087d5cb9cac81fa657ada62f8545dc252f0ae19</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/renderers.py</FILE>
+        <FILE>awx/api/templates/api/metrics_view.md</FILE>
+        <FILE>awx/api/views/metrics.py</FILE>
+        <FILE>awx/main/analytics/analytics_tasks.py</FILE>
+        <FILE>awx/main/analytics/subsystem_metrics.py</FILE>
+        <FILE>awx/main/consumers.py</FILE>
+        <FILE>awx/main/dispatch/worker/callback.py</FILE>
+        <FILE>awx/main/queue.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/main/tests/functional/analytics/test_metrics.py</FILE>
+        <FILE>awx/main/wsbroadcast.py</FILE>
+        <FILE>awx/settings/defaults.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

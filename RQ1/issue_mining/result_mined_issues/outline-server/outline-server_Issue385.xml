@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>385</ISSUENO>
+  <ISSUEURL>https://github.com/Jigsaw-Code/outline-server/issues/385</ISSUEURL>
+  <TITLE>Connecting to existing Outline server</TITLE>
+  <DESCRIPTION>I have an existing Outline server, and I want to add it to the Outline Manager on a different machine. I do not have the initial API information. Where do I get that information from, on the server running Outline? I have tried: ``` docker exec -it CONTAINERID cat ~/shadowbox/access.txt ``` But that renders: ``` cat: can't open '/root/shadowbox/access.txt': No such file or directory ``` Contents of `/opt/outine/persisted-state` are: ``` root@shadow:/home/david# docker exec -it CONTAINERID ls -lasFh /opt/outline/persisted-state/ total 32 4 drwxrws--- 4 root root 4.0K Jan 18 15:50 ./ 4 drwxr-xr-x 3 root root 4.0K Jan 17 22:29 ../ 4 drwxrws--- 2 root root 4.0K Jan 17 14:28 outline-ss-server/ 4 drwxrws--- 3 root root 4.0K Jan 17 14:28 prometheus/ 4 -rw-rw---- 1 root root 1.1K Jan 17 14:27 shadowbox-selfsigned.crt 4 -rw------- 1 root root 1.7K Jan 17 14:27 shadowbox-selfsigned.key 4 -rw-rw---- 1 root root 659 Jan 18 15:50 shadowbox_config.json 4 -rw-rw---- 1 root root 160 Jan 17 22:29 shadowbox_server_config.json ``` Contents of `~/shadowbox/` are: ``` root@shadow:/home/david# docker exec -it CONTAINERID ls -lasFh ~/shadowbox total 48 4 drwxr-xr-x 1 root root 4.0K Jan 17 21:26 ./ 4 drwx------ 1 root root 4.0K Jan 17 21:26 ../ 4 drwxr-xr-x 5 root root 4.0K Jan 17 21:26 app/ 4 drwxr-xr-x 1 root root 4.0K Jan 17 21:26 bin/ 4 drwxr-xr-x 87 root root 4.0K Jan 17 21:26 node_modules/ 4 -rw-rw-r-- 1 root root 712 Jan 17 21:24 package.json 4 drwxr-xr-x 2 root root 4.0K Jan 17 21:26 persisted-state/ 20 -rw-rw-r-- 1 root root 17.3K Jan 17 21:26 yarn.lock ``` Replies to similar issue (#277) do not seem to apply any longer. Again, I do not have the API key, where can I get it from on the container running the Outline server?</DESCRIPTION>
+  <REPONAME>outline-server</REPONAME>
+  <TIMEDIFFERENCEDAYS>225</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #628 from Jigsaw-Code/fortuna-sentry Fix sentry</MESSAGE>
+    <SHA>abd8e84c0089ceeefbdd3e79945057156fd1c76d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>doc: add retrieve access key document related to #385</MESSAGE>
+      <SHA>ee6f9d04c265acf7a72eb6b9abb3106cccf5b8ef</SHA>
+      <PATCHEDFILES>
+        <FILE>src/shadowbox/README.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

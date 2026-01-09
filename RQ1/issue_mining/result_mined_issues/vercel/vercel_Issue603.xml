@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>603</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/603</ISSUEURL>
+  <TITLE>now.json configuration file not being honored</TITLE>
+  <DESCRIPTION>According to the [configuration](https://zeit.co/docs/features/configuration#`type`-(string)) page, if I add a `now.json` file with the contents: ```json { &quot;files&quot;: [ &quot;dist&quot; ], &quot;type&quot;: &quot;docker&quot; } ``` and I have both a `package.json` and `Dockerfile`, when i execute `$ now`, it should not ask me which type i'd like to deploy and it should upload the `dist` folder even though `dist` is in my `.gitignore` file. My `now.json` file doesn't seem to be honored as I'm getting asked which type of deployment I want: ```sh $ now &gt; Deploying ~/Sites/mysite under myusername &gt; Two manifests found. Press [n] to deploy or re-run with --flag &gt; [1] package.json --npm &gt; [2] Dockerfile --docker &gt; Aborted ``` and i'm also getting an error that my `dist` folder doesn't exist (which this issue is resolved if i remove `/dist` from my `.gitignore` file): ```sh $ now --docker ... Step 2 : COPY dist /usr/share/nginx/html &gt; lstat dist: no such file or directory ```</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now-node] Move `@types/node` to dependencies (#602) * move @types/node to dependencies * fix types</MESSAGE>
+    <SHA>8c3174be29420add5182562fdae6391b0e1e40cf</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-node] Assign type for `req.headers.cookie` (#603)</MESSAGE>
+      <SHA>168f373641d1f1a24587572f7dbba94a41d73828</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-node/src/helpers.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

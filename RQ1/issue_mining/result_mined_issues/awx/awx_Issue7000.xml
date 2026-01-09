@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7000</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/7000</ISSUEURL>
+  <TITLE>local docker: awx_web ws_broadcast doesn't wait for awx_task migrations</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY When doing a fresh local docker install, awx_web startup doesn't wait for awx_task to finish migrations. This leads to an extreme amount of error messages, a la: ``` awx_postgres | 2020-05-12 15:00:26.224 UTC [88] ERROR: relation &quot;conf_setting&quot; does not exist at character 158 awx_postgres | 2020-05-12 15:00:26.224 UTC [88] STATEMENT: SELECT &quot;conf_setting&quot;.&quot;id&quot;, &quot;conf_setting&quot;.&quot;created&quot;, &quot;conf_setting&quot;.&quot;modified&quot;, &quot;conf_setting&quot;.&quot;key&quot;, &quot;conf_setting&quot;.&quot;value&quot;, &quot;conf_setting&quot;.&quot;user_id&quot; FROM &quot;conf_setting&quot; WHERE (&quot;conf_setting&quot;.&quot;key&quot; = 'OAUTH2_PROVIDER' AND &quot;conf_setting&quot;.&quot;user_id&quot; IS NULL) ORDER BY &quot;conf_setting&quot;.&quot;id&quot; ASC LIMIT 1 awx_web | 2020-05-12 15:00:26,225 ERROR awx.conf.settings Database settings are not available, using defaults. awx_web | Traceback (most recent call last): awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/backends/utils.py&quot;, line 84, in _execute awx_web | return self.cursor.execute(sql, params) awx_web | psycopg2.errors.UndefinedTable: relation &quot;conf_setting&quot; does not exist awx_web | LINE 1: ...f_setting&quot;.&quot;value&quot;, &quot;conf_setting&quot;.&quot;user_id&quot; FROM &quot;conf_sett... awx_web | ^ awx_web | awx_web | awx_web | The above exception was the direct cause of the following exception: awx_web | awx_web | Traceback (most recent call last): awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/conf/settings.py&quot;, line 76, in _ctit_db_wrapper awx_web | yield awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/conf/settings.py&quot;, line 404, in __getattr__ awx_web | value = self._get_local(name) awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/conf/settings.py&quot;, line 347, in _get_local awx_web | setting = Setting.objects.filter(key=name, user__isnull=True).order_by('pk').first() awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/models/query.py&quot;, line 653, in first awx_web | for obj in (self if self.ordered else self.order_by('pk'))[:1]: awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/models/query.py&quot;, line 274, in __iter__ awx_web | self._fetch_all() awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/models/query.py&quot;, line 1242, in _fetch_all awx_web | self._result_cache = list(self._iterable_class(self)) awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/models/query.py&quot;, line 55, in __iter__ awx_web | results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size) awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/models/sql/compiler.py&quot;, line 1140, in execute_sql awx_web | cursor.execute(sql, params) awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/backends/utils.py&quot;, line 67, in execute awx_web | return self._execute_with_wrappers(sql, params, many=False, executor=self._execute) awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/backends/utils.py&quot;, line 76, in _execute_with_wrappers awx_web | return executor(sql, params, many, context) awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/backends/utils.py&quot;, line 84, in _execute awx_web | return self.cursor.execute(sql, params) awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/utils.py&quot;, line 89, in __exit__ awx_web | raise dj_exc_value.with_traceback(traceback) from exc_value awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/backends/utils.py&quot;, line 84, in _execute awx_web | return self.cursor.execute(sql, params) awx_web | django.db.utils.ProgrammingError: relation &quot;conf_setting&quot; does not exist awx_web | LINE 1: ...f_setting&quot;.&quot;value&quot;, &quot;conf_setting&quot;.&quot;user_id&quot; FROM &quot;conf_sett... awx_web | ^ awx_web | awx_web | Traceback (most recent call last): awx_web | File &quot;/usr/bin/awx-manage&quot;, line 8, in &lt;module&gt; awx_web | sys.exit(manage()) awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/__init__.py&quot;, line 152, in manage awx_web | execute_from_command_line(sys.argv) awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/core/management/__init__.py&quot;, line 381, in execute_from_command_line awx_web | utility.execute() awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/core/management/__init__.py&quot;, line 375, in execute awx_web | self.fetch_command(subcommand).run_from_argv(self.argv) awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/core/management/base.py&quot;, line 323, in run_from_argv awx_web | self.execute(*args, **cmd_options) awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/core/management/base.py&quot;, line 364, in execute awx_web | output = self.handle(*args, **options) awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/main/management/commands/run_wsbroadcast.py&quot;, line 128, in handle awx_web | broadcast_websocket_mgr = BroadcastWebsocketManager() awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/main/wsbroadcast.py&quot;, line 154, in __init__ awx_web | self.local_hostname = get_local_host() awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/main/wsbroadcast.py&quot;, line 45, in get_local_host awx_web | return Instance.objects.me().hostname awx_web | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/main/managers.py&quot;, line 116, in me awx_web | raise RuntimeError(&quot;No instance found with the current cluster host id&quot;) awx_web | RuntimeError: No instance found with the current cluster host id awx_web | 2020-05-12 15:00:39,443 INFO exited: wsbroadcast (exit status 1; not expected) ``` until migrations finish. It's just a lot of noise. ##### ENVIRONMENT * AWX version: 11.2 * AWX install method: docker on linux</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>30</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #7071 from JoelKle/fix_host_port AWX installer docker-compose params `host_port` and `host_port_ssl` can also be undefined to prevent exposing a port. Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>bfdd136a46cb8b388672b8365258cafa71b6a4dc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>make the run_wsbroadcast command less noisy at startup this command yells a lot until migrations are finished; let's make it not do that see: https://github.com/ansible/awx/issues/7000</MESSAGE>
+      <SHA>79fa29c99521c5c5a2bab190803d5b16d977cc83</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/conf/settings.py</FILE>
+        <FILE>awx/main/management/commands/run_wsbroadcast.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>make the run_wsbroadcast command less noisy at startup this command yells a lot until migrations are finished; let's make it not do that see: https://github.com/ansible/awx/issues/7000</MESSAGE>
+      <SHA>32570946571bf69313b8f2d19c5586edf527f1ef</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/conf/settings.py</FILE>
+        <FILE>awx/main/management/commands/run_wsbroadcast.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>make the run_wsbroadcast command less noisy at startup this command yells a lot until migrations are finished; let's make it not do that see: https://github.com/ansible/awx/issues/7000</MESSAGE>
+      <SHA>da0333e25c243509b5c542a69ee02b9ba9bfee50</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/conf/settings.py</FILE>
+        <FILE>awx/main/management/commands/run_wsbroadcast.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>make the run_wsbroadcast command less noisy at startup this command yells a lot until migrations are finished; let's make it not do that see: https://github.com/ansible/awx/issues/7000</MESSAGE>
+      <SHA>8375d323f02be31df9dc69c4d8c3ee0a160b9d75</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/conf/settings.py</FILE>
+        <FILE>awx/main/management/commands/run_wsbroadcast.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>make the run_wsbroadcast command less noisy at startup this command yells a lot until migrations are finished; let's make it not do that see: https://github.com/ansible/awx/issues/7000</MESSAGE>
+      <SHA>fbe679e6515c71d17cc44f52e938c2257ecc660a</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/conf/settings.py</FILE>
+        <FILE>awx/main/management/commands/run_wsbroadcast.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

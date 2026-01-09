@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6324</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6324</ISSUEURL>
+  <TITLE>tower_role not idempotent</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY Granting a user a role with the AWX collection twice gives changed twice ##### ENVIRONMENT * AWX version: 9.3.0 ##### STEPS TO REPRODUCE ```yaml - name: Add Joe to workflow execute role tower_role: user: joe role: execute workflow: test-role-workflow state: present register: result - assert: that: - &quot;result is changed&quot; - name: Add Joe from the workflow execute role, no-op tower_role: user: joe role: execute workflow: test-role-workflow state: present register: result - assert: that: - &quot;result is not changed&quot; ``` ##### EXPECTED RESULTS passes ##### ACTUAL RESULTS fails, both tasks report changed ##### ADDITIONAL INFORMATION this is being refactored anyway, test again then https://github.com/ansible/awx/pull/6304</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #6323 from marshmalien/6322-CodeMirror-lastYaml [4.3] [Backport] Match codemirror mode (YAML/JSON) with the value on initialization</MESSAGE>
+    <SHA>c201b3187f38ad56450cea19cc6cc28e99c32ee6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #6324 from gamuniz/avoid_reaper_race [4.3] [Backport] Fix race with heartbeat and reaper logic (#13713)</MESSAGE>
+      <SHA>2f8b27231125c23b849da3af2d928d07bb851b84</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/dispatch/reaper.py</FILE>
+        <FILE>awx/main/tasks/system.py</FILE>
+        <FILE>awx/main/tests/functional/test_dispatch.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4607</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/4607</ISSUEURL>
+  <TITLE>Custom gRPC ports not honored by master.peers and weed shell envvars</TITLE>
+  <DESCRIPTION>**Describe the bug** We have elected to use [custom gRPC ports](https://github.com/seaweedfs/seaweedfs/wiki/FAQ#grpc-ports) for each of `master`, `volume`, and `filer` instances. So far, there are two use-cases where weed unable to interpret the port specifications outlined in the FAQ: #### A) List of master peers `weed master -peers 10.0.0.1:9333.9334,10.0.0.2:9333,9334,10.0.0.3:9333,9334` In this case, the master will for example try to connect to `http://10.0.0.1:9333.9334` but then fail. Possibly, after splitting on commas, the code directly interprets each string as `HOST:PORT` , without checking if it's `HOST:PORT.gRPC_PORT`. #### B) weed shell `sudo docker run --rm -it -e SHELL_FILER=10.0.0.1:9330.9331 -e SHELL_MASTER=10.0.0.1:9333.9334 chrislusf/seaweedfs:3.52 shell fs.verify -v` In this case, the shell will report that it tried and failed to connect to `http://10.0.0.1:9333.9334` ** Apologies, I'd like to paste in the error output but right now when I try to reproduce, shell responds by printing an endless series of dots and I don't know what it's doing and why... **System Setup** `version 30GB 3.52 fb4b61036 linux amd64`</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix copying level db files during commi fix https://github.com/seaweedfs/seaweedfs/issues/4635</MESSAGE>
+    <SHA>b2d384b6408f78db05e16252dc8a4733d5897e89</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>proxy to master uses http address fix https://github.com/seaweedfs/seaweedfs/issues/4607</MESSAGE>
+      <SHA>20c67dc6ea30d669e0a2ccdfb2ea456199d0ce66</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/master_server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>proxy to master uses http address fix https://github.com/seaweedfs/seaweedfs/issues/4607</MESSAGE>
+      <SHA>a315490f7d4d2aa8b5226ea4029cb112edb88137</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/master_server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>21350</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/21350</ISSUEURL>
+  <TITLE>Ghost Admin Profile Panel requesting 'null' URL for cover image</TITLE>
+  <DESCRIPTION>### Issue Summary The Ghost Admin dashboard is throwing a series of 301 redirects (in lieu of not finding the specified URL) when opening the [Profile] panel. Upon further inspection, the DOM shows the string &quot;null&quot; being escaped and printed inside `background-image: url()`. ### Steps to Reproduce 1. Start with fresh install 2. Open the Ghost admin 3. Click on the user-panel in the bottom-left corner of the screen 4. Click &quot;Your Profile&quot; ### Ghost Version 5.96.1 ### Node.js Version 18.20.4 ### How did you install Ghost? Docker ghost:5-alpine ### Database type MySQL 8 ### Browser &amp; OS version Firefox 131.0.2 ### Relevant log / error output **DOM** `&lt;div class=&quot;flex min-h-[40vmin] flex-wrap items-end justify-between bg-cover bg-center&quot; style=&quot;background-image: url(&amp;quot;null&amp;quot;);&quot;&gt; ... &lt;/div&gt;` **WEB DEVELOPER TOOLS &gt; NETWORK TAB** GET request to `https://[mydomain.foo]/ghost/null`, 301 redirect to `/ghost/null/`, 301 redirect to `/ghost/#/null/` ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Improved es translation for no search results</MESSAGE>
+    <SHA>66b1cb0db206e3b5e4698a4333916d883f7f9973</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Handled missing user cover image closes https://github.com/TryGhost/Ghost/issues/21350 Without this we would attempt to render load the url `null`</MESSAGE>
+      <SHA>96e75ac0e358ac609299c60599ff70a7c84add4d</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/admin-x-settings/src/components/settings/general/UserDetailModal.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Handled missing user cover image closes https://github.com/TryGhost/Ghost/issues/21350 Without this we would attempt to render load the url `null`</MESSAGE>
+      <SHA>89e9db300ef8bbe34cea205eb50cd13b78ff1ca7</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/admin-x-settings/src/components/settings/general/UserDetailModal.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

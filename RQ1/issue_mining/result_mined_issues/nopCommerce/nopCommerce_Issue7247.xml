@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7247</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7247</ISSUEURL>
+  <TITLE>Discounts caching issue for discounts with start-end datetime, discount not getting applied on defined time</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.5+ Steps to reproduce the problem: Create a discount (applied to category/manufactured) with start date - &lt;today&gt; 3pm, end date - &lt;today&gt; 4pm, when customers hit the category/product page at between 3pm to 4pm they did not see any discount, discount did not apply even after updating products to clear price cache, also same issue will happen if price cache is disabled Problem is discounts are cached with start-end datetime filter, I think need to cache all discounts or 'showHidden' parameter should true by default, refer below code snippet ![image](https://github.com/nopSolutions/nopCommerce/assets/165811203/b6bb221e-91c1-447c-9db2-f52003e27195)</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7218 Fixed responsive issue with displaying addresses on the order details page</MESSAGE>
+    <SHA>5eba8a145bf8e6d31625f6dfb372263809dc2592</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7247 Fixed discounts caching issue</MESSAGE>
+      <SHA>934b13ab0209b08f97b5d1f677925ce308f0f3a6</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Discounts/DiscountService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Discounts/NopDiscountDefaults.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

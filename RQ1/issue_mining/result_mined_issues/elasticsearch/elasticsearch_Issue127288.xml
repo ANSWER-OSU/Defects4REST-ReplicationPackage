@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127288</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/127288</ISSUEURL>
+  <TITLE>[CI] HdfsRepositoryTests class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7992 / openjdk22_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/xhczisgbmi3io) - [elasticsearch-periodic #7992 / openjdk17_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/otvkpxv2vrexo) - [elasticsearch-periodic #7992 / openjdk17_checkpart1_java-fips-matrix](https://gradle-enterprise.elastic.co/s/dj7mxkxqfieoi) - [elasticsearch-periodic #7992 / openjdk21_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/i42ravi237ryu) - [elasticsearch-periodic #7992 / graalvm-ce17_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/s75c7vb5slm5g) - [elasticsearch-periodic #7986 / openjdk17_checkpart1_java-fips-matrix](https://gradle-enterprise.elastic.co/s/t6c5pkw4iewks) - [elasticsearch-periodic #7986 / openjdk21_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/hvomdulrnm4uy) - [elasticsearch-periodic #7986 / openjdk17_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/zquxsgfhauewq) - [elasticsearch-periodic #7986 / graalvm-ce17_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/3e4syit7czji6) - [elasticsearch-periodic #7980 / openjdk17_checkpart1_java-fips-matrix](https://gradle-enterprise.elastic.co/s/satw4yzurgfis) **Reproduction Line:** ``` undefined ``` **Applicable branches:** 8.19 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.repositories.hdfs.HdfsRepositoryTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.repositories.hdfs.HdfsRepositoryTests),title:'Test',type:optionsListControl))))) **Failure Message:** ``` undefined ``` **Issue Reasons:** - [8.19] 5 consecutive failures in class org.elasticsearch.repositories.hdfs.HdfsRepositoryTests - [8.19] 17 consecutive failures in step openjdk17_checkpart1_java-matrix - [8.19] 18 consecutive failures in step openjdk17_checkpart1_java-fips-matrix - [8.19] 19 consecutive failures in step openjdk21_checkpart1_java-matrix - [8.19] 18 consecutive failures in step graalvm-ce17_checkpart1_java-matrix - [8.19] 88 failures in class org.elasticsearch.repositories.hdfs.HdfsRepositoryTests (14.6% fail rate in 602 executions) - [8.19] 16 failures in step openjdk22_checkpart1_java-matrix (94.1% fail rate in 17 executions) - [8.19] 17 failures in step openjdk17_checkpart1_java-matrix (100.0% fail rate in 17 executions) - [8.19] 18 failures in step openjdk17_checkpart1_java-fips-matrix (100.0% fail rate in 18 executions) - [8.19] 19 failures in step openjdk21_checkpart1_java-matrix (100.0% fail rate in 19 executions) - [8.19] 18 failures in step graalvm-ce17_checkpart1_java-matrix (100.0% fail rate in 18 executions) - [8.19] 19 failures in pipeline elasticsearch-periodic (100.0% fail rate in 19 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Always log data node failures (#127420) (#127511) Log search exceptions as they occur on the data node no matter the value of error_trace. (cherry picked from commit 053895854d3fa778a7eb066a6b44f63c002dba03) # Conflicts: # server/src/main/java/org/elasticsearch/search/SearchService.java # server/src/test/java/org/elasticsearch/search/SearchServiceTests.java</MESSAGE>
+    <SHA>8a2f509604bd0ac03d61fcbf879dee7b9e421381</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Adjust ForkJoinPool prefix in HdfsClientThreadLeakFilter Changes &quot;ForkJoinPool-&quot; to &quot;ForkJoinPool.&quot; in the Thread getName().startsWith() checks in HdfsClientThreadLeakFilter. This resolves the &quot;There are still zombie threads that couldn't be terminated&quot; errors in the Hdfs IT tests. Closes #127290 Closes #127289 Closes #127288 Closes #127287</MESSAGE>
+      <SHA>c6070a6b9e639eaa34647db9d7bd3f2d85e1a984</SHA>
+      <PATCHEDFILES>
+        <FILE>test/fixtures/hdfs-fixture/src/main/java/org/elasticsearch/test/fixtures/hdfs/HdfsClientThreadLeakFilter.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Adjust ForkJoinPool prefix in HdfsClientThreadLeakFilter Changes &quot;ForkJoinPool-&quot; to &quot;ForkJoinPool.&quot; in the Thread getName().startsWith() checks in HdfsClientThreadLeakFilter. This resolves the &quot;There are still zombie threads that couldn't be terminated&quot; errors in the Hdfs IT tests. Closes #127290 Closes #127289 Closes #127288 Closes #127287</MESSAGE>
+      <SHA>6baebf5320274ac766c1e2f1783ab4bd6067d53a</SHA>
+      <PATCHEDFILES>
+        <FILE>test/fixtures/hdfs-fixture/src/main/java/org/elasticsearch/test/fixtures/hdfs/HdfsClientThreadLeakFilter.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Adjust `ForkJoinPool` prefix in `HdfsClientThreadLeakFilter` (#127534) Adds the ForkJoinPool.commonPool-worker- prefix to the Thread getName().startsWith() checks in HdfsClientThreadLeakFilter. This resolves the &quot;There are still zombie threads that couldn't be terminated&quot; errors in the Hdfs IT tests. Closes #127290 Closes #127289 Closes #127288 Closes #127287</MESSAGE>
+      <SHA>4408e38bc61dd16e43c0c98f0bf6c86ce61d37c1</SHA>
+      <PATCHEDFILES>
+        <FILE>test/fixtures/hdfs-fixture/src/main/java/org/elasticsearch/test/fixtures/hdfs/HdfsClientThreadLeakFilter.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Adjust `ForkJoinPool` prefix in `HdfsClientThreadLeakFilter` (#127534) Adds the ForkJoinPool.commonPool-worker- prefix to the Thread getName().startsWith() checks in HdfsClientThreadLeakFilter. This resolves the &quot;There are still zombie threads that couldn't be terminated&quot; errors in the Hdfs IT tests. Closes #127290 Closes #127289 Closes #127288 Closes #127287 (cherry picked from commit 4408e38bc61dd16e43c0c98f0bf6c86ce61d37c1)</MESSAGE>
+      <SHA>229d105850d7a5964285472f2d5ba3258eba1a5c</SHA>
+      <PATCHEDFILES>
+        <FILE>test/fixtures/hdfs-fixture/src/main/java/org/elasticsearch/test/fixtures/hdfs/HdfsClientThreadLeakFilter.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Adjust `ForkJoinPool` prefix in `HdfsClientThreadLeakFilter` (#127534) Adds the ForkJoinPool.commonPool-worker- prefix to the Thread getName().startsWith() checks in HdfsClientThreadLeakFilter. This resolves the &quot;There are still zombie threads that couldn't be terminated&quot; errors in the Hdfs IT tests. Closes #127290 Closes #127289 Closes #127288 Closes #127287 (cherry picked from commit 4408e38bc61dd16e43c0c98f0bf6c86ce61d37c1)</MESSAGE>
+      <SHA>c7955bf271d95b0839733719ad676993e753a134</SHA>
+      <PATCHEDFILES>
+        <FILE>test/fixtures/hdfs-fixture/src/main/java/org/elasticsearch/test/fixtures/hdfs/HdfsClientThreadLeakFilter.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

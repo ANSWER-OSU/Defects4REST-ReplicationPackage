@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7540</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/7540</ISSUEURL>
+  <TITLE>UserService.FindByUsernameOrEmailAsync could find a user other than the one intended</TITLE>
+  <DESCRIPTION>[UserService.FindByUsernameOrEmailAsync](https://github.com/OrchardCMS/OrchardCore/blob/7a2e676b44dd1c9070c9b8495e6a6c07aa99c941/src/OrchardCore/OrchardCore.Users.Core/Services/UserService.cs#L213) first tries to find a user by username, then by email address. However, what should happen in this scenario, where the email address of one user is the username of another? I was able to create these users in a fresh site using the blog theme. ![image](https://user-images.githubusercontent.com/68876423/98409712-566ed800-2041-11eb-8fea-e353036f7d1d.png) It seems like `UserService.FindByUsernameOrEmailAsync` will always prefer the user with the name over the user with the email. At a minimum, I know the reset password feature uses this method, so the reset email could be sent to the wrong user.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update Build status badge</MESSAGE>
+    <SHA>58523d487edfd02b7f65bb1027602fed7614322f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Only use email in ResetPasword Fixes #7540</MESSAGE>
+      <SHA>3fa511fcc8700c9849edc672d8e328b3e20cff0f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.Users.Core/Services/UserService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

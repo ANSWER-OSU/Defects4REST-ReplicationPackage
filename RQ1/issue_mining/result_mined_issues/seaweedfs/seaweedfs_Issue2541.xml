@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2541</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/2541</ISSUEURL>
+  <TITLE>Download from s3 is interrupted if client downloads data at low speed</TITLE>
+  <DESCRIPTION>Hello, If filler and s3 are running on the same host, then the download of the file may be interrupted if the download speed of the client is very slow. (limit-rate 100K) My Test via docker I brought up the seaweed via docker-compose, I create a file and upload it, and ran curl for downloading, and it crashed again. Server: SeaweedFS Filer 30GB 2.83 Error curl: (18) transfer closed with 396369981 bytes remaining to read check.sh ``` #!/bin/bash DOCKER_HOST=&quot;127.0.0.1&quot; FILER_URL=&quot;http://${DOCKER_HOST}:8888&quot; S3_URL=&quot;http://${DOCKER_HOST}:8333&quot; BUCKET=test FILE_NAME=$(date &quot;+%Y-%m-%d_%H-%M-%S&quot;).bin DOWNLOAD_URL=${S3_URL}/${BUCKET}/${FILE_NAME} ERRORS=errors.log function prepareFile() { dd if=/dev/zero of=${FILE_NAME} bs=100M count=1 curl -v \ -F &quot;file=@${FILE_NAME}&quot; \ &quot;${FILER_URL}/buckets/${BUCKET}/&quot; rm &quot;${FILE_NAME}&quot; } function dl() { curl -v $DOWNLOAD_URL \ --limit-rate 100K \ --http1.0 \ --insecure \ --output /dev/null \ -H &quot;Connection: close&quot; \ -w &quot;%{time_total},%{size_download},%{speed_download}\n&quot; \ || echo &quot;Exit code for request $1 is $?&quot; &gt;&gt; $ERRORS } echo &quot;Failed requests:&quot; &gt; $ERRORS prepareFile dl 1 &amp; dl 2 &amp; dl 3 &amp; dl 4 &amp; dl 5 &amp; dl 6 &amp; dl 7 &amp; dl 8 &amp; dl 9 &amp; dl 10 &amp; wait ``` docker-compose.yml ``` version: '2' services: master: image: chrislusf/seaweedfs # use a remote image ports: - 9333:9333 - 19333:19333 command: &quot;master -ip=master&quot; volume: image: chrislusf/seaweedfs # use a remote image ports: - 8080:8080 - 18080:18080 - 9325:9325 command: 'volume -mserver=&quot;master:9333&quot; -port=8080 -metricsPort=9325' depends_on: - master filer: image: chrislusf/seaweedfs # use a remote image ports: - 8888:8888 - 18888:18888 - 9326:9326 command: 'filer -master=&quot;master:9333&quot; -metricsPort=9326' tty: true stdin_open: true depends_on: - master - volume s3: image: chrislusf/seaweedfs # use a remote image ports: - 8333:8333 - 9327:9327 command: 's3 -filer=&quot;filer:8888&quot; -metricsPort=9327' depends_on: - master - volume - filer ``` @chrislusf Please try to do similar steps on your own. Do you download a file using curl? _Originally posted by @AlekseyFicht in https://github.com/chrislusf/seaweedfs/issues/2538#issuecomment-1002071323_</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>upgrade fuse version</MESSAGE>
+    <SHA>d351541757fa94f1b3f1f9ac3a3fca6221533434</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>s3: increase timeout limit https://github.com/chrislusf/seaweedfs/issues/2541</MESSAGE>
+      <SHA>5788bf2270c2158798d1ff48c5e7145e8899e1a3</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/s3.go</FILE>
+        <FILE>weed/s3api/s3api_object_handlers.go</FILE>
+        <FILE>weed/util/http_util.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>dynamically adjust connection timeout better fix for https://github.com/chrislusf/seaweedfs/issues/2541</MESSAGE>
+      <SHA>fb434318e36ac8e78ab304bfd5421f110c10bdf1</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/s3.go</FILE>
+        <FILE>weed/util/net_timeout.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

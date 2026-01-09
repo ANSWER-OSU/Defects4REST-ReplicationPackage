@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1027</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/1027</ISSUEURL>
+  <TITLE>No files copied to image during drone-cli &quot;local build&quot; under Windows</TITLE>
+  <DESCRIPTION>I liked the feature of using &quot;drone build &lt;dir-to-repo&gt;&quot; to perform a local build of my git repo before pushing to the standard CI server. Unfortunately the Windows build from http://downloads.drone.io/drone-cli/drone_windows_amd64.tar.gz doesn't work in this manner - the expected directory only had an oddly named &quot;varcachedronesrc&lt;dir-base&gt;&quot; directory in it. After some hacking I've managed to fix this by: 1) Forcing windows file separators back to unix-style ones where intended for use inside the created docker container/Dockerfile. (filepath.join was converting to windows style in https://github.com/drone/drone/blob/master/cli/build.go#L164 and https://github.com/drone/drone/blob/master/shared/build/build.go#L440). Used `strings.Replace(str, &quot;\\&quot;, &quot;/&quot;, -1)` for lack of a better idea. 2) Switching from the tar-up-and-POST to build an image in ImageService.build (https://github.com/drone/drone/blob/master/shared/build/docker/image.go#L98) to `os.exec` out to a docker 1.6.0 binary. I don't know what part of the archive is failing but couldn't update to a newer docker repo than 1.5.0 in the `make docker` command without running into https://github.com/docker/docker/issues/10922.. Do you want a PR for this, as the full fix is a bit hacky with the shell out, and I suspect your 0.4.0 branch is quite well on already?</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>158</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix: spacing in timestamp and commit range (#1028)</MESSAGE>
+    <SHA>b655edcda7be2caad3ce610bc296b8122a44ea8a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Make force merge button red + Fix broken layout when PR desc has no-wrap-able line(s) (#1027)</MESSAGE>
+      <SHA>4af8912e6a69036db91ae1e54a64e40231135f1e</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/pages/PullRequest/Conversation/Conversation.tsx</FILE>
+        <FILE>web/src/pages/PullRequest/Conversation/PullRequestActionsBox/PullRequestActionsBox.module.scss</FILE>
+        <FILE>web/src/pages/PullRequest/Conversation/PullRequestActionsBox/PullRequestActionsBox.module.scss.d.ts</FILE>
+        <FILE>web/src/pages/PullRequest/Conversation/PullRequestActionsBox/PullRequestActionsBox.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

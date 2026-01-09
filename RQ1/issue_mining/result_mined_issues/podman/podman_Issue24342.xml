@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24342</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/24342</ISSUEURL>
+  <TITLE>Spurious duplicate test error in pasta system tests</TITLE>
+  <DESCRIPTION>While trying to debug #24147, I encountered a different flake in the tests. When using very high parallel counts (e.g. `-j 100`), some of the tests sometimes fail with `Duplicate test!`. This turns out to be a bug in the duplicate test logic internal to the pasta tests. It's writing the parameters of each test case to a file, then checking for it with `grep -F`. However there are a few cases where one test have an id that's a substring of another test id. When the test order is effectively randomized by high parallel counts, that can cause a spurious failure here.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #24286 from mtrmac/compare-image-configs Update system tests to handle zstd:chunked images</MESSAGE>
+    <SHA>410f7965f787431706c9c1e845c91bb5ac0f098f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>test/system: Fix spurious &quot;duplicate tests&quot; failures in pasta tests As an internal consistency check, the pasta tests check for duplicated test cases by grepping a log file for a parsed test id. However it uses grep -F for the purpose which will not perform an exact match, but a substring match. There are some tests which generate an id which is a substring of the id for other tests, so when test order is randomised, this can cause a spurious failure. This can happen in practice when running the test in parallel with very high concurrency (e.g. -j 100). Fix this by adding the -x option to grep, which only checks for full line exact matches. Fixes: https://github.com/containers/podman/issues/24342 Signed-off-by: David Gibson &lt;david@gibson.dropbear.id.au&gt;</MESSAGE>
+      <SHA>5b131b827389fcd0d7db9faee3f6c9419946a5b6</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/505-networking-pasta.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

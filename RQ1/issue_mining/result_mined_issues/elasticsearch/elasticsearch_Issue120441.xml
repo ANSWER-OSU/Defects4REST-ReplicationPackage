@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120441</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120441</ISSUEURL>
+  <TITLE>[CI] CcsCommonYamlTestSuiteIT test {p0=search.vectors/41_knn_search_bbq_hnsw/Vector rescoring has same scoring as exact search for kNN section} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5920 / openjdk17_checkpart1_java-fips-matrix](https://gradle-enterprise.elastic.co/s/e6ha4caw7bde2) - [elasticsearch-intake #16017 / part1](https://gradle-enterprise.elastic.co/s/vkvwm552ej5pw) **Reproduction Line:** ``` ./gradlew &quot;:qa:ccs-common-rest:yamlRestTest&quot; --tests &quot;org.elasticsearch.test.rest.yaml.CcsCommonYamlTestSuiteIT&quot; -Dtests.method=&quot;test {p0=search.vectors/41_knn_search_bbq_hnsw/Vector rescoring has same scoring as exact search for kNN section}&quot; -Dtests.seed=E06C38975F3A4BFB -Dtests.locale=en -Dtests.timezone=Pacific/Wallis -Druntime.java=17 -Dtests.fips.enabled=true ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.test.rest.yaml.CcsCommonYamlTestSuiteIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Bp0%3Dsearch.vectors%2F41_knn_search_bbq_hnsw%2FVector%20rescoring%20has%20same%20scoring%20as%20exact%20search%20for%20kNN%20section%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Failure at [search.vectors/41_knn_search_bbq_hnsw:146]: Expected: &lt;3&gt; but: was &lt;2&gt; ``` **Issue Reasons:** - [8.x] 2 failures in test test {p0=search.vectors/41_knn_search_bbq_hnsw/Vector rescoring has same scoring as exact search for kNN section} (1.4% fail rate in 139 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>30</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>backport http-stream-content-size-handler (#120417)</MESSAGE>
+    <SHA>ddd0ffa8a14d27839a2497d6595c46c84cf70099</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.test.rest.yaml.CcsCommonYamlTestSuiteIT test {p0=search.vectors/41_knn_search_bbq_hnsw/Vector rescoring has same scoring as exact search for kNN section} #120441</MESSAGE>
+      <SHA>5bb5d748a41ca51f1daba0a95a7fc21edee219de</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

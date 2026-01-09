@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2835</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2835</ISSUEURL>
+  <TITLE>Pipeline Cron schedule skipped if HEAD commit contains [ci skip]</TITLE>
+  <DESCRIPTION>**Summary** A pipeline Cron schedule for a branch is not executed if the HEAD commit of that branch contains [ci skip] in its commit message. **Steps to reproduce** Create a nightly pipeline schedule for the master branch Make a commit on master with [ci skip] in the commit message, and push that commit to GitLab **Current behavior?** The nightly schedule will not be executed. **Expected behavior?** The nightly schedule should be executed. The commit message instructs GitLab to not create a pipeline for the push, but the nightly schedule should still be executed. Similarly, Drone ignore CI SKIP for tag events. **Consider the following situation:** - Have a nightly pipeline schedule for the master branch. As part of your CI process, you check used dependencies for security issues (e.g. using nsp). The idea is that you will get a &quot;failed pipeline&quot; email when a security issue is found in one of your javascript libraries. - Make a small fix to a readme file and add [ci skip] to the commit message - Don't do any commits for a few days - No pipeline schedules for the master branch will be running, and hence you won't be notified on security issues anymore One could argue that we do not want to run scheduled pipelines for [ci skip] commits, but then we have to run a scheduled pipeline for the last commit of that branch that is not [ci skip]. ---- _[Example taken from S. Schweizer as it clearly explains the issue applicable to Drone CI](https://gitlab.com/gitlab-org/gitlab-foss/issues/34618)_</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>enable POST to logout [CI SKIP]</MESSAGE>
+    <SHA>ab81e1870592ddcb4d1a80f4332c766ba1852987</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>closes #2835 and #2781</MESSAGE>
+      <SHA>b950e28dd3c6f097a4503f6f9b90b805b728fc6a</SHA>
+      <PATCHEDFILES>
+        <FILE>CHANGELOG.md</FILE>
+        <FILE>handler/api/api.go</FILE>
+        <FILE>handler/api/repos/crons/exec.go</FILE>
+        <FILE>handler/api/repos/crons/exec_test.go</FILE>
+        <FILE>handler/api/repos/crons/none.go</FILE>
+        <FILE>trigger/skip.go</FILE>
+        <FILE>trigger/skip_test.go</FILE>
+        <FILE>trigger/trigger.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: [CDE-397]: set space path in findAll method for auto-stopping (#2835) * fix: [CDE-397]: set space path in findAll method.</MESSAGE>
+      <SHA>cc7320e9afbdf484573ff462dce6b0af0735475c</SHA>
+      <PATCHEDFILES>
+        <FILE>app/services/gitspace/find.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

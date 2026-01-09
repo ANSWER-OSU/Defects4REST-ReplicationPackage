@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7946</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/7946</ISSUEURL>
+  <TITLE>DSpace 6.x REST API /registries/schema endpoint incorrectly handles fields without qualifiers</TITLE>
+  <DESCRIPTION>**Describe the bug** The [DSpace 6.x REST API](https://wiki.lyrasis.org/display/DSDOC6x/REST+API) has an endpoint that allows you to get information about metadata fields in the registry. DSpace does not handle metadata fields without qualifiers properly, for example `dc.title` or `dc.contributor`, and returns HTTP 500 to the user. It logs the following to `dspace.log`: ```console ERROR org.dspace.rest.MetadataRegistryResource @ Field dc.title. not found ``` These fields obviously exist, and they are visible in the `dc` schema registry: https://demo.dspace.org/rest/registries/schema/dc ~~This probably affects DSpace 4 and 5 as well, since the REST API is the same code.~~ The registries endpoint was added in DSpace 6. **To Reproduce** Make a request to the `/rest/registries/schema/` endpoint for a metadata field without a qualifier, for example: - https://demo.dspace.org/rest/registries/schema/dc/metadata-fields/title - https://demo.dspace.org/rest/registries/schema/dc/metadata-fields/contributor **Expected behavior** An HTTP 200 response with information about the metadata field, for example `dc.contributor.advisor`: - https://demo.dspace.org/rest/registries/schema/dc/metadata-fields/contributor/advisor</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>280</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #2339 from atmire/DS-4157 DS-4157: Save and Exit on workflow edit metadata</MESSAGE>
+    <SHA>b53f351e03613cc67420293be5e908df73ea764c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>dspace-api: check for null AND empty qualifier in findByElement() The legacy DSpace 6 REST API passes an empty string to findByElement() for elements with no qualifier when requesting the following path: /registries/schema/{schema}/metadata-fields/{element} ... yet MetadataFieldDAOImpl's findByElement only checks for a null qualifier, which is of course not the same thing. There may be other places in the code that set qualifier to null, but for this case we need to check whether it is both not null AND not empty. Closes: https://github.com/DSpace/DSpace/issues/7946</MESSAGE>
+      <SHA>836346734380f483806a27df37f3d331edb0b3ab</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/content/dao/impl/MetadataFieldDAOImpl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>dspace-api: check for null AND empty qualifier in findByElement() The legacy DSpace 6 REST API passes an empty string to findByElement() for elements with no qualifier when requesting the following path: /registries/schema/{schema}/metadata-fields/{element} ... yet MetadataFieldDAOImpl's findByElement only checks for a null qualifier, which is of course not the same thing. There may be other places in the code that set qualifier to null, but for this case we need to check whether it is both not null AND not empty. Closes: https://github.com/DSpace/DSpace/issues/7946</MESSAGE>
+      <SHA>c5129eb1d2608ff61f673dc4377b8938eee9fd01</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/content/dao/impl/MetadataFieldDAOImpl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

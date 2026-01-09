@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120115</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120115</ISSUEURL>
+  <TITLE>[CI] S3RepositoryThirdPartyTests class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #15821 / part1](https://gradle-enterprise.elastic.co/s/gz4wdshsripfe) - [elasticsearch-periodic #5860 / openjdk17_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/4dm5r2twvyoda) - [elasticsearch-periodic #5860 / single-processor-node-tests](https://gradle-enterprise.elastic.co/s/eyyq2jnbybsiu) - [elasticsearch-periodic #5855 / openjdk21_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/z4wp3ic44dof4) - [elasticsearch-periodic-platform-support #5844 / ubuntu-1804_platform-support-unix](https://gradle-enterprise.elastic.co/s/etuk6p3nwt3rm) - [elasticsearch-periodic-platform-support #5839 / ubuntu-2204_platform-support-unix](https://gradle-enterprise.elastic.co/s/mk4tw5hyjupjc) - [elasticsearch-periodic #5850 / openjdk17_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/762exilfdgcrs) - [elasticsearch-periodic-platform-support #5839 / rhel-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/dkco6fcy7bekw) **Reproduction Line:** ``` undefined ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.repositories.s3.S3RepositoryThirdPartyTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.repositories.s3.S3RepositoryThirdPartyTests),title:'Test',type:optionsListControl))))) **Failure Message:** ``` undefined ``` **Issue Reasons:** - [8.x] 8 failures in class org.elasticsearch.repositories.s3.S3RepositoryThirdPartyTests (6.7% fail rate in 120 executions) - [8.x] 2 failures in step openjdk17_checkpart1_java-matrix (66.7% fail rate in 3 executions) - [8.x] 3 failures in pipeline elasticsearch-periodic (100.0% fail rate in 3 executions) - [8.x] 2 failures in pipeline elasticsearch-periodic-platform-support (66.7% fail rate in 3 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Minimize granted and denied fields in FLS (#119453) Instead of only determinizing, we can minimize the intermediate automata during FLS automaton construction. This brings the codebase back to its original form, before the Lucene 10 upgrade. Follow up to: https://github.com/elastic/elasticsearch/pull/119309</MESSAGE>
+    <SHA>2fe55dbc3ec83cc280ac2f791bfca1d9a8ee7d6d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.repositories.s3.S3RepositoryThirdPartyTests org.elasticsearch.repositories.s3.S3RepositoryThirdPartyTests #120115</MESSAGE>
+      <SHA>a7d831e3009cc2fc2170e73861577e5fd18a4dd7</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.repositories.s3.S3RepositoryThirdPartyTests org.elasticsearch.repositories.s3.S3RepositoryThirdPartyTests #120115</MESSAGE>
+      <SHA>fb302cf16c0842e6c8cdc0aad1e3c69371d21a95</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.repositories.s3.S3RepositoryThirdPartyTests org.elasticsearch.repositories.s3.S3RepositoryThirdPartyTests #120115</MESSAGE>
+      <SHA>56ebf5d5b9c1ad8674e4d2bac6b722a147bd9ff1</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Test] Fix testcontainers wait for Minio This PR changes the wait strategy from the default HostPortWaitStrategy to LogMessageWaitStrategy to accommodate the change in the latest Minio docker image. The default HostPortWaitStrategy has two issues: 1. It assumes certain Linux commands such as grep and nc available inside the container. This is not the case for the latest version of Minio docker image which does not have either of the commands. 2. The first item on their own is not fatal since the check also falls back on just reading the listening port as a file with `/bin/bash -c '&lt;/dev/tcp/localhost/9000'`. However, the command stirng is build using the system's current locale which may not be Engilsh and can have different symbols for print integers like 9000. This completely breaks the command and in turn leads to total failure of the wait check. There is no easy fix for the above issues nor do I think it is necessary to fix. So the PR simply switches the wait strategy to be log message based. Resolves: #118548 Resolves: #120115 Resolves: #120117 Resolves: #120101</MESSAGE>
+      <SHA>efca1c6b35c8b73ee2936749679190bd749a81db</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>test/fixtures/minio-fixture/src/main/java/org/elasticsearch/test/fixtures/minio/MinioTestContainer.java</FILE>
+        <FILE>x-pack/plugin/snapshot-repo-test-kit/qa/minio/build.gradle</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.repositories.s3.S3RepositoryThirdPartyTests org.elasticsearch.repositories.s3.S3RepositoryThirdPartyTests #120115</MESSAGE>
+      <SHA>2c2c6209e8e62760c64f4c677b517aba5c6e192c</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

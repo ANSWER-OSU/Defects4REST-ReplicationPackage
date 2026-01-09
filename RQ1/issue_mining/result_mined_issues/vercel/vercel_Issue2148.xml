@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2148</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/2148</ISSUEURL>
+  <TITLE>`now dev` is not respecting methods of routes</TITLE>
+  <DESCRIPTION>## Issue When sending a `GET` request to `localhost:3000/api/users/14` it returns with the response from the `DELETE` method. It does not appear that `now dev` is respecting methods on the route. Similarly, if a `POST` request is made to `localhost:3000/api/status`, it is accepted, even though it is not a valid method. ``` { &quot;version&quot;: 2, &quot;name&quot;: &quot;now-dev-issue&quot;, &quot;builds&quot;: [ { &quot;src&quot;: &quot;www/package.json&quot;, &quot;use&quot;: &quot;@now/static-build&quot; }, { &quot;src&quot;: &quot;api/*/*.js&quot;, &quot;use&quot;: &quot;@now/node@canary&quot; } ], &quot;routes&quot;: [ { &quot;src&quot;: &quot;/api/status&quot;, &quot;methods&quot;: [&quot;GET&quot;], &quot;dest&quot;: &quot;/api/status/list.js&quot; }, { &quot;src&quot;: &quot;/api/users&quot;, &quot;methods&quot;: [&quot;POST&quot;], &quot;dest&quot;: &quot;/api/users/create.js&quot; }, { &quot;src&quot;: &quot;/api/users/(?&lt;id&gt;[^/]+)&quot;, &quot;methods&quot;: [&quot;DELETE&quot;], &quot;dest&quot;: &quot;/api/users/delete.js?id=$id&quot; }, { &quot;src&quot;: &quot;/api/users/(?&lt;id&gt;[^/]+)&quot;, &quot;methods&quot;: [&quot;GET&quot;], &quot;dest&quot;: &quot;/api/users/get.js?id=$id&quot; }, { &quot;src&quot;: &quot;/api/users/(?&lt;id&gt;[^/]+)&quot;, &quot;methods&quot;: [&quot;PUT&quot;], &quot;dest&quot;: &quot;/api/users/update.js?id=$id&quot; }, { &quot;src&quot;: &quot;/(.*)&quot;, &quot;dest&quot;: &quot;/www/$1&quot; } ] } ``` ## Sample Branch https://github.com/khrome83/now-dev-issue</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>21</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>15.0.11-canary.2</MESSAGE>
+    <SHA>2ab71798de5b908fa11b97175e10897ccce5650c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now dev] Implement `methods` in `routes` config Fixes #2148.</MESSAGE>
+      <SHA>eacd9594f7123e906471b94bf4d2e08dc642b982</SHA>
+      <PATCHEDFILES>
+        <FILE>src/commands/dev/lib/dev-router.ts</FILE>
+        <FILE>src/commands/dev/lib/dev-server.ts</FILE>
+        <FILE>test/dev-router.unit.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now dev] Implement `methods` in `routes` config (#2306) Fixes #2148.</MESSAGE>
+      <SHA>cf51fdb026e39759129c7b680af05e3fb378d95c</SHA>
+      <PATCHEDFILES>
+        <FILE>src/commands/dev/lib/dev-router.ts</FILE>
+        <FILE>src/commands/dev/lib/dev-server.ts</FILE>
+        <FILE>test/dev-router.unit.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now dev] Implement `methods` in `routes` config (#2306) Fixes #2148.</MESSAGE>
+      <SHA>3398e6da2702686007f2797ca62ede2483b740a3</SHA>
+      <PATCHEDFILES>
+        <FILE>src/commands/dev/lib/dev-router.ts</FILE>
+        <FILE>src/commands/dev/lib/dev-server.ts</FILE>
+        <FILE>test/dev-router.unit.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

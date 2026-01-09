@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15505</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/15505</ISSUEURL>
+  <TITLE>Starting Ghost with missing active theme breaks Design Settings screen</TITLE>
+  <DESCRIPTION>### Issue Summary If the selected active theme does not exist in the filesystem the Design Settings screen errors and is unusable. The problem occurs because Ghost's API is returning an unexpected state - when requesting a list of themes none of them has the active: true flag. The preferred solution is to cater for this state in Admin somehow e.g. have a blank-slate state for the design settings screen indicating that no theme is active and point user to the change-theme screen ### Steps to Reproduce 1. Activate a custom theme 2. Stop Ghost and delete or rename the custom theme directory 3. Start Ghost 4. Try to access the design settings screen ![image](https://user-images.githubusercontent.com/101513/193050450-fdd1b30c-f923-49a8-99a6-eedb5c5a96e6.png) ### Ghost Version 5.16 ### Node.js Version 16 ### How did you install Ghost? ghost install ### Database type MySQL 8 ### Browser &amp; OS version _No response_ ### Relevant log / error output ```shell &lt;img width=&quot;630&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/101513/193117369-f2947482-993a-440e-91c8-6f5cc11a5c37.png&quot;&gt; ``` ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>30</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixed formatting issues refs 15505 - fixed semicolons and indentations</MESSAGE>
+    <SHA>7c4cd0117863c6a1448c4d530f9965baee4b6152</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>:bug: Move promise into a higher-level route closes #15505 - moved the findAll promise that loads the theme to a higher level route - changed findAll to peekAll because we can guarantee that the theme is loaded now</MESSAGE>
+      <SHA>b45fd2034daa222398d88cae639b26e911b12f17</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/app/routes/settings/design.js</FILE>
+        <FILE>ghost/admin/app/routes/settings/design/index.js</FILE>
+        <FILE>ghost/admin/app/routes/settings/design/no-theme.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

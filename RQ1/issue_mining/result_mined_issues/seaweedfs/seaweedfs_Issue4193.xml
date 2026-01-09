@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4193</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/4193</ISSUEURL>
+  <TITLE>About the problem that the doEcEncode execution throws panic: runtime error: index out of range [0] with length 0</TITLE>
+  <DESCRIPTION>**Describe the bug** A clear and concise description of what the bug is. After running for a period of time, the weed master will stop running. Looking at the log, we found that an exception of panic: runtime error: index out of range [0] with length 0 was thrown.As shown below: ![image](https://user-images.githubusercontent.com/45417436/217765915-d2a460db-b82e-4cbe-aff5-6be31efdccde.png) Print source code to view errors: func doEcEncode(commandEnv *CommandEnv, collection string, vid needle.VolumeId, parallelCopy bool) (err error) { // find volume location locations, found := commandEnv.MasterClient.GetLocations(uint32(vid)) fmt.Printf(&quot;11111111111111111111111 found ec %d shards on %v\n&quot;, vid, locations) fmt.Println() fmt.Printf(&quot;22222222222 found %v &quot;, found) fmt.Println() fmt.Printf(&quot;333333333 location[0]= %v\n&quot;, locations[0]) if !found { fmt.Printf(&quot;55555555 volume %d not found&quot;, vid) fmt.Println() return fmt.Errorf(&quot;volume %d not found&quot;, vid) } // fmt.Printf(&quot;found ec %d shards on %v\n&quot;, vid, locations) // mark the volume as readonly err = markVolumeReplicasWritable(commandEnv.option.GrpcDialOption, vid, locations, false) if err != nil { return fmt.Errorf(&quot;mark volume %d as readonly on %s: %v&quot;, vid, locations[0].Url, err) } // generate ec shards err = generateEcShards(commandEnv.option.GrpcDialOption, vid, collection, locations[0].ServerAddress()) if err != nil { return fmt.Errorf(&quot;generate ec shards for volume %d on %s: %v&quot;, vid, locations[0].Url, err) } // balance the ec shards to current cluster err = spreadEcShards(commandEnv, vid, collection, locations, parallelCopy) if err != nil { return fmt.Errorf(&quot;spread ec shards for volume %d from %s: %v&quot;, vid, locations[0].Url, err) } return nil } When the result locations=[], found=false, the panic: runtime error: index out of range [0] with length 0 exception is thrown, and then the master stops working.As shown below: ![image](https://user-images.githubusercontent.com/45417436/217767453-08526949-c9f2-4600-9edd-575022ffcd11.png) and &quot;volume %d not found&quot; this error has never been returned, so I infer that when locations=[], find=false, whether we can consider len(locations) in if !found &amp;&amp; len(locations) &gt; 0 {} is removed,To fix the problem. **System Setup** - OS version centos7 - output of `weed version` seaweedfs 3.15</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>update goexif version</MESSAGE>
+    <SHA>532a352121250d9cb34199b7ef8cbbd45cf2ad3b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix bug when vid not found fix https://github.com/seaweedfs/seaweedfs/issues/4193</MESSAGE>
+      <SHA>31bb91583f1523c635d691de2c7941a35ac26fd6</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/shell/command_ec_encode.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

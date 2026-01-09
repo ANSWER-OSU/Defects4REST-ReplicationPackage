@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8148</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/8148</ISSUEURL>
+  <TITLE>DSpaceApiExceptionControllerAdvice logs nothing of interest</TITLE>
+  <DESCRIPTION>**Describe the bug** Method `sendErrorResponse` is also responsible for logging the exception, but except in a few specific cases it logs only the HTTP response code, without mentioning the actual exception or location. In the few specific cases we get a stack trace. As stated in comments, we probably don't want that level of detail for most exceptions, but I think that we *do* want to know what happened and where -- why are we sending this non-success response? **To Reproduce** Steps to reproduce the behavior: 1. Trigger a 404 response. 2. See the log. All you'll find is &quot;org.dspace.app.rest.exception.DSpaceApiExceptionControllerAdvice @ An exception has occurred (status:404)&quot;. **Expected behavior** When logging an exception, we should always log the actual exception and its location.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>34</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #8022 from astrowq/dev/new-date-format fix an error when harvesting arXiv OAI-PMH</MESSAGE>
+    <SHA>750426988bc6ff87d8ab7c42ebef31144b692597</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>First cut at better exception logging. #8148</MESSAGE>
+      <SHA>ef0adf5f9b968b29065171f8bb16861d32d08238</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/exception/DSpaceApiExceptionControllerAdvice.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Defend against null exception. #8148</MESSAGE>
+      <SHA>dde3bad90687ce2184e2930aee39b29fe5c3cb30</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/exception/DSpaceApiExceptionControllerAdvice.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Make the list of ERROR HTTP status codes configurable. #8148</MESSAGE>
+      <SHA>ab9133fb7a422fa0030743d27ac91599d77a8371</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/exception/DSpaceApiExceptionControllerAdvice.java</FILE>
+        <FILE>dspace-server-webapp/src/main/resources/spring/spring-dspace-core-services.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Move configuration from Spring to 'dspace.cfg'. #8148</MESSAGE>
+      <SHA>8ca0a1f2f7ab31ca2a3a2929079c6952e9e6af31</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/exception/DSpaceApiExceptionControllerAdvice.java</FILE>
+        <FILE>dspace-server-webapp/src/main/resources/spring/spring-dspace-core-services.xml</FILE>
+        <FILE>dspace/config/dspace.cfg</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Document that more than one HTTP status can be configured for tracing. #8148</MESSAGE>
+      <SHA>73b927d663431cb560d55c539f5ec8c887d83162</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace/config/dspace.cfg</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

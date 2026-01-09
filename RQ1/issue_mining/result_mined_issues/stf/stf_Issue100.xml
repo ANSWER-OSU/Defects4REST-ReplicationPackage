@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>100</ISSUENO>
+  <ISSUEURL>https://github.com/openstf/stf/issues/100</ISSUEURL>
+  <TITLE>Device unit subscriber dies after 20 or 30 minutes if device is kept idle</TITLE>
+  <DESCRIPTION>I have a working setup of STF in production.Currently, I am having a problem which is bugging me for couple of days and want to know if somebody else is having same. The problem is, if I keep my device idle for 20 or 30 minutes, then I get totally blank screen after click the use button on device. Below are the screen shots. STF Device list view, as it can be seen device are usable ![screen shot 2015-10-07 at 13 25 59](https://cloud.githubusercontent.com/assets/7875161/10329270/edac688c-6cf9-11e5-99cc-66746517460f.png) This is the view I get when I click use button for some (expired) device. ![screen shot 2015-10-07 at 13 46 30](https://cloud.githubusercontent.com/assets/7875161/10329267/e74c88e6-6cf9-11e5-9b6d-d94498fc7d30.png) I did troubleshooting for this and found out that device subscriber is not receiving message if it is kept idle for some minutes. So basically &quot;group.invite&quot; or GroupMessage from app side is not being received by device unit. I confirmed this by writing a simple zeromq subscriber and subscribed it with dev-side publisher. Script looks like this ``` nodejs var zmq = require('zmq'); var util = require('util') var sub = zmq.socket('sub'); // subscribing to device channel sub.subscribe(&quot;QsoRFrXSROZTpgwiqmTxlpDoelg=&quot;) sub.on(&quot;message&quot;, function(channel, data) { console.log('got message on channel ' + channel + &quot; data is : &quot; + data.toString() + &quot;\n&quot;) }) sub.connect(&quot;tcp://DEVSIDE_IP:7250&quot;) ``` If I press the &quot;Use&quot; button now, then I can see subscriber in the script is receiving messages. Then I kept (expired) device idle for around 30 minutes and not surprisingly subscriber in the script also stopped receiving messages. So basically, subscriber is dying if kept idle. I did research about zeromq's subscriber dying problem and found that it may because of various reason such as TCP timeout or network problem between machines. I checked TCP timeout in my provider machine, it is 2hrs so most probably this is not the problem. One more additional thing, I am using mac-os for my provider instead of linux machine. I know STF does not support mac-osx for production but currently I am using my available resources. All the other units are running in CentOS 7.0 I want to know, if somebody has faced subscriber dying problem or can suggest me reason why it is dying or not receiving messages? I will be glad if someone can also suggest work around for this problem, currently I am thinking of sending heartbeats to all the device subscriber to keep them alive. Thanks,</DESCRIPTION>
+  <REPONAME>stf</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update dependencies. Fix npm 3 flattened paths for our webpack middleware.</MESSAGE>
+    <SHA>b95ec55e3e8e8eb5abde4b77403e7787d57e74c8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #104 from vbanthia/Issue-100_Add_socketopt_to_keep_tcp_connection_alive Set TCP_KEEPALIVE socket option to all sockets to fix #100</MESSAGE>
+      <SHA>86824ea1e232aa1da0a30c257d968ba1b0a9e686</SHA>
+      <PATCHEDFILES>
+        <FILE>lib/units/device/support/push.js</FILE>
+        <FILE>lib/units/device/support/sub.js</FILE>
+        <FILE>lib/units/log/rethinkdb.js</FILE>
+        <FILE>lib/units/notify/hipchat.js</FILE>
+        <FILE>lib/units/processor/index.js</FILE>
+        <FILE>lib/units/provider/index.js</FILE>
+        <FILE>lib/units/reaper/index.js</FILE>
+        <FILE>lib/units/triproxy/index.js</FILE>
+        <FILE>lib/units/websocket/index.js</FILE>
+        <FILE>lib/util/zmqutil.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

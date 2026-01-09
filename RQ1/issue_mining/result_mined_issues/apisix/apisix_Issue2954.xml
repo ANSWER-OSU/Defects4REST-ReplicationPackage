@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2954</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2954</ISSUEURL>
+  <TITLE>ctx.var.upstream_addr may be separated by commas.</TITLE>
+  <DESCRIPTION>### Issue description See code in `apisix/balancer/ewma.lua`: ``` local function _ewma_after_balance(ctx, before_retry) if before_retry then -- don't count tries which fail to complete return nil end local response_time = tonumber(ctx.var.upstream_response_time) or 0 local connect_time = tonumber(ctx.var.upstream_connect_time) or 0 local rtt = connect_time + response_time local upstream = ctx.var.upstream_addr if not upstream then return nil, &quot;no upstream addr found&quot; end return get_or_update_ewma(upstream, rtt, true) end ``` Both var `upstream_response_time` and `upstream_addr` may be separated by commas, it will cause unexpected result. And if openresty is not patched with `lua-var-nginx-module`, these times are all 0.</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>16</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: copy the files in conf/cert when installing (#3059) fix #3057</MESSAGE>
+    <SHA>f476d2c3dc68439406a9531fc8b4a2a2d50c1333</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: upgrade lua-resty-ngxvar to solve the upstream_xxx_time problem Fix #2954 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>6606d1843a3365bc8b65852375fd2d14fb78c7a4</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/balancer/ewma.lua</FILE>
+        <FILE>apisix/plugins/limit-conn.lua</FILE>
+        <FILE>apisix/plugins/prometheus/exporter.lua</FILE>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+        <FILE>t/plugin/limit-conn2.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: upgrade lua-resty-ngxvar to solve the upstream_xxx_time problem Fix #2954 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>0d6d1d9d24bea040c3964712f1e0c681cac19095</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/balancer/ewma.lua</FILE>
+        <FILE>apisix/plugins/limit-conn.lua</FILE>
+        <FILE>apisix/plugins/prometheus/exporter.lua</FILE>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+        <FILE>t/plugin/limit-conn2.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: upgrade lua-resty-ngxvar to solve the upstream_xxx_time problem Fix #2954 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>573d0d060e660c132243fafc4bb59a9051cf3ff9</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/balancer/ewma.lua</FILE>
+        <FILE>apisix/plugins/limit-conn.lua</FILE>
+        <FILE>apisix/plugins/prometheus/exporter.lua</FILE>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+        <FILE>t/plugin/limit-conn2.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: upgrade lua-resty-ngxvar to solve the upstream_xxx_time problem Fix #2954 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>9f186283029e82d64ca63809a5cb621f9e9912c1</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/balancer/ewma.lua</FILE>
+        <FILE>apisix/plugins/limit-conn.lua</FILE>
+        <FILE>apisix/plugins/prometheus/exporter.lua</FILE>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+        <FILE>t/plugin/limit-conn2.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: upgrade lua-resty-ngxvar to solve the upstream_xxx_time problem (#3065) Fix #2954 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>31b49ad0e1f3e3d32ee572d69a610586f1fde111</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/balancer/ewma.lua</FILE>
+        <FILE>apisix/plugins/limit-conn.lua</FILE>
+        <FILE>apisix/plugins/prometheus/exporter.lua</FILE>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+        <FILE>t/plugin/limit-conn2.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

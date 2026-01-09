@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3195</ISSUENO>
+  <ISSUEURL>https://github.com/makeplane/plane/issues/3195</ISSUEURL>
+  <TITLE>[bug]: Websocket connection to the proxy server failed while set up with docker compose file</TITLE>
+  <DESCRIPTION>### Is there an existing issue for this? - [X] I have searched the existing issues ### Current behavior There is a 404 error while requesting to the `/_next/webpack-hmr` endpoint with a WebSocket connection. But it perfectly works while requesting an HTTP connection. ![websocket_connection_failed](https://github.com/makeplane/plane/assets/15053047/3c9bbabf-901c-450d-b010-ff72f8b4d5ce) ### Steps to reproduce Following with the [Local setup steps](https://github.com/makeplane/plane?tab=readme-ov-file#steps), the error occurred. ### Browser Google Chrome ### Version Local ### Possible Solution Since the proxy server is running with Nginx, it is recommended to add the relevant proxy header to use Web Socket. The relevant documentation is shared below. Reference: [Nginx WebSocket Proxying documentation](https://nginx.org/en/docs/http/websocket.html)</DESCRIPTION>
+  <REPONAME>plane</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>chore: cycle and module sidebar mutation fix (#3174) * chore: issue action cycle sidebar mutation fix * chore: issue action module sidebar mutation fix</MESSAGE>
+    <SHA>7bff8d2ec57ac6883346cbef759664afc73dc00c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix websocket connection issue in docker makeplane/plane#3195</MESSAGE>
+      <SHA>8cbfa18e85ea1b9aa367045680fa41a602588d2c</SHA>
+      <PATCHEDFILES>
+        <FILE>nginx/nginx.conf.template</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix websocket connection issue in docker makeplane/plane#3195 (#3196) * fix websocket connection issue in docker makeplane/plane#3195 * fix websocket connection issue for local env with removing from the prod nginx conf template makeplane/plane#319</MESSAGE>
+      <SHA>f200acc1e8ad598e694d96c5e3bfa7aff69fe39a</SHA>
+      <PATCHEDFILES>
+        <FILE>nginx/nginx.conf.dev</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Revert &quot;fix websocket connection issue in docker makeplane/plane#3195 (#3196)&quot; This reverts commit f200acc1e8ad598e694d96c5e3bfa7aff69fe39a.</MESSAGE>
+      <SHA>aa0400b18f2740ff8f35ea70c54059fde533bf44</SHA>
+      <PATCHEDFILES>
+        <FILE>nginx/nginx.conf.dev</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix env substitute issue in websocket docker setup (#3296) * fix websocket connection issue in docker makeplane/plane#3195 * fix websocket connection issue for local env with removing from the prod nginx conf template makeplane/plane#319 * fix env substitution issue of proxy_set_header makeplane/plane#3196 * review fixes --------- Co-authored-by: Manish Gupta &lt;manish@mgupta.me&gt;</MESSAGE>
+      <SHA>a70f551d1791ad9d9eadd2f7fc03eac2a521db4c</SHA>
+      <PATCHEDFILES>
+        <FILE>docker-compose-local.yml</FILE>
+        <FILE>nginx/env.sh</FILE>
+        <FILE>nginx/nginx.conf.dev</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix websocket connection issue in docker makeplane/plane#3195 (#3196) * fix websocket connection issue in docker makeplane/plane#3195 * fix websocket connection issue for local env with removing from the prod nginx conf template makeplane/plane#319</MESSAGE>
+      <SHA>2b5c29306172c35da82e0286552626c34aaa82be</SHA>
+      <PATCHEDFILES>
+        <FILE>nginx/nginx.conf.dev</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix env substitute issue in websocket docker setup (#3296) * fix websocket connection issue in docker makeplane/plane#3195 * fix websocket connection issue for local env with removing from the prod nginx conf template makeplane/plane#319 * fix env substitution issue of proxy_set_header makeplane/plane#3196 * review fixes --------- Co-authored-by: Manish Gupta &lt;manish@mgupta.me&gt;</MESSAGE>
+      <SHA>fff6ee6284e491df70170610fd1d6e46dcce5959</SHA>
+      <PATCHEDFILES>
+        <FILE>docker-compose-local.yml</FILE>
+        <FILE>nginx/env.sh</FILE>
+        <FILE>nginx/nginx.conf.dev</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix env substitute issue in websocket docker setup (#3296) * fix websocket connection issue in docker makeplane/plane#3195 * fix websocket connection issue for local env with removing from the prod nginx conf template makeplane/plane#319 * fix env substitution issue of proxy_set_header makeplane/plane#3196 * review fixes --------- Co-authored-by: Manish Gupta &lt;manish@mgupta.me&gt;</MESSAGE>
+      <SHA>38580c394081a5426e8bc62f1a1730d32c064ee1</SHA>
+      <PATCHEDFILES>
+        <FILE>docker-compose-local.yml</FILE>
+        <FILE>nginx/env.sh</FILE>
+        <FILE>nginx/nginx.conf.dev</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

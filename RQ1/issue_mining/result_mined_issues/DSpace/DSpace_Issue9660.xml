@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9660</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/9660</ISSUEURL>
+  <TITLE>submitter facet unnecessary for archived items</TITLE>
+  <DESCRIPTION>**Is your feature request related to a problem? Please describe.** During indexing the item for the search the submitter information is saved in some own facet https://github.com/DSpace/DSpace/blob/075e51d4d8ad675f029a1d6af6ea249e04b5781d/dspace-api/src/main/java/org/dspace/discovery/indexobject/ItemIndexFactoryImpl.java#L158 Knowing administrative and curative staff of some repository allows you to track certain people (e.g. by their surname). e.g. https://tore.tuhh.de/search?spc.page=1&amp;query=submitter_keyword:Oliver*&amp;configuration=site ` (DSpace-Cris) https://depositonce.tu-berlin.de/search?spc.page=1&amp;query=submitter_keyword:Maximilian* (DSpace7) https://sandbox.dspace.org/search?spc.page=1&amp;query=submitter_keyword:%22Demo%20Site%20Administrator%22 (Dspace8 Sandbox) Query: `submitter_keyword:&quot;Demo Site Administrator&quot;` ![Screenshot 2024-06-20 at 11-32-06 DSpace Repository Search](https://github.com/DSpace/DSpace/assets/33422716/bf5a171e-d2d1-4fe8-9d25-65624eb1ad5f) **Describe the solution you'd like** The submitter information is currently never used after the information is archived. Contents in metadatafield `dc.description.provenance` (containing the submitter) is not exposed and not indexed by default. We would like some additional configuration to disable the submitter facet for archived items and also some optional configuration setting to set some placeholder value instead name (e.g. John, Doe). `discovery.index.item.submitter.enabled` (boolean, default false) ~`discovery.index.item.submitter.name` (string, default null)~ **Describe alternatives or workarounds you've considered** The `submitter_authority` might be needed if you define some own discovery configuration which displays archived items for some eperson in mydspace. Thus we would prefer the configuration possibility to enable repository developers to still use submitter_authority. **Additional context** The submitter information is also indexed for inprogressItems where it is needed for the submitter Facet on workflow search configurations. The feature does not impact this facet https://github.com/DSpace/DSpace/blob/075e51d4d8ad675f029a1d6af6ea249e04b5781d/dspace-api/src/main/java/org/dspace/discovery/indexobject/InprogressSubmissionIndexFactoryImpl.java#L64 We can offer some solution for this issue. Update: After consolidation we removed the previous functionality to set some placeholder value for the value which has no value for the ui (won't be shown in the UI in the current discovery) and no value for the product.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>207</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9691 from tdonohue/fix_signposting_test Fix random test failures in LinksetRestControllerIT and ManageGroupsFeatureIT</MESSAGE>
+    <SHA>c897b1f6dd43276683cf1fdb3fcd936b95bc3176</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>option to exclude the submitter being indexed to solr in archived items https://github.com/DSpace/DSpace/issues/9660</MESSAGE>
+      <SHA>7d83ce0be3c8de584fae5beadc57efdb9e1cf5ef</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/discovery/indexobject/ItemIndexFactoryImpl.java</FILE>
+        <FILE>dspace-api/src/test/java/org/dspace/discovery/DiscoveryIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>option to exclude the submitter being indexed to solr in archived items https://github.com/DSpace/DSpace/issues/9660</MESSAGE>
+      <SHA>78dd1b170a88e03623ec30b7fe83903ea7743373</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace/config/modules/discovery.cfg</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>option to exclude the submitter being indexed to solr in archived items https://github.com/DSpace/DSpace/issues/9660</MESSAGE>
+      <SHA>01884e9ca46e948262b52762a12efd2d3af83b98</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/discovery/indexobject/ItemIndexFactoryImpl.java</FILE>
+        <FILE>dspace-api/src/test/java/org/dspace/discovery/DiscoveryIT.java</FILE>
+        <FILE>dspace/config/modules/discovery.cfg</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>option to exclude the submitter being indexed to solr in archived items https://github.com/DSpace/DSpace/issues/9660</MESSAGE>
+      <SHA>4d8bf182f67f46725494c83b0051e32b7ef21369</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/discovery/indexobject/ItemIndexFactoryImpl.java</FILE>
+        <FILE>dspace-api/src/test/java/org/dspace/discovery/DiscoveryIT.java</FILE>
+        <FILE>dspace/config/modules/discovery.cfg</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>option to exclude the submitter being indexed to solr in archived items https://github.com/DSpace/DSpace/issues/9660</MESSAGE>
+      <SHA>8b59e4c81db3b09f8fff225dcf8dbdcb7dc49e41</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/discovery/indexobject/ItemIndexFactoryImpl.java</FILE>
+        <FILE>dspace-api/src/test/java/org/dspace/discovery/DiscoveryIT.java</FILE>
+        <FILE>dspace/config/modules/discovery.cfg</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>option to exclude the submitter being indexed to solr in archived items https://github.com/DSpace/DSpace/issues/9660</MESSAGE>
+      <SHA>997e37e10026ddd7b6c1b64344d3dd4aa01e5d74</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/discovery/indexobject/ItemIndexFactoryImpl.java</FILE>
+        <FILE>dspace-api/src/test/java/org/dspace/discovery/DiscoveryIT.java</FILE>
+        <FILE>dspace/config/modules/discovery.cfg</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>option to exclude the submitter being indexed to solr in archived items https://github.com/DSpace/DSpace/issues/9660</MESSAGE>
+      <SHA>6f62bec04fa27656882b33387ca68464ed7ee85a</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/discovery/indexobject/ItemIndexFactoryImpl.java</FILE>
+        <FILE>dspace-api/src/test/java/org/dspace/discovery/DiscoveryIT.java</FILE>
+        <FILE>dspace/config/modules/discovery.cfg</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>option to exclude the submitter being indexed to solr in archived items https://github.com/DSpace/DSpace/issues/9660</MESSAGE>
+      <SHA>3ec467912dcdd009e3d3278cbfd7c1db98a26b7c</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/discovery/indexobject/ItemIndexFactoryImpl.java</FILE>
+        <FILE>dspace-api/src/test/java/org/dspace/discovery/DiscoveryIT.java</FILE>
+        <FILE>dspace/config/modules/discovery.cfg</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>option to exclude the submitter being indexed to solr in archived items https://github.com/DSpace/DSpace/issues/9660</MESSAGE>
+      <SHA>8ed2cdcff7bbefb14e6e48fbc2731f2c9da67e98</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/discovery/indexobject/ItemIndexFactoryImpl.java</FILE>
+        <FILE>dspace-api/src/test/java/org/dspace/discovery/DiscoveryIT.java</FILE>
+        <FILE>dspace/config/modules/discovery.cfg</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

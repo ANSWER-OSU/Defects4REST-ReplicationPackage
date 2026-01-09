@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14202</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/14202</ISSUEURL>
+  <TITLE>Do not specify placement position in ContentPartDriver</TITLE>
+  <DESCRIPTION>### Describe the bug Content elements or fields can be attached to content type. Their UI placement should follow the subsequent guidelines. So if first step defines a position, we use that position and look no further. 1. DisplayDriver 2. A placement defined on the UI using the `OrchardCore.Placements` 3. `placements.json` file 4. Default Position in the content type 5. Otherwise, it should fall back to the physical placement of the object in the content definition. For this logic to work as expected, by default `ContentPartDisplayDriver` or `ContentFieldDisplayDriver` should define a placement location by default, but not placement position. This way, we can allow to change the order using Step 2-5 as needed. In the following drivers, we seems to be defining a placement position which prevents the user from able to change that position at all. 1. FacebookPluginPartDisplayDriver 2. BagPartDisplayDriver 3. FlowPartDisplayDriver 4. HtmlBodyPartDisplayDriver 5. LiquidPartDisplayDriver 7. MarkdownBodyPartDisplayDriver 8. TaxonomyPartDisplayDriver 9. TitlePartDisplayDriver For example, today if you use `HtmlBodyPart`, there is no easy way to change it's placement because the `HtmlBodyPartDisplayDriver` defines a position `5`.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add @dministro as a contributor</MESSAGE>
+    <SHA>c339ba2a864f0fea56e9e2c8738b0f5e234ea277</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Do not specify placement position in content field/part display drivers. Fix #14202</MESSAGE>
+      <SHA>1bed3ea8b3986a49ab90b907000ffeeb5418a6a8</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.ContentLocalization/Drivers/LocalizationPartDisplayDriver.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Facebook/Widgets/Drivers/FacebookPluginPartDisplayDriver.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Flows/Drivers/BagPartDisplayDriver.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Flows/Drivers/FlowPartDisplayDriver.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Html/Drivers/HtmlBodyPartDisplayDriver.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Liquid/Drivers/LiquidPartDisplayDriver.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Markdown/Drivers/MarkdownBodyPartDisplayDriver.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Taxonomies/Drivers/TaxonomyPartDisplayDriver.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Title/Drivers/TitlePartDisplayDriver.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

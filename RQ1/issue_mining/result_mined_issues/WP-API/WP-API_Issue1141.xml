@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1141</ISSUENO>
+  <ISSUEURL>https://github.com/WP-API/WP-API/issues/1141</ISSUEURL>
+  <TITLE>Only return 201 on creation</TITLE>
+  <DESCRIPTION>Updating posts [returns a 201 right now](https://github.com/WP-API/WP-API/blob/e24264fa965c3f012f9c43a272768d27120b01f6/lib/endpoints/class-wp-json-posts-controller.php#L283), which is incorrect. The point of a `201 Created` is that it requires a `Location` header as well, to indicate where the new resource lives. This is because you `POST /wp/posts`, but end up with a new resource at `/wp/posts/42` instead. We need to remove the Location and 201 from updating.</DESCRIPTION>
+  <REPONAME>WP-API</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #1137 from WP-API/2-0-alpha Change `develop` to 2.0-alpha.</MESSAGE>
+    <SHA>e24264fa965c3f012f9c43a272768d27120b01f6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Failing test case for #1141</MESSAGE>
+      <SHA>62c621ff76e1b4e303200ac27422182eda3d2f2e</SHA>
+      <PATCHEDFILES>
+        <FILE>tests/class-wp-test-json-post-type-controller-testcase.php</FILE>
+        <FILE>tests/test-json-posts-controller.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

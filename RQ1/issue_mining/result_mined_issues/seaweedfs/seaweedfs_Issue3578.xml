@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3578</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3578</ISSUEURL>
+  <TITLE>[filer] Data chunk that could not be uploaded to replicas volume is also deleted.</TITLE>
+  <DESCRIPTION>**Describe the bug** When uploading chunks to the volume server, an error occurs in replication, the chunk is not removed from the volume locally https://github.com/seaweedfs/seaweedfs/pull/2740/files **System Setup** ``` 3.24 ``` **Expected behavior** Data chunk that could not be uploaded to the volume is also deleted.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>63</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>filer: rocksdb store report not found correctly fix https://github.com/seaweedfs/seaweedfs/discussions/3555</MESSAGE>
+    <SHA>a112cbe44c95d4685aefa43c27279e5aafb4b04c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Removing chunks on failed to write to replicas https://github.com/seaweedfs/seaweedfs/issues/3578</MESSAGE>
+      <SHA>e1c769d32b8190efd7bd4b1b65d2cdf0d48cda7a</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/filer_server_handlers_write_upload.go</FILE>
+        <FILE>weed/topology/store_replicate.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Removing chunks on failed to write to replicas (#3591) * Removing chunks on failed to write to replicas https://github.com/seaweedfs/seaweedfs/issues/3578 * put with in the util.Retry * just purge on any errors</MESSAGE>
+      <SHA>f8ef25099c63a5b0603f781e5d514e0c07bbf325</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/filer_server_handlers_write_upload.go</FILE>
+        <FILE>weed/topology/store_replicate.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

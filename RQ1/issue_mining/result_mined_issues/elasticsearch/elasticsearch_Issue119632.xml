@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>119632</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/119632</ISSUEURL>
+  <TITLE>[CI] FullClusterRestartSearchableSnapshotIndexCompatibilityIT testSearchableSnapshotUpgrade {p0=9.0.0} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #15292 / part1](https://gradle-enterprise.elastic.co/s/glclfflqreafg) - [elasticsearch-periodic-platform-support #5721 / rhel-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/eauwfrf2wwlze) **Reproduction Line:** ``` ./gradlew &quot;:qa:lucene-index-compatibility:javaRestTest&quot; --tests &quot;org.elasticsearch.lucene.FullClusterRestartSearchableSnapshotIndexCompatibilityIT&quot; -Dtests.method=&quot;testSearchableSnapshotUpgrade {p0=8.18.0}&quot; -Dtests.seed=50782A34DAA4B322 -Dtests.locale=zh-Hant -Dtests.timezone=America/Ensenada -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.lucene.FullClusterRestartSearchableSnapshotIndexCompatibilityIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testSearchableSnapshotUpgrade%20%7Bp0%3D9.0.0%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.client.ResponseException: method [PUT], host [http://[::1]:43855], URI [index-mounted-testsearchablesnapshotupgrade/_mappings], status line [HTTP/1.1 400 Bad Request] {&quot;error&quot;:{&quot;root_cause&quot;:[{&quot;type&quot;:&quot;illegal_argument_exception&quot;,&quot;reason&quot;:&quot;Limit of total fields [1] has been exceeded&quot;}],&quot;type&quot;:&quot;illegal_argument_exception&quot;,&quot;reason&quot;:&quot;Limit of total fields [1] has been exceeded&quot;},&quot;status&quot;:400} ``` **Issue Reasons:** - [main] 2 failures in test testSearchableSnapshotUpgrade {p0=9.0.0} (1.4% fail rate in 141 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.lucene.FullClusterRestartSearchableSnapshotIndexCompatibilityIT testSearchableSnapshotUpgrade {p0=8.18.0} #119631</MESSAGE>
+    <SHA>21d234318d62ab1e48d5afe789397360e130d3af</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.lucene.FullClusterRestartSearchableSnapshotIndexCompatibilityIT testSearchableSnapshotUpgrade {p0=9.0.0} #119632</MESSAGE>
+      <SHA>8ce07dc37e2478c64d4f8f541ef587dbb5ce9120</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Test] Fix `index.mapping.total_fields.limit` random update It's stupid to pick a low value for `index.mapping.total_fields.limit` when at the same time you also add random runtime fields =&gt; pick a value large enough to avoid failing future random mapping updates. Closes #119646 Closes #119632 Closes #119631</MESSAGE>
+      <SHA>f210f9fbcc62b8b52af09ef2a506dc737061fb00</SHA>
+      <PATCHEDFILES>
+        <FILE>qa/lucene-index-compatibility/src/javaRestTest/java/org/elasticsearch/lucene/AbstractIndexCompatibilityTestCase.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Test] Fix `index.mapping.total_fields.limit` random update (#119728) It's stupid to pick a low value for `index.mapping.total_fields.limit` when at the same time you also add random runtime fields =&gt; pick a value large enough to avoid failing future random mapping updates. Closes #119646 Closes #119632 Closes #119631</MESSAGE>
+      <SHA>38260aacd41d93b06f4c3aab80f6b63e37468dcd</SHA>
+      <PATCHEDFILES>
+        <FILE>qa/lucene-index-compatibility/src/javaRestTest/java/org/elasticsearch/lucene/AbstractIndexCompatibilityTestCase.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

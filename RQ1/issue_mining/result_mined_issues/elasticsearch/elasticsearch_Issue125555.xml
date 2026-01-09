@@ -1,0 +1,60 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>125555</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/125555</ISSUEURL>
+  <TITLE>[CI] IndicesPermissionTests testAuthorizeDataStreamFailureIndices failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7270 / release-tests](https://gradle-enterprise.elastic.co/s/zyrmcn6bj2iq2) - [elasticsearch-periodic #7263 / release-tests](https://gradle-enterprise.elastic.co/s/5mx3ashqfmzx4) - [elasticsearch-periodic #7256 / release-tests](https://gradle-enterprise.elastic.co/s/o7nsadwsxbyh4) - [elasticsearch-periodic #7249 / release-tests](https://gradle-enterprise.elastic.co/s/lpqdugplhopcm) - [elasticsearch-periodic #7242 / release-tests](https://gradle-enterprise.elastic.co/s/uu23vhq7erywi) - [elasticsearch-periodic #7235 / release-tests](https://gradle-enterprise.elastic.co/s/5m7bldn5awruo) - [elasticsearch-periodic #7228 / release-tests](https://gradle-enterprise.elastic.co/s/eewpxahimilak) - [elasticsearch-periodic #7221 / release-tests](https://gradle-enterprise.elastic.co/s/rzhpa5jreuc2a) - [elasticsearch-periodic #7214 / release-tests](https://gradle-enterprise.elastic.co/s/wwoqlbfb5uh4g) - [elasticsearch-periodic #7207 / release-tests](https://gradle-enterprise.elastic.co/s/thary5mqa4cyk) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:security:test&quot; --tests &quot;org.elasticsearch.xpack.security.authz.accesscontrol.IndicesPermissionTests.testAuthorizeDataStreamFailureIndices&quot; -Dtests.seed=93669AFB5AAE2CBD -Dbuild.snapshot=false -Dtests.jvm.argline=&quot;-Dbuild.snapshot=false&quot; -Dlicense.key=x-pack/license-tools/src/test/resources/public.key -Dtests.locale=syr-SY -Dtests.timezone=SystemV/YST9YDT -Druntime.java=24 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.security.authz.accesscontrol.IndicesPermissionTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testAuthorizeDataStreamFailureIndices),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: for privilege [read_failure_store] Expected: is &lt;true&gt; but: was &lt;false&gt; ``` **Issue Reasons:** - [8.x] 10 consecutive failures in step release-tests - [8.x] 10 failures in test testAuthorizeDataStreamFailureIndices (2.3% fail rate in 432 executions) - [8.x] 10 failures in step release-tests (100.0% fail rate in 10 executions) - [8.x] 10 failures in pipeline elasticsearch-periodic (100.0% fail rate in 10 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.inference.registry.ModelRegistryMetadataTests testAlreadyUpgraded #125585</MESSAGE>
+    <SHA>a0670ab169533dc061eed33ad01573dbb9417cf4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.security.authz.accesscontrol.IndicesPermissionTests testAuthorizeDataStreamFailureIndices #125555</MESSAGE>
+      <SHA>2331051d36d6218845b809be1c925127d2897074</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.security.authz.accesscontrol.IndicesPermissionTests testAuthorizeDataStreamFailureIndices #125555</MESSAGE>
+      <SHA>a9e447dec34caa73b6f6ec79a4ba92777c7878e7</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Test] Skip testAuthorizeDataStreamFailureIndices for release tests Adding a missing feature flag for `IndicesPermissionTests#testAuthorizeDataStreamFailureIndices` test. Resolves #125555</MESSAGE>
+      <SHA>347b662956968c0b33b0d280d662033aa4b32efe</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/security/src/test/java/org/elasticsearch/xpack/security/authz/accesscontrol/IndicesPermissionTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Test] Skip testAuthorizeDataStreamFailureIndices for release tests (#126112) Adding a missing feature flag for `IndicesPermissionTests#testAuthorizeDataStreamFailureIndices` test. Resolves #125555 Resolves #126040</MESSAGE>
+      <SHA>ea8fd3b77c5c3e63eb64ede29438522bf0b37fee</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/security/src/test/java/org/elasticsearch/xpack/security/authz/accesscontrol/IndicesPermissionTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Test] Skip testAuthorizeDataStreamFailureIndices for release tests (#126112) Adding a missing feature flag for `IndicesPermissionTests#testAuthorizeDataStreamFailureIndices` test. Resolves #125555 Resolves #126040 (cherry picked from commit ea8fd3b77c5c3e63eb64ede29438522bf0b37fee) # Conflicts: # muted-tests.yml</MESSAGE>
+      <SHA>500445bf4c5488d4e04e5b6355c18393e8f099de</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/security/src/test/java/org/elasticsearch/xpack/security/authz/accesscontrol/IndicesPermissionTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Test] Skip testAuthorizeDataStreamFailureIndices for release tests (#126112) (#126184) Adding a missing feature flag for `IndicesPermissionTests#testAuthorizeDataStreamFailureIndices` test. Resolves #125555 Resolves #126040 (cherry picked from commit ea8fd3b77c5c3e63eb64ede29438522bf0b37fee) # Conflicts: # muted-tests.yml</MESSAGE>
+      <SHA>684f46076e5a097d0e79d9306ec6659b6ee1f646</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/src/test/java/org/elasticsearch/xpack/security/authz/accesscontrol/IndicesPermissionTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

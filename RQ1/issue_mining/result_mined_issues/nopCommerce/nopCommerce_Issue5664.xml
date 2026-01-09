@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5664</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5664</ISSUEURL>
+  <TITLE>NopCommerce v4.40.x not setting correct mime types for picture uploads</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40.0 - 4.40.3 Steps to reproduce the problem: When using Azure to store pictures - any uploaded pictures (or generated thumbs) are stored with the content type of application/octet-stream (which is the default). They should with the correct content type. e.g. image/png. In version 4.3 this was working. Having investigated further it seems that the mime type is always passed to the SaveThumbAsync function as string.Empty which means that the default content type is set. I have corrected and tested locally. A PR will follow.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>102</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>correct openid logo</MESSAGE>
+    <SHA>d625f17d315deffcadcdfb4550dbc52fe6bc5243</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5698,#5664: Add Exhibitor Selection in ShopHeader Create user upon login Assign admin role if sufficient Account Roles Add selection for Exhibitor in Header</MESSAGE>
+      <SHA>18ccb8cc68da574efb653d13511fa1910aace81d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/NopCommerce.sln</FILE>
+        <FILE>src/Plugins/Nop.Plugin.ExternalAuth.OAuth/Components/OAuthExhibitorSelectViewComponent.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.ExternalAuth.OAuth/Controllers/OAuthAuthenticationController.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.ExternalAuth.OAuth/Nop.Plugin.ExternalAuth.OAuth.csproj</FILE>
+        <FILE>src/Plugins/Nop.Plugin.ExternalAuth.OAuth/OAuthAuthenticationDefaults.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.ExternalAuth.OAuth/OAuthAuthenticationMethod.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.ExternalAuth.OAuth/OAuthRouteProvider.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.ExternalAuth.OAuth/Views/ExhibitorSelector.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

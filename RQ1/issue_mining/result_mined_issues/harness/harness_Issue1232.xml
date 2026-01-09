@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1232</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/1232</ISSUEURL>
+  <TITLE>Invalidate Repo and Permission Cache</TITLE>
+  <DESCRIPTION>The list of user repositories and the permissions to those repositories are cached in a simple LRU cache without expiration (due to lack of time on my part to focus on caching). We need a TTL to avoid rendering stale data in the user interface, otherwise this can result in the following behavior: 1. search results / auto-complete do not include recently added repositories 2. dashboard does not include recently added repositories 3. recently elevated repository permissions (ie changing write -&gt; admin) are not considered There will still be situations where our cache is stale, but we can handle this well enough in the user interface. For example, when I search for a repository that isn't in our cache (perhaps was recently created) we can show a message that says something like this: &gt; {repo_name} is unknown or does not exist. Click here to visit this repository page and activate. We can also provide a button to manually flush the cache in order to force a refresh.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>274</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>improve implementation of git FS (#1229)</MESSAGE>
+    <SHA>032bbeb066a7fd816df354449930202f7c5bb8f7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>small fixes (#1232)</MESSAGE>
+      <SHA>a690fa4ebc70d6647ff34100fb8fc9107d45301e</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/controller/githook/post_receive.go</FILE>
+        <FILE>app/api/controller/githook/pre_receive.go</FILE>
+        <FILE>app/api/controller/githook/pre_receive_scan_secrets.go</FILE>
+        <FILE>app/api/controller/pullreq/merge.go</FILE>
+        <FILE>app/services/protection/service.go</FILE>
+        <FILE>git/hook/cli_core.go</FILE>
+        <FILE>types/pullreq_activity.go</FILE>
+        <FILE>types/rule.go</FILE>
+        <FILE>web/src/i18n/strings.en.yaml</FILE>
+        <FILE>web/src/pages/PullRequest/Conversation/SystemComment.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

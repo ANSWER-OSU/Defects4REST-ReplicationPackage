@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8715</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/8715</ISSUEURL>
+  <TITLE>index-discovery command NPE when running with option -r on individual community (unIndex)</TITLE>
+  <DESCRIPTION>**Describe the bug** An NPE is thrown when running the command index-discovery with the option -r on an individual community **To Reproduce** Steps to reproduce the behavior: 1. Run index-discovery -r community handle | community UUID 2. An NPE exception is thrown **Expected behavior** The community and associated items are removed from the index This is the line causing the issue https://github.com/DSpace/DSpace/blob/b956bcd3891e372cc0fe5b1595e422e5d059bced/dspace-api/src/main/java/org/dspace/discovery/SolrServiceImpl.java#L223 and error trace: 15:32:46.539 [main] ERROR org.dspace.scripts.handler.impl.CommandLineDSpaceRunnableHandler - null java.lang.NullPointerException: null at org.dspace.discovery.SolrServiceImpl.unIndexContent(SolrServiceImpl.java:239) ~[classes/:?] at org.dspace.discovery.SolrServiceImpl.unIndexContent(SolrServiceImpl.java:222) ~[classes/:?] at org.dspace.discovery.IndexClient.internalRun(IndexClient.java:61) ~[classes/:?] at org.dspace.scripts.DSpaceRunnable.run(DSpaceRunnable.java:104) [classes/:?] at org.dspace.app.launcher.ScriptLauncher.executeScript(ScriptLauncher.java:149) [classes/:?] at org.dspace.app.launcher.ScriptLauncher.handleScript(ScriptLauncher.java:131) [classes/:?] at org.dspace.app.launcher.ScriptLauncher.main(ScriptLauncher.java:98) [classes/:?] **Related work** Fixed by #8716</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>19</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #8680 from DSpace/dependabot/maven/commons-fileupload-commons-fileupload-1.5 Bump commons-fileupload from 1.3.3 to 1.5</MESSAGE>
+    <SHA>b956bcd3891e372cc0fe5b1595e422e5d059bced</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #8714 and #8715</MESSAGE>
+      <SHA>4748163eafd04e728f5201f31b29c9c0b8d8b9e8</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/discovery/IndexClient.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/discovery/IndexingUtils.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/discovery/SolrServiceImpl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #8716 from amgciadev/fix-8715-b Fix #8714 and #8715</MESSAGE>
+      <SHA>2d8b2b72ad41a40f7d8c60572ac1b911ba6f893f</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/discovery/IndexClient.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/discovery/IndexingUtils.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/discovery/SolrServiceImpl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

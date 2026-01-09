@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15252</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/15252</ISSUEURL>
+  <TITLE>Unable to delete post with nested comment</TITLE>
+  <DESCRIPTION>### Issue Summary Whenever you try to delete a post that has a comment and a reply to that comment, an internal server error occurs: `Internal server error, cannot delete post. Cannot set properties of undefined (setting 'message')` ### Steps to Reproduce 1. Create a new blog post and publish it 2. Leave a comment on that blog post 3. Reply to that comment 4. Attempt to delete the blog post ### Ghost Version 5.9.4 ### Node.js Version 16.16 ### How did you install Ghost? Ubuntu 20.04.4 LTS ### Database type MySQL 8 ### Browser &amp; OS version _No response_ ### Relevant log / error output ```shell {&quot;name&quot;:&quot;Log&quot;,&quot;hostname&quot;:&quot;example&quot;,&quot;pid&quot;:696855,&quot;level&quot;:50,&quot;req&quot;:{&quot;meta&quot;:{&quot;requestId&quot;:&quot;07055caf-c581-4d77-81a3-01f7055c77c7&quot;,&quot;userId&quot;:&quot;1&quot;},&quot;url&quot;:&quot;/posts/62fdbbfb752fb6a221f26e9d/&quot;,&quot;method&quot;:&quot;DELETE&quot;,&quot;originalUrl&quot;:&quot;/ghost/api/admin/posts/62fdbbfb752fb6a221f26e9d/&quot;,&quot;params&quot;:{},&quot;headers&quot;:{&quot;host&quot;:&quot;blog.example.org&quot;,&quot;cf-ipcountry&quot;:&quot;US&quot;,&quot;cdn-loop&quot;:&quot;cloudflare&quot;,&quot;accept-encoding&quot;:&quot;gzip&quot;,&quot;x-forwarded-for&quot;:&quot;**REDACTED**&quot;,&quot;cf-ray&quot;:&quot;**REDACTED**&quot;,&quot;x-forwarded-proto&quot;:&quot;https, https&quot;,&quot;cf-visitor&quot;:&quot;{\&quot;scheme\&quot;:\&quot;https\&quot;}&quot;,&quot;accept&quot;:&quot;application/json, text/javascript, */*; q=0.01&quot;,&quot;x-requested-with&quot;:&quot;XMLHttpRequest&quot;,&quot;x-ghost-version&quot;:&quot;5.9&quot;,&quot;app-pragma&quot;:&quot;no-cache&quot;,&quot;user-agent&quot;:&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.81 Safari/537.36&quot;,&quot;content-type&quot;:&quot;application/json; charset=UTF-8&quot;,&quot;sec-gpc&quot;:&quot;1&quot;,&quot;origin&quot;:&quot;https://blog.example.org&quot;,&quot;sec-fetch-site&quot;:&quot;same-origin&quot;,&quot;sec-fetch-mode&quot;:&quot;cors&quot;,&quot;sec-fetch-dest&quot;:&quot;empty&quot;,&quot;referer&quot;:&quot;https://blog.example.org/ghost/&quot;,&quot;accept-language&quot;:&quot;en-US,en;q=0.9,de;q=0.8&quot;,&quot;cf-connecting-ip&quot;:&quot;**REDACTED**&quot;,&quot;cookie&quot;:&quot;**REDACTED**&quot;,&quot;x-forwarded-host&quot;:&quot;blog.example.org&quot;},&quot;query&quot;:{}},&quot;res&quot;:{&quot;_headers&quot;:{&quot;x-powered-by&quot;:&quot;Express&quot;,&quot;cache-control&quot;:&quot;no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0&quot;,&quot;access-control-allow-origin&quot;:&quot;https://blog.example.org&quot;,&quot;vary&quot;:&quot;Origin, Accept-Encoding&quot;,&quot;content-type&quot;:&quot;application/json; charset=utf-8&quot;,&quot;content-length&quot;:&quot;286&quot;,&quot;etag&quot;:&quot;W/\&quot;11e-JGRxNJsjDWlG04oL0DLfIS39Z7M\&quot;&quot;},&quot;statusCode&quot;:500,&quot;responseTime&quot;:&quot;70ms&quot;},&quot;err&quot;:{&quot;id&quot;:&quot;eec45ac0-1eab-11ed-8676-618ce3f5ed56&quot;,&quot;domain&quot;:&quot;https://blog.example.org&quot;,&quot;code&quot;:null,&quot;name&quot;:&quot;InternalServerError&quot;,&quot;statusCode&quot;:500,&quot;level&quot;:&quot;critical&quot;,&quot;message&quot;:&quot;Cannot set properties of undefined (setting 'message')&quot;,&quot;stack&quot;:&quot;TypeError: Cannot set properties of undefined (setting 'message')\n at module.exports.prepareError (/var/www/blog.example.org/versions/5.9.4/node_modules/@tryghost/mw-error-handler/lib/mw-error-handler.js:79:19)\n at ErrorCtor (/var/www/blog.example.org/versions/5.9.4/node_modules/create-error/create-error.js:29:18)\n at runMicrotasks (&lt;anonymous&gt;)\n at processTicksAndRejections (node:internal/process/task_queues:96:5)&quot;,&quot;hideStack&quot;:false},&quot;msg&quot;:&quot;Cannot set properties of undefined (setting 'message')&quot;,&quot;time&quot;:&quot;2022-08-18T04:12:11.248Z&quot;,&quot;v&quot;:0} ``` ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Added beta search helper implementation (#15236) refs: TryGhost/Team#1732 - We're testing out the feasibility of having a {{search}} helper that outputs an pre-styled icon to trigger search.</MESSAGE>
+    <SHA>704f17ff9694b70c15a0c08eecb405e8359bdb80</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed attribution table missing on cascade delete refs: https://github.com/TryGhost/Ghost/issues/15252 - all columns with a foreign key (references prop) must have a deletion strategy - we just found a bug with this in the comments table - see referenced issue - this fix adjusts the schema and migration for this change before its released so we don't have to write a horrible migration later</MESSAGE>
+      <SHA>e327b892ced9aa342c794b64a6fc452c91b7c8c9</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/server/data/migrations/versions/5.10/2022-08-16-14-25-add-subscription-created-events-table.js</FILE>
+        <FILE>ghost/core/core/server/data/schema/schema.js</FILE>
+        <FILE>ghost/core/test/unit/server/data/schema/integrity.test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed attribution table missing on cascade delete refs: https://github.com/TryGhost/Ghost/issues/15252 - all columns with a foreign key (references prop) must have a deletion strategy - we just found a bug with this in the comments table - see referenced issue - this fix adjusts the schema and migration for this change before its released so we don't have to write a horrible migration later</MESSAGE>
+      <SHA>d2acf3aada47793bcec33bf06d6703961ae0cdea</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/server/data/migrations/versions/5.10/2022-08-16-14-25-add-subscription-created-events-table.js</FILE>
+        <FILE>ghost/core/core/server/data/schema/schema.js</FILE>
+        <FILE>ghost/core/test/unit/server/data/schema/integrity.test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed error deleting post with comment replies closes: https://github.com/TryGhost/Ghost/issues/15252 - comments are deleted when posts are deleted. Without cascade delete on parent_id, replies cannot be deleted - this change means that deleting a post will delete all comments and replies without error</MESSAGE>
+      <SHA>5595d9d61b924d814452d8d4e737adce351e260f</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/server/data/migrations/versions/5.10/2022-08-19-14-15-fix-comments-deletion-strategy.js</FILE>
+        <FILE>ghost/core/core/server/data/schema/schema.js</FILE>
+        <FILE>ghost/core/test/unit/server/data/schema/integrity.test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed error deleting post with comment replies closes: https://github.com/TryGhost/Ghost/issues/15252 - comments are deleted when posts are deleted. Without cascade delete on parent_id, replies cannot be deleted - this change means that deleting a post will delete all comments and replies without error</MESSAGE>
+      <SHA>809c1a6e08171355268860f3a1a9a2570ff0e086</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/server/data/migrations/versions/5.10/2022-08-19-14-15-fix-comments-deletion-strategy.js</FILE>
+        <FILE>ghost/core/core/server/data/schema/schema.js</FILE>
+        <FILE>ghost/core/test/unit/server/data/schema/integrity.test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

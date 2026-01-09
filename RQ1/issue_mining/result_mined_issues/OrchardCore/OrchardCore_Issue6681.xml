@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6681</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/6681</ISSUEURL>
+  <TITLE>DiscardDraft Removes Autoroute Data</TITLE>
+  <DESCRIPTION>When discarding a draft of a routed content item, the route is discarded even if a version of the content item remains published. This issue is almost exactly the same as #4763, but for the [Autoroute module](https://github.com/OrchardCMS/OrchardCore/blob/ab3a1e4ec060dd30b0a19736e05f4db30b56151e/src/OrchardCore.Modules/OrchardCore.Autoroute/Handlers/AutoroutePartHandler.cs#L137). ### Reproducing 1. Create a new Orchard Core CMS project. 2. Start the site, and initialize it with the blog recipe. 3. Create a draft of the &quot;About&quot; page. 4. Discard the draft of the &quot;About&quot; page. 5. The route to the &quot;About&quot; page no longer works, even though the original version of the page is still published. ### Workaround Every time you discard a draft to a routed content item, republish the content item to recreate its routes. ### Notes There are other modules that might have the same problem. Here are a few that I noticed that don't check `context.NoActiveVersionLeft`: - [OrchardCore.Alias](https://github.com/OrchardCMS/OrchardCore/blob/ab3a1e4ec060dd30b0a19736e05f4db30b56151e/src/OrchardCore.Modules/OrchardCore.Alias/Handlers/AliasPartHandler.cs#L104) - [OrchardCore.Contents](https://github.com/OrchardCMS/OrchardCore/blob/ab3a1e4ec060dd30b0a19736e05f4db30b56151e/src/OrchardCore.Modules/OrchardCore.Contents/Handlers/ContentsHandler.cs#L23) - [OrchardCore.ContentLocalization](https://github.com/OrchardCMS/OrchardCore/blob/ab3a1e4ec060dd30b0a19736e05f4db30b56151e/src/OrchardCore.Modules/OrchardCore.ContentLocalization/Handlers/LocalizationPartHandler.cs#L60)</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>75</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Use of Assets.json in Preview and Template Modules (#6313)</MESSAGE>
+    <SHA>838c19442314b7ad3697bbab09705a7c35990bb7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Remove Autoroute entries only if there is no Published version Fixes #6681</MESSAGE>
+      <SHA>faac2a346bb16f2403b446d97005c55d830e3b54</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Autoroute/Handlers/AutoroutePartHandler.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6464</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6464</ISSUEURL>
+  <TITLE>Survey multiple choice options need improvements and error handling</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY From https://github.com/ansible/awx/issues/5900#issuecomment-605008285: cc @keithjgrant &gt; Both add and edit forms for JT surveys need some way of clarifying how to format single-select and multi-select options. It is trivial to create modal-overlay 400 errors with the basic input textbox given, and these 400 errors do not provide any useful information to the end user. ##### STEPS TO REPRODUCE Put bad input into a job template survey with either single or multi-select. semicolons in random spots, etc, in an attempt to break it. some things work, some don't. ##### EXPECTED RESULTS Form validation on submission that keeps you on the form page, indicating formatting errors or something similar when met with a 400 error. I would also like information around the box about how to format the survey. ##### ACTUAL RESULTS 400 that takes you back to the survey list, no further information about the error.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>438</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #10097 from sean-m-sullivan/devel add custom_venv for backward compatibility SUMMARY As per #10055 , this is the proposal to add back custom virtual environments to the modules. With the understanding that they will not be tested. But to allow users of Ansible Tower 3.8 the ability to use newer features and bugfixes in awx.awx as applicable, without restorting to backporting these removals. Would expect these to remain for a time after Tower moves to Execution environments as teams/companies adopt the next version of tower. ISSUE TYPE Feature Pull Request COMPONENT NAME awx_collection AWX VERSION 19.1.0 Reviewed-by: Alan Rominger &lt;arominge@redhat.com&gt; Reviewed-by: Bianca Henderson &lt;beeankha@gmail.com&gt;</MESSAGE>
+    <SHA>55b8dcdd8d9f76d5092247bc6bef40cdd2b65ce4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9924 from AlexSCorey/6464-SurveyMultipleChoiceRedesign Redesign survey multiple choice SUMMARY Addresses #6464. This new design improves UI and reduces the risk to having mismatching choices and default values. ISSUE TYPE Bugfix Pull Request COMPONENT NAME UI AWX VERSION ADDITIONAL INFORMATION Reviewed-by: Kersom &lt;None&gt; Reviewed-by: Marliana Lara &lt;marliana.lara@gmail.com&gt; Reviewed-by: Alex Corey &lt;Alex.swansboro@gmail.com&gt; Reviewed-by: Sarah Akus &lt;sarah.akus@gmail.com&gt;</MESSAGE>
+      <SHA>d60014987fd190aef088ce6521b5310673bb7003</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/locales/en/messages.po</FILE>
+        <FILE>awx/ui_next/src/locales/es/messages.po</FILE>
+        <FILE>awx/ui_next/src/locales/fr/messages.po</FILE>
+        <FILE>awx/ui_next/src/locales/ja/messages.po</FILE>
+        <FILE>awx/ui_next/src/locales/nl/messages.po</FILE>
+        <FILE>awx/ui_next/src/locales/zh/messages.po</FILE>
+        <FILE>awx/ui_next/src/locales/zu/messages.po</FILE>
+        <FILE>awx/ui_next/src/screens/Template/Survey/MultipleChoiceField.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/Survey/MultipleChoiceField.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/Survey/SurveyQuestionAdd.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/Survey/SurveyQuestionEdit.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/Survey/SurveyQuestionForm.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/Survey/SurveyQuestionForm.test.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Include stdout from health check if it is not nothing (#6464)</MESSAGE>
+      <SHA>606bbd07b8cf4b17df04bb7f21e53c19bc3f4fb9</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tasks/receptor.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

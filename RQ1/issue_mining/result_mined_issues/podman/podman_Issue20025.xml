@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20025</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/20025</ISSUEURL>
+  <TITLE>`kube down` should be able to remove &quot;external&quot; storage containers</TITLE>
+  <DESCRIPTION>### Discussed in https://github.com/containers/podman/discussions/20021 &lt;div type='discussions-op-text'&gt; &lt;sup&gt;Originally posted by **poperigby** September 18, 2023&lt;/sup&gt; I have a collection of containers that are orchestrated with `.kube` files. Seemingly at random, a service will fail to start on reboot. When I go to start it manually with `podman kube play service.yaml`, it will say something like this: ``` Error: creating container storage: the container name &quot;authelia-pod-authelia&quot; is already in use by b8bf71cb1c5029f2dfee4f48e2be50c4bdeff7af9c99d5cd09d48b25eb8cbe7d. You have to remove that container to be able to reuse that name: that name is already in use ``` I then have to run something like this to fix it: ``` podman rm --storage b8bf71cb1c5029f2dfee4f48e2be50c4bdeff7af9c99d5cd09d48b25eb8cbe7d ``` It just recently (about a month ago), started doing this, so I'm not sure what happened. Here's one of my `.kube` files: ``` [Install] WantedBy=default.target [Unit] Requires=caddy.service After=caddy.service [Service] TimeoutSec=900 [Kube] Yaml=services/authelia/service.yaml Network=reverse-proxy.network ``` Here's one of my Kubernetes style YAML files: ```yaml apiVersion: v1 kind: Pod metadata: labels: app: authelia-pod name: authelia-pod spec: hostname: authelia-pod securityContext: seLinuxOptions: type: spc_t containers: - name: authelia image: ghcr.io/authelia/authelia:latest imagePullPolicy: Never #args: #- --config #- /config/configuration.yml env: - name: AUTHELIA_JWT_SECRET value: REDACTED - name: AUTHELIA_STORAGE_ENCRYPTION_KEY value: REDACTED - name: AUTHELIA_NOTIFIER_SMTP_PASSWORD value: REDACTED - name: AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET value: REDACTED - name: AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY value: REDACTED - name: AUTHELIA_SESSION_SECRET value: REDACTED volumeMounts: - mountPath: /config name: authelia-config - name: redis image: docker.io/library/redis:latest #args: #- redis-server volumeMounts: - mountPath: /data name: redis-data volumes: - name: redis-data persistentVolumeClaim: claimName: redis - hostPath: path: /home/cassidy/.config/containers/systemd/services/authelia/authelia type: Directory name: authelia-config ```&lt;/div&gt;</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>41</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Sort kube options alphabetically Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+    <SHA>3ce62d3cc4c9545e45c14b32896207d844325d6b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>podman kube play --replace should force removal of pods and containers Fixes: https://github.com/containers/podman/issues/20025 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>91df369ae6807d5d3c0adf37ea5caeb883c0284e</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/libpod/kube.go</FILE>
+        <FILE>pkg/api/server/register_kube.go</FILE>
+        <FILE>pkg/bindings/kube/types.go</FILE>
+        <FILE>pkg/bindings/kube/types_play_options.go</FILE>
+        <FILE>pkg/domain/infra/abi/play.go</FILE>
+        <FILE>pkg/domain/infra/tunnel/kube.go</FILE>
+        <FILE>test/system/700-play.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

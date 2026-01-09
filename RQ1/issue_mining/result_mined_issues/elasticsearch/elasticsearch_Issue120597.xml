@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120597</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120597</ISSUEURL>
+  <TITLE>[CI] FullClusterRestartLuceneIndexCompatibilityIT class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #16163 / part1](https://gradle-enterprise.elastic.co/s/6ladsukuqs5ga) - [elasticsearch-pull-request #51853 / part-1](https://gradle-enterprise.elastic.co/s/ruzkezk3zspny) - [elasticsearch-pull-request #51868 / part-1](https://gradle-enterprise.elastic.co/s/qmvejgipqv6uc) - [elasticsearch-pull-request #51866 / part-1](https://gradle-enterprise.elastic.co/s/o6v6errfgzrwq) - [elasticsearch-pull-request #51872 / part-1](https://gradle-enterprise.elastic.co/s/mc6uurqpnju7u) - [elasticsearch-pull-request #51860 / part-1](https://gradle-enterprise.elastic.co/s/rdbml42e3mzw4) - [elasticsearch-pull-request #51871 / part-1](https://gradle-enterprise.elastic.co/s/nvu5v2766ycte) - [elasticsearch-intake #16162 / part1](https://gradle-enterprise.elastic.co/s/7nsgw3khntgiw) - [elasticsearch-pull-request #51862 / part-1](https://gradle-enterprise.elastic.co/s/kpofq6yczwruk) - [elasticsearch-pull-request #51851 / part-1](https://gradle-enterprise.elastic.co/s/jt6cofe3revdi) **Reproduction Line:** ``` ./gradlew &quot;:qa:lucene-index-compatibility:javaRestTest&quot; --tests &quot;org.elasticsearch.lucene.FullClusterRestartLuceneIndexCompatibilityIT&quot; -Dtests.method=&quot;testIndexUpgrade {p0=8.18.0}&quot; -Dtests.seed=B3472861BD6EB6C7 -Dtests.locale=xnr-Deva-IN -Dtests.timezone=Europe/Warsaw -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.lucene.FullClusterRestartLuceneIndexCompatibilityIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.lucene.FullClusterRestartLuceneIndexCompatibilityIT),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.client.ResponseException: method [PUT], host [http://[::1]:40235], URI [/index-testindexupgrade/_settings], status line [HTTP/1.1 400 Bad Request] :) úerrorúroot_causeøútypeYillegal_argument_exception reasonàcan not update private setting [index.verified_read_only]; this setting is managed by ElasticsearchüûùBYillegal_argument_exceptionCàcan not update private setting [index.verified_read_only]; this setting is managed by Elasticsearchüû status$ û ``` **Issue Reasons:** - [main] 10 consecutive failures in class org.elasticsearch.lucene.FullClusterRestartLuceneIndexCompatibilityIT - [main] 2 consecutive failures in step part1 - [main] 8 consecutive failures in step part-1 - [main] 2 consecutive failures in pipeline elasticsearch-intake - [main] 8 consecutive failures in pipeline elasticsearch-pull-request - [main] 16 failures in class org.elasticsearch.lucene.FullClusterRestartLuceneIndexCompatibilityIT (6.5% fail rate in 245 executions) - [main] 2 failures in step part1 (5.6% fail rate in 36 executions) - [main] 14 failures in step part-1 (11.4% fail rate in 123 executions) - [main] 2 failures in pipeline elasticsearch-intake (5.6% fail rate in 36 executions) - [main] 13 failures in pipeline elasticsearch-pull-request (10.7% fail rate in 121 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Follow ups after Add Index Block API changes for N-2 support (#120526) This change contains follows ups now the Add Index Block API change is merged. The index setting `index.verified_read_only`can now be `PrivateIndex` and not `Dynamic` anymore. Regular indices in version N-2 can recover if they have the `index.block.read_only` too. And finally, upgrade tests can use the Add Index Block API instead of manually flushing and adding blocks explicitly. This change requires #120537 for `8.x` (tests will fail until it is merged). Relates #119743 Relates #120522</MESSAGE>
+    <SHA>93bc7581ad51930a59571f0134f5a8206689324a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.lucene.FullClusterRestartLuceneIndexCompatibilityIT org.elasticsearch.lucene.FullClusterRestartLuceneIndexCompatibilityIT #120597</MESSAGE>
+      <SHA>bcb374b05e06d3d46685da80a53db216ebb20446</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Unmute FullClusterRestartLuceneIndexCompatibilityIT and RollingUpgradeLuceneIndexCompatibilityTestCase Closes #120597 Closes #120598</MESSAGE>
+      <SHA>e112098e351f3a9f9778bb7d4df946e18b5d3fb9</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Unmute FullClusterRestartLuceneIndexCompatibilityIT and RollingUpgradeLuceneIndexCompatibilityTestCase (#120621) Closes #120597 Closes #120598</MESSAGE>
+      <SHA>b59384842b71b23d7d8b3b1fd3d1a50b6ce20b6e</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

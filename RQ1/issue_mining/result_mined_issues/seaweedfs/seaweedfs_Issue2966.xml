@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2966</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/2966</ISSUEURL>
+  <TITLE>[volume.check.disk] sync volume : rpc error: code = ResourceExhausted desc = grpc: trying to send message larger than max (1291232846 vs. 1073741824</TITLE>
+  <DESCRIPTION>logs ``` &gt; volume.check.disk -v -force -nonRepairThreshold 0.6 load collection logs-prod volume 567 index size 243219 from slow-volume-18.dc1:8080 ... load collection logs-prod volume 567 index size 243185 from slow-volume-15.dc2:8080 ... volume 567 slow-volume-15.dc2:8080 has 8464 entries, slow-volume-18.dc1:8080 missed 4611 entries read 567,333337663263323161 slow-volume-15.dc2:8080 =&gt; slow-volume-18.dc1:8080 read 567,383038663263323161 slow-volume-15.dc2:8080 =&gt; slow-volume-18.dc1:8080 read 567,31366163663263323161 slow-volume-15.dc2:8080 =&gt; slow-volume-18.dc1:8080 sync volume 567 on slow-volume-18.dc1.consul:8080 and slow-volume-15.dc2.consul:8080: doVolumeCheckDisk source:id:&quot;slow-volume-15.dc2.consul:8080&quot; diskInfos:{} grpc_port:18080 volume 567: rpc error: code = ResourceExhausted desc = grpc: trying to send message larger than max (1291232846 vs. 1073741824) ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>21</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>vacuum metrics and force sync dst files (#3832)</MESSAGE>
+    <SHA>1f7e52c63e210ccb3a177c1e58d5a0c8e79ad870</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>avoid load volume file with BytesOffset mismatch https://github.com/seaweedfs/seaweedfs/issues/2966</MESSAGE>
+      <SHA>4524553f8e83f6e20b3eaf79d78f8887cd9dcaf2</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/pb/volume_server.proto</FILE>
+        <FILE>weed/pb/volume_server_pb/volume_server.pb.go</FILE>
+        <FILE>weed/pb/volume_server_pb/volume_server_grpc.pb.go</FILE>
+        <FILE>weed/storage/volume_tier.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>avoid load volume file with BytesOffset mismatch (#3841) * avoid load volume file with BytesOffset mismatch https://github.com/seaweedfs/seaweedfs/issues/2966 * set BytesOffset if has not VolumeInfoFile * typos fail =&gt; failed * exit if bytesOffset mismatch</MESSAGE>
+      <SHA>2f72103c831f8a5227613436ed87f9464825f995</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/pb/volume_server.proto</FILE>
+        <FILE>weed/pb/volume_server_pb/volume_server.pb.go</FILE>
+        <FILE>weed/pb/volume_server_pb/volume_server_grpc.pb.go</FILE>
+        <FILE>weed/server/volume_grpc_tier_download.go</FILE>
+        <FILE>weed/server/volume_grpc_tier_upload.go</FILE>
+        <FILE>weed/storage/store.go</FILE>
+        <FILE>weed/storage/volume_info/volume_info.go</FILE>
+        <FILE>weed/storage/volume_loading.go</FILE>
+        <FILE>weed/storage/volume_tier.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

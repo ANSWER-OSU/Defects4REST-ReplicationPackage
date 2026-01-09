@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2718</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/2718</ISSUEURL>
+  <TITLE>Cannot select a query to use for a new alert or search queries when adding a widget to a dashboard</TITLE>
+  <DESCRIPTION>### Issue Summary When creating a new alert, the query search doesn't find any queries to create alerts from. Similarly, the query search in &quot;Add Widget&quot; dialog of a dashboard finds no results. ### Steps to Reproduce 1. Create a query named &quot;Alert&quot; 2. Go to the &quot;New Alert&quot; page 3. Try to search for the query you just created (&quot;Alert&quot;) When the search happens, the following error is logged to the web console: &gt; Error: &quot;[$resource:badcfg] Error in resource configuration for action `search`. Expected response to contain an array but got an object (Request: get api/queries/search) It seems that #2686 changed the response format for the query search, but the model (https://github.com/getredash/redash/blob/a014df36d86ab78974befe979d68c9ef5378634b/client/app/services/query.js#L290-L295) and (some) callers of that .search() method were not converted to use the new API. ### Technical details: * Redash Version: 5.0.0-beta (a014df3) * Browser/OS: Firefox 61 / Linux * How did you install Redash: Built from source</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix: enable/disable wasn't working on users list.</MESSAGE>
+    <SHA>b89bb392ced4618e2d6dc700b3d37dcfd843f30d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #2718: query search is broken.</MESSAGE>
+      <SHA>573865f1ccaf31ee9cf96a7808d9408020437d2d</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/components/dashboards/add-widget-dialog.js</FILE>
+        <FILE>client/app/components/parameters.js</FILE>
+        <FILE>client/app/pages/alert/index.js</FILE>
+        <FILE>client/app/services/query.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #2720 from getredash/users Fix #2718: query search is broken.</MESSAGE>
+      <SHA>0772b12f19c3b249e6fbde006674b305c9895186</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/components/dashboards/add-widget-dialog.js</FILE>
+        <FILE>client/app/components/parameters.js</FILE>
+        <FILE>client/app/pages/alert/index.js</FILE>
+        <FILE>client/app/services/query.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

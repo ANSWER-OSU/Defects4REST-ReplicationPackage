@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>22</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/22</ISSUEURL>
+  <TITLE>Not all NPM scripts are executed during deployment</TITLE>
+  <DESCRIPTION>According to [the NPM docs](https://docs.npmjs.com/misc/scripts) `prepublish` script should be executed _on local npm install without any arguments_. It seems that on Now it is not the case. I depend on this to compile my sources (e.g. `coffee`, `elm` -&gt; `js`). Consider this [sample package to test scripts execution](https://github.com/lzrski/npm-scripts). This is the output on my local machine: ``` $ npm install &gt; npm-scripts@1.0.0 preinstall /Users/tadeuszlazurski/Projects/npm-scripts &gt; echo 'NPM SCRIPT: preinstall' NPM SCRIPT: preinstall | &gt; npm-scripts@1.0.0 install /Users/tadeuszlazurski/Projects/npm-scripts &gt; echo 'NPM SCRIPT: install' NPM SCRIPT: install &gt; npm-scripts@1.0.0 postinstall /Users/tadeuszlazurski/Projects/npm-scripts &gt; echo 'NPM SCRIPT: postinstall' NPM SCRIPT: postinstall &gt; npm-scripts@1.0.0 prepublish /Users/tadeuszlazurski/Projects/npm-scripts &gt; echo 'NPM SCRIPT: prepublish' NPM SCRIPT: prepublish coffee-script@1.10.0 node_modules/coffee-script lodash@3.10.1 node_modules/lodash ``` and this is output from `now`: ``` $ now &gt; Deploying ~/Projects/npm-scripts &gt; Using Node.js 6.2.1 (default) &gt; Ready! https://npm-scripts-izbtgitqee.now.sh (copied to clipboard) [3s] &gt; Upload [====================] 100% 0.0s &gt; Sync complete (25.9kB) [3s] &gt; Initializing… &gt; Building &gt; ▲ npm install &gt; Installing package lodash@^3.10.1 &gt; Installing package coffee-script@^1.9.3 &gt; ▲ npm start &gt; NPM SCRIPT: prestart &gt; NPM SCRIPT: start &gt; NPM SCRIPT: poststart &gt; start exited with status 0 ``` As you can see none of the following scripts: - `preinstall` - `install` - `postinstall` - `prepublish` was executed in Now. @lzrski</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>164</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Proper travis options</MESSAGE>
+    <SHA>6a6aea153ce63c81697edb7470f100aba9d88106</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #22 from zeit/greenkeeper-eslint-plugin-react-6.1.1 Update eslint-plugin-react to version 6.1.1</MESSAGE>
+      <SHA>0aaac6effc4153c7b97db39182524b9d476419e7</SHA>
+      <PATCHEDFILES>
+        <FILE>package.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

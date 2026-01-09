@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18132</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18132</ISSUEURL>
+  <TITLE>[sys] quadlet tests: do not see STARTED CONTAINER</TITLE>
+  <DESCRIPTION>Seen only twice: ``` not ok 335 quadlet - basic ... # #/vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv # #| FAIL: [no test name given] # #| expected: '.*STARTED CONTAINER.*' (using expr) # #| actual: 'Mar 22 09:20:23 cirrus-task-4969608193507328 systemd[3654]: Starting basic_nrdAEkmIB3.service...' # #| &gt; 'Mar 22 09:20:23 cirrus-task-4969608193507328 podman[96869]: 2023-03-22 09:20:23.640335349 -0500 CDT m=+0.064749298 container create c300796e7ddffa54c763a6ea9d7eb4883db32e438502ff4f6a2eeb0ee504bc98 (image=quay.io/libpod/testimage:20221018, name=systemd-basic_nrdAEkmIB3, io.buildah.version=1.28.0, PODMAN_SYSTEMD_UNIT=basic_nrdAEkmIB3.service, created_at=2022-10-18T16:28:08Z, created_by=test/system/build-testimage)' # #| &gt; 'Mar 22 09:20:23 cirrus-task-4969608193507328 podman[96869]: 2023-03-22 09:20:23.708614665 -0500 CDT m=+0.133028613 container init c300796e7ddffa54c763a6ea9d7eb4883db32e438502ff4f6a2eeb0ee504bc98 (image=quay.io/libpod/testimage:20221018, name=systemd-basic_nrdAEkmIB3, created_by=test/system/build-testimage, io.buildah.version=1.28.0, PODMAN_SYSTEMD_UNIT=basic_nrdAEkmIB3.service, created_at=2022-10-18T16:28:08Z)' # #| &gt; 'Mar 22 09:20:23 cirrus-task-4969608193507328 podman[96869]: 2023-03-22 09:20:23.619373694 -0500 CDT m=+0.043787699 image pull f5a99120db6452661930a1db3bf7390eec9b963f5f62c068fa32dc1d550afad3 quay.io/libpod/testimage:20221018' ``` Probably a race condition in the test. ### [sys] quadlet - basic * fedora-36 : sys podman fedora-36 rootless host boltdb * PR #17890 * [03-22 10:32](https://api.cirrus-ci.com/v1/artifact/task/4969608193507328/html/sys-podman-fedora-36-rootless-host-boltdb.log.html#t--00335) * fedora-36 : sys podman fedora-36 rootless host sqlite * PR #17831 * [04-07 20:07](https://api.cirrus-ci.com/v1/artifact/task/4923412666122240/html/sys-podman-fedora-36-rootless-host-sqlite.log.html#t--00336)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18035 from n1hility/flush-config Update podman to use atomic container and machine config updates</MESSAGE>
+    <SHA>4857c65d3e1fcf43887b8b1e5c38c0c63d66a0b7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>test/system/252-quadlet.bats: fix flake Wait for the expected logs to appear in the journal before using `journalctl`. #18132 is likely flaking because `journalctl` does not yet see the container's logs. Also force the test to use the `passthrough` log driver to make sure `podman logs` continues being tests. Fixes: #18132 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>676486a856336ef61692966ee25681f1588eb8ab</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/252-quadlet.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

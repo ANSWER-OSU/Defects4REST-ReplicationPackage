@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>242</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/242</ISSUEURL>
+  <TITLE>Unable to deregister flawed phone number, high CPU likely result</TITLE>
+  <DESCRIPTION>### The problem I noticed a constant 26%CPU of the Signal Messenger Addon in Homey using json-rpc, and traced the most likely cause to a failed attempt to register a phone number that was missing the area code. The log is riddled with messages: &quot;Couldn't read data for number +\&lt;badphonenumber\&gt;: EOF. Is the number properly registered?&quot; To fix it I tried to deregister the bad phone number by calling the rest api. But I cannot, because that results in an error: user +\&lt;badphonenumber\&gt; is not registered. If I switch to normal or native mode the high load isn't there, but I want to use the faster json-rpc. That also produces errors: &quot;AUTO_RECEIVE_SCHEDULE: Couldn't call receive for number +&lt;badphonenumber&gt;: {User +\&lt;badphonenumber\&gt; is not registered.\n}&quot; How can I remove the bad number (leaving the working registration intact), and hopefully return to a low, acceptable CPU usage? Platform is an RPI4, running version 0.59.0 of the addon, using json-rpc mode and running on HA version 2022.5.3 ### Are you using the latest released version? - [X] Yes ### Have you read the troubleshooting page? - [X] Yes ### What type of installation are you running? Home Assistant Signal Addon ### In which mode are you using the docker container? JSON-RPC Mode ### What's the architecture of your host system? arm64 ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>45</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'trust_mode'</MESSAGE>
+    <SHA>102fc5cdab07a9090c48d954615ebb6eab18f98e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>extended unregister API endpoint * added possibility to delete the local data with the &quot;deleteLocalAccountData&quot; signal-cli command see #242</MESSAGE>
+      <SHA>77479447750e6d7c9d92b8fa3956c74bb4cc92f0</SHA>
+      <PATCHEDFILES>
+        <FILE>src/api/api.go</FILE>
+        <FILE>src/client/client.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>extended unregister API endpoint * added possibility to delete the local data with the &quot;deleteLocalAccountData&quot; signal-cli command see #242</MESSAGE>
+      <SHA>deb17b21ebff9534248a92a28819fbe746232221</SHA>
+      <PATCHEDFILES>
+        <FILE>src/api/api.go</FILE>
+        <FILE>src/client/client.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

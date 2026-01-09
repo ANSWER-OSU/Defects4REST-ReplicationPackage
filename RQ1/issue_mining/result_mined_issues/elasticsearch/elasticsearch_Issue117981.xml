@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117981</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/117981</ISSUEURL>
+  <TITLE>[CI] EsqlSpecIT class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #13965 / part3](https://gradle-enterprise.elastic.co/s/rbrqghxkex4ci) - [elasticsearch-intake #13961 / part3](https://gradle-enterprise.elastic.co/s/el7odw3ww3sco) - [elasticsearch-pull-request #44827 / part-3](https://gradle-enterprise.elastic.co/s/gqln5rz3i4ine) - [elasticsearch-pull-request #44776 / part-3](https://gradle-enterprise.elastic.co/s/p4xhivp7gd4e2) - [elasticsearch-pull-request #44727 / part-3](https://gradle-enterprise.elastic.co/s/f4byk6jg5ckgq) - [elasticsearch-intake #13861 / part3](https://gradle-enterprise.elastic.co/s/axse76zs3sbgg) - [elasticsearch-intake #13862 / part3](https://gradle-enterprise.elastic.co/s/3uii6hzp6pmsa) - [elasticsearch-intake #13857 / part3](https://gradle-enterprise.elastic.co/s/qoeupwqtl3k72) - [elasticsearch-pull-request #44510 / part-3](https://gradle-enterprise.elastic.co/s/knr3pxax3mmuu) - [elasticsearch-intake #13811 / part3](https://gradle-enterprise.elastic.co/s/wp3drwdirkexm) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:multi-node:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT&quot; -Dtests.method=&quot;test {lookup-join.LookupMessageFromIndexKeep SYNC}&quot; -Dtests.seed=50A5FFC4DA6481C4 -Dtests.locale=fr-WF -Dtests.timezone=Asia/Macau -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Data mismatch: row 0 column 0:a list containing row 0 column 0:0: expected &quot;2023-10-23T13:55:01.543Z&quot; but was &quot;2023-10-23T12:27:28.948Z&quot; row 0 column 1:a list containing row 0 column 1:0: expected &quot;172.21.3.15&quot; but was &quot;172.21.2.113&quot; row 0 column 2:a list containing row 0 column 2:0: expected &quot;1756467&quot; but was &quot;2764889&quot; row 0 column 3:a list containing row 0 column 3:0: expected &quot;Connected to 10.1.0.1&quot; but was &quot;Connected to 10.1.0.2&quot; row 1 column 0:a list containing row 1 column 0:0: expected &quot;2023-10-23T13:53:55.832Z&quot; but was &quot;2023-10-23T12:15:03.360Z&quot; row 1 column 1:a list containing row 1 column 1:0: expected &quot;172.21.3.15&quot; but was &quot;172.21.2.162&quot; row 1 column 2:a list containing row 1 column 2:0: expected &quot;5033755&quot; but was &quot;3450233&quot; row 1 column 3:a list containing row 1 column 3:0: expected &quot;Connection error&quot; but was &quot;Connected to 10.1.0.3&quot; row 1 column 4:a list containing row 1 column 4:0: expected &quot;Error&quot; but was &quot;Success&quot; row 2 column 0:a list containing row 2 column 0:0: expected &quot;2023-10-23T13:52:55.015Z&quot; but was &quot;2023-10-23T13:55:01.543Z&quot; row 2 column 2:a list containing row 2 column 2:0: expected &quot;8268153&quot; but was &quot;1756467&quot; ``` **Issue Reasons:** - [main] 16 failures in class org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT (1.6% fail rate in 980 executions) - [main] 6 failures in step part3 (4.9% fail rate in 122 executions) - [main] 10 failures in step part-3 (2.4% fail rate in 415 executions) - [main] 6 failures in pipeline elasticsearch-intake (4.9% fail rate in 122 executions) - [main] 10 failures in pipeline elasticsearch-pull-request (2.4% fail rate in 414 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT test {lookup-join.LookupMessageFromIndex SYNC} #117980</MESSAGE>
+    <SHA>59fd7bf502eebebf08f56cd73b376f5c5f171851</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT #117981</MESSAGE>
+      <SHA>2244070da4f34d08f6bfc20150c86129251292e4</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT #117981</MESSAGE>
+      <SHA>eb4f33ae7be785404a97f6ca9c42f94749de3599</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

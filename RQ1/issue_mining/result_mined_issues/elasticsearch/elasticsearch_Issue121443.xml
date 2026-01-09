@@ -1,0 +1,86 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121443</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121443</ISSUEURL>
+  <TITLE>When calling the _analyze API, it should be a 4xx when dictionary files are missing</TITLE>
+  <DESCRIPTION>### Elasticsearch Version _any_ ### Installed Plugins _No response_ ### Java Version _bundled_ ### OS Version _any_ ### Problem Description When calling the `_analyze` API, its possible to explore using it to see how things work with various dictionary files. However ,if a dictionary file is completely missing, this API throws a 5xx. For all analyzers that depend on user provided dictionaries, we should return a 4xx not a 5xx. Example: when using `hunspell` it should be a 4xx if the dictionary is missing as that needs to be provided by the admin of the cluster. ### Steps to Reproduce ``` GET /_analyze { &quot;tokenizer&quot;: &quot;standard&quot;, &quot;filter&quot;: {&quot;type&quot;: &quot;hunspell&quot;, &quot;locale&quot;: &quot;en_US&quot;}, &quot;text&quot;: &quot;the knife foxes jumping quickly over knives&quot; } ``` ### Logs (if relevant) ``` { &quot;error&quot;: { &quot;root_cause&quot;: [ { &quot;type&quot;: &quot;illegal_state_exception&quot;, &quot;reason&quot;: &quot;failed to load hunspell dictionary for locale: en_US&quot; } ], &quot;type&quot;: &quot;illegal_state_exception&quot;, &quot;reason&quot;: &quot;failed to load hunspell dictionary for locale: en_US&quot;, &quot;caused_by&quot;: { &quot;type&quot;: &quot;exception&quot;, &quot;reason&quot;: &quot;Could not find hunspell dictionary [en_US]&quot; } }, &quot;status&quot;: 500 } ``` Full error: ``` org.elasticsearch.transport.RemoteTransportException: [es-es-search-5b7c555d59-xtvz7][100.66.132.194:9300][indices:admin/analyze[s]]\nCaused by: java.lang.IllegalStateException: failed to load hunspell dictionary for locale: en_US\n\tat org.elasticsearch.server@9.0.0/org.elasticsearch.indices.analysis.HunspellService.lambda$new$0(HunspellService.java:102)\n\tat java.base/java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1713)\n\tat org.elasticsearch.server@9.0.0/org.elasticsearch.indices.analysis.HunspellService.getDictionary(HunspellService.java:119)\n\tat org.elasticsearch.server@9.0.0/org.elasticsearch.index.analysis.HunspellTokenFilterFactory.&lt;init&gt;(HunspellTokenFilterFactory.java:34)\n\tat org.elasticsearch.server@9.0.0/org.elasticsearch.indices.analysis.AnalysisModule.lambda$setupTokenFilters$0(AnalysisModule.java:163)\n\tat org.elasticsearch.server@9.0.0/org.elasticsearch.plugins.AnalysisPlugin$1.get(AnalysisPlugin.java:128)\n\tat org.elasticsearch.server@9.0.0/org.elasticsearch.index.analysis.AnalysisRegistry.getComponentFactory(AnalysisRegistry.java:132)\n\tat org.elasticsearch.server@9.0.0/org.elasticsearch.index.analysis.AnalysisRegistry.buildCustomAnalyzer(AnalysisRegistry.java:267)\n\tat org.elasticsearch.server@9.0.0/org.elasticsearch.action.admin.indices.analyze.TransportAnalyzeAction.buildCustomAnalyzer(TransportAnalyzeAction.java:218)\n\tat org.elasticsearch.server@9.0.0/org.elasticsearch.action.admin.indices.analyze.TransportAnalyzeAction.analyze(TransportAnalyzeAction.java:143)\n\tat org.elasticsearch.server@9.0.0/org.elasticsearch.action.admin.indices.analyze.TransportAnalyzeAction.shardOperation(TransportAnalyzeAction.java:129)\n\tat org.elasticsearch.server@9.0.0/org.elasticsearch.action.admin.indices.analyze.TransportAnalyzeAction.shardOperation(TransportAnalyzeAction.java:66)\n\tat org.elasticsearch.server@9.0.0/org.elasticsearch.action.support.single.shard.TransportSingleShardAction.lambda$asyncShardOperation$0(TransportSingleShardAction.java:113)\n\tat org.elasticsearch.server@9.0.0/org.elasticsearch.action.ActionRunnable$3.accept(ActionRunnable.java:79)\n\tat org.elasticsearch.server@9.0.0/org.elasticsearch.action.ActionRunnable$3.accept(ActionRunnable.java:76)\n\tat org.elasticsearch.server@9.0.0/org.elasticsearch.action.ActionRunnable$4.doRun(ActionRunnable.java:101)\n\tat org.elasticsearch.server@9.0.0/org.elasticsearch.common.util.concurrent.ThreadContext$ContextPreservingAbstractRunnable.doRun(ThreadContext.java:1044)\n\tat org.elasticsearch.server@9.0.0/org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:27)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)\n\tat java.base/java.lang.Thread.run(Thread.java:1575)\nCaused by: org.elasticsearch.ElasticsearchException: Could not find hunspell dictionary [en_US]\n\tat org.elasticsearch.server@9.0.0/org.elasticsearch.indices.analysis.HunspellService.loadDictionary(HunspellService.java:168)\n\tat org.elasticsearch.server@9.0.0/org.elasticsearch.indices.analysis.HunspellService.lambda$new$0(HunspellService.java:100)\n\t... 20 more\n ```</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Support duplicate suggestions in completion field (#121324) Currently if a document has duplicate suggestions across different contexts, only the first gets indexed, and when a user tries to search using the second context, she will get 0 results. This PR addresses this, but adding support for duplicate suggestions across different contexts, so documents like below with duplicate inputs can be searched across all provided contexts. ```json { &quot;my_suggest&quot;: [ { &quot;input&quot;: [ &quot;foox&quot;, &quot;boo&quot; ], &quot;weight&quot; : 2, &quot;contexts&quot;: { &quot;color&quot;: [ &quot;red&quot; ] } }, { &quot;input&quot;: [ &quot;foox&quot; ], &quot;weight&quot; : 3, &quot;contexts&quot;: { &quot;color&quot;: [ &quot;blue&quot; ] } } ] } ``` Closes #82432</MESSAGE>
+    <SHA>f7901f0795b8909e7c898d4e2c101bad96cbf4c6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Analyze API to return 400 for wrong custom analyzer If a custom analyzer provided in _analyze API can not be built, return 400 instead of the current 500. This most probably means that the user's provided analyzer specificatons are wrong. Closes #121443</MESSAGE>
+      <SHA>cc2107d828b9f362b9ed5b77ba8881461953312f</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/analysis-common/src/yamlRestTest/resources/rest-api-spec/test/indices.analyze/15_analyze.yml</FILE>
+        <FILE>server/src/main/java/module-info.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/ActionFeatures.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/analyze/TransportAnalyzeAction.java</FILE>
+        <FILE>server/src/main/resources/META-INF/services/org.elasticsearch.features.FeatureSpecification</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Analyze API to return 400 for wrong custom analyzer (#121568) If a custom analyzer provided in _analyze API can not be built, return 400 instead of the current 500. This most probably means that the user's provided analyzer specifications are wrong. Closes #121443</MESSAGE>
+      <SHA>82a556fc6533d623bbde090d3f57605fe7e5d653</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/121568.yaml</FILE>
+        <FILE>modules/analysis-common/build.gradle</FILE>
+        <FILE>modules/analysis-common/src/yamlRestTest/resources/rest-api-spec/test/indices.analyze/15_analyze.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/analyze/AnalyzeCapabilities.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/analyze/TransportAnalyzeAction.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/rest/action/admin/indices/RestAnalyzeAction.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Analyze API to return 400 for wrong custom analyzer (#121568) If a custom analyzer provided in _analyze API can not be built, return 400 instead of the current 500. This most probably means that the user's provided analyzer specifications are wrong. Closes #121443</MESSAGE>
+      <SHA>01fe31d3b9cd29acee2642f8b0717844302cce7d</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/121568.yaml</FILE>
+        <FILE>modules/analysis-common/build.gradle</FILE>
+        <FILE>modules/analysis-common/src/yamlRestTest/resources/rest-api-spec/test/indices.analyze/15_analyze.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/analyze/AnalyzeCapabilities.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/analyze/TransportAnalyzeAction.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/rest/action/admin/indices/RestAnalyzeAction.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Analyze API to return 400 for wrong custom analyzer (#121568) If a custom analyzer provided in _analyze API can not be built, return 400 instead of the current 500. This most probably means that the user's provided analyzer specifications are wrong. Closes #121443</MESSAGE>
+      <SHA>5a5683215e25ce691ea1c5e3462e3461301de2bd</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/121568.yaml</FILE>
+        <FILE>modules/analysis-common/build.gradle</FILE>
+        <FILE>modules/analysis-common/src/yamlRestTest/resources/rest-api-spec/test/indices.analyze/15_analyze.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/analyze/AnalyzeCapabilities.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/analyze/TransportAnalyzeAction.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/rest/action/admin/indices/RestAnalyzeAction.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Analyze API to return 400 for wrong custom analyzer (#121568) (#121815) If a custom analyzer provided in _analyze API can not be built, return 400 instead of the current 500. This most probably means that the user's provided analyzer specifications are wrong. Closes #121443</MESSAGE>
+      <SHA>f7bd10be23fc2baa84cff86c8ce05387daf81089</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/121568.yaml</FILE>
+        <FILE>modules/analysis-common/build.gradle</FILE>
+        <FILE>modules/analysis-common/src/yamlRestTest/resources/rest-api-spec/test/indices.analyze/15_analyze.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/analyze/AnalyzeCapabilities.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/analyze/TransportAnalyzeAction.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/rest/action/admin/indices/RestAnalyzeAction.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Analyze API to return 400 for wrong custom analyzer (#121568) (#121814) If a custom analyzer provided in _analyze API can not be built, return 400 instead of the current 500. This most probably means that the user's provided analyzer specifications are wrong. Closes #121443</MESSAGE>
+      <SHA>4b16ef0d707c2c70493e6aaa211cb3221e30dc0f</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/121568.yaml</FILE>
+        <FILE>modules/analysis-common/build.gradle</FILE>
+        <FILE>modules/analysis-common/src/yamlRestTest/resources/rest-api-spec/test/indices.analyze/15_analyze.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/analyze/AnalyzeCapabilities.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/analyze/TransportAnalyzeAction.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/rest/action/admin/indices/RestAnalyzeAction.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

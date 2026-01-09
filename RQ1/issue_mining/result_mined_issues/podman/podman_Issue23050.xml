@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23050</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23050</ISSUEURL>
+  <TITLE>quadlet: add Container-spec StopSignal mapping to podman --stop-signal</TITLE>
+  <DESCRIPTION>### Feature request description Using a quadlet `.container` unit, I want to set the stop signal for the created container. (I have a third-party container image for a workload that ignores `SIGTERM`, instead only responding to `SIGINT`. The container image was additionally not configured with a `STOPSIGNAL` when built. So I need to somehow get the container unit to pass `--stop-signal` to `podman run`.) ### Suggest potential solution Just as systemd service units have `StopSignal` in the `[Service]` section, I would expect quadlet container units to support `StopSignal` in the `[Container]` section, translating it to podman `--stop-signal`. ### Have you considered any alternatives? I am currently using `PodmanArgs=--stop-signal=SIGINT` to pass the flag directly. (But it took me sleeping on the problem to even realize I could do that.)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>32</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23254 from arixmkii/disable-mounts Implement disable default mounts via command line</MESSAGE>
+    <SHA>003527fedc4cf039c202626ec3db1347490f8091</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add support for StopSignal in quadlet .container files Fixes: https://github.com/containers/podman/issues/23050 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>0ecd6fa59fd03d98fd20ebae80793d8ec7aa1187</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-systemd.unit.5.md</FILE>
+        <FILE>pkg/systemd/quadlet/quadlet.go</FILE>
+        <FILE>test/e2e/quadlet/stopsignal.container</FILE>
+        <FILE>test/e2e/quadlet_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

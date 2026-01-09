@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18071</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18071</ISSUEURL>
+  <TITLE>[e2e] podman events health_status generated: no output</TITLE>
+  <DESCRIPTION>Seen in [remote f37 root](https://api.cirrus-ci.com/v1/artifact/task/5568070278709248/html/int-remote-fedora-37-root-host-sqlite.log.html#t--podman-events-health_status-generated--1). ``` podman events health_status generated ... # podman-remote [options] run --name test-hc -dt --health-cmd echo working busybox 72fccf0b07490697ea83c1994b9a8a4f1fbdcc0e06c2e9b36c304f9f00905dee # podman-remote [options] healthcheck run test-hc # podman-remote [options] events --stream=false --filter event=health_status --since 1m ... Failure [1.601 seconds] ... Number of health_status events Expected &lt;[]string | len:0, cap:0&gt;: nil not to be empty ``` I don't see any obvious bug, so, filing.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18069 from cevich/fix_build_aarch64_dep Cirrus: Fix aarch64 clone_script 404 errors</MESSAGE>
+    <SHA>19463738c2f4512e118c4a12c6422a66537a6edb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>e2e tests: fix racy flakes ...mostly just test code that wasn't doing the required waits. My first approach in the kube-play test was to add &quot;--wait&quot;. Bit mistake! The --wait flag, counterintuitively and counter to documentation, actually destroys all pods+containers+everything on exit. (Or tries -- see #17803). Since this violates POLA and is undocumented, I include here a fix to the man page. Despite my best intentions, I can't reasonably check every single test for missing waits, especially in kube-play where failing containers will get retried forever so we can't wait. We'll just have to fix flakes as we see them. Fixes: #17958 Fixes: #18071 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>761eca9e75dd8366ed71ca2162712681419b66ef</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-kube-play.1.md.in</FILE>
+        <FILE>test/e2e/logs_test.go</FILE>
+        <FILE>test/e2e/play_kube_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

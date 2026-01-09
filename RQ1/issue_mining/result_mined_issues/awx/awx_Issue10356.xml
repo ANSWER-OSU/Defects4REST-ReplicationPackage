@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>10356</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/10356</ISSUEURL>
+  <TITLE>Changing filters on dashboard chart reloads most of the page</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY Changing the filter on the dashboard chart should only cause the dashboard chart to reload, not the counts at the top of the page. ##### STEPS TO REPRODUCE - navigate to dashboard page - change the filters on the dashboard chart ##### EXPECTED RESULTS - only the chart reloads ##### ACTUAL RESULTS - the chart *and* the counts at the top of the page, breadcrumbs, etc. reload ##### ADDITIONAL INFORMATION ![dash_reload](https://user-images.githubusercontent.com/9753817/120809647-4c01b780-c518-11eb-9bd2-23f8ec9385ee.gif)</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #10090 from rebeccahhh/custom_venv_command add a new awx-manage command `custom_venvs` add an awx-manage command that gets pip freeze data from custom_venv and outputs to command line stdout SUMMARY part of #7062 - this command is a glorified pip freeze + some extra stuff, people could navigate to each of their custom virtual environments themselves and run a pip freeze, but this allows them to not, and everyone likes their life to be easier. The extra stuff allows users to see the connections that their existing virtual envs have in awx to things like organizations, jobs, inventory updates, and projects. ISSUE TYPE Feature Pull Request COMPONENT NAME API AWX VERSION awx: 19.1.0 ADDITIONAL INFORMATION This is built off of existing code and there is a line that gets custom venv paths from the settings module, that line does not seem to be working. I have written around that but want to make a note of it. Reviewed-by: Alan Rominger &lt;arominge@redhat.com&gt; Reviewed-by: Rebeccah Hunter &lt;rhunter@redhat.com&gt; Reviewed-by: Jeff Bradberry &lt;None&gt; Reviewed-by: Shane McDonald &lt;me@shanemcd.com&gt; Reviewed-by: Elijah DeLee &lt;kdelee@redhat.com&gt;</MESSAGE>
+    <SHA>b64f966db16952db37933c164a2848ab1280e3a5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #10349 from AlexSCorey/8401-MoreFiltersonDashboard Adds more filters to dashboard chart SUMMARY Resolves #8401 and #10356 ISSUE TYPE Bugfix Pull Request COMPONENT NAME UI AWX VERSION ADDITIONAL INFORMATION Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt; Reviewed-by: Alex Corey &lt;Alex.swansboro@gmail.com&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+      <SHA>1fd6ba0bfc16c37badc16bc1bdeb26fcb8e762ee</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/screens/Dashboard/Dashboard.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Dashboard/Dashboard.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Dashboard/DashboardGraph.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Dashboard/DashboardGraph.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Dashboard/shared/LineChart.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>29031</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/29031</ISSUEURL>
+  <TITLE>Purchase Order Back to list produces DB_ERROR_NOSUCHFIELD</TITLE>
+  <DESCRIPTION>### Bug I am receiving DB_ERROR_NOSUCHFIELD Unknown column 'Array' in 'where clause' when I click the link &quot;Back to list&quot; on Purchase Orders. ### Dolibarr Version 18.06 ### Environment PHP 7.2.24 ### Environment Database 0.11.3-MariaDB-1 - Debian 12 ### Steps to reproduce the behavior and expected behavior On the Purchase Orders list page: fourn/commande/list.php I will set a single status or multiple statuses to filter the list of Purchase Orders in my website, I will get updated results and then open the card for one of the Purchase Orders. On the Purchase Order card, I will then click on &quot;Back to list&quot; link and get taken: fourn/commande/list.php?restore_lastsearch_values=1 I then get an error reading: ``` Latest database access request error: SELECT s.rowid as socid, s.nom as name, s.name_alias as alias, s.town, s.zip, s.fk_pays, s.client, s.fournisseur, s.code_client, s.email, typent.code as typent_code, state.code_departement as state_code, state.nom as state_name, cf.rowid, cf.ref, cf.ref_supplier, cf.fk_statut, cf.billed, cf.total_ht, cf.total_tva, cf.total_ttc, cf.fk_user_author, cf.date_commande as date_commande, cf.date_livraison as date_livraison,cf.date_valid, cf.date_approve, cf.localtax1 as total_localtax1, cf.localtax2 as total_localtax2, cf.fk_multicurrency, cf.multicurrency_code, cf.multicurrency_tx, cf.multicurrency_total_ht, cf.multicurrency_total_tva, cf.multicurrency_total_ttc, cf.date_creation as date_creation, cf.tms as date_update, cf.note_public, cf.note_private, p.rowid as project_id, p.ref as project_ref, p.title as project_title, u.firstname, u.lastname, u.photo, u.login, u.email as user_email, u.statut as user_status, ef.signature_link as options_signature_link, ef.yardi_po_number as options_yardi_po_number, ef.tracking_number as options_tracking_number FROM llx_societe as s LEFT JOIN llx_c_country as country on (country.rowid = s.fk_pays) LEFT JOIN llx_c_typent as typent on (typent.id = s.fk_typent) LEFT JOIN llx_c_departements as state on (state.rowid = s.fk_departement), llx_commande_fournisseur as cf LEFT JOIN llx_commande_fournisseur_extrafields as ef on (cf.rowid = ef.fk_object) LEFT JOIN llx_user as u ON cf.fk_user_author = u.rowid LEFT JOIN llx_projet as p ON p.rowid = cf.fk_projet WHERE cf.fk_soc = s.rowid AND cf.entity IN (1) AND cf.fk_statut IN (Array) AND s.fk_pays IN (11) ORDER BY cf.ref DESC LIMIT 26 Return code for latest database access request error: DB_ERROR_NOSUCHFIELD Information for latest database access request error: Unknown column 'Array' in 'where clause' ``` ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #29043 from hregis/fix_missing_entity_parameter FIX missing hide &quot;new&quot; button where &quot;product&quot; or &quot;service&quot; module are disable</MESSAGE>
+    <SHA>70471186ed1a522b68c2f68bffe5af393aa6973a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Issue #29031 Update list.php FIX#29031 The query building expects the variable $search_status to be a string, but the declaration when returning to the list using &quot;restore_lastsearch_values&quot; returns an array. This change include a new line that converts this variable to a comma-separated string whenever it is an array to prevent the issue reported.</MESSAGE>
+      <SHA>d5b6dddff4e17c017ede12532d5556098737c3d2</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/fourn/commande/list.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

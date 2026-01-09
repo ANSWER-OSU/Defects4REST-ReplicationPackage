@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24154</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/24154</ISSUEURL>
+  <TITLE>Entrepôt - Description adds linebreak at every Save</TITLE>
+  <DESCRIPTION>### Bug At Save, a &lt;br/&gt; tag is added to every line in the Description field in Entrepôt ### Environment Version 16.0.3 ### Environment OS Debian Linux 11 ### Environment Web server Apache ### Environment PHP 7.4 ### Environment Database Maria DB ### Environment URL(s) /htdocs/product/stock/card.php ### Expected and actual behavior At Save, no html linebreak tags `&lt;br/&gt;` should be added, but they are added for every line at Save. ### Steps to reproduce the behavior Create an Entrepôt and write 2 or more lines in the Description field. Save and you will notice that an &lt;br/&gt; tag is added for every line. Open and save again, and one again a &lt;br/&gt; tag is added for every line. This happends every time the Entrepôt card is opend and svaved This is what Source looks like before Save ``` Contact:&amp;nbsp;Mr.XXX- Phone-No.: +49 9999999&lt;br /&gt; The best references for our colleagues in the warehouse are the order confirmation numbers. ``` This is what it looks like after 1 Save ``` Contact:&amp;nbsp;Mr.XXX- Phone-No.: +49 9999999&lt;br /&gt; &lt;br /&gt; The best references for our colleagues in the warehouse are the order confirmation numbers. ``` And this is what it looks like after 2 Saves ``` Contact:&amp;nbsp;Mr.XXX- Phone-No.: +49 9999999&lt;br /&gt; &lt;br /&gt; &lt;br /&gt; &lt;br /&gt; The best references for our colleagues in the warehouse are the order confirmation numbers. ``` And so on ..... ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>100</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #25056 from tiaris/FIX_24569 FIX #24569 filters on stockadate page</MESSAGE>
+    <SHA>a2b47ca55facaa789d1ed03657925ea4657a3337</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #24154 : Description adds linebreak at every Save update</MESSAGE>
+      <SHA>33f76025f95ee7a2a4feeed2638f6e2400123b5a</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/product/stock/card.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #25100 from Hystepik/develop_v16#1 Fix #24154 : Description adds linebreak at every Save update</MESSAGE>
+      <SHA>94a0e51cadc41040e2165f02e17a44adb157300b</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/product/stock/card.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

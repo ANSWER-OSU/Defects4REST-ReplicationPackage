@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23466</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/23466</ISSUEURL>
+  <TITLE>Payement pages uses the wrong conf variable for email adress sender</TITLE>
+  <DESCRIPTION>### Bug The pages /public/paymentok.php and /public/paymentko.php uses the configuration variable `$conf-&gt;global-&gt;MAILING_EMAIL_FROM` which is the configuration of the emailing module instead of the global email sender address resulting on mail from dolibarr@domain.com if this module is not configured. ### Environment Version 15.0.2 ### Environment OS Debian 11 ### Environment Web server Apache/2.4.54 (Debian) ### Environment PHP PHP 7.4.30 ### Environment Database mysql Ver 15.1 Distrib 10.9.3-MariaDB, ### Environment URL(s) /public/paymentok.php /public/paymentko.php ### Expected and actual behavior The pages /public/paymentok.php and /public/paymentko.php uses the configuration variable `$conf-&gt;global-&gt;MAILING_EMAIL_FROM` which is the configuration of the emailing module instead of the global email sender address resulting on mail from dolibarr@domain.com if this module is not configured. They should use `$conf-&gt;global-&gt;MAIN_MAIL_EMAIL_FROM` instead ### Steps to reproduce the behavior 1. Change the configuration value for the emailing module 2. Generate an online payment 3. The sender adress is the one from the emailing module not the global variable for the instance ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23434 from altairis-noe/too_much_br FIX: do not add &lt;br&gt; when dol_concatdesc already does it</MESSAGE>
+    <SHA>7218d8419f5ea0a635194cc53156632d7a9e72a0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #23466 : fix public payement pages ko and ok</MESSAGE>
+      <SHA>4e0ea65c43d4b687f2b3ccee1b3b9beb35400a08</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/public/payment/paymentko.php</FILE>
+        <FILE>htdocs/public/payment/paymentok.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #23467 from Hystepik/develop_v15#1 Fix #23466 : fix public payement pages ko and ok</MESSAGE>
+      <SHA>a2f7ef61238661aa858fccfb9ced8d0a4ea1f3aa</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/public/payment/paymentko.php</FILE>
+        <FILE>htdocs/public/payment/paymentok.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

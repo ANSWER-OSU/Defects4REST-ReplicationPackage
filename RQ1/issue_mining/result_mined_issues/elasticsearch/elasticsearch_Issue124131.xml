@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>124131</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/124131</ISSUEURL>
+  <TITLE>Add deprecation exception for `.monitoring-*` indices</TITLE>
+  <DESCRIPTION>When spinning up a new ES 9 cluster, the following log message shows up ``` Index [.monitoring-es-8-*] name begins with a dot (.), which is deprecated, and will not be allowed in a future Elasticsearch version. ``` Historically, the Stack Monitoring indices and data streams have had dot-prefixed names, and that will not change in Stack 9, so we should add an exception in the [`DotPrefixValidator` class](https://github.com/elastic/elasticsearch/blob/main/modules/dot-prefix-validation/src/main/java/org/elasticsearch/validation/DotPrefixValidator.java). The exception should be for all `.monitoring-*` indices as Metricbeat can send data to [4 data streams](https://github.com/elastic/beats/blob/main/metricbeat/helper/elastic/elastic_test.go#L41-L56), namely: * `.monitoring-es-8-mb` * `.monitoring-logstash-8-mb` * `.monitoring-kibana-8-mb` * `.monitoring-beats-8-mb` And potentially, Metricbeat 8 could send monitoring data from an old Enterprise Search 8 on ES 9 into `.monitoring-ent-search-8-mb` We'll make sure to revisit this in time for Stack 10</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Cleanup RegisteredDomainProcessor (#124123)</MESSAGE>
+    <SHA>d7b8b728e9189ce45bc1f6b3b277e62f83038224</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add .monitoring exemption to `DotPrefixValidator` This was something we were planning on removing, but have not yet. Resolves #124131</MESSAGE>
+      <SHA>9097158e897457042a1b99f7db34b6bf01f2616a</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/dot-prefix-validation/src/main/java/org/elasticsearch/validation/DotPrefixValidator.java</FILE>
+        <FILE>modules/dot-prefix-validation/src/test/java/org/elasticsearch/validation/DotPrefixValidatorTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add .monitoring exemption to `DotPrefixValidator` (#124158) This was something we were planning on removing, but have not yet. Resolves #124131</MESSAGE>
+      <SHA>dd2a5c691ab5dec580a818da311298f17c33f00e</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/dot-prefix-validation/src/main/java/org/elasticsearch/validation/DotPrefixValidator.java</FILE>
+        <FILE>modules/dot-prefix-validation/src/test/java/org/elasticsearch/validation/DotPrefixValidatorTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add .monitoring exemption to `DotPrefixValidator` (#124158) This was something we were planning on removing, but have not yet. Resolves #124131</MESSAGE>
+      <SHA>295de629d0db24d6e126654ab7cc60006cc82fa8</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/dot-prefix-validation/src/main/java/org/elasticsearch/validation/DotPrefixValidator.java</FILE>
+        <FILE>modules/dot-prefix-validation/src/test/java/org/elasticsearch/validation/DotPrefixValidatorTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add .monitoring exemption to `DotPrefixValidator` (#124158) (#124606) This was something we were planning on removing, but have not yet. Resolves #124131</MESSAGE>
+      <SHA>8c57341e2b2d9988e43b2fce4c67751dd4404ee3</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/dot-prefix-validation/src/main/java/org/elasticsearch/validation/DotPrefixValidator.java</FILE>
+        <FILE>modules/dot-prefix-validation/src/test/java/org/elasticsearch/validation/DotPrefixValidatorTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add .monitoring exemption to `DotPrefixValidator` (#124158) This was something we were planning on removing, but have not yet. Resolves #124131</MESSAGE>
+      <SHA>fc7693ff9595604760dc0c9a7391ce6ba18f97db</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/dot-prefix-validation/src/main/java/org/elasticsearch/validation/DotPrefixValidator.java</FILE>
+        <FILE>modules/dot-prefix-validation/src/test/java/org/elasticsearch/validation/DotPrefixValidatorTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add .monitoring exemption to `DotPrefixValidator` (#124158) This was something we were planning on removing, but have not yet. Resolves #124131</MESSAGE>
+      <SHA>ab6f6df11147f46a52631d4b78049bd59062e839</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/dot-prefix-validation/src/main/java/org/elasticsearch/validation/DotPrefixValidator.java</FILE>
+        <FILE>modules/dot-prefix-validation/src/test/java/org/elasticsearch/validation/DotPrefixValidatorTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

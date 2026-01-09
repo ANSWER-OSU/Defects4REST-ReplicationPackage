@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>452</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/452</ISSUEURL>
+  <TITLE>`sh: yarn: not found` when installing dependencies in sub directories</TITLE>
+  <DESCRIPTION>I've split my server and client code into two different subdirectories, each with their own `package.json`. This is so I can use `yarn`'s [flat configuration option](https://yarnpkg.com/en/docs/package-json#toc-flat) in my client code. ``` my-project/ ├── client │ └── package.json ├── server └── package.json package.json ``` My top level `package.json` has the following scripts: ``` &quot;scripts&quot;: { &quot;install:all&quot;: &quot;yarn run install:client &amp;&amp; yarn run install:server&quot;, &quot;install:client&quot;: &quot;cd ./client &amp;&amp; yarn&quot;, &quot;install:server&quot;: &quot;cd ./server &amp;&amp; yarn&quot;, &quot;build&quot;: &quot;yarn run install:all &amp;&amp; tsc -p ./client/src/&quot;, &quot;start&quot;: &quot;node server/bin/www&quot; } ``` Unfortunately when it gets to the `build` script it throws saying it can't find `yarn`. ``` &gt; ▲ npm run build &gt; &gt; my-project@1.0.0 build /home/nowuser/src &gt; &gt; yarn run install:all &amp;&amp; tsc -p ./client/src/ &gt; sh: yarn: not found ``` I saw in https://github.com/zeit/now-cli/issues/153#issuecomment-279761171 that `yarn` isn't actually being used so I'm not sure if it's possible to work around this.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now-node] 'config.includeFiles' accepts a string (#441)</MESSAGE>
+    <SHA>5fb6e5c0ba3e1466807d10fdb3a05940ccb1fd41</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-static-build] Fix @now/static-build nested build (#452)</MESSAGE>
+      <SHA>b4d604b2e98f6317957344ba430f9f832edc9646</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-static-build/index.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4934</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/4934</ISSUEURL>
+  <TITLE>&quot;tower&quot; instances die</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY &lt;!-- Briefly describe the problem. --&gt; Count for &quot;tower&quot; instance_group shrinks from 3 to 1. Jobs start failing. ##### ENVIRONMENT * AWX version: 7.0.0 * AWX install method: kubernetes * Ansible version: 2.8.4 * Operating System: CentOS 7 * Web Browser: Firefox 69.0.1 ##### STEPS TO REPRODUCE &lt;!-- Please describe exactly how to reproduce the problem. --&gt; Have 3 node k8s cluster installed using Kubespray v2.11.0 (kubectl version v1.15.3). Increase &quot;tower&quot; instance_group to have 3 members. Within a few days jobs will start hanging (Pending) and eventually failing with error: Task was marked as running in Tower but was not present in the job queue, so it has been marked as failed. Per k8s awx-0, awx-1, awx-2 all ok. But awx cluster in weird state where &quot;tower&quot; instance_group suddenly only has one member (awx-0). Maybe the failing jobs are being scheduled for failed awx-1 and awx-2. Deleting pods awx-1 and awx-2 in k8s causes them to be recreated and then everything works fine but only for a few days. I'm monitoring and know the exact time the issue happens, and do see the following rabbit error at the same time: # kubectl logs -n awx awx-1 awx-rabbit | grep -i crash 2019-10-07 19:11:45.209 [error] &lt;0.390.0&gt; CRASH REPORT Process rabbit_node_monitor with 0 neighbours crashed with reason: no function clause matching rabbit_autoheal. ##### EXPECTED RESULTS &lt;!-- What did you expect to happen when running the steps above? --&gt; &quot;tower&quot; instance_group count to stay the same. jobs don't hang and fail. ##### ACTUAL RESULTS &lt;!-- What actually happened? --&gt; Count of &quot;tower&quot; instance_group shrinks and jobs fail until delete pods awx-1 and awx-2. ##### ADDITIONAL INFORMATION &lt;!-- Include any links to sosreport, database dumps, screenshots or other information. --&gt;</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>76</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #4935 from ryanpetrello/383-dispatcher-fork-cleanup clean stale dispatcher connections closer to post-fork</MESSAGE>
+    <SHA>efa62e8792d0d85ef695e7125a9d8354fa34fed1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #4934 from ryanpetrello/383-backport-logging-fixes backport a few logging-related fixes</MESSAGE>
+      <SHA>cec2f58380a74f8d88b9f7b909b74947929b77fc</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/utils/external_logging.py</FILE>
+        <FILE>awx/main/utils/handlers.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

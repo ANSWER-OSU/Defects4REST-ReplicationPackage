@@ -1,0 +1,99 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>125532</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/125532</ISSUEURL>
+  <TITLE>[CI] LegacyYamlRestTestPluginFuncTest yamlRestTest executes and copies api and tests to correct source set failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7373 / almalinux-8-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/fbnkhx4kjbx3q) - [elasticsearch-periodic-platform-support #7373 / ubuntu-2004-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/b5umvymgurmgg) - [elasticsearch-periodic-platform-support #7366 / ubuntu-2004-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/6fhp5tay24ewi) - [elasticsearch-periodic-platform-support #7366 / almalinux-8-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/5gq6trufvae3e) - [elasticsearch-periodic-platform-support #7359 / almalinux-8-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/f7jgf7iqox5hw) - [elasticsearch-periodic-platform-support #7359 / ubuntu-2004-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/4zsuwutts6jt6) - [elasticsearch-periodic-platform-support #7352 / ubuntu-2004-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/ivb3pac5ndpg4) - [elasticsearch-periodic-platform-support #7352 / almalinux-8-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/vtodeyofnpbfq) - [elasticsearch-periodic-platform-support #7345 / almalinux-8-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/ajjycbgvne7uo) - [elasticsearch-periodic-platform-support #7345 / ubuntu-2004-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/glf2n3xeh46pg) **Reproduction Line:** ``` null ``` **Applicable branches:** 8.16 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.gradle.internal.test.rest.LegacyYamlRestTestPluginFuncTest),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(yamlRestTest%20executes%20and%20copies%20api%20and%20tests%20to%20correct%20source%20set),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.gradle.testkit.runner.UnexpectedBuildFailure: Unexpected build execution failure in /tmp/junit2731184467363460981 with arguments [yamlRestTest, --full-stacktrace, --configuration-cache, -Dorg.elasticsearch.gradle.build-api-restriction.disabled=true, -Dtest.external=true] Output: Calculating task graph as no cached configuration is available for tasks: yamlRestTest ======================================= Elasticsearch Build Hamster says Hello! Gradle Version : 8.13 OS Info : Linux 4.18.0-513.18.1.el8_9.aarch64 (aarch64) Runtime JDK Version : 21.0.6+7-LTS (Eclipse Temurin, 21.0.6+7-LTS) Runtime java.home : /opt/buildkite-agent/.gradle/jdks/eclipse_adoptium-21-aarch64-linux.2 Gradle JDK Version : 21.0.6+7-LTS (Eclipse Temurin) Gradle java.home : /opt/buildkite-agent/.gradle/jdks/eclipse_adoptium-21-aarch64-linux.2 Random Testing Seed : C70DCF99734E0852 In FIPS 140 mode : false ======================================= FAILURE: [truncated] ``` **Issue Reasons:** - [8.16] 20 consecutive failures in step almalinux-8-aarch64_checkpart1_platform-support-arm - [8.16] 19 consecutive failures in step ubuntu-2004-aarch64_checkpart1_platform-support-arm - [8.16] 20 consecutive failures in pipeline elasticsearch-periodic-platform-support - [8.16] 39 failures in test yamlRestTest executes and copies api and tests to correct source set (28.3% fail rate in 138 executions) - [8.16] 20 failures in step almalinux-8-aarch64_checkpart1_platform-support-arm (100.0% fail rate in 20 executions) - [8.16] 19 failures in step ubuntu-2004-aarch64_checkpart1_platform-support-arm (100.0% fail rate in 19 executions) - [8.16] 20 failures in pipeline elasticsearch-periodic-platform-support (100.0% fail rate in 20 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Convert x-pack fleet project to new test framework (#125743)</MESSAGE>
+    <SHA>e75891e49a9f120cb6c815b32f85ca2273e402f8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[CI] Fix LegacyYamlRestTestPluginFuncTest failure for not available java toolchain (#125976) Wire in toolchain plugins into AbstractRestResourcesFuncTest to allow resolving jdk fixes #125534 , #125533 , #125532, #125531</MESSAGE>
+      <SHA>511c50967d7298409a8c0a366a90c99131dd6796</SHA>
+      <PATCHEDFILES>
+        <FILE>build-tools-internal/src/integTest/groovy/org/elasticsearch/gradle/fixtures/AbstractRestResourcesFuncTest.groovy</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Fix LegacyYamlRestTestPluginFuncTest failure for not available java toolchain (#125976) Wire in toolchain plugins into AbstractRestResourcesFuncTest to allow resolving jdk fixes #125534 , #125533 , #125532, #125531</MESSAGE>
+      <SHA>2eee1b2b517f1265a7964e78ce98395b758562cb</SHA>
+      <PATCHEDFILES>
+        <FILE>build-tools-internal/src/integTest/groovy/org/elasticsearch/gradle/fixtures/AbstractRestResourcesFuncTest.groovy</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Fix LegacyYamlRestTestPluginFuncTest failure for not available java toolchain (#125976) Wire in toolchain plugins into AbstractRestResourcesFuncTest to allow resolving jdk fixes #125534 , #125533 , #125532, #125531</MESSAGE>
+      <SHA>89c816283fc61d04491bf9f0284111f346fd4947</SHA>
+      <PATCHEDFILES>
+        <FILE>build-tools-internal/src/integTest/groovy/org/elasticsearch/gradle/fixtures/AbstractRestResourcesFuncTest.groovy</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Fix LegacyYamlRestTestPluginFuncTest failure for not available java toolchain (#125976) Wire in toolchain plugins into AbstractRestResourcesFuncTest to allow resolving jdk fixes #125534 , #125533 , #125532, #125531</MESSAGE>
+      <SHA>3eea531e4e3c991da0eff616eee4fee85037c402</SHA>
+      <PATCHEDFILES>
+        <FILE>build-tools-internal/src/integTest/groovy/org/elasticsearch/gradle/fixtures/AbstractRestResourcesFuncTest.groovy</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Fix LegacyYamlRestTestPluginFuncTest failure for not available java toolchain (#125976) Wire in toolchain plugins into AbstractRestResourcesFuncTest to allow resolving jdk fixes #125534 , #125533 , #125532, #125531</MESSAGE>
+      <SHA>907efb64b0715f632b922a92034b3ef359c3629b</SHA>
+      <PATCHEDFILES>
+        <FILE>build-tools-internal/src/integTest/groovy/org/elasticsearch/gradle/fixtures/AbstractRestResourcesFuncTest.groovy</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Fix LegacyYamlRestTestPluginFuncTest failure for not available java toolchain (#125976) Wire in toolchain plugins into AbstractRestResourcesFuncTest to allow resolving jdk fixes #125534 , #125533 , #125532, #125531</MESSAGE>
+      <SHA>5a57591cc34c136db4164beef3e7fc6aaece38dc</SHA>
+      <PATCHEDFILES>
+        <FILE>build-tools-internal/src/integTest/groovy/org/elasticsearch/gradle/fixtures/AbstractRestResourcesFuncTest.groovy</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Fix LegacyYamlRestTestPluginFuncTest failure for not available java toolchain (#125976) (#125981) Wire in toolchain plugins into AbstractRestResourcesFuncTest to allow resolving jdk fixes #125534 , #125533 , #125532, #125531</MESSAGE>
+      <SHA>b4a8d02605950438a6a32bf5550b06dd7f169dcd</SHA>
+      <PATCHEDFILES>
+        <FILE>build-tools-internal/src/integTest/groovy/org/elasticsearch/gradle/fixtures/AbstractRestResourcesFuncTest.groovy</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Fix LegacyYamlRestTestPluginFuncTest failure for not available java toolchain (#125976) (#125985) Wire in toolchain plugins into AbstractRestResourcesFuncTest to allow resolving jdk fixes #125534 , #125533 , #125532, #125531</MESSAGE>
+      <SHA>8640ea8132b49b094fa3bd51670ca8ed98535521</SHA>
+      <PATCHEDFILES>
+        <FILE>build-tools-internal/src/integTest/groovy/org/elasticsearch/gradle/fixtures/AbstractRestResourcesFuncTest.groovy</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Fix LegacyYamlRestTestPluginFuncTest failure for not available java toolchain (#125976) (#125984) Wire in toolchain plugins into AbstractRestResourcesFuncTest to allow resolving jdk fixes #125534 , #125533 , #125532, #125531</MESSAGE>
+      <SHA>17d29f1027081cb9d40256b7ab890886590c0e0d</SHA>
+      <PATCHEDFILES>
+        <FILE>build-tools-internal/src/integTest/groovy/org/elasticsearch/gradle/fixtures/AbstractRestResourcesFuncTest.groovy</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Fix LegacyYamlRestTestPluginFuncTest failure for not available java toolchain (#125976) (#125983) Wire in toolchain plugins into AbstractRestResourcesFuncTest to allow resolving jdk fixes #125534 , #125533 , #125532, #125531</MESSAGE>
+      <SHA>4ee228417aaa25c243c8e46f65f20e0e4324b230</SHA>
+      <PATCHEDFILES>
+        <FILE>build-tools-internal/src/integTest/groovy/org/elasticsearch/gradle/fixtures/AbstractRestResourcesFuncTest.groovy</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Fix LegacyYamlRestTestPluginFuncTest failure for not available java toolchain (#125976) (#125982) Wire in toolchain plugins into AbstractRestResourcesFuncTest to allow resolving jdk fixes #125534 , #125533 , #125532, #125531</MESSAGE>
+      <SHA>55c91d6dcb924406551f8bccf38c2c3c5140e2cc</SHA>
+      <PATCHEDFILES>
+        <FILE>build-tools-internal/src/integTest/groovy/org/elasticsearch/gradle/fixtures/AbstractRestResourcesFuncTest.groovy</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Fix LegacyYamlRestTestPluginFuncTest failure for not available java toolchain (#125976) Wire in toolchain plugins into AbstractRestResourcesFuncTest to allow resolving jdk fixes #125534 , #125533 , #125532, #125531</MESSAGE>
+      <SHA>2801e6d936a820b0e210ade92a567d28ae8054c9</SHA>
+      <PATCHEDFILES>
+        <FILE>build-tools-internal/src/integTest/groovy/org/elasticsearch/gradle/fixtures/AbstractRestResourcesFuncTest.groovy</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

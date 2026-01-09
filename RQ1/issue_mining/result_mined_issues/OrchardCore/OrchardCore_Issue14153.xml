@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14153</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/14153</ISSUEURL>
+  <TITLE>Unable to search multiple PDF file in Elasticsearch</TITLE>
+  <DESCRIPTION>We support searching PDF file in Elasticsearch. We do this by reading the text of the PDF file found in MediaField and saving the text from the PDF file into an custom index in Elasticsearch. This is great because now anytime a user searches for a text found in the PDF file, we return the contentItems where the PDF belongs in! The problem is that we only store the text of the first attached PDF file not all of them which sucks. ### Solution When trying to index a Text/String based field, we should concatenate all values for the same index key. This will allow the content of multiple files to be indexed as expected.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Rename general setting views (#14150)</MESSAGE>
+    <SHA>4a50e3bea7ca233cc22ce1e3c849213289b77cf2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add support for multiple media files in Elasticsearch Fix #14153</MESSAGE>
+      <SHA>e498b8cf367a22dbf6267d6f5a9f23504843d669</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Core/Services/ElasticIndexManager.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add support for multiple media files in Elasticsearch (Fix MediaFieldIndexHandler) Fix #14153</MESSAGE>
+      <SHA>2f343e21fdf9c47f32e36efbbdfdc4e9fe8a6c3f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Media/Indexing/MediaFieldIndexHandler.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Support multiple values in Elasticsearch Fix #14153</MESSAGE>
+      <SHA>290d7173c3beb857a79835732fa8396d6040a582</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Core/Services/ElasticIndexManager.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

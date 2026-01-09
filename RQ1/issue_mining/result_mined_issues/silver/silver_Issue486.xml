@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>486</ISSUENO>
+  <ISSUEURL>https://github.com/silverapp/silver/issues/486</ISSUEURL>
+  <TITLE>Disable payment method with side effects</TITLE>
+  <DESCRIPTION>Add a `disable` method to `PaymentMethod` that will put `enable` to `False` and move all transactions to `canceled`.</DESCRIPTION>
+  <REPONAME>silver</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Codes for transaction state (closes #488) (#490) * Added fail_code, refund_code and cancel_code for Transaction.</MESSAGE>
+    <SHA>9f615afaf25a2bfad911e1dde614f0ab0c549663</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Disable payment method (fixes #487 and #486) (#493) * Rename enabled to canceled and make it imutable-ish (fixes #487) * Implement cancel method for payment method. * Add an endpoint that can execute a requested action on a specific payment method. * Clean model in validate method from PaymentMethodSerializer. * Hardcode payment method's action. * Catch and return error that may occur during cancel action. * Test if payment method is canceled after the cancel action. * Test error handling for payment method cancel action If the transaction can't be voided, an erorr should be trown.</MESSAGE>
+      <SHA>f40f55ae9a220c68491f33c5bac60ffdaf9d879c</SHA>
+      <PATCHEDFILES>
+        <FILE>silver/admin.py</FILE>
+        <FILE>silver/api/filters.py</FILE>
+        <FILE>silver/api/serializers.py</FILE>
+        <FILE>silver/api/urls.py</FILE>
+        <FILE>silver/api/views.py</FILE>
+        <FILE>silver/migrations/0033_auto_20170130_1337.py</FILE>
+        <FILE>silver/migrations/0034_auto_20170130_1545.py</FILE>
+        <FILE>silver/models/payment_methods.py</FILE>
+        <FILE>silver/models/transactions/transaction.py</FILE>
+        <FILE>silver/tests/fixtures.py</FILE>
+        <FILE>silver/tests/integration/test_documents_transactions.py</FILE>
+        <FILE>silver/tests/integration/test_transactions_payment_methods.py</FILE>
+        <FILE>silver/tests/spec/test_payment_method.py</FILE>
+        <FILE>silver/tests/unit/test_payment_method_serializer.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6493</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6493</ISSUEURL>
+  <TITLE>DB Errors 10.0.0 Post Upgrade</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY Database errors following 10.0.0 upgrade ##### ENVIRONMENT * AWX version: 10.0.0 * AWX install method: kubernetes * Ansible version: 2.9.0 * Operating System: Ubuntu (Docker Host Base) * Web Browser: Chrome Latest ##### STEPS TO REPRODUCE Run AWX Upgrade from 9.3.0 - 10.0.0 Load AWX homepage (following login) View Postgres DB Logs ##### EXPECTED RESULTS No Database errors ##### ACTUAL RESULTS DB Errors as follows: 2020-03-31 02:20:25.892 GMT [237] ERROR: relation &quot;_old_main_jobevent&quot; does not exist at character 21 2020-03-31 02:20:25.892 GMT [237] STATEMENT: SELECT MAX(id) FROM _old_main_jobevent 2020-03-31 02:20:25.893 GMT [237] ERROR: relation &quot;_old_main_inventoryupdateevent&quot; does not exist at character 21 2020-03-31 02:20:25.893 GMT [237] STATEMENT: SELECT MAX(id) FROM _old_main_inventoryupdateevent 2020-03-31 02:20:25.893 GMT [237] ERROR: relation &quot;_old_main_projectupdateevent&quot; does not exist at character 21 2020-03-31 02:20:25.893 GMT [237] STATEMENT: SELECT MAX(id) FROM _old_main_projectupdateevent 2020-03-31 02:20:25.894 GMT [237] ERROR: relation &quot;_old_main_adhoccommandevent&quot; does not exist at character 21 2020-03-31 02:20:25.894 GMT [237] STATEMENT: SELECT MAX(id) FROM _old_main_adhoccommandevent 2020-03-31 02:20:25.895 GMT [237] ERROR: relation &quot;_old_main_systemjobevent&quot; does not exist at character 21 2020-03-31 02:20:25.895 GMT [237] STATEMENT: SELECT MAX(id) FROM _old_main_systemjobevent 2020-03-31 02:20:38.210 GMT [259] ERROR: relation &quot;_old_main_jobevent&quot; does not exist at character 21 2020-03-31 02:20:38.210 GMT [259] STATEMENT: SELECT MAX(id) FROM _old_main_jobevent 2020-03-31 02:20:38.211 GMT [259] ERROR: relation &quot;_old_main_inventoryupdateevent&quot; does not exist at character 21 2020-03-31 02:20:38.211 GMT [259] STATEMENT: SELECT MAX(id) FROM _old_main_inventoryupdateevent 2020-03-31 02:20:38.212 GMT [259] ERROR: relation &quot;_old_main_projectupdateevent&quot; does not exist at character 21 2020-03-31 02:20:38.212 GMT [259] STATEMENT: SELECT MAX(id) FROM _old_main_projectupdateevent 2020-03-31 02:20:38.212 GMT [259] ERROR: relation &quot;_old_main_adhoccommandevent&quot; does not exist at character 21 2020-03-31 02:20:38.212 GMT [259] STATEMENT: SELECT MAX(id) FROM _old_main_adhoccommandevent 2020-03-31 02:20:38.213 GMT [259] ERROR: relation &quot;_old_main_systemjobevent&quot; does not exist at character 21 2020-03-31 02:20:38.213 GMT [259] STATEMENT: SELECT MAX(id) FROM _old_main_systemjobevent ##### ADDITIONAL INFORMATION Appears a lookup or somethign hasnt been removed in v10.0.0. Let me know if you want any additional info. will get it to you asap :)</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #6484 from ryanpetrello/inv-source-required prevent manual updates at POST /api/v2/inventory_sources/N/update/ Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>5eddcdd5f5925d97b1a79582f3f5fdfc0c97ca0a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>detect event migration tables in a less noisy way see: https://github.com/ansible/awx/issues/6493</MESSAGE>
+      <SHA>d19a9db52373fd180a50e7fedcb4eb7d82ce55f2</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/models/__init__.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3034</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/3034</ISSUEURL>
+  <TITLE>Not dependant pipelines are skipped, when any pipeline fails before they are started, even when dependant pipelines are OK</TITLE>
+  <DESCRIPTION>Hello, I have the following situation: ![image](https://user-images.githubusercontent.com/1737722/97972322-a2f9af80-1dc4-11eb-842b-c9282a064bef.png) Here the pipelines, test1, test2 and test3 &quot;[depends_on](https://docs.drone.io/pipeline/configuration/)&quot; build. - release1 depends_on test1 - release2 depends_on test2 - release3 depends_on test3 But release2 has no dependance on test1. When test1 fails before test2 is finished, release2 is skipped. When test1 fails after test2 is successful, release2 will be executed. I think it should always execute release2 when test2 is successful, regardless of the other pipelines release2 has no dependance on, or what do you think? Thank you and best regards, Philipp</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [CODE-2498]: Add time and author filter params to list commits page (#3000) * Remove redundant consts and annotate errors * Add a Regex bool field to the api.CommitFilter * Add use author/commiter regex bool to list commit filter * Merge branch 'main' into dd/commit-time-author-filter * Add commiter IDs * Merge branch 'main' into dd/commit-time-author-filter * Merge branch 'main' into dd/commit-time-author-filter * Merge branch 'main' into dd/commit-time-author-filter * Add regex quote for author * Add time and author filter params to list commits page</MESSAGE>
+    <SHA>335eaa73c178308990f5314e2508def95cba942f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: [CDE-525]: for each execution form a new list of steps to execute. (#3034) * fix: [CDE-525]: for each execution form a new list of steps to execute.</MESSAGE>
+      <SHA>d3d1ba32ffbecc82a755837df3e81ff326501a3b</SHA>
+      <PATCHEDFILES>
+        <FILE>app/gitspace/orchestrator/container/devcontainer_steps.go</FILE>
+        <FILE>app/gitspace/orchestrator/container/embedded_docker_provider.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

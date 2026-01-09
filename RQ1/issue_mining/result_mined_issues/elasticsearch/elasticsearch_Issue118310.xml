@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118310</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118310</ISSUEURL>
+  <TITLE>[CI] FileSettingsRoleMappingUpgradeIT testRoleMappingsAppliedOnUpgrade {upgradedNodes=2} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5333 / 8.5.3_bwc](https://gradle-enterprise.elastic.co/s/aajsxxrw74524) - [elasticsearch-pull-request #45827 / 8.5.3_bwc](https://gradle-enterprise.elastic.co/s/s4obvudyjcf5q) - [elasticsearch-pull-request #45801 / 8.5.3_bwc](https://gradle-enterprise.elastic.co/s/ck2cmnwa2iooo) - [elasticsearch-periodic #5321 / 8.5.3_bwc](https://gradle-enterprise.elastic.co/s/dkxznxv4zj5ne) - [elasticsearch-periodic #5309 / 8.5.3_bwc](https://gradle-enterprise.elastic.co/s/imswmsi7idtme) - [elasticsearch-periodic #5279 / 8.5.3_bwc](https://gradle-enterprise.elastic.co/s/r5qhpwgh5hgw2) **Reproduction Line:** ``` ./gradlew &quot;:qa:rolling-upgrade:v8.5.3#bwcTest&quot; -Dtests.class=&quot;org.elasticsearch.upgrades.FileSettingsRoleMappingUpgradeIT&quot; -Dtests.method=&quot;testRoleMappingsAppliedOnUpgrade {upgradedNodes=3}&quot; -Dtests.seed=839510D5116047CB -Dtests.bwc=true -Dtests.locale=pa-Arab-PK -Dtests.timezone=Africa/Asmera -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.upgrades.FileSettingsRoleMappingUpgradeIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testRoleMappingsAppliedOnUpgrade%20%7BupgradedNodes%3D2%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.RuntimeException: An error occurred while checking cluster 'test-cluster' status. ``` **Issue Reasons:** - [8.x] 6 consecutive failures in step 8.5.3_bwc - [8.x] 6 failures in test testRoleMappingsAppliedOnUpgrade {upgradedNodes=2} (4.3% fail rate in 140 executions) - [8.x] 6 failures in step 8.5.3_bwc (100.0% fail rate in 6 executions) - [8.x] 4 failures in pipeline elasticsearch-periodic (40.0% fail rate in 10 executions) - [8.x] 2 failures in pipeline elasticsearch-pull-request (25.0% fail rate in 8 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.upgrades.FileSettingsRoleMappingUpgradeIT testRoleMappingsAppliedOnUpgrade {upgradedNodes=1} #118309</MESSAGE>
+    <SHA>026922fed2460291f6f5d78bf3cb9e130c7ccae1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.upgrades.FileSettingsRoleMappingUpgradeIT testRoleMappingsAppliedOnUpgrade {upgradedNodes=2} #118310</MESSAGE>
+      <SHA>886b6239476c48ef5c8cc3aa8f62aac027547d63</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix intermittent FileSettingsRoleMappingUpgradeIT failures (#118455) Fixes: https://github.com/elastic/elasticsearch/issues/118311 https://github.com/elastic/elasticsearch/issues/118310 https://github.com/elastic/elasticsearch/issues/118309 Same issue that was fixed in: https://github.com/elastic/elasticsearch/pull/110963 `@BeforeClass` is executed after the test rules. This means it creates the clusters for all the invalid versions, which sometimes doesnt work. Change it to a rule which definitely evaluates before the clusters are created. This will also speed up this test in CI.</MESSAGE>
+      <SHA>68d38a6e1d2df5b9c9081847915cdd86064dc1d0</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>qa/rolling-upgrade/src/javaRestTest/java/org/elasticsearch/upgrades/FileSettingsRoleMappingUpgradeIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix intermittent FileSettingsRoleMappingUpgradeIT failures (#118455) Fixes: https://github.com/elastic/elasticsearch/issues/118311 https://github.com/elastic/elasticsearch/issues/118310 https://github.com/elastic/elasticsearch/issues/118309 Same issue that was fixed in: https://github.com/elastic/elasticsearch/pull/110963 `@BeforeClass` is executed after the test rules. This means it creates the clusters for all the invalid versions, which sometimes doesnt work. Change it to a rule which definitely evaluates before the clusters are created. This will also speed up this test in CI.</MESSAGE>
+      <SHA>957be6428ffdac568dc7a798d282e69a424b4b13</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>qa/rolling-upgrade/src/javaRestTest/java/org/elasticsearch/upgrades/FileSettingsRoleMappingUpgradeIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix intermittent FileSettingsRoleMappingUpgradeIT failures (#118455) Fixes: https://github.com/elastic/elasticsearch/issues/118311 https://github.com/elastic/elasticsearch/issues/118310 https://github.com/elastic/elasticsearch/issues/118309 Same issue that was fixed in: https://github.com/elastic/elasticsearch/pull/110963 `@BeforeClass` is executed after the test rules. This means it creates the clusters for all the invalid versions, which sometimes doesnt work. Change it to a rule which definitely evaluates before the clusters are created. This will also speed up this test in CI.</MESSAGE>
+      <SHA>c5ff5eae84d416e11da7b6a58f3bc3783a3ca1b8</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>qa/rolling-upgrade/src/javaRestTest/java/org/elasticsearch/upgrades/FileSettingsRoleMappingUpgradeIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

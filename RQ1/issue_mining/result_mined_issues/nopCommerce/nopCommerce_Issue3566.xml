@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3566</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3566</ISSUEURL>
+  <TITLE>Slow performance with grouped product, many tier prices and customer roles</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.10 Steps to reproduce the problem: 1. Add 100 grouped products with 10 child products each into one category. 2. Add 10 Tier prices connected to one customer role each. 3. Browse that category. One problem seams to be in TierPriceExtensions.FilterForCustomer where multiple queries against CustomerRole table is made for every child product and tier price https://github.com/nopSolutions/nopCommerce/blob/27e5778f6c4ab991792215bd65e1ec5b08103c97/src/Libraries/Nop.Services/Catalog/TierPriceExtensions.cs#L34 I tested this modified code and got better result: ```csharp public static IEnumerable&lt;TierPrice&gt; FilterForCustomer(this IEnumerable&lt;TierPrice&gt; source, Customer customer, ICacheManager cacheManager) { if (source == null) throw new ArgumentNullException(nameof(source)); if (customer == null) return source.Where(tierPrice =&gt; tierPrice.CustomerRole == null); // Added for performance var customerRoleIds = cacheManager.Get($&quot;CUSTOMER-ROLES-{customer.Id}&quot;, () =&gt; { return customer.CustomerRoles.Where(r =&gt; r.Active).Select(r =&gt; r.Id).ToArray(); }); return source.Where(tierPrice =&gt; !tierPrice.CustomerRoleId.HasValue || customerRoleIds.Contains(tierPrice.CustomerRoleId.Value)); } `</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>25</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'develop' of https://github.com/nopSolutions/nopCommerce into develop</MESSAGE>
+    <SHA>5974e9778f2c5d56951ae3703daf5e8da6d29d2f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3566 Refactoring of &quot;FilterForCustomer&quot; extension</MESSAGE>
+      <SHA>ac9789519459bfe343fe4910a2f4f9c4efa6d1ff</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Catalog/TierPriceExtensions.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

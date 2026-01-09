@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120481</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120481</ISSUEURL>
+  <TITLE>[CI] Netty4IncrementalRequestHandlingIT testHttpBodyLoggingChannelClose failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #16053 / part1](https://gradle-enterprise.elastic.co/s/h27bc4h3yt35u) - [elasticsearch-periodic #5905 / graalvm-ce17_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/nj5bi7lfwptjy) **Reproduction Line:** ``` ./gradlew &quot;:modules:transport-netty4:pooledInternalClusterTest&quot; --tests &quot;org.elasticsearch.http.netty4.Netty4IncrementalRequestHandlingIT.testHttpBodyLoggingChannelClose&quot; -Dtests.seed=3E8721D48D71E80B -Dtests.locale=wo-SN -Dtests.timezone=Pacific/Honolulu -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.http.netty4.Netty4IncrementalRequestHandlingIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testHttpBodyLoggingChannelClose),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: cannot request next chunk on closing stream ``` **Issue Reasons:** - [8.x] 2 failures in test testHttpBodyLoggingChannelClose (0.4% fail rate in 501 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[Entitlements] Refactor Network Entitlement (#120391) (#120478)</MESSAGE>
+    <SHA>d223dd0118fe2e786714430ffc5d03c831731db1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.http.netty4.Netty4IncrementalRequestHandlingIT testHttpBodyLoggingChannelClose #120481</MESSAGE>
+      <SHA>7252bc6dced8a53dc4dc1968b72ce70612e70deb</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19219</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/19219</ISSUEURL>
+  <TITLE>Multiple filter options do not act as logical AND for volume ls</TITLE>
+  <DESCRIPTION>### Issue Description Proximately the same issue as was described for `ps` in containers/podman#1341 Using multiple `--filter` option on volumes is an `OR` but should be `AND`. ### Steps to reproduce the issue Steps to reproduce the issue: 1. Create test volumes using the follow commands 2. Query volumes using multiple filters ``` [root@localhost tmp]# docker volume create --label a=b --label b=a podman-test-a Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg. podman-test-a [root@localhost tmp]# docker volume create --label a=b --label c=d podman-test-b Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg. podman-test-b [root@localhost tmp]# docker volume create --label c=d --label e=f podman-test-c Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg. podman-test-c [root@localhost tmp]# ``` Query with compound filters: ``` [root@localhost tmp]# docker volume ls -q --filter label=a=b --filter label=c=d Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg. podman-test-a podman-test-b podman-test-c [root@localhost tmp]# ``` ### Describe the results you received Lists all volumes matching either label ``` [root@localhost tmp]# docker volume ls -q --filter label=a=b --filter label=c=d Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg. podman-test-a podman-test-b podman-test-c [root@localhost tmp]# ``` ### Describe the results you expected Lists only the volumes matching _all_ the specified filters: ``` [root@localhost tmp]# docker volume ls -q --filter label=a=b --filter label=c=d Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg. podman-test-b [root@localhost tmp]# ``` ### podman info output ```yaml host: arch: amd64 buildahVersion: 1.29.0 cgroupControllers: - cpuset - cpu - cpuacct - blkio - memory - devices - freezer - net_cls - perf_event - net_prio - hugetlb - pids - rdma cgroupManager: cgroupfs cgroupVersion: v1 conmon: package: conmon-2.1.5-1.fc36.x86_64 path: /usr/bin/conmon version: 'conmon version 2.1.5, commit: ' cpuUtilization: idlePercent: 99.78 systemPercent: 0.02 userPercent: 0.19 cpus: 8 distribution: distribution: fedora variant: container version: &quot;36&quot; eventLogger: file hostname: localhost idMappings: gidmap: null uidmap: null kernel: 5.10.102.1-microsoft-standard-WSL2 linkmode: dynamic logDriver: k8s-file memFree: 1144238080 memTotal: 8190472192 networkBackend: netavark ociRuntime: name: crun package: crun-1.8.1-1.fc36.x86_64 path: /usr/bin/crun version: |- crun version 1.8.1 commit: f8a096be060b22ccd3d5f3ebe44108517fbf6c30 rundir: /root/.run/containers/crun spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +CRIU +WASM:wasmedge +YAJL os: linux remoteSocket: path: /run/podman/podman.sock security: apparmorEnabled: false capabilities: CAP_NET_RAW,CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: false seccompEnabled: true seccompProfilePath: /usr/share/containers/seccomp.json selinuxEnabled: false serviceIsRemote: false slirp4netns: executable: /usr/bin/slirp4netns package: slirp4netns-1.2.0-0.2.beta.0.fc36.x86_64 version: |- slirp4netns version 1.2.0-beta.0 commit: 477db14a24ff1a3de3a705e51ca2c4c1fe3dda64 libslirp: 4.6.1 SLIRP_CONFIG_VERSION_MAX: 3 libseccomp: 2.5.3 swapFree: 2147483648 swapTotal: 2147483648 uptime: 166h 12m 0.00s (Approximately 6.92 days) plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan volume: - local registries: search: - registry.fedoraproject.org - registry.access.redhat.com - docker.io - quay.io store: configFile: /etc/containers/storage.conf containerStore: number: 4 paused: 0 running: 2 stopped: 2 graphDriverName: overlay graphOptions: overlay.mount_program: Executable: /usr/bin/fuse-overlayfs Package: fuse-overlayfs-1.9-6.fc36.x86_64 Version: |- fusermount3 version: 3.10.5 fuse-overlayfs: version 1.9 FUSE library version 3.10.5 using FUSE kernel interface version 7.31 overlay.mountopt: nodev,metacopy=on graphRoot: /var/lib/containers/storage graphRootAllocated: 269490393088 graphRootUsed: 14522699776 graphStatus: Backing Filesystem: extfs Native Overlay Diff: &quot;false&quot; Supports d_type: &quot;true&quot; Using metacopy: &quot;false&quot; imageCopyTmpDir: /var/tmp imageStore: number: 5 runRoot: /run/containers/storage transientStore: false volumePath: /var/lib/containers/storage/volumes version: APIVersion: 4.4.1 Built: 1676629882 BuiltTime: Fri Feb 17 02:31:22 2023 GitCommit: &quot;&quot; GoVersion: go1.18.10 Os: linux OsArch: linux/amd64 Version: 4.4.1 ``` ### Podman in a container No ### Privileged Or Rootless Privileged ### Upstream Latest Release No ### Additional environment details WSL environment created using podman-machine ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19208 from jakecorrenti/add-reserved-flag Add missing reserved annotation support to play</MESSAGE>
+    <SHA>34a2a48e9c7c13c9bb086ac57762b892586ab34a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix multiple filter options logic for `podman volume ls ` Fixes a bug where `podman volume ls` with multiple `label` filters would return volumes that matched *any* of the filters, not *all* of them. Adapts generating volume filter functions to be more in line with how it is done for containers and pods. Fixes: #19219 Signed-off-by: Jake Correnti &lt;jakecorrenti+github@proton.me&gt;</MESSAGE>
+      <SHA>96241159a825f29ee43681b675e95e80cb26b70d</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-volume-ls.1.md.in</FILE>
+        <FILE>pkg/api/handlers/compat/volumes.go</FILE>
+        <FILE>pkg/api/handlers/libpod/volumes.go</FILE>
+        <FILE>pkg/domain/filters/volumes.go</FILE>
+        <FILE>pkg/domain/infra/abi/volumes.go</FILE>
+        <FILE>test/e2e/volume_ls_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix multiple filter options logic for `podman volume ls ` Fixes a bug where `podman volume ls` with multiple `label` filters would return volumes that matched *any* of the filters, not *all* of them. Adapts generating volume filter functions to be more in line with how it is done for containers and pods. Fixes: #19219 Signed-off-by: Jake Correnti &lt;jakecorrenti+github@proton.me&gt;</MESSAGE>
+      <SHA>7cbe412128827ac59bcab4525101a3fe49eb5288</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-volume-ls.1.md.in</FILE>
+        <FILE>pkg/api/handlers/compat/volumes.go</FILE>
+        <FILE>pkg/api/handlers/libpod/volumes.go</FILE>
+        <FILE>pkg/domain/filters/volumes.go</FILE>
+        <FILE>pkg/domain/infra/abi/volumes.go</FILE>
+        <FILE>test/e2e/volume_ls_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

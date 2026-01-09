@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5687</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/5687</ISSUEURL>
+  <TITLE>Users Form and Detail - UI Cleanup</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY &lt;!-- Briefly describe the problem. --&gt; Detail * Move fields around to match [mockup](https://tower-mockups.testing.ansible.com/patternfly/users/users-detail/) * Add **Created** and **Last Modified** Details * These fields are missing from `summary_fields`. We'll need to get them added by the api in order to show them??? This will require some discussion with UX/API team. Form * Move form fields around to match the [mockup](https://tower-mockups.testing.ansible.com/patternfly/users/users-add/) * Org lookup should be the last form field item Current Form: &lt;img width=&quot;1039&quot; alt=&quot;Screen Shot 2020-01-16 at 4 59 24 PM&quot; src=&quot;https://user-images.githubusercontent.com/15881645/72566474-e0b33900-3881-11ea-9aea-151feae2510e.png&quot;&gt; Mockup Form: &lt;img width=&quot;1196&quot; alt=&quot;Screen Shot 2020-01-16 at 4 59 48 PM&quot; src=&quot;https://user-images.githubusercontent.com/15881645/72566495-e741b080-3881-11ea-86a3-f4d11ee4d30a.png&quot;&gt; ##### ADDITIONAL INFORMATION User Response Data ``` { &quot;id&quot;: 6, &quot;type&quot;: &quot;user&quot;, &quot;url&quot;: &quot;/api/v2/users/6/&quot;, &quot;related&quot;: { &quot;named_url&quot;: &quot;/api/v2/users/jt_admin/&quot;, &quot;teams&quot;: &quot;/api/v2/users/6/teams/&quot;, &quot;organizations&quot;: &quot;/api/v2/users/6/organizations/&quot;, &quot;admin_of_organizations&quot;: &quot;/api/v2/users/6/admin_of_organizations/&quot;, &quot;projects&quot;: &quot;/api/v2/users/6/projects/&quot;, &quot;credentials&quot;: &quot;/api/v2/users/6/credentials/&quot;, &quot;roles&quot;: &quot;/api/v2/users/6/roles/&quot;, &quot;activity_stream&quot;: &quot;/api/v2/users/6/activity_stream/&quot;, &quot;access_list&quot;: &quot;/api/v2/users/6/access_list/&quot;, &quot;tokens&quot;: &quot;/api/v2/users/6/tokens/&quot;, &quot;authorized_tokens&quot;: &quot;/api/v2/users/6/authorized_tokens/&quot;, &quot;personal_tokens&quot;: &quot;/api/v2/users/6/personal_tokens/&quot; }, &quot;summary_fields&quot;: { &quot;user_capabilities&quot;: { &quot;edit&quot;: true, &quot;delete&quot;: true } }, &quot;created&quot;: &quot;2020-01-16T14:55:06.244656Z&quot;, &quot;username&quot;: &quot;jt_admin&quot;, &quot;first_name&quot;: &quot;&quot;, &quot;last_name&quot;: &quot;&quot;, &quot;email&quot;: &quot;&quot;, &quot;is_superuser&quot;: false, &quot;is_system_auditor&quot;: false, &quot;ldap_dn&quot;: &quot;&quot;, &quot;last_login&quot;: null, &quot;external_account&quot;: null, &quot;auth&quot;: [] } ```</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>545</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #10520 from nixocio/ui_issue_6351 Remove custom component Remove custom component since PF issue is now fixed. Closes: #6351 Reviewed-by: Alex Corey &lt;Alex.swansboro@gmail.com&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+    <SHA>45740b5ed03b38a9347a75ad93b4aeb0b3af6b81</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Update User screens * Add `modified` field to user endpoints. The API returns the last login date as the `modified` field to the users. * Modify user form layout to be as per mockups. * Remove `last name` and `first name` from user row, since it is already on the column title. closes: https://github.com/ansible/awx/issues/5687 closes: https://github.com/ansible/awx/issues/9564</MESSAGE>
+      <SHA>55a13f020af4841f67d82a959b40938ee0ca2d59</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/serializers.py</FILE>
+        <FILE>awx/ui_next/src/screens/User/UserDetail/UserDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/User/UserDetail/UserDetail.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/User/UserList/UserListItem.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/User/data.user.json</FILE>
+        <FILE>awx/ui_next/src/screens/User/shared/UserForm.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

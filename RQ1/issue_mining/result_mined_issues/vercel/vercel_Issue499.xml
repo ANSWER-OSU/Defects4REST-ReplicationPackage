@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>499</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/499</ISSUEURL>
+  <TITLE>Cannot read property 'username' of undefined</TITLE>
+  <DESCRIPTION>Build failed in circleci, but works locally. &gt; now deploy --npm --token=&quot;${NOW_TOKEN}&quot; &gt; Error! Unknown error: TypeError: Cannot read property 'username' of undefined TypeError: Cannot read property 'username' of undefined at /opt/circleci/nodejs/v6.10.2/lib/node_modules/now/build/bin/now-deploy.js:316:115 at next (native) at c (/opt/circleci/nodejs/v6.10.2/lib/node_modules/now/build/bin/now-deploy.js:760:99) &gt; now deploy --npm --token=&quot;${NOW_TOKEN}&quot; returned exit code 1 &gt; Action failed: now deploy --npm --token=&quot;${NOW_TOKEN}&quot; `now` is installed during build as well: &gt; npm install -g now &gt; /opt/circleci/nodejs/v6.10.2/bin/now -&gt; /opt/circleci/nodejs/v6.10.2/lib/node_modules/now/build/bin/now.js /opt/circleci/nodejs/v6.10.2/lib └─┬ now@5.1.2 Last successful build has different `now`: &gt; npm install -g now &gt; /opt/circleci/nodejs/v6.10.2/bin/now -&gt; /opt/circleci/nodejs/v6.10.2/lib/node_modules/now/build/bin/now.js /opt/circleci/nodejs/v6.10.2/lib └─┬ now@4.11.2 Is it confirmed/known 5.1.2 version issue or I am hitting something else?</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Publish - @now/static-build@0.5.6-canary.0</MESSAGE>
+    <SHA>6ac0ab121ca45ff54907d49669bd7101d76361f4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-static-build] Remove `srcBase` from the proxy pass destination (#499) The `srcBase` (directory where the entrypoint is located) should not be in the `dest` proxy pass URL. Consider an entrypoint like `www/package.json`. The development server will be running within the `www` directory. A request for `GET /static/foo.js` comes in, so we want to proxy pass to `http://localhost:12345/static/foo.js` rather than `http://localhost:12345/www/static/foo.js` which would lead to a 404.</MESSAGE>
+      <SHA>e32cd36deda79f4e732870d7ecc8a8a8ee5c6326</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-static-build/index.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

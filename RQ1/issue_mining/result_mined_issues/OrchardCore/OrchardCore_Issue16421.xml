@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16421</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/16421</ISSUEURL>
+  <TITLE>IndexPrefix setting for ElasticSearch does not work for Queries and ElasticContentPicker</TITLE>
+  <DESCRIPTION>&lt;!-- Please also see the docs on how we manage issues: https://docs.orchardcore.net/en/latest/docs/guides/contributing/managing-issues/. --&gt; ### Describe the bug When [IndexPrefix setting ](https://docs.orchardcore.net/en/latest/reference/modules/Elasticsearch/#elasticsearch-configuration) for ElasticSearch set in config, Elastic Search Query and ElasticContentPicker functionality do not work. ### Orchard Core version 1.8.2 ### To Reproduce Steps to reproduce the behavior: 1. Set IndexPrefix in config to &quot;dev&quot; 2. Go to ElasticSearch Indexes and create index &quot;pages&quot;. ( phisical name of index will be dev_default_pages ) 3. Configure index and make shure that documents added to index 4. On &quot;ElasticSearch Indexes&quot; page press &quot;Query&quot; button for &quot;pages&quot; index and execute match_all request. 5. Results are empty/ ### Expected behavior Documents from pages (dev_default_pages ) index should be displayed in results. ### Dev details Current implementation of OrchardCore.Search.ElasticSearch.Core assembly contains three places for direct manipulation with IElasticClient. - OrchardCore.Search.Elasticsearch.Core.Services.ElasticIndexManager - OrchardCore.Search.Elasticsearch.Core.Services.ElasticQueryService - OrchardCore.Search.Elasticsearch.Core.Providers.ElasticContentPickerResultProvider All listed clasees have its own code for building final name of index that will be used in ES. ### Proposal Refactor current code to isolate all manipulation with IElasticClient in single class.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Deserialize compressed documents correctly (#16415)</MESSAGE>
+    <SHA>5c74898446fa1aaf02f5f655bf5bff608f9e723b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Isolate access to IElasticClient in ElasticIndexManager Fixes #16421</MESSAGE>
+      <SHA>79cbd18e43a334149df743a1dd738c49f8b64d72</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Search.Elasticsearch/Controllers/AdminController.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Search.Elasticsearch/Services/ElasticSearchService.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Abstractions/IElasticQueryService.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Abstractions/IElasticsearchQueryService.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Core/Handlers/ElasticIndexingContentHandler.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Core/Providers/ElasticContentPickerResultProvider.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Core/Recipes/ElasticIndexRebuildStep.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Core/Recipes/ElasticIndexResetStep.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Core/Recipes/ElasticIndexStep.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Core/ServiceCollectionExtensions.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Core/Services/ElasticIndexInitializerService.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Core/Services/ElasticIndexManager.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Core/Services/ElasticIndexingService.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Core/Services/ElasticQueryService.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Core/Services/ElasticQuerySource.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Core/Services/ElasticSearchQueryService.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Core/Services/IElasticIndexManager.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

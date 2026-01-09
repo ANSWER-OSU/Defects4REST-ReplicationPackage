@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14966</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14966</ISSUEURL>
+  <TITLE>Option To Create /etc/passwd If It Does Not Exist</TITLE>
+  <DESCRIPTION>&lt;!-- --------------------------------------------------- BUG REPORT INFORMATION --------------------------------------------------- Use the commands below to provide key information from your environment: You do NOT have to include this information if this is a FEATURE REQUEST **NOTE** A large number of issues reported against Podman are often found to already be fixed in more current versions of the project. Before reporting an issue, please verify the version you are running with `podman version` and compare it to the latest release documented on the top of Podman's [README.md](../README.md). If they differ, please update your version of Podman to the latest possible and retry your command before creating an issue. Also, there is a running list of known issues in the [Podman Troubleshooting Guide](https://github.com/containers/podman/blob/main/troubleshooting.md), please reference that page before opening a new issue. If you are filing a bug against `podman build`, please instead file a bug against Buildah (https://github.com/containers/buildah/issues). Podman build executes Buildah to perform container builds, and as such the Buildah maintainers are best equipped to handle these bugs. --&gt; **Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind feature **Description** Currently /etc/passwd is not created if it does not initially exist in the image, even if the --passwd/--passwd-entry flags are specified. Would it be possible to implement some option that enables podman to create /etc/passwd (probably /etc/group too) in order for the --passwd and --passwd-entry flags to have an effect in images that don't initially have a /etc/passwd?</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14995 from ashley-cui/machtest Fix machine test</MESSAGE>
+    <SHA>039deece50525b1fc812890dfa1ce2fa1f4c98b3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>libpod: create /etc/passwd if missing create the /etc/passwd and /etc/group files if they are missing in the image. Closes: https://github.com/containers/podman/issues/14966 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>dd2b794061aa6734edc15eb69cc298ea197ae676</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_internal_linux.go</FILE>
+        <FILE>test/e2e/run_passwd_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>libpod: create /etc/passwd if missing create the /etc/passwd and /etc/group files if they are missing in the image. Closes: https://github.com/containers/podman/issues/14966 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>3edaa174e8bc22f57818a69b284b7535dd99a657</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_internal_linux.go</FILE>
+        <FILE>test/e2e/run_passwd_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

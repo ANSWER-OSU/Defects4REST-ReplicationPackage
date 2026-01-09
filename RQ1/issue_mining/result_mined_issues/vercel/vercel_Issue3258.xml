@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3258</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/3258</ISSUEURL>
+  <TITLE>@now/node Typescript 3.7</TITLE>
+  <DESCRIPTION>Now that the long expected Typescript 3.7 is out, can @now/node's typescript dependency be upgraded to the latest version? Or perhaps, there is a way to specify the version of TS that is used in the project?</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now-ruby] Fix rails test (#3288) This test was failing for the last week. The issue was fixed in the build environment. The root cause was [ruby-build](https://github.com/rbenv/ruby-build) which is used to install the version of Ruby used in `@now/ruby`. It started using an older (possible broken) version of `bundler`. I pinned `ruby-build` to a previous version so that deployments continue working. So now we can enable the Rails test again (which uses nokogiri). Fixes #3246 Closes #3274</MESSAGE>
+    <SHA>2964bf50e0ece5feb03e27b99e675104cf436cac</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-node] Fix TS version selection (#3289) Previously, the `typescript` dependency resolution was using the package.json beside the `now.json` base directory. This PR changes the behavior to start looking for package.json in the entrypoint directory. Fixes #3258</MESSAGE>
+      <SHA>58ec38437d6538793cd4444ecb1ca4b875a5509c</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-node/src/typescript.ts</FILE>
+        <FILE>packages/now-node/test/fixtures/18.1-nested-packagejson/backend/index.ts</FILE>
+        <FILE>packages/now-node/test/fixtures/18.1-nested-packagejson/backend/package.json</FILE>
+        <FILE>packages/now-node/test/fixtures/18.1-nested-packagejson/backend/tsconfig.json</FILE>
+        <FILE>packages/now-node/test/fixtures/18.1-nested-packagejson/frontend/index.ts</FILE>
+        <FILE>packages/now-node/test/fixtures/18.1-nested-packagejson/frontend/package.json</FILE>
+        <FILE>packages/now-node/test/fixtures/18.1-nested-packagejson/frontend/tsconfig.json</FILE>
+        <FILE>packages/now-node/test/fixtures/18.1-nested-packagejson/now.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

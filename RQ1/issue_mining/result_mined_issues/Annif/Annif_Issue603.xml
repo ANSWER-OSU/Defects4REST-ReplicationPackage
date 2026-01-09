@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>603</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/603</ISSUEURL>
+  <TITLE>Share vocabulary objects between projects</TITLE>
+  <DESCRIPTION>Currently, each AnnifProject creates its own vocabulary (AnnifVocabulary object, which wraps a SubjectIndex) even though in reality many projects may use the same vocabulary - which is now even more likely since vocabularies are multilingual (#600). This leads to unnecessary use of RAM and also CPU when the subject index has to be recreated many times. Instead, the vocabularies could be moved under AnnifRegistry which currently only stores projects. The vocabularies could be loaded lazily as needed using a get_vocab method, similar to the current get_vocab method in annif.vocab.</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update copyright years</MESSAGE>
+    <SHA>3fd22027dc4d7fa40b2bd9a19f44822fca7f125f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Store vocabs in AnnifRegistry so they are shared between projects. Fixes #603</MESSAGE>
+      <SHA>e48a2fc532491039c6eaafec41e27e28b4222634</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/project.py</FILE>
+        <FILE>annif/registry.py</FILE>
+        <FILE>annif/vocab.py</FILE>
+        <FILE>tests/test_vocab.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

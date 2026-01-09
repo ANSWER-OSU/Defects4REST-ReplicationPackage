@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>459</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/459</ISSUEURL>
+  <TITLE>Limit parameter is not passed to MauiServer</TITLE>
+  <DESCRIPTION>Maui backend gives at most 10 suggestions even if a larger `limit` value is set in Annif. At training time [only `id` and `lang` parameters are passed to MauiServer](https://github.com/NatLibFi/Annif/blob/98bde2375abe17a6a1d368fd9acae6f2edf09c00/annif/backend/maui.py#L82), and [the default value of 10](https://github.com/NatLibFi/MauiServer/blob/master/src/main/java/org/topbraid/mauiserver/tagger/TaggerConfiguration.java#L36) is always used for `max_topics_per_document`. ``` # http://localhost:8080/mauiserver/tmp-maui-fi/config id | &quot;tmp-maui-fi&quot; -- | -- title | &quot;tmp-maui-fi&quot; description | null lang | &quot;fi&quot; stemmer_class | null stopwords_class | null cross_validation_passes | 10 max_topics_per_document | 10 probability_threshold | 0 ``` When Maui backend is used in an ensemble project, getting more suggestions would be advantageous.</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #458 from NatLibFi/nn-ensemble-tweaks2 Improved handling of source weights in NN ensemble</MESSAGE>
+    <SHA>9fd8779e37839bf40f2a3713ebae7c0bff13881f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Pass limit parameter to Maui Server (as max_topics_per_document) during train. Fixes #459</MESSAGE>
+      <SHA>0710d4623575863a213e6d97f7789aa79c9c28e6</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/backend/maui.py</FILE>
+        <FILE>tests/test_backend_maui.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

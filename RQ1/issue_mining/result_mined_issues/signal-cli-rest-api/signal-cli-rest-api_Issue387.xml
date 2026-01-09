@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>387</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/387</ISSUEURL>
+  <TITLE>Delete group</TITLE>
+  <DESCRIPTION>### The problem I created a group with only one memeber and an empty name: `curl -X POST -H &quot;Content-Type: application/json&quot; -d '{&quot;name&quot;: &quot;&quot;, &quot;members&quot;: [&quot;+123456789012&quot;]}' 'http://localhost:8080/v1/groups/+123456789012'` Now I want to delete the group. This group is not displayed in the Signal, but it is displayed on request: `curl -X GET -H &quot;Content-Type: application/json&quot; 'http://localhost:8080/v1/groups/+123456789012'` For delete the group I am executing the command in Docker terminal: `curl -X DELETE -H &quot;Content-Type: application/json&quot; 'http://localhost:8080/v1/groups/+123456789012/group.dHl...V0QT0='` or `curl -X DELETE -H &quot;Content-Type: application/json&quot; 'http://localhost:8080/v1/groups/+380978483884/dHl...V0QT0='` but groups are not removed, although I don't get an error, just an empty string in the response. I still see these groups on request: `curl -X GET -H &quot;Content-Type: application/json&quot; 'http://localhost:8080/v1/groups/+123456789012'` ### Are you using the latest released version? - [X] Yes ### Have you read the troubleshooting page? - [X] Yes ### What type of installation are you running? signal-cli-rest-api Docker Container ### In which mode are you using the docker container? Normal Mode ### What's the architecture of your host system? x86-64 ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>98</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>added possibility to update the group description &amp; the avatar see #417</MESSAGE>
+    <SHA>b39980e66b301e4b29268b89625f07ee8bd2b0ea</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>json-rpc mode: fixed bug in group deletion * deleting a group in json-rpc mode didn't work. see #387</MESSAGE>
+      <SHA>661fe568e248bc663e50c7019c89d1298d5efb9b</SHA>
+      <PATCHEDFILES>
+        <FILE>src/client/client.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

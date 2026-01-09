@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>390</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/390</ISSUEURL>
+  <TITLE>Docker build fails with &quot;pkg/template: signal: killed&quot;</TITLE>
+  <DESCRIPTION>Running `docker build github.com/drone/drone` on a fresh Digital Ocean Ubuntu (14.04) Docker droplet fails with the following error: ``` Step 11 : RUN make ---&gt; Running in cd98568980a1 cd cmd/droned/assets &amp;&amp; find js -name &quot;*.js&quot; ! -name '.*' ! -name &quot;main.js&quot; -exec cat {} \; &gt; js/main.js go get github.com/GeertJohan/go.rice/rice go build github.com/GeertJohan/go.rice/rice cd cmd/droned &amp;&amp; rice embed cd pkg/template &amp;&amp; rice embed go build -o bin/drone -ldflags &quot;-X main.version 0.2dev-4f0585b&quot; github.com/drone/drone/cmd/drone go build github.com/drone/drone/pkg/template: signal: killed make: *** [build] Error 1 2014/07/25 18:00:59 The command [/bin/sh -c make] returned a non-zero code: 2 ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: [code-791]: fix changed files line as well (#393)</MESSAGE>
+    <SHA>0b60edfdef9dd8641420759b81a22b084dd493a7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge branch 'mg/jobs/cancel_fix' of _OKE5H2PQKOUfzFFDuD4FA/default/CODE/gitness (#390)</MESSAGE>
+      <SHA>79782aef07f968640d282e23d4b9fedf79812ecd</SHA>
+      <PATCHEDFILES>
+        <FILE>internal/services/job/scheduler.go</FILE>
+        <FILE>internal/store/database/job.go</FILE>
+        <FILE>internal/store/database/migrate/postgres/0023_index_jobs_last_executed.down.sql</FILE>
+        <FILE>internal/store/database/migrate/postgres/0023_index_jobs_last_executed.up.sql</FILE>
+        <FILE>internal/store/database/migrate/sqlite/0023_index_jobs_last_executed.down.sql</FILE>
+        <FILE>internal/store/database/migrate/sqlite/0023_index_jobs_last_executed.up.sql</FILE>
+        <FILE>types/enum/job.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

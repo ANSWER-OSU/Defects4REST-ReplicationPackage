@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18645</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18645</ISSUEURL>
+  <TITLE>Podman kube play assumes port numbers in liveness probe</TITLE>
+  <DESCRIPTION>### Issue Description Currently, when using Kubernetes liveness probes, podman assumes that Http/TCP port number is given in the probe, while you can use port name instead. Podman should check if the livenessProbe.tcpSocket.port (and the equivalent HTTP one) is an string or a number, and if it is a string try to interpret it as a port name given in ports.name (which is checked as supported in podman-kube-play man page). ### Steps to reproduce the issue Steps to reproduce the issue 1. Use a Kybernetes YAML with livenessProbe.tcpSocket.port as a port name 2. Run the pod using `podman kube play`, and then inspect the resulting pod 3. The port in the given nc command is 0 (And the corresponding source code explicitly converts to Port to IntValue). ### Describe the results you received 0 port number used ### Describe the results you expected The port number corresponding to the port name should be used instead. ### podman info output ```yaml Tested with podman 4.5.0 ``` ### Podman in a container No ### Privileged Or Rootless Rootless ### Upstream Latest Release Yes</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>53</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19084 from eriksjolund/add_docs_to_system_service [CI:DOCS] podman-system-service.1.md: document systemd usage</MESSAGE>
+    <SHA>5d706eb0277fc5fd14710f9e4e0444c65da18fde</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add support for using port names in Kubernetes health probes Closes #18645 Signed-off-by: Hedayat Vatankhah &lt;hedayat.fwd@gmail.com&gt;</MESSAGE>
+      <SHA>ac3a115c33e33c25535c09e5bcf075e1f1f566c2</SHA>
+      <PATCHEDFILES>
+        <FILE>go.mod</FILE>
+        <FILE>pkg/specgen/generate/kube/kube.go</FILE>
+        <FILE>pkg/specgen/generate/kube/kube_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

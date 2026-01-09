@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9319</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/9319</ISSUEURL>
+  <TITLE>Job type incorrect for &quot;check&quot; jobs on AWX17.0.1</TITLE>
+  <DESCRIPTION>&lt;!-- Issues are for **concrete, actionable bugs and feature requests** only - if you're just asking for debugging help or technical support, please use: - http://webchat.freenode.net/?channels=ansible-awx - https://groups.google.com/forum/#!forum/awx-project We have to limit this because of limited volunteer time to respond to issues! --&gt; ##### ISSUE TYPE - Bug Report ##### SUMMARY All jobs have a &quot;job type&quot; of &quot;Playbook Run,&quot; even if they were run in &quot;check&quot; mode. There is no other indication in the job details that the job was a &quot;check&quot; job. ##### ENVIRONMENT * AWX version: 17.0.1 * AWX install method: docker on linux * Ansible version: 2.9.17 * Operating System: Ubuntu 18 * Web Browser: Chrome ##### STEPS TO REPRODUCE Run a job in a template in &quot;check&quot; mode and look at the job details. ##### EXPECTED RESULTS I would expect the &quot;Job Type&quot; to read &quot;Check&quot;, or some other field in the details to indicate that the job was run in &quot;check&quot; mode. ##### ACTUAL RESULTS The &quot;Job Type&quot; is always &quot;Playbook Run.&quot; ##### ADDITIONAL INFORMATION ![image](https://user-images.githubusercontent.com/14980647/107992100-f96eb080-6fa5-11eb-8965-bcdac672f3ce.png) ![image](https://user-images.githubusercontent.com/14980647/107992205-376bd480-6fa6-11eb-82b9-d1608943664f.png)</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>34</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9613 from mabashian/8921-node-cred-password Prevent users from selecting credentials that prompt for passwords on workflow nodes and schedules SUMMARY link #8921 If a user selects a job template with default credentials that prompt for passwords (but does not prompt for credentials) then the user should not be allowed to create the node and a different JT must be selected: If a user selects a credential that prompts for passwords when creating/editing a workflow node or schedule then we show this error: If a user removes a credential that exists in the default collection of credentials on the JT then it must be replaced. This is the error we show: If a user attempts to create a schedule for a job template with default credentials that prompt (but does not prompt for credentials) then the API responds with this error: I believe this UX is consistent with the old UI but I am double checking that now. ISSUE TYPE Feature Pull Request COMPONENT NAME UI Reviewed-by: Kersom &lt;None&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+    <SHA>5e64e8771e393d35bb60d134015ddf47410f7b7e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9544 from AlexSCorey/9485-9319-7516-fix Fixes Several Bugs SUMMARY This address #9485 (Job template project field validate), #9319 (Job Details view only would show job type run, even if it was a job type check, #7516 (changes the Completed Jobs tab for a JT or WFJT to show Jobs since it show completed and pending/running jobs). ISSUE TYPE Bugfix Pull Request COMPONENT NAME UI Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt; Reviewed-by: John Mitchell &lt;None&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+      <SHA>7d190da1c4d93b19b0f566454d6e54eb89697c89</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/components/Lookup/ProjectLookup.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Host/Host.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Host/Hosts.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/Inventories.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/Inventory.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventoryHost/InventoryHost.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventoryHost/InventoryHost.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/SmartInventory.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Job/JobDetail/JobDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Job/JobDetail/JobDetail.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/Template.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/Templates.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/WorkflowJobTemplate.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/shared/JobTemplateForm.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/shared/PlaybookSelect.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>330</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/330</ISSUEURL>
+  <TITLE>Custom container yields error rbenv: version `2.0.0-p353' not installed</TITLE>
+  <DESCRIPTION>I created a new custom image using the `Dockerfile` ``` FROM bradrydzewski/python:2.7 # install scipy RUN sudo apt-get update &amp;&amp; sudo apt-get install python-numpy python-scipy python-pandas libsndfile1 libsndfile1-dev python-nose python-matplotlib ``` I thought that should be enough since all the settings and the virtualenv are already there. Just to make sure I made a more complex one ``` FROM bradrydzewski/python:2.7 WORKDIR /home/ubuntu USER ubuntu ADD python.sh /etc/drone.d/ # install scipy RUN sudo apt-get update &amp;&amp; sudo apt-get install python-numpy python-scipy python-pandas libsndfile1 libsndfile1-dev python-nose python-matplotlib RUN rm -rf /home/ubuntu/virtualenv/python2.7 # setup default virtualenv for python 2.7 RUN virtualenv --python=/usr/bin/python2.7 /home/ubuntu/virtualenv/python2.7 --system-site-packages &amp;&amp; \ . /home/ubuntu/virtualenv/python2.7/bin/activate &amp;&amp; \ pip install --use-mirrors nose &amp;&amp; \ pip install -U pytest ``` the creation of both containers runs through fine and I can load them manually too. However when trying to run tests on them I get the very pecuilar message ``` rbenv: version `2.0.0-p353' not installed ``` Just to make sure, I ran `rbenv` on both containers and `2.0.0-p353` was in fact there.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: [code-126]: update pr listing page (#329)</MESSAGE>
+    <SHA>4d8f69184f9b6cf279219f811104b443c635b247</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[MISC] Make Search Query Case-Insensitive for Repo/Space/PR/Webhook (#330)</MESSAGE>
+      <SHA>ee035dfb3b9e40c7ff9e29367f0ba52fd4315954</SHA>
+      <PATCHEDFILES>
+        <FILE>gitrpc/rpc/http.pb.go</FILE>
+        <FILE>gitrpc/rpc/operations.pb.go</FILE>
+        <FILE>gitrpc/rpc/repo.pb.go</FILE>
+        <FILE>gitrpc/rpc/shared.pb.go</FILE>
+        <FILE>internal/store/database/pullreq.go</FILE>
+        <FILE>internal/store/database/repo.go</FILE>
+        <FILE>internal/store/database/space.go</FILE>
+        <FILE>internal/store/database/webhook.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: [code-682]: fix bug in pr creation (#330)</MESSAGE>
+      <SHA>bfea74dbe5a62613d3033ba0596a7bb728090519</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/pages/Compare/Compare.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

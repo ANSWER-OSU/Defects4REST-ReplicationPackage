@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2842</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2842</ISSUEURL>
+  <TITLE>request help: resty/lock.lua sleep API disabled in the context of balancer_by_lua*</TITLE>
+  <DESCRIPTION>### Issue description 2020/11/25 10:14:54 [error] 91#91: *851285 connect() failed (111: Connection refused) while connecting to upstream, client: 172.3 0.42.212, server: , request: &quot;GET /xxx?method=testxxxx HTTP/1.1&quot;, upstream: &quot;http://****/test?method=testxxx x&quot;, host: &quot;gateway-lxrel.internetofcity.cn&quot; 2020/11/25 11:07:57 [error] 88#88: *3602906 failed to run balancer_by_lua*: /usr/local/apisix//deps/share/lua/5.1/resty/lock.lua: 153: API disabled in the context of balancer_by_lua* stack traceback: [C]: in function 'sleep' /usr/local/apisix//deps/share/lua/5.1/resty/lock.lua:153: in function 'lock' /usr/local/apisix//deps/share/lua/5.1/resty/healthcheck.lua:207: in function 'locking_target_list' /usr/local/apisix//deps/share/lua/5.1/resty/healthcheck.lua:268: in function 'add_target' /usr/local/apisix/lua/apisix/balancer.lua:86: in function 'create_obj_fun' /usr/local/apisix/lua/apisix/core/lrucache.lua:171: in function 'lrucache_checker' /usr/local/apisix/lua/apisix/balancer.lua:119: in function 'fetch_healthchecker' /usr/local/apisix/lua/apisix/balancer.lua:245: in function 'pick_server' /usr/local/apisix/lua/apisix/balancer.lua:315: in function 'load_balancer' /usr/local/apisix/lua/apisix.lua:645: in function 'http_balancer_phase' balancer_by_lua:2: in main chunk while connecting to upstream, client: *****, server: , request: &quot;*******&quot; ### Environment * apisix version (cmd: `apisix version`): * OS:</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>47</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ci: simplify the if condition (#3206)</MESSAGE>
+    <SHA>d030d3c3235531f6aefb86e6de58d41f7aac366b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: create the health checker in `access` phase Allow to call yield function in the healthcheck. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt; Co-authored-by: YuanSheng Wang &lt;membphis@gmail.com&gt; Fix #1851 Fix #2842 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>3262623974732b8cdea2ba5045fa1260c7cd583c</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/balancer.lua</FILE>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>apisix/upstream.lua</FILE>
+        <FILE>t/discovery/eureka.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: create the health checker in `access` phase Allow to call yield function in the healthcheck. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt; Co-authored-by: YuanSheng Wang &lt;membphis@gmail.com&gt; Fix #1851 Fix #2842 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>2553b65f5d17dd4ec7afcccd09b468a6c7bae780</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/balancer.lua</FILE>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>apisix/upstream.lua</FILE>
+        <FILE>t/discovery/eureka.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: create the health checker in `access` phase (#3240) Allow to call yield function in the healthcheck. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt; Co-authored-by: YuanSheng Wang &lt;membphis@gmail.com&gt; Fix #1851 Fix #2842</MESSAGE>
+      <SHA>079dabb359089d1378700aaf4ff9a947b2f3675d</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/balancer.lua</FILE>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>apisix/upstream.lua</FILE>
+        <FILE>t/discovery/eureka.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

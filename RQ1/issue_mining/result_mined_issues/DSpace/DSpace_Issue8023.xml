@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8023</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/8023</ISSUEURL>
+  <TITLE>DSpace 7.0: Bitstream download filename lose non-latin characters</TITLE>
+  <DESCRIPTION>**Describe the bug** When download a bitstream having filename with character other than latin, those characters will be missing in file save dialog. For example, file named &quot;ภาษาไทย File.pdf&quot;, will be saved as &quot; File.pdf&quot; This happen only on 7.0, 6.x and earlier handle this properly. **To Reproduce** Steps to reproduce the behavior: 1. Running DSpace 7.0 on Tomcat 9.0 2. Upload a file to and item with non-latin character in file name, e.g. &quot;ภาษาไทย File.pdf&quot; 2. Download the file from DSpace 7.0 UI 3. Browser will suggest save file name &quot; File.pdf&quot; instead of the correct &quot;ภาษาไทย File.pdf&quot; **More Information** This happen because HttpHeadersInitializer does not encode filename in Content-Disposition header. It just use the file name as is. Since HTTP header (or Tomcat?) does not support UTF8, all non-latin characters become &quot;?&quot; in the header. In contrast, DSpace 6.x encode filename in Content-Disposition header by using MimeUtility.encodeText(name, &quot;UTF8&quot;, &quot;B&quot;); **Discussion** Although encoding filename work fine in earlier version of DSpace, I am wondering if the proper solution should be using filename* which can indicate character encoding?</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>141</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #8153 from the-library-code/DS-8152 Remove unneccessary second Context in RDFConsumer</MESSAGE>
+    <SHA>579d926e95bfa3d58a95c64c42b16bb8d9f856bb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>taskid 88773 #8023 Bitstream download filename lose non-latin characters</MESSAGE>
+      <SHA>85bbcf3dc8fd6c0d4243bf32e1e25e042db87eb3</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/utils/HttpHeadersInitializer.java</FILE>
+        <FILE>dspace-server-webapp/src/test/java/org/dspace/app/rest/BitstreamRestControllerIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18321</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18321</ISSUEURL>
+  <TITLE>podman auto-update: not seeing &quot;Trying to pull&quot;</TITLE>
+  <DESCRIPTION>New flake seen, [f37 root](https://api.cirrus-ci.com/v1/artifact/task/4949836135399424/html/sys-podman-fedora-37-root-host-boltdb.log.html#t--00356): ``` not ok 356 podman auto-update - label io.containers.autoupdate=image ... # podman auto-update --rollback=false --format {{.Unit}},{{.Image}},{{.Updated}},{{.Policy}} container-c_image_xiysNDW9l4.service,quay.io/libpod/alpine:latest,false,registry #/vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv #| FAIL: Image is updated. #| expected: 'Trying to pull.*' (using expr) #| actual: 'container-c_image_xiysNDW9l4.service,quay.io/libpod/alpine:latest,false,registry' #\^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ``` (PR is not merged yet; I'm assuming it's a flake)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18334 from containers/renovate/common-image-and-storage-deps fix(deps): update github.com/containers/common digest to 46c4463</MESSAGE>
+    <SHA>191892419f817ad5bbff12cfee9c624d7805d265</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>auto-update: return errors when checking for updates When checking for new images on registries, do not suppress and debug-log errors but return them. Other images and units will still be processed. That is important to a) stop hiding flaky registries (see #18321) b) mark the updates as `failed` instead of `false` [NO NEW TESTS NEEDED] Closes: #18321 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>0e955bec742df83ad6c08c35ccb8e820c3f5e1c4</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/autoupdate/autoupdate.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

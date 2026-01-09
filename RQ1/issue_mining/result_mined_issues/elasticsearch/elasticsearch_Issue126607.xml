@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126607</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126607</ISSUEURL>
+  <TITLE>[CI] ForkIT testWithStatsSimple failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7559 / openjdk24_entitlements_false_checkpart3_java-matrix](https://gradle-enterprise.elastic.co/s/vbfxlpyeezfkq) - [elasticsearch-pull-request #67304 / part-3](https://gradle-enterprise.elastic.co/s/feku7hudot7f2) - [elasticsearch-pull-request #67293 / part-3](https://gradle-enterprise.elastic.co/s/3mg54gnrdacme) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.esql.action.ForkIT.testWithStatsSimple&quot; -Dtests.seed=DD6C010AF787828F -Dtests.jvm.argline=&quot;-Des.entitlements.enabled=false&quot; -Dtests.locale=en-IM -Dtests.timezone=NST -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.action.ForkIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testWithStatsSimple),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: &lt;[[fork1, 6, [1, 2, 3, 4, 5, 6], null], [fork2, null, null, 2]]&gt; but: was &lt;[[fork1, 6, [5, 4, 3, 6, 1, 2], null], [fork2, null, null, 2]]&gt; ``` **Issue Reasons:** - [main] 3 failures in test testWithStatsSimple (13.6% fail rate in 22 executions) - [main] 2 failures in step part-3 (10.5% fail rate in 19 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (10.5% fail rate in 19 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[DOCS]: Move ES connectors `Known issues` page in 9.0+ (#126600) * add known issues page to es connectors * update known issues * Update docs/reference/search-connectors/es-connectors-known-issues.md Co-authored-by: Liam Thompson &lt;32779855+leemthompo@users.noreply.github.com&gt; * Update docs/reference/search-connectors/es-connectors-known-issues.md Co-authored-by: Liam Thompson &lt;32779855+leemthompo@users.noreply.github.com&gt; --------- Co-authored-by: Liam Thompson &lt;32779855+leemthompo@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>e9d3328903240c29577ccdcdd02f9a18e5afb77a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.ForkIT testWithStatsSimple #126607</MESSAGE>
+      <SHA>f7c86b736179672e915b56ec6e8f921d7cecf7e1</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

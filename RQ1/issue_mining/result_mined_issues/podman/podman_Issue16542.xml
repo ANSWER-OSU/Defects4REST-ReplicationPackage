@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16542</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16542</ISSUEURL>
+  <TITLE>`kube generate` must transform invalid names or throw fatal fault</TITLE>
+  <DESCRIPTION>/kind bug **Description** &lt;!-- Briefly describe the problem you are having in a few paragraphs. --&gt; `podman kube generate` takes e.g., volume names as is, but Kubernetes has naming rules that seem to differ from Docker Engine's. **Steps to reproduce the issue:** 1. Create a container using Kubernetes-invalid names for volumes. 2. Run `podman kube generate &gt; manifest.yml`. 3. `kubectl apply --filename=manifest.yml`. **Describe the results you received:** ```text The Pod &quot;xenodochialmaxwell-pod&quot; is invalid: * spec.volumes[0].name: Invalid value: &quot;Users-myuser-devel-gitlab.com-bla-hui-lern-host-0&quot;: a lowercase RFC 1123 label must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character (e.g. 'my-name', or '123-abc', regex used for validation is '[a-z0-9]([-a-z0-9]*[a-z0-9])?') * spec.volumes[1].name: Invalid value: &quot;Users-myuser-.config-git-host-1&quot;: a lowercase RFC 1123 label must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character (e.g. 'my-name', or '123-abc', regex used for validation is '[a-z0-9]([-a-z0-9]*[a-z0-9])?') * spec.volumes[2].name: Invalid value: &quot;lern_vscodeserver-pvc&quot;: a lowercase RFC 1123 label must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character (e.g. 'my-name', or '123-abc', regex used for validation is '[a-z0-9]([-a-z0-9]*[a-z0-9])?') ``` **Describe the results you expected:** Valid names and ability to apply the Kubernetes manifest. This applies to volume names, indeed to any type name. **Additional information you deem important (e.g. issue happens only occasionally):** **Output of `podman version`:** ``` podman version Client: Podman Engine Version: 4.3.1 API Version: 4.3.1 Go Version: go1.18.8 Built: Wed Nov 9 21:43:58 2022 OS/Arch: darwin/amd64 Server: Podman Engine Version: 4.3.0 API Version: 4.3.0 Go Version: go1.19.2 Built: Fri Oct 21 10:09:51 2022 OS/Arch: linux/amd64 ``` **Output of `podman info`:** Not applicable. **Package info (e.g. output of `rpm -q podman` or `apt list podman` or `brew info podman`):** Not applicable. **Have you tested with the latest version of Podman and have you checked the Podman Troubleshooting Guide? (https://github.com/containers/podman/blob/main/troubleshooting.md)** Yes. **Additional environment details (AWS, VirtualBox, physical, etc.):** macOS. Container created is VS Code dev container.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>761</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #24841 from giuseppe/quadlet-enable-test test: enable newly added test</MESSAGE>
+    <SHA>3e385eb76ab47828b6d99e377e2fed50f26a72bb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>When generating host volumes for k8s, force to lowercase Fixes: https://github.com/containers/podman/issues/16542 Kubernetes only allows lower case persistent volume names. Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>8b23e6d40818aa9367bddee29a492bb2d95775d9</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/kube.go</FILE>
+        <FILE>test/system/710-kube.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

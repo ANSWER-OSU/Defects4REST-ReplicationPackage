@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3528</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3528</ISSUEURL>
+  <TITLE>How to fix &quot;fail to load vif&quot; during volume.configure.replication</TITLE>
+  <DESCRIPTION>I have all my 14 HDD on one machine. I initially set each of them as if it belongs to a separate rack, and I set the replication to 020. Later, under the assumption that it might hinder performance, I decided to move them all to a single rack. Then in an attempt to fix the replication, I executed volume.configure.replication -collectionPattern * -replication 002 Unfortunately, it ended in a particular error. error: volume configure volume_id:370 replication:&quot;002&quot;: volume 370 fail to load vif I cannot find much information about it. any ideas on how to fix it?</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>423</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>rename varaible</MESSAGE>
+    <SHA>f5156cf3a8d08622574865532ef5139537384b40</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>more detailed error related to https://github.com/seaweedfs/seaweedfs/issues/3528</MESSAGE>
+      <SHA>e0f4366f4ca3259bfe582fb1dd8951f2005160ab</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/storage/store.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>more detailed error related to https://github.com/seaweedfs/seaweedfs/issues/3528</MESSAGE>
+      <SHA>4bba0ec31a8e7d7914084b30be115ba3e75b9c59</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/storage/store.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix copying .vif file in VolumeCopy closes #4934 fixes #2633 might fix #3528</MESSAGE>
+      <SHA>ef5503198a47f2ec7564da50aa76570048f0b6fa</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/volume_grpc_copy.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix copying .vif file in VolumeCopy (#4943) closes #4934 fixes #2633 might fix #3528</MESSAGE>
+      <SHA>8b39bbbe2fa34704ad46cb717471220e8002c360</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/volume_grpc_copy.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix copying .vif file in VolumeCopy (#4943) closes #4934 fixes #2633 might fix #3528</MESSAGE>
+      <SHA>9f8e1f44506a188998483a51bee002b5782318c1</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/volume_grpc_copy.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

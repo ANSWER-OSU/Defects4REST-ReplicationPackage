@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1919</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/1919</ISSUEURL>
+  <TITLE>`now rm` removes also ongoing deployments</TITLE>
+  <DESCRIPTION>I'm deploying my apps to Now from Gitlab CI. after successful deployment, I'm aliasing it to dynamically created URL for each branch and then using `now rm -s` remove old not aliased anymore deployments, because are not useful anymore. And there start the problem, because I can run multiple deployments at the same time, while now rm removes all not aliased deployments, even those not fully deployed with status &quot;INITIALIZING&quot;, so it breaks ongoing deployments. I'm planning to add metadata so these deployments might be reused or just be easier to target them, but still: - after removing alias, I don't know what was the source of deployment, so it's useless - after merging the freature, I want to remove all old deployments related to it - it's waste of resources to keep deployments that are not being in use - it's just messy when you need to check the admin area and have few hundrets of deployments, while for example only 5 really matters **Why I'm facing such issues?** CI pipelines are running concurrently, so even simple tasks like updating old feature branches with current develop can easily create few commits in a short period of time, so when the first deployment will be finished, will run `now rm -s` and break ongoing processes by removing all unfinished deployments. **Proposed solution** 1. `--safe` shouldn't touch deployments with state other than `ERROR` or `READY` 2. Add new flag - `--finished -F Skip ongoing deployments` 3. Combine it with metadata (#1917 ) - `now rm status=READY status=ERROR`</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>301</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now dev] Show build timestamps (#2273) * [now dev] Show build timestamps Except when running the initial builds * Fix bad logic</MESSAGE>
+    <SHA>baed2da509d5b2e42beaaa1a65b0b6564d59c857</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#1919 - Prevent removing ongoing deployments</MESSAGE>
+      <SHA>dc303a9560fd547710674ebf635c9e50cb696fef</SHA>
+      <PATCHEDFILES>
+        <FILE>src/commands/remove.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#1919 - Prevent removing ongoing deployments</MESSAGE>
+      <SHA>91da32af396a5c98b8475e0f50e66f0fdfff9945</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-cli/src/commands/remove.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

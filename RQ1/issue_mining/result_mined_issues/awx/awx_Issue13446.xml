@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>13446</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/13446</ISSUEURL>
+  <TITLE>awx.awx.schedule_rruleset error</TITLE>
+  <DESCRIPTION>### Please confirm the following - [X] I agree to follow this project's [code of conduct](https://docs.ansible.com/ansible/latest/community/code_of_conduct.html). - [X] I have checked the [current issues](https://github.com/ansible/awx/issues) for duplicates. - [X] I understand that AWX is open source software provided for free and that I might not receive a timely response. ### Bug Summary Hello, I tried to use awx.awx.schedule_rruleset module but i have an error: ``` File &quot;/runner/requirements_collections/ansible_collections/awx/awx/plugins/lookup/schedule_rruleset.py&quot;, line 268, in run if frequency not in self.frequencies: AttributeError: 'LookupModule' object has no attribute 'frequencies' ``` My task: ``` - name: Build a complex schedule for every day except sunday using the rruleset plugin awx.awx.schedule: name: &quot;Template job&quot; state: present unified_job_template: &quot;Demo Job Template&quot; rrule: &quot;{{ query('awx.awx.schedule_rruleset', '2023-04-30 10:30:45', rules=rrules, timezone='UTC' ) }}&quot; vars: rrules: - frequency: 'day' interval: 1 ``` AWX version: 21.10.2 ### AWX version 21.10.2 ### Select the relevant components - [ ] UI - [ ] API - [ ] Docs - [X] Collection - [ ] CLI - [ ] Other ### Installation method kubernetes ### Modifications no ### Ansible version quay.io/ansible/ansible-runner:stable-2.12-latest ### Operating system _No response_ ### Web browser Firefox, Chrome ### Steps to reproduce Create playbook: ``` --- - name: Configure AWX bankess settings hosts: localhost run_once: true become: false gather_facts: false vars: ansible_connection: local controller_host: &quot;http://CONTROLLER_IP&quot; awx_username: admin awx_password: &quot;adminawxpassword&quot; ansible_connection: local environment: TOWER_USERNAME: &quot;{{ awx_username | mandatory }}&quot; TOWER_PASSWORD: &quot;{{ awx_password | mandatory }}&quot; TOWER_HOST: &quot;{{ controller_host | mandatory }}&quot; TOWER_VERIFY_SSL: &quot;false&quot; tasks: - name: install dateutil ansible.builtin.pip: name: python-dateutil - name: Build a complex schedule for every day except sunday using the rruleset plugin awx.awx.schedule: name: &quot;Template job&quot; state: present unified_job_template: &quot;Demo Job Template&quot; rrule: &quot;{{ query('awx.awx.schedule_rruleset', '2023-04-30 10:30:45', rules=rrules, timezone='UTC' ) }}&quot; vars: rrules: - frequency: 'day' interval: 1 ``` ### Expected results Schedule created without error in ansible ### Actual results ``` exception during Jinja2 execution: Traceback (most recent call last): File &quot;/usr/local/lib/python3.8/site-packages/ansible/template/__init__.py&quot;, line 1032, in _lookup ran = instance.run(loop_terms, variables=self._available_variables, **kwargs) File &quot;/runner/requirements_collections/ansible_collections/awx/awx/plugins/lookup/schedule_rruleset.py&quot;, line 268, in run if frequency not in self.frequencies: AttributeError: 'LookupModule' object has no attribute 'frequencies' fatal: [localhost]: FAILED! =&gt; { &quot;msg&quot;: &quot;An unhandled exception occurred while running the lookup plugin 'awx.awx.schedule_rruleset'. Error was a &lt;class 'AttributeError'&gt;, original message: 'LookupModule' object has no attribute 'frequencies'. 'LookupModule' object has no attribute 'frequencies'&quot; } ``` ### Additional information Use collection: ``` --- collections: - name: awx.awx version: 21.10.2 ``` The AWX job execution env use the docker image: `quay.io/ansible/ansible-runner:stable-2.12-latest`</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>217</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #13606 from AlanCoding/copy_login Give proper 401 code to user not logged in</MESSAGE>
+    <SHA>3fe46e2e2782134d2f276a47b07b4b2d6d0c9119</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Change isinstance check to str. #13446</MESSAGE>
+      <SHA>c3d7a4c922f8e91216b58580e72f21afe7db6766</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/plugins/lookup/schedule_rruleset.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Change isinstance check to str. related #13446</MESSAGE>
+      <SHA>cf69ed8fcbe245b9ce02c64190316f2f72edfd14</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/plugins/lookup/schedule_rruleset.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Change isinstance check to str. related #13446 Signed-off-by: Kevin Pavon &lt;kcpavon@gmail.com&gt;</MESSAGE>
+      <SHA>8e52dc23149936566950807dbd1239e7eca32f40</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/plugins/lookup/schedule_rruleset.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Change isinstance check to str. related #13446 Signed-off-by: Kevin Pavon &lt;7450065+KaraokeKev@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>1c6df8c352c6e1324d94d0cce85948dc8c8ec7b5</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/plugins/lookup/schedule_rruleset.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Added integration tests related #13446 Signed-off-by: Kevin Pavon &lt;7450065+KaraokeKev@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>8027fbe2d54aee9b3c0736ee42da6c1ab32b1d4e</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/tests/integration/targets/lookup_rruleset/tasks/main.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Added integration tests related #13446 Signed-off-by: Kevin Pavon &lt;7450065+KaraokeKev@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>1938425111d42e145250950bb096b848e12c971b</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/tests/integration/targets/lookup_rruleset/tasks/main.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Added integration tests related #13446 Signed-off-by: Kevin Pavon &lt;7450065+KaraokeKev@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>23f68832b39ff862e57e6bc2d8d59283351e3e9e</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/tests/integration/targets/lookup_rruleset/tasks/main.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Added integration tests related #13446 Signed-off-by: Kevin Pavon &lt;7450065+KaraokeKev@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>105c5cb0d989c2b2816e226a49067be29ea6784a</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/tests/integration/targets/lookup_rruleset/tasks/main.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Schedule rruleset fix related #13446 (#13611) Signed-off-by: Kevin Pavon &lt;7450065+KaraokeKev@users.noreply.github.com&gt; Co-authored-by: Jessica Steurer &lt;70719005+jay-steurer@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>b8ec7c407284f82335bcb8d250d40a2e0d2f35b8</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/plugins/lookup/schedule_rruleset.py</FILE>
+        <FILE>awx_collection/tests/integration/targets/lookup_rruleset/tasks/main.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Schedule rruleset fix related #13446 (#13611) Signed-off-by: Kevin Pavon &lt;7450065+KaraokeKev@users.noreply.github.com&gt; Co-authored-by: Jessica Steurer &lt;70719005+jay-steurer@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>5c3c244c8fea006d69795dd1c7c450ce811b032d</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/plugins/lookup/schedule_rruleset.py</FILE>
+        <FILE>awx_collection/tests/integration/targets/lookup_rruleset/tasks/main.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Schedule rruleset fix related #13446 (#13611) Signed-off-by: Kevin Pavon &lt;7450065+KaraokeKev@users.noreply.github.com&gt; Co-authored-by: Jessica Steurer &lt;70719005+jay-steurer@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>55994f4d9922b1490c8d570d8652bf44deee5a2e</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/plugins/lookup/schedule_rruleset.py</FILE>
+        <FILE>awx_collection/tests/integration/targets/lookup_rruleset/tasks/main.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117680</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/117680</ISSUEURL>
+  <TITLE>[ES|QL] date_parse seems to ignore timezone</TITLE>
+  <DESCRIPTION>### Elasticsearch Version 8.16.0 ### Installed Plugins _No response_ ### Java Version _bundled_ ### OS Version Linux amd64 5.15.0-1032-gcp ### Problem Description ``` POST /_query { &quot;query&quot;: &quot;&quot;&quot; row message = &quot;192.168.1.199 - - [12/Jul/2022:10:24:10 +0900] \&quot;GET /cgi-bin/try/ HTTP/1.0\&quot; 200 3005&quot; | grok message &quot;%{COMMONAPACHELOG}&quot; | keep timestamp | eval @timestamp = date_parse(&quot;dd/MMM/yyyy:HH:mm:ss Z&quot;, timestamp) &quot;&quot;&quot; } ``` produces ``` { &quot;took&quot;: 15, &quot;columns&quot;: [ { &quot;name&quot;: &quot;timestamp&quot;, &quot;type&quot;: &quot;keyword&quot; }, { &quot;name&quot;: &quot;@timestamp&quot;, &quot;type&quot;: &quot;date&quot; } ], &quot;values&quot;: [ [ &quot;12/Jul/2022:10:24:10 +0900&quot;, &quot;2022-07-12T10:24:10.000Z&quot; ] ] } ``` but ``` POST /_ingest/pipeline/_simulate { &quot;pipeline&quot;: { &quot;processors&quot;: [ { &quot;date&quot;: { &quot;field&quot;: &quot;timestamp&quot;, &quot;formats&quot;: [ &quot;dd/MMM/yyyy:HH:mm:ss Z&quot; ] } } ] }, &quot;docs&quot;: [ { &quot;_index&quot;: &quot;index&quot;, &quot;_id&quot;: &quot;id&quot;, &quot;_source&quot;: { &quot;timestamp&quot;: &quot;12/Jul/2022:10:24:10 +0900&quot; } } ] } ``` produces ``` { &quot;docs&quot;: [ { &quot;doc&quot;: { &quot;_index&quot;: &quot;index&quot;, &quot;_version&quot;: &quot;-3&quot;, &quot;_id&quot;: &quot;id&quot;, &quot;_source&quot;: { &quot;timestamp&quot;: &quot;12/Jul/2022:10:24:10 +0900&quot;, &quot;@timestamp&quot;: &quot;2022-07-12T01:24:10.000Z&quot; }, &quot;_ingest&quot;: { &quot;timestamp&quot;: &quot;2024-11-28T07:11:48.58392818Z&quot; } } } ] } ``` I suspect `date_parse` in ES|QL ignores the timezone offset. Will you look into it, please? ### Steps to Reproduce You can run ``` POST /_query { &quot;query&quot;: &quot;&quot;&quot; row message = &quot;192.168.1.199 - - [12/Jul/2022:10:24:10 +0900] \&quot;GET /cgi-bin/try/ HTTP/1.0\&quot; 200 3005&quot; | grok message &quot;%{COMMONAPACHELOG}&quot; | keep timestamp | eval @timestamp = date_parse(&quot;dd/MMM/yyyy:HH:mm:ss Z&quot;, timestamp) &quot;&quot;&quot; } ``` , which produces ``` { &quot;took&quot;: 15, &quot;columns&quot;: [ { &quot;name&quot;: &quot;timestamp&quot;, &quot;type&quot;: &quot;keyword&quot; }, { &quot;name&quot;: &quot;@timestamp&quot;, &quot;type&quot;: &quot;date&quot; } ], &quot;values&quot;: [ [ &quot;12/Jul/2022:10:24:10 +0900&quot;, &quot;2022-07-12T10:24:10.000Z&quot; ] ] } ``` I think `@timestamp` should be &quot;2022-07-12T01:24:10.000Z&quot;. ### Logs (if relevant) _No response_</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>21</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Consolidate randomIncludeCCSMetadata to a single method (#119037)</MESSAGE>
+    <SHA>a2e035eeccf2ff9db9d790d8ae3a20682e519cb9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ESQL: allow DATE_PARSE to read the timezones (#118603) This just removes fixing a formatter to a timezone (UTC), allowing `DATE_PARSE` to correctly read timezones. Fixes #117680.</MESSAGE>
+      <SHA>4007ff3b44269d2f48e5aa938cf621fbd0123df9</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/118603.yaml</FILE>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/date.csv-spec</FILE>
+        <FILE>x-pack/plugin/esql/src/main/generated/org/elasticsearch/xpack/esql/expression/function/scalar/date/DateParseEvaluator.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/action/EsqlCapabilities.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/expression/function/scalar/date/DateParse.java</FILE>
+        <FILE>x-pack/plugin/esql/src/test/java/org/elasticsearch/xpack/esql/expression/function/scalar/date/DateParseTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: allow DATE_PARSE to read the timezones (#118603) This just removes fixing a formatter to a timezone (UTC), allowing `DATE_PARSE` to correctly read timezones. Fixes #117680.</MESSAGE>
+      <SHA>34ae367b1c3d450b5fdbfe667a7c59c9abb84469</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/118603.yaml</FILE>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/date.csv-spec</FILE>
+        <FILE>x-pack/plugin/esql/src/main/generated/org/elasticsearch/xpack/esql/expression/function/scalar/date/DateParseEvaluator.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/action/EsqlCapabilities.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/expression/function/scalar/date/DateParse.java</FILE>
+        <FILE>x-pack/plugin/esql/src/test/java/org/elasticsearch/xpack/esql/expression/function/scalar/date/DateParseTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: allow DATE_PARSE to read the timezones (#118603) This just removes fixing a formatter to a timezone (UTC), allowing `DATE_PARSE` to correctly read timezones. Fixes #117680.</MESSAGE>
+      <SHA>324f97aaf19d32cbc617b582bb52981490ae1412</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/118603.yaml</FILE>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/date.csv-spec</FILE>
+        <FILE>x-pack/plugin/esql/src/main/generated/org/elasticsearch/xpack/esql/expression/function/scalar/date/DateParseEvaluator.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/action/EsqlCapabilities.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/expression/function/scalar/date/DateParse.java</FILE>
+        <FILE>x-pack/plugin/esql/src/test/java/org/elasticsearch/xpack/esql/expression/function/scalar/date/DateParseTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: allow DATE_PARSE to read the timezones (#118603) This just removes fixing a formatter to a timezone (UTC), allowing `DATE_PARSE` to correctly read timezones. Fixes #117680.</MESSAGE>
+      <SHA>e8c57bfff40691028cb9cee583a41b149e06df92</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/118603.yaml</FILE>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/date.csv-spec</FILE>
+        <FILE>x-pack/plugin/esql/src/main/generated/org/elasticsearch/xpack/esql/expression/function/scalar/date/DateParseEvaluator.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/action/EsqlCapabilities.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/expression/function/scalar/date/DateParse.java</FILE>
+        <FILE>x-pack/plugin/esql/src/test/java/org/elasticsearch/xpack/esql/expression/function/scalar/date/DateParseTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: allow DATE_PARSE to read the timezones (#118603) (#119119) This just removes fixing a formatter to a timezone (UTC), allowing `DATE_PARSE` to correctly read timezones. Fixes #117680.</MESSAGE>
+      <SHA>fc20a26683a7615ca902e64744d2aa322b4c806b</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/118603.yaml</FILE>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/date.csv-spec</FILE>
+        <FILE>x-pack/plugin/esql/src/main/generated/org/elasticsearch/xpack/esql/expression/function/scalar/date/DateParseEvaluator.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/action/EsqlCapabilities.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/expression/function/scalar/date/DateParse.java</FILE>
+        <FILE>x-pack/plugin/esql/src/test/java/org/elasticsearch/xpack/esql/expression/function/scalar/date/DateParseTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

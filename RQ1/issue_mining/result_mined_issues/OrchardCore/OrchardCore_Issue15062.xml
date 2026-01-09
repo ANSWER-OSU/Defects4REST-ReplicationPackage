@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15062</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/15062</ISSUEURL>
+  <TITLE>Display name for a content part field in a recipe is being ignored on import / export</TITLE>
+  <DESCRIPTION>### Describe the bug I'm trying to update to OC 1.8.1. In my recipe I specify a display name that is different than the technical name. This worked all the way up to OC 1.8, but in OC 1.8.1 my display name is being ignored and the technical name is used instead. Similarly, if I set the desired display name through the UI and export the content part field definition into a recipe, the display name is set to the technical name. ### To Reproduce Steps to reproduce the behavior: 1. Create a new OC 1.8.1 site using the blog recipe 2. Create a new content type as follows: technical name &quot;MyContentType&quot;, display name &quot;My Content Type&quot;. 3. Add a boolean field to the content type as follows: technical name &quot;MyBooleanField&quot;, display name &quot;My Boolean Field&quot; 4. Go to /Admin/DeploymentPlan/Index and create a new deployment plan. Add the &quot;Update Content Definitions&quot; step and check the box for &quot;My Content Type&quot; 5. Execute the deployment plan ### Expected behavior The resulting recipe has the correct technical and display names for the content type, but not the content part. ``` { &quot;name&quot;: &quot;&quot;, &quot;displayName&quot;: &quot;&quot;, &quot;description&quot;: &quot;&quot;, &quot;author&quot;: &quot;&quot;, &quot;website&quot;: &quot;&quot;, &quot;version&quot;: &quot;&quot;, &quot;issetuprecipe&quot;: false, &quot;categories&quot;: [], &quot;tags&quot;: [], &quot;steps&quot;: [ { &quot;name&quot;: &quot;ContentDefinition&quot;, &quot;ContentTypes&quot;: [ { &quot;Name&quot;: &quot;MyContentType&quot;, &quot;DisplayName&quot;: &quot;My Content Type&quot;, &quot;Settings&quot;: { &quot;ContentTypeSettings&quot;: { &quot;Creatable&quot;: true, &quot;Listable&quot;: true, &quot;Draftable&quot;: true, &quot;Versionable&quot;: true, &quot;Securable&quot;: true }, &quot;FullTextAspectSettings&quot;: {} }, &quot;ContentTypePartDefinitionRecords&quot;: [ { &quot;PartName&quot;: &quot;MyContentType&quot;, &quot;Name&quot;: &quot;MyContentType&quot;, &quot;Settings&quot;: { &quot;ContentTypePartSettings&quot;: { &quot;Position&quot;: &quot;0&quot; } } } ] } ], &quot;ContentParts&quot;: [ { &quot;Name&quot;: &quot;MyContentType&quot;, &quot;Settings&quot;: {}, &quot;ContentPartFieldDefinitionRecords&quot;: [ { &quot;FieldName&quot;: &quot;BooleanField&quot;, &quot;Name&quot;: &quot;MyBooleanField&quot;, &quot;Settings&quot;: { &quot;ContentPartFieldSettings&quot;: { &quot;DisplayName&quot;: &quot;MyBooleanField&quot;, &quot;Position&quot;: &quot;0&quot; } } } ] } ] } ] } ``` ### To Reproduce the other issue Now, I start a brand new site from scratch. Instead of creating the content type from the UI, I import it from the following recipe (note the corrected display name). Go to /Admin/DeploymentPlan/Import/Json and paste in this recipe. ``` { &quot;name&quot;: &quot;&quot;, &quot;displayName&quot;: &quot;&quot;, &quot;description&quot;: &quot;&quot;, &quot;author&quot;: &quot;&quot;, &quot;website&quot;: &quot;&quot;, &quot;version&quot;: &quot;&quot;, &quot;issetuprecipe&quot;: false, &quot;categories&quot;: [], &quot;tags&quot;: [], &quot;steps&quot;: [ { &quot;name&quot;: &quot;ContentDefinition&quot;, &quot;ContentTypes&quot;: [ { &quot;Name&quot;: &quot;MyContentType&quot;, &quot;DisplayName&quot;: &quot;My Content Type&quot;, &quot;Settings&quot;: { &quot;ContentTypeSettings&quot;: { &quot;Creatable&quot;: true, &quot;Listable&quot;: true, &quot;Draftable&quot;: true, &quot;Versionable&quot;: true, &quot;Securable&quot;: true }, &quot;FullTextAspectSettings&quot;: {} }, &quot;ContentTypePartDefinitionRecords&quot;: [ { &quot;PartName&quot;: &quot;MyContentType&quot;, &quot;Name&quot;: &quot;MyContentType&quot;, &quot;Settings&quot;: { &quot;ContentTypePartSettings&quot;: { &quot;Position&quot;: &quot;0&quot; } } } ] } ], &quot;ContentParts&quot;: [ { &quot;Name&quot;: &quot;MyContentType&quot;, &quot;Settings&quot;: {}, &quot;ContentPartFieldDefinitionRecords&quot;: [ { &quot;FieldName&quot;: &quot;BooleanField&quot;, &quot;Name&quot;: &quot;MyBooleanField&quot;, &quot;Settings&quot;: { &quot;ContentPartFieldSettings&quot;: { &quot;DisplayName&quot;: &quot;My Boolean Field&quot;, &quot;Position&quot;: &quot;0&quot; } } } ] } ] } ] } ``` Go to /Admin/ContentParts/MyContentType/Fields/MyBooleanField/Edit and note the display name is incorrectly set to the technical name. ![image](https://github.com/OrchardCMS/OrchardCore/assets/68876423/fd94ff79-c57c-475b-9887-e2a339f7a782) @MikeAlhayek could this be related to #15013?</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add AddDeployment extensions (#15069)</MESSAGE>
+    <SHA>8852c986b95464f5070a09e7cfdf9740d318a2f7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix Display Name Fix #15062</MESSAGE>
+      <SHA>f03d8421c4abb93ddec9410ee17ab3485d1fce58</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement.Abstractions/Metadata/Builders/ContentPartDefinitionBuilder.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix Display Name (#15080) Fix #15062</MESSAGE>
+      <SHA>6fd80320f8ff107a296dbe7adb8030194cda93a8</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement.Abstractions/Metadata/Builders/ContentPartDefinitionBuilder.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix Display Name (#15080) Fix #15062</MESSAGE>
+      <SHA>2c33beccc999409e14ccd9b26fc23170280d04ac</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement.Abstractions/Metadata/Builders/ContentPartDefinitionBuilder.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix Display Name (#15080) Fix #15062</MESSAGE>
+      <SHA>cb40f8872071801d2709a2a9b18b71f1023b6724</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement.Abstractions/Metadata/Builders/ContentPartDefinitionBuilder.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix Display Name (#15080) Fix #15062</MESSAGE>
+      <SHA>e678ec93d45a9847991c1b934ade78bdafc7a5a1</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement.Abstractions/Metadata/Builders/ContentPartDefinitionBuilder.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix Display Name (#15080) Fix #15062</MESSAGE>
+      <SHA>64a4e3f6f62ea2dfd6219110063282584ba38d12</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement.Abstractions/Metadata/Builders/ContentPartDefinitionBuilder.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix Display Name (#15080) Fix #15062</MESSAGE>
+      <SHA>80a2e5937cc27478af5b2e3e767826edbbeecf30</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement.Abstractions/Metadata/Builders/ContentPartDefinitionBuilder.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

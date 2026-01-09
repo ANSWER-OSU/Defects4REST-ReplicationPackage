@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9867</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/9867</ISSUEURL>
+  <TITLE>OpenAIRE crosswalk: Bitstream metadata: objectType mapping that always says &quot;fulltext&quot; should be removed</TITLE>
+  <DESCRIPTION>## Context Bitstream metadata is being crosswalked to the &quot;File Location&quot; in the OpenAIRE crosswalk, for which you can find the spec here: https://openaire-guidelines-for-literature-repository-managers.readthedocs.io/en/v4.0.0/field_filelocation.html Note that there is an attribute that is called &quot;objectType&quot;, which is recommended, not mandatory. ## Describe the bug DSpace has no way to identify whether a specific bitstream is: * fulltext * dataset * software * other The crosswalk &quot;addresses&quot; this by just always exposing &quot;fulltext&quot;, which will be incorrect for all files that are not actually fulltext: https://github.com/DSpace/DSpace/blob/main/dspace/config/crosswalks/oai/metadataFormats/oai_openaire.xsl#L923-L928 The optional solution would be a bitstream level metadata field, where this objectType can be stored. But until we have that, we should probably remove that default mapping to &quot;fulltext&quot; all together and stop exposing this objectType attribute. ## To Reproduce Steps to reproduce the behavior: 1. create a dspace item with a dataset in a zipfile as bitstream 2. In the openaire crosswalk, look at the value for &quot;file location&quot;, and check what is exposed as objectType ## Expected behavior It should either say dataset for objectType or not have an objectType at all. It is incorrect if &quot;fulltext&quot; is exposed in this case.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>134</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>121971: #9664 - Make cclicense step required in openaire submission form</MESSAGE>
+    <SHA>52e5b35c0653afc17ebd47ce1272549ddf205469</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>121971: #9867 - Remove objectType attribute from openaire crosswalk</MESSAGE>
+      <SHA>e5401685944b6135795462748c791ed7ba7bab7d</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace/config/crosswalks/oai/metadataFormats/oai_openaire.xsl</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

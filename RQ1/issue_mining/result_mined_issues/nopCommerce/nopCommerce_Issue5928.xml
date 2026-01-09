@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5928</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5928</ISSUEURL>
+  <TITLE>Allow selecting default product sorting (currently by position only)</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40 The setting **AllowProductSorting** has unexpected behavior. When the setting is disabled, the catalog does not honor the sorting options displayorder or active/inactive status, it just default to **Position**. So if i want the default sorting to be A-Z i must allow the customer to change the order as well. Original ``` public virtual async Task PrepareSortingOptionsAsync(CatalogProductsModel model, CatalogProductsCommand command) { //set the order by position by default model.OrderBy = command.OrderBy; command.OrderBy = (int)ProductSortingEnum.Position; //ensure that product sorting is enabled if (!_catalogSettings.AllowProductSorting) return; //get active sorting options var activeSortingOptionsIds = Enum.GetValues(typeof(ProductSortingEnum)).Cast&lt;int&gt;() .Except(_catalogSettings.ProductSortingEnumDisabled).ToList(); if (!activeSortingOptionsIds.Any()) return; //order sorting options var orderedActiveSortingOptions = activeSortingOptionsIds .Select(id =&gt; new { Id = id, Order = _catalogSettings.ProductSortingEnumDisplayOrder.TryGetValue(id, out var order) ? order : id }) .OrderBy(option =&gt; option.Order).ToList(); model.AllowProductSorting = true; command.OrderBy = model.OrderBy ?? orderedActiveSortingOptions.FirstOrDefault().Id; //prepare available model sorting options foreach (var option in orderedActiveSortingOptions) { model.AvailableSortOptions.Add(new SelectListItem { Text = await _localizationService.GetLocalizedEnumAsync((ProductSortingEnum)option.Id), Value = option.Id.ToString(), Selected = option.Id == command.OrderBy }); } } ``` Should maybe look like this ``` public virtual async Task PrepareSortingOptionsAsync(CatalogProductsModel model, CatalogProductsCommand command) { //get active sorting options var activeSortingOptionsIds = Enum.GetValues(typeof(ProductSortingEnum)).Cast&lt;int&gt;() .Except(_catalogSettings.ProductSortingEnumDisabled).ToList(); //order sorting options var orderedActiveSortingOptions = activeSortingOptionsIds .Select(id =&gt; new { Id = id, Order = _catalogSettings.ProductSortingEnumDisplayOrder.TryGetValue(id, out var order) ? order : id }) .OrderBy(option =&gt; option.Order).ToList(); command.OrderBy = orderedActiveSortingOptions.FirstOrDefault()?.Id ?? (int)ProductSortingEnum.Position; model.OrderBy = command.OrderBy; //ensure that product sorting is enabled if (_catalogSettings.AllowProductSorting) { model.AllowProductSorting = true; //prepare available model sorting options foreach (var option in orderedActiveSortingOptions) { model.AvailableSortOptions.Add(new SelectListItem { Text = await _localizationService.GetLocalizedEnumAsync((ProductSortingEnum)option.Id), Value = option.Id.ToString(), Selected = option.Id == command.OrderBy }); } } } ```</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>253</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Updated the Readme file</MESSAGE>
+    <SHA>6d6d83147bdb79cd43aac9b80041526dfbc02158</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5928 Allow selecting default product sorting option (#6279)</MESSAGE>
+      <SHA>82dffe9689b455617dabfdf6155aa630a87f901e</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Factories/CatalogModelFactory.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

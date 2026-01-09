@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9362</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/9362</ISSUEURL>
+  <TITLE>OpenId don't handles inherited (ImpliedBy) permissions</TITLE>
+  <DESCRIPTION>Testing Application access with OpenId module with Client Credentials flow, it appears that ImpliedBy permission are not honored. ### To Reproduce 1. Create a tenant with at least one content 2. Enable &quot;OpenID Authorization Server&quot; &amp; &quot;OpenID Token Validation&quot; 3. Create a role for your app and check &quot;Access content via the api&quot; &amp; &quot;Publish or unpublish content for others&quot; (note the &quot;Edit content for others&quot; is implied) 4. Enable &quot;Allow Client Credentials Flow&quot; in OpenID Connect 5. Add an Application in OpenID Connect with &quot;Allow Client Credentials Flow&quot; and check the role you created at step 3 6. Retrieve a token and a content item using the Contents API controller 7. Try to update the content using the Contents API controller You will receive a 403Forbidden ### Expected behavior It should be allowed</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>27</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Negative Role Condition Evaluator (#9329)</MESSAGE>
+    <SHA>e8c8553dec2d383ad0d053ae694db8c28c1f2bd5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add IsGranted Permission extension Fixes #9362</MESSAGE>
+      <SHA>73ab3cb4e2ac68a8eb5f17cc64978088c26c378e</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Roles/Services/RolesPermissionsHandler.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/PermissionExtensions.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/RoleClaim.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Infrastructure/Security/AuthorizationHandlers/PermissionHandler.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add IsGranted Permission extension Fixes #9362</MESSAGE>
+      <SHA>5b19e16bd6bbdeded4a1d888f31ad3c7db2ac231</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Roles/Services/RolesPermissionsHandler.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/PermissionExtensions.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Infrastructure.Abstractions/Security/RoleClaim.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Infrastructure/Security/AuthorizationHandlers/PermissionHandler.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122913</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122913</ISSUEURL>
+  <TITLE>[CI] HeapAttackIT testEnrichExplosionManyMatches failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6759 / single-processor-node-tests](https://gradle-enterprise.elastic.co/s/id7kr6yjbqk6a) - [elasticsearch-periodic-platform-support #6748 / debian-12_platform-support-unix](https://gradle-enterprise.elastic.co/s/nyzlu7a5c44kc) - [elasticsearch-periodic #6745 / single-processor-node-tests](https://gradle-enterprise.elastic.co/s/xcjpfxwuvu2po) - [elasticsearch-periodic-platform-support #6727 / rocky-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/lcwknvqdeh7pk) - [elasticsearch-periodic #6724 / single-processor-node-tests](https://gradle-enterprise.elastic.co/s/ovwtsujzs57oq) - [elasticsearch-periodic #6724 / concurrent-search-tests](https://gradle-enterprise.elastic.co/s/vsi2vycsxvj4m) - [elasticsearch-periodic-platform-support #6657 / rhel-7_platform-support-unix](https://gradle-enterprise.elastic.co/s/x5b6mn4fbojau) - [elasticsearch-periodic-platform-support #6637 / opensuse-leap-15_platform-support-unix](https://gradle-enterprise.elastic.co/s/de4cqyjz2vtis) - [elasticsearch-periodic-platform-support #6630 / oraclelinux-7_platform-support-unix](https://gradle-enterprise.elastic.co/s/lqkhyelf7ev7a) - [elasticsearch-periodic #6634 / concurrent-search-tests](https://gradle-enterprise.elastic.co/s/iq6qkbxe4t2eo) **Reproduction Line:** ``` ./gradlew &quot;:test:external-modules:test-esql-heap-attack:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.heap_attack.HeapAttackIT.testEnrichExplosionManyMatches&quot; -Dtests.seed=25F269D7FF8C8AC1 -Dtests.configure_test_clusters_with_one_processor=true -Dtests.locale=cv-RU -Dtests.timezone=America/Cayenne -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.heap_attack.HeapAttackIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testEnrichExplosionManyMatches),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.net.ConnectException: Connection refused ``` **Issue Reasons:** - [8.x] 11 failures in test testEnrichExplosionManyMatches (1.6% fail rate in 683 executions) - [8.x] 3 failures in step single-processor-node-tests (15.8% fail rate in 19 executions) - [8.x] 2 failures in step concurrent-search-tests (11.1% fail rate in 18 executions) - [8.x] 4 failures in pipeline elasticsearch-periodic (20.0% fail rate in 20 executions) - [8.x] 6 failures in pipeline elasticsearch-periodic-platform-support (31.6% fail rate in 19 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.smoketest.DocsClientYamlTestSuiteIT test {yaml=reference/cat/allocation/cat-allocation-example} #121976</MESSAGE>
+    <SHA>5160113880d5eb619706edf8671131319ac9beb2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.heap_attack.HeapAttackIT testEnrichExplosionManyMatches #122913</MESSAGE>
+      <SHA>449cc295a7f640a9bf89948ef6cf5e3e22231901</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

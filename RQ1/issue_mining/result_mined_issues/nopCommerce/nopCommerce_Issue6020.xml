@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6020</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6020</ISSUEURL>
+  <TITLE>&quot;Manage Customers&quot; permission does not work properly</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40 and 4.50 Steps to reproduce the problem: 1. Created a new customer role 2. Assign only the &quot;Admin area. Manage Customers&quot; permission in the Access control list to the role. 3. While the new role can see all customers and enter the customer editing page (without changing of the role), it cannot save any changes. When I clicked the Save button I got an error message saying &quot;Not enough rights to manage customer roles.&quot; Roles are not validated properly in the `ValidateCustomerRolesAsync` method of \Nop.Web\Areas\Admin\Controllers\CustomerController.cs. We should not require &quot;Manage ACL&quot; permission if roles are NOT changed. The `Except` method doesn't work as expected Source: https://www.nopcommerce.com/en/boards/topic/92687/manage-customers-permission-does-not-work-properly This is a continuation of https://github.com/nopSolutions/nopCommerce/issues/3592</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6004 Fixed loading admin.table.js when DataTable used after generating bundle</MESSAGE>
+    <SHA>549acb61bde86b8bd4d8d15ab5812bb4a9c7ab08</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6020 Fixed check ACL permission to manage customer roles</MESSAGE>
+      <SHA>6ca3e7f8c9bbd279451f6cb9ba8d1cf1fd9bbe25</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Customers/CustomerRoleComparerByName.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/CustomerController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6020 Fixed check ACL permission to manage customer roles (cherry picked from commit 6ca3e7f8c9bbd279451f6cb9ba8d1cf1fd9bbe25)</MESSAGE>
+      <SHA>6f78756eb96c80bf9f14348206b41ceb79878639</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Customers/CustomerRoleComparerByName.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/CustomerController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

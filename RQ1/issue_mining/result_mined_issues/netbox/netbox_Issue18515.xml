@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18515</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18515</ISSUEURL>
+  <TITLE>Djangos collectstatic fails with DEBUG=True and no Redis service running</TITLE>
+  <DESCRIPTION>### Deployment Type Self-hosted ### NetBox Version v4.2.2 ### Python Version 3.12 ### Steps to Reproduce 1. Set `DEBUG = True` in configuration 2. Stop any local Redis service 3. run manage.py collectstatic (probably any other command also fails) ### Expected Behavior I expect the static files to be collected. The reason for having `DEBUG = True` in the configuration is that the static files for the `debug_toolbar` Django app are only collected when the debug mode is on (see `settings.py`, line 416). ### Observed Behavior The management command fails with the error bellow. This is caused by `core/apps.py`, lines 30 and 31. ``` 5.676 File &quot;/opt/netbox/venv/lib/python3.12/site-packages/django_redis/cache.py&quot;, line 29, in _decorator 5.676 return method(self, *args, **kwargs) 5.676 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 5.676 File &quot;/opt/netbox/venv/lib/python3.12/site-packages/django_redis/cache.py&quot;, line 118, in clear 5.676 return self.client.clear() 5.676 ^^^^^^^^^^^^^^^^^^^ 5.676 File &quot;/opt/netbox/venv/lib/python3.12/site-packages/django_redis/client/default.py&quot;, line 438, in clear 5.676 raise ConnectionInterrupted(connection=client) from e 5.676 django_redis.exceptions.ConnectionInterrupted: Redis ConnectionError: Error 111 connecting to localhost:6379. Connection refused. 5.676 5.676 During handling of the above exception, another exception occurred: 5.676 5.676 Traceback (most recent call last): 5.676 File &quot;/opt/netbox/netbox/manage.py&quot;, line 10, in &lt;module&gt; 5.676 execute_from_command_line(sys.argv) 5.676 File &quot;/opt/netbox/venv/lib/python3.12/site-packages/django/core/management/__init__.py&quot;, line 442, in execute_from_command_line 5.676 utility.execute() 5.676 File &quot;/opt/netbox/venv/lib/python3.12/site-packages/django/core/management/__init__.py&quot;, line 416, in execute 5.676 django.setup() 5.677 File &quot;/opt/netbox/venv/lib/python3.12/site-packages/django/__init__.py&quot;, line 24, in setup 5.677 apps.populate(settings.INSTALLED_APPS) 5.677 File &quot;/opt/netbox/venv/lib/python3.12/site-packages/django/apps/registry.py&quot;, line 124, in populate 5.677 app_config.ready() 5.677 File &quot;/opt/netbox/netbox/core/apps.py&quot;, line 31, in ready 5.677 cache.clear() 5.677 File &quot;/opt/netbox/venv/lib/python3.12/site-packages/django_redis/cache.py&quot;, line 36, in _decorator 5.677 raise e.__cause__ 5.677 File &quot;/opt/netbox/venv/lib/python3.12/site-packages/django_redis/client/default.py&quot;, line 436, in clear 5.677 client.flushdb() 5.677 File &quot;/opt/netbox/venv/lib/python3.12/site-packages/redis/commands/core.py&quot;, line 941, in flushdb 5.677 return self.execute_command(&quot;FLUSHDB&quot;, *args, **kwargs) 5.677 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 5.677 File &quot;/opt/netbox/venv/lib/python3.12/site-packages/redis/client.py&quot;, line 559, in execute_command 5.677 return self._execute_command(*args, **options) 5.677 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 5.677 File &quot;/opt/netbox/venv/lib/python3.12/site-packages/redis/client.py&quot;, line 565, in _execute_command 5.677 conn = self.connection or pool.get_connection(command_name, **options) 5.677 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 5.677 File &quot;/opt/netbox/venv/lib/python3.12/site-packages/redis/connection.py&quot;, line 1422, in get_connection 5.677 connection.connect() 5.677 File &quot;/opt/netbox/venv/lib/python3.12/site-packages/redis/connection.py&quot;, line 363, in connect 5.677 raise ConnectionError(self._error_message(e)) 5.677 redis.exceptions.ConnectionError: Error 111 connecting to localhost:6379. Connection refused. ```</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>NB-717 Update dashboard news feed URL to eliminate multiple 301 redirects</MESSAGE>
+    <SHA>34fa3835be9d25d9d8fd712e6314ab7ed1b4ae9f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #18515: Don't fail in DEBUG mode When no Redis server is reachable management commands failed without this try...except block.</MESSAGE>
+      <SHA>0c55e4b38c2eb9b6e40e96a15415027083e5bd56</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/core/apps.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #18515: Don't fail in DEBUG mode When no Redis server is reachable management commands failed without this try...except block.</MESSAGE>
+      <SHA>07403f690a6b155db963dfeedc9e7e9a4d8fa22a</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/core/apps.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #18516 from tobiasge/dont-fail-on-debug Fix #18515: Don't fail in DEBUG mode</MESSAGE>
+      <SHA>9ac79ebbdf099c6e06a4a0ff42d04c00f9e51a69</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/core/apps.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #18515: Don't fail in DEBUG mode When no Redis server is reachable management commands failed without this try...except block.</MESSAGE>
+      <SHA>d7cc68ec439145c8f4a23993898e386f176ab7c7</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/core/apps.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #18515: Don't fail in DEBUG mode When no Redis server is reachable management commands failed without this try...except block.</MESSAGE>
+      <SHA>697cb14448de794b1c7c0f78d9ab1a29a5934c4f</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/core/apps.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

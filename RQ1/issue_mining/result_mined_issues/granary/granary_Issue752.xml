@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>752</ISSUENO>
+  <ISSUEURL>https://github.com/snarfed/granary/issues/752</ISSUEURL>
+  <TITLE>Incorrect use of `atom:uri` element</TITLE>
+  <DESCRIPTION>https://github.com/snarfed/granary/blob/main/granary/atom.py#L265 ```py a = { 'objectType': 'activity', 'verb': _as1_value(entry, 'verb') or 'post', 'id': _text(entry, 'id') or (obj['id'] if obj_elem is None else None), 'url': _text(entry, 'uri') or (obj['url'] if obj_elem is None else None), 'object': obj, 'actor': _author_to_actor(entry, feed_author=feed_author), 'inReplyTo': obj.get('inReplyTo'), } ``` [`atom:uri`](https://datatracker.ietf.org/doc/html/rfc4287#section-3.2.2) element doesn't do what you think it does. Correct way of getting a URL from an entry is `href` attribute of [`atom:link`](https://datatracker.ietf.org/doc/html/rfc4287#section-4.2.7) element.</DESCRIPTION>
+  <REPONAME>granary</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>bluesky.to_as1: profiles: extract links from profile into url/urls fields also, bug fix, url field is singular, urls is plural for https://github.com/snarfed/bridgy/issues/1720</MESSAGE>
+    <SHA>e93dbd241f4c31d26a766b607b00e435b40b9a9f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>atom.atom_to_activity/ies: get URL from `link` for activities as well as objects thanks @imax9000! fixes #752</MESSAGE>
+      <SHA>8f2dcd9ac2c46249c269a9945b404ea241a4f2a5</SHA>
+      <PATCHEDFILES>
+        <FILE>README.md</FILE>
+        <FILE>granary/atom.py</FILE>
+        <FILE>granary/tests/test_atom.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

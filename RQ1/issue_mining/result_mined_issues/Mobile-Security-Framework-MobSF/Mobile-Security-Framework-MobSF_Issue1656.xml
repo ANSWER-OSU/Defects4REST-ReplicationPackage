@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1656</ISSUENO>
+  <ISSUEURL>https://github.com/MobSF/Mobile-Security-Framework-MobSF/issues/1656</ISSUEURL>
+  <TITLE>逻辑BUG，将导致分析出错误的main_activity</TITLE>
+  <DESCRIPTION>举例，QQ音乐的APK，静态分析脚本（static_analysis.py）执行到下面逻辑代码时，将取出错误的mainact: ''' if len(mainact) &lt; 1: for sitem in activity.getElementsByTagName('action'): val = sitem.getAttribute('android:name') if val == 'android.intent.action.MAIN': mainact = activity.getAttribute('android:name') if mainact == '': for sitem in activity.getElementsByTagName('category'): val = sitem.getAttribute('android:name') if val == 'android.intent.category.LAUNCHER': mainact = activity.getAttribute('android:name') ''' 触发BUG的原始输入数据如下： ` &lt;activity android:theme=&quot;@style/ih&quot; android:name=&quot;com.tencent.qqmusic.activity.ShareAccountActivity&quot; android:exported=&quot;false&quot; android:launchMode=&quot;singleTop&quot; android:screenOrientation=&quot;portrait&quot; android:configChanges=&quot;keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize&quot; android:windowSoftInputMode=&quot;adjustPan&quot;&gt; &lt;intent-filter&gt; &lt;action android:name=&quot;com.tencent.qqmusiccommon.PLAYLIST_VIEWER.PHONE&quot; /&gt; &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt; &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt; &lt;/intent-filter&gt; &lt;/activity&gt; &lt;activity android:theme=&quot;@style/i4&quot; android:name=&quot;com.tencent.qqmusic.activity.AppStarterActivity&quot; android:launchMode=&quot;singleTop&quot; android:screenOrientation=&quot;portrait&quot; android:configChanges=&quot;keyboardHidden|mcc|mnc|orientation|screenLayout|screenSize|smallestScreenSize|uiMode&quot; android:windowSoftInputMode=&quot;adjustPan&quot;&gt; &lt;intent-filter&gt; &lt;action android:name=&quot;com.tencent.qqmusiccommon.PLAYLIST_VIEWER.PHONE&quot; /&gt; &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt; &lt;/intent-filter&gt; &lt;intent-filter&gt; &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt; &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt; &lt;/intent-filter&gt; &lt;intent-filter&gt; &lt;action android:name=&quot;android.intent.action.VIEW&quot; /&gt; &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt; &lt;/intent-filter&gt; &lt;meta-data android:name=&quot;android.app.shortcuts&quot; android:resource=&quot;@xml/h&quot; /&gt; &lt;/activity&gt; ` 如上所述，该代码执行至第一个ShareAccountActivity后，由于未检测到val == 'android.intent.action.MAIN'，紧接着会执行后续的检测逻辑if val == 'android.intent.category.LAUNCHER':，将会为mainact 赋值为当前ShareAccountActivity。 建议： 移除后续的冗余代码，单纯通过'android.intent.action.MAIN'来检测main_activity，或者采取更完善的检测逻辑。 ''' if len(mainact) &lt; 1: # ^ Fix for Shitty Manifest with more than one MAIN for sitem in activity.getElementsByTagName('action'): val = sitem.getAttribute('android:name') if val == 'android.intent.action.MAIN': mainact = activity.getAttribute('android:name') # remove this code # if mainact == '': # for sitem in activity.getElementsByTagName('category'): # val = sitem.getAttribute('android:name') # if val == 'android.intent.category.LAUNCHER': # mainact = activity.getAttribute('android:name') '''</DESCRIPTION>
+  <REPONAME>Mobile-Security-Framework-MobSF</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #52 from MobSF/master Fix Full RELRO/Partial RELRO/No RELRO check for Android (MobSF#1654)</MESSAGE>
+    <SHA>919250d312fca0468902c4b83ed4209c0fa8d5a7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #53 from MobSF/master HOTFIX: Fixes #1656</MESSAGE>
+      <SHA>1a01ef822e54cf0b5c23ff31a38fc2a173018af1</SHA>
+      <PATCHEDFILES>
+        <FILE>README.md</FILE>
+        <FILE>mobsf/MobSF/settings.py</FILE>
+        <FILE>mobsf/StaticAnalyzer/views/android/manifest_analysis.py</FILE>
+        <FILE>mobsf/signatures/maltrail-malware-domains.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

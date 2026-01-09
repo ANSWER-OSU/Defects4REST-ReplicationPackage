@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>21090</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/21090</ISSUEURL>
+  <TITLE>SSH command to podman machine does not work if using applehv</TITLE>
+  <DESCRIPTION>### Issue Description I switched from `qemu` to `applehv`by editing `/Users/&lt;user&gt;/.config/containers/containers.conf`: ``` ... [machine] provider=&quot;applehv&quot; ... ``` `podman machine ssh date` does not work (while podman machine ssh does work). ### Steps to reproduce the issue Steps to reproduce the issue 1. Create a podman machine with applehv 2. `podman machine ssh date` ### Describe the results you received ``` ╰─ podman machine ssh date Error: read /Users/&lt;user&gt;/.config/containers/podman/machine/applehv: is a directory ``` ### Describe the results you expected Result of the date command inside the podman machine ### podman info output ```yaml ╰─ podman info host: arch: arm64 buildahVersion: 1.32.0 cgroupControllers: - cpuset - cpu - io - memory - pids - rdma - misc cgroupManager: systemd cgroupVersion: v2 conmon: package: conmon-2.1.8-2.fc39.aarch64 path: /usr/bin/conmon version: 'conmon version 2.1.8, commit: ' cpuUtilization: idlePercent: 69.73 systemPercent: 2.56 userPercent: 27.71 cpus: 8 databaseBackend: boltdb distribution: distribution: fedora variant: coreos version: &quot;39&quot; eventLogger: journald freeLocks: 2040 hostname: localhost.localdomain idMappings: gidmap: null uidmap: null kernel: 6.6.3-200.fc39.aarch64 linkmode: dynamic logDriver: journald memFree: 1328447488 memTotal: 12211875840 networkBackend: netavark networkBackendInfo: backend: netavark dns: package: aardvark-dns-1.8.0-1.fc39.aarch64 path: /usr/libexec/podman/aardvark-dns version: aardvark-dns 1.8.0 package: netavark-1.8.0-2.fc39.aarch64 path: /usr/libexec/podman/netavark version: netavark 1.8.0 ociRuntime: name: crun package: crun-1.12-1.fc39.aarch64 path: /usr/bin/crun version: |- crun version 1.12 commit: ce429cb2e277d001c2179df1ac66a470f00802ae rundir: /run/crun spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +CRIU +LIBKRUN +WASM:wasmedge +YAJL os: linux pasta: executable: /usr/bin/pasta package: passt-0^20231119.g4f1709d-1.fc39.aarch64 version: | pasta 0^20231119.g4f1709d-1.fc39.aarch64-pasta Copyright Red Hat GNU General Public License, version 2 or later &lt;https://www.gnu.org/licenses/old-licenses/gpl-2.0.html&gt; This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. remoteSocket: exists: true path: /run/podman/podman.sock security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: false seccompEnabled: true seccompProfilePath: /usr/share/containers/seccomp.json selinuxEnabled: true serviceIsRemote: true slirp4netns: executable: /usr/bin/slirp4netns package: slirp4netns-1.2.2-1.fc39.aarch64 version: |- slirp4netns version 1.2.2 commit: 0ee2d87523e906518d34a6b423271e4826f71faf libslirp: 4.7.0 SLIRP_CONFIG_VERSION_MAX: 4 libseccomp: 2.5.3 swapFree: 0 swapTotal: 0 uptime: 0h 26m 17.00s variant: &quot;&quot; plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan - ipvlan volume: - local registries: search: - docker.io store: configFile: /usr/share/containers/storage.conf containerStore: number: 6 paused: 0 running: 1 stopped: 5 graphDriverName: overlay graphOptions: overlay.mountopt: nodev,metacopy=on graphRoot: /var/lib/containers/storage graphRootAllocated: 106769133568 graphRootUsed: 10946424832 graphStatus: Backing Filesystem: xfs Native Overlay Diff: &quot;false&quot; Supports d_type: &quot;true&quot; Supports shifting: &quot;true&quot; Supports volatile: &quot;true&quot; Using metacopy: &quot;true&quot; imageCopyTmpDir: /var/tmp imageStore: number: 2 runRoot: /run/containers/storage transientStore: false volumePath: /var/lib/containers/storage/volumes version: APIVersion: 4.7.2 Built: 1698762633 BuiltTime: Tue Oct 31 15:30:33 2023 GitCommit: &quot;&quot; GoVersion: go1.21.1 Os: linux OsArch: linux/arm64 Version: 4.7.2 ``` ### Podman in a container No ### Privileged Or Rootless Privileged ### Upstream Latest Release Yes ### Additional environment details Additional environment details ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #21067 from containers/renovate/go-github.com/containerd/containerd-vulnerability chore(deps): update module github.com/containerd/containerd to v1.7.11 [security]</MESSAGE>
+    <SHA>7dc7cbfd9b0440ddc86e210a2272fdaccd6376bb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>applehv - fix vm lookup small correction to properly lookup a applehv vm on disk. Fixes: #21090 [NO NEW TESTS NEEDED] Signed-off-by: Brent Baude &lt;baude@redhat.com&gt;</MESSAGE>
+      <SHA>55b08d3bad9b7c077557a2169d1098194f8d9017</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/machine/applehv/config.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>applehv - fix vm lookup small correction to properly lookup a applehv vm on disk. Fixes: #21090 [NO NEW TESTS NEEDED] Signed-off-by: Brent Baude &lt;baude@redhat.com&gt;</MESSAGE>
+      <SHA>c62c83227d9f84ee7345ba72351b7223d18e59c8</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/machine/applehv/config.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

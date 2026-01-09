@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14021</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14021</ISSUEURL>
+  <TITLE>[Automation] Makefile can give false-positive exit status</TITLE>
+  <DESCRIPTION>**Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind bug **Description** A handful of lines in Podman's makefile make use of the `$(shell ...)` function simply, or in conjunction with pipes (`|`). This is especially dangerous for most automation, as it nearly universally assumes &quot;Exit zero means good&quot; and &quot;Exit non-zero means bad&quot;. However, I'm pretty sure (based on experimentation) that the nested-shell environment is neither `set -e` nor `set -o pipefail`. Therefore, the podman `Makefile` as-is, can very easily give a false-positive exit status and/or produce unexpected compiler output. **Steps to reproduce the issue:** 1. Instrument `Makefile`, changing `COMMIT_NO ?= $(shell false || true)` and `GIT_COMMIT ?= $(if $(shell false),${COMMIT_NO}-dirty,${COMMIT_NO})` (simulating a broken git or git-configuration). 3. Run `make podman-remote-static; echo $?` **Describe the results you received:** Make will exit successfully (0) having built `bin/podman-remote-static` with the linker flag `github.com/containers/podman/v4/libpod/define.gitCommit= ` (empty) **Describe the results you expected:** Make should either exit non-zero if there was a consequential failure, or otherwise fail to produce useful artifacts if there was a `$(shell ...)` failure. **Additional information you deem important (e.g. issue happens only occasionally):** I have not done an exhaustive analysis of the Makefile to see what other areas may be subject to this &quot;gotcha&quot;. **Output of `podman version`:** N/A **Output of `podman info --debug`:** N/A **Package info (e.g. output of `rpm -q podman` or `apt list podman`):** N/A **Have you tested with the latest version of Podman and have you checked the Podman Troubleshooting Guide? (https://github.com/containers/podman/blob/main/troubleshooting.md)** Yes **Additional environment details (AWS, VirtualBox, physical, etc.):** Fedora 34</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>36</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14439 from jakecorrenti/remove-hardcoded-imageStream-line Removed `imageStream` hardcoded value</MESSAGE>
+    <SHA>2c63b8a2fdbc1e72711e09417380fd67063b07d3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Makefile: Handle unexpected empty var. values Fixes #14021 Substitution values built from `$(shell ...)` output can easily be empty due to the shell's default `pipefail` behavior. This can also hide non-zero exit codes, similarly resulting in empty values being set. While not a perfect fix, the situation is improved by using the `err_if_empty` function in all cases where empty values would be unexpected. Remove the definitions for `GIT_BRANCH` and `GIT_BRANCH_CLEAN` which don't seem to actually be used anywhere (including in code). Add a simple release-test to verify `podman info` outputs a non-empty value for &quot;GitCommit&quot;. Signed-off-by: Chris Evich &lt;cevich@redhat.com&gt;</MESSAGE>
+      <SHA>3fa09e9dba1710f97dbe0f2062685d06fb2fb243</SHA>
+      <PATCHEDFILES>
+        <FILE>Makefile</FILE>
+        <FILE>contrib/cirrus/runner.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

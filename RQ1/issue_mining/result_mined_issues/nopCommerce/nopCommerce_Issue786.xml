@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>786</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/786</ISSUEURL>
+  <TITLE>Password attempt failure Lock-out set to 30 minutes (compliance with PCI DSS 3.2 requirements)</TITLE>
+  <DESCRIPTION>Requirement 8.1.7: Password attempt failure Lock-out set to 30 minutes minimum. (may be an admin configured setting). User accounts be locked out after not more than six invalid logon attempts. Without account-lockout mechanisms in place, an attacker can continually attempt to guess a password through manual or automated tools (for example, password cracking), until they achieve success and gain access to a user’s account. But we already have CAPTCHA. Why should we do it? setting: Maximum login failures to lockout account. Set 0 to disable this feature. default: 6 setting: Lockout time (minutes). default: 30 Source: http://www.nopcommerce.com/boards/t/38848/nopcommerce-380-roadmap-and-estimated-release-date-lets-discuss.aspx?p=5#159909 [PCI_DSS_v3-2.pdf](https://github.com/nopSolutions/nopCommerce/files/351713/PCI_DSS_v3-2.pdf) Also see related items - https://github.com/nopSolutions/nopCommerce/issues/2009 and https://github.com/nopSolutions/nopCommerce/issues/2010</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>350</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #1556 from LexZhukov/refactoring-count-extensions Refactoring &quot;Count&quot; extensions</MESSAGE>
+    <SHA>73290199607307d3040632c95ec4a1493b4b4535</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#786 Added activity log types for activity log actions (edit settings, delete history)</MESSAGE>
+      <SHA>963c50a93e82571524ae9f1a446761a5ab92ec1f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Installation/CodeFirstInstallationService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Controllers/ActivityLogController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>upgradescripts/3.70-the next version/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#786 Password attempt failure lock-out support (compliance with PCI DSS 3.2 requirements). Disabled by default</MESSAGE>
+      <SHA>c45c7f3220fe5f85963e18d513b282085d64bdb8</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Customers/Customer.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Domain/Customers/CustomerLoginResults.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Domain/Customers/CustomerSettings.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/CustomerRegistrationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Installation/CodeFirstInstallationService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Models/Settings/CustomerUserSettingsModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Views/Setting/CustomerUser.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/CustomerController.cs</FILE>
+        <FILE>upgradescripts/3.80-the next version/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

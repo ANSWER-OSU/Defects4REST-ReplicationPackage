@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>25614</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/25614</ISSUEURL>
+  <TITLE>CI: podman machine DeferCleanup callback error because file is being used by another process.</TITLE>
+  <DESCRIPTION>### Issue Description Machine e2e test `podman machine cp / all tests` fails [from time to time](https://cirrus-ci.com/task/6697640798191616): ```log [FAILED] DeferCleanup callback returned error: remove C:\Users\ADMINI~1\AppData\Local\Temp\ginkgo552643153\foo-dir\bar.txt: The process cannot access the file because it is being used by another process. In [DeferCleanup (Each)] at: C:/Users/Administrator/AppData/Local/cirrus-ci-build/repo[/vendor/github.com/onsi/ginkgo/v2/internal/testingtproxy/testing_t_proxy.go:153](https://github.com/containers/podman/blob/93675fdba2e46c93442d45419cbb9fb3e80f8108/vendor/github.com/onsi/ginkgo/v2/internal/testingtproxy/testing_t_proxy.go#L153) @ 03/18/25 05:05:36.307 Full Stack Trace &lt; Exit [DeferCleanup (Each)] podman machine cp - C:/Users/Administrator/AppData/Local/cirrus-ci-build/repo[/vendor/github.com/onsi/ginkgo/v2/internal/testingtproxy/testing_t_proxy.go:153](https://github.com/containers/podman/blob/93675fdba2e46c93442d45419cbb9fb3e80f8108/vendor/github.com/onsi/ginkgo/v2/internal/testingtproxy/testing_t_proxy.go#L153) @ 03/18/25 05:05:36.307 (1ms) &gt; Enter [DeferCleanup (Each)] podman machine cp - C:/Users/Administrator/AppData/Local/cirrus-ci-build/repo[/vendor/github.com/onsi/ginkgo/v2/internal/testingtproxy/testing_t_proxy.go:153](https://github.com/containers/podman/blob/93675fdba2e46c93442d45419cbb9fb3e80f8108/vendor/github.com/onsi/ginkgo/v2/internal/testingtproxy/testing_t_proxy.go#L153) @ 03/18/25 05:05:36.307 ``` Log: https://api.cirrus-ci.com/v1/artifact/task/6697640798191616/html/machine-wsl-podman-windows-rootless-host-sqlite.log.html I can reproduce it systematically on my local machine ### Steps to reproduce the issue Locally: ```posh $remotetags = &quot;remote exclude_graphdriver_btrfs btrfs_noversion exclude_graphdriver_devicemapper containers_image_openpgp&quot; $focus_file = &quot;cp_test.go&quot; $focus_test = &quot;all tests&quot; ./test/tools/build/ginkgo.exe ` -v --tags &quot;$remotetags&quot; ` --focus-file $focus_file ` --focus &quot;$focus_test&quot; ` ./pkg/machine/e2e/. ```</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #25467 from containers/renovate/golang.org-x-net-0.x fix(deps): update module golang.org/x/net to v0.37.0</MESSAGE>
+    <SHA>ba787dababf250512a6cc95f205ee2fb178ab348</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix flake on machine cp e2e test Explicitly close file to avoid machine e2e test to fail on CI from time to time. See for example this failed execution of the machine-wsl task: https://api.cirrus-ci.com/v1/artifact/task/6697640798191616/html/machine-wsl-podman-windows-rootless-host-sqlite.log.html Fix #25614 Signed-off-by: Mario Loriedo &lt;mario.loriedo@gmail.com&gt;</MESSAGE>
+      <SHA>ac787b669158bab382e5dc4ce28538976a8fdbb3</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/machine/e2e/cp_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix flake on machine cp e2e test Explicitly close file to avoid machine e2e test to fail on CI from time to time. See for example this failed execution of the machine-wsl task: https://api.cirrus-ci.com/v1/artifact/task/6697640798191616/html/machine-wsl-podman-windows-rootless-host-sqlite.log.html Fix #25614 Signed-off-by: Mario Loriedo &lt;mario.loriedo@gmail.com&gt;</MESSAGE>
+      <SHA>df182b7c48fcb064abbdcf5fd8991ed46b4e3352</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/machine/e2e/cp_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

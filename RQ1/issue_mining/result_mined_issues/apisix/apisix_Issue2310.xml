@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2310</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2310</ISSUEURL>
+  <TITLE>bug: failed to match any routes</TITLE>
+  <DESCRIPTION>### Issue description Before the `etcd` service is closed, the `apisix` request is normal. After the `etcd` service is turned off and turned on again, the `apisix` request reports 404 ({&quot;error_msg&quot;:&quot;failed to match any routes&quot;}). ### Environment * apisix version (cmd: `apisix version`): 1.5 * OS: centos 7 ### Minimal test code / Steps to reproduce the issue 1.Add route and configure upstream information ```shell curl http://127.0.0.1:9080/apisix/admin/routes/1 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d ' { &quot;methods&quot;: [&quot;GET&quot;], &quot;uri&quot;: &quot;/index.html&quot;, &quot;upstream&quot;: { &quot;type&quot;: &quot;roundrobin&quot;, &quot;nodes&quot;: { &quot;127.0.0.1:9081&quot;: 1 } }, &quot;desc&quot;: &quot;upstream node&quot; }' ``` 2. Access to 'route' is normal 3.Turn off the etcd service and turn it on again 4.Exception in accessing 'route' again 5.After restarting `apisix`, the request returns to normal. ### What's the actual result? (including assertion message &amp; call stack if applicable) ```shell curl -i http://127.0.0.1:9080/index.html HTTP/1.1 404 Not Found Date: Fri, 25 Sep 2020 03:36:10 GMT Content-Type: text/html; charset=utf-8 Transfer-Encoding: chunked Connection: keep-alive Server: APISIX/1.5 {&quot;error_msg&quot;:&quot;failed to match any routes&quot;} ``` error log: ``` 2020/09/25 10:37:07 [error] 16527#16527: *28 lua entry thread aborted: runtime error: ...r_service-id_route-id/apisix/apisix/core/config_etcd.lua:421: attempt to concatenate local 'err' (a nil value) stack traceback: coroutine 0: ...r_service-id_route-id/apisix/apisix/core/config_etcd.lua: in function &lt;...r_service-id_route-id/apisix/apisix/core/config_etcd.lua:414&gt;, context: ngx.timer 2020/09/25 10:37:07 [error] 16527#16527: *30 lua entry thread aborted: runtime error: ...r_service-id_route-id/apisix/apisix/core/config_etcd.lua:421: attempt to concatenate local 'err' (a nil value) stack traceback: coroutine 0: ...r_service-id_route-id/apisix/apisix/core/config_etcd.lua: in function &lt;...r_service-id_route-id/apisix/apisix/core/config_etcd.lua:414&gt;, context: ngx.timer ``` ### What's the expected result? ```shell curl -i http://127.0.0.1:9080/index.html HTTP/1.1 200 ...... ```</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>15</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>test: use the absolute path of `$apisix_home` instead of `.`, search the lua source fine in the folder `$apisix_home`. (#2348)</MESSAGE>
+    <SHA>5d172d606f4debd0034b8061b5865d46738d47ac</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>bugfix: create etcd object in `xpcall`, this step may fail (#2312) * bugfix: create the etcd object in `xpcall`, it may fail, the return values of `etcd.new` should be `res, err`. fix issue: #2310 1. The old process, if creating etcd fails, etcd data will no longer be synchronized. We need to create the etcd object in xpcall. 2. the return value should be res, err of etcd.new. * test: old test case is unstable, should delete some checkpoint which is wrong.</MESSAGE>
+      <SHA>50c99a5e3ba9b6bb2cd1422b903de038bbce256c</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/config_etcd.lua</FILE>
+        <FILE>t/core/config_etcd.t</FILE>
+        <FILE>t/node/invalid-service.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

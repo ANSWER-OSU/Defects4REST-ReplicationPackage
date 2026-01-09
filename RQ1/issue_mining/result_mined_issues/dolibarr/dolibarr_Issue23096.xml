@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23096</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/23096</ISSUEURL>
+  <TITLE>Cannot validate orders in v17</TITLE>
+  <DESCRIPTION>### Bug When trying to validate a customer order, the following error appears: &quot;Failed to insert event : Unknown column 'ip' in 'field list'&quot; and the problem comes from inserting into llx_actioncomm. Full SQL query from the debug tool is: `INSERT INTO llx_actioncomm(ref,datec,datep,datep2,durationp,fk_action,code,ref_ext,fk_soc,fk_project,note,fk_contact,fk_user_author,fk_user_action,fk_user_done,label,percent,priority,fulldayevent,location,transparency,fk_element,elementtype,entity,extraparams,email_msgid,email_from,email_sender,email_to,email_tocc,email_tobcc,email_subject,errors_to,recurid,recurrule,recurdateend,num_vote,event_paid,status,ip) VALUES ('(PROV)', '2022-12-04 11:11:08', '2022-12-04 11:11:08', '2022-12-04 11:11:08', null, 40,'AC_ORDER_VALIDATE', null, 1, null, 'Поръчка SO2212-0001 е валидирана', null, 1, 1, null, 'Поръчка SO2212-0001 е валидирана', '-1', '0', '0', '', '0', 1, 'order', 1,null, null, null, null, null, null, null, null, null, null, null, null, null, 0, 0, null)7.98 [DB_ERROR_NOSUCHFIELD] Unknown column 'ip' in 'field list'` In &quot;install/tables/llx_actioncomm&quot; there is NO field named &quot;ip&quot; ### Environment Version 17 ### Environment OS _No response_ ### Environment Web server _No response_ ### Environment PHP _No response_ ### Environment Database _No response_ ### Environment URL(s) _No response_ ### Expected and actual behavior The order should be validated and action record inserted into llx_actioncomm. Add field &quot;ip&quot; into &quot;install/tables/llx_actioncomm&quot; ### Steps to reproduce the behavior Create customer order and try to validate ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Debug v17</MESSAGE>
+    <SHA>c110bffaecde4fb55f56ca79d00547af69585ce8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #23096 : add missing ip column on tables</MESSAGE>
+      <SHA>2242f89e19bccbe00b450052d76a2fd37419713c</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/install/mysql/tables/llx_actioncomm.sql</FILE>
+        <FILE>htdocs/install/mysql/tables/llx_eventorganization_conferenceorboothattendee.sql</FILE>
+        <FILE>htdocs/install/mysql/tables/llx_opensurvey_comments-opensurvey.sql</FILE>
+        <FILE>htdocs/install/mysql/tables/llx_opensurvey_user_studs-opensurvey.sql</FILE>
+        <FILE>htdocs/install/mysql/tables/llx_projet.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #23153 from Hystepik/develop#1 Fix #23096 : add missing ip column on tables</MESSAGE>
+      <SHA>69bfdb0ad07fcb3981b78ae960290a00b044e4ec</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/install/mysql/tables/llx_actioncomm.sql</FILE>
+        <FILE>htdocs/install/mysql/tables/llx_eventorganization_conferenceorboothattendee.sql</FILE>
+        <FILE>htdocs/install/mysql/tables/llx_opensurvey_comments-opensurvey.sql</FILE>
+        <FILE>htdocs/install/mysql/tables/llx_opensurvey_user_studs-opensurvey.sql</FILE>
+        <FILE>htdocs/install/mysql/tables/llx_projet.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

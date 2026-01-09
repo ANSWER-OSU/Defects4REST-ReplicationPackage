@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1447</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/1447</ISSUEURL>
+  <TITLE>REDASH_MULTI_ORG broken in Angular 1.5</TITLE>
+  <DESCRIPTION>The latest code in master no longer works with `REDASH_MULTI_ORG=True`. What I can gleam is that the asset requests are being thought to be an organization (http://host/app.js -&gt; http://host/org where org: app.js). I think there may have been some logic for this in the template previously, but it's been lost. The output is as follows (I've added a print for the `SLUG = X` in `authentication/org_resolving.py`): ``` [2016-12-05 11:51:45,164][PID:5358][CRITICAL][root] SLUG = styles.css 11:51:45 web.1 | [2016-12-05 11:51:45,167][PID:5358][ERROR][redash] Exception on /styles.css/ [GET] 11:51:45 web.1 | Traceback (most recent call last): 11:51:45 web.1 | File &quot;.anaconda/envs/redash/lib/python2.7/site-packages/flask/app.py&quot;, line 1817, in wsgi_app 11:51:45 web.1 | response = self.full_dispatch_request() 11:51:45 web.1 | File &quot;.anaconda/envs/redash/lib/python2.7/site-packages/flask/app.py&quot;, line 1477, in full_dispatch_request 11:51:45 web.1 | rv = self.handle_user_exception(e) 11:51:45 web.1 | File &quot;.anaconda/envs/redash/lib/python2.7/site-packages/flask_restful/__init__.py&quot;, line 271, in error_router 11:51:45 web.1 | return original_handler(e) 11:51:45 web.1 | File &quot;.anaconda/envs/redash/lib/python2.7/site-packages/flask/app.py&quot;, line 1381, in handle_user_exception 11:51:45 web.1 | reraise(exc_type, exc_value, tb) 11:51:45 web.1 | File &quot;.anaconda/envs/redash/lib/python2.7/site-packages/flask/app.py&quot;, line 1475, in full_dispatch_request 11:51:45 web.1 | rv = self.dispatch_request() 11:51:45 web.1 | File &quot;.anaconda/envs/redash/lib/python2.7/site-packages/flask/app.py&quot;, line 1461, in dispatch_request 11:51:45 web.1 | return self.view_functions[rule.endpoint](**req.view_args) 11:51:45 web.1 | File &quot;.anaconda/envs/redash/lib/python2.7/site-packages/flask_login.py&quot;, line 790, in decorated_view 11:51:45 web.1 | elif not current_user.is_authenticated: 11:51:45 web.1 | File &quot;.anaconda/envs/redash/lib/python2.7/site-packages/werkzeug/local.py&quot;, line 343, in __getattr__ 11:51:45 web.1 | return getattr(self._get_current_object(), name) 11:51:45 web.1 | File &quot;.anaconda/envs/redash/lib/python2.7/site-packages/werkzeug/local.py&quot;, line 302, in _get_current_object 11:51:45 web.1 | return self.__local() 11:51:45 web.1 | File &quot;.anaconda/envs/redash/lib/python2.7/site-packages/flask_login.py&quot;, line 47, in &lt;lambda&gt; 11:51:45 web.1 | current_user = LocalProxy(lambda: _get_user()) 11:51:45 web.1 | File &quot;.anaconda/envs/redash/lib/python2.7/site-packages/flask_login.py&quot;, line 858, in _get_user 11:51:45 web.1 | current_app.login_manager._load_user() 11:51:45 web.1 | File &quot;.anaconda/envs/redash/lib/python2.7/site-packages/flask_login.py&quot;, line 389, in _load_user 11:51:45 web.1 | return self.reload_user() 11:51:45 web.1 | File &quot;.anaconda/envs/redash/lib/python2.7/site-packages/flask_login.py&quot;, line 351, in reload_user 11:51:45 web.1 | user = self.user_callback(user_id) 11:51:45 web.1 | File &quot;redash/redash/authentication/__init__.py&quot;, line 40, in load_user 11:51:45 web.1 | return models.User.get_by_id_and_org(user_id, current_org.id) 11:51:45 web.1 | File &quot;.anaconda/envs/redash/lib/python2.7/site-packages/werkzeug/local.py&quot;, line 343, in __getattr__ 11:51:45 web.1 | return getattr(self._get_current_object(), name) 11:51:45 web.1 | File &quot;.anaconda/envs/redash/lib/python2.7/site-packages/werkzeug/local.py&quot;, line 302, in _get_current_object 11:51:45 web.1 | return self.__local() 11:51:45 web.1 | File &quot;redash/redash/authentication/org_resolving.py&quot;, line 19, in _get_current_org 11:51:45 web.1 | org = Organization.get_by_slug(slug) 11:51:45 web.1 | File &quot;redash/models.py&quot;, line 302, in get_by_slug 11:51:45 web.1 | return cls.get(cls.slug == slug) 11:51:45 web.1 | File &quot;.anaconda/envs/redash/lib/python2.7/site-packages/peewee.py&quot;, line 4012, in get 11:51:45 web.1 | return sq.get() 11:51:45 web.1 | File &quot;.anaconda/envs/redash/lib/python2.7/site-packages/peewee.py&quot;, line 2645, in get 11:51:45 web.1 | % self.sql()) 11:51:45 web.1 | OrganizationDoesNotExist: Instance matching query does not exist: 11:51:45 web.1 | SQL: SELECT &quot;t1&quot;.&quot;id&quot;, &quot;t1&quot;.&quot;updated_at&quot;, &quot;t1&quot;.&quot;created_at&quot;, &quot;t1&quot;.&quot;name&quot;, &quot;t1&quot;.&quot;slug&quot;, &quot;t1&quot;.&quot;settings&quot; FROM &quot;organizations&quot; AS t1 WHERE (&quot;t1&quot;.&quot;slug&quot; = %s) 11:51:45 web.1 | PARAMS: [u'styles.css'] ```</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>161</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #1700 from deecay/plotly-bump Change: upgrade Plotly.js.</MESSAGE>
+    <SHA>ccaf78767b5778933418ef5c722f6df2cda36ecc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>WIP: support for MULTI_ORG mode (#1447)</MESSAGE>
+      <SHA>b9144a9d7a33b199498d96e3a7f1f489b79a4984</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/multi_org.html</FILE>
+        <FILE>client/app/services/auth.js</FILE>
+        <FILE>redash/__init__.py</FILE>
+        <FILE>redash/handlers/authentication.py</FILE>
+        <FILE>redash/handlers/setup.py</FILE>
+        <FILE>redash/handlers/static.py</FILE>
+        <FILE>webpack.config.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>WIP: support for MULTI_ORG mode (#1447)</MESSAGE>
+      <SHA>0b2a1029343650943d87d31a10e090ac59b32657</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/multi_org.html</FILE>
+        <FILE>client/app/services/auth.js</FILE>
+        <FILE>redash/__init__.py</FILE>
+        <FILE>redash/handlers/authentication.py</FILE>
+        <FILE>redash/handlers/setup.py</FILE>
+        <FILE>redash/handlers/static.py</FILE>
+        <FILE>webpack.config.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>WIP: support for MULTI_ORG mode (#1447)</MESSAGE>
+      <SHA>82676fd883a2a62721ce13e0db8dcf2ce6bc800b</SHA>
+      <PATCHEDFILES>
+        <FILE>__init__.py</FILE>
+        <FILE>handlers/authentication.py</FILE>
+        <FILE>handlers/setup.py</FILE>
+        <FILE>handlers/static.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

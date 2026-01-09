@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127593</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/127593</ISSUEURL>
+  <TITLE>[CI] ShardBulkInferenceActionFilterIT testRestart {p0=true p1=false} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #8055 / sles-15_platform-support-unix](https://gradle-enterprise.elastic.co/s/ywpxvh2pdbzhy) - [elasticsearch-periodic-platform-support #8019 / ubuntu-2404_platform-support-unix](https://gradle-enterprise.elastic.co/s/6nryqhl6rk5bc) - [elasticsearch-periodic-platform-support #7983 / ubuntu-1804_platform-support-unix](https://gradle-enterprise.elastic.co/s/jd2t4ob53c3a6) - [elasticsearch-periodic #7938 / single-processor-node-tests](https://gradle-enterprise.elastic.co/s/ytqyacfi6axdo) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:inference:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.inference.action.filter.ShardBulkInferenceActionFilterIT.testRestart {p0=false p1=false}&quot; -Dtests.seed=901A3137A084EE7A -Dtests.locale=ru-UA -Dtests.timezone=Antarctica/DumontDUrville -Druntime.java=24 ``` **Applicable branches:** 8.19 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.inference.action.filter.ShardBulkInferenceActionFilterIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testRestart%20%7Bp0%3Dtrue%20p1%3Dfalse%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: &lt;91&gt; but: was &lt;88&gt; ``` **Issue Reasons:** - [8.19] 4 failures in test testRestart {p0=true p1=false} (0.7% fail rate in 583 executions) - [8.19] 3 failures in pipeline elasticsearch-periodic-platform-support (17.6% fail rate in 17 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.inference.action.filter.ShardBulkInferenceActionFilterIT testRestart {p0=false p1=false} #127592</MESSAGE>
+    <SHA>42e1ccbba5e794d9adc2646713f814341455ae65</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.inference.action.filter.ShardBulkInferenceActionFilterIT testRestart {p0=true p1=false} #127593</MESSAGE>
+      <SHA>fe6c616948e6155f28521401378bf4ed0e58499c</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

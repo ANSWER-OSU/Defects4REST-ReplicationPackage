@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127399</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/127399</ISSUEURL>
+  <TITLE>[CI] S3RepositoryAnalysisRestIT testRepositoryAnalysis failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7883 / almalinux-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/yahamggm2wx4w) - [elasticsearch-periodic-platform-support #7865 / oraclelinux-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/pqxlwl3ef3fqm) - [elasticsearch-intake #22324 / part2](https://gradle-enterprise.elastic.co/s/6bxilprldti36) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:snapshot-repo-test-kit:qa:s3:javaRestTest&quot; --tests &quot;org.elasticsearch.repositories.blobstore.testkit.analyze.S3RepositoryAnalysisRestIT.testRepositoryAnalysis&quot; -Dtests.seed=462B553BF49FAAEF -Dtests.locale=mr -Dtests.timezone=Antarctica/Troll -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.repositories.blobstore.testkit.analyze.S3RepositoryAnalysisRestIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testRepositoryAnalysis),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.client.ResponseException: method [POST], host [http://[::1]:46363], URI [/_snapshot/repository/_analyze?blob_count=10&amp;seed=-4738119588702646532&amp;max_blob_size=10mb&amp;timeout=120s&amp;concurrency=4], status line [HTTP/1.1 500 Internal Server Error] {&quot;error&quot;:{&quot;root_cause&quot;:[{&quot;type&quot;:&quot;repository_verification_exception&quot;,&quot;reason&quot;:&quot;[repository] failed to copy blob after write: [test-blob-5-DiFyXJk1S0G6OmbrdwriyA]&quot;}],&quot;type&quot;:&quot;repository_verification_exception&quot;,&quot;reason&quot;:&quot;[repository] Elasticsearch observed the storage system underneath this repository behaved incorrectly which indicates it is not suitable for use with Elasticsearch snapshots. Typically this happens when using storage other than AWS S3 which incorrectly claims to be S3-compatible. If so, please report this incompatibility to your storage supplier. Do not report Elasticsearch issues involving storage systems which claim to be S3-compatible unless you can demonstrate that the same issue exists when using a genuine AWS S3 [truncated] ``` **Issue Reasons:** - [main] 3 failures in test testRepositoryAnalysis (1.6% fail rate in 193 executions) - [main] 2 failures in pipeline elasticsearch-periodic-platform-support (40.0% fail rate in 5 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Make can_match code a little easier to reuse (#126588) Step 1 to refactoring this with reuse in a per-datanode fashion for batched execution. Some obvious cleanup essentially making this a utility, removing one weird indirection and reducing the use of the actual instance of `CanMatchPreFilterSearchPhase` (this also results in a real performance gain from moving work for sorting shards etc. off of the transport_workers and closer to where its result is used). This should by relatively trivial to review and allows for a simple follow up that extracts the ability to run an individual round in isolation as well as running the coordinator rewrite phase separately.</MESSAGE>
+    <SHA>d39f4725773c3cc4f15bc15e20abf456d20e194f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.repositories.blobstore.testkit.analyze.S3RepositoryAnalysisRestIT testRepositoryAnalysis #127399</MESSAGE>
+      <SHA>79e9dfd7b49c8eeca35d83e0ebf5788035154c62</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>`S3BlobContainer`: Revert broadened exception handler again Catching `Exception` instead of `SdkException` in `copyBlob` and `executeMultipart` led to failures in `S3RepositoryAnalysisRestIT` due to the injected exceptions getting wrapped in `IOExceptions` that prevented them from being caught and handled in `BlobAnalyzeAction`. Repeat of #126731, regressed due to #126843 Closes #127399</MESSAGE>
+      <SHA>4c866930639ca44319f89293f9170a98a2891fd1</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/repository-s3/src/main/java/org/elasticsearch/repositories/s3/S3BlobContainer.java</FILE>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>`S3BlobContainer`: Revert broadened exception handler again Catching `Exception` instead of `SdkException` in `copyBlob` and `executeMultipart` led to failures in `S3RepositoryAnalysisRestIT` due to the injected exceptions getting wrapped in `IOExceptions` that prevented them from being caught and handled in `BlobAnalyzeAction`. Repeat of #126731, regressed due to #126843 Closes #127399</MESSAGE>
+      <SHA>78b4fb657e717168eaff51ab2092dd62c661afa9</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/repository-s3/src/main/java/org/elasticsearch/repositories/s3/S3BlobContainer.java</FILE>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>`S3BlobContainer`: Revert broadened exception handler again (#127405) Catching `Exception` instead of `SdkException` in `copyBlob` and `executeMultipart` led to failures in `S3RepositoryAnalysisRestIT` due to the injected exceptions getting wrapped in `IOExceptions` that prevented them from being caught and handled in `BlobAnalyzeAction`. Repeat of #126731, regressed due to #126843 Closes #127399</MESSAGE>
+      <SHA>5c753a81d2c872b45b8b893af0bc13231464c0d1</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/repository-s3/src/main/java/org/elasticsearch/repositories/s3/S3BlobContainer.java</FILE>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>`S3BlobContainer`: Revert broadened exception handler again (#127405) Catching `Exception` instead of `SdkException` in `copyBlob` and `executeMultipart` led to failures in `S3RepositoryAnalysisRestIT` due to the injected exceptions getting wrapped in `IOExceptions` that prevented them from being caught and handled in `BlobAnalyzeAction`. Repeat of #126731, regressed due to #126843 Closes #127399</MESSAGE>
+      <SHA>6fe0aa87c8569a3dc75a5218102569d972df6cbf</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/repository-s3/src/main/java/org/elasticsearch/repositories/s3/S3BlobContainer.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

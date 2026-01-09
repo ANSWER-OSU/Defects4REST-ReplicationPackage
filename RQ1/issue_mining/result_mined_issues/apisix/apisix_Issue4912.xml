@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4912</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/4912</ISSUEURL>
+  <TITLE>request help: I cann't build openresty with apisix-nginx-module</TITLE>
+  <DESCRIPTION>### Issue description I build the openresty used the sh file like this https://raw.githubusercontent.com/api7/apisix-build-tools/master/build-apisix-openresty.sh . this is the out put error: ####################################################### -L/tmp/tmp.0wvL1VhoXA/openresty-1.19.3.2/build/luajit-root/usr/local/openresty/luajit/lib -L/tmp/tmp.0wvL1VhoXA/openresty-1.19.3.2/build/luajit-root/usr/local/openresty/luajit/lib -Wl,-rpath,/usr/local/openresty/luajit/lib -Wl,--require-defined=pcre_version -Wl,-E -Wl,-E -ldl -lpthread -lpthread -lcrypt -L/tmp/tmp.0wvL1VhoXA/openresty-1.19.3.2/build/luajit-root/usr/local/openresty/luajit/lib -lluajit-5.1 -lm -ldl -L/tmp/tmp.0wvL1VhoXA/openresty-1.19.3.2/build/luajit-root/usr/local/openresty/luajit/lib -lluajit-5.1 -lm -ldl -lstdc++ -lpcre -lssl -lcrypto -ldl -lpthread -lz \ -Wl,-E objs/addon/src/ngx_http_apisix_module.o：在函数‘ngx_http_apisix_x509_copy’中： /tmp/tmp.0wvL1VhoXA/openresty-1.19.3.2/../apisix-nginx-module/src/ngx_http_apisix_module.c:96：对‘X509_up_ref’未定义的引用 objs/addon/src/ngx_http_apisix_module.o：在函数‘ngx_http_apisix_upstream_set_cert_and_key’中： /tmp/tmp.0wvL1VhoXA/openresty-1.19.3.2/../apisix-nginx-module/src/ngx_http_apisix_module.c:187：对‘EVP_PKEY_up_ref’未定义的引用 collect2: 错误：ld 返回 1 make[2]: *** [objs/nginx] 错误 1 make[2]: 离开目录“/tmp/tmp.0wvL1VhoXA/openresty-1.19.3.2/build/nginx-1.19.3” make[1]: *** [build] 错误 2 make[1]: 离开目录“/tmp/tmp.0wvL1VhoXA/openresty-1.19.3.2/build/nginx-1.19.3” make: *** [all] 错误 2 ####################################################### who can I fix it ,thank's. ### Environment - apisix version (cmd: `apisix version`):2.6 - OS (cmd: `uname -a`):linux 3.10.0-1127.19.1.el7.x86_64 - OpenResty / Nginx version (cmd: `nginx -V` or `openresty -V`): - etcd version, if have (cmd: run `curl http://127.0.0.1:9090/v1/server_info` to get the info from server-info API): - apisix-dashboard version, if have: - luarocks version, if the issue is about installation (cmd: `luarocks --version`):</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ci: switch to stale action (#4887)</MESSAGE>
+    <SHA>6c6ad38c9e56a62bea375873431c3cf59de6770e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>docs: refer to the whole apisix-build-tools project for building APISIX OpenResty The project provides docker file / build scripts to build APISIX OpenResty Fix #4912. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>af114c098c3b46e4c10bda74f85d5f1622e99305</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/en/latest/how-to-build.md</FILE>
+        <FILE>docs/zh/latest/how-to-build.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

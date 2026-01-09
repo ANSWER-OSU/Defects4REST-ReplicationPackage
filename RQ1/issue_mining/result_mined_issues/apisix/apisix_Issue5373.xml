@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5373</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/5373</ISSUEURL>
+  <TITLE>bug: if password contains &quot;@&quot; nacos discovery happens error</TITLE>
+  <DESCRIPTION>### Issue description if password contains &quot;@&quot; nacos discovery happens error cause it use first &quot;@&quot; index `local function get_base_uri() local host = local_conf.discovery.nacos.host -- TODO Add health check to get healthy nodes. local url = host[math_random(#host)] local auth_idx = str_find(url, '@') local username, password if auth_idx then local protocol_idx = str_find(url, '://') local protocol = string_sub(url, 1, protocol_idx + 2) local user_and_password = string_sub(url, protocol_idx + 3, auth_idx - 1) local arr = ngx_re.split(user_and_password, ':') if #arr == 2 then username = arr[1] password = arr[2] end local other = string_sub(url, auth_idx + 1) url = protocol .. other end` 2.config.yaml discovery: nacos: host: - &quot;http://username:password@password@nacos.company.com:8848&quot; local auth_idx = str_find(url, '@') use first &quot;@&quot; position,but password contains &quot;@&quot; ### Environment - apisix version (cmd: `apisix version`): - OS (cmd: `uname -a`): - OpenResty / Nginx version (cmd: `nginx -V` or `openresty -V`): - etcd version, if have (cmd: run `curl http://127.0.0.1:9090/v1/server_info` to get the info from server-info API): - apisix-dashboard version, if have: - the plugin runner version, if the issue is about a plugin runner (cmd: depended on the kind of runner): - luarocks version, if the issue is about installation (cmd: `luarocks --version`): ### Steps to reproduce 1.use nacos discovery with password 2.password contains &quot;@&quot; ### Actual result 500 response code ### Error log 2021/10/30 08:42:48 [error] 13164#0: *49257637 [lua] resolver.lua:35: parse_domain(): failed to parse domain: ### Expected result _No response_</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat(limit-count): support multiple variables as key (#5378)</MESSAGE>
+    <SHA>4346782a878d5525310a2919f847e7249ad25348</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>nacos password contains @(#5373) bug: if password contains &quot;@&quot; nacos discovery happens error #5373</MESSAGE>
+      <SHA>772d59d30ef74c96501330e68812ef9c80aa07f2</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/discovery/nacos.lua</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #1 from brianzhangrong/brianzhangrong-patch-1 nacos password contains @(#5373)</MESSAGE>
+      <SHA>50748af05f56ae1dbad1e4f6f29f908923884692</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/discovery/nacos.lua</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>838</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/838</ISSUEURL>
+  <TITLE>Trigger Builds from Pull Request Comments (and run Privileged)</TITLE>
+  <DESCRIPTION>We have some tests that require the container to be run as privileged. These tests should be run on _every_ PR before it is merged. The current security model would have these test run on `master` only, which doesn't prevent us merging code that will fail the full test suite. My proposal is for Drone to listen to the [IssueCommentEvent](https://developer.github.com/v3/activity/events/types/#issuecommentevent) for a given PR and react to comments from users who have Admin permissions in Drone. For example: - `recheck` will re-run the tests - `recheck trusted` will re-run the tests and enabled Privileged and/or Private ENV Variables A logical extension to this proposal would be to maintain a whitelist of users for which builds will run trusted by default. I'd suggest that Drone Admins would be sensible starting point and then adding the the ability to add more users either via the UI or even through comments e.g `whitelist`</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>841</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: support codewoners usrgrp (#826)</MESSAGE>
+    <SHA>04566e1cf9e46312439345b31a88f1e04b189c2c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[CODE - 1040] UI: fixed dropdown option text going outside visible area (#838)</MESSAGE>
+      <SHA>7389eae803cfd0b01d1bf2ba80969a9179c9f858</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/pages/Compare/CompareContentHeader/CompareContentHeader.module.scss</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>10</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/10</ISSUEURL>
+  <TITLE>npm test is throwing error Cache init failed during database reading</TITLE>
+  <DESCRIPTION>Please provide dev environment versions of your system node -v **8.4.0** ( xmysql requires node &gt;= 7.6.0 ) npm -v **5.3.0** mysql --version **2.15.0** xmysql --version - - - Provide steps to reproduce this issue Cloned the project ```sh cd xmysql npm install npm test ``` ```sh mocha tests/*.js --exit xmysql : tests Cache init failed during database reading { Error: connect ECONNREFUSED 127.0.0.1:3306 at Object._errnoException (util.js:1041:11) at _exceptionWithHostPort (util.js:1064:20) at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1153:14) -------------------- at Protocol._enqueue (/Users/shashi/openSource/xmysql/node_modules/mysql/lib/protocol/Protocol.js:145:48) at Protocol.handshake (/Users/shashi/openSource/xmysql/node_modules/mysql/lib/protocol/Protocol.js:52:23) at PoolConnection.connect (/Users/shashi/openSource/xmysql/node_modules/mysql/lib/Connection.js:130:18) at Pool.getConnection (/Users/shashi/openSource/xmysql/node_modules/mysql/lib/Pool.js:48:16) at Pool.query (/Users/shashi/openSource/xmysql/node_modules/mysql/lib/Pool.js:202:8) at Xsql.dbCacheInitAsync (/Users/shashi/openSource/xmysql/lib/xsql.js:36:15) at Xsql.init (/Users/shashi/openSource/xmysql/lib/xsql.js:26:10) at Xapi.init (/Users/shashi/openSource/xmysql/lib/xapi.js:37:16) at Context.&lt;anonymous&gt; (/Users/shashi/openSource/xmysql/tests/tests.js:42:9) at callFnAsync (/Users/shashi/openSource/xmysql/node_modules/mocha/lib/runnable.js:377:21) at Hook.Runnable.run (/Users/shashi/openSource/xmysql/node_modules/mocha/lib/runnable.js:324:7) at next (/Users/shashi/openSource/xmysql/node_modules/mocha/lib/runner.js:304:10) at Immediate._onImmediate (/Users/shashi/openSource/xmysql/node_modules/mocha/lib/runner.js:334:5) at runCallback (timers.js:781:20) at tryOnImmediate (timers.js:743:5) at processImmediate [as _immediateCallback] (timers.js:714:5) code: 'ECONNREFUSED', errno: 'ECONNREFUSED', syscall: 'connect', address: '127.0.0.1', port: 3306, fatal: true } undefined - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Database : classicmodels Number of resources : 0 REST APIs Generated : 0 ```</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #11 from nocodb/feat/add-page-reordering feat(nocodocs): Added page ordering</MESSAGE>
+    <SHA>71067e27c1100f88c17d5b5d05cca4d492d5a1dc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #10 from nocodb/feat/workspace Feat/workspace</MESSAGE>
+      <SHA>28df626c569e74953ebd5284f7b6f4c7faf3d9e0</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/assets/img/brand/nocodb-full-color.png</FILE>
+        <FILE>packages/nc-gui/components.d.ts</FILE>
+        <FILE>packages/nc-gui/components/dashboard/TreeView.vue</FILE>
+        <FILE>packages/nc-gui/components/docs/SideBar.vue</FILE>
+        <FILE>packages/nc-gui/components/general/TextAvatar.vue</FILE>
+        <FILE>packages/nc-gui/components/smartsheet/column/SelectOptions.vue</FILE>
+        <FILE>packages/nc-gui/components/workspace/CollaboratorsList.vue</FILE>
+        <FILE>packages/nc-gui/components/workspace/CreateDlg.vue</FILE>
+        <FILE>packages/nc-gui/components/workspace/InviteCollabDlg.vue</FILE>
+        <FILE>packages/nc-gui/components/workspace/InviteSection.vue</FILE>
+        <FILE>packages/nc-gui/components/workspace/ProjectList.vue</FILE>
+        <FILE>packages/nc-gui/composables/docs/useDocs.ts</FILE>
+        <FILE>packages/nc-gui/composables/useWorkspaceStore.ts</FILE>
+        <FILE>packages/nc-gui/layouts/empty.vue</FILE>
+        <FILE>packages/nc-gui/lib/constants.ts</FILE>
+        <FILE>packages/nc-gui/lib/enums.ts</FILE>
+        <FILE>packages/nc-gui/pages/index/index/create.vue</FILE>
+        <FILE>packages/nc-gui/pages/workspace/index.vue</FILE>
+        <FILE>packages/nc-gui/utils/colorsUtils.ts</FILE>
+        <FILE>packages/nc-gui/utils/projectCreateUtils.ts</FILE>
+        <FILE>packages/nocodb-sdk/src/lib/Api.ts</FILE>
+        <FILE>packages/nocodb-sdk/src/lib/enums.ts</FILE>
+        <FILE>packages/nocodb/src/lib/meta/NcMetaIOImpl.ts</FILE>
+        <FILE>packages/nocodb/src/lib/meta/api/docsApis/pageApis.ts</FILE>
+        <FILE>packages/nocodb/src/lib/meta/api/index.ts</FILE>
+        <FILE>packages/nocodb/src/lib/meta/api/projectApis.ts</FILE>
+        <FILE>packages/nocodb/src/lib/meta/api/userApi/initStrategies.ts</FILE>
+        <FILE>packages/nocodb/src/lib/meta/api/userApi/userApis.ts</FILE>
+        <FILE>packages/nocodb/src/lib/meta/api/workspaceApis.ts</FILE>
+        <FILE>packages/nocodb/src/lib/meta/helpers/extractWorkspaceProjectAndAuthenticate.ts</FILE>
+        <FILE>packages/nocodb/src/lib/meta/helpers/ncMetaAclMw.ts</FILE>
+        <FILE>packages/nocodb/src/lib/migrations/XcMigrationSourcev2.ts</FILE>
+        <FILE>packages/nocodb/src/lib/migrations/v2/nc_023_add_type_to_project.ts</FILE>
+        <FILE>packages/nocodb/src/lib/migrations/v2/nc_024_create_nocodoc_page.ts</FILE>
+        <FILE>packages/nocodb/src/lib/migrations/v2/nc_026_workspace.ts</FILE>
+        <FILE>packages/nocodb/src/lib/models/Project.ts</FILE>
+        <FILE>packages/nocodb/src/lib/models/Workspace.ts</FILE>
+        <FILE>packages/nocodb/src/lib/models/WorkspaceUser.ts</FILE>
+        <FILE>packages/nocodb/src/lib/utils/globals.ts</FILE>
+        <FILE>packages/nocodb/src/lib/utils/projectAcl.ts</FILE>
+        <FILE>packages/nocodb/src/types/custom.d.ts</FILE>
+        <FILE>packages/nocodb/tests/unit/rest/index.test.ts</FILE>
+        <FILE>packages/nocodb/tests/unit/rest/tests/auth.test.ts</FILE>
+        <FILE>packages/nocodb/tests/unit/rest/tests/docs.test.ts</FILE>
+        <FILE>packages/nocodb/tests/unit/rest/tests/workspace.test.ts</FILE>
+        <FILE>packages/nocodb/tsconfig.json</FILE>
+        <FILE>scripts/sdk/swagger.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

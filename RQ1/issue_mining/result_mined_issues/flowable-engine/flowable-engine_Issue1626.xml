@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1626</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/1626</ISSUEURL>
+  <TITLE>Flowable Admin: Terminate BPMN Process Instance does no longer work in 6.4.1</TITLE>
+  <DESCRIPTION>Using flowable-admin `6.4.1` it is not longer possible to terminate a running BPMN Process Instance. (It was working in previous versions as far as I remember.) On the http://localhost:8080/flowable-admin/#/process-instance/$PROCESS_INSTANCE_ID screen I click on the &quot;Terminate process instance&quot; action. In the pop-up I click on &quot;Terminate process instance&quot;. The pop-up closes but the instance is still running. If I open Firefox developer tools, I see that the following request (exported in curl format) is send: ``` curl http://localhost:8080/flowable-admin/app/rest/admin/process-instances/71edd854-34f7-11e9-9a21-d481d7bb0f15&quot; -H &quot;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0&quot; -H &quot;Accept: application/json, text/plain, */*&quot; -H &quot;Accept-Language: de,en-US;q=0.7,en;q=0.3&quot; --compressed -H &quot;Referer: http://localhost:8080/flowable-admin/&quot; -H &quot;Content-Type: application/json;charset=utf-8&quot; -H &quot;Connection: keep-alive&quot; -H &quot;Cookie: JSESSIONID=292D3D529731CB1CD1169EE960A978E5; FLOWABLE_REMEMBER_ME=TGJVcGNSQlhZQzVXRThXc3J1UEN3QSUzRCUzRDpyVDFRQVVzaWtNSGJSeGRTVFRyVXR3JTNEJTNE&quot; -H &quot;DNT: 1&quot; --data &quot;{}&quot; ``` and that a HTTP 400 error with the following body is retured: `{&quot;message&quot;:&quot;Action is missing in the request body or the given action is not supported.&quot;,&quot;messageKey&quot;:&quot;GENERAL.ERROR.BAD-REQUEST&quot;}` Looking into the `flowable-admin` code I noticed that the problem is the empty JSON Body send in the POST request. If I replay the request with the correct body `{&quot;action&quot;:&quot;terminate&quot;}` the instance is terminated.</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix Query HistoricCasesQuery With Variables</MESSAGE>
+    <SHA>0cbfad5ab13f2c263dabcdd274246a52a75fa608</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Flowable Admin: Terminate BPMN Process Instance does no longer work in 6.4.1 (fixes #1626)</MESSAGE>
+      <SHA>32cad9b0106940bf2fda1fc883ecac214804b1b4</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-ui-admin/flowable-ui-admin-app/src/main/resources/static/scripts/process-instance-controllers.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Flowable Admin: Terminate BPMN Process Instance does no longer work in 6.4.1 (fixes #1626) (#1627)</MESSAGE>
+      <SHA>d48b9345988fca9d1c872b14e92a4b5705ad3547</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-ui-admin/flowable-ui-admin-app/src/main/resources/static/scripts/process-instance-controllers.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

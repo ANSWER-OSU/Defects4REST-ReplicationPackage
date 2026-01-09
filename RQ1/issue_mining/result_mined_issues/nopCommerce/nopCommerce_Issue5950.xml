@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5950</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5950</ISSUEURL>
+  <TITLE>Order page (admin area) cannot handle POST if you have a lot of products (data transferred)</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.4.4 Steps to reproduce the problem: 1) Add 160 or more than Unique product in the cart. 2) Placed one order with 160 product. 3) Go to /admin/Order/List and open your order which you placed 4) Change order status It will gives 400 bad request apart from this if you change order items field than also you will get same 400 error. **Note : You have more than 150 unique product in cart in my case I've 160 products in the cart** Problem is if form have a lot data than it will gives 400 error that is my assumption.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6717 Fixed SearchProduct route name</MESSAGE>
+    <SHA>8f59b65ffcf296427e53610cf09a7b00d483e117</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6723 #5950 Reduced form size to prevent causing 400 Bad Request on edit large orders</MESSAGE>
+      <SHA>a481be440a8505a01a0ae0f379fb2362782cf130</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Order/_OrderDetails.Products.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3450</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/3450</ISSUEURL>
+  <TITLE>DeadLetterJobEntityImpl updates ACT_RU_JOB in stead of ACT_RU_DEADLETTER_JOB</TITLE>
+  <DESCRIPTION>**Describe the bug** When updating an instance of org.flowable.job.service.impl.persistence.entity.DeadLetterJobEntityImpl a database statement containing the ACT_RU_JOB table is executed `08:40:43,770 [main] DEBUG org.flowable.job.service.impl.persistence.entity.DeadLetterJobEntityImpl.updateDeadLetterJob - ==&gt; Preparing: update ACT_RU_JOB SET REV_ = ?, PROC_DEF_ID_ = ? where ID_= ? and REV_ = ? ` **Expected behavior** When updating an instance of org.flowable.job.service.impl.persistence.entity.DeadLetterJobEntityImpl a database statement containing the ACT_RU_DEADLETTER_JOB table is executed **Code** ``` DeadLetterJobEntityImpl deadLetterJob = (DeadLetterJobEntityImpl) managementService.createDeadLetterJobQuery() .executionId(childExecution.getId()).singleResult(); deadLetterJob.setProcessDefinitionId(childExecution.getProcessDefinitionId()); ``` **Additional context** Flowable 6.7.3-SNAPSHOT</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>653</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add Support for setting an owner and assignee within process instance builder API (#3449)</MESSAGE>
+    <SHA>1aba176766ac1fc458d64002aa64f6e00794b5d6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Corrected updateDeadLetterJob table (#3450)</MESSAGE>
+      <SHA>4341ee4b5c89fd0e68b69ba7abdc76fdd85c1b0f</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-job-service/src/main/resources/org/flowable/job/service/db/mapping/entity/DeadLetterJob.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

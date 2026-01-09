@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16825</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/16825</ISSUEURL>
+  <TITLE>Mobile keyboard doesn't appear in the same time with the search modal</TITLE>
+  <DESCRIPTION>### Issue Summary When you use the default search on the mobile device, the keyboard doesn't appear in the same time when appears search input. Only after click on the search input the keyboard appears. &lt;img src=&quot;https://github.com/TryGhost/Ghost/assets/42737958/4a4a1acf-57cb-4d00-8d56-2a3ea895344d.png&quot; width=40% height=40%&gt; &lt;img src=&quot;https://github.com/TryGhost/Ghost/assets/42737958/4d6588b9-55ba-4386-9d23-afa17f486b7d.png&quot; width=40% height=40%&gt; ### Steps to Reproduce 1. Click on the search button with data-ghost-search 2. The search modal with the input appears 3. Click on the input 4. The keyboard appears ### Ghost Version 5.40.1 ### Node.js Version 18.16.0 ### How did you install Ghost? Ubuntu ### Database type MySQL 8 ### Browser &amp; OS version Chrome 113.0.5672.76 &amp; Android 12 ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>19</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Reverted &quot;Disabled image editor setting check&quot; This reverts commit 9d9e2961489ba0ac79c631a015f462f358eeacd6. This commit was a temporary fix to load the image editor if the setting was disabled.</MESSAGE>
+    <SHA>71e5d708d4da5dbe8dcfff2cd2d4e8126e19889e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed search input focus on iOS refs https://github.com/TryGhost/Ghost/issues/16825 - iOS is very restrictive on input focus which doesn't allow without any user interaction - The only workaround was creating a temporary input, focus it, and remove it after moving the focus to the actual searfch input - It also moves the inputRef to the parent component, so that it can be used in the click event handler, because the focus event only works when it's inside a function that's triggered after user interaction</MESSAGE>
+      <SHA>f88dbdbaed7c505b59ebcd145047bcdf11038c42</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/sodo-search/src/App.js</FILE>
+        <FILE>ghost/sodo-search/src/components/PopupModal.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

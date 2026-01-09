@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>846</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/846</ISSUEURL>
+  <TITLE>SIGPIPE should kill now/cancel a deployment</TITLE>
+  <DESCRIPTION>`SIGPIPE` is raised with a process if an output pipe for one of the standard file descriptors breaks during execution. We need to cancel/roll back a deployment if `SIGPIPE` or `EPIPE` are raised via a signal or fd operation, respectively. @rauchg pointed out [epipebomb](https://github.com/mhart/epipebomb) as an example for how some of these are handled.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>835</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now-next] Fix dev-server bundle output (#847) * [now-next] Fix dev-server bundle * [now-next] Fix bundle output dev-server</MESSAGE>
+    <SHA>34ad4ac33a474663d2146306034384f05af6c410</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-build-utils] Fix require file path for legacy builders (#846) * [now-build-utils] Fix require file path * Add more tests</MESSAGE>
+      <SHA>6546d3b67ddde78c9c89e60f4cbb948924f0579e</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-build-utils/fs/download.js</FILE>
+        <FILE>packages/now-build-utils/fs/get-writable-directory.js</FILE>
+        <FILE>packages/now-build-utils/fs/glob.js</FILE>
+        <FILE>packages/now-build-utils/fs/rename.js</FILE>
+        <FILE>packages/now-build-utils/fs/run-user-scripts.js</FILE>
+        <FILE>packages/now-build-utils/fs/stream-to-buffer.js</FILE>
+        <FILE>packages/now-build-utils/test/test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

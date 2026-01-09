@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15290</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/15290</ISSUEURL>
+  <TITLE>Hidden error in &quot;Add tier&quot; modal</TITLE>
+  <DESCRIPTION>Try to add a tier but don’t fill the tier name field. There should be a field error that name is mandatory and the button should switch to “Retry. Instead, seems like nothing changes. &lt;img width=&quot;1103&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/101513/186172011-1e17a647-e2db-4138-b09a-da79941dc0bb.png&quot;&gt; ## Steps to reproduce 1. Visit Settings &gt; Memberships &gt; Premium &gt; Add tier 2. Hit the &quot;Add tier&quot; button without entering a name 3. Notice that nothing happens 4. Look in the console, see the following error appearing: &lt;img width=&quot;875&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/101513/186172956-534dcb00-90cd-4c16-a9d0-20748891d86e.png&quot;&gt; Very unhelpful &quot;Uncaught undefined&quot; ## Expected behaviour - The title field should get a red border - A message should appear under the field saying name is required - The &quot;Add tier&quot; button should change to a red &quot;Retry&quot; button ### Ghost Version 5.10</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update dependency ember-cli-htmlbars to v6.1.1 (#15389) Co-authored-by: renovate[bot] &lt;29139614+renovate[bot]@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>2a3b4908e184fc56f075edf5599c4e8ebbdf9b30</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed Hidden error in &quot;Add tier&quot; modal (#15361) closes https://github.com/TryGhost/Ghost/issues/15290 - Capture error from model errors - Add hasValidated for name property to properly mark field as error/success - Add property to hasValidated after each failed validation - Wrap saving on try-catch to suppress uncaught exception (validation error)</MESSAGE>
+      <SHA>e376ef0242e3e0a6c9359213ddd532995a2d8f6c</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/app/components/modal-tier.hbs</FILE>
+        <FILE>ghost/admin/app/components/modal-tier.js</FILE>
+        <FILE>ghost/admin/app/validators/tier.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

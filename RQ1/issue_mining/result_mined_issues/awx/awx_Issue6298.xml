@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6298</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6298</ISSUEURL>
+  <TITLE>Typo in Japanese tooltip for adding hosts</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY Go to Inventories -&gt; Add a new host with the green plus button. The tooltip has a typo: ![Screenshot from 2020-03-16 14-14-46](https://user-images.githubusercontent.com/19942822/76788332-1648a580-6791-11ea-9b9a-2a627cd6d286.png) Context in english to help you spot the location: ![69465377-44b3f800-0d3e-11ea-9072-f6a5523c6f98](https://user-images.githubusercontent.com/19942822/76788363-282a4880-6791-11ea-941c-ce528d9c5e1e.png) The text header reads: &gt; ホスト名 &gt; host name、ip address、または ip address:port を指定してください。例:reo There is a leftover string `reo` after the 例 that should be deleted. Unsure if you would write 例え or 例, but I would leave that to a native speaker.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #6278 from mabashian/6274-workflow-approval-toolbar-buttons [4.3] Re-add workflow approval bulk actions to workflow approvals list</MESSAGE>
+    <SHA>c6cbbb8c282d6706fdbed0c23aeab5661883dfe3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>SAML enhancements (#13316) (#6298) * Moving reconcile_users_org_team_mappings into common library * Renaming pipeline to social_pipeline * Breaking out SAML and generic Social Auth * Optimizing SMAL login process * Moving extraction of org in teams from backends into sso/common.create_orgs_and_teams * Altering saml_pipeline from testing Prefixing all internal functions with _ Modified subfunctions to not return values but instead manipulate multable objects Modified all functions to not add duplicate orgs to the orgs_to_create list * Updating the common function to respect a teams organization name * Added can_create flag to create_org_and_teams This made testing easier and allows for any adapter with a flag the ability to simply pass it into a function * Multiple changes to SAML pipeline Removed orgs_to_create from being passed into user_team functions, common create orgs code will add any team orgs to list of orgs automatically Passed SAML_AUTO_CREATE_OBJECTS flag into create_org_and_teams Fix bug where we were looking at values instead of keys Added loading of all teams if remove flag is set in update_user_teams_by_saml_attr * Moving common items between SAML and Social into a 'base' * Updating and adding testing * Renamed get_or_create_with_default_galaxy_cred to get_or_create_org_...</MESSAGE>
+      <SHA>e500092989f716c8d4b1700656d37ad3078ed4e2</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/settings/defaults.py</FILE>
+        <FILE>awx/sso/backends.py</FILE>
+        <FILE>awx/sso/common.py</FILE>
+        <FILE>awx/sso/saml_pipeline.py</FILE>
+        <FILE>awx/sso/social_base_pipeline.py</FILE>
+        <FILE>awx/sso/social_pipeline.py</FILE>
+        <FILE>awx/sso/tests/functional/test_common.py</FILE>
+        <FILE>awx/sso/tests/functional/test_pipeline.py</FILE>
+        <FILE>awx/sso/tests/functional/test_saml_pipeline.py</FILE>
+        <FILE>awx/sso/tests/functional/test_social_base_pipeline.py</FILE>
+        <FILE>awx/sso/tests/functional/test_social_pipeline.py</FILE>
+        <FILE>awx/sso/tests/unit/test_pipeline.py</FILE>
+        <FILE>awx/sso/tests/unit/test_pipelines.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

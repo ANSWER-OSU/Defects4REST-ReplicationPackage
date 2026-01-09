@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3211</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/3211</ISSUEURL>
+  <TITLE>Full-text indexing fails due to missing Tika library</TITLE>
+  <DESCRIPTION>**Describe the bug** When adding or updating an item in the search core (via the discovery consumer, e.g. after a metadata edit occurs in the UI), full-text indexing fails, with an error in dspace.log containing the following snippet: ``` Caused by: java.lang.NoClassDefFoundError: org/apache/tika/parser/csv/TextAndCSVParser at org.dspace.discovery.indexobject.IndexFactoryImpl.writeDocument(IndexFactoryImpl.java:99) ~[dspace-api-7.0-beta5-SNAPSHOT.jar:7.0-beta5-SNAPSHOT] ``` **To Reproduce** Steps to reproduce the behavior: 1. Create an item with a PDF 2. Run filter-media on it so that a fulltext bitstream is created in the TEXT bundle 3. Edit the item to modify the metadata 4. Notice that the indexing fails and a message like the above appears in dspace.log **Expected behavior** Full-text indexing should succeed without error.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #3194 from atmire/w2p-77582_Issue-3113_Fix-item-handle-redirect handle redirect for items not working - REST Implementation</MESSAGE>
+    <SHA>34c1e82275dbbc42010b79cd5872a86d861d9827</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3211 Change tika-core dependency to tika-parsers</MESSAGE>
+      <SHA>ef62e22aa1446440ef33f10790f7d36a24c8e7a5</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/pom.xml</FILE>
+        <FILE>pom.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3211 Exclude tika-parsers dependencies we already use, but with different versions</MESSAGE>
+      <SHA>f84b0dc9e011286dd741ec9afe6f3a080217401e</SHA>
+      <PATCHEDFILES>
+        <FILE>pom.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #3212 from atmire/GH-3211_tika-parsers-dependency Fix #3211 by depending directly on tika-parsers</MESSAGE>
+      <SHA>b40fb1164ecdf074d2c85518727004ad8460bb0b</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/pom.xml</FILE>
+        <FILE>pom.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120432</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120432</ISSUEURL>
+  <TITLE>[CI] StandardVersusLogsStoredSourceChallengeRestIT.testMatchAllQuery failing with OOME</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5899 / openjdk17_checkpart2_java-fips-matrix](https://gradle-enterprise.elastic.co/s/x7rp3jrgoaava) - [elasticsearch-periodic #5859 / openjdk17_checkpart2_java-fips-matrix](https://gradle-enterprise.elastic.co/s/yqyaalckgmg7o) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:logsdb:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.logsdb.qa.StandardVersusLogsStoredSourceChallengeRestIT.testHistogramAggregation&quot; -Dtests.seed=4CAA7452D418406E -Dtests.locale=ff-Latn-SN -Dtests.timezone=Africa/Malabo -Druntime.java=17 -Dtests.fips.enabled=true ``` **Applicable branches:** 8.17 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.logsdb.qa.StandardVersusLogsStoredSourceChallengeRestIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.xpack.logsdb.qa.StandardVersusLogsStoredSourceChallengeRestIT),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.RuntimeException: Request execution cancelled ``` **Issue Reasons:** - [8.17] 2 failures in class org.elasticsearch.xpack.logsdb.qa.StandardVersusLogsStoredSourceChallengeRestIT (0.8% fail rate in 244 executions) - [8.17] 2 failures in step openjdk17_checkpart2_java-fips-matrix (22.2% fail rate in 9 executions) - [8.17] 2 failures in pipeline elasticsearch-periodic (22.2% fail rate in 9 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Retry internally when CAS upload is throttled [GCS] (#120250) Fixes #116546</MESSAGE>
+    <SHA>c02292f82b38872efd7220e25595af15e4ccb38d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Reduce number of docs in randomized testing for logsdb (#120451) Related to #120432</MESSAGE>
+      <SHA>82295cf9bbeb58e9bdd4a94c1e56f4416cc1966a</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/logsdb/src/javaRestTest/java/org/elasticsearch/xpack/logsdb/qa/StandardVersusLogsIndexModeChallengeRestIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Reduce number of docs in randomized testing for logsdb (#120451) Related to #120432</MESSAGE>
+      <SHA>56060fca9f7d6ba5f79677914a69152621f8850c</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/logsdb/src/javaRestTest/java/org/elasticsearch/xpack/logsdb/qa/StandardVersusLogsIndexModeChallengeRestIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Reduce number of docs in randomized testing for logsdb (#120451) (#120452) Related to #120432</MESSAGE>
+      <SHA>9c37e46e31ce37fed7909fca08e375a9f93cb9bd</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/logsdb/src/javaRestTest/java/org/elasticsearch/xpack/logsdb/qa/StandardVersusLogsIndexModeChallengeRestIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Reduce number of docs in randomized testing for logsdb (#120451) Related to #120432 (cherry picked from commit 82295cf9bbeb58e9bdd4a94c1e56f4416cc1966a) # Conflicts: # x-pack/plugin/logsdb/src/javaRestTest/java/org/elasticsearch/xpack/logsdb/qa/StandardVersusLogsIndexModeChallengeRestIT.java</MESSAGE>
+      <SHA>aed86b68eb0c6d90142436eaf1348bdd92560cc2</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/logsdb/src/javaRestTest/java/org/elasticsearch/xpack/logsdb/qa/StandardVersusLogsIndexModeChallengeRestIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Reduce number of docs in randomized testing for logsdb (#120451) (#120460) Related to #120432 (cherry picked from commit 82295cf9bbeb58e9bdd4a94c1e56f4416cc1966a) # Conflicts: # x-pack/plugin/logsdb/src/javaRestTest/java/org/elasticsearch/xpack/logsdb/qa/StandardVersusLogsIndexModeChallengeRestIT.java</MESSAGE>
+      <SHA>27fa993fbd9efc1304b9408cde29b16e7865e725</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/logsdb/src/javaRestTest/java/org/elasticsearch/xpack/logsdb/qa/StandardVersusLogsIndexModeChallengeRestIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

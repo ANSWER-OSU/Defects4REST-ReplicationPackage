@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1646</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/1646</ISSUEURL>
+  <TITLE>bug: limit-req in consumer is not work for grpc-proxy</TITLE>
+  <DESCRIPTION>### Issue description For grpc-proxy: when I add `limit-req` into `service`, it works fine and return `rejected_code` as wish. but when I add `limit-req` into `consumer`, it acts just like there is no `limit-req`. For httpbin proxy(normal http 1.1 , not grpc proxy.): when I add `limit-req` into `consumer`, it works fine and return `rejected_code` as wish. ### Environment * apisix version (cmd: `apisix version`): 1.3 * OS: centos, docker ### Minimal test code / Steps to reproduce the issue 1. add consumer ``` curl http://127.0.0.1:9080/apisix/admin/consumers/1 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d ' { &quot;username&quot;: &quot;jwt1&quot;, &quot;plugins&quot;: { &quot;jwt-auth&quot;: { &quot;key&quot;: &quot;ak&quot;, &quot;secret&quot;: &quot;sk&quot; }, &quot;limit-req&quot;: { &quot;rate&quot;: 1, &quot;burst&quot;: 0, &quot;rejected_code&quot;: 429, &quot;key&quot;: &quot;remote_addr&quot; } } }' ``` 2. add grpc route ``` //172.21.144.41:50051 is grpc server. you may need to change it to 127.0.0.1:50051 curl http://127.0.0.1:9080/apisix/admin/upstreams/8 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d ' { &quot;type&quot;: &quot;roundrobin&quot;, &quot;nodes&quot;: { &quot;172.21.144.41:50051&quot;: 1 } }' ``` ``` curl http://127.0.0.1:9080/apisix/admin/services/1 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d ' { &quot;upstream_id&quot;: 8 }' ``` ``` curl http://127.0.0.1:9080/apisix/admin/routes/1 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d ' { &quot;methods&quot;: [&quot;POST&quot;, &quot;GET&quot;], &quot;uri&quot;: &quot;/helloworld.Greeter/SayHello&quot;, &quot;service_protocol&quot;: &quot;grpc&quot;, &quot;service_id&quot;: 1, &quot;plugins&quot;: { &quot;jwt-auth&quot;: {} } }' ``` 3. fetch jwt token ``` curl http://127.0.0.1:9080/apisix/plugin/jwt/sign\?key\=ak ``` 4. request service ``` grpcurl -v -insecure -import-path ./proto/ -proto helloworld.proto \ -d '{&quot;name&quot;:&quot;apisix&quot;}' -H 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOiJhayIsImV4cCI6MTU5MTI2NjExNX0.Ok07taBf2KglnuqHtMWwxqNJ6CBo451uJmsMHkFblGc' 127.0.0.1:9443 helloworld.Greeter.SayHello ``` ### What's the actual result? (including assertion message &amp; call stack if applicable) `rejected_code` is not returned as wish. it acts just like there is not `limit-req`. ### What's the expected result? limit-req should work just like normal http request.</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>232</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>test: add more test to check if checker is stopped. (#3350) Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+    <SHA>da99a03cbf42bc740ab53f5395e60cc8d5f8e5bc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: support upstream_id &amp; consumer with grpc Fix #1646. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>7ff61d7892c71afae7f80c3a91f1ef492dc9fcbd</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>t/node/grpc-proxy.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: support upstream_id &amp; consumer with grpc (#3387) Fix #1646.</MESSAGE>
+      <SHA>c03078360761e51aceb25f8edd018724ac071abd</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>t/node/grpc-proxy.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

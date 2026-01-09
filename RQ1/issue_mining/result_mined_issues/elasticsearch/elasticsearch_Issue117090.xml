@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117090</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/117090</ISSUEURL>
+  <TITLE>[CI] FullClusterRestartIT testSearchTimeSeriesMode {cluster=UPGRADED} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #13108 / 8.17.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/2uckqgraauaxy) - [elasticsearch-intake #13108 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/53vilhgqoi6t4) - [elasticsearch-intake #13108 / 8.16.1_bwc-snapshots](https://gradle-enterprise.elastic.co/s/o2kdkl2arclmk) - [elasticsearch-periodic #4944 / 8.0.1_bwc](https://gradle-enterprise.elastic.co/s/2flf62ewrzvx6) - [elasticsearch-pull-request #42094 / 8.0.1_bwc](https://gradle-enterprise.elastic.co/s/4dsscw4p7a3m6) - [elasticsearch-pull-request #42084 / 8.0.1_bwc](https://gradle-enterprise.elastic.co/s/bfelmtyt2veru) **Reproduction Line:** ``` ./gradlew &quot;:qa:full-cluster-restart:v8.17.0#bwcTest&quot; -Dtests.class=&quot;org.elasticsearch.upgrades.FullClusterRestartIT&quot; -Dtests.method=&quot;testSearchTimeSeriesMode {cluster=UPGRADED}&quot; -Dtests.seed=72BD4AD134708821 -Dtests.bwc=true -Dtests.locale=fil-PH -Dtests.timezone=America/Indiana/Petersburg -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.upgrades.FullClusterRestartIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testSearchTimeSeriesMode%20%7Bcluster%3DUPGRADED%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.client.ResponseException: method [GET], host [http://[::1]:35769], URI [/info/_doc/testsearchtimeseriesmode_count?filter_path=_source], status line [HTTP/1.1 404 Not Found] {} ``` **Issue Reasons:** - [main] 3 consecutive failures in step 8.0.1_bwc - [main] 6 failures in test testSearchTimeSeriesMode {cluster=UPGRADED} (0.9% fail rate in 692 executions) - [main] 3 failures in step 8.0.1_bwc (100.0% fail rate in 3 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (1.6% fail rate in 128 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.upgrades.FullClusterRestartIT testSearchTimeSeriesMode {cluster=OLD} #117089</MESSAGE>
+    <SHA>56fc71620f517b44ef7feedc6abd7babc7f38ca7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.upgrades.FullClusterRestartIT testSearchTimeSeriesMode {cluster=UPGRADED} #117090</MESSAGE>
+      <SHA>c1141cca2e9aefdcf0bb9071d60cfc75b55b1b08</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5236</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/5236</ISSUEURL>
+  <TITLE>Add sparkline of recent jobs to expanded host row</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Feature Idea ##### SUMMARY The awx-pf interface for hosts exposes recent jobs in a sparkline (like templates) but the one piece of information that we're missing is the job `type`. The `type` is important because it allows us to navigate directly to the correct output page for the job in question without having to make an extra request. I tried this chunk: ``` d.setdefault('recent_jobs', [{ 'id': j.job.id, 'name': j.job.job_template.name if j.job.job_template is not None else &quot;&quot;, 'status': j.job.status, 'finished': j.job.finished, 'type': j.job.get_real_instance_class()._meta.verbose_name.replace(' ', '_') } for j in obj.job_host_summaries.select_related('job__job_template').order_by('-created')[:5]]) ``` in `def get_summary_fields(self, obj):` in the `HostSerializer` but wasn't sure if that was performant or correct.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>615</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #7605 from wenottingham/jobberry-fields-forever Add artifacts field of jobs to the allowed list for notifications Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>83458711cdacdc2aee38921082439854dbd66d4f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>add job type to Host summary_fields.recent_jobs see: https://github.com/ansible/awx/issues/5236</MESSAGE>
+      <SHA>f51774c06ee161355ceb893ce4357ce12f71253a</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/serializers.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>add job type to Host summary_fields.recent_jobs see: https://github.com/ansible/awx/issues/5236</MESSAGE>
+      <SHA>5526c02c8025ce6a058fe71413fc79f43fbb59c3</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/serializers.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>add job type to Host summary_fields.recent_jobs see: https://github.com/ansible/awx/issues/5236</MESSAGE>
+      <SHA>1a0f95dde51e214706e1cece4729a13d2a534ffd</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/serializers.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

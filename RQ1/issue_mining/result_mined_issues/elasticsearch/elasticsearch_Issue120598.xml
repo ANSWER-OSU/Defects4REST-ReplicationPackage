@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120598</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120598</ISSUEURL>
+  <TITLE>[CI] RollingUpgradeLuceneIndexCompatibilityTestCase class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #16163 / part1](https://gradle-enterprise.elastic.co/s/6ladsukuqs5ga) - [elasticsearch-pull-request #51853 / part-1](https://gradle-enterprise.elastic.co/s/ruzkezk3zspny) - [elasticsearch-pull-request #51868 / part-1](https://gradle-enterprise.elastic.co/s/qmvejgipqv6uc) - [elasticsearch-pull-request #51866 / part-1](https://gradle-enterprise.elastic.co/s/o6v6errfgzrwq) - [elasticsearch-pull-request #51872 / part-1](https://gradle-enterprise.elastic.co/s/mc6uurqpnju7u) - [elasticsearch-pull-request #51860 / part-1](https://gradle-enterprise.elastic.co/s/rdbml42e3mzw4) - [elasticsearch-pull-request #51871 / part-1](https://gradle-enterprise.elastic.co/s/nvu5v2766ycte) - [elasticsearch-intake #16162 / part1](https://gradle-enterprise.elastic.co/s/7nsgw3khntgiw) - [elasticsearch-pull-request #51862 / part-1](https://gradle-enterprise.elastic.co/s/kpofq6yczwruk) - [elasticsearch-pull-request #51851 / part-1](https://gradle-enterprise.elastic.co/s/jt6cofe3revdi) **Reproduction Line:** ``` ./gradlew &quot;:qa:lucene-index-compatibility:javaRestTest&quot; --tests &quot;org.elasticsearch.lucene.RollingUpgradeLuceneIndexCompatibilityTestCase&quot; -Dtests.method=&quot;testRestoreIndex {p0=[9.0.0, 8.18.0, 8.18.0]}&quot; -Dtests.seed=B3472861BD6EB6C7 -Dtests.locale=fr-DZ -Dtests.timezone=Asia/Srednekolymsk -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.lucene.RollingUpgradeLuceneIndexCompatibilityTestCase),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.lucene.RollingUpgradeLuceneIndexCompatibilityTestCase),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.client.ResponseException: method [POST], host [http://[::1]:43575], URI [/_snapshot/repository-testrestoreindex/snapshot-testrestoreindex/_restore?wait_for_completion=true], status line [HTTP/1.1 500 Internal Server Error] {&quot;error&quot;:{&quot;root_cause&quot;:[{&quot;type&quot;:&quot;snapshot_restore_exception&quot;,&quot;reason&quot;:&quot;[repository-testrestoreindex:snapshot-testrestoreindex] snapshot does not exist&quot;}],&quot;type&quot;:&quot;snapshot_restore_exception&quot;,&quot;reason&quot;:&quot;[repository-testrestoreindex:snapshot-testrestoreindex] snapshot does not exist&quot;},&quot;status&quot;:500} ``` **Issue Reasons:** - [main] 10 consecutive failures in class org.elasticsearch.lucene.RollingUpgradeLuceneIndexCompatibilityTestCase - [main] 2 consecutive failures in step part1 - [main] 8 consecutive failures in step part-1 - [main] 2 consecutive failures in pipeline elasticsearch-intake - [main] 8 consecutive failures in pipeline elasticsearch-pull-request - [main] 37 failures in class org.elasticsearch.lucene.RollingUpgradeLuceneIndexCompatibilityTestCase (4.1% fail rate in 902 executions) - [main] 2 failures in step part1 (1.9% fail rate in 107 executions) - [main] 34 failures in step part-1 (9.4% fail rate in 360 executions) - [main] 2 failures in pipeline elasticsearch-intake (1.9% fail rate in 107 executions) - [main] 32 failures in pipeline elasticsearch-pull-request (8.9% fail rate in 358 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.lucene.FullClusterRestartLuceneIndexCompatibilityIT org.elasticsearch.lucene.FullClusterRestartLuceneIndexCompatibilityIT #120597</MESSAGE>
+    <SHA>bcb374b05e06d3d46685da80a53db216ebb20446</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.lucene.RollingUpgradeLuceneIndexCompatibilityTestCase org.elasticsearch.lucene.RollingUpgradeLuceneIndexCompatibilityTestCase #120598</MESSAGE>
+      <SHA>b719cf7756aab6603e5e9be10deacc955d198a54</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Unmute FullClusterRestartLuceneIndexCompatibilityIT and RollingUpgradeLuceneIndexCompatibilityTestCase Closes #120597 Closes #120598</MESSAGE>
+      <SHA>e112098e351f3a9f9778bb7d4df946e18b5d3fb9</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Unmute FullClusterRestartLuceneIndexCompatibilityIT and RollingUpgradeLuceneIndexCompatibilityTestCase (#120621) Closes #120597 Closes #120598</MESSAGE>
+      <SHA>b59384842b71b23d7d8b3b1fd3d1a50b6ce20b6e</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

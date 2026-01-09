@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8996</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/8996</ISSUEURL>
+  <TITLE>bug: traffic-split plugin can't proxy virtual upstream that schema is https</TITLE>
+  <DESCRIPTION>### Current Behavior i have two upstream using https protocol, when i configure traffice-splite plugin on one route proxying that two upstream. i find i can not get correct response, it tells me that require &quot;Bad Request This combination of host and port requires TLS&quot; ### Expected Behavior i can use this route with traffice-split plugin proxy https upstream ### Error Logs apisix's response is that Bad Request This combination of host and port requires TLS ### Steps to Reproduce 1. Run Apisix On Centos7 2. start two applications that uses tls 3. create a route `curl &quot;http://127.0.0.1:9080/apisix/admin/routes/1234567890&quot; -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d '{&quot;uri&quot;:&quot;/health&quot;,&quot;plugins&quot;:{&quot;traffic-split&quot;:{&quot;rules&quot;:[{&quot;name&quot;:&quot;upstream_A&quot;,&quot;type&quot;:&quot;roundrobin&quot;,&quot;nodes&quot;:{&quot;ip:port&quot;:10},&quot;timeout&quot;:{&quot;connect&quot;:15,&quot;send&quot;:15,&quot;read&quot;:15}}]}},&quot;upstream&quot;: {&quot;type&quot;: &quot;roundrobin&quot;,&quot;nodes&quot;: {&quot;ip:port&quot;: 2}}}'` 4. invoke api `curl -X GET http://127.0.0.1:9080/health` ### Environment - Apisix Version(run `apisix version`): any version - Operating system (run `uname -a`): Linux 3.10.0-957.el7.x86_64 #1 SMP Thu Nov 8 23:39:32 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux - OpenResty / Nginx version (run `openresty -V` or `nginx -V`): nginx version: openresty/1.19.9.1 - etcd version, if relevant (run `curl http://127.0.0.1:9090/v1/server_info`): 3.4.0 - APISIX Dashboard version, if relevant: - Plugin runner version, for issues related to plugin runners: - LuaRocks version, for installation issues (run `luarocks --version`):3.4.0</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>208</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge remote-tracking branch 'apache/master'</MESSAGE>
+    <SHA>18f07726d2934ce144af0650763bf5ab62ea8675</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: traffic-split plugin can't proxy virtual upstream that schema is https(#8996)</MESSAGE>
+      <SHA>38429036baebe096c0955856eed3b81a4dbc29e2</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/traffic-split.lua</FILE>
+        <FILE>apisix/upstream.lua</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

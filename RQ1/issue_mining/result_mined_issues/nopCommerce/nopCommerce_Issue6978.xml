@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6978</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6978</ISSUEURL>
+  <TITLE>Add LanguageId field to NewsletterSubscription</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.60 &gt;I was very surprised to see that nopcommerce doesn't store the language (a.e. current UI language) of the user subscribing to the newsletter. I own a shop in a contry with multiple user languages. Informing the user in a language he can read is a very importent sales aspect - and multilanguage newsletters look horrible and uncustomized. So this greate feature is nearly useless. Source: https://www.nopcommerce.com/boards/topic/98426/newsletter-subscriber-language An important addition. It works fine for registered customers. But we also should support guest users who are not logged in and use the newsletter box. I think an extra property should be added to `NewsLetterSubscription`. So besides the `StoreId,` the `SubscriptionLanguageId` can be stored here as well. Let's ensure that it's synchronized for registered customers (they have the current language ID stored in database)</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>116</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue-7097-Country_sales_Store' into develop</MESSAGE>
+    <SHA>fc0dd0d926f2c8afd9336e5695eed9779a68beff</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6978 Added LanguageId field to NewsletterSubscription</MESSAGE>
+      <SHA>469b8aae5572c58b2e07b8b6a7a568e972fa9b0a</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Messages/NewsLetterSubscription.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/UpgradeTo470/DataMigration.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/UpgradeTo470/SchemaMigration.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/ExportImport/ExportManager.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/ExportImport/ImportManager.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Messages/IWorkflowMessageService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Messages/WorkflowMessageService.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Brevo/Services/BrevoManager.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Brevo/plugin.json</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo470/LocalizationMigration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/CustomerController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/NewsLetterSubscriptionModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Infrastructure/Mapper/AdminMapperConfiguration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Messages/NewsLetterSubscriptionModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/NewsLetterSubscription/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/CustomerController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/NewsletterController.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Services.Tests/Messages/WorkflowMessageServiceTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6978 Further changes. Added synchronization between the customer's current language and the language in NewsletterSubscription</MESSAGE>
+      <SHA>4f738ad40377b916dbd8dd8ade9ff85d6dc6798e</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Customers/CustomerChangeWorkingLanguageEvent.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/CustomerEventConsumer.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/WebWorkContext.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6978 Further changes</MESSAGE>
+      <SHA>865a2071e423f0e8d9eee07e3bc16b3415cf3c4e</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Customers/CustomerEventConsumer.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

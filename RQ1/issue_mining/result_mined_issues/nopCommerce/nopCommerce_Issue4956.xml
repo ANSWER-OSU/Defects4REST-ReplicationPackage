@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4956</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4956</ISSUEURL>
+  <TITLE>Bestsellers report counts sales incorrectly</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.30 &gt; I started to debug the code, at some point in the past someone added in the Category to the query for the best seller report and [because of that left join](https://github.com/nopSolutions/nopCommerce/blob/develop/src/Libraries/Nop.Services/Orders/OrderReportService.cs#L368) it will count your sales 1 time for each category that product is in. in my case i had a few of my best sellers in two categories and there for my sales were doubled for them. I would assume that sales for an order item should be counted only once, no matter how many categories that product is in. While I just mention this bug for the best sellers report, it might be a good idea to make sure other reports do not have the same issue. Steps to reproduce the problem: map a product to multiple categories, makes some sales and view the best sellers report. Source: https://www.nopcommerce.com/en/boards/topic/85001/best-selling-report-counts-sales-incorrectly</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>27</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#4991 Fix &quot;SSL enabled&quot; setting</MESSAGE>
+    <SHA>1a40b6b4690e8bd74a1b84b54fb25d4901fcbc9d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4956 Fix counts sales in best sellers report</MESSAGE>
+      <SHA>4fd3ed4b0a62cf5c6e715ee67101ccbf190a85e1</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderReportService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

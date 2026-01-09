@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>29314</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/29314</ISSUEURL>
+  <TITLE>Massaction &quot;Send E-Mail&quot; to attendees not working in Event Organization</TITLE>
+  <DESCRIPTION>### Bug Massaction &quot;Send E-Mail&quot; to attendees not working in Event Organization ### Dolibarr Version 18.0, 19.0, develop ### Environment PHP 8.1 ### Environment Database n/a ### Steps to reproduce the behavior and expected behavior 1. Create a project and enable event organization 2. Navigate to eventorganization/conferenceorboothattendee_list.php 3. Add 2 or more attendees with e-mail adresses 4. Select the attendees in the list 5. Select mass-action &quot;send email&quot; and click confirm Current behavior: form to send mail is not showing up Expected behavior: form to send mail should be displayed to allow to send mass mail to all attendees Root-cause of this bug is, that in the function `getCommonSubstitutionArray` the method `getFullName` is called for the object which is an instance of `ConferenceOrBoothAttendee` in this case. But this method is not implemented for `ConferenceOrBoothAttendee`. ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix #29279 Not admin that can create group have disabled button for group creation (#29286) * Fix #29279 Not admin that can create group have disabled button for group creation * Update eldy.lib.php --------- Co-authored-by: Jon Bendtsen &lt;xcodeauthor@jonb.dk&gt; Co-authored-by: Laurent Destailleur &lt;eldy@destailleur.fr&gt; Conflicts: htdocs/core/menus/standard/eldy.lib.php</MESSAGE>
+    <SHA>b133d9386e310e8e5a18c9884a0e8162987e5d4e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #29314 Add method getFullName</MESSAGE>
+      <SHA>bdaee4c2872e4ba49956d20753de4d4eae853fff</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/eventorganization/class/conferenceorboothattendee.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #29314 (#29315) * Fix #29314 Add method getFullName * Update conferenceorboothattendee.class.php</MESSAGE>
+      <SHA>5c3caa3f31986d237ef47e575e3af21e42e03f0f</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/eventorganization/class/conferenceorboothattendee.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

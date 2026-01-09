@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5571</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5571</ISSUEURL>
+  <TITLE>Combine usage IDependencyRegistrar and INopStartup</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40 As a continuation of #4196 We moved to the internal DI, but still using our custom mechanism with `IDependencyRegistrar` to register dependencies, and also we have added `INopStartup` when updated to .net core, since this was the only way to connect some services and features in .net core. So, now it's all meshed up, some services are registered in one place, some in another, but the internal mechanism is the same. We have to think it out.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>251</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue-5871-PayLater-Message' into develop</MESSAGE>
+    <SHA>85d9ffe057ae9a5f64e5c1d05c2031096cfeacb0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5571 Renamed DependencyRegistrar to NopStartup</MESSAGE>
+      <SHA>d92ca8d76662487219e06008b8678acaa577e955</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Sendinblue/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.MultiFactorAuth.GoogleAuthenticator/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Pickup.PickupInStore/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.FixedByWeightByTotal/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.ShipStation/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.Avalara/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.FixedOrByCountryStateZip/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.AccessiBe/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.FacebookPixel/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Infrastructure/NopStartup.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#5571 The dependency registration process is unified to be performed in a single flow through an internal DI</MESSAGE>
+      <SHA>5060165afa6e927ef59f3258281ba5f5b0eaf81e</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Infrastructure/DependencyManagement/IDependencyRegistrar.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Infrastructure/IEngine.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Infrastructure/NopEngine.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Sendinblue/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Sendinblue/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.MultiFactorAuth.GoogleAuthenticator/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.MultiFactorAuth.GoogleAuthenticator/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/Infrastructure/DependencyRegistrar.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalStandard/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalStandard/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Pickup.PickupInStore/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Pickup.PickupInStore/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.FixedByWeightByTotal/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.FixedByWeightByTotal/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.ShipStation/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.ShipStation/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.Avalara/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.Avalara/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.FixedOrByCountryStateZip/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.FixedOrByCountryStateZip/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.AccessiBe/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.AccessiBe/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.FacebookPixel/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.FacebookPixel/plugin.json</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ServiceCollectionExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Infrastructure/NopStartup.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

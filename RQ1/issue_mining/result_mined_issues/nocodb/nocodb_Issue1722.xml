@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1722</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/1722</ISSUEURL>
+  <TITLE>Can't access projects since upgrade to 0.90.0</TITLE>
+  <DESCRIPTION>Hi, I just tried upgrading NocoDB from 0.84.16 to 0.90.0 using `docker-compose pull`, and I'm experiencing some issues. When I loaded NocoDB in my browser the first time after the upgrade, I got presented with the Sign Up page, but I mindlessly entered my login info (that was already in the database) and clicked &quot;Sign Up&quot;, not realizing it was not the login page. At that point, I got redirected to my project list, like if I had just logged in. The problem is that now every project I try to open fails to load with the message: &quot;Error: Request failed with status code 403&quot;. Did I just break something in my account info? I'm guessing this might be a problem with the data in the database, don't hesitate to ask for contents of tables if needed. Thanks for the awesome work on NocoDB, I'm really enjoying it! **Steps To Reproduce** 1. Upgrade from version 0.84.16 using `docker-compose pull &amp;&amp; docker-compose up --build -d` 2. Go to NocoDB URL 3. Fill the sign up form with information already found in the database and submit form 4. Try to load any project 5. See error about HTTP 403 **Expected behavior** Be able to load projects NocoDB used as docker : true NocoDB version : 0.90.0 Database used in NC_DB URL : mysql Project was created by clicking : New Project by connecting to external database Database on which spreadsheet is created : mysql OS on which NocoDB is running : Docker on Ubuntu Server 20.04.4 LTS Database version : MariaDB 10.7.3</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #1717 from nocodb/action-for-api-doc-publish chore: add action for auto-releasing api docs</MESSAGE>
+    <SHA>0428f52150b78745b0d7042b23657c660515b278</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: ignore deleted projects audit while migrating metadata re #1722 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>8d95a79dfe820b05386c7f061b5358f8f51c9fe7</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/noco/upgrader/jobs/ncProjectUpgraderV2_0090000.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: ignore deleted projects audit while migrating metadata (#1723) re #1722 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>5aee6072e3e4ba7ab78abaf9bab94aa4828fdd23</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/noco/upgrader/jobs/ncProjectUpgraderV2_0090000.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

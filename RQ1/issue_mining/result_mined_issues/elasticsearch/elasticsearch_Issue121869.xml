@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121869</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121869</ISSUEURL>
+  <TITLE>[CI] TransportServiceHandshakeTests testAcceptsMismatchedServerlessBuildHash failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6384 / openjdk24_entitlements_true_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/wvsmhuarvnbt6) - [elasticsearch-periodic #6384 / openjdk24_entitlements_false_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/g4c3l6dov5jgo) - [elasticsearch-periodic #6377 / openjdk24_entitlements_false_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/mddbcux4wjlkc) - [elasticsearch-periodic #6377 / openjdk24_entitlements_true_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/fn33vofrcl4qc) - [elasticsearch-periodic #6370 / openjdk24_entitlements_true_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/lqexuz7j2u6oe) - [elasticsearch-periodic #6370 / openjdk24_entitlements_false_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/2us5aidfll4qs) - [elasticsearch-periodic #6363 / openjdk24_entitlements_false_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/3x67fjphaqj7e) - [elasticsearch-periodic #6363 / openjdk24_entitlements_true_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/dkmat7ic6bdeg) - [elasticsearch-periodic #6356 / openjdk24_entitlements_false_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/wdtlmqehrmlcc) - [elasticsearch-periodic #6356 / openjdk24_entitlements_true_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/c2oxofyeec2d6) **Reproduction Line:** ``` ./gradlew &quot;:server:test&quot; --tests &quot;org.elasticsearch.transport.TransportServiceHandshakeTests.testAcceptsMismatchedServerlessBuildHash&quot; -Dtests.seed=6BC6D003833E39BC -Dtests.jvm.argline=&quot;-Des.entitlements.enabled=true&quot; -Dtests.locale=dsb-Latn-DE -Dtests.timezone=Europe/Moscow -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.transport.TransportServiceHandshakeTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testAcceptsMismatchedServerlessBuildHash),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: safeGet: listener was completed exceptionally ``` **Issue Reasons:** - [main] 22 consecutive failures in test testAcceptsMismatchedServerlessBuildHash - [main] 5 consecutive failures in step openjdk24_entitlements_true_checkpart1_java-matrix - [main] 7 consecutive failures in step openjdk24_entitlements_false_checkpart1_java-matrix - [main] 10 consecutive failures in step openjdk24_checkpart1_java-matrix - [main] 17 consecutive failures in pipeline elasticsearch-periodic - [main] 22 failures in test testAcceptsMismatchedServerlessBuildHash (100.0% fail rate in 22 executions) - [main] 5 failures in step openjdk24_entitlements_true_checkpart1_java-matrix (100.0% fail rate in 5 executions) - [main] 7 failures in step openjdk24_entitlements_false_checkpart1_java-matrix (100.0% fail rate in 7 executions) - [main] 10 failures in step openjdk24_checkpart1_java-matrix (100.0% fail rate in 10 executions) - [main] 17 failures in pipeline elasticsearch-periodic (100.0% fail rate in 17 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Unmute #122104 &amp; #122103</MESSAGE>
+    <SHA>23e4db85580f966d3a41fe2c8f0fb628707c9297</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>test-fix #121869</MESSAGE>
+      <SHA>f83942ec57b80683cf756420cfc837f3d6f1e654</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elasticsearch/transport/TransportService.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/transport/TransportServiceHandshakeTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Test-fix testAcceptsMismatchedServerlessBuildHash #121869 (#122332)</MESSAGE>
+      <SHA>49ecbcaf27208fd7246eb204bdd2904e03976826</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elasticsearch/transport/TransportService.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/transport/TransportServiceHandshakeTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Test-fix testAcceptsMismatchedServerlessBuildHash #121869 (#122332) (cherry picked from commit 49ecbcaf27208fd7246eb204bdd2904e03976826)</MESSAGE>
+      <SHA>f0d59829d2f03fbf6dcb9667aebcb76e3259d492</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elasticsearch/transport/TransportService.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/transport/TransportServiceHandshakeTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Test-fix testAcceptsMismatchedServerlessBuildHash #121869 (#122332) (cherry picked from commit 49ecbcaf27208fd7246eb204bdd2904e03976826)</MESSAGE>
+      <SHA>c2a5cb794e296bd6d6488ed5484bd64b48cc0b95</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elasticsearch/transport/TransportService.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/transport/TransportServiceHandshakeTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Test-fix testAcceptsMismatchedServerlessBuildHash #121869 (#122332) (cherry picked from commit 49ecbcaf27208fd7246eb204bdd2904e03976826)</MESSAGE>
+      <SHA>cf30e5f5ba86b14d5dd2005f6b85fba31009c745</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elasticsearch/transport/TransportService.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/transport/TransportServiceHandshakeTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Test-fix testAcceptsMismatchedServerlessBuildHash #121869 (#122332) (#123477) (cherry picked from commit 49ecbcaf27208fd7246eb204bdd2904e03976826) Co-authored-by: Mikhail Berezovskiy &lt;mikhail@elastic.co&gt;</MESSAGE>
+      <SHA>3743ddecf96f84f37f0494bdd34852f4a085f8f8</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elasticsearch/transport/TransportService.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/transport/TransportServiceHandshakeTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Test-fix testAcceptsMismatchedServerlessBuildHash #121869 (#122332) (#123478) (cherry picked from commit 49ecbcaf27208fd7246eb204bdd2904e03976826) Co-authored-by: Mikhail Berezovskiy &lt;mikhail@elastic.co&gt;</MESSAGE>
+      <SHA>a62593c05d74189e8580c4b89e80d7f7b5c4a62b</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elasticsearch/transport/TransportService.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/transport/TransportServiceHandshakeTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Test-fix testAcceptsMismatchedServerlessBuildHash #121869 (#122332) (#123476) (cherry picked from commit 49ecbcaf27208fd7246eb204bdd2904e03976826) Co-authored-by: Mikhail Berezovskiy &lt;mikhail@elastic.co&gt;</MESSAGE>
+      <SHA>78c53dbbfc7e2a5dccd972ee914bcfca5c45828b</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elasticsearch/transport/TransportService.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/transport/TransportServiceHandshakeTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

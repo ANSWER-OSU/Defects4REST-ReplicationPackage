@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121112</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121112</ISSUEURL>
+  <TITLE>[CI] HeapAttackIT class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6050 / ubuntu-2404_platform-support-unix](https://gradle-enterprise.elastic.co/s/tpd2gfab673ci) - [elasticsearch-periodic-platform-support #6040 / ubuntu-2204_platform-support-unix](https://gradle-enterprise.elastic.co/s/6e7k4rczse3js) - [elasticsearch-periodic-platform-support #6040 / ubuntu-2004_platform-support-unix](https://gradle-enterprise.elastic.co/s/hh4wkcydgb7am) - [elasticsearch-periodic-platform-support #6030 / ubuntu-1804_platform-support-unix](https://gradle-enterprise.elastic.co/s/7eu2x23jzzrpg) - [elasticsearch-periodic #6041 / single-processor-node-tests](https://gradle-enterprise.elastic.co/s/ur47jya6bqzfk) - [elasticsearch-periodic-platform-support #6020 / rocky-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/55n2hs3thepsm) - [elasticsearch-periodic-platform-support #6005 / ubuntu-2004_platform-support-unix](https://gradle-enterprise.elastic.co/s/kpmg7xntab5ao) - [elasticsearch-periodic #6011 / concurrent-search-tests](https://gradle-enterprise.elastic.co/s/v4rbf74vad5mu) - [elasticsearch-periodic #6011 / encryption-at-rest](https://gradle-enterprise.elastic.co/s/lrg4h6rvvqwpk) - [elasticsearch-periodic-platform-support #5995 / opensuse-leap-15_platform-support-unix](https://gradle-enterprise.elastic.co/s/ikcle4ajizhb2) **Reproduction Line:** ``` ./gradlew &quot;:test:external-modules:test-esql-heap-attack:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.heap_attack.HeapAttackIT.testHugeManyConcatFromRow&quot; -Dtests.seed=AB4E7BF992F01785 -Dtests.locale=ml-IN -Dtests.timezone=America/Nassau -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.heap_attack.HeapAttackIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.xpack.esql.heap_attack.HeapAttackIT),title:'Test',type:optionsListControl))))) **Failure Message:** ``` junit.framework.AssertionFailedError: Unexpected exception type, expected ResponseException but got java.net.ConnectException: Connection refused ``` **Issue Reasons:** - [8.x] 10 failures in class org.elasticsearch.xpack.esql.heap_attack.HeapAttackIT (1.9% fail rate in 521 executions) - [8.x] 2 failures in step ubuntu-2004_platform-support-unix (18.2% fail rate in 11 executions) - [8.x] 6 failures in pipeline elasticsearch-periodic-platform-support (50.0% fail rate in 12 executions) - [8.x] 2 failures in pipeline elasticsearch-periodic (18.2% fail rate in 11 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix syntax errors in the rescore retriever example (#121024)</MESSAGE>
+    <SHA>6b76457a238ecd5c1e16906b664a44c22e4eb3e7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ESQL: Bump heap attack suite timeout The heap attack test is growing so it is taking longer. We'll work to speed it up, but for now, let's bump the timeout. Closes #121112</MESSAGE>
+      <SHA>5aba7a85f4e40eab02ed7ad863e106991d73a709</SHA>
+      <PATCHEDFILES>
+        <FILE>test/external-modules/esql-heap-attack/src/javaRestTest/java/org/elasticsearch/xpack/esql/heap_attack/HeapAttackIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

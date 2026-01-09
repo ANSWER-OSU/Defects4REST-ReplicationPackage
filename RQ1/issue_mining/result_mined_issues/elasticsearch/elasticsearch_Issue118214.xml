@@ -1,0 +1,61 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118214</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118214</ISSUEURL>
+  <TITLE>[CI] SearchQueryThenFetchAsyncActionTests testBottomFieldSort failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #16072 / part1](https://gradle-enterprise.elastic.co/s/wqybvgtktz53c) - [elasticsearch-periodic-platform-support #5935 / windows-2019_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/l753gda7xhzwq) - [elasticsearch-periodic-platform-support #5925 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/2qvg5vtjpjb2y) - [elasticsearch-periodic #5935 / encryption-at-rest](https://gradle-enterprise.elastic.co/s/2ma23ldoqsqx6) - [elasticsearch-periodic-platform-support #5925 / rocky-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/jjdytdajrdlni) - [elasticsearch-periodic-platform-support #5920 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/t2s7kxj5dxfzi) - [elasticsearch-periodic-platform-support #5915 / ubuntu-2004_platform-support-unix](https://gradle-enterprise.elastic.co/s/jiuzbn6a6q5s2) - [elasticsearch-periodic-platform-support #5905 / rhel-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/nbptk32ny4dxw) - [elasticsearch-periodic #5905 / release-tests](https://gradle-enterprise.elastic.co/s/alrrwocohfica) - [elasticsearch-periodic-platform-support #5895 / amazonlinux-2023_platform-support-aws](https://gradle-enterprise.elastic.co/s/ejbbe6fln6kiy) **Reproduction Line:** ``` ./gradlew &quot;:server:test&quot; --tests &quot;org.elasticsearch.action.search.SearchQueryThenFetchAsyncActionTests.testBottomFieldSort&quot; -Dtests.seed=D40E112B9C4A8F8 -Dtests.locale=pt-CH -Dtests.timezone=America/Asuncion -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.action.search.SearchQueryThenFetchAsyncActionTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testBottomFieldSort),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: null ``` **Issue Reasons:** - [8.x] 23 failures in test testBottomFieldSort (2.3% fail rate in 999 executions) - [8.x] 2 failures in step encryption-at-rest (9.5% fail rate in 21 executions) - [8.x] 5 failures in step windows-2022_checkpart1_platform-support-windows (25.0% fail rate in 20 executions) - [8.x] 2 failures in step ubuntu-2004-aarch64_checkpart1_platform-support-arm (9.5% fail rate in 21 executions) - [8.x] 5 failures in step windows-2019_checkpart1_platform-support-windows (23.8% fail rate in 21 executions) - [8.x] 4 failures in pipeline elasticsearch-periodic (19.0% fail rate in 21 executions) - [8.x] 13 failures in pipeline elasticsearch-periodic-platform-support (61.9% fail rate in 21 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>55</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.index.codec.vectors.es818.ES818HnswBinaryQuantizedVectorsFormatTests testSingleVectorCase #118306</MESSAGE>
+    <SHA>4f253dcfae773a0d0e0f0a7b7798bd066ac4a89d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.action.search.SearchQueryThenFetchAsyncActionTests testBottomFieldSort #118214</MESSAGE>
+      <SHA>e52d0c9ae4b9584e44dd5b1bbbee142c11999d1c</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.action.search.SearchQueryThenFetchAsyncActionTests testBottomFieldSort #118214</MESSAGE>
+      <SHA>a64daf74d52dbd59705e69719e5aeafc4986eebe</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Remove outdated assertion from #118214 Asserting that we definitely saw the &quot;received a single result&quot; flag and can now deal with null responses, isn't applicable after a few recent fixes. New requests are sent out before responses are fully processed to keep data nodes in a tighter loop (as well as other relaxed ordering relative to when this assertion was added) so the flag is not guaranteed to show up as true for lower numbers of shard requests any longer. Lets just remove it, it was always best effort and accidental that this worked for the numbers the test randomizes over.</MESSAGE>
+      <SHA>dcb8472cb76f262f17295d66a99092e521e03f46</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/action/search/SearchQueryThenFetchAsyncActionTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Remove outdated assertion from #118214 (#121435) Asserting that we definitely saw the &quot;received a single result&quot; flag and can now deal with null responses, isn't applicable after a few recent fixes. New requests are sent out before responses are fully processed to keep data nodes in a tighter loop (as well as other relaxed ordering relative to when this assertion was added) so the flag is not guaranteed to show up as true for lower numbers of shard requests any longer. Lets just remove it, it was always best effort and accidental that this worked for the numbers the test randomizes over.</MESSAGE>
+      <SHA>2b410c44eb8fc684d3986247a49f9696b44f2d4c</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/action/search/SearchQueryThenFetchAsyncActionTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Remove outdated assertion from #118214 (#121435) Asserting that we definitely saw the &quot;received a single result&quot; flag and can now deal with null responses, isn't applicable after a few recent fixes. New requests are sent out before responses are fully processed to keep data nodes in a tighter loop (as well as other relaxed ordering relative to when this assertion was added) so the flag is not guaranteed to show up as true for lower numbers of shard requests any longer. Lets just remove it, it was always best effort and accidental that this worked for the numbers the test randomizes over.</MESSAGE>
+      <SHA>f3e16941b3c8e5382c001a522fca9e8b98fd4ee4</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/action/search/SearchQueryThenFetchAsyncActionTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Remove outdated assertion from #118214 (#121435) (#121485) Asserting that we definitely saw the &quot;received a single result&quot; flag and can now deal with null responses, isn't applicable after a few recent fixes. New requests are sent out before responses are fully processed to keep data nodes in a tighter loop (as well as other relaxed ordering relative to when this assertion was added) so the flag is not guaranteed to show up as true for lower numbers of shard requests any longer. Lets just remove it, it was always best effort and accidental that this worked for the numbers the test randomizes over. Co-authored-by: Dimitris Rempapis &lt;dimitris.rempapis@elastic.co&gt;</MESSAGE>
+      <SHA>c6368b9f0dc4533fc3098a7f672fefa92b9586d7</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/action/search/SearchQueryThenFetchAsyncActionTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

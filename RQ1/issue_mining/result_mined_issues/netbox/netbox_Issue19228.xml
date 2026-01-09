@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19228</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/19228</ISSUEURL>
+  <TITLE>Reverse for 'script_jobs' with arguments '('',)' not found</TITLE>
+  <DESCRIPTION>### Deployment Type Self-hosted ### NetBox Version v4.2.7 ### Python Version 3.10 ### Steps to Reproduce 1. Upgrade to v4.2.7 2. Click https://netbox.site/extras/scripts/ ### Expected Behavior Should be page with list of custom scripts ### Observed Behavior After upgrading to the version 4.2.7 got error: ``` NoReverseMatch at /extras/scripts/ Reverse for 'script_jobs' with arguments '('',)' not found. 2 pattern(s) tried: ['extras/scripts/(?P&lt;module&gt;[^/]+)\\.(?P&lt;name&gt;[^/]+)/jobs/\\Z', 'extras/scripts/(?P&lt;pk&gt;[0-9]+)/jobs/\\Z'] Request Method: GET Request URL: https://netbox.bsh.local/extras/scripts/ Django Version: 5.1.8 Exception Type: NoReverseMatch Exception Value: Reverse for 'script_jobs' with arguments '('',)' not found. 2 pattern(s) tried: ['extras/scripts/(?P&lt;module&gt;[^/]+)\\.(?P&lt;name&gt;[^/]+)/jobs/\\Z', 'extras/scripts/(?P&lt;pk&gt;[0-9]+)/jobs/\\Z'] Exception Location: /opt/netbox/venv/lib/python3.10/site-packages/django/urls/resolvers.py, line 831, in _reverse_with_prefix Raised during: extras.views.ScriptListView Python Executable: /opt/netbox/venv/bin/python3 Python Version: 3.10.12 Python Path: ['/opt/netbox/netbox', '/opt/netbox', '/opt/netbox/venv/bin', '/usr/lib/python310.zip', '/usr/lib/python3.10', '/usr/lib/python3.10/lib-dynload', '/opt/netbox/venv/lib/python3.10/site-packages'] Server time: Thu, 17 Apr 2025 11:27:26 +0300 ```</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixes #19279: Fix missing status field for inventory item bulk creation (#19283)</MESSAGE>
+    <SHA>6c60a4360bcf2b2ac9a4055243a970d760a90f50</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes: #19228 - Fix ordered_scripts to only return ordered list of script objects</MESSAGE>
+      <SHA>e0a85159a68e697e1dad46bc4841296e1e154dc6</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/extras/models/scripts.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes: #19228 - Fix ordered_scripts to only return ordered list of script objects (#19293)</MESSAGE>
+      <SHA>f711e666c538cacde9948a9d1d34a315e8d822e8</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/extras/models/scripts.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>119153</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/119153</ISSUEURL>
+  <TITLE>[CI] MultiClusterSpecIT test {date.EvalDateParseWithOtherTimezoneSpecifiers} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5521 / openjdk17_8.16.3_java-fips-matrix-bwc](https://gradle-enterprise.elastic.co/s/bncfvv4vtlzfw) - [elasticsearch-periodic #5521 / openjdk17_8.17.1_java-fips-matrix-bwc](https://gradle-enterprise.elastic.co/s/gfsnzv4mtz5wo) - [elasticsearch-periodic #5521 / openjdk22_8.16.3_java-matrix-bwc](https://gradle-enterprise.elastic.co/s/bgvxrikagliys) - [elasticsearch-periodic #5521 / graalvm-ce17_8.16.3_java-matrix-bwc](https://gradle-enterprise.elastic.co/s/yoaut4526sorw) - [elasticsearch-periodic #5521 / openjdk17_8.16.3_java-matrix-bwc](https://gradle-enterprise.elastic.co/s/mcts5qz336uwo) - [elasticsearch-periodic #5521 / openjdk21_8.16.3_java-matrix-bwc](https://gradle-enterprise.elastic.co/s/xqx4fal4gxifg) - [elasticsearch-periodic #5521 / graalvm-ce17_8.17.1_java-matrix-bwc](https://gradle-enterprise.elastic.co/s/e74cydl3lrugy) - [elasticsearch-periodic #5521 / openjdk17_8.17.1_java-matrix-bwc](https://gradle-enterprise.elastic.co/s/drcsstpgxc2es) - [elasticsearch-periodic #5521 / openjdk22_8.17.1_java-matrix-bwc](https://gradle-enterprise.elastic.co/s/oodcwgsp5f5vo) - [elasticsearch-periodic #5521 / openjdk21_8.17.1_java-matrix-bwc](https://gradle-enterprise.elastic.co/s/mi4nr5oiqk3ly) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:multi-clusters:v8.16.3#newToOld&quot; -Dtests.class=&quot;org.elasticsearch.xpack.esql.ccq.MultiClusterSpecIT&quot; -Dtests.method=&quot;test {date.EvalDateParseWithTimezoneCrossingDayBoundary}&quot; -Dtests.seed=6F3243308FC73065 -Dtests.bwc=true -Dtests.locale=hy-Armn-AM -Dtests.timezone=America/Dawson_Creek -Druntime.java=17 -Dtests.fips.enabled=true ``` **Applicable branches:** 8.17 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.ccq.MultiClusterSpecIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Bdate.EvalDateParseWithOtherTimezoneSpecifiers%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected an empty list 0: &lt;unexpected&gt; but was &quot;Date format [dd/MMM/yyyy:HH:mm:ss Z] contains textual field specifiers that could change in JDK 23. See [https://www.elastic.co/guide/en/elasticsearch/reference/8.17/mapping-date-format.html#custom-date-format-locales] for more information.&quot; ``` **Issue Reasons:** - [8.17] 12 consecutive failures in step openjdk17_8.16.3_java-fips-matrix-bwc - [8.17] 12 consecutive failures in step openjdk17_8.17.1_java-fips-matrix-bwc - [8.17] 12 consecutive failures in step openjdk22_8.16.3_java-matrix-bwc - [8.17] 12 consecutive failures in step graalvm-ce17_8.16.3_java-matrix-bwc - [8.17] 11 consecutive failures in step openjdk17_8.16.3_java-matrix-bwc - [8.17] 12 consecutive failures in step openjdk21_8.16.3_java-matrix-bwc - [8.17] 12 consecutive failures in step graalvm-ce17_8.17.1_java-matrix-bwc - [8.17] 12 consecutive failures in step openjdk17_8.17.1_java-matrix-bwc - [8.17] 12 consecutive failures in step openjdk22_8.17.1_java-matrix-bwc - [8.17] 12 consecutive failures in step openjdk21_8.17.1_java-matrix-bwc - [8.17] 119 failures in test test {date.EvalDateParseWithOtherTimezoneSpecifiers} (28.0% fail rate in 425 executions) - [8.17] 12 failures in step openjdk17_8.16.3_java-fips-matrix-bwc (100.0% fail rate in 12 executions) - [8.17] 12 failures in step openjdk17_8.17.1_java-fips-matrix-bwc (100.0% fail rate in 12 executions) - [8.17] 12 failures in step openjdk22_8.16.3_java-matrix-bwc (100.0% fail rate in 12 executions) - [8.17] 12 failures in step graalvm-ce17_8.16.3_java-matrix-bwc (100.0% fail rate in 12 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.backwards.MixedClusterClientYamlTestSuiteIT test {p0=synonyms/90_synonyms_reloading_for_synset/Reload analyzers for specific synonym set} #116777</MESSAGE>
+    <SHA>211f215e5a16058b84b1f4a465058a0ae11b689a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Allow warning for some date specifiers (#119216) Allow warning header for date specifiers that could change in JDK23. Relevant for 8.x BWC tests. Related: #118603 Fixes #119148 Fixes #119151 Fixes #119152 Fixes #119153 Fixes #119154 Fixes #119160 Fixes #119161 Fixes #119162 Fixes #119163 Fixes #119164 Fixes #119165 Fixes #119166 Fixes #119167</MESSAGE>
+      <SHA>b999b38e76fa79c4d11602e454bff29b920b1bcb</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/date.csv-spec</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Allow warning for some date specifiers (#119216) Allow warning header for date specifiers that could change in JDK23. Relevant for 8.x BWC tests. Related: #118603 Fixes #119148 Fixes #119151 Fixes #119152 Fixes #119153 Fixes #119154 Fixes #119160 Fixes #119161 Fixes #119162 Fixes #119163 Fixes #119164 Fixes #119165 Fixes #119166 Fixes #119167</MESSAGE>
+      <SHA>7e1cd0b82ef8c307304a7308d491faf4b0495c1d</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/date.csv-spec</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Allow warning for some date specifiers (#119216) Allow warning header for date specifiers that could change in JDK23. Relevant for 8.x BWC tests. Related: #118603 Fixes #119148 Fixes #119151 Fixes #119152 Fixes #119153 Fixes #119154 Fixes #119160 Fixes #119161 Fixes #119162 Fixes #119163 Fixes #119164 Fixes #119165 Fixes #119166 Fixes #119167</MESSAGE>
+      <SHA>c3d50e1e2b0c3fc49c330b81c3f0ce12837b4910</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/date.csv-spec</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Allow warning for some date specifiers (#119216) Allow warning header for date specifiers that could change in JDK23. Relevant for 8.x BWC tests. Related: #118603 Fixes #119148 Fixes #119151 Fixes #119152 Fixes #119153 Fixes #119154 Fixes #119160 Fixes #119161 Fixes #119162 Fixes #119163 Fixes #119164 Fixes #119165 Fixes #119166 Fixes #119167</MESSAGE>
+      <SHA>18ee6b04928fe02b3aec4802052bb2bda967cd29</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/date.csv-spec</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Allow warning for some date specifiers (#119216) (#119232) Allow warning header for date specifiers that could change in JDK23. Relevant for 8.x BWC tests. Related: #118603 Fixes #119148 Fixes #119151 Fixes #119152 Fixes #119153 Fixes #119154 Fixes #119160 Fixes #119161 Fixes #119162 Fixes #119163 Fixes #119164 Fixes #119165 Fixes #119166 Fixes #119167</MESSAGE>
+      <SHA>37f0de24163b8b85d5161738fd931296471bdf24</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/date.csv-spec</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Allow warning for some date specifiers (#119216) (#119230) Allow warning header for date specifiers that could change in JDK23. Relevant for 8.x BWC tests. Related: #118603 Fixes #119148 Fixes #119151 Fixes #119152 Fixes #119153 Fixes #119154 Fixes #119160 Fixes #119161 Fixes #119162 Fixes #119163 Fixes #119164 Fixes #119165 Fixes #119166 Fixes #119167</MESSAGE>
+      <SHA>861c6b2ffbdae420d5be68f1d283e0bc4dea3ca6</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/date.csv-spec</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Allow warning for some date specifiers (#119216) (#119231) Allow warning header for date specifiers that could change in JDK23. Relevant for 8.x BWC tests. Related: #118603 Fixes #119148 Fixes #119151 Fixes #119152 Fixes #119153 Fixes #119154 Fixes #119160 Fixes #119161 Fixes #119162 Fixes #119163 Fixes #119164 Fixes #119165 Fixes #119166 Fixes #119167</MESSAGE>
+      <SHA>dd88653223bddac14bf1fb3efe847be8c4ac01b6</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/date.csv-spec</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Allow warning for some date specifiers (#119216) Allow warning header for date specifiers that could change in JDK23. Relevant for 8.x BWC tests. Related: #118603 Fixes #119148 Fixes #119151 Fixes #119152 Fixes #119153 Fixes #119154 Fixes #119160 Fixes #119161 Fixes #119162 Fixes #119163 Fixes #119164 Fixes #119165 Fixes #119166 Fixes #119167</MESSAGE>
+      <SHA>c4d1e0fa39c4f02cad7316040910c1d2e972a60d</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/date.csv-spec</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

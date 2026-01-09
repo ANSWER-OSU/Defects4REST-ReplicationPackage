@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>94</ISSUENO>
+  <ISSUEURL>https://github.com/enviroCar/enviroCar-server/issues/94</ISSUEURL>
+  <TITLE>Enable temporal queries</TITLE>
+  <DESCRIPTION>Enable temporal queries by implementing the following query parameters (derived from ISO 19108:2002, Section 5.2.3.5). Tracks are considered intervals beginnig at the first measurement and ending at the last measurement. For track resources (`/rest/tracks`, `/rest/users/:u/tracks`): - [x] `?after=dt{,dt}` - [x] `?before=dt{,dt}` - [x] `?begins=dt,dt` - [x] `?begunBy=dt{,dt}` - [x] `?contains=dt{,dt}` - [x] `?during=dt,dt` - [x] `?endedBy=dt{,dt}` - [x] `?ends=dt,dt` - [x] `?equals=dt,dt` - [x] `?meets=dt,dt` - [x] `?metBy=dt,dt` - [x] `?overlapped=dt,dt` - [x] `?overlaps=dt,dt` For measurement resources (`/rest/measurements`, `/rest/users/:u/measurements`, `/rest/users/:u/tracks/:t/measurements`, `/rest/tracks/:t/measurements`): - [x] `?after=dt{,dt}` - [x] `?before=dt{,dt}` - [x] `?begins=dt,dt` - [x] `?ends=dt,dt` - [x] `?during=dt,dt` - [x] `?equals=dt`</DESCRIPTION>
+  <REPONAME>enviroCar-server</REPONAME>
+  <TIMEDIFFERENCEDAYS>51</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>removed unused field</MESSAGE>
+    <SHA>b7d770ab88e730a43834fb192e0bf1be81378c66</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>parsing of temporal filter queries (fixes #94)</MESSAGE>
+      <SHA>937ea87b32b7404a685a4815b2e55b8a1c842b1d</SHA>
+      <PATCHEDFILES>
+        <FILE>rest/src/main/java/org/envirocar/server/rest/resources/AbstractResource.java</FILE>
+        <FILE>rest/src/main/java/org/envirocar/server/rest/resources/MeasurementsResource.java</FILE>
+        <FILE>rest/src/main/java/org/envirocar/server/rest/resources/TracksResource.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge branch 'time' into dev * time: license headers parsing of temporal filter queries (fixes #94) removed unused field temporal filtering of tracks and measurements temporal filter classes begin and end time for tracks</MESSAGE>
+      <SHA>192901584b640d41684ca576d53bd673c37ec14b</SHA>
+      <PATCHEDFILES>
+        <FILE>core/src/main/java/org/envirocar/server/core/DataServiceImpl.java</FILE>
+        <FILE>core/src/main/java/org/envirocar/server/core/TemporalFilter.java</FILE>
+        <FILE>core/src/main/java/org/envirocar/server/core/TemporalFilterOperator.java</FILE>
+        <FILE>core/src/main/java/org/envirocar/server/core/entities/Track.java</FILE>
+        <FILE>core/src/main/java/org/envirocar/server/core/filter/MeasurementFilter.java</FILE>
+        <FILE>core/src/main/java/org/envirocar/server/core/filter/TrackFilter.java</FILE>
+        <FILE>mongo/src/main/java/org/envirocar/server/mongo/dao/MongoMeasurementDao.java</FILE>
+        <FILE>mongo/src/main/java/org/envirocar/server/mongo/dao/MongoTrackDao.java</FILE>
+        <FILE>mongo/src/main/java/org/envirocar/server/mongo/entity/MongoTrack.java</FILE>
+        <FILE>mongo/src/main/java/org/envirocar/server/mongo/util/MongoUtils.java</FILE>
+        <FILE>mongo/src/main/java/org/envirocar/server/mongo/util/MorphiaUtils.java</FILE>
+        <FILE>mongo/src/main/java/org/envirocar/server/mongo/util/Ops.java</FILE>
+        <FILE>rest/src/main/java/org/envirocar/server/rest/TrackWithMeasurments.java</FILE>
+        <FILE>rest/src/main/java/org/envirocar/server/rest/resources/AbstractResource.java</FILE>
+        <FILE>rest/src/main/java/org/envirocar/server/rest/resources/MeasurementsResource.java</FILE>
+        <FILE>rest/src/main/java/org/envirocar/server/rest/resources/PhenomenonResource.java</FILE>
+        <FILE>rest/src/main/java/org/envirocar/server/rest/resources/TracksResource.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge branch 'dev' * dev: license headers parsing of temporal filter queries (fixes #94) removed unused field temporal filtering of tracks and measurements temporal filter classes begin and end time for tracks</MESSAGE>
+      <SHA>d38bfc5a1f892818a0d0d4228eb9f1cdde38865d</SHA>
+      <PATCHEDFILES>
+        <FILE>core/src/main/java/org/envirocar/server/core/DataServiceImpl.java</FILE>
+        <FILE>core/src/main/java/org/envirocar/server/core/TemporalFilter.java</FILE>
+        <FILE>core/src/main/java/org/envirocar/server/core/TemporalFilterOperator.java</FILE>
+        <FILE>core/src/main/java/org/envirocar/server/core/entities/Track.java</FILE>
+        <FILE>core/src/main/java/org/envirocar/server/core/filter/MeasurementFilter.java</FILE>
+        <FILE>core/src/main/java/org/envirocar/server/core/filter/TrackFilter.java</FILE>
+        <FILE>mongo/src/main/java/org/envirocar/server/mongo/dao/MongoMeasurementDao.java</FILE>
+        <FILE>mongo/src/main/java/org/envirocar/server/mongo/dao/MongoTrackDao.java</FILE>
+        <FILE>mongo/src/main/java/org/envirocar/server/mongo/entity/MongoTrack.java</FILE>
+        <FILE>mongo/src/main/java/org/envirocar/server/mongo/util/MongoUtils.java</FILE>
+        <FILE>mongo/src/main/java/org/envirocar/server/mongo/util/MorphiaUtils.java</FILE>
+        <FILE>mongo/src/main/java/org/envirocar/server/mongo/util/Ops.java</FILE>
+        <FILE>rest/src/main/java/org/envirocar/server/rest/TrackWithMeasurments.java</FILE>
+        <FILE>rest/src/main/java/org/envirocar/server/rest/resources/AbstractResource.java</FILE>
+        <FILE>rest/src/main/java/org/envirocar/server/rest/resources/MeasurementsResource.java</FILE>
+        <FILE>rest/src/main/java/org/envirocar/server/rest/resources/PhenomenonResource.java</FILE>
+        <FILE>rest/src/main/java/org/envirocar/server/rest/resources/TracksResource.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

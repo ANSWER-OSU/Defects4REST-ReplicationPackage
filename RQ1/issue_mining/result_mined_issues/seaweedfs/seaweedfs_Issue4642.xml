@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4642</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/4642</ISSUEURL>
+  <TITLE>ec.encode original volume maybe delete fail</TITLE>
+  <DESCRIPTION>**Describe the bug** ec.encode command maybe fail when execute delete original volume step command: ```shell weed shell -master=xxxx lock ec.encode -collection=xxxx -volumeId=xxxx unlock ``` log output: ```shell markVolumeReadonly 154 on 10.117.32.36:9334 ... markVolumeReadonly 154 on 10.117.32.34:9334 ... markVolumeReadonly 154 on 10.117.32.35:9334 ... ........ ........ delete volume 154 from 10.117.32.36:9334 delete volume 154 from 10.117.32.35:9334 delete volume 154 from 10.117.32.35:9334 ``` &gt; 10.117.32.35 delete execute repeated, 10.117.32.34 not delete **System Setup** any cluster with more than 2 replica, for example: -defaultReplication=020 **Screenshots** ![image](https://github.com/seaweedfs/seaweedfs/assets/44025291/281e95b6-0e68-4ccc-a576-7faf2c528c34) **Additional context** i think this caused by the shared memory of the locations slice.While iterating through the locations and deleting the original volume, the master client will also update the members in the locations. **reproduce**: add a sleep within the loop. file: weed/shell/command_ec_encode.go, line: 185 ![image](https://github.com/seaweedfs/seaweedfs/assets/44025291/f3a89a70-952c-476a-8533-318eb5b58377)</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>proxy to master uses http address fix https://github.com/seaweedfs/seaweedfs/issues/4607</MESSAGE>
+    <SHA>20c67dc6ea30d669e0a2ccdfb2ea456199d0ce66</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>clone volume locations in case they are changed fix https://github.com/seaweedfs/seaweedfs/issues/4642</MESSAGE>
+      <SHA>d99f77ab3fef4898f5185281a8734521205cdee5</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/shell/command_ec_encode.go</FILE>
+        <FILE>weed/shell/command_volume_tier_download.go</FILE>
+        <FILE>weed/shell/command_volume_tier_move.go</FILE>
+        <FILE>weed/shell/command_volume_tier_upload.go</FILE>
+        <FILE>weed/wdclient/vid_map.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>clone volume locations in case they are changed fix https://github.com/seaweedfs/seaweedfs/issues/4642</MESSAGE>
+      <SHA>31b2751affd24ccff4633d09b88311587b39289a</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/shell/command_ec_encode.go</FILE>
+        <FILE>weed/shell/command_volume_tier_download.go</FILE>
+        <FILE>weed/shell/command_volume_tier_move.go</FILE>
+        <FILE>weed/shell/command_volume_tier_upload.go</FILE>
+        <FILE>weed/wdclient/vid_map.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

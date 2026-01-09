@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9716</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/9716</ISSUEURL>
+  <TITLE>OpenAIRE v4 default crosswalk: Revised mapping for Available date</TITLE>
+  <DESCRIPTION>## Context The piece of code that requires revision is: https://github.com/DSpace/DSpace/blob/main/dspace/config/crosswalks/oai/metadataFormats/oai_openaire.xsl#L1082-L1084 dc.date.available and dc.date.embargo are both exposed as &quot;Available&quot;. According to the [OpenAIRE guidance](https://openaire-guidelines-for-literature-repository-managers.readthedocs.io/en/v4.0.0/field_embargoenddate.html) the &quot;Available&quot; date should be used to indicate the end of the embargo period ## Proposed change Only dc.date.embargo should be crosswalked out to &quot;Available&quot;, the field OpenAIRE uses to indicate the end of an embargo date. dc.date.available is only set on items that are going into live into the repository without embargo, and is currently not set automatically upon expiry of the embargo. Overall, the proposed guidance is that the embargo end date is managed on the item level, in dc.date.embargo, for the purpose of OpenAIRE compliance, because OpenAIRE has no explicit support for the data model where one item could contain multiple files/bitstreams, each with their own access policies and embargo periods. It does not seem like a sensible or correct mapping to use values of dc.date.available, especially the automatically generated DSpace ones, to indicate the end of an embargo period. Because in the case where they (automatically) appear, there never was an embargo period in the first place. ## To Reproduce Steps to reproduce the behavior: 1. Submit an item that has values for both dc.date.available and dc.date.embargo 2. run oai import to ensure the metadata of the item is visible in the OpenAIRE OAI endpoint. ## Expected behavior Only the value of dc.date.embargo should be crosswalked out as &quot;Available&quot;.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>204</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>121971: #9715 - Only dc.date.issued should have date types Accepted and Issued</MESSAGE>
+    <SHA>04953b94d919bf5e0135aa3311b70767cba20160</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>121971: #9716 - Only dc.date.embargo should have date type Available</MESSAGE>
+      <SHA>31c79500ceec1c8e36228195b802a289ac9c30c9</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace/config/crosswalks/oai/metadataFormats/oai_openaire.xsl</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4614</ISSUENO>
+  <ISSUEURL>https://github.com/louislam/uptime-kuma/issues/4614</ISSUEURL>
+  <TITLE>Extend Monitor JSON Data evaluation with additional operators</TITLE>
+  <DESCRIPTION>### I have found these related issues/pull requests No similar issues / prs found ### ️ Feature Request Type Change to existing monitor ### Feature description **Current implementation** The monitor type &quot;HTTP(s) - Json Query&quot; allows to add an expression in JSONata format and compare agains an expected value. It is currently only possible to compare the expression via equals. **Requested change** Adding functionality to also allow using other operators such as !=, &lt;, &lt;=, &gt;, &gt;= **Why** It is possible to define a JSONata expression with including the operator into the expression and turn it into a boolean expression that can be compared. However, it would be more clear to add the value to the monitoring configuration itself rather than to the expression. Also that way, the value could be added to the log of the monitor. ### ✔️ Solution For the monitoring type &quot;HTTP(s) - Json Query&quot; - Add a new property that holds the compare operator (==, !=, &lt;, &lt;=, &gt;, &gt;=). - For not introducing a breaking change, the default operator should be == if not available in an existing configuration. - Extend the UI to allow the user to select the operator s/he wants to use for comparison - Default == ### ❓ Alternatives _No response_ ### Additional Context If fine, I'd like to provide a PR for that change. Following the rules for adding PRs, I wanted to clarify if this feature request sounds interesting to the Uptime Kuma team first.</DESCRIPTION>
+  <REPONAME>uptime-kuma</REPONAME>
+  <TIMEDIFFERENCEDAYS>113</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix(ci): Fix for the Actions failing on Windows Runner (#4557)</MESSAGE>
+    <SHA>45690a25a0c4dffb9555670af8b5dcdc6bd2856b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: extend monitor JSON Data evaluation with additional operators (#4614 )</MESSAGE>
+      <SHA>6dbfbdced36cb0923748bad700a03b558279a2e4</SHA>
+      <PATCHEDFILES>
+        <FILE>db/knex_migrations/2024-03-25-0000-json-data-operators.js</FILE>
+        <FILE>db/knex_migrations/README.md</FILE>
+        <FILE>server/model/monitor.js</FILE>
+        <FILE>server/monitor-types/mqtt.js</FILE>
+        <FILE>server/server.js</FILE>
+        <FILE>src/lang/de-DE.json</FILE>
+        <FILE>src/lang/en.json</FILE>
+        <FILE>src/pages/Details.vue</FILE>
+        <FILE>src/pages/EditMonitor.vue</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: linter-warnings (#4614)</MESSAGE>
+      <SHA>b3df75308bd566f916315ff793e8bb386217be72</SHA>
+      <PATCHEDFILES>
+        <FILE>server/model/monitor.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: update db migration for expected value (#4614) db migration now considers all monitors that have an expected_value and sets the default operator for them</MESSAGE>
+      <SHA>ca485fff56053800a81b07f3d3811905ddea696b</SHA>
+      <PATCHEDFILES>
+        <FILE>db/knex_migrations/2024-03-25-0000-json-data-operators.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

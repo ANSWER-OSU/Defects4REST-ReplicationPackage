@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7287</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/7287</ISSUEURL>
+  <TITLE>Using esbuild in serverless functions fails due to &quot;esbuild-linux-64&quot; not being found</TITLE>
+  <DESCRIPTION>### Discussed in https://github.com/vercel/vercel/discussions/6865 &lt;div type='discussions-op-text'&gt; &lt;sup&gt;Originally posted by **hassanzadeh** October 19, 2021&lt;/sup&gt; Hey guys, Starting form about a week ago, all my deployments fail at Run time with this error (copied form functions log): &quot;2021-10-19T17:58:53.710Z f7284007-d328-48a7-b4e3-ecf669500227 ERROR Error: The package &quot;esbuild-linux-64&quot; could not be found, and is needed by esbuild. If you are installing esbuild with npm, make sure that you don't specify the &quot;--no-optional&quot; flag. The &quot;optionalDependencies&quot; package.json feature is used by esbuild to install the correct binary executable for your current platform. at generateBinPath (/var/task/node_modules/esbuild/lib/main.js:1643:15)&quot; I'm not sure what has changed under the hood that is causing everything to break. I also noticed that I'm getting these warnings during the build time; Info esbuild-darwin-arm64@0.13.8: The platform &quot;linux&quot; is incompatible with this module. Any thoughts? thanks &lt;/div&gt; Hello! It appears that using esbuild in serverless functions doesn't work, I've been getting the same error described in the discussion above, i.e. esbuild cannot find `esbuild-linux-64`. [I created a Remix project](https://github.com/silvenon/repro/tree/vercel-esbuild) from Vercel's template and ran esbuild in the home page's `loader` to demonstrate this issue, it's deployed at https://silvenon-repro.vercel.app, where you can clearly see the error. The project _builds_ fine, so the esbuild that Remix itself uses under the hood works fine in the build step, but using esbuild separately later, in the application itself, doesn't work. Any help with this would be highly appreciated ❤️</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>139</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Publish Canary - @vercel/build-utils@2.13.1-canary.2 - vercel@23.1.3-canary.75 - @vercel/client@10.2.3-canary.53 - @vercel/go@1.2.4-canary.7 - vercel-plugin-middleware@0.0.0-canary.27 - @vercel/node@1.12.2-canary.10 - vercel-plugin-go@1.0.0-canary.38 - vercel-plugin-node@1.12.2-canary.42 - vercel-plugin-python@1.0.0-canary.39 - vercel-plugin-ruby@1.0.0-canary.38 - @vercel/python@2.1.2-canary.5 - @vercel/ruby@1.2.10-canary.3</MESSAGE>
+    <SHA>28f3bf9ef6e492156eb127c7cbdcbfcfeafdf7e4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[cli][node] Bump nft to 0.17.5 (#7349) - Fixes #7287</MESSAGE>
+      <SHA>5c297122cbd32d0b117a769f207f17692d410f8d</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/cli/package.json</FILE>
+        <FILE>packages/node/package.json</FILE>
+        <FILE>packages/node/src/index.ts</FILE>
+        <FILE>packages/plugin-node/package.json</FILE>
+        <FILE>packages/plugin-node/src/index.ts</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

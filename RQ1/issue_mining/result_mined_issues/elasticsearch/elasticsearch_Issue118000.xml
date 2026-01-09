@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118000</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118000</ISSUEURL>
+  <TITLE>[CI] EsqlNodeFailureIT testFailureLoadingFields failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6202 / rocky-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/2v6b3qeqwk7to) - [elasticsearch-periodic #6192 / encryption-at-rest](https://gradle-enterprise.elastic.co/s/yrupwymecbikk) - [elasticsearch-periodic-platform-support #6181 / sles-12_platform-support-unix](https://gradle-enterprise.elastic.co/s/zbyp2m2x3zoi2) - [elasticsearch-periodic-platform-support #6160 / oraclelinux-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/tefypfvmzt6ss) - [elasticsearch-periodic-platform-support #6160 / amazonlinux-2_platform-support-aws](https://gradle-enterprise.elastic.co/s/wpcikblzaqamk) - [elasticsearch-periodic #6157 / single-processor-node-tests](https://gradle-enterprise.elastic.co/s/mt2ofmwjuf2uw) - [elasticsearch-periodic-platform-support #6146 / amazonlinux-2_platform-support-aws](https://gradle-enterprise.elastic.co/s/2l5f5kogwov2i) - [elasticsearch-periodic-platform-support #6125 / amazonlinux-2_platform-support-aws](https://gradle-enterprise.elastic.co/s/sfbja64gfedtq) - [elasticsearch-periodic-platform-support #6118 / debian-11_platform-support-unix](https://gradle-enterprise.elastic.co/s/a3updgraogufg) - [elasticsearch-periodic-platform-support #6111 / oraclelinux-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/hjmeqw4nd2p5m) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.esql.action.EsqlNodeFailureIT.testFailureLoadingFields&quot; -Dtests.seed=CC87395F27ED3B5F -Dtests.locale=ar-SS -Dtests.timezone=Etc/GMT-12 -Druntime.java=23 ``` **Applicable branches:** 8.17 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.action.EsqlNodeFailureIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testFailureLoadingFields),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Leftover exchanges ExchangeService{sinks=[SZ7Vuw9qRf2ngwYlbXib_w:313/3]} on node node_s0 ``` **Issue Reasons:** - [8.17] 13 failures in test testFailureLoadingFields (3.0% fail rate in 433 executions) - [8.17] 2 failures in step rocky-8_platform-support-unix (13.3% fail rate in 15 executions) - [8.17] 2 failures in step oraclelinux-8_platform-support-unix (18.2% fail rate in 11 executions) - [8.17] 3 failures in step amazonlinux-2_platform-support-aws (23.1% fail rate in 13 executions) - [8.17] 8 failures in pipeline elasticsearch-periodic-platform-support (50.0% fail rate in 16 executions) - [8.17] 2 failures in pipeline elasticsearch-periodic (12.5% fail rate in 16 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>62</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Test queryable built-in role synchronization (#118964) Adds more tests for built-in roles synchronization, and fixes a bug where `synchronizationInProgress` hasn't been reset properly. Resolves https://github.com/elastic/elasticsearch/issues/118806</MESSAGE>
+    <SHA>845021d33a17523df4c949f57d5db51031e9659d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.EsqlNodeFailureIT testFailureLoadingFields #118000</MESSAGE>
+      <SHA>3ab612f8c40d7f5029ef456d39c366ac9cd7a5fd</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.EsqlNodeFailureIT testFailureLoadingFields #118000</MESSAGE>
+      <SHA>82debaf510c18d2404997065f2e3bfaea8063299</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.EsqlNodeFailureIT testFailureLoadingFields #118000</MESSAGE>
+      <SHA>7566e325dff9a171b87e6d5e362395cf03f7e7bc</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

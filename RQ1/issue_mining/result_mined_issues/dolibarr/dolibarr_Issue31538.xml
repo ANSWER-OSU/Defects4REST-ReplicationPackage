@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>31538</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/31538</ISSUEURL>
+  <TITLE>[EPC-QR, Sponge] Addition to the EPC-QR values ​​for SEPA transfers with correct remittance information</TITLE>
+  <DESCRIPTION>### Bug According to my understanding, the EPC QR code available in the sponge invoices needs to be extended by a value/a line. The current implementation does not contain the value &quot;Purpose of the SEPA Credit Transfer&quot;. This means that with the QR codes currently generated, SEPA payment instructions have the invoice number assigned in the wrong field based on the scanned QR-code. Namely as &quot;Remittance (Reference)&quot; instead of the correct value in &quot;Remittance (Information)&quot;. &quot;Guidelines to Enable the Data Capture for the Initiation of a SEPA Credit Transfer&quot; (see chapter 2.2, page 3) https://www.europeanpaymentscouncil.eu/sites/default/files/kb/file/2022-09/EPC069-12%20v3.0%20Quick%20Response%20Code%20-%20Guidelines%20to%20Enable%20the%20Data%20Capture%20for%20the%20Initiation%20of%20an%20SCT_0.pdf I would like to ask for comments or a confirmation. The implementation for the correction would be adding a line in the file `/htdocs/core/class/commoninvoice.class.php` as follows: &gt;// Add the amount and reference $lines[] = 'EUR' . $totalTTCString; // Amount (optional) **$lines[] = ''; // Purpose (optional)** $lines[] = ''; // Payment reference (optional) $lines[] = $this-&gt;ref; // Remittance Information (optional) ### Dolibarr Version 20.0.1</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>FIX Accountancy - Loan - Error on transfer (#31546)</MESSAGE>
+    <SHA>3e9068c1c64227643af304a9a0689a00c369ab4b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX #31538 Addition to EPC-QR values ​​to correct remittance information</MESSAGE>
+      <SHA>b36778ec264200456f0e167014a2b4128bcd3995</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/class/commoninvoice.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>FIX #31538 Addition to EPC-QR values ​​to correct remittance information (#31557)</MESSAGE>
+      <SHA>9746e84d9e63157008238a46682bcb13182b2c9f</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/class/commoninvoice.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

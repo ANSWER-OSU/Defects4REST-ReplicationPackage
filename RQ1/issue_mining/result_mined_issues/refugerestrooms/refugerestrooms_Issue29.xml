@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>29</ISSUENO>
+  <ISSUEURL>https://github.com/RefugeRestrooms/refugerestrooms/issues/29</ISSUEURL>
+  <TITLE>Application secret keys shouldn't be kept in source control</TITLE>
+  <DESCRIPTION>There are currently two secret keys in source control, one for [Devise](https://github.com/tkwidmer/refugerestrooms/blob/46f66df3f7f8c7bfb7295477ebd4c6ab76ea4328/config/initializers/devise.rb#L7) and one for [Rails](https://github.com/tkwidmer/refugerestrooms/blob/46f66df3f7f8c7bfb7295477ebd4c6ab76ea4328/config/initializers/secret_token.rb#L12). Especially for open source websites, this is bad in that it makes many security features implemented by Rails and Devise useless.</DESCRIPTION>
+  <REPONAME>refugerestrooms</REPONAME>
+  <TIMEDIFFERENCEDAYS>15</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Adding &lt;a href&gt; out to my own Personal Portfolio</MESSAGE>
+    <SHA>f3a512fda8c9de9192507ea856cf576616d5c309</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Extract secrets to environment. Fixes #29 New secrets can be generated with `rake secret`. The secrets can be placed in .env in development. On Heroku, run `config:set`: heroku config:set RAILS_SECRET_KEY=[x] DEVISE_SECRET_KEY=[y] Unfortunately, changing the secrets will break existing session and login cookies, but there's no avoiding that, as having the secrets shared publicly as they are currently is a security hole.</MESSAGE>
+      <SHA>22aa12ce84d6b4c86fc585505f2d7b7cc7ce0140</SHA>
+      <PATCHEDFILES>
+        <FILE>config/initializers/devise.rb</FILE>
+        <FILE>config/initializers/secret_token.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #58 from backspace/extract-secrets Extract secrets to environment. Fixes #29</MESSAGE>
+      <SHA>ff4e9535b0e5093ce8d68be2cd9f77f79ed64fa9</SHA>
+      <PATCHEDFILES>
+        <FILE>config/initializers/devise.rb</FILE>
+        <FILE>config/initializers/secret_token.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

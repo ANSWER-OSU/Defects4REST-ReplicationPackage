@@ -1,0 +1,108 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3094</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/3094</ISSUEURL>
+  <TITLE>Support thrown BPMN error in triggerable Service Task</TITLE>
+  <DESCRIPTION>**Description:** When triggerable service task throws BpmnError during the trigger execution, the exception is not handled by any event subprocess. **Expected behavior** When BpmnError is thrown in the trigger method of the triggerable service task, any event subprocess can handle error. **Code** https://github.com/martin-grofcik/flowable-engine/commit/27d6f23d422c0c728546f36c9b86465915baf56f https://github.com/martin-grofcik/flowable-engine/tree/%233094_triggerableBpmnError The proposed solution (jUnit test covers only one case) is to add try/catch blocks to all trigger calls.</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>343</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Batch deletion: Store the number of instances that need to be deleted and the number of instances that failed to be deleted</MESSAGE>
+    <SHA>03fb7f51a297c0d7741fc67abe3989d969f88a91</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3094 throw error in triggerable service task</MESSAGE>
+      <SHA>27d6f23d422c0c728546f36c9b86465915baf56f</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/ServiceTaskDelegateExpressionActivityBehavior.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/servicetask/ThrowBpmnErrorTriggerableServiceTask.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/servicetask/TriggerableServiceTaskTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/servicetask/TriggerableServiceTaskTest.throwBpmnErrorInTrigger.bpmn20.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3094 triggerable bpmn error implementation</MESSAGE>
+      <SHA>89d15ff59101a32eedc79c12aeaba568bf0df62b</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/helper/ClassDelegate.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/event/error/BoundaryErrorEventTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/event/error/TriggerBpmnErrorFutureDelegate.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/servicetask/TriggerableServiceTaskTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/event/error/BoundaryErrorEventTest.catchErrorThrownByTriggerableFutureJavaDelegateProvidedByDelegateExpressionOnServiceTask.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/servicetask/TriggerableServiceTaskTest.testClassDelegateTriggerException.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/servicetask/TriggerableServiceTaskTest.testDelegateExpression.bpmn20.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3094 Trigger cleanup</MESSAGE>
+      <SHA>092076bf4dec68ddaf2519ce7927872a9d9db4ae</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/event/error/TriggerBpmnErrorFutureDelegate.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3094 throw error in triggerable service task</MESSAGE>
+      <SHA>aa5df9dda68b1b0230421af064e1800fd71550ec</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/ServiceTaskDelegateExpressionActivityBehavior.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/servicetask/ThrowBpmnErrorTriggerableServiceTask.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/servicetask/TriggerableServiceTaskTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/servicetask/TriggerableServiceTaskTest.throwBpmnErrorInTrigger.bpmn20.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3094 triggerable bpmn error implementation</MESSAGE>
+      <SHA>fb08962dad5d810cc1f71872c4ed0b2d944a2502</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/helper/ClassDelegate.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/event/error/BoundaryErrorEventTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/event/error/TriggerBpmnErrorFutureDelegate.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/servicetask/TriggerableServiceTaskTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/event/error/BoundaryErrorEventTest.catchErrorThrownByTriggerableFutureJavaDelegateProvidedByDelegateExpressionOnServiceTask.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/servicetask/TriggerableServiceTaskTest.testClassDelegateTriggerException.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/servicetask/TriggerableServiceTaskTest.testDelegateExpression.bpmn20.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3094 Trigger cleanup</MESSAGE>
+      <SHA>2c710f382a608917ec601f585529fc335ff6de21</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/event/error/TriggerBpmnErrorFutureDelegate.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3094 do not add TakeOutgoingOperation to agenda when Exception is thrown</MESSAGE>
+      <SHA>8547f161a67e6da8be055eb1ea63a27b712d20af</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/helper/ClassDelegate.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/servicetask/TriggerableServiceTaskTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/servicetask/TriggerableServiceTaskTest.classDelegateTriggerExceptionWithoutWaitStateInCatch.bpmn20.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3094 add TakeOutgoingOperation to agenda when Exception is thrown</MESSAGE>
+      <SHA>e11d891117a20b77f06e60982a1eab01ec8a1a65</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/helper/ClassDelegate.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3094 Support for BPMN error in triggerable Service Task PR #3113</MESSAGE>
+      <SHA>5e6614377ee3b40383957c617a3c08362c395225</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/ServiceTaskDelegateExpressionActivityBehavior.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/helper/ClassDelegate.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/event/error/BoundaryErrorEventTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/event/error/TriggerBpmnErrorFutureDelegate.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/servicetask/ThrowBpmnErrorTriggerableServiceTask.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/servicetask/TriggerableServiceTaskTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/event/error/BoundaryErrorEventTest.catchErrorThrownByTriggerableFutureJavaDelegateProvidedByDelegateExpressionOnServiceTask.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/servicetask/TriggerableServiceTaskTest.classDelegateTriggerExceptionWithoutWaitStateInCatch.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/servicetask/TriggerableServiceTaskTest.testClassDelegateTriggerException.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/servicetask/TriggerableServiceTaskTest.testDelegateExpression.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/servicetask/TriggerableServiceTaskTest.throwBpmnErrorInTrigger.bpmn20.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

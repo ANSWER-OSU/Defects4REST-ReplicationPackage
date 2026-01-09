@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3911</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/3911</ISSUEURL>
+  <TITLE>bug: error-log-logger call ngx.worker.id() in privileged agent</TITLE>
+  <DESCRIPTION>In plugin `error-log-logger`: ``` function _M.init() timers.register_timer(&quot;plugin#error-log-logger&quot;, process, true) end ``` this timer will run on privileged agent, but in function `process`, it will call `ngx.worker.id()`, whitch will return `nil`. ``` local function process() .... local id = ngx.worker.id() .... buffers[id] = log_buffer .... end ``` it seems a bug, did i miss something?</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: use the builtin server by default (#3907) Fix #3906</MESSAGE>
+    <SHA>83ab5439a03ebff133a36045b8e9cc3003b8baf0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix(error-log-logger): the logger should be run in each process Fix #3911 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>bb2ef8337803226d36edcbd2f023254c380a65dd</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/error-log-logger.lua</FILE>
+        <FILE>t/plugin/error-log-logger.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(error-log-logger): the logger should be run in each process Fix #3911 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>c3144f072c48ef8259cebb70d2b5fb813621f264</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/error-log-logger.lua</FILE>
+        <FILE>t/plugin/error-log-logger.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

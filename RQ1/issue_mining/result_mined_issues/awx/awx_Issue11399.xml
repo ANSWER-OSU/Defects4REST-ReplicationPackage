@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>11399</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/11399</ISSUEURL>
+  <TITLE>With ja google-chrome, truncation of source string &quot;Dashboard (all activity)&quot; is observed, at the ~/activity_stream page</TITLE>
+  <DESCRIPTION>### Please confirm the following - [X] I agree to follow this project's [code of conduct](http://docs.ansible.com/ansible/latest/community/code_of_conduct.html). - [X] I have checked the [current issues](https://github.com/ansible/awx/issues) for duplicates. - [X] I understand that AWX is open source software provided for free and that I am not entitled to status updates or other assurances. ### Summary With ja google-chrome, truncation of ja translation `ダッシュボード (すべてのアクティビティー)` for the source string `Dashboard (all activity)` is observed i.e. not ellipsized consistently within the dropdown listing, at the ~/activity_stream page ### AWX version 19.3.0 ### Installation method docker on linux ### Modifications no ### Ansible version ansible [core 2.11.0] ### Operating system RHEL-8.4 ### Web browser Chrome ### Steps to reproduce 1. Do a successful login in the preferred language (say Japanese) 2. Navigate to ~/activity_stream page 3. Click on the `Dashboard (all activity)` dropdown/listbox for the listing 3. Observe the ja translation `ダッシュボード (すべてのアクティビティー)` of the source string `Dashboard (all activity)` in the listing ### Expected results ja translation should not get truncated, and should fit in the widget size or ja translation should be ellipsized consistently within the dropdown listing ### Actual results ja translation is truncated, and does not fit in the widget size or ja translation is not ellipsized consistently within the dropdown listing ### Additional information 1. Screenshot highlighting string truncation, and does not fit in the widget size ![ja_bug_activity_stream_Screenshot from 2021-11-30 10-34-35](https://user-images.githubusercontent.com/12151785/144041909-8c623370-b346-4d00-9245-97c1e8de3fab.png) 2. https://github.com/ansible/awx/blob/ba324c73ceefa22d516d872527649d090d3bc0cc/awx/ui/src/locales/ja/messages.po#L1648-L1650</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>129</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Use new children-summary endpoint data to traverse job event tree (#11944) * use new children-summary endpoint data to traverse job event tree * update job output tests for new children summary data * force flat mode if event child summary fails to load * update childrenSummary data for endpoint changes * don't add jobs to job tree until children summary loaded * force job output into flat mode if job processing not complete</MESSAGE>
+    <SHA>7cbb783b2c025a233dbf1d645112fffc6b8ae6e7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Do no truncate strings on activity stream dropdown Do no truncate strings on activity stream dropdown See: https://github.com/ansible/awx/issues/11399</MESSAGE>
+      <SHA>1668198b534108d573d66ac484119011a0ff2d26</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui/src/screens/ActivityStream/ActivityStream.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Do not truncate strings on activity stream dropdown Do not truncate strings on activity stream dropdown See: https://github.com/ansible/awx/issues/11399</MESSAGE>
+      <SHA>501db246a36087e4bee7ec9262d6ece3c3699203</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui/src/screens/ActivityStream/ActivityStream.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Do not truncate strings on activity stream dropdown (#12020) Do not truncate strings on activity stream dropdown See: https://github.com/ansible/awx/issues/11399</MESSAGE>
+      <SHA>27dc8caabd7951b40b38f5d78a301ad80bb532cd</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui/src/screens/ActivityStream/ActivityStream.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

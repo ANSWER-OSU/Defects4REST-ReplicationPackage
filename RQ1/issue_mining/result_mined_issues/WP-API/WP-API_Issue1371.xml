@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1371</ISSUENO>
+  <ISSUEURL>https://github.com/WP-API/WP-API/issues/1371</ISSUEURL>
+  <TITLE>how to get post just the title and excerpt by /posts</TITLE>
+  <DESCRIPTION>I just want &lt;b&gt;title, excerpt and link&lt;/b&gt; in the posts list. and I want to get post detail just the &lt;b&gt;title and content&lt;/b&gt; ? how could i use the api of GET /posts and GET /posts/&lt;id&gt;</DESCRIPTION>
+  <REPONAME>WP-API</REPONAME>
+  <TIMEDIFFERENCEDAYS>24</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #2753 from WP-API/update-comment-type-issue Use get_comment_type() when comparing updating comment status</MESSAGE>
+    <SHA>55fbeeed970b0ac3a3b3642b525da1935491c51f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add &quot;?fields&quot; query parameter to return only specific fields in response This PR builds upon discussion in #2771, #572, #2350, #2509, #1530, #1371, #446, #827, and the trac ticket [38131][trac], proposing an solution implemented within this plugin's wp-rest-controller class. The patch implements a `?fields=` filter parameter that takes a comma- separated list of field names, e.g. &quot;id&quot; and &quot;title&quot;. It mirrors the fields parameter implemented within the [WordPress.com API][wpcom]: Parameter | Type | Description --- | --- | --- fields | (string) | Optional. Returns specified fields only. Comma-separated list. Example: fields=ID,title This interface was previously implemented in [this plugin][origplugin], and could still be implemented trivially as a plugin; however, referencing the [2016 Ericsson Mobility Report][mobility-report] and the democratic focus of WordPress, transferring as little data as is necessary for a given interface is a responsibility I submit that we should take on as application developers, and that _should_ therefore be a first-party capability of the API, as it is for .com's. Introducing this field has no risk of breaking the contract between the API and clients you do not control, as the `fields` list would only alter the response when provided so each client can tailor its own responses to the subset of data relevant to that interface. Open questions: - Is there a less repetitive way this could be implemented across controllers, or is this duplication within each controller necessary? - How would I register `fields` as a globally-applicable parameter for exposure in the schema, whitelisting, etc? - How sould/How should we restrict this to GET requests only? - What degree of per-controller testing is needed? [mobility-report]: https://www.ericsson.com/res/docs/2016/mobility-report/ericsson-mobility-report-feb-2016-interim.pdf [trac]: https://core.trac.wordpress.org/ticket/38131 [wpcom]: https://developer.wordpress.com/docs/api/1.1/get/sites/%24site/posts/ [origplugin]: https://wordpress.org/plugins/wp-rest-api-filter-fields/</MESSAGE>
+      <SHA>91ee38c27cafc18ede85ba439d3df4ae49465b5f</SHA>
+      <PATCHEDFILES>
+        <FILE>lib/endpoints/class-wp-rest-attachments-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-comments-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-post-statuses-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-post-types-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-posts-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-revisions-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-taxonomies-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-terms-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-users-controller.php</FILE>
+        <FILE>tests/test-rest-controller.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1534</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/1534</ISSUEURL>
+  <TITLE>2.04: volumeServer.evacuate moves one volume only</TITLE>
+  <DESCRIPTION>`volumeServer.evacuate` fails to move all volumes but succeeds in moving one volume at a time. I've started a new volume server and I'm trying to move data from another volume server (which I want to decommission): ``` &gt; volumeServer.evacuate -node 192.168.0.250:9334 -force moving volume 2 192.168.0.250:9334 =&gt; 192.168.0.204:8080 2020-10-14 00:24:04.230186 I | copying volume 2 from 192.168.0.250:9334 to 192.168.0.204:8080 2020-10-14 00:24:07.278448 I | tailing volume 2 from 192.168.0.250:9334 to 192.168.0.204:8080 2020-10-14 00:24:19.473121 I | deleting volume 2 from 192.168.0.250:9334 2020-10-14 00:24:19.682220 I | moved volume 2 from 192.168.0.250:9334 to 192.168.0.204:8080 error: failed to move volume 19 from 192.168.0.250:9334 &gt; volumeServer.evacuate -node 192.168.0.250:9334 -force moving volume 4 192.168.0.250:9334 =&gt; 192.168.0.204:8080 2020-10-14 00:24:30.661134 I | copying volume 4 from 192.168.0.250:9334 to 192.168.0.204:8080 2020-10-14 00:24:32.954465 I | tailing volume 4 from 192.168.0.250:9334 to 192.168.0.204:8080 2020-10-14 00:24:45.109108 I | deleting volume 4 from 192.168.0.250:9334 2020-10-14 00:24:45.272594 I | moved volume 4 from 192.168.0.250:9334 to 192.168.0.204:8080 error: failed to move volume 3 from 192.168.0.250:9334 ``` Re-trying the command `volumeServer.evacuate -node 192.168.0.250:9334 -force` always stops after processing one volume which it manages to evacuate successfully. With one volume processed per command invocation, running `volumeServer.evacuate` enough times eventually managed to move/delete all the volumes from server 192.168.0.250.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>152</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>go fmt</MESSAGE>
+    <SHA>35d939a1d21322e7eb1d58899ebf4929f4fd2a72</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>possible fix for volume balance address https://github.com/chrislusf/seaweedfs/issues/1534</MESSAGE>
+      <SHA>29e62aba00291351076d9489f4444af87b5e1d81</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/shell/command_volume_balance.go</FILE>
+        <FILE>weed/shell/command_volume_balance_test.go</FILE>
+        <FILE>weed/shell/command_volume_list_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

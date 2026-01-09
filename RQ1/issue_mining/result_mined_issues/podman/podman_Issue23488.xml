@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23488</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23488</ISSUEURL>
+  <TITLE>CI: system tests: make random_free_port() parallel-safe</TITLE>
+  <DESCRIPTION>I thought I had, but [guess not](https://api.cirrus-ci.com/v1/artifact/task/6446991591342080/html/sys-remote-fedora-40-rootless-host-sqlite.log.html#t--00178p). This is a placeholder issue until I get it right.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23519 from Luap99/netns-cleanup update c/common to add some netns cleanup fixes</MESSAGE>
+    <SHA>734c4b98d4fa006521a10515c0e9d3f4281bc2da</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>CI: system tests: make random_free_port() parallel-safe ...by using a crude port lock-and-reserve mechanism. This is a small cherrypick from code that has been working in #23275 over dozens of CI runs. Am separating out into a small PR because it's stable, harmless to serial runs, and will simplify the eventual review of #23275. Closes: #23488 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>420bd16a213f07eded0247800f319d8eb81ae0a2</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/helpers.bash</FILE>
+        <FILE>test/system/helpers.network.bash</FILE>
+        <FILE>test/system/helpers.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

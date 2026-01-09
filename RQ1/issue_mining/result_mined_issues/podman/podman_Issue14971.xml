@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14971</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14971</ISSUEURL>
+  <TITLE>remote push gives no output</TITLE>
+  <DESCRIPTION>&lt;!-- --------------------------------------------------- BUG REPORT INFORMATION --------------------------------------------------- Use the commands below to provide key information from your environment: You do NOT have to include this information if this is a FEATURE REQUEST **NOTE** A large number of issues reported against Podman are often found to already be fixed in more current versions of the project. Before reporting an issue, please verify the version you are running with `podman version` and compare it to the latest release documented on the top of Podman's [README.md](../README.md). If they differ, please update your version of Podman to the latest possible and retry your command before creating an issue. Also, there is a running list of known issues in the [Podman Troubleshooting Guide](https://github.com/containers/podman/blob/main/troubleshooting.md), please reference that page before opening a new issue. If you are filing a bug against `podman build`, please instead file a bug against Buildah (https://github.com/containers/buildah/issues). Podman build executes Buildah to perform container builds, and as such the Buildah maintainers are best equipped to handle these bugs. --&gt; **Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind bug **Description** `podman-remote` push does not print any output. **Steps to reproduce the issue:** ``` podman (main) $ ./bin/podman-remote push localhost:5000/nginx ``` **Describe the results you received:** No output. **Describe the results you expected:** Output. @containers/podman-maintainers let's fix this before the v4.2 release.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #15021 from Luap99/e2e-timeout-output e2e: show command and output when a timeout happens</MESSAGE>
+    <SHA>04ed519e9d38e2ae12ec0b568e6418e750ff203d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>remote push: show copy progress `podman-remote push` has shown absolutely no progress at all. Fix that by doing essentially the same as the remote-pull code does. The get-free-out-of-jail-card for backwards compatibility is to let the `quiet` parameter default to true. Since the --quioet flag wasn't working before either, older Podman clients do not set it. Also add regression tests to make sure we won't regress again. Fixes: #11554 Fixes: #14971 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>b79ac0aca2ba7f8a5176197da9fa5992d0b6d497</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/libpod/images.go</FILE>
+        <FILE>pkg/api/handlers/libpod/images_push.go</FILE>
+        <FILE>pkg/api/server/register_images.go</FILE>
+        <FILE>pkg/bindings/images/images.go</FILE>
+        <FILE>pkg/bindings/images/push.go</FILE>
+        <FILE>pkg/bindings/images/types.go</FILE>
+        <FILE>pkg/bindings/images/types_push_options.go</FILE>
+        <FILE>pkg/domain/entities/images.go</FILE>
+        <FILE>pkg/domain/infra/abi/images.go</FILE>
+        <FILE>pkg/domain/infra/tunnel/images.go</FILE>
+        <FILE>test/e2e/push_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>remote push: show copy progress `podman-remote push` has shown absolutely no progress at all. Fix that by doing essentially the same as the remote-pull code does. The get-free-out-of-jail-card for backwards compatibility is to let the `quiet` parameter default to true. Since the --quioet flag wasn't working before either, older Podman clients do not set it. Also add regression tests to make sure we won't regress again. Fixes: #11554 Fixes: #14971 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>fde39edb9cc173871925a66df3941917e33bf45e</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/libpod/images.go</FILE>
+        <FILE>pkg/api/handlers/libpod/images_push.go</FILE>
+        <FILE>pkg/api/server/register_images.go</FILE>
+        <FILE>pkg/bindings/images/images.go</FILE>
+        <FILE>pkg/bindings/images/push.go</FILE>
+        <FILE>pkg/bindings/images/types.go</FILE>
+        <FILE>pkg/bindings/images/types_push_options.go</FILE>
+        <FILE>pkg/domain/entities/images.go</FILE>
+        <FILE>pkg/domain/infra/abi/images.go</FILE>
+        <FILE>pkg/domain/infra/tunnel/images.go</FILE>
+        <FILE>test/e2e/push_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

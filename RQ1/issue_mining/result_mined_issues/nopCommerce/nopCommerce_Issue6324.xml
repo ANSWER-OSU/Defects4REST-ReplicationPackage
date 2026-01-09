@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6324</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6324</ISSUEURL>
+  <TITLE>DistributedCacheManager's internal PerRequestCache out of sync with IDistributed cache</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.50.3 Steps to reproduce the problem: Any code that calls [`DistributedCacheManager.GetAsync`](https://github.com/nopSolutions/nopCommerce/blob/develop/src/Libraries/Nop.Core/Caching/DistributedCacheManager.cs#L144) or [`DistributedCacheManager.Get`](https://github.com/nopSolutions/nopCommerce/blob/develop/src/Libraries/Nop.Core/Caching/DistributedCacheManager.cs#L209) where the value is present in the IDistributedCache implementation (redis), but has not yet been loaded into the PerRequestCache; will not be tracked in the `_keys` list. This can cause sync problems when subsequent calls to [`RemoveByPrefixAsync`](https://github.com/nopSolutions/nopCommerce/blob/develop/src/Libraries/Nop.Core/Caching/DistributedCacheManager.cs#L274) are called in the same request - and items are not removed from redis. The bug manifests in shopping carts or wishlists not being updated, and is easy to re-create when running in k8 with multiple pods, using redis without sticky sessions. The fix is to add the following after wherever we call [PerRequestCache.Set](https://github.com/nopSolutions/nopCommerce/blob/develop/src/Libraries/Nop.Core/Caching/DistributedCacheManager.cs#L417) ```csharp using var _ = _locker.Lock(); _keys.Add(key.Key); ``` (or the async equivalent)</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue-4591-Two-stages-enable-SSL' into develop # Conflicts: # src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo460/LocalizationMigration.cs</MESSAGE>
+    <SHA>6f3c8b847128890020a3efb1c94f365f4f46cd0d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6324 - Fix issue where PerRequestCache is out of sync with IDistributedCache</MESSAGE>
+      <SHA>62a9c882fd13a54df961688e63fac4f94f6f9ac8</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Caching/DistributedCacheManager.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/BaseNopTest.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Core.Tests/Caching/DistributedCacheManagerTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6324 - Fix issue where PerRequestCache is out of sync with IDistributedCache</MESSAGE>
+      <SHA>50651eee8dacbff7d55ca91be5fbd997da736f5b</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Caching/DistributedCacheManager.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/BaseNopTest.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Core.Tests/Caching/DistributedCacheManagerTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6324 - Fix issue where PerRequestCache is out of sync with IDistributedCache</MESSAGE>
+      <SHA>cf49f317d57d59d89073bbef8d3d288c8f28d77d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Caching/DistributedCacheManager.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/BaseNopTest.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Core.Tests/Caching/DistributedCacheManagerTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6324 - Fix issue where PerRequestCache is out of sync with IDistributedCache</MESSAGE>
+      <SHA>d72794b96ac38b59d670b73ff68bdab31a6c5d4a</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Caching/DistributedCacheManager.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/BaseNopTest.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Core.Tests/Caching/DistributedCacheManagerTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

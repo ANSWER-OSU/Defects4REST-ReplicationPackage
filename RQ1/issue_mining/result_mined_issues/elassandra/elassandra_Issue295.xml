@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>295</ISSUENO>
+  <ISSUEURL>https://github.com/strapdata/elassandra/issues/295</ISSUEURL>
+  <TITLE>dots in object mapping ignored</TITLE>
+  <DESCRIPTION>**Describe the feature**: Dots in object-field names are silently ignored **Elassandra version**: 6.2.3.15 **Plugins installed**: [] **JVM version** (`java -version`): OpenJDK Runtime Environment (build 1.8.0_212-8u212-b01-1~deb9u1-b01) OpenJDK 64-Bit Server VM (build 25.212-b01, mixed mode) **OS version** (`uname -a` if on a Unix-like system): Linux db1-dev 4.9.0-9-amd64 #1 SMP Debian 4.9.168-1+deb9u2 (2019-05-13) x86_64 GNU/Linux **Description of the problem including expected versus actual behavior**: **Steps to reproduce**: **1. Create empty index - e.g. testindex** **2. PUT /testindex/_doc/1** Request-Body: { &quot;us.er&quot; : &quot;test&quot;, &quot;postdate&quot; : &quot;2009-11-15T14:12:12&quot;, &quot;message&quot; : &quot;Test123&quot; } i get the following response document: { &quot;_index&quot;: &quot;testindex&quot;, &quot;_type&quot;: &quot;_doc&quot;, &quot;_id&quot;: &quot;1&quot;, &quot;_version&quot;: 1, &quot;result&quot;: &quot;created&quot;, &quot;_shards&quot;: { &quot;total&quot;: 1, &quot;successful&quot;: 1, &quot;failed&quot;: 0 } } **3. GET on http://127.0.0.1:9200/testindex/_doc/1** { &quot;_index&quot;: &quot;testindex&quot;, &quot;_type&quot;: &quot;_doc&quot;, &quot;_id&quot;: &quot;1&quot;, &quot;_version&quot;: 1, &quot;found&quot;: true, &quot;_source&quot;: { &quot;postdate&quot;: &quot;2009-11-15T14:12:12.000Z&quot;, &quot;message&quot;: &quot;Test123&quot; } } the field with the dot in the name (us.er) is silently ignored.</DESCRIPTION>
+  <REPONAME>elassandra</REPONAME>
+  <TIMEDIFFERENCEDAYS>28</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix #296 null_value on an integer field causes an exception</MESSAGE>
+    <SHA>92c8487e745c925441d2ed37f1274d30ff3c2e86</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix dots in object mapping ignored #295</MESSAGE>
+      <SHA>56f08aceabde67100d248b942bd0fcad471c453b</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elassandra/cluster/QueryManager.java</FILE>
+        <FILE>server/src/test/java/org/elassandra/CqlTypesTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

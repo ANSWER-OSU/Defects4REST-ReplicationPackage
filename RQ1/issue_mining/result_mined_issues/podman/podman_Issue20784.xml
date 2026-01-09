@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20784</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/20784</ISSUEURL>
+  <TITLE>Missing query parameter in RESTful API for the Libpod documentation</TITLE>
+  <DESCRIPTION>### Issue Description It is not mentioned in Query parameters for &quot;Play a Kubernetes YAML file&quot;, that one can also give annotations. It seems though to be possible and that's Great :-) It should be mentioned in the documentation so that it won't be mistakenly removed from implementation :smile: [Play a Kubernetes YAML file](https://docs.podman.io/en/latest/_static/api.html#tag/containers/operation/PlayKubeLibpod) ### Steps to reproduce the issue [Play a Kubernetes YAML file](https://docs.podman.io/en/latest/_static/api.html#tag/containers/operation/PlayKubeLibpod) 1. one can see that annotations is not mentioned in the list of Query parameters ### Describe the results you received One can though give annotations as a parameter in the api call, and it works just fine.`cat alpine-pod.yaml | curl -H &quot;Content-Type: ``` $ cat alpine-pod.yaml | curl -H &quot;Content-Type: application/yaml&quot; -vvv --unix-socket /run/podman/podman.sock --data-binary &quot;@-&quot; 'http://d/v4.0.0/libpod/play/kube?annotations=%7B%22some.value%22%3A%221%22%2C%22some.hash%22%3A%22911e0f%22%7D&amp;network=pasta&amp;replace=true' * processing: http://d/v4.0.0/libpod/play/kube?annotations=%7B%22some.value%22%3A%221%22%2C%22some.hash%22%3A%22911e0f%22%7D&amp;network=pasta&amp;replace=true * Trying /run/podman/podman.sock:0... ``` And when inspecting container one can see: ``` }, &quot;Annotations&quot;: { &lt;...&gt; &quot;some.hash&quot;: &quot;911e0f&quot;, &quot;some.value&quot;: &quot;1&quot; }, ``` ### Describe the results you expected I expected that the annotations would be mentioned in the documentation also ### podman info output ```yaml os: Linux arch: arm64 buildahVersion: 1.32.0 podman version: 4.7.2 ``` ### Podman in a container No ### Privileged Or Rootless Rootless ### Upstream Latest Release Yes ### Additional environment details Additional environment details ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #20750 from baude/removeversionhack podman machine image from oci updates</MESSAGE>
+    <SHA>d1236f46fc5cb29e8da296c3662f8ce869865030</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>swagger: document play kube annotations param The annotations parameter was not documented, add it. Fixes #20784 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>386c8d6bfcd699ed62e89caee421972629ad9060</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/server/register_kube.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

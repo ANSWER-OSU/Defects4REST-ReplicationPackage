@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>29</ISSUENO>
+  <ISSUEURL>https://github.com/enviroCar/enviroCar-server/issues/29</ISSUEURL>
+  <TITLE>Caching of statistics</TITLE>
+  <DESCRIPTION>Either in Mongo or in Java (Mongo would be the better choice as other service instances would profit from it). Use of the following together with some kind of &quot;force reload&quot; query parameter. - Make Statistic a interface implemented in Mongo package - Save created statistics in a new collection and check for their existence before creation - http://docs.mongodb.org/manual/tutorial/expire-data/ - http://docs.mongodb.org/manual/core/capped-collections/</DESCRIPTION>
+  <REPONAME>enviroCar-server</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>toString(), hashCode() and equals()</MESSAGE>
+    <SHA>3b2ea1fbdfe4d7fbed3433073c19a392eceec66d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>cache stats in MongoDB/expire them after 3 hours (fixes #29)</MESSAGE>
+      <SHA>19d03faacd764da2ba8fe865ffbb6483612ae2ab</SHA>
+      <PATCHEDFILES>
+        <FILE>mongo/src/main/java/io/car/server/mongo/dao/MongoStatisticsDao.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/entity/MongoStatistic.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/entity/MongoStatisticKey.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/entity/MongoStatistics.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/guice/MongoMappedClassesModule.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/util/MongoUtils.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge branch 'dev' * dev: cache stats in MongoDB/expire them after 3 hours (fixes #29) toString(), hashCode() and equals() statistic interface updated activities schema renamed activity type</MESSAGE>
+      <SHA>df9eacb6fa7a53998221b0bac5f3ac2dc17961f4</SHA>
+      <PATCHEDFILES>
+        <FILE>core/src/main/java/io/car/server/core/Service.java</FILE>
+        <FILE>core/src/main/java/io/car/server/core/activities/ActivityType.java</FILE>
+        <FILE>core/src/main/java/io/car/server/core/statistics/Statistic.java</FILE>
+        <FILE>create.sh</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/activities/MongoGroupActivity.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/activities/MongoMeasurementActivity.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/activities/MongoTrackActivity.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/activities/MongoUserActivity.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/dao/MongoStatisticsDao.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/entity/MongoEntityBase.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/entity/MongoGroup.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/entity/MongoMeasurement.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/entity/MongoMeasurementValue.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/entity/MongoPhenomenon.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/entity/MongoSensor.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/entity/MongoStatistic.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/entity/MongoStatisticKey.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/entity/MongoStatistics.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/entity/MongoTrack.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/entity/MongoUser.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/guice/MongoMappedClassesModule.java</FILE>
+        <FILE>mongo/src/main/java/io/car/server/mongo/util/MongoUtils.java</FILE>
+        <FILE>rest/src/main/resources/schema/activity.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

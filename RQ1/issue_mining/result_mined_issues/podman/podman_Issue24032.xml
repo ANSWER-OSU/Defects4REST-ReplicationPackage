@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24032</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/24032</ISSUEURL>
+  <TITLE>Events for Network</TITLE>
+  <DESCRIPTION>### Issue Description Podman does not generate events about network. ### Steps to reproduce the issue 1) In one console run : podman events 2) In a another console create a new network : podman network create -d macvlan -o parent=eth0 newnet 3) Preceding &quot;podman events&quot; command should return a network creation event. This works using docker, &quot;docker events&quot; returns : 2024-09-22T11:13:53.675328084+02:00 network create e8b293029385f147e18459e093bd5ac40226323ef2a28c504f16cad4f6b54278 (name=newnet, type=macvlan) Thanks for feedback ### Describe the results you received No result ### Describe the results you expected 2024-09-22T11:13:53.675328084+02:00 network create e8b293029385f147e18459e093bd5ac40226323ef2a28c504f16cad4f6b54278 (name=newnet, type=macvlan) ### podman info output ```yaml host: arch: amd64 buildahVersion: 1.37.2 cgroupControllers: - cpuset - cpu - io - memory - hugetlb - pids - rdma - misc cgroupManager: systemd cgroupVersion: v2 conmon: package: conmon_2.1.10+ds1-1+b1_amd64 path: /usr/bin/conmon version: 'conmon version 2.1.10, commit: unknown' cpuUtilization: idlePercent: 99.53 systemPercent: 0.24 userPercent: 0.23 cpus: 4 databaseBackend: sqlite distribution: codename: trixie distribution: debian version: unknown eventLogger: journald freeLocks: 2048 hostname: Debian11LaboVideoC101 idMappings: gidmap: null uidmap: null kernel: 6.10.9-amd64 linkmode: dynamic logDriver: journald memFree: 23782264832 memTotal: 33616388096 networkBackend: netavark networkBackendInfo: backend: netavark dns: package: aardvark-dns_1.12.2-1_amd64 path: /usr/lib/podman/aardvark-dns version: aardvark-dns 1.12.2 package: netavark_1.12.1-3_amd64 path: /usr/lib/podman/netavark version: netavark 1.12.1 ociRuntime: name: crun package: crun_1.17-1_amd64 path: /usr/bin/crun version: |- crun version 1.17 commit: 000fa0d4eeed8938301f3bcf8206405315bc1017 rundir: /run/user/0/crun spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +WASM:wasmedge +YAJL os: linux pasta: executable: /usr/bin/pasta package: passt_0.0~git20240906.6b38f07-1_amd64 version: | pasta 0.0~git20240906.6b38f07-1 Copyright Red Hat GNU General Public License, version 2 or later &lt;https://www.gnu.org/licenses/old-licenses/gpl-2.0.html&gt; This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. remoteSocket: exists: true path: /run/podman/podman.sock rootlessNetworkCmd: pasta security: apparmorEnabled: true capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: false seccompEnabled: true seccompProfilePath: /usr/share/containers/seccomp.json selinuxEnabled: false serviceIsRemote: false slirp4netns: executable: /usr/bin/slirp4netns package: slirp4netns_1.2.1-1+b1_amd64 version: |- slirp4netns version 1.2.1 commit: 09e31e92fa3d2a1d3ca261adaeb012c8d75a8194 libslirp: 4.8.0 SLIRP_CONFIG_VERSION_MAX: 4 libseccomp: 2.5.5 swapFree: 1023406080 swapTotal: 1023406080 uptime: 74h 41m 46.00s (Approximately 3.08 days) variant: &quot;&quot; plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan - ipvlan volume: - local registries: {} store: configFile: /usr/share/containers/storage.conf containerStore: number: 0 paused: 0 running: 0 stopped: 0 graphDriverName: overlay graphOptions: overlay.mountopt: nodev graphRoot: /var/lib/containers/storage graphRootAllocated: 255034654720 graphRootUsed: 68488167424 graphStatus: Backing Filesystem: btrfs Native Overlay Diff: &quot;true&quot; Supports d_type: &quot;true&quot; Supports shifting: &quot;true&quot; Supports volatile: &quot;true&quot; Using metacopy: &quot;false&quot; imageCopyTmpDir: /var/tmp imageStore: number: 2 runRoot: /run/containers/storage transientStore: false volumePath: /var/lib/containers/storage/volumes version: APIVersion: 5.2.2 Built: 0 BuiltTime: Thu Jan 1 01:00:00 1970 GitCommit: &quot;&quot; GoVersion: go1.22.7 Os: linux OsArch: linux/amd64 Version: 5.2.2 ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details Additional environment details ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>45</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #24358 from Luap99/healthcheck-startup-leak healthcheck: do not leak startup service</MESSAGE>
+    <SHA>2f6fca6edc5c0d4e0a1d758a14c9de7014cd0561</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #24032 : To log create and remove network event in podman events Signed-off-by: Sainath Sativar &lt;Sativar.sainath@gmail.com&gt;</MESSAGE>
+      <SHA>eb116bde84cd4a2bc09b1d6498ada1a880ccf236</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/events.go</FILE>
+        <FILE>libpod/events/config.go</FILE>
+        <FILE>libpod/events/events.go</FILE>
+        <FILE>pkg/domain/infra/abi/network.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #24032 : To log create and remove network event in podman events Signed-off-by: Sainath Sativar &lt;Sativar.sainath@gmail.com&gt;</MESSAGE>
+      <SHA>df88e975ee0025cad8f98a685094bf0099a3d20e</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/events.go</FILE>
+        <FILE>libpod/events/config.go</FILE>
+        <FILE>libpod/events/events.go</FILE>
+        <FILE>pkg/domain/infra/abi/network.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #24032 : To log create and remove network event in podman events Signed-off-by: Sainath Sativar &lt;Sativar.sainath@gmail.com&gt;</MESSAGE>
+      <SHA>4ca3f7a789773983e03525e86e9c2e106a0d6dd3</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/events.go</FILE>
+        <FILE>libpod/events/config.go</FILE>
+        <FILE>libpod/events/events.go</FILE>
+        <FILE>pkg/domain/infra/abi/network.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Log network creation and removal events in Podman This commit resolves an issue where network creation and removal events were not being logged in `podman events`. A new function has been introduced in the `events` package to ensure consistent logging of network lifecycle events. This update will allow users to track network operations more effectively through the event log, improving visibility and aiding in debugging network-related issues. Fixes: #24032 Signed-off-by: Sainath Sativar &lt;Sativar.sainath@gmail.com&gt;</MESSAGE>
+      <SHA>932d5e305d853f2786ff9a1fd34f8a72ad21fdd0</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/events.go</FILE>
+        <FILE>libpod/events/events.go</FILE>
+        <FILE>pkg/domain/infra/abi/network.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Log network creation and removal events in Podman This commit resolves an issue where network creation and removal events were not being logged in `podman events`. A new function has been introduced in the `events` package to ensure consistent logging of network lifecycle events. This update will allow users to track network operations more effectively through the event log, improving visibility and aiding in debugging network-related issues. Fixes: #24032 Signed-off-by: Sainath Sativar &lt;Sativar.sainath@gmail.com&gt;</MESSAGE>
+      <SHA>c23d9c6f238357d4b1e03b4f18d5dc15411a653e</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/events.go</FILE>
+        <FILE>libpod/events/events.go</FILE>
+        <FILE>pkg/domain/infra/abi/network.go</FILE>
+        <FILE>test/e2e/events_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

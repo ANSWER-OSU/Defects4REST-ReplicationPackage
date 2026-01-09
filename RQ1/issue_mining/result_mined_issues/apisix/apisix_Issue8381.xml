@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8381</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/8381</ISSUEURL>
+  <TITLE>feat: As a user of limit-count, I want to communicate the X-RateLimit-Reset header so my api consumers know when their next allocation window starts, this should be communicated on every response even the rejected response.</TITLE>
+  <DESCRIPTION>### Description - limit-count plugin does not communicate the `X-RateLimit-Reset` header only `X-RateLimit-Remaining` and `X-RateLimit-Limit` - There are no `X-RateLimit-*` headers communicated on a rejected response, here I believe it can be improved to include the `X-RateLimit-Reset` header as per draft [RFC](https://www.ietf.org/archive/id/draft-polli-ratelimit-headers-02.html#name-ratelimit-reset). This header would also be helpful on response of non-rejected(successful) requests The improvement of this approach would be that consumers of an API know when they can attempt another API call without having to &quot;poll&quot; for sucessful responses with Retries.</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>47</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat(secret): add ci and doc for some auth plugins (#8601) Co-authored-by: soulbird &lt;zhaothree@gmail.com&gt;</MESSAGE>
+    <SHA>37f6f81a1a9c18895db1c61cca62785980fe9d10</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: limit count plugin support X-RateLimit-Reset (#8578) Fixes https://github.com/apache/apisix/issues/8381</MESSAGE>
+      <SHA>bca13a388f8f511d59e128122594e5ca5712383c</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ngx_tpl.lua</FILE>
+        <FILE>apisix/plugins/limit-count/init.lua</FILE>
+        <FILE>apisix/plugins/limit-count/limit-count-local.lua</FILE>
+        <FILE>apisix/plugins/limit-count/limit-count-redis-cluster.lua</FILE>
+        <FILE>apisix/plugins/limit-count/limit-count-redis.lua</FILE>
+        <FILE>docs/en/latest/plugins/limit-count.md</FILE>
+        <FILE>docs/zh/latest/plugins/limit-count.md</FILE>
+        <FILE>t/APISIX.pm</FILE>
+        <FILE>t/plugin/limit-count-redis-cluster2.t</FILE>
+        <FILE>t/plugin/limit-count-redis3.t</FILE>
+        <FILE>t/plugin/limit-count4.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24260</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/24260</ISSUEURL>
+  <TITLE>DynamicPrices: Hook in function parseExpression does not use returned values</TITLE>
+  <DESCRIPTION>### Bug In the module DynamicPrices the function parseExpression translates a formula for a dynamic price into a value. A hook exists to modify this function. However, when the function that is called by the hook is finished, the value of the call of the hook (reshook) is returned as the value of parseExpression instead of the result that was calculated by the hooked function (returned in resArray). This is in particular a problem, if the hook is used to replace the existing code (reshook &gt; 0), but the return value is a 0. The existing code will then be executed and its result returned, which is not the intent.. Since the hook cannot modify the relevant input values, as they are not in the object but in parameters (values, expression), it can effectively only be used to replace the existing code, but with the return problem, in the current state, the hook is useless. ### Environment Version 17 ### Expected and actual behavior Hook shall either replace the existing function and return a result like the existing function (i.e. the value of the parsed expression) (reshook &gt; 0) or it should preprocess and modify some of the input values of the existing function, before it is executed (reshook == 0).</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix date</MESSAGE>
+    <SHA>83174ee70321fa4e0144bf684afaab0e1740ca84</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #24266 from bloxera/fix_for_hook_parseexpression Fix #24260: Fix of hook in parseExpression for dynamic prices</MESSAGE>
+      <SHA>4cd5acdec361eb4c0edd3b2138ac6699d315896d</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/product/dynamic_price/class/price_parser.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

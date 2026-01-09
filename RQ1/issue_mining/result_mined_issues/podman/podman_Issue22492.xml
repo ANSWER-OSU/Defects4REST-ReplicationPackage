@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>22492</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/22492</ISSUEURL>
+  <TITLE>Update Windows installer to use WiX 4 Thmutil RadioButton to allow WSL/Hyper-V selection</TITLE>
+  <DESCRIPTION>### Feature request description _TL;DR podman windows setup.exe should use radio buttons to present the machine provider alternatives (WSL and HyperV). But that requires WiX v4._ The selection of the machine provider (WSL or Hyper-V) requires radio buttons in the installer GUI. That can be implemented using WiX v3 RadioButton for the MSI package (`podman.msi`) but requires WiX v4 for the `podman-setup.exe` bundle. In fact the windows installer `podman-setup.exe` is a bundle that includes: - the MSI package `podman.msi` - the executable `podman-wslkerninst.exe` Most importantly for this issue, the the `podman-setup.exe` GUI is implemented with [WiX Standard Bootstrapper Application customized using a ThemeFile](https://wixtoolset.org/docs/v3/bundle/wixstdba/wixstdba_customize/) and is different from the `podman.msi` GUI. [WiX v3 Boostrapper Application Theme](https://wixtoolset.org/docs/v3/xsd/thmutil/theme/) doesn't have radio buttons but [v4 does](https://wixtoolset.org/docs/schema/thmutil/radiobutton/). ### Suggest potential solution Use https://wixtoolset.org/docs/schema/thmutil/radiobutton/. ### Have you considered any alternatives? We could use a checkbox ` [ ] use Hyper-V rather then WSL` but that's [not ideal](https://learn.microsoft.com/en-us/windows/apps/design/controls/radio-button#is-this-the-right-control). ### Additional context Add any other context or screenshots about the feature request here.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>141</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #22650 from containers/renovate/golangci-golangci-lint-1.x [CI:DOCS] Update dependency golangci/golangci-lint to v1.58.1</MESSAGE>
+    <SHA>ed4a36c710559da768bf0a6c2dc099370222050e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add Hyper-V option in windows installer podman.msi GUI has a radio-button to select WSL or Hyper-V The checkbox in podman.msi GUI allow the user to specify if the machine provider installation (WSL or Hyper-V) should be part of podman installation or not. podman-setup.exe supports 2 new variables: MachineProvider (valid values are `wsl` and `hyperv`) and HyperVCheckbox (valid values are `0` and `1`) Installation creates the configuration file `99-podman-machine-provider.conf` under folder `%APPDATA\containers\containers.conf.d` with the selected machine provider Cirrus CI `win_installer_task` tests the installation with both `hyperv` and `wsl` and verifies the configuration. Uninstallation is tested too. Note that podman-setup.exe GUI doesn't allow to choose the provider yet. See https://github.com/containers/podman/issues/22492 Signed-off-by: Mario Loriedo &lt;mario.loriedo@gmail.com&gt;</MESSAGE>
+      <SHA>970d7140543e629982a4c4d6f8124ff44a5e1900</SHA>
+      <PATCHEDFILES>
+        <FILE>.cirrus.yml</FILE>
+        <FILE>.gitignore</FILE>
+        <FILE>contrib/cirrus/win-installer-main.ps1</FILE>
+        <FILE>contrib/win-installer/burn.wxs</FILE>
+        <FILE>contrib/win-installer/podman-msihooks/check.c</FILE>
+        <FILE>contrib/win-installer/podman.wxs</FILE>
+        <FILE>contrib/win-installer/resources/podman-dialog.png</FILE>
+        <FILE>contrib/win-installer/welcome-install-dlg.wxs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add Hyper-V option in windows installer podman.msi GUI has a radio-button to select WSL or Hyper-V The checkbox in podman.msi GUI allow the user to specify if the machine provider installation (WSL or Hyper-V) should be part of podman installation or not. podman-setup.exe supports 2 new variables: MachineProvider (valid values are `wsl` and `hyperv`) and HyperVCheckbox (valid values are `0` and `1`) Installation creates the configuration file `99-podman-machine-provider.conf` under folder `%APPDATA\containers\containers.conf.d` with the selected machine provider Cirrus CI `win_installer_task` tests the installation with both `hyperv` and `wsl` and verifies the configuration. Uninstallation is tested too. Note that podman-setup.exe GUI doesn't allow to choose the provider yet. See https://github.com/containers/podman/issues/22492 Signed-off-by: Mario Loriedo &lt;mario.loriedo@gmail.com&gt;</MESSAGE>
+      <SHA>fb4ddf86cc214941ba04eb93432498c2d44e2ea3</SHA>
+      <PATCHEDFILES>
+        <FILE>.cirrus.yml</FILE>
+        <FILE>.gitignore</FILE>
+        <FILE>contrib/cirrus/win-installer-main.ps1</FILE>
+        <FILE>contrib/win-installer/burn.wxs</FILE>
+        <FILE>contrib/win-installer/podman-msihooks/check.c</FILE>
+        <FILE>contrib/win-installer/podman.wxs</FILE>
+        <FILE>contrib/win-installer/resources/podman-dialog.png</FILE>
+        <FILE>contrib/win-installer/welcome-install-dlg.wxs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add Hyper-V option in windows installer podman.msi GUI has a radio-button to select WSL or Hyper-V The checkbox in podman.msi GUI allow the user to specify if the machine provider installation (WSL or Hyper-V) should be part of podman installation or not. podman-setup.exe supports 2 new variables: MachineProvider (valid values are `wsl` and `hyperv`) and HyperVCheckbox (valid values are `0` and `1`) Installation creates the configuration file `99-podman-machine-provider.conf` under folder `%APPDATA\containers\containers.conf.d` with the selected machine provider Cirrus CI `win_installer_task` tests the installation with both `hyperv` and `wsl` and verifies the configuration. Uninstallation is tested too. Note that podman-setup.exe GUI doesn't allow to choose the provider yet. See https://github.com/containers/podman/issues/22492 Signed-off-by: Mario Loriedo &lt;mario.loriedo@gmail.com&gt;</MESSAGE>
+      <SHA>7df371543015d3f0cce119066bd8dd5045186888</SHA>
+      <PATCHEDFILES>
+        <FILE>.cirrus.yml</FILE>
+        <FILE>.gitignore</FILE>
+        <FILE>contrib/cirrus/win-installer-main.ps1</FILE>
+        <FILE>contrib/win-installer/burn.wxs</FILE>
+        <FILE>contrib/win-installer/podman-msihooks/check.c</FILE>
+        <FILE>contrib/win-installer/podman.wxs</FILE>
+        <FILE>contrib/win-installer/resources/podman-dialog.png</FILE>
+        <FILE>contrib/win-installer/welcome-install-dlg.wxs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

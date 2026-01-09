@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24267</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/24267</ISSUEURL>
+  <TITLE>Potential for buggy slice behavior</TITLE>
+  <DESCRIPTION>I noticed that this code could potentially cause a bug that would probably be annoying to figure out. I don't believe that this bug could be triggered any way currently, but it has the potential to happen in the future. So I wanted to share this and suggest a fix before it became an issue. The issue could happen in the `transferRootless` function in `pkg/domain/infra/abi/images.go` https://github.com/containers/podman/blob/3fbae8e28e38ab4d06ef4250a8dfc43eaac8bd14/pkg/domain/infra/abi/images.go#L804-L808 Specifically, because `saveCommand` and `loadCommand` are pointing to the same slice `parentFlags`. If this slice was passed in with a capacity &gt; it's length it could lead to unexpected behavior in the subsequent appends Currently, it works fine because if length == capacity (which it seems to always be the case currently) then the appends will end up creating new backing arrays anyways. See this playground example of a similar situation, and how the second example does not produce the same result as the first example: https://go.dev/play/p/iItEPu4hQ0p The suggested fix would be to call `make` to create new slices for `saveCommand` and `loadCommand`. This way they won't share the same backing array, and would avoid the problem. Pretty much like what `transferRootful` does: https://github.com/containers/podman/blob/3fbae8e28e38ab4d06ef4250a8dfc43eaac8bd14/pkg/domain/infra/abi/images.go#L845-L856 I can submit a PR for this if you think it would be valuable.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #24279 from edsantiago/dedup-cirrus Housekeeping: remove duplicates from success_task</MESSAGE>
+    <SHA>f668fd9f8d17e3cddba2693a423d31631c3772ae</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>use slices.Clone instead of assignment Fixes #24267 This commit replaces a potentially unsafe slice-assignment with a call to `slices.Clone`. This could prevent a bug where `saveCommand` and `loadCommand` could end up sharing an underlying array if `parentFlags` has a cap &gt; it's len. Signed-off-by: Zachary Hanham &lt;z.hanham00@gmail.com&gt;</MESSAGE>
+      <SHA>b7b2ef48e8213f80e88a49b1a90de6ac7bf207cd</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/infra/abi/images.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

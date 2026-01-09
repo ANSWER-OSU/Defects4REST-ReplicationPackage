@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2201</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/2201</ISSUEURL>
+  <TITLE>MSSQL Error on migration to 0.91.1 .</TITLE>
+  <DESCRIPTION>Can't load after updating to current version on MSSQL Copy and Paste Project Info - Tutorials: How to check my Project info? ([YouTube Tutorial](https://www.youtube.com/watch?v=AUSNN-RCwhE) or [Documentation](https://docs.nocodb.com/FAQs#how-to-check-my-project-info-)) ``` Node: **v16.14.0** Arch: **x86_64** Platform: **linux** Docker: **false** Database: **mssql** ProjectOnRootDB: **false** NocoDB used as docker : true / false NocoDB version : Database used in NC_DB URL : mssql ``` pp 6007 output: Mon, 30 May 2022 04:51:43 GMT tedious deprecated The default value for `config.options.enableArithAbort` will change from `false` to `true` in the next major version of `tedious`. Set the value to `true` or `false` explicitly to silence this message. at node_modules/mssql/lib/tedious/connection-pool.js:61:23 App 6007 output: migration file &quot;nc_013_sync_source&quot; failed App 6007 output: migration failed with error: CREATE TABLE [nc_sync_source_v2] ([id] nvarchar(20) not null, [title] nvarchar(255), [type] nvarchar(255), [details] nvarchar(max), [deleted] bit, [enabled] bit default '1', [order] float, [project_id] nvarchar(128), [fk_user_id] nvarchar(128), [created_at] datetime2 not null default CURRENT_TIMESTAMP, [updated_at] datetime2 not null default CURRENT_TIMESTAMP, CONSTRAINT [nc_sync_source_v2_pkey] PRIMARY KEY ([id]), CONSTRAINT [nc_sync_source_v2_project_id_foreign] FOREIGN KEY ([project_id]) REFERENCES [nc_projects_v2] ([id]), CONSTRAINT [nc_sync_source_v2_fk_user_id_foreign] FOREIGN KEY ([fk_user_id]) REFERENCES [nc_users_v2] ([id])) - Could not create constraint or index. See previous errors. App 6007 output: originalError: RequestError: CREATE TABLE [nc_sync_source_v2] ([id] nvarchar(20) not null, [title] nvarchar(255), [type] nvarchar(255), [details] nvarchar(max), [deleted] bit, [enabled] bit default '1', [order] float, [project_id] nvarchar(128), [fk_user_id] nvarchar(128), [created_at] datetime2 not null default CURRENT_TIMESTAMP, [updated_at] datetime2 not null default CURRENT_TIMESTAMP, CONSTRAINT [nc_sync_source_v2_pkey] PRIMARY KEY ([id]), CONSTRAINT [nc_sync_source_v2_project_id_foreign] FOREIGN KEY ([project_id]) REFERENCES [nc_projects_v2] ([id]), CONSTRAINT [nc_sync_source_v2_fk_user_id_foreign] FOREIGN KEY ([fk_user_id]) REFERENCES [nc_users_v2] ([id])) - Could not create constraint or index. See previous errors.</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #2197 from willnewii/fix/when_select_empty_importData_failed fix: when_select_empty_importData_failed</MESSAGE>
+    <SHA>4874d959675090a5736ea57aba47b864313389c6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: provide same column length as fk column re #2201 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>32160b580c48214632c228493d0efbe75f90e044</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/noco/migrationsv2/nc_013_sync_source.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

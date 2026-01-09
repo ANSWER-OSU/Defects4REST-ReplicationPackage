@@ -1,0 +1,101 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>40</ISSUENO>
+  <ISSUEURL>https://github.com/snarfed/granary/issues/40</ISSUEURL>
+  <TITLE>support block lists</TITLE>
+  <DESCRIPTION>... both fetching them and covering then to mf2. lots of details in snarfed/bridgy#473. first step is to catalog each silo's feature(s), API support, and link(s) to docs. twitter is the main (only) silo people like @voxpelli @kevinmarks @kylewm have been asking for so far. - [x] twitter: can [read](https://dev.twitter.com/rest/reference/get/blocks/list) and [write](https://dev.twitter.com/rest/reference/post/blocks/create) both [blocks](https://support.twitter.com/articles/117063) (semi-private) and [mutes](https://support.twitter.com/articles/20171399) (private) - facebook: looks like no API support for reading/writing [blocks](https://m.facebook.com/help/131930530214371) - google+: nothing in the API [Person object reference](https://developers.google.com/+/web/api/rest/latest/people#resource-representations) - Instagram: nothing [in the API](https://www.instagram.com/developer/endpoints/). might be scrapable, which we're doing already for photos etc, but meh. - Flickr: [the API is big](https://www.flickr.com/services/api/), but i didn't see anything about [blocks](https://help.yahoo.com/kb/flickr-for-desktop/block-flickr-sln7464.html) or mutes. @kylewm can correct me if I'm wrong. another first step is to nail down the AS and mf2 representations we want.</DESCRIPTION>
+  <REPONAME>granary</REPONAME>
+  <TIMEDIFFERENCEDAYS>666</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #112 from jeremycherfas/patch-1 Update readme.md</MESSAGE>
+    <SHA>87be2286103fc4f03bc916c9a542f09732b275ec</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>twitter: add block list support for #40, snarfed/bridgy#473</MESSAGE>
+      <SHA>98737f3680264c7394c984ec0ffd9836cabb5498</SHA>
+      <PATCHEDFILES>
+        <FILE>README.md</FILE>
+        <FILE>granary/source.py</FILE>
+        <FILE>granary/test/test_twitter.py</FILE>
+        <FILE>granary/twitter.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>twitter: add block list support to REST API for #40, snarfed/bridgy#473</MESSAGE>
+      <SHA>7f2fbbe69de7ed7e6821c6b472b132dfcef97ff8</SHA>
+      <PATCHEDFILES>
+        <FILE>README.md</FILE>
+        <FILE>activitystreams.py</FILE>
+        <FILE>app.py</FILE>
+        <FILE>granary/source.py</FILE>
+        <FILE>granary/templates/index.html</FILE>
+        <FILE>granary/twitter.py</FILE>
+        <FILE>static/demo.js</FILE>
+        <FILE>test_activitystreams.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>twitter block lists: note that we're rate limited to 1500 users per 15m :/ for #40</MESSAGE>
+      <SHA>23e3407773d8dfadddac1a2f7824a0e8b9542cc9</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/twitter.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>twitter: add block list ids support for #40, snarfed/bridgy#473</MESSAGE>
+      <SHA>363be668eb5863e22b7badb22325ecc694479e28</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/test/test_twitter.py</FILE>
+        <FILE>granary/twitter.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>mf2: add nickname and (custom) numeric-id properties for #40, snarfed/bridgy#473</MESSAGE>
+      <SHA>4fbc399d3db782da5553ca64faf2f284a70149fc</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/facebook.py</FILE>
+        <FILE>granary/instagram.py</FILE>
+        <FILE>granary/microformats2.py</FILE>
+        <FILE>granary/test/test_atom.py</FILE>
+        <FILE>granary/test/test_facebook.py</FILE>
+        <FILE>granary/test/test_instagram.py</FILE>
+        <FILE>granary/test/test_microformats2.py</FILE>
+        <FILE>granary/test/test_testdata.py</FILE>
+        <FILE>granary/test/test_twitter.py</FILE>
+        <FILE>granary/test/testdata/actor.mf2.html</FILE>
+        <FILE>granary/test/testdata/actor_multiple_urls.mf2.html</FILE>
+        <FILE>granary/test/testdata/actor_with_nickname_numeric_id.as.json</FILE>
+        <FILE>granary/test/testdata/actor_with_nickname_numeric_id.mf2-from-as.html</FILE>
+        <FILE>granary/test/testdata/actor_with_nickname_numeric_id.mf2-from-as.json</FILE>
+        <FILE>granary/test/testdata/article_with_likes.as.json</FILE>
+        <FILE>granary/test/testdata/article_with_likes.mf2.html</FILE>
+        <FILE>granary/test/testdata/article_with_likes.mf2.json</FILE>
+        <FILE>granary/test/testdata/article_with_reposts.as.json</FILE>
+        <FILE>granary/test/testdata/article_with_reposts.mf2.html</FILE>
+        <FILE>granary/test/testdata/article_with_reposts.mf2.json</FILE>
+        <FILE>granary/test/testdata/comment.mf2.html</FILE>
+        <FILE>granary/test/testdata/note.mf2.html</FILE>
+        <FILE>granary/test/testdata/repost.mf2.json</FILE>
+        <FILE>granary/twitter.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>mf2: fix &lt;data&gt; explicit closing tags for uid and numeric-id for #40</MESSAGE>
+      <SHA>295826d9a98cbb263807392ad238a042b0c37492</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/microformats2.py</FILE>
+        <FILE>granary/test/test_facebook.py</FILE>
+        <FILE>granary/test/test_instagram.py</FILE>
+        <FILE>granary/test/test_twitter.py</FILE>
+        <FILE>granary/test/testdata/actor.mf2.html</FILE>
+        <FILE>granary/test/testdata/actor_multiple_urls.mf2.html</FILE>
+        <FILE>granary/test/testdata/actor_with_nickname_numeric_id.mf2-from-as.html</FILE>
+        <FILE>granary/test/testdata/article_with_likes.mf2.html</FILE>
+        <FILE>granary/test/testdata/article_with_reposts.mf2.html</FILE>
+        <FILE>granary/test/testdata/comment.mf2.html</FILE>
+        <FILE>granary/test/testdata/note.mf2.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

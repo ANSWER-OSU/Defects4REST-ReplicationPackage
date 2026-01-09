@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19365</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/19365</ISSUEURL>
+  <TITLE>Plugin Detail Page Title Displays HTML Instead of Plugin Name</TITLE>
+  <DESCRIPTION>### Deployment Type Self-hosted ### NetBox Version main (commit `68e9da5cd9802eb78927a11b97330fd73ad81a2e`) ### Python Version 3.10 ### Steps to Reproduce 1. Log in to the NetBox UI. 2. Navigate to **Admin &gt; Plugins**. 3. Click on any plugin listed to view its detail page. 4. Observe the browser tab's title (the `&lt;title&gt;` tag content). ### Expected Behavior The page title should display only the plugin's name, e.g., `Example Plugin | NetBox`. ### Observed Behavior The page title contains raw HTML code: `&lt;img class=&quot;plugin-icon&quot; src=&quot;https://plugins-assets.netbox.oss.netboxlabs.com/icons/default.svg&quot;&gt; Example Plugin | NetBox` This results in the `&lt;img&gt;` tag being displayed as literal text in the browser tab title, which is not expected. &lt;img width=&quot;614&quot; alt=&quot;Image&quot; src=&quot;https://github.com/user-attachments/assets/f2bf8b41-3ade-4e68-b2fe-8debda5b1490&quot; /&gt; **Additional Information**: - This issue appears to be a regression introduced by [PR #19333](https://github.com/netbox-community/netbox/pull/19333).</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat(virtualization): Add Q-in-Q SVLAN to VMinterface template (#19345)</MESSAGE>
+    <SHA>1141ddb22a2f89dd1f4d8e026505ca83c16415f2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #19365: Omit plugin icon from page title</MESSAGE>
+      <SHA>ad6f1cce59bfefafe56a74ecb662e8605a084fbf</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/templates/core/plugin.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #19365: Omit plugin icon from page title</MESSAGE>
+      <SHA>15c7a19fb7039b7f4f584c124127980e34c9d46d</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/templates/core/plugin.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

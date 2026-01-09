@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23876</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23876</ISSUEURL>
+  <TITLE>CI flake: network prune test: netavark: failed to get bridge interface: Netlink error: ENODEV</TITLE>
+  <DESCRIPTION>One-off (so far) in [f40 root](https://api.cirrus-ci.com/v1/artifact/task/5502147419176960/html/int-podman-fedora-40-root-host-sqlite.log.html#t--Podman-network-podman-network-prune--1): ``` [+0581s] • [FAILED] [1.170 seconds] Podman network [It] podman network prune .... # podman [options] network rm -f macvlan3a9271f677325cd3f2cec044331defd870b46cb4de15488d07289118c50669d72 Error: cleaning up container cad476f0665638f3b22179920810569836a813c8475e3021b725484fd3b07155: removing container cad476f0665638f3b22179920810569836a813c8475e3021b725484fd3b07155 network: netavark: failed to get bridge interface: Netlink error: No such device (os error 19) # podman [options] network rm -f macvlan3a9271f677325cd3f2cec044331defd870b46cb4de15488d07289118c50669d71 [FAILED] Exit code must be 0 or 1 Expected &lt;int&gt;: 125 to be &lt;= &lt;int&gt;: 1 ```</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23868 from toadstule/quadlet-pod-dns Add DNS, DNSOption and DNSSearch to quadlet pod</MESSAGE>
+    <SHA>8578fddf0f8bbcd0eeb85369b340ef5614336523</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>test/e2e: fix network prune flake Creating networks in a different dir is not parallel safe when running containers on them as the network configs may end up using the same bridge names which then causes conflicts on the host. Fixes #23876 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>1543c5f0adbb8ee8954e5f8e2bb36e6b402abbe2</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/common_test.go</FILE>
+        <FILE>test/e2e/network_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

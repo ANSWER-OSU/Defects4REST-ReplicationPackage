@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7102</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7102</ISSUEURL>
+  <TITLE>Email validation is not consistent</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40 - but still present in latest code Three different methods are used to validate email addresses: 1. jQuery validate 2. DataAnnotations.EmailAddressAttribute 3. CommonHelper.IsValidEmail 1 &amp; 2 both use the same naive validation (there must be an @ in the string, essentially). 3 uses a much stricter regular expression which is taken from FluentValidation, but is their old approach (still available via configuration, but deprecated and not standard since v9 - nop 4.40 is using v9.5) - as far as I can see FluentValidation isn't used anywhere in nopCommerce for email addresses. https://jqueryvalidation.org/email-method/ https://github.com/dotnet/runtime/issues/15903 https://docs.fluentvalidation.net/en/latest/built-in-validators.html#email-validator https://github.com/nopSolutions/nopCommerce/blob/51034c3e4386d09f81908bee2ae92be34da79a1e/src/Libraries/Nop.Core/CommonHelper.cs It's possible for a guest checkout to proceed using only 1 &amp; 2, right up to payment - however, OrderProcessingService.PreparePlaceOrderDetailsAsync calls 3 with both the billing and shipping address emails and will throw an exception if either email is deemed invalid. This can result in callbacks from payment gateways throwing an exception (invisible to the customer) and with at least some gateways (Stripe, for example) will result in the payment being taken but the order not completing. We only became aware of the issue after a client's customer complained about payments taken from their card. I'm aware the current recommended approach to email validation is to let more or less anything through (as noted on the links above) - this always seems to assume that the input will sanitised by more robust means later (e.g. a validation link sent to the email address), but this is very poor fit for ecommerce. Validation links are rarely used as part of the checkout workflow as they result in far too high a barrier to conversion - further, the shipping and billing emails may not even be received by the person placing the order, so they'd have no way to validate them via link. Essentially naive email validation at point of entry is, for most ecommerce sites, accepting junk data for our main means of contacting customers. I've also only occasionally dealt with problems with valid emails being refused by validation (and in all these cases the validation employed was poorly implemented and far worse than the regex used by CommonHelper.IsValidEmail) - I have dealt with mistyped email addresses very frequently wherever a naive approach to validation was allowed. For this reason, I'd prefer a fix that standardises the validation on the more robust approach of CommonHelper.IsValidEmail, or at the very least allows this to be set by a global setting. Steps to reproduce the problem: Checkout using a billing or shipping address of the format blah@blah and a payment gateway that uses a callback (any other payment gateway will, I think, hit the same error - but it may result in a more obvious error message to the customer and in some case payment not being taken).</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>29</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7067 Replaced Brevo affiliate link</MESSAGE>
+    <SHA>6754749621e22a2adc66dbea9260fb60d6e57311</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7102 Updated email validation</MESSAGE>
+      <SHA>249b99068c2d87ce226244ded6548fe3af7065ef</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/CommonHelper.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/Validators/ConfigurationValidator.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/Validators/OnboardingValidator.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/plugin.json</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Validators/ValidatorExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Validators/Common/AddressValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Validators/Customers/CustomerValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Validators/Messages/EmailAccountValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Validators/Messages/NewsLetterSubscriptionValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Validators/Messages/TestMessageTemplateValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Validators/Vendors/VendorValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Validators/Catalog/ProductEmailAFriendValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Validators/Common/AddressValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Validators/Common/ContactUsValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Validators/Common/ContactVendorValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Validators/Customer/CustomerInfoValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Validators/Customer/LoginValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Validators/Customer/PasswordRecoveryValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Validators/Customer/RegisterValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Validators/Install/InstallValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Validators/ShoppingCart/WishlistEmailAFriendValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Validators/Vendors/ApplyVendorValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Validators/Vendors/VendorInfoValidator.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#7102 Further changes to email validation</MESSAGE>
+      <SHA>27560b20af720f0d50b8cc02000f6e45bde25a2d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/CommonHelper.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Validators/EmailPropertyValidator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Validators/ValidatorExtensions.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

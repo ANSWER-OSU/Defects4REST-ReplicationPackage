@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>471</ISSUENO>
+  <ISSUEURL>https://github.com/openstf/stf/issues/471</ISSUEURL>
+  <TITLE>Lenovo A806</TITLE>
+  <DESCRIPTION>&lt;!-- *Before creating an issue please make sure you are using the latest version of STF.* --&gt; **What is the issue or idea you have?** STFService.apk installation fails with `INSTALL_FAILED_VERIFICATION_FAILURE`. **Does it only happen on a specific device? Please run `adb devices -l` and paste the corresponding row.** ``` redacted device usb:336592896X product:alston_fddopen model:Lenovo_A806 device:A806 ``` **Please provide the steps to reproduce the issue.** Connect the device to STF as usual. **What is the expected behavior?** Service installation completes. Interestingly, raw ADB commands also fail: ``` % adb push vendor/STFService/STFService.apk /data/local/tmp/ [100%] /data/local/tmp/STFService.apk % adb shell &quot;pm install -r '/data/local/tmp/STFService.apk'&quot; Failure [INSTALL_FAILED_VERIFICATION_FAILURE] ``` HOWEVER, by taking out the single quotes from around the filename, it works: ``` % adb push vendor/STFService/STFService.apk /data/local/tmp/ [100%] /data/local/tmp/STFService.apk % adb shell &quot;pm install -r /data/local/tmp/STFService.apk&quot; ``` (which shows a dialog to accept the installation on the device) **Do you see errors or warnings in the `stf local` output? If so, please paste them or the full log here.** ``` adb:command Send '0034shell:pm install -r '/data/local/tmp/STFService.apk'' +2ms FTL/device 98872 [redacted] Setup had an error Error: /data/local/tmp/STFService.apk could not be installed [INSTALL_FAILED_VERIFICATION_FAILURE] at /Users/simokinnunen/Projects/openstf/stf/node_modules/adbkit/lib/adb/command/host-transport/install.js:28:23 at runCallback (timers.js:637:20) at tryOnImmediate (timers.js:610:5) at processImmediate [as _immediateCallback] (timers.js:582:5) ``` **Please run `stf doctor` and paste the output here.** ``` INF/util:doctor 1979 [*] OS Arch: x64 INF/util:doctor 1979 [*] OS Platform: darwin INF/util:doctor 1979 [*] OS Platform: 16.1.0 INF/util:doctor 1979 [*] Using Node 6.9.1 INF/util:doctor 1979 [*] Using RethinkDB client 2.3.3 INF/util:doctor 1979 [*] Using ZeroMQ 4.1.6 INF/util:doctor 1979 [*] GraphicsMagick 1.3.25 INF/util:doctor 1979 [*] Local ADB 1.0.36 INF/util:doctor 1979 [*] Local RethinkDB server 2.3.5 INF/util:doctor 1979 [*] ProtoBuf 3.1.0 ERR/util:doctor 1979 [*] Current ProtoBuf version is not supported, it has to be ~2 ```</DESCRIPTION>
+  <REPONAME>stf</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Complain if dependencies don't satisfy package.json.</MESSAGE>
+    <SHA>209031c27167a0db8f070674308e214f7bf424a3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Bump adbkit to fix #471 on Lenovo A806.</MESSAGE>
+      <SHA>80c85172f4d295b7037c2b4e9c93252be23941fd</SHA>
+      <PATCHEDFILES>
+        <FILE>package.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Bump adbkit to fix #471 on Lenovo A806.</MESSAGE>
+      <SHA>dd04cbaba8b19f747c802c5c0a1d565d718be8b1</SHA>
+      <PATCHEDFILES>
+        <FILE>package.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

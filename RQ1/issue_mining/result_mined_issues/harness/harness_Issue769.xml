@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>769</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/769</ISSUEURL>
+  <TITLE>Build in PHP server not accessable when starting it with the drone script</TITLE>
+  <DESCRIPTION>I'm trying to start the build in PHP server to run my acceptance tests. My reason is that it's a lot easier than to setup a nginx or apache. The problem I'm having is that I can't seem to access it. When drone sets it up in docker. It seems that I need to tell drone to open the `8888` port or something. When I do `netstat` I also can see that it's listening to any commands. ``` netstat -tulpn Active Internet connections (only servers) Proto Recv-Q Send-Q Local Address Foreign Address State PID/Program name tcp 0 0 0.0.0.0:3306 0.0.0.0:* LISTEN 75/socat ``` So I check the processes it is running. ``` ubuntu 191 0.0 0.0 47004 2272 ? R 18:52 0:00 php -S localhost:8888 -t public ``` Also when I start the container itself and ssh into it with the following command: ``` docker run -i -t bradrydzewski/php:5.5 /bin/bash ``` And run the PHP build-in server everything seems to work correctly. I think it has to so with the way drone runs the commands in the `.drone.yml` that the build-in webserver does not work. The issue I'm having is that I just can't get it to work correctly so I'm hoping there is a way to solve this issue. My script if the following, ``` image: bradrydzewski/php:5.5 script: - php -S localhost:8888 -t public &gt; /dev/null 2&gt;&amp;1 &amp; services: - mysql:5.5 ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>require latest source sha as param for the merge API (#767)</MESSAGE>
+    <SHA>e731c0fdffa87bf7cd0b4a898b9f2fda3d8e9a1d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[SSE] close pubsub subscriber on sse completion (#769)</MESSAGE>
+      <SHA>4e0444bba883680716b87ba9c80d18cbd20bdffe</SHA>
+      <PATCHEDFILES>
+        <FILE>app/sse/sse.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

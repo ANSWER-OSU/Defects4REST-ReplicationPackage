@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122484</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122484</ISSUEURL>
+  <TITLE>[CI] RollingUpgradeLuceneIndexCompatibilityTestCase testIndexUpgrade {p0=[9.1.0, 8.19.0, 8.19.0]} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #17980 / part1](https://gradle-enterprise.elastic.co/s/ibjiz6nnwqoxk) - [elasticsearch-intake #17981 / part1](https://gradle-enterprise.elastic.co/s/rfjozw2waf4rk) - [elasticsearch-intake #17983 / part1](https://gradle-enterprise.elastic.co/s/ew2y5gngve2rm) - [elasticsearch-intake #17982 / part1](https://gradle-enterprise.elastic.co/s/rkjty5q42juu6) - [elasticsearch-pull-request #56788 / part-1](https://gradle-enterprise.elastic.co/s/4sqmgdq64bpke) - [elasticsearch-pull-request #56786 / part-1](https://gradle-enterprise.elastic.co/s/kgjvl2favxife) - [elasticsearch-intake #17979 / part1](https://gradle-enterprise.elastic.co/s/ostyo7ewmg4so) - [elasticsearch-pull-request #56776 / part-1](https://gradle-enterprise.elastic.co/s/gr3f6ux6bj6mw) - [elasticsearch-pull-request #56776 / part-1-entitlements](https://gradle-enterprise.elastic.co/s/44ktufxprkl7q) - [elasticsearch-pull-request #56769 / part-1](https://gradle-enterprise.elastic.co/s/c7yzqhcl5ahcy) **Reproduction Line:** ``` ./gradlew &quot;:qa:lucene-index-compatibility:javaRestTest&quot; --tests &quot;org.elasticsearch.lucene.RollingUpgradeLuceneIndexCompatibilityTestCase&quot; -Dtests.method=&quot;testRestoreIndex {p0=[9.1.0, 9.1.0, 9.1.0]}&quot; -Dtests.seed=33678AC0C2B799B1 -Dtests.locale=tt-Cyrl-RU -Dtests.timezone=Europe/Athens -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.lucene.RollingUpgradeLuceneIndexCompatibilityTestCase),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testIndexUpgrade%20%7Bp0%3D%5B9.1.0%2C%208.19.0%2C%208.19.0%5D%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.Exception: Test abandoned because suite timeout was reached. ``` **Issue Reasons:** - [main] 9 consecutive failures in test testIndexUpgrade {p0=[9.1.0, 8.19.0, 8.19.0]} - [main] 6 consecutive failures in step part1 - [main] 7 consecutive failures in step part-1 - [main] 6 consecutive failures in pipeline elasticsearch-intake - [main] 7 consecutive failures in pipeline elasticsearch-pull-request - [main] 17 failures in test testIndexUpgrade {p0=[9.1.0, 8.19.0, 8.19.0]} (3.7% fail rate in 464 executions) - [main] 6 failures in step part1 (7.1% fail rate in 85 executions) - [main] 10 failures in step part-1 (5.2% fail rate in 193 executions) - [main] 6 failures in pipeline elasticsearch-intake (7.1% fail rate in 85 executions) - [main] 10 failures in pipeline elasticsearch-pull-request (5.2% fail rate in 193 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.lucene.RollingUpgradeLuceneIndexCompatibilityTestCase testRestoreIndex {p0=[9.1.0, 8.19.0, 8.19.0]} #122483</MESSAGE>
+    <SHA>da024dc942a9980ee3614ca0525507bb7803354e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.lucene.RollingUpgradeLuceneIndexCompatibilityTestCase testIndexUpgrade {p0=[9.1.0, 8.19.0, 8.19.0]} #122484</MESSAGE>
+      <SHA>bfaffe9d51029dc220e2173100910042b3afa388</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

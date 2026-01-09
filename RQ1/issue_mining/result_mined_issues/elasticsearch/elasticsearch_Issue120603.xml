@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120603</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120603</ISSUEURL>
+  <TITLE>[CI] EsqlSpecIT test {lookup-join.NonUniqueRightKeyOnTheCoordinator SYNC} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #16163 / part3](https://gradle-enterprise.elastic.co/s/ewlum5trirdr6) - [elasticsearch-periodic-platform-support #5947 / rocky-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/fkh4wjwx4tqpc) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:multi-node:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT&quot; -Dtests.method=&quot;test {lookup-join.NonUniqueRightKeyOnTheCoordinator ASYNC}&quot; -Dtests.seed=D14087BB524E4536 -Dtests.locale=lkt-US -Dtests.timezone=Europe/Tallinn -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Blookup-join.NonUniqueRightKeyOnTheCoordinator%20SYNC%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Data mismatch: row 4 column 3:a list containing row 4 column 3:0: expected &quot;[Germany, Austria]&quot; but was &quot;null&quot; row 5 column 3:a list containing row 5 column 3:0: expected &quot;Switzerland&quot; but was &quot;[Germany, Austria]&quot; row 6 column 3:a list containing row 6 column 3:0: expected &quot;null&quot; but was &quot;Switzerland&quot; Actual: emp_no:integer | language_code:integer | language_name:keyword | country:text 10001 | 1 | English | Canada 10001 | 1 | English | null 10001 | 1 | null | United Kingdom 10001 | 1 | English | United States of America 10002 | 2 | German | null 10002 | 2 | German | [Germany, Austria] 10002 | 2 [truncated] ``` **Issue Reasons:** - [main] 2 failures in test test {lookup-join.NonUniqueRightKeyOnTheCoordinator SYNC} (0.8% fail rate in 252 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT test {lookup-join.NonUniqueRightKeyFromRow SYNC} #120602</MESSAGE>
+    <SHA>ce8f5d59aac1d0b5c4f4ad55eaea8aad42e0662d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT test {lookup-join.NonUniqueRightKeyOnTheCoordinator SYNC} #120603</MESSAGE>
+      <SHA>4bc52d32ce8559510784b10808afd46565516ddf</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: Fix lookup test result ordering (#120622) Fix https://github.com/elastic/elasticsearch/issues/120600 Fix https://github.com/elastic/elasticsearch/issues/120601 Fix https://github.com/elastic/elasticsearch/issues/120602 Fix https://github.com/elastic/elasticsearch/issues/120603 Fix https://github.com/elastic/elasticsearch/issues/120658 Fix https://github.com/elastic/elasticsearch/issues/120659 While I was at it, I moved the LOOKUP JOINs test cases with multiple right keys next to the test cases with multivalues and nulls in keys to be consistent and make stuff more easy to find.</MESSAGE>
+      <SHA>b985b3ead50ad0b14170601b58008066760f12aa</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/lookup-join.csv-spec</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: Fix lookup test result ordering (#120622) Fix https://github.com/elastic/elasticsearch/issues/120600 Fix https://github.com/elastic/elasticsearch/issues/120601 Fix https://github.com/elastic/elasticsearch/issues/120602 Fix https://github.com/elastic/elasticsearch/issues/120603 Fix https://github.com/elastic/elasticsearch/issues/120658 Fix https://github.com/elastic/elasticsearch/issues/120659 While I was at it, I moved the LOOKUP JOINs test cases with multiple right keys next to the test cases with multivalues and nulls in keys to be consistent and make stuff more easy to find. (cherry picked from commit b985b3ead50ad0b14170601b58008066760f12aa) # Conflicts: # muted-tests.yml</MESSAGE>
+      <SHA>3b87a8909e5fd3358d6648d8da1602fd9098aa49</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/lookup-join.csv-spec</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: Fix lookup test result ordering (#120622) (#120695) Fix https://github.com/elastic/elasticsearch/issues/120600 Fix https://github.com/elastic/elasticsearch/issues/120601 Fix https://github.com/elastic/elasticsearch/issues/120602 Fix https://github.com/elastic/elasticsearch/issues/120603 Fix https://github.com/elastic/elasticsearch/issues/120658 Fix https://github.com/elastic/elasticsearch/issues/120659 While I was at it, I moved the LOOKUP JOINs test cases with multiple right keys next to the test cases with multivalues and nulls in keys to be consistent and make stuff more easy to find. (cherry picked from commit b985b3ead50ad0b14170601b58008066760f12aa) # Conflicts: # muted-tests.yml</MESSAGE>
+      <SHA>819ec9e03a1e50edf0439cff266788584557b29e</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/lookup-join.csv-spec</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

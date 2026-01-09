@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>10383</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/10383</ISSUEURL>
+  <TITLE>Unexpected api config requests on logout</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### STEPS TO REPRODUCE - logout using the top-nav dropdown ##### EXPECTED RESULTS no requests are made to the config endpoint on logout ##### ACTUAL RESULTS requests are made to config endpoint, 400 errors</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #10359 from AlanCoding/stop_setting_venv Remove uses of ansible_virtualenv_path Run a job with recent AWX, then inspect: In [2]: Job.objects.order_by('-created').first().custom_virtualenv Out[2]: '/var/lib/awx/venv/ansible' We shouldn't do this. The job was ran after the custom_virtualenv field has become entirely informative / non-functional. It is very arguable whether jobs should keep this field. For pre-migration jobs, it is an accurate record of fact, so I'm not going out of my way to argue for removal. With this change, new jobs will record a blank value for custom_virtualenv, which is more correct, because we don't do this. I have carefully looked over @rebeccahhh's #10090, and I don't see any way that ansible_virtualenv_path is used. Model use is reported for templates, so that doesn't block removing the field on jobs either. Reviewed-by: Alan Rominger &lt;arominge@redhat.com&gt; Reviewed-by: Rebeccah Hunter &lt;rhunter@redhat.com&gt; Reviewed-by: Bill Nottingham &lt;None&gt; Reviewed-by: Shane McDonald &lt;me@shanemcd.com&gt;</MESSAGE>
+    <SHA>7c442f3f50801c5b088fa17b976e617f0240dd48</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #10379 from jakemcdermott/fix-logout-reload2 Avoid reload on manual logout SUMMARY #10383 Instead of reloading, set the authRedirectTo context variable to &quot;/logout&quot; and handle it as a special case when routing Reviewed-by: Marliana Lara &lt;marliana.lara@gmail.com&gt;</MESSAGE>
+      <SHA>6d433cc42ae8f7afa5d5da8444732442ac895c56</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/App.jsx</FILE>
+        <FILE>awx/ui_next/src/contexts/Session.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

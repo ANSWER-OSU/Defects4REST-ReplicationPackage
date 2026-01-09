@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17322</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/17322</ISSUEURL>
+  <TITLE>[Bug]: markdown-preprocess not multi-core safe with make</TITLE>
+  <DESCRIPTION>### Issue Description When building `podman` with a lot of cores, like `make -j64`, it seems the markdown preprocessor is racey and doesn't like this. The build will fail with ``` hack/markdown-preprocess hack/markdown-preprocess hack/markdown-preprocess hack/markdown-preprocess hack/markdown-preprocess hack/markdown-preprocess hack/markdown-preprocess hack/markdown-preprocess Traceback (most recent call last): File &quot;/build/podman/src/podman/hack/markdown-preprocess&quot;, line 184, in &lt;module&gt; Traceback (most recent call last): File &quot;/build/podman/src/podman/hack/markdown-preprocess&quot;, line 184, in &lt;module&gt; main() File &quot;/build/podman/src/podman/hack/markdown-preprocess&quot;, line 181, in main preprocessor.rewrite_optionfiles() File &quot;/build/podman/src/podman/hack/markdown-preprocess&quot;, line 84, in rewrite_optionfiles main() File &quot;/build/podman/src/podman/hack/markdown-preprocess&quot;, line 178, in main if not filecmp.cmp(optionfile, tmpfile): File &quot;/usr/lib/python3.10/filecmp.py&quot;, line 53, in cmp s1 = _sig(os.stat(f1)) FileNotFoundError: [Errno 2] No such file or directory: 'options/latest.md' preprocessor.process(infile) File &quot;/build/podman/src/podman/hack/markdown-preprocess&quot;, line 48, in process self.insert_file(fh_out, optionfile) File &quot;/build/podman/src/podman/hack/markdown-preprocess&quot;, line 100, in insert_file with open(path, 'r', encoding='utf-8') as fh_included: FileNotFoundError: [Errno 2] No such file or directory: 'options/latest.md' Traceback (most recent call last): File &quot;/build/podman/src/podman/hack/markdown-preprocess&quot;, line 184, in &lt;module&gt; main() File &quot;/build/podman/src/podman/hack/markdown-preprocess&quot;, line 181, in main preprocessor.rewrite_optionfiles() File &quot;/build/podman/src/podman/hack/markdown-preprocess&quot;, line 84, in rewrite_optionfiles if not filecmp.cmp(optionfile, tmpfile): File &quot;/usr/lib/python3.10/filecmp.py&quot;, line 54, in cmp s2 = _sig(os.stat(f2)) FileNotFoundError: [Errno 2] No such file or directory: 'options/memory.md.tmp' make: *** [Makefile:463: docs/source/markdown/podman-container-inspect.1.md] Error 1 make: *** Waiting for unfinished jobs.... make: *** [Makefile:463: docs/source/markdown/podman-diff.1.md] Error 1 make: *** [Makefile:463: docs/source/markdown/podman-auto-update.1.md] Error 1 make: Leaving directory '/build/podman/src/podman' ``` While forcing `-j1` seems to work fine. ``` hack/markdown-preprocess if [ ! -x &quot;/usr/bin/go-md2man&quot; ]; then \ make -C test/tools build/go-md2man ; \ fi mkdir -p docs/build/man make: Leaving directory '/build/podman/src/podman' make: Entering directory '/build/podman/src/podman' if [ ! -x &quot;/usr/bin/go-md2man&quot; ]; then \ make -C test/tools build/go-md2man ; \ fi mkdir -p docs/build/man (cd docs; ./dckrman.sh ./build/man/*.1) ``` I think it's related to this commit as this did not happen with `4.3.0`. https://github.com/containers/podman/commit/c9c2f644dac42243189473c41baa7995202043df ### Steps to reproduce the issue Steps to reproduce the issue 1. `make -j64` ### Describe the results you received Failing build. ### Describe the results you expected A working build. ### podman info output ```shell podman v4.4.0 ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details Additional environment details ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #17304 from mupuf/podman_4.4_regression Do not mount /dev/tty into rootless containers</MESSAGE>
+    <SHA>68bbdc283f43b6e950883ff69c0215bbabb77746</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>make hack/markdown-preprocess parallel-safe One of the tmpfiles was not uniquely named, resulting in conflicts with parallel 'make docs'. Fix that. A better solution would be to run only one instance of the preprocess script, but the Makefile incantation for that is beyond me. This approach is CPU-wasteful but good enough. Fixes: #17322 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>bd8937c5049771a60c40206fadda44316f1514ad</SHA>
+      <PATCHEDFILES>
+        <FILE>hack/markdown-preprocess</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>make hack/markdown-preprocess parallel-safe One of the tmpfiles was not uniquely named, resulting in conflicts with parallel 'make docs'. Fix that. A better solution would be to run only one instance of the preprocess script, but the Makefile incantation for that is beyond me. This approach is CPU-wasteful but good enough. Fixes: #17322 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>c2971a66a097f7b23f3fb582ab624b6a1f00b41e</SHA>
+      <PATCHEDFILES>
+        <FILE>hack/markdown-preprocess</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>61</ISSUENO>
+  <ISSUEURL>https://github.com/WP-API/WP-API/issues/61</ISSUEURL>
+  <TITLE>Possibility to filter Content-Type (and other headers)</TITLE>
+  <DESCRIPTION>We're using [jQuery File Upload](https://github.com/blueimp/jQuery-File-Upload) with iframe-transport to upload files to a custom API endpoint. Due to IE:s lack of support for application/json responses to an `&lt;iframe&gt;`, we need this endpoint to return `Content-Type: text/plain` whenever application/json isn't accepted. Would it be possible to add a filter to `WP_JSON_Server::serve_request()` (or wherever you se fit) so plugins can modify the response headers? As a workaround, we've added this code at the top of `serve_request()`: ``` header( 'Vary: Accept' ); if ( isset( $_SERVER['HTTP_ACCEPT'] ) &amp;&amp; ( strpos( $_SERVER['HTTP_ACCEPT'], 'application/json' ) !== false ) ) { $this-&gt;header( 'Content-Type', 'application/json; charset=' . get_option( 'blog_charset' ), true ); } else { $this-&gt;header( 'Content-Type', 'text/plain; charset=' . get_option( 'blog_charset' ), true ); } ```</DESCRIPTION>
+  <REPONAME>WP-API</REPONAME>
+  <TIMEDIFFERENCEDAYS>120</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #134 from rachelbaker/docs-updates Corrected parameter names in x-form examples in docs.</MESSAGE>
+    <SHA>38cea0080dc13401dbd3d32e10cc749f44ad1d29</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #139 from WP-API/add-serve-request-arg Pass WP_JSON_Server instance to json_serve_request. Fixes #61.</MESSAGE>
+      <SHA>303987756fe6762fb606c829c1f05eb0ba146e5d</SHA>
+      <PATCHEDFILES>
+        <FILE>lib/class-wp-json-server.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

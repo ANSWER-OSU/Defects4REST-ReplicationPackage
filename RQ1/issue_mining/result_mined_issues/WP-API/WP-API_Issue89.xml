@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>89</ISSUENO>
+  <ISSUEURL>https://github.com/WP-API/WP-API/issues/89</ISSUEURL>
+  <TITLE>DateTime::createFromFormat expecting DateTimeZone as third parameter.</TITLE>
+  <DESCRIPTION>Posting this cURL command to my WP install: curl --data-binary &quot;@updated-post.json&quot; \ -H &quot;Content-Type: application/javascript&quot; \ --user admin:PASSWORD \ http://local.test.dev/wp-json.php/posts I am getting the following error: DateTime::createFromFormat() expects parameter 3 to be DateTimeZone, string given in class-wp-json-datetime.php.</DESCRIPTION>
+  <REPONAME>WP-API</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>WP_JSON_CustomPostType __construct() requires a param of type WP_JSON_ResponseHandler. This needs to be documented. It's not clear how to write getPost, editPost, getPosts, and newPost methods mentioned in the MyPlugin_API_MyType class: I added a sentence explaining where you could start with these.</MESSAGE>
+    <SHA>c0dc49e8d1c06c214189431e2237866c578c1287</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Only supply third param to DateTime::createFromFormat if the third param is a DateTimeZone object (closes #89)</MESSAGE>
+      <SHA>4f60cd6e1f86f193d4e5ad2c80cbf024749e57e6</SHA>
+      <PATCHEDFILES>
+        <FILE>lib/class-wp-json-datetime.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

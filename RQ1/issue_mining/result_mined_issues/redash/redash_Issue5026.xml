@@ -1,0 +1,105 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5026</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/5026</ISSUEURL>
+  <TITLE>Stacked bar chart with manually set Y-axis min is cut on top</TITLE>
+  <DESCRIPTION>### Steps to Reproduce 1. Create a stacked bar chart with few series 2. Go to Series tab and set some min value for Left Y Axis 3. The chart is cut on top (on a screenshot there is a quite large value for `s3` series (green one)) ![image](https://user-images.githubusercontent.com/12139186/86448578-9cc4cb00-bd1f-11ea-9f35-cc9879bc6bde.png) Any other info e.g. Why do you consider this to be a bug? What did you expect to happen instead? When max not set for Y-axis, it should auto-adjust to ensure that all data are visible. ### Technical details: * Redash Version: master * Browser/OS: Chrome 83, FF 78 * How did you install Redash: Docker, hosted Redash</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Refactor: extract commonly used pattern into hook (#5022)</MESSAGE>
+    <SHA>74f206614f8f7a28baab9b5dc5893a5c6a1b74b8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>getredash/redash#5026 Fix wrong Y-axis range for stacked bar chart</MESSAGE>
+      <SHA>ce0c095cbb0487d788d96fdedcf69ff039194224</SHA>
+      <PATCHEDFILES>
+        <FILE>viz-lib/src/visualizations/chart/plotly/prepareLayout.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/updateData.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/updateLayout.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/utils.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix wrong Y-axis range for stacked bar chart (#5029) * getredash/redash#5026 Fix wrong Y-axis range for stacked bar chart * Update tests * Use Plotly's built-in algorinthm to compute Y-axis range * Update tests * Revert previous solution (yRange-related code) * Revert other unrelated changes * Revert other unrelated changes * Move chart rendering to own file and ensure that rendering steps will occur in necessary order * Reduce amount of plot updates by mergin separate updates into a sigle cumulative update * Give better names for several functions</MESSAGE>
+      <SHA>a1255b41442da27b8bff70f70018265b7a2a1540</SHA>
+      <PATCHEDFILES>
+        <FILE>viz-lib/src/visualizations/chart/Renderer/PlotlyChart.jsx</FILE>
+        <FILE>viz-lib/src/visualizations/chart/Renderer/initChart.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/box-single-axis.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/box-with-second-axis.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/default-single-axis.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/default-with-second-axis.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/default-with-stacking.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/default-without-legend.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/index.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/prepareLayout.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/updateChartSize.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/updateLayout.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/updateYRanges.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/utils.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix wrong Y-axis range for stacked bar chart (#5029) * getredash/redash#5026 Fix wrong Y-axis range for stacked bar chart * Update tests * Use Plotly's built-in algorinthm to compute Y-axis range * Update tests * Revert previous solution (yRange-related code) * Revert other unrelated changes * Revert other unrelated changes * Move chart rendering to own file and ensure that rendering steps will occur in necessary order * Reduce amount of plot updates by mergin separate updates into a sigle cumulative update * Give better names for several functions</MESSAGE>
+      <SHA>e992f8cbc2dfc8b17ed7bd06d42bb0837b56563d</SHA>
+      <PATCHEDFILES>
+        <FILE>viz-lib/src/visualizations/chart/Renderer/PlotlyChart.jsx</FILE>
+        <FILE>viz-lib/src/visualizations/chart/Renderer/initChart.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/box-single-axis.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/box-with-second-axis.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/default-single-axis.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/default-with-second-axis.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/default-with-stacking.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/default-without-legend.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/index.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/prepareLayout.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/updateChartSize.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/updateLayout.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/updateYRanges.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/utils.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix wrong Y-axis range for stacked bar chart (#5029) (#1012) * getredash/redash#5026 Fix wrong Y-axis range for stacked bar chart * Update tests * Use Plotly's built-in algorinthm to compute Y-axis range * Update tests * Revert previous solution (yRange-related code) * Revert other unrelated changes * Revert other unrelated changes * Move chart rendering to own file and ensure that rendering steps will occur in necessary order * Reduce amount of plot updates by mergin separate updates into a sigle cumulative update * Give better names for several functions Co-authored-by: Levko Kravets &lt;levko.ne@gmail.com&gt;</MESSAGE>
+      <SHA>963ee5f5c06cb2135bd83041244b343865fd7db6</SHA>
+      <PATCHEDFILES>
+        <FILE>viz-lib/src/visualizations/chart/Renderer/PlotlyChart.jsx</FILE>
+        <FILE>viz-lib/src/visualizations/chart/Renderer/initChart.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/box-single-axis.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/box-with-second-axis.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/default-single-axis.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/default-with-second-axis.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/default-with-stacking.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/default-without-legend.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/index.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/prepareLayout.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/updateChartSize.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/updateLayout.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/updateYRanges.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/utils.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix wrong Y-axis range for stacked bar chart (#5029) * getredash/redash#5026 Fix wrong Y-axis range for stacked bar chart * Update tests * Use Plotly's built-in algorinthm to compute Y-axis range * Update tests * Revert previous solution (yRange-related code) * Revert other unrelated changes * Revert other unrelated changes * Move chart rendering to own file and ensure that rendering steps will occur in necessary order * Reduce amount of plot updates by mergin separate updates into a sigle cumulative update * Give better names for several functions</MESSAGE>
+      <SHA>be4f66acaf2a13b7e81092a65486ada27eb82951</SHA>
+      <PATCHEDFILES>
+        <FILE>viz-lib/src/visualizations/chart/Renderer/PlotlyChart.jsx</FILE>
+        <FILE>viz-lib/src/visualizations/chart/Renderer/initChart.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/box-single-axis.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/box-with-second-axis.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/default-single-axis.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/default-with-second-axis.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/default-with-stacking.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/fixtures/prepareLayout/default-without-legend.json</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/index.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/prepareLayout.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/updateChartSize.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/updateLayout.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/updateYRanges.js</FILE>
+        <FILE>viz-lib/src/visualizations/chart/plotly/utils.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

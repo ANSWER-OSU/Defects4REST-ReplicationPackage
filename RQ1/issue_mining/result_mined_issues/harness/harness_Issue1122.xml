@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1122</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/1122</ISSUEURL>
+  <TITLE>How about add volume &quot;/var/run/docker.sock:/var/run/docker.sock&quot; to the runner container</TITLE>
+  <DESCRIPTION>Hi there, I'm looking at master HEAD and see that `docker` publish plugin does support to build &amp; publish docker image for project. Two required options are: - docker_host - image From a end-user point of view, I think it's good if `docker_host` is optional because as a end-user, I'm not interested in where my image will to be built, should I? As I think, the drone CI/CD service should provides all equipment I want, rather than bring my own docker host to it. So to make user life easier, I think it's good if we make `docker_host` optional, by default, we'll use the default docker socket(`/var/run/docker.sock`) to build user docker image. To do that, drone must mounts `docker.sock` to runner container, in addition, is it doable to add another option to .drone.yml which let user specify what volumes mounted to runner container? Something like below: ``` docker: - /host/dir:/container/dir:RO - /host/dir2:/container/dir2 ``` How do you think?</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix width in a couple of places when screen is small + clean up unused code (#1181)</MESSAGE>
+    <SHA>47f4070b3c1bde367b3cb1ff72fff8432a1f253d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Update default branch on empty repo for first commit (#1122)</MESSAGE>
+      <SHA>b64f4c41fa18f77bafb12225afbdda4983c0fce9</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/controller/githook/client.go</FILE>
+        <FILE>app/api/controller/githook/controller.go</FILE>
+        <FILE>app/api/controller/githook/post_receive.go</FILE>
+        <FILE>app/api/controller/githook/wire.go</FILE>
+        <FILE>app/api/controller/pullreq/controller.go</FILE>
+        <FILE>app/api/controller/pullreq/locks.go</FILE>
+        <FILE>app/api/controller/pullreq/merge.go</FILE>
+        <FILE>app/api/controller/pullreq/wire.go</FILE>
+        <FILE>app/api/controller/repo/controller.go</FILE>
+        <FILE>app/api/controller/repo/create.go</FILE>
+        <FILE>app/api/controller/repo/default_branch.go</FILE>
+        <FILE>app/api/controller/repo/wire.go</FILE>
+        <FILE>app/api/usererror/usererror.go</FILE>
+        <FILE>app/events/repo/events_repo.go</FILE>
+        <FILE>app/githook/wire.go</FILE>
+        <FILE>app/services/keywordsearch/handler_branch.go</FILE>
+        <FILE>app/services/keywordsearch/service.go</FILE>
+        <FILE>app/services/keywordsearch/wire.go</FILE>
+        <FILE>app/services/locker/locker.go</FILE>
+        <FILE>app/services/locker/pullreq.go</FILE>
+        <FILE>app/services/locker/repo.go</FILE>
+        <FILE>app/services/locker/wire.go</FILE>
+        <FILE>app/services/repo/handlers_default_branch.go</FILE>
+        <FILE>app/services/repo/reposize.go</FILE>
+        <FILE>app/services/repo/service.go</FILE>
+        <FILE>app/services/repo/wire.go</FILE>
+        <FILE>app/services/wire.go</FILE>
+        <FILE>app/store/database/migrate/postgres/0048_alter_table_repo_add_isempty.down.sql</FILE>
+        <FILE>app/store/database/migrate/postgres/0048_alter_table_repo_add_isempty.up.sql</FILE>
+        <FILE>app/store/database/migrate/sqlite/0048_alter_table_repo_add_isempty.down.sql</FILE>
+        <FILE>app/store/database/migrate/sqlite/0048_alter_table_repo_add_isempty.up.sql</FILE>
+        <FILE>app/store/database/repo.go</FILE>
+        <FILE>cmd/gitness/wire.go</FILE>
+        <FILE>cmd/gitness/wire_gen.go</FILE>
+        <FILE>types/repo.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

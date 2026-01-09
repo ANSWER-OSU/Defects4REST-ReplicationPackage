@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1109</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/1109</ISSUEURL>
+  <TITLE>Mixed view_only in multiple data_source_groups blocks query executions</TITLE>
+  <DESCRIPTION>A user belonging to multiple groups that have access to one data source but with different access levels can not execute queries on that data source. For example, if a user belongs to built-in `default` group and you have set `view_only` for all data sources in this group to true, adding this user to a new group to allow full access to one of the data sources will not work. This is caused by `group_level` definition in `def has_access()` in [permissions.py](https://github.com/getredash/redash/blob/master/redash/permissions.py): ``` required_level = 1 if need_view_only else 2 group_level = 1 if any(flatten([object_groups[group] for group in matching_groups])) else 2 return required_level &lt;= group_level ```</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Remove potnetially concurrency not safe code form enqueue_query. This might have been causing the behavior described in #1097.</MESSAGE>
+    <SHA>7159f0beb048eb5ba472dcf194fc93cf733c32b7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #1109: mixed group permissions resulting in wrong permission</MESSAGE>
+      <SHA>0c7f0c25a816e5755704e6b651e5569b050da40f</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/permissions.py</FILE>
+        <FILE>tests/test_permissions.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #1110 from getredash/fix-1097 Fix #1109: mixed group permissions resulting in wrong permission</MESSAGE>
+      <SHA>4ec473cf5e497ac981eb509813596ddb7f4d9c15</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/permissions.py</FILE>
+        <FILE>tests/test_permissions.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #1109: mixed group permissions resulting in wrong permission</MESSAGE>
+      <SHA>13d6df18d32b41fa114ac12f9c992edcaf89839f</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/permissions.py</FILE>
+        <FILE>tests/test_permissions.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #1110 from getredash/fix-1097 Fix #1109: mixed group permissions resulting in wrong permission</MESSAGE>
+      <SHA>0d85dd68d3e400129ad2484dd07cb7150ca7b69e</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/permissions.py</FILE>
+        <FILE>tests/test_permissions.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #1109: mixed group permissions resulting in wrong permission</MESSAGE>
+      <SHA>21204c668479726dfa99f1fe2964aeba744e3625</SHA>
+      <PATCHEDFILES>
+        <FILE>permissions.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

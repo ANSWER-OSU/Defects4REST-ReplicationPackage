@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6218</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6218</ISSUEURL>
+  <TITLE>tower_notifications forces to set username and password for email/irc notifications</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY When using `tower_notification` modules in my ansible playbooks, to create notification of `kind` - `email` or `irc`, it forces you to pass `username:''` and `password:''` for `email` and `password:''` for `irc`. This is inconsistent with what UI needs you to add. ##### ENVIRONMENT * Tower version: 3.6.2 *AWX install method: linux using bundle * Ansible version: 2.9.1 on Tower, 2.9.2 on my local system from where I run the playbook * Operating System: not relevant I believe * Web Browser: N/A ##### STEPS TO REPRODUCE use following code to create a notifiction in Ansible tower using `tower_notification` ansible core module: ``` tower_notifications: - name: irc-satqe-chat-notification description: Notify us on job in IRC! organization: Default notification_type: irc nickname: Ansible-Tower-Stage-Bot-01 port: 6667 server: irc.com targets: - 'kkulkarni' password: '' # this is required even if there's no password - name: Email notification description: Send out emails for tower jobs organization: Default notification_type: email host: smtp.redhat.com recipients: - kk@example.com sender: admin@example.com port: 25 username: '' # this is required even if there's no username password: '' # this is required even if there's no password state: present ``` ##### EXPECTED RESULTS No need to pass username/password to the module, making it optional. ##### ACTUAL RESULTS Module fails as it thinks username and password are required. ##### ADDITIONAL INFORMATION Do not have any atm. but can provide if needed.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>46</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #6224 from ansible/fix-awxkit-field-removals-4.3 Fix awxkit field removals [backport 4.3]</MESSAGE>
+    <SHA>824025b3637741243d43fd61de2129180f849039</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #6218 from mabashian/sub-detail-str [4.3] Fix subscription detail string bug</MESSAGE>
+      <SHA>2770b3e2a1df61b4e18d1475f73b053e5bee2c55</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui/src/locales/en/messages.po</FILE>
+        <FILE>awx/ui/src/locales/es/messages.po</FILE>
+        <FILE>awx/ui/src/locales/fr/messages.po</FILE>
+        <FILE>awx/ui/src/locales/ja/messages.po</FILE>
+        <FILE>awx/ui/src/locales/ko/messages.po</FILE>
+        <FILE>awx/ui/src/locales/nl/messages.po</FILE>
+        <FILE>awx/ui/src/locales/zh/messages.po</FILE>
+        <FILE>awx/ui/src/locales/zu/messages.po</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

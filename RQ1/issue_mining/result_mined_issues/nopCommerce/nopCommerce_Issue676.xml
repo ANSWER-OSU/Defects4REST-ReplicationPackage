@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>676</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/676</ISSUEURL>
+  <TITLE>Using localization for client side (one-page checkout)</TITLE>
+  <DESCRIPTION>Most of the code that's there on client side includes hard coded messages in English language. For localization purposes, they should be moved to a separate javascript object through a view and then that object should be used inside scripts. That I believe is a nice way to avoid hardcoding any English literals in the script files. For example in public.onepagecheckout.js on line 333 we see something like this ``` validate: function () { var methods = document.getElementsByName('paymentmethod'); if (methods.length == 0) { alert('Your order cannot be completed at this time as there is no payment methods available for it.'); return false; } ``` This can easily be replaced by ``` validate: function () { var methods = document.getElementsByName('paymentmethod'); if (methods.length == 0) { alert(localized_data.NoPaymentMethodsError); return false; } ``` Source: http://www.nopcommerce.com/boards/t/35522/using-localization-for-client-side.aspx See also: https://www.nopcommerce.com/boards/t/68056/english-only-text-no-localization-possible.aspx</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1329</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#196 Updated some NuGet packages to the latest version</MESSAGE>
+    <SHA>fb5f1576e5f9addd315cfaaa3799a4b4780e71c0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#676 Using localization for client side (one-page checkout, AjaxCart, mainMenu)</MESSAGE>
+      <SHA>6b25e4381ed52a8490c392672af39309e6f25f50</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Checkout/OnePageCheckout.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/Components/TopMenu/Default.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/_Root.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/wwwroot/js/public.ajaxcart.js</FILE>
+        <FILE>src/Presentation/Nop.Web/wwwroot/js/public.menu.js</FILE>
+        <FILE>src/Presentation/Nop.Web/wwwroot/js/public.onepagecheckout.js</FILE>
+        <FILE>upgradescripts/4.20-4.30 (under development)/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

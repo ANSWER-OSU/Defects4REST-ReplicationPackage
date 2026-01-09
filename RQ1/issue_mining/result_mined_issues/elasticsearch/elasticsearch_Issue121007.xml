@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121007</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121007</ISSUEURL>
+  <TITLE>[CI] RestEsqlIT testOutOfRangeComparisons {ASYNC} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6045 / oraclelinux-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/wgm3s3qb3ulmw) - [elasticsearch-periodic-platform-support #6045 / rocky-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/7akychtwht5im) - [elasticsearch-periodic-platform-support #6045 / amazonlinux-2_platform-support-aws](https://gradle-enterprise.elastic.co/s/w7n3vd7pl5kpg) - [elasticsearch-periodic-platform-support #6045 / windows-2022_checkpart3_platform-support-windows](https://gradle-enterprise.elastic.co/s/5f5vlxz52cfoo) - [elasticsearch-periodic #6056 / openjdk23_checkpart3_java-matrix](https://gradle-enterprise.elastic.co/s/ekcp474iylgxq) - [elasticsearch-pull-request #53192 / part-3](https://gradle-enterprise.elastic.co/s/gylhknerjz2pu) - [elasticsearch-intake #16522 / part3](https://gradle-enterprise.elastic.co/s/oqwew5ogruure) - [elasticsearch-intake #16521 / part3](https://gradle-enterprise.elastic.co/s/x4kafozx6zgqu) - [elasticsearch-pull-request #53218 / part-3](https://gradle-enterprise.elastic.co/s/zhouqkc7vvzeo) - [elasticsearch-pull-request #53202 / part-3](https://gradle-enterprise.elastic.co/s/63rqpc34yeu6s) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:multi-node:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.qa.multi_node.RestEsqlIT.testOutOfRangeComparisons {ASYNC}&quot; -Dtests.seed=9727FCA186E97D63 -Dtests.locale=pa-Guru-IN -Dtests.timezone=Pacific/Pitcairn -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.multi_node.RestEsqlIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testOutOfRangeComparisons%20%7BASYNC%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.client.ResponseException: method [GET], host [http://[::1]:34113], URI [/_query/async/FjRMTHMtblRlUmp5aXdlS2lWVjZ6cmcbelFNckYtcEZRN0dpMWliMC05ODlKUToyODQ5?wait_for_completion_timeout=60s&amp;pretty=true&amp;error_trace=true], status line [HTTP/1.1 502 Bad Gateway] ¿eerror¿jroot_cause¿dtypexnode_not_connected_exceptionfreasonx;[test-cluster-1][127.0.0.1:35217] connection already closedkstack_tracexsorg.elasticsearch.transport.NodeNotConnectedException: [test-cluster-1][127.0.0.1:35217] connection already closed ÿÿdtypexnode_not_connected_exceptionfreasonx;[test-cluster-1][127.0.0.1:35217] connection already closedkstack_tracexsorg.elasticsearch.transport.NodeNotConnectedException: [test-cluster-1][127.0.0.1:35217] connection already closed ÿfstatusöÿ ``` **Issue Reasons:** - [8.x] 3 consecutive failures in test testOutOfRangeComparisons {ASYNC} - [8.x] 2 consecutive failures in step opensuse-leap-15_platform-support-unix - [8.x] 29 failures in test testOutOfRangeComparisons {ASYNC} (18.6% fail rate in 156 executions) - [8.x] 8 failures in step part-3 (16.3% fail rate in 49 executions) - [8.x] 10 failures in step part3 (40.0% fail rate in 25 executions) - [8.x] 2 failures in step opensuse-leap-15_platform-support-unix (66.7% fail rate in 3 executions) - [8.x] 3 failures in pipeline elasticsearch-periodic-platform-support (75.0% fail rate in 4 executions) - [8.x] 8 failures in pipeline elasticsearch-pull-request (17.8% fail rate in 45 executions) - [8.x] 10 failures in pipeline elasticsearch-intake (40.0% fail rate in 25 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix pattern tests in release builds (#120879) (#120991) (cherry picked from commit 974c4e6242e92854982b0d96181ee72ed6a70edf)</MESSAGE>
+    <SHA>e085841ec6d86ca0c3f3b36e46f2c76c74216c46</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.multi_node.RestEsqlIT testOutOfRangeComparisons {ASYNC} #121007</MESSAGE>
+      <SHA>e2d005f693e5934f9404e83851999817d1130ec0</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Relax translog assertion for inference fields (#121092) The inference fields are synthesized from doc_values, regardless of whether the synthetic source is enabled. This change relaxes the translog assertions, allowing inference fields in the same way as we did with the synthetic source. Relates #120045 Closes #120979 Closes #121007 Closes #120980 Closes #120975</MESSAGE>
+      <SHA>3f7b3ab47169ffc078872dcab0efffaec8382e0b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/engine/TranslogDirectoryReader.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/engine/TranslogOperationAsserter.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23798</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23798</ISSUEURL>
+  <TITLE>pull EXTEND_TIMEOUT_USEC: dial unixgram $NOTIFY_SOCKET: connect: ENOENT</TITLE>
+  <DESCRIPTION>Failure in the USEC test: ``` [+0401s] not ok 200 [260] podman pull - EXTEND_TIMEOUT_USEC in 1058ms ... # &lt;+ &gt; # # podman --storage-driver vfs --root /tmp/CI_Wbi1/bats-run-9BZCtY/suite/podman-bats-registry/root --runroot /tmp/CI_Wbi1/bats-run-9BZCtY/suite/podman-bats-registry/runroot --tmpdir /tmp/CI_Wbi1/bats-run-9BZCtY/suite/podman-bats-registry/tmpdir network reload --all &lt;+213ms&gt; # 326a26406461fb291f701bac8691416115b1c2983cfc4c056ef06d7697a914f3 # &lt;+019ms&gt; # # podman push --tls-verify=false --creds userqhud:pw3uManIPnWDSnDBy quay.io/libpod/testimage:20240123 localhost:42915/name:tag &lt;+122ms&gt; # Getting image source signatures # Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef # Copying blob sha256:25a964f60e84b2d24f8098376c985a5c057bea74d699ee50c93e417c26516cc3 # Copying config sha256:1f6acd4c4a1d4d39395870e1c12dbb68da27dd432afecf86e7cb6e23cf4b75d0 # Writing manifest to image destination # &lt;+011ms&gt; # # podman pull --tls-verify=false --creds userqhud:pw3uManIPnWDSnDBy localhost:42915/name:tag &lt;+050ms&gt; # Trying to pull localhost:42915/name:tag... # Error: dial unixgram /tmp/CI_Wbi1/podman_bats.dM0zjZ/notify.sock: connect: no such file or directory &lt;+005ms&gt; # [ rc=125 (** EXPECTED 0 **) ] ``` Happening only in #23275, but this is NOT A PARALLEL TEST. The failure is happening in pass 1, the serial tests, which run before parallel tests. This is almost certainly my problem to deal with. I'm just filing because all these flakes are getting hard to track. * debian-13 : sys podman debian-13 root host sqlite * PR #23275 * [08-28 09:23](https://api.cirrus-ci.com/v1/artifact/task/6013042503188480/html/sys-podman-debian-13-root-host-sqlite.log.html#t--00200) in [sys] [260] podman pull - EXTEND_TIMEOUT_USEC * [08-26 09:26](https://api.cirrus-ci.com/v1/artifact/task/6181125477892096/html/sys-podman-debian-13-root-host-sqlite.log.html#t--00200) in [sys] [260] podman pull - EXTEND_TIMEOUT_USEC * [08-22 08:08](https://api.cirrus-ci.com/v1/artifact/task/5271340641419264/html/sys-podman-debian-13-root-host-sqlite.log.html#t--00240) in [sys] [260] podman pull - EXTEND_TIMEOUT_USEC * [08-20 21:58](https://api.cirrus-ci.com/v1/artifact/task/5509423630647296/html/sys-podman-debian-13-root-host-sqlite.log.html#t--00240) in [sys] [260] podman pull - EXTEND_TIMEOUT_USEC * [08-14 15:45](https://api.cirrus-ci.com/v1/artifact/task/4678865774182400/html/sys-podman-debian-13-root-host-sqlite.log.html#t--00281) in [sys] [260] podman pull - EXTEND_TIMEOUT_USEC * fedora-39 : sys podman fedora-39 root host boltdb * PR #23275 * [08-27 10:10](https://api.cirrus-ci.com/v1/artifact/task/4990078399807488/html/sys-podman-fedora-39-root-host-boltdb.log.html#t--00200) in [sys] [260] podman pull - EXTEND_TIMEOUT_USEC | x | x | x | x | x | x | | ---: | ---: | ---: | ---: | ---: | ---: | | sys(6) | podman(6) | debian-13(5) | root(6) | host(6) | sqlite(5) | | | | fedora-39(1) | | | boltdb(1) |</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>34</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #24116 from containers/renovate/golang.org-x-exp-digest fix(deps): update golang.org/x/exp digest to 701f63a</MESSAGE>
+    <SHA>13b78c9da944e8dcaad9f99a6621ab4dcc3ede88</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>System tests: sdnotify: wait for socket file creation Potential race between starting socat (which creates a socket file) and processes accessing said socket. Or maybe not. I dunno, I'm grasping at straws. This is an elusive flake. Fixes: #23798 (I hope) Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>410537808e65cada29d9688cc75b8d63c7f8d026</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/260-sdnotify.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

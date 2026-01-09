@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20896</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/20896</ISSUEURL>
+  <TITLE>apiv2 tests: 27-containersEvents: GET events...remove: flake</TITLE>
+  <DESCRIPTION>No idea what this means or what the test is supposed to do. Looks like response is two lines of results instead of 1. ``` [+0112s] not ok 736 [27-containersEvents] GET events?stream=false&amp;since=1701424989&amp;type=remove : select(.status| contains(&quot;remove&quot;)).Action # expected: remove # actual: remove remove not ok 737 [27-containersEvents] GET events?stream=false&amp;since=1701424989&amp;type=remove : select(.status | contains(&quot;remove&quot;)).Actor.Attributes.containerExitCode # expected: 1 # actual: 3 1 ``` * fedora-39 : APIv2 test on fedora-39 (root) * PR #20831 * [11-29 10:03](https://api.cirrus-ci.com/v1/task/5729632910049280/logs/main.log#t--00753) in [APIv2] [27-containersEvents] GET events?stream=false&amp;since=1701270009&amp;type=remove : select(.status| contains(&quot;remove&quot;)).Action * [11-29 10:03](https://api.cirrus-ci.com/v1/task/5729632910049280/logs/main.log#t--00754) in [APIv2] [27-containersEvents] GET events?stream=false&amp;since=1701270009&amp;type=remove : select(.status | contains(&quot;remove&quot;)).Actor.Attributes.containerExitCode * fedora-39 : APIv2 test on fedora-39 (rootless) * PR #20894 * [12-04 10:10](https://api.cirrus-ci.com/v1/task/4575677588963328/logs/main.log#t--00747) in [APIv2] [27-containersEvents] GET events?stream=false&amp;since=1701702523&amp;type=remove : select(.status| contains(&quot;remove&quot;)).Action * [12-04 10:10](https://api.cirrus-ci.com/v1/task/4575677588963328/logs/main.log#t--00748) in [APIv2] [27-containersEvents] GET events?stream=false&amp;since=1701702523&amp;type=remove : select(.status | contains(&quot;remove&quot;)).Actor.Attributes.containerExitCode * PR #20887 * [12-03 03:56](https://api.cirrus-ci.com/v1/task/6037843034767360/logs/main.log#t--00747) in [APIv2] [27-containersEvents] GET events?stream=false&amp;since=1701593726&amp;type=remove : select(.status| contains(&quot;remove&quot;)).Action * [12-03 03:56](https://api.cirrus-ci.com/v1/task/6037843034767360/logs/main.log#t--00748) in [APIv2] [27-containersEvents] GET events?stream=false&amp;since=1701593726&amp;type=remove : select(.status | contains(&quot;remove&quot;)).Actor.Attributes.containerExitCode * PR #20864 * [12-01 05:04](https://api.cirrus-ci.com/v1/task/5030483638091776/logs/main.log#t--00736) in [APIv2] [27-containersEvents] GET events?stream=false&amp;since=1701424989&amp;type=remove : select(.status| contains(&quot;remove&quot;)).Action * [12-01 05:04](https://api.cirrus-ci.com/v1/task/5030483638091776/logs/main.log#t--00737) in [APIv2] [27-containersEvents] GET events?stream=false&amp;since=1701424989&amp;type=remove : select(.status | contains(&quot;remove&quot;)).Actor.Attributes.containerExitCode * PR #20837 * [11-29 11:51](https://api.cirrus-ci.com/v1/task/5413075835158528/logs/main.log#t--00736) in [APIv2] [27-containersEvents] GET events?stream=false&amp;since=1701276602&amp;type=remove : select(.status| contains(&quot;remove&quot;)).Action * [11-29 11:51](https://api.cirrus-ci.com/v1/task/5413075835158528/logs/main.log#t--00737) in [APIv2] [27-containersEvents] GET events?stream=false&amp;since=1701276602&amp;type=remove : select(.status | contains(&quot;remove&quot;)).Actor.Attributes.containerExitCode Seen in: APIv2(10) test(10) on(10) fedora-39(10) (root)(2)+(rootless)(8)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19518 from arixmkii/qemu_win_settings_qemu64 Change default QEMU CPU level to `qemu64` on Windows amd64</MESSAGE>
+    <SHA>cbb3e4d20f42079fb4b2cfd827f7c4dbf259d4f8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>apiv2 tests: fix race Test flaking because (I think) one-second resolution isn't good enough for --since. Use NS resolution. Also, more test-name cleanup: strip off timestamps in 'since='. This yields consistent test names in logs, which makes it easier for me to categorize flakes. Fixes: #20896 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>7f4b0f20877ca5c1d372e12775d5c204785bf272</SHA>
+      <PATCHEDFILES>
+        <FILE>test/apiv2/27-containersEvents.at</FILE>
+        <FILE>test/apiv2/test-apiv2</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

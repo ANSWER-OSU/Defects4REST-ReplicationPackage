@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2259</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2259</ISSUEURL>
+  <TITLE>Missing &quot;VOLUME /var/lib/drone&quot; in the Docker image</TITLE>
+  <DESCRIPTION>The drone database driver is `sqlite3` by default in the `drone/drone` docker image, and the database file will be stored at `/var/lib/drone/drone.sqlite` as `DATABASE_CONFIG` say. ```dockerfile ENV DATABASE_DRIVER=sqlite3 ENV DATABASE_CONFIG=/var/lib/drone/drone.sqlite ENV GODEBUG=netdns=go ENV XDG_CACHE_HOME /var/lib/drone ``` However, the directory is not available by default, that will lead to database creation failure during the container boot up if not further `-v` instructions is given. Here is a example setup without `volumes`: ```yaml version: '2' services: drone-server: image: drone/drone:0.7 ports: - 80:8000 restart: always environment: - DRONE_OPEN=true - DRONE_HOST=${DRONE_HOST} - DRONE_GOGS=true - DRONE_GOGS_URL=${DRONE_GOGS_URL} - DRONE_SECRET=${DRONE_SECRET} drone-agent: image: drone/drone:0.7 command: agent restart: always depends_on: - drone-server volumes: - /var/run/docker.sock:/var/run/docker.sock environment: - DRONE_SERVER=ws://drone-server:8000/ws/broker - DRONE_SECRET=${DRONE_SECRET} ``` And the error for `drone-server` will be something like this: ```bash drone-server_1 | time=&quot;2017-11-07T13:14:22Z&quot; level=error msg=&quot;unable to open database file&quot; drone-server_1 | time=&quot;2017-11-07T13:14:22Z&quot; level=fatal msg=&quot;database ping attempts failed&quot; ``` To avoid such error, an anonymous volume can be setup at `/var/lib/drone` in the `Dockerfile`. ```Dockerfile VOLUME [ &quot;/var/lib/drone&quot; ] ``` Actually, there was a `VOLUME` instruction before, however it's been removed somehow.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Create BUILDING [CI SKIP]</MESSAGE>
+    <SHA>0c972d8fc5960c7c9d3d9f8b9538b27c74dbef2d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add &quot;VOLUME /var/lib/drone&quot; to Dockerfile Fix #2259 Signed-off-by: Tao Wang &lt;twang2218@gmail.com&gt;</MESSAGE>
+      <SHA>ce411f553c5959783a8429df593fa037b6f39e1b</SHA>
+      <PATCHEDFILES>
+        <FILE>Dockerfile</FILE>
+        <FILE>Dockerfile.alpine</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat: [CDE-182]: Fixing clone check. (#2259) * feat: [CDE-182]: Fixing clone check.</MESSAGE>
+      <SHA>bed2659e037fce56db7910fcb505589b2f095637</SHA>
+      <PATCHEDFILES>
+        <FILE>app/gitspace/orchestrator/container/template/clone_git.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

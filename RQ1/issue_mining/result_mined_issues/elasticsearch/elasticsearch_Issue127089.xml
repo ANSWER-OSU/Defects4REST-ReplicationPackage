@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127089</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/127089</ISSUEURL>
+  <TITLE>[CI] AddStringKeyStoreCommandTests testStdinInputWithCarriageReturn failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7798 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/7v4gsourm75uu) - [elasticsearch-periodic-platform-support #7792 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/jek6jxo2dnjag) - [elasticsearch-periodic-platform-support #7780 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/yhwpwokeh3hay) - [elasticsearch-periodic-platform-support #7774 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/3etsn4awjq7co) - [elasticsearch-periodic-platform-support #7768 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/xwpofnwjggjly) - [elasticsearch-periodic-platform-support #7762 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/xavkttt3j7nyc) - [elasticsearch-periodic-platform-support #7756 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/v5lukcohtglkk) - [elasticsearch-periodic-platform-support #7750 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/egtjugi2a5j3g) **Reproduction Line:** ``` gradlew &quot;:distribution:tools:keystore-cli:test&quot; --tests &quot;org.elasticsearch.cli.keystore.AddStringKeyStoreCommandTests.testStdinInputWithCarriageReturn&quot; -Dtests.seed=B3841538AEE5F8A9 -Dtests.locale=sd-Arab -Dtests.timezone=Turkey -Druntime.java=24 ``` **Applicable branches:** 9.0 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.cli.keystore.AddStringKeyStoreCommandTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testStdinInputWithCarriageReturn),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.junit.ComparisonFailure: expected:&lt;Typedthisandhitenter[]&gt; but was:&lt;Typedthisandhitenter[ ]&gt; ``` **Issue Reasons:** - [9.0] 8 consecutive failures in step windows-2022_checkpart1_platform-support-windows - [9.0] 8 failures in test testStdinInputWithCarriageReturn (3.8% fail rate in 209 executions) - [9.0] 8 failures in step windows-2022_checkpart1_platform-support-windows (100.0% fail rate in 8 executions) - [9.0] 8 failures in pipeline elasticsearch-periodic-platform-support (88.9% fail rate in 9 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Support depthOffset in MD docs headings for nesting functions (#126984) While this change appears subtle at this point, I am using this in a later PR that adds a lot more spatial functions, where nesting them in related groups like this looks much better. The main impact of this is that the On this page navigator on the right panel of the docs will show the nesting Co-authored-by: Liam Thompson &lt;32779855+leemthompo@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>f6a05c6a7c15deaa583b2054175f81cfa8dca7ac</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Use explicit newline with keystore stdin test The add string keystore command accepts input on stdin. In this case, the terminal is responsible for separating input by newlines that are system dependent. The mock terminal normally adds the system dependent newline. However, we also have tests that ensure both unix and windows style newlines are tested explicitly. This commit fixes the windows style carriage returns to explicitly contain a newline. closes #127089</MESSAGE>
+      <SHA>111fc30c6d7bfd4db308dd38f568cfc5fc2c6ab4</SHA>
+      <PATCHEDFILES>
+        <FILE>distribution/tools/keystore-cli/src/test/java/org/elasticsearch/cli/keystore/AddStringKeyStoreCommandTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Use explicit newline with keystore stdin test (#127094) The add string keystore command accepts input on stdin. In this case, the terminal is responsible for separating input by newlines that are system dependent. The mock terminal normally adds the system dependent newline. However, we also have tests that ensure both unix and windows style newlines are tested explicitly. This commit fixes the windows style carriage returns to explicitly contain a newline. closes #127089</MESSAGE>
+      <SHA>e64e08abd09829f23046278987a332a7eadc468d</SHA>
+      <PATCHEDFILES>
+        <FILE>distribution/tools/keystore-cli/src/test/java/org/elasticsearch/cli/keystore/AddStringKeyStoreCommandTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Use explicit newline with keystore stdin test (#127094) The add string keystore command accepts input on stdin. In this case, the terminal is responsible for separating input by newlines that are system dependent. The mock terminal normally adds the system dependent newline. However, we also have tests that ensure both unix and windows style newlines are tested explicitly. This commit fixes the windows style carriage returns to explicitly contain a newline. closes #127089</MESSAGE>
+      <SHA>e9a36b6664b1cf0ab92ebae04fec7fe188ba7cdf</SHA>
+      <PATCHEDFILES>
+        <FILE>distribution/tools/keystore-cli/src/test/java/org/elasticsearch/cli/keystore/AddStringKeyStoreCommandTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Use explicit newline with keystore stdin test (#127094) The add string keystore command accepts input on stdin. In this case, the terminal is responsible for separating input by newlines that are system dependent. The mock terminal normally adds the system dependent newline. However, we also have tests that ensure both unix and windows style newlines are tested explicitly. This commit fixes the windows style carriage returns to explicitly contain a newline. closes #127089</MESSAGE>
+      <SHA>2522a349b800cc0c026c4f80c6431e6e40bce836</SHA>
+      <PATCHEDFILES>
+        <FILE>distribution/tools/keystore-cli/src/test/java/org/elasticsearch/cli/keystore/AddStringKeyStoreCommandTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Use explicit newline with keystore stdin test (#127094) The add string keystore command accepts input on stdin. In this case, the terminal is responsible for separating input by newlines that are system dependent. The mock terminal normally adds the system dependent newline. However, we also have tests that ensure both unix and windows style newlines are tested explicitly. This commit fixes the windows style carriage returns to explicitly contain a newline. closes #127089</MESSAGE>
+      <SHA>3495b4e4fe76622b237c540e8ea31928d5342354</SHA>
+      <PATCHEDFILES>
+        <FILE>distribution/tools/keystore-cli/src/test/java/org/elasticsearch/cli/keystore/AddStringKeyStoreCommandTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Use explicit newline with keystore stdin test (#127094) (#127130) The add string keystore command accepts input on stdin. In this case, the terminal is responsible for separating input by newlines that are system dependent. The mock terminal normally adds the system dependent newline. However, we also have tests that ensure both unix and windows style newlines are tested explicitly. This commit fixes the windows style carriage returns to explicitly contain a newline. closes #127089</MESSAGE>
+      <SHA>d92625e142534137a6c9627162ec9be5c38a3627</SHA>
+      <PATCHEDFILES>
+        <FILE>distribution/tools/keystore-cli/src/test/java/org/elasticsearch/cli/keystore/AddStringKeyStoreCommandTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Use explicit newline with keystore stdin test (#127094) (#127129) The add string keystore command accepts input on stdin. In this case, the terminal is responsible for separating input by newlines that are system dependent. The mock terminal normally adds the system dependent newline. However, we also have tests that ensure both unix and windows style newlines are tested explicitly. This commit fixes the windows style carriage returns to explicitly contain a newline. closes #127089</MESSAGE>
+      <SHA>028065711cb45d354db78156a7889cd9b23bf071</SHA>
+      <PATCHEDFILES>
+        <FILE>distribution/tools/keystore-cli/src/test/java/org/elasticsearch/cli/keystore/AddStringKeyStoreCommandTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Use explicit newline with keystore stdin test (#127094) (#127128) The add string keystore command accepts input on stdin. In this case, the terminal is responsible for separating input by newlines that are system dependent. The mock terminal normally adds the system dependent newline. However, we also have tests that ensure both unix and windows style newlines are tested explicitly. This commit fixes the windows style carriage returns to explicitly contain a newline. closes #127089</MESSAGE>
+      <SHA>e79d033f1fde507079fe3c38aa2ec0eeff969f57</SHA>
+      <PATCHEDFILES>
+        <FILE>distribution/tools/keystore-cli/src/test/java/org/elasticsearch/cli/keystore/AddStringKeyStoreCommandTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

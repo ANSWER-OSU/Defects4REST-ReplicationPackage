@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6328</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6328</ISSUEURL>
+  <TITLE>Roles not downloaded during project sync</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Role download setting on the system not honoured when running project sync ##### SUMMARY When the &quot;Enable role download&quot; setting is enabled in the settings page of the Ansible AWX server, the project import process skips checking for requirements.yml and downloading of roles. ##### ENVIRONMENT * AWX version: 9.0.1 * AWX install method: Docker on Linux * Ansible version: 2.8.5 * Operating System: RHEL7 * Web Browser: Chome ##### STEPS TO REPRODUCE 1. Launch Ansible AWX infrastructure using the inventory and install.yml scripts on GitHub. 2. Ensure &quot;Enable role download&quot; setting 2. Import a project which contains a roles/requirements.yml file. 3. Start a sync. 4. Sync will skip the requirements.yml file and downloading of roles ##### EXPECTED RESULTS I expect the project update process to check for requirements.yml and download roles accordingly. ##### ACTUAL RESULTS The detection of a requirements.yml file was skipped ##### ADDITIONAL INFORMATION This starts to work by commenting out the when clause &quot;when: roles_enabled|bool&quot; in project_updates.yml</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #6324 from gamuniz/avoid_reaper_race [4.3] [Backport] Fix race with heartbeat and reaper logic (#13713)</MESSAGE>
+    <SHA>2f8b27231125c23b849da3af2d928d07bb851b84</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #6328 from TheRealHaoLiu/cherrypick-4.3-13749 [4.3][backport] Allow TLS 1.2 for Receptor connections</MESSAGE>
+      <SHA>172f69129334b4718323f633fb16699d0462acb0</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/templates/instance_install_bundle/group_vars/all.yml</FILE>
+        <FILE>awx/main/tasks/receptor.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

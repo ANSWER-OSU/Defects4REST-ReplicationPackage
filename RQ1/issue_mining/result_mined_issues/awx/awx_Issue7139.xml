@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7139</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/7139</ISSUEURL>
+  <TITLE>SumoLogic external logging in Ansible Tower 3.7 does not work</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY SumoLogic collector is typically URL with token in base64 format ending with two equal signs `==`. When this is saved in Tower, the incorrect URL will be stored in `/var/lib/awx/rsyslog/rsyslog.conf` where it automatically replaces those signs with `%3D%3D`. Underlying curl used by `rsyslogd` will further try to encode it and ends up with `%253D%253D`. ##### ENVIRONMENT * AWX version: Red Hat Tower `3.7.0` * AWX install method: https://releases.ansible.com/ansible-tower/setup-bundle/ansible-tower-setup-bundle-3.7.0-4.tar.gz * Ansible version: Red Hat Ansible `2.9.7` * Operating System on the server: Red Hat Enterprise Linux release 8.2 (Ootpa) * Web Browser: Chrome `80.0.3987.122` (Official Build) (64-bit) on Red Hat Enterprise Linux release 8.0 (Ootpa) ##### STEPS TO REPRODUCE 1. `https://&lt;TOWER&gt;/#/settings/system` - LOGGING 2. Logging aggregator type: `sumologic` 3. Logging aggregator: `https://&lt;REDACTED&gt;.sumologic.com/receiver/v1/http/&lt;LONG TOKEN&gt;==` ##### EXPECTED RESULTS Integration with SumoLogic works. Logs will appear in the SumoLogic collector. ##### ACTUAL RESULTS Integration with SumoLogic does not work due to incorrect parsing of the URL where external logs will be sent to. Logs do not appear in the SumoLogic collector. ##### ADDITIONAL INFORMATION `cat /var/lib/awx/rsyslog/rsyslog.conf` ``` $DebugFile &lt;REDACTED&gt; $DebugLevel 2 $WorkDirectory /var/lib/awx/rsyslog $MaxMessageSize 700000 $IncludeConfig /var/lib/awx/rsyslog/conf.d/*.conf main_queue(queue.spoolDirectory=&quot;/var/lib/awx&quot; queue.maxdiskspace=&quot;1g&quot; queue.type=&quot;Disk&quot; queue.filename=&quot;awx-external-logger-backlog&quot;) module(load=&quot;imuxsock&quot; SysSock.Use=&quot;off&quot;) input(type=&quot;imuxsock&quot; Socket=&quot;/var/run/awx-rsyslog/rsyslog.sock&quot; unlink=&quot;on&quot;) template(name=&quot;awx&quot; type=&quot;string&quot; string=&quot;%rawmsg-after-pri%&quot;) module(load=&quot;omhttp&quot;) action(type=&quot;omhttp&quot; server=&quot;&lt;REDACTED&gt;.sumologic.com&quot; serverport=&quot;443&quot; usehttps=&quot;on&quot; allowunsignedcerts=&quot;off&quot; skipverifyhost=&quot;off&quot; action.resumeRetryCount=&quot;-1&quot; template=&quot;awx&quot; errorfile=&quot;/var/log/tower/rsyslog.err&quot; action.resumeInterval=&quot;5&quot; restpath=&quot;receiver/v1/http/&lt;LONG TOKEN&gt;%3D%3D&quot;) ``` When the correct URL is hardcoded into the above file, the collection works.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #7149 from beeankha/fix_collection_routing Update meta/routing.yml (to meta/runtime.yml) for AWX Collection Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>f4dfbcdf182842e761007139d94ad1ff06b273a2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>add a changelog note for the sumologic token fix see: https://github.com/ansible/awx/issues/7139</MESSAGE>
+      <SHA>49dfb5dcafa98cb8414e684f95448846dbe5599e</SHA>
+      <PATCHEDFILES>
+        <FILE>CHANGELOG.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

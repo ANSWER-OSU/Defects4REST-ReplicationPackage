@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>506</ISSUENO>
+  <ISSUEURL>https://github.com/louislam/uptime-kuma/issues/506</ISSUEURL>
+  <TITLE>Heartbeat Retry Interval time (seconds) not working</TITLE>
+  <DESCRIPTION>**Is it a duplicate question?** No. **Describe the bug** I noticed this issue since 1.7.0, but I was unsure it was a configuration error from my side or a bug... The setting Heartbeat Retry Interval time in seconds is not working. Screenshot settings: ![uk_scr1](https://user-images.githubusercontent.com/8298741/135231959-99276ec2-bffe-4ce3-aa25-7faf7de34552.png) When a service goes down, it should retry 3 times every 60 seconds before it sends a notification the service is down. **Screencapture**: https://user-images.githubusercontent.com/8298741/135232370-e0cd2714-80dc-4c39-beb8-39badebf913e.mp4 As you can see in this screencapture, all three (3) Heartbeat Retries are send within one (1) minute and the service is marked as down. **Expected behavior** Retries: 3 Heartbeat Retry Interval: 60 Send 3 heartbeats every 60 seconds before the service is marked as down and a notification is sent. **Info** Uptime Kuma Version: 1.7.0. Using Docker?: Yes OS: Ubuntu 21.04 Browser: Chrome</DESCRIPTION>
+  <REPONAME>uptime-kuma</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>update to 1.7.1</MESSAGE>
+    <SHA>3677aa639f6c2cf27956b6ccc26f5eefeeb66531</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix retry interval affected bug</MESSAGE>
+      <SHA>3e4154dfb57815b78b0f0baeb7713f5dbe887627</SHA>
+      <PATCHEDFILES>
+        <FILE>server/model/monitor.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

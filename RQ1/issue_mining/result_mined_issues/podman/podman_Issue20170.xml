@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20170</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/20170</ISSUEURL>
+  <TITLE>pasta: timeout again (rawhide)</TITLE>
+  <DESCRIPTION>Resurrecting #17598. Pasta test timing out again. Seen in [rawhide](https://api.cirrus-ci.com/v1/task/6154698462330880/logs/main.log#t--00557) with `passt-0^20230908.g05627dc-1.fc40-x86_64`: ``` [+1596s] ok 556 podman networking with pasta(1) - TCP/IPv4 small transfer, loopback [+1726s] not ok 557 podman networking with pasta(1) - TCP/IPv4 large transfer, tap # (from function `die' in file test/system/helpers.bash, line 747, # from function `run_podman' in file test/system/helpers.bash, line 384, # from function `pasta_test_do' in file test/system/505-networking-pasta.bats, line 248, # in test file test/system/505-networking-pasta.bats, line 700) # `pasta_test_do' failed # # [20:56:52.117914919] $ /var/tmp/go/src/github.com/containers/podman/bin/podman rm -t 0 --all --force --ignore # [20:56:52.226806205] 42b6b5a167b84848f4b09d240ee31f69736ad905a0761bf4b53a4539b2879ceb # # [20:56:52.238402603] $ /var/tmp/go/src/github.com/containers/podman/bin/podman ps --all --external --format {{.ID}} {{.Names}} # # [20:56:52.314645311] $ /var/tmp/go/src/github.com/containers/podman/bin/podman images --all --format {{.Repository}}:{{.Tag}} {{.ID}} # [20:56:52.386168270] quay.io/libpod/testimage:20221018 f5a99120db64 # 1+0 records in # 1+0 records out # 10485760 bytes (10 MB, 10 MiB) copied, 0.0408792 s, 257 MB/s # # [20:56:52.693255830] $ /var/tmp/go/src/github.com/containers/podman/bin/podman run --net=pasta -p [10.128.0.120]:5294:5294/tcp quay.io/libpod/testimage:20221018 sh -c for port in $(seq 5294 5294); do socat -u TCP4-LISTEN:${port},bind=[10.128.0.120] EXEC:md5sum &amp; done; wait # [20:59:02.709781235] timeout: sending signal TERM to command ?/var/tmp/go/src/github.com/containers/podman/bin/podman? # timeout: sending signal KILL to command ?/var/tmp/go/src/github.com/containers/podman/bin/podman? # [20:59:02.716663367] [ rc=137 (** EXPECTED 0 **) ] ``` This is f40 rawhide, not f39; and it is an in-progress PR. Podman is not yet testing f40 rawhide, so we are unlikely to see this flake often... until that PR merges.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>98</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #20181 from containers/renovate/common-image-and-storage-deps fix(deps): update github.com/containers/common digest to 9342cdd</MESSAGE>
+    <SHA>87dd939334c903748b3f370600efccb0904c0e89</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>CI VMs: bump to f39 + f38 ...from f38 + f37. Requires one minor e2e test change, to handle an error logging change in conmon 2.1.8. Also, this is important, requires crun-1.9.1 because of a kernel symlink change; see https://github.com/containers/crun/pull/1309 The VM images here were carefully built to include that. By the time the next VM images get built, it should be default. Since we've bumped crun, remove two obsolete skips And, skip a flaky pasta test, #20170 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>2b9c0555f4514bb37d2148fc41e6e9b37f885a91</SHA>
+      <PATCHEDFILES>
+        <FILE>.cirrus.yml</FILE>
+        <FILE>test/e2e/logs_test.go</FILE>
+        <FILE>test/e2e/stats_test.go</FILE>
+        <FILE>test/system/505-networking-pasta.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

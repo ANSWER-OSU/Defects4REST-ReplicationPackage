@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>33793</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/33793</ISSUEURL>
+  <TITLE>Expose URLs of privacy policy and TOS via API</TITLE>
+  <DESCRIPTION>### Pitch Allow 3rd party clients to get the URLs of an instance’s privacy policy, terms of service (if defined), and (maybe?) About page. The `configuration.urls` object in `/api/v2/instance` seems like a reasonable place to put this since it already contains the URL of the instance’s status page. Something like: ```json &quot;configuration&quot;: { &quot;urls&quot;: { &quot;streaming&quot;: &quot;wss://streaming.mastodon.social&quot;, &quot;status&quot;: &quot;https://status.mastodon.social&quot;, &quot;about&quot;: &quot;https://mastodon.social/about&quot;, &quot;privacy_policy&quot;: &quot;https://mastodon.social/privacy-policy&quot;, &quot;tos&quot;: &quot;https://mastodon.social/terms&quot; } … ``` That would allow clients to link to these pages or present them in a web view. The ability to actually get the content via an API endpoint (like we already can for the About page using `api/v1/instance/extended_description`) might also be nice, but isn’t as necessary. ### Motivation Especially for clients that offer account creation, the client must be able to present the instance's privacy policy and terms of service (if present) to the user. Currently, I don’t believe there is a way for the client to obtain these URLs other than hard-coding the relative paths, which will break if they ever change, and requires clients to maintain a list of up-to-date paths for every Mastodon-API-compatible server software.</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>33</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Combine examples to reduce factories in specs (#33841)</MESSAGE>
+    <SHA>23a0d91126bef102dd3cdb8108e8aeccffb156c4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add `about`, `privacy_policy` and `terms_of_service` URLS to `/api/v2/instance` Fixes #33793</MESSAGE>
+      <SHA>833bcac9e852139391acdb138c8df7f417369ef2</SHA>
+      <PATCHEDFILES>
+        <FILE>app/serializers/rest/instance_serializer.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

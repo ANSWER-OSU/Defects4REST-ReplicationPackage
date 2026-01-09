@@ -1,0 +1,86 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2072</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2072</ISSUEURL>
+  <TITLE>Minify HTML (configurable)</TITLE>
+  <DESCRIPTION>It's related to https://github.com/nopSolutions/nopCommerce/issues/1457 According to tests &quot;Minify HTML&quot; (https://developers.google.com/speed/docs/insights/MinifyResources) for the following resources to reduce their size by 877B (13% reduction). Let's add a setting indicating whether HTMl is minified. By default it should be disabled For example, https://github.com/Taritsyn/WebMarkupMin. Also see https://www.nopcommerce.com/boards/t/49120/nopcommerce-400-beta-released-please-share-your-impressions.aspx?p=9#195316 and https://github.com/Taritsyn/WebMarkupMin/blob/master/samples/WebMarkupMin.Sample.AspNetCore2.Mvc2/Startup.cs But maybe, it's better to use some third-party services (e.g. IIS compression or plugins, cloudflare)</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>772</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Upgrade script for the previous commit, which removes the phrase &quot;comma separated&quot; from the field names</MESSAGE>
+    <SHA>8bd31f524e2eaad2fbbb7dec54fa65e5b6bcaab8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2072 Added &quot;WebMarkupMin&quot; to reduce size of HTML, XHTML and XML code.</MESSAGE>
+      <SHA>e5a3be06aad37a1a3a76a96b3a80877250148c35</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Common/CommonSettings.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Installation/CodeFirstInstallationService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ApplicationBuilderExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ServiceCollectionExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/NopCommonStartup.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/NopMvcStartup.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Nop.Web.Framework.csproj</FILE>
+        <FILE>src/Presentation/Nop.Web/appsettings.json</FILE>
+        <FILE>upgradescripts/4.10-4.20 (under development)/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#2072 Further changes on HTML mnification (installation didn't work)</MESSAGE>
+      <SHA>e05554a1f576d0103b2c16935ad1544827d07ae7</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ApplicationBuilderExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ServiceCollectionExtensions.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#2072 The &quot;MinificationEnabled&quot; setting is renamed to &quot;EnableHtmlMinification&quot; and displayed on the UI</MESSAGE>
+      <SHA>7a8a0430956d982cc287e7850ea2ba45f2fe7cdd</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Common/CommonSettings.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Installation/CodeFirstInstallationService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ServiceCollectionExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/SettingController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/SettingModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Settings/GeneralCommonSettingsModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Settings/MinificationSettingsModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Setting/_GeneralCommon.SEO.cshtml</FILE>
+        <FILE>upgradescripts/4.10-4.20 (under development)/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#2072 The settings &quot;EnableJsBundling&quot; and &quot;EnableCssBundling&quot; are transferred from &quot;seosettings&quot; also to &quot;commonsettings&quot;</MESSAGE>
+      <SHA>98683d9dca5b067edbbf95a8073ef4fb1ca9e987</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Common/CommonSettings.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Domain/Seo/SeoSettings.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Installation/CodeFirstInstallationService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/UI/PageHeadBuilder.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Install/Fast/create_required_data.sql</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/SettingController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/SettingModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Settings/MinificationSettingsModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Settings/SeoSettingsModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Setting/_GeneralCommon.SEO.cshtml</FILE>
+        <FILE>upgradescripts/4.10-4.20 (under development)/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#2072 Further change minification settings</MESSAGE>
+      <SHA>d50a4c9c6e0bfbb468ba00d0214e8915b65e2412</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/SettingController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/SettingModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Settings/MinificationSettingsModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Settings/StoreInformationSettingsModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Setting/GeneralCommon.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Setting/_GeneralCommon.Minification.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Setting/_GeneralCommon.SEO.cshtml</FILE>
+        <FILE>upgradescripts/4.10-4.20 (under development)/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

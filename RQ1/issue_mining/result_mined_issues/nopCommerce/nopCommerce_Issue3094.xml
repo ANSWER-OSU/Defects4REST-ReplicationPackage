@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3094</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3094</ISSUEURL>
+  <TITLE>[suggestion]ClearPluginAssemblies project remove misleading argument &quot;Paths&quot;</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.01 In this program we have Paths, and PluginPath and it's misleading, and they are actually same thing : path(s) of plugin, ```c# case &quot;Paths&quot;: paths = value; break;k; case &quot;PluginPath&quot;: basePluginPath = value; ``` combine two variable: ```c# if (!string.IsNullOrEmpty(basePluginPath)) { paths = basePluginPath; } Clear(paths, fileNames, saveLocalesFolders); ``` Steps to reproduce the problem: I think we can just use one variable called pluginPaths, and in ClearPluginAssemblies.proj, we can remove remove PluginsFolders, don't need to pass this variable always, and add PluginsFolders in Nop.Web.csproj to clear bin files for all plugins ```xml &lt;OutputPath&gt;$(MSBuildProjectDirectory)\..\Presentation\Nop.Web\bin\$(Configuration)&lt;/OutputPath&gt; &lt;NopWebPath&gt;$(MSBuildProjectDirectory)\..\Presentation\Nop.Web&lt;/NopWebPath&gt; &lt;!-- Get plugin description files to get plugin paths --&gt; &lt;PluginsDescription Include=&quot;$(NopWebPath)\Plugins\**\plugin.json;&quot; /&gt; &lt;!-- Get paths for all plugins --&gt; &lt;PluginsFolders Include=&quot;@(PluginsDescription-&gt;'%(relativedir)')&quot; /&gt; ``` change ```xml &lt;Exec Command='dotnet &quot;$(MSBuildProjectDirectory)/ClearPluginAssemblies.dll&quot; &quot;OutputPath=$(OutputPath)|Paths=@(PluginsFolders)|PluginPath=$(PluginPath)|SaveLocalesFolders=$(SaveLocalesFolders)&quot;' /&gt; ``` to ```xml &lt;Exec Command='dotnet &quot;$(MSBuildProjectDirectory)/ClearPluginAssemblies.dll&quot; &quot;OutputPath=$(OutputPath)|PluginPath=$(PluginPath)|SaveLocalesFolders=$(SaveLocalesFolders)&quot;' /&gt; ```</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Remove unnecessary argument in ClearPluginAssemblies project (#3096)</MESSAGE>
+    <SHA>1843b529b4eb5cdd9b187541e134eb9fdd7588bf</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3094 Fixed some code and added library</MESSAGE>
+      <SHA>85a5a1f4ef88ef6115d10dd3feaf3baee6c3f6cc</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Build/ClearPluginAssemblies.dll</FILE>
+        <FILE>src/Build/ClearPluginAssemblies.proj</FILE>
+        <FILE>src/Build/src/ClearPluginAssemblies/Program.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

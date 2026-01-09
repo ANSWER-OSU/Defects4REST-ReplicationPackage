@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1185</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/1185</ISSUEURL>
+  <TITLE>Build broken at master@dbdad86: gogs.go:167: undefined: gogs.ParseHook</TITLE>
+  <DESCRIPTION>See title; `make deps` isn't working from current head of `master`, dbdad86: ``` henrik@ip-10-0-42-21 ~/src $ git clone https://github.com/drone/drone.git henrik@ip-10-0-42-21 ~/src $ cd drone henrik@ip-10-0-42-21 ~/src/drone $ git log --oneline | head -n 1 dbdad86 fix SSL error when wget docker henrik@ip-10-0-42-21 ~/src/drone $ docker build . Sending build context to Docker daemon 18.93 MB Sending build context to Docker daemon Step 0 : FROM google/golang # Executing 1 build triggers Trigger 0, RUN echo &quot;This image is now deprecated. If you are not using Managed VMs, you should use the official Go Docker image located at: https://hub.docker.com/_/golang/&quot; [..] Step 6 : RUN make deps build embed install ---&gt; Running in c12dc240b66a go get github.com/GeertJohan/go.rice/rice go get -t -v ./... code.google.com/p/goauth2 (download) github.com/Bugagazavr/go-gitlab-client (download) [...] github.com/drone/drone/plugin/remote/gogs # github.com/drone/drone/plugin/remote/gogs plugin/remote/gogs/gogs.go:167: undefined: gogs.ParseHook [...] make: *** [deps] Error 2 The command '/bin/sh -c make deps build embed install' returned a non-zero code: 2 ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge remote-tracking branch 'upstream/master'</MESSAGE>
+    <SHA>db9b946328a5bea4e1755b75e22b7bb40b436493</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix build errors due to changes in github.com/gogits/go-gogs-client Change ParseHook -&gt; ParsePushHook (https://github.com/gogits/go-gogs-client/blob/master/repo_hooks.go#L185), PayloadCommit.Id-&gt;ID (https://github.com/gogits/go-gogs-client/blob/master/repo_hooks.go#L88). Tested: `make deps` works after this change Fixes #1185</MESSAGE>
+      <SHA>512bc8b15c435c57c1ab5d677b8ef8d414a17419</SHA>
+      <PATCHEDFILES>
+        <FILE>plugin/remote/gogs/gogs.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix build errors due to changes in github.com/gogits/go-gogs-client Change ParseHook -&gt; ParsePushHook (https://github.com/gogits/go-gogs-client/blob/master/repo_hooks.go#L185), PayloadCommit.Id-&gt;ID (https://github.com/gogits/go-gogs-client/blob/master/repo_hooks.go#L88). Tested: `make deps` works after this change Fixes #1185</MESSAGE>
+      <SHA>f98ac210105fd0ed9eef16f2bbd5a5e2cdfc222d</SHA>
+      <PATCHEDFILES>
+        <FILE>plugin/remote/gogs/gogs.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Handle symlinks and submodules in diffcut (#1185)</MESSAGE>
+      <SHA>ad5989dae4891e91e5364942a511f7379f9c92b6</SHA>
+      <PATCHEDFILES>
+        <FILE>git/api/diff.go</FILE>
+        <FILE>git/parser/diff_cut.go</FILE>
+        <FILE>git/parser/diff_cut_test.go</FILE>
+        <FILE>git/parser/diff_raw.go</FILE>
+        <FILE>git/parser/errors.go</FILE>
+        <FILE>git/parser/hunk.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

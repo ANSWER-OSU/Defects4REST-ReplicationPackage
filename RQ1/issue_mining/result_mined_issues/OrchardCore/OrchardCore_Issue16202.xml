@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16202</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/16202</ISSUEURL>
+  <TITLE>Hard to implement a ContentCulturePicker in Liquid</TITLE>
+  <DESCRIPTION>@sebastienros &gt; ContentCulturePicker.cshtml should resolve the cultures like before, and then invoke a new ContentCulturePickerContainer with this model. The driver can then use the ContentCulturePickerContainer instead, and rendering ContentCulturePicker will work like before. no, it does not in 2.0.0-preview-18222: before, it was possible to override the shape with liquid and get all the required data as part of the Model. I guess the problem is, that `ContentCulturePickerContainer` is not invoked anymore, so you directly need to override `ContentCulturePicker` As the `ContentCulturePicker` does not work with a Model, but creates variables with the required data inside the template itself, there is no way to access this data inside a liquid template, which overrides the template. Am I missing a way to call this in liquid to get the equivalent for `Model.SupportedCultures`? `var supportedCultures = (await LocalizationService.GetSupportedCulturesAsync()).Select(c =&gt; CultureInfo.GetCultureInfo(c));` _Originally posted by @bashuss in https://github.com/OrchardCMS/OrchardCore/issues/15148#issuecomment-2134979300_</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixes building the GraphQL schema. (#16184)</MESSAGE>
+    <SHA>8ef3a02f8a8ff1313f2cfbe5f158fb34f46706f3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add supported_cultures liquid filter Fix #16202</MESSAGE>
+      <SHA>b7619ad7e4072832070b596fea5567dab41e6b9d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.ContentLocalization/Startup.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Filters/SupportedCulturesFilter.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/OrchardCoreBuilderExtensions.cs</FILE>
+        <FILE>src/docs/reference/modules/Liquid/README.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

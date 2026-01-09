@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>21782</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/21782</ISSUEURL>
+  <TITLE>[tracker][low pri] e2e: kube play expose char device: Error descending into path /dev/foodevXXXX: ENOENT</TITLE>
+  <DESCRIPTION>LOW PRIORITY. This is almost certainly a bug in the test itself. Does not merit any attention during the crunch. I just need to track this for myself. Two in the past month: ``` Podman kube play [It] expose character device inside container ... # podman [options] inspect --format {{.HostConfig.Devices}} testPod-testCtr time=&quot;2024-01-17T14:49:07-06:00&quot; level=warning msg=&quot;Error descending into path /dev/foodevdb450935b579: open /dev/foodevdb450935b579: no such file or directory&quot; [{/dev/foodevda7ade5db579/chardevice /dev/foodevda7ade5db579/chardevice }] [FAILED] Unexpected warnings seen on stderr: &quot;.....&quot; ``` * fedora-39 : int podman fedora-39 root host sqlite * [02-21 16:02](https://api.cirrus-ci.com/v1/artifact/task/5920365436731392/html/int-podman-fedora-39-root-host-sqlite.log.html#t--Podman-kube-play-expose-character-device-inside-container--1) * rawhide : int podman rawhide root host sqlite * [01-17-2024 16:12](https://api.cirrus-ci.com/v1/artifact/task/4612826094895104/html/int-podman-rawhide-root-host-sqlite.log.html#t--Podman-kube-play-expose-character-device-inside-container--1) | x | x | x | x | x | x | | ---: | ---: | ---: | ---: | ---: | ---: | | int(2) | podman(2) | rawhide(1) | root(2) | host(2) | sqlite(2) | | | | fedora-39(1) | | | |</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>41</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #22175 from edsantiago/skip_if_no_slirp systests: conditionalize slirp4netns tests</MESSAGE>
+    <SHA>6b9b85e01157c01a3b3962df3b94a23613126722</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>pkg/util: FindDeviceNodes() ignore ENOENT errors This is racy by design, if you walk a tree and the directory was removed between listing and then opening we get an ENOENT error. Simply ignore that case and do not log it. Fixes #21782 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>498445871cd99f56cce2e0b07126781b4ef40faa</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/util/utils_linux.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

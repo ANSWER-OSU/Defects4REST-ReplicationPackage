@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8192</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/8192</ISSUEURL>
+  <TITLE>DSpace startup clutters the log with Velocity deprecation warnings</TITLE>
+  <DESCRIPTION>**Describe the bug** At startup, DSpace logs: 2022-02-28 08:38:10,477 WARN unknown unknown org.apache.velocity.deprecation @ configuration key 'string.resource.loader.class' has been deprecated in favor of 'resource.loader.string.class' 2022-02-28 08:38:10,477 WARN unknown unknown org.apache.velocity.deprecation @ configuration key 'string.resource.loader.description' has been deprecated in favor of 'resource.loader.string.description' 2022-02-28 08:38:10,477 WARN unknown unknown org.apache.velocity.deprecation @ configuration key 'string.resource.loader.repository.name' has been deprecated in favor of 'resource.loader.string.repository.name' 2022-02-28 08:38:10,477 WARN unknown unknown org.apache.velocity.deprecation @ configuration key 'resource.loader' has been deprecated in favor of 'resource.loaders' 2022-02-28 08:38:10,477 WARN unknown unknown org.apache.velocity.deprecation @ configuration key 'string.resource.loader.repository.static' has been deprecated in favor of 'resource.loader.string.repository.static' **To Reproduce** Steps to reproduce the behavior: 1. Start a DSpace process. **Expected behavior** Velocity does not warn about deprecated configuration keys. We should update the configuration to use the current keys. I think that this started when we adopted Velocity v2.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>25</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #3312 from mwoodiupui/DS-4478-7x [DS-4478] Optionally list all values of an array property</MESSAGE>
+    <SHA>5f66bda96e0e78dc66d979df9fe9240ea8cb4fd7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Update deprecated Velocity configuration keys. #8192</MESSAGE>
+      <SHA>488fffce56e5badf51cb1e04bc02586552100b11</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/pom.xml</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/core/Email.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Update to Velocity 2.3. #8192</MESSAGE>
+      <SHA>6f78c0b8ba43184aab1166812b97466777e02def</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/pom.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

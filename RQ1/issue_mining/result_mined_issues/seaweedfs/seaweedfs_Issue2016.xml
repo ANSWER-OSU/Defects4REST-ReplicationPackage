@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2016</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/2016</ISSUEURL>
+  <TITLE>[filer.copy] filer.copy can not copy empty folders</TITLE>
+  <DESCRIPTION>**Describe the bug** filer.copy does not copy empty folder **System Setup** - List the command line to start &quot;weed master&quot;, &quot;weed volume&quot;, &quot;weed filer&quot;, &quot;weed s3&quot;, &quot;weed mount&quot;. ``` # setup master weed master -port=9333 -mdir=/tmp/master0 -ip=localhost # setup volume weed volume -port=8080 -dir=/tmp/volume0 -ip=localhost -mserver=localhost:9333 # setup filer weed filer -port=8888 -ip=localhost -master=localhost:9333 #weed mount weed mount -filer=localhost:8888 -cacheCapacityMB=0 -cacheDir=/tmp/cache001 -dir=/root/swfs/mnt #write some files and folders, and ls root@dev-4:~# mkdir -p /root/swfs/mnt/pfolder root@dev-4:~# mkdir -p /root/swfs/mnt/pfolder/subfolder1 root@dev-4:~# mkdir -p /root/swfs/mnt/pfolder/subfolder2 root@dev-4:~# touch /root/swfs/mnt/pfolder/file root@dev-4:~# touch /root/swfs/mnt/pfolder/subfolder2/file2 root@dev-4:~# ls /root/swfs/mnt/pfolder file subfolder1 subfolder2 # use filer.copy copy folder `pfolder` weed filer.copy /root/swfs/mnt/pfolder/* http://localhost:8888/newfolder/ # ls copied folder root@dev-4:~/swfs/mnt# ls /root/swfs/mnt/newfolder file subfolder2 ``` empty folder `subfolder1` is missing - OS version version 30GB 2.28 37f104f linux amd64 - if using filer, show the content of `filer.toml` default **Expected behavior** `filer.copy` can copy empty folders</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>avoid thundering herd effect transient errors may cause thundering herd effect to all trying to recover from remove ec shards</MESSAGE>
+    <SHA>120aa9ec09677cc02f1a1771ce03c894438bb28b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>filer.copy copy empty folders fix https://github.com/chrislusf/seaweedfs/issues/2016</MESSAGE>
+      <SHA>f6f0c3c78c328f242a66ef4e4f69f7e535c3d689</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/filer_copy.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

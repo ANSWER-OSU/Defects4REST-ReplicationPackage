@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>31159</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/31159</ISSUEURL>
+  <TITLE>TVA Account by country is not used</TITLE>
+  <DESCRIPTION>### Bug When you are in the mode SERVICE_ARE_ECOMMERCE_200238EC activated, you must vetiled TVA on account spécified here : /admin/dict.php?id=10&amp;from=accountancy&amp;search_country_id=1&amp;mainmenu=accountancy&amp;leftmenu=accountancy_admin But it doesn't work and return the seller country account. I think we need to add condition on the **SERVICE_ARE_ECOMMERCE_200238EC** in the **getTaxedFromId** function in core/lib/functions.lib.php line 6597. And use `$buyer-&gt;country_code rather than seller-&gt;country_code` And when this function is called line 227 in accountancy/journal/sellsjournal.php, change : `$vatdata = getTaxesFromId($tax_id, $mysoc, $mysoc, 0); ` by `$vatdata = getTaxesFromId($tax_id, $mysoc, $thirdparty, 0);` we need to create a $thirdparty object just before. In fact if we want to respect UE legacy, we need to use delivery country address linked into the invoice contact and if not, use the thirdparty country. see : https://www.impots.gouv.fr/professionnel/achatvente-de-biens ### Dolibarr Version 19.3 ### Environment PHP _No response_ ### Environment Database _No response_ ### Steps to reproduce the behavior and expected behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>52</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Removed init of context here. Contet must be initialized by parent caller. You already can use 'globalcard' or 'main' for example...</MESSAGE>
+    <SHA>79892e79e5534f2bd45667266078095f97dabae2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix SERVICE_ARE_ECOMMERCE_200238EC #31159 in transfer of sale journal</MESSAGE>
+      <SHA>61e83828696823219c636d756ef1178a60df1699</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/accountancy/journal/sellsjournal.php</FILE>
+        <FILE>htdocs/core/lib/functions.lib.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

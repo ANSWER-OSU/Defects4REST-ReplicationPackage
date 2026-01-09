@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>13320</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/13320</ISSUEURL>
+  <TITLE>[web/task split] Implement a heartbeat daemon from web nodes to trigger wsrelay connections</TITLE>
+  <DESCRIPTION>### Please confirm the following - [X] I agree to follow this project's [code of conduct](https://docs.ansible.com/ansible/latest/community/code_of_conduct.html). - [X] I have checked the [current issues](https://github.com/ansible/awx/issues) for duplicates. - [X] I understand that AWX is open source software provided for free and that I might not receive a timely response. ### Feature type Enhancement to Existing Feature ### Feature Summary At the end of #13319 our websockets infrastructure will look differently than it does now. We will no longer have a `wsbroadcast` daemon that lives in web pods. Instead, we'll have a `wsrelay`, which fans out messages to web servers, which then send them to clients/browsers. ```mermaid graph TD; task[Dispatcher] --&gt;|job event message| wsrelay wsrelay --&gt; w1[web pod 1] wsrelay --&gt; w2[web pod 2] wsrelay -..-&gt;|no user on web pod 3, we stay connected but don't send messages to it| w3[web pod 3] wsrelay --&gt; w4[web pod 4] w1 --&gt; u1[user 1] w2 --&gt; u2[user 2] w2 --&gt; u3[user 3] w4 --&gt; u4[user 4] ``` But how does `wsrelay` know which web nodes are out there? The way we are planning to do this, we will run a new, small service in the web pod which periodically (every *n* seconds) beacons out and advertises the web server's existence. It will do this by sending a message over a `pg_notify` channel. `wsrelay` will (asynchronously) be listening for messages on this `pg_notify` channel, and when it receives a message, it will connect to the web server's relay websocket endpoint, if it needs to. Importantly, nothing happens on the `wsrelay` side, if a beacon is missed. The only time `wsrelay` takes an action on these beacons is when: 1. It hears the beacon 2. The beacon is coming from a node with a hostname different from the hostname this `wsrelay` instance is sitting on (for VM deployments, we don't need `wsrelay` to connect to its own host) 3. The beacon it hears identifies a web server that it wasn't previously connected to. Either a new hostname, or a different IP address for an existing hostname. ### Select the relevant components - [ ] UI - [X] API - [ ] Docs - [ ] Collection - [ ] CLI - [ ] Other ### Steps to reproduce N/A ### Current results In the current system, this hasn't been an issue. Every web node lives in the same pod as a task node, and the task node registers itself as an `Instance` in AWX, so `wsbroadcast` can list out all the `Instance`s in the database and connect to what it needs to connect to. ### Sugested feature result At the end of this work, we will be able to scale web and task nodes independently of each other. When web nodes scale up, existing task nodes (running `wsrelay`) will start hearing their beacons and automatically connect to them. When web nodes scale down, `wsrelay` will notice the disconnect, and gracefully remove the node from its list. This allows for seamless scaling of web and task pods. ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>114</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix merge from devel - wsbroadcast -&gt; wsrelay Signed-off-by: Rick Elrod &lt;rick@elrod.me&gt;</MESSAGE>
+    <SHA>dba157e1db5b268ab82b4f05b55cb9bc3fe06560</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Start of heartbeet daemon Signed-off-by: Rick Elrod &lt;rick@elrod.me&gt;</MESSAGE>
+      <SHA>4228a1fbdf3fa8db54628d17dfa0e85b526f67b6</SHA>
+      <PATCHEDFILES>
+        <FILE>Makefile</FILE>
+        <FILE>awx/main/management/commands/run_heartbeet.py</FILE>
+        <FILE>awx/main/wsrelay.py</FILE>
+        <FILE>awx/settings/defaults.py</FILE>
+        <FILE>tools/ansible/roles/dockerfile/templates/supervisor.conf.j2</FILE>
+        <FILE>tools/docker-compose/supervisor.conf</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

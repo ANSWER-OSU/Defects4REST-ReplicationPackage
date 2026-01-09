@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9404</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/9404</ISSUEURL>
+  <TITLE>search facets openByDefault by configuration</TITLE>
+  <DESCRIPTION>**Is your feature request related to a problem? Please describe.** The sidebar facets are initially not `openByDefault`. ![Screenshot 2024-03-08 at 12-55-36 DSpace Repository Search](https://github.com/DSpace/dspace-angular/assets/33422716/3489e525-3cc8-40bd-973c-2d48833a05ab) There is some Configuration on the filterfacet, e.g. on author which is set to true ` &lt;property name=&quot;isOpenByDefault&quot; value=&quot;true&quot;/&gt;` https://github.com/DSpace/DSpace/blob/eee0bfd2b1ec5995f582b98b92c40b903eed9746/dspace/config/spring/api/discovery.xml#L2567 **Describe the solution you'd like** We would like the sidebar facets to be opened initially by the `openByDefault` parameter. This is currently only exposed to the search filter endpoint, but not on the request to the single facet. ![Screenshot 2024-03-08 at 12-42-07 DSpace Repository Search](https://github.com/DSpace/dspace-angular/assets/33422716/869cc753-b4f9-4dcf-854d-a092d6ba2ea1) **Describe alternatives or workarounds you've considered** - use the opened state from the filters endpoint. This endpoint exposes the `openByDefault` information in some previous request but it seems to be unused or overwritten by the result of the facet endpoint - move the isOpenByDefault property from `DiscoverySearchFilter` to `DiscoverySearchfilterFacet` and adjust the usages (a lot (&gt;100) in discovery.xml - not a real alternative) **Additional context** - I've search the issue board but could not find any matching issue - if it is some duplicate, Pardon - I'm currently unsure at which point any filter will be opened on DSpace by the setting. Maybe it is some legacy from dspace5? It is also not mentioned in the Docs https://wiki.lyrasis.org/display/DSDOC7x/Discovery#Discovery-Searchfilters&amp;sidebarfacetsCustomization but appears in the example configuration - this feature will impact the appearance of most DSpace instances which align to the default discovery configuration beans We can provide some PR adressing this: Shortly summarized: - extend the search facet endpoint https://github.com/DSpace/RestContract/blob/02764cbedc66706ab1747edfc8656039e99e0172/search-endpoint.md?plain=1#L421 - to expose the isOpenByDefault property to the `SearchFacetEntryRest` representation. This property has to be added in the `DiscoverFacetResultsConverter` and `DiscoverFacetConfigurationConverter`. - extend RestContract - possible adjust the autoserialization https://github.com/DSpace/dspace-angular/blob/a9c58a1d5ae4537f0355c78acf37827c1d94abb2/src/app/shared/search/models/search-filter-config.model.ts#L51 , because there seems to be some problem to expose rest objects starting with `is` (= boolean getter)</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>356</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9268 from 4Science/coar-notify-7-part-two Coar Notify Integration - Administer/Log</MESSAGE>
+    <SHA>eee0bfd2b1ec5995f582b98b92c40b903eed9746</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>search filterfacet isOpenByDefault as facetentry property https://github.com/DSpace/DSpace/issues/9404</MESSAGE>
+      <SHA>6b3e62c44fdd968123e9d57eaf829828dbcbf135</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/converter/DiscoverFacetConfigurationConverter.java</FILE>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/converter/DiscoverFacetResultsConverter.java</FILE>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/model/SearchFacetEntryRest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>search filterfacet isOpenByDefault as facetentry property to FacetsConverter https://github.com/DSpace/DSpace/issues/9404</MESSAGE>
+      <SHA>5167563617df8d9cb0ff79f52b03f9d2400618c3</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/converter/DiscoverFacetsConverter.java</FILE>
+        <FILE>dspace-server-webapp/src/test/java/org/dspace/app/rest/matcher/FacetEntryMatcher.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>search filterfacet isOpenByDefault as facetentry property https://github.com/DSpace/DSpace/issues/9404</MESSAGE>
+      <SHA>9e04b9fd41d0da26f8bbb6dd03ce640393cf705d</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/converter/DiscoverFacetConfigurationConverter.java</FILE>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/converter/DiscoverFacetResultsConverter.java</FILE>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/model/SearchFacetEntryRest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>search filterfacet isOpenByDefault as facetentry property to FacetsConverter https://github.com/DSpace/DSpace/issues/9404</MESSAGE>
+      <SHA>ee5d470b2e976893372ef65b21a2bb8f53b6a17a</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/converter/DiscoverFacetsConverter.java</FILE>
+        <FILE>dspace-server-webapp/src/test/java/org/dspace/app/rest/matcher/FacetEntryMatcher.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>search filterfacet isOpenByDefault as facetentry property https://github.com/DSpace/DSpace/issues/9404</MESSAGE>
+      <SHA>7f8bb19e0c33678efbf6ca24b569368be3caa950</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/converter/DiscoverFacetConfigurationConverter.java</FILE>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/converter/DiscoverFacetResultsConverter.java</FILE>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/converter/DiscoverFacetsConverter.java</FILE>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/model/SearchFacetEntryRest.java</FILE>
+        <FILE>dspace-server-webapp/src/test/java/org/dspace/app/rest/matcher/FacetEntryMatcher.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>change search filter isOpenByDefault autoserialization https://github.com/DSpace/DSpace/issues/9404</MESSAGE>
+      <SHA>d61cb33f9a116d1e669d0f5ee6310755e5bd697f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/app/shared/search/models/search-filter-config.model.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

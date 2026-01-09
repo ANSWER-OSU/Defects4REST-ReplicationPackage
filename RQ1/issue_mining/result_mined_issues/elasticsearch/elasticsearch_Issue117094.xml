@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117094</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/117094</ISSUEURL>
+  <TITLE>[CI] CoreFullClusterRestartIT testSearchTimeSeriesMode {cluster=UPGRADED} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #13111 / 8.17.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/peckaungptqgi) - [elasticsearch-intake #13112 / 8.17.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/xgtdkhjotv25u) - [elasticsearch-intake #13111 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/3exji7zgzdwgc) - [elasticsearch-intake #13112 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/xmfyotmnf6iwk) - [elasticsearch-intake #13112 / 8.16.1_bwc-snapshots](https://gradle-enterprise.elastic.co/s/zpztequruk53u) - [elasticsearch-intake #13111 / 8.16.1_bwc-snapshots](https://gradle-enterprise.elastic.co/s/fv3phzyamcjgu) - [elasticsearch-periodic #4944 / 8.0.1_bwc](https://gradle-enterprise.elastic.co/s/2flf62ewrzvx6) - [elasticsearch-pull-request #42094 / 8.0.1_bwc](https://gradle-enterprise.elastic.co/s/4dsscw4p7a3m6) - [elasticsearch-pull-request #42084 / 8.0.1_bwc](https://gradle-enterprise.elastic.co/s/bfelmtyt2veru) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:qa:full-cluster-restart:v8.17.0#bwcTest&quot; -Dtests.class=&quot;org.elasticsearch.xpack.restart.CoreFullClusterRestartIT&quot; -Dtests.method=&quot;testSearchTimeSeriesMode {cluster=UPGRADED}&quot; -Dtests.seed=6A58941FABAEA6D2 -Dtests.bwc=true -Dtests.locale=en-JE -Dtests.timezone=Africa/Niamey -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.restart.CoreFullClusterRestartIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testSearchTimeSeriesMode%20%7Bcluster%3DUPGRADED%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.client.ResponseException: method [GET], host [http://[::1]:45349], URI [/info/_doc/testsearchtimeseriesmode_count?filter_path=_source], status line [HTTP/1.1 404 Not Found] {} ``` **Issue Reasons:** - [main] 2 consecutive failures in test testSearchTimeSeriesMode {cluster=UPGRADED} - [main] 2 consecutive failures in step 8.17.0_bwc-snapshots - [main] 3 consecutive failures in step 8.0.1_bwc - [main] 2 consecutive failures in pipeline elasticsearch-intake - [main] 9 failures in test testSearchTimeSeriesMode {cluster=UPGRADED} (1.3% fail rate in 703 executions) - [main] 2 failures in step 8.17.0_bwc-snapshots (1.5% fail rate in 133 executions) - [main] 2 failures in step 9.0.0_bwc-snapshots (1.6% fail rate in 128 executions) - [main] 2 failures in step 8.16.1_bwc-snapshots (1.4% fail rate in 145 executions) - [main] 3 failures in step 8.0.1_bwc (100.0% fail rate in 3 executions) - [main] 2 failures in pipeline elasticsearch-intake (5.1% fail rate in 39 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (1.6% fail rate in 128 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.restart.CoreFullClusterRestartIT testNewReplicasTimeSeriesMode {cluster=UPGRADED} #117093</MESSAGE>
+    <SHA>8de0d7a9809e0675250ef5824b77f5dc8865bbb3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.restart.CoreFullClusterRestartIT testSearchTimeSeriesMode {cluster=UPGRADED} #117094</MESSAGE>
+      <SHA>8a37692d683a6ea1b11451bfe987bfe1aa7a89c9</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.restart.CoreFullClusterRestartIT testSearchTimeSeriesMode {cluster=UPGRADED} #117094</MESSAGE>
+      <SHA>e64c48db198cb5a97f8abaa6c069d4c0ba5f3a4a</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.restart.CoreFullClusterRestartIT testSearchTimeSeriesMode {cluster=UPGRADED} #117094</MESSAGE>
+      <SHA>2694c1bde65bbdd4bf223b5ed979b134aa140903</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

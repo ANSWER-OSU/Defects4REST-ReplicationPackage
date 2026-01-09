@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8732</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/8732</ISSUEURL>
+  <TITLE>Default filter always applies in Register DOI via Item status page in UI</TITLE>
+  <DESCRIPTION>**Describe the bug** It was my understanding that the functionality of registering doi via the item status page should always bypass any default filter defiened in the DOIIdentifierProvider bean (identifier-service.xml config) by applying the TrueFilter. I am seeing something very odd when trying this functionality and looking at the logs (I have added some additional logging). It looks like Truefilter is being checked twice, and an additional check is run that uses the default filter: ``` Before request [POST /server/api/pid/identifiers] originated from /items/69a962a1-0af5-4323-94f2-646fd500d8c5/edit/register-doi org.dspace.identifier.DOIIdentifierProvider @ Check filter: class org.dspace.content.logic.TrueFilter org.dspace.identifier.DOIIdentifierProvider @ Result of filter for 1810/347135 is true ... org.dspace.identifier.DOIIdentifierProvider @ Check filter: class org.dspace.content.logic.TrueFilter org.dspace.identifier.DOIIdentifierProvider @ Result of filter for 1810/347135 is true org.dspace.identifier.DOIIdentifierProvider @ Check filter: class org.dspace.content.logic.DefaultFilter org.dspace.content.logic.condition.IsArchivedCondition @ Result of isArchived is true org.dspace.content.logic.condition.IsWithdrawnCondition @ Result of isWithdrawn is false org.dspace.content.logic.condition.InCollectionCondition @ item 1810/347135 is in collection 1810/294790, returning true org.dspace.identifier.DOIIdentifierProvider @ Result of filter for 1810/347135 is false org.dspace.app.rest.exception.DSpaceApiExceptionControllerAdvice @ An exception has occurred (status:500) java.lang.IllegalStateException: Failed to register identifier: null at org.dspace.app.rest.repository.IdentifierRestRepository.registerDOI(IdentifierRestRepository.java:248) ``` In the UI, I get the error message banner twice, and I can see two API calls in the developer tools. Is the method somehow being called multiple times? **To Reproduce** Steps to reproduce the behavior: 1. Log in as admin and choose an archived item without a DOI 2. Go to Edit item &gt; Item status 3. Click on Register DOI 4. Confirm DOI registration **Expected behavior** The registration always takes place, bypassing any default identifier filters **Related work** Link to any related tickets or PRs here.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>57</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #8705 from mspalti/jp2-test Added test and format registry entry for JPEG2000 image</MESSAGE>
+    <SHA>bdb88724ac8434956ec52dcdcb182f2d13e5edd5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix for #8732 and #8750</MESSAGE>
+      <SHA>aa45a407ba3510604641a7a7550b2728a2217766</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/identifier/VersionedDOIIdentifierProvider.java</FILE>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/repository/IdentifierRestRepository.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #8752 from amgciadev/fix-8732-b Fix for #8732 and #8750</MESSAGE>
+      <SHA>6fd31622aefc16e5d6190828e2550db5bc7a6fa0</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/identifier/VersionedDOIIdentifierProvider.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

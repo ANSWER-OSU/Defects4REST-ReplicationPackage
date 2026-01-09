@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4</ISSUEURL>
+  <TITLE>Allow developers to REPLACE certain blocks of a page with their own widgets</TITLE>
+  <DESCRIPTION>For example, the product details page has a block with pictures (slimbox gallery). With this new feature it would be quite easy to replace this block with any custom implementation. For example, CloudZoom block. But wouldn't it make source code (cshtml) too complex? Maybe, still use themes to override required cshtml files ``` Have a look at the HTML helper method below: /// &lt;summary&gt; /// &quot;Replacement&quot; widget /// &lt;/summary&gt; /// &lt;typeparam name=&quot;T&quot;&gt;Model&lt;/typeparam&gt; /// &lt;param name=&quot;helper&quot;&gt;Helper&lt;/param&gt; /// &lt;param name=&quot;widgetZone&quot;&gt;Widget zone name&lt;/param&gt; /// &lt;param name=&quot;standardTemplate&quot;&gt;Standard template to render if no widget with specified widget is not found&lt;/param&gt; /// &lt;returns&gt;Rendered widget&lt;/returns&gt; public static HelperResult ReplacementWidget&lt;T&gt;(this HtmlHelper&lt;T&gt; helper, string widgetZone, Func&lt;T, HelperResult&gt; standardTemplate) { return new HelperResult(writer =&gt; { var widgetService = EngineContext.Current.Resolve&lt;IWidgetService&gt;(); var widgets = widgetService.LoadActiveWidgetsByWidgetZone(widgetZone); var widget = widgets.FirstOrDefault(); if (widget != null) { writer.Write(Widget(helper, widgetZone).ToHtmlString()); } else { standardTemplate(helper.ViewData.Model).WriteTo(writer); } }); } ```</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1615</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Test Azure continuous integration #3</MESSAGE>
+    <SHA>f36ca53a0b15884342c7ebded9ddaf3941748632</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Test Azure continuous integration #4</MESSAGE>
+      <SHA>ae10f04848891fa346624b1d65b996b82c1cab6f</SHA>
+      <PATCHEDFILES>
+        <FILE>Plugins/Shipping.FixedOrByWeight/Description.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Test Azure continuous integration #4</MESSAGE>
+      <SHA>cf2edc4dc6bd267aaaae110f7ee3591fec23413a</SHA>
+      <PATCHEDFILES>
+        <FILE>Plugins/Shipping.FixedOrByWeight/Description.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>theme #4</MESSAGE>
+      <SHA>323c0bd95157d1b022abc867ed07b0159c56ea7d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Themes/SaljiDalje/Views/Shared/_Header.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>added krpice.json file #4</MESSAGE>
+      <SHA>26420cc625c2ac2a5ed264919cf8acffc5ae7dc2</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Plugins/SaljiDalje.Core/krpice.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#4 reformat ProductSyncService.cs code</MESSAGE>
+      <SHA>14569500e7239dc93f4de7812f9b9f6d4d168ad4</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Seed.ProductSync/Services/ProductSyncService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23039</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23039</ISSUEURL>
+  <TITLE>Containerfile.in not automatically pre-processed</TITLE>
+  <DESCRIPTION>### Issue Description The `podman build` (and `buildah build`) documentation currently says: &gt; Containerfiles ending with a &quot;.in&quot; suffix are preprocessed via CPP(1). This can be useful to decompose Containerfiles into several reusable parts that can be used via CPP's #include directive. Containerfiles ending in .in are re‐ stricted to no comment lines unless they are CPP commands. Note, a Containerfile.in file can still be used by other tools when manually preprocessing them via cpp -E. At least to me, this makes it sound like a `podman build .` should automatically pick up a `Containerfile.in` and pre-process it for `#include &quot;foo.bar&quot;` type directives. ### Steps to reproduce the issue Steps to reproduce the issue 1. `echo '#include &quot;./foo.bar&quot;' &gt; Containerfile.in` 2. `echo 'FROM scratch' &gt; foo.bar` 3. `podman build .` ### Describe the results you received `Error: no Containerfile or Dockerfile specified or found in context directory` ### Describe the results you expected ``` STEP 1/1: FROM scratch COMMIT test --&gt; 885c95a5d7b8 Successfully tagged localhost/test:latest 885c95a5d7b8d384ded58fc72ae4fefcf7f08c0de160b9b6915c2814fe692897 ``` (Simulated using `podman build -t test -f Containerfile.in .`) ### podman info output ```yaml If you are unable to run podman info for any reason, please provide the podman version, operating system and its version and the architecture you are running. ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release No ### Additional environment details Tested with podman v5.1.0 in F40 ### Additional information A documentation &quot;fix&quot; could be done here, but I'm sure many/most users would expect podman (and buildah) to simply pick up the `Containerfile.in` is present and a `Containerfile` is absent.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>21</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix(deps): update module github.com/gorilla/schema to v1.4.1 [security] Signed-off-by: renovate[bot] &lt;29139614+renovate[bot]@users.noreply.github.com&gt; Signed-off-by: Wanqi Li &lt;wanli@umass.edu&gt;</MESSAGE>
+    <SHA>0853c663ffcfedabde99f0a75b715b81b4982b60</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[CI:DOCS] updating build command documentation Added a few lines to fix the ambiguity regarding `podmand build` mentioned in #23039 Signed-off-by: Wanqi Li &lt;wanli@umass.edu&gt;</MESSAGE>
+      <SHA>508e5e3795e0f18cb1a7332b1422bf8826ff75c7</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-build.1.md.in</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Improve container filenname ambiguity. Fixes: #23039 Signed-off-by: Wanqi Li &lt;wanli@umass.edu&gt;</MESSAGE>
+      <SHA>bd71b75de4f7c082c7e1d54f8f8e876ef60b17a6</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-build.1.md.in</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

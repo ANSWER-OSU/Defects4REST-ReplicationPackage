@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2067</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2067</ISSUEURL>
+  <TITLE>checkOverriddenStoreValue (in admin.common.js) not work for kendoMultiSelect ([UIHint(&quot;MultiSelect&quot;)])</TITLE>
+  <DESCRIPTION>Possible fix [(admin.common.js#L34):](https://github.com/nopSolutions/nopCommerce/blob/develop/src/Presentation/Nop.Web/Administration/Scripts/admin.common.js#L34) ```js function checkOverriddenStoreValue(obj, selector) { var elementsArray = selector.split(&quot;,&quot;); if (!$(obj).is(':checked')) { $(selector).attr('disabled', true); //Kendo UI elements are enabled/disabled some other way $.each(elementsArray, function(key, value) { var kenoduiElement = $(value).data(&quot;kendoNumericTextBox&quot;) || $(value).data(&quot;kendoMultiSelect&quot;); if (kenoduiElement !== undefined &amp;&amp; kenoduiElement !== null) { kenoduiElement.enable(false); } }); } else { $(selector).removeAttr('disabled'); //Kendo UI elements are enabled/disabled some other way $.each(elementsArray, function(key, value) { var kenoduiElement = $(value).data(&quot;kendoNumericTextBox&quot;) || $(value).data(&quot;kendoMultiSelect&quot;); if (kenoduiElement !== undefined &amp;&amp; kenoduiElement !== null) { kenoduiElement.enable(); } }); }; } ```</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Remove excess tag in upgrade.sql file</MESSAGE>
+    <SHA>de8975e393f68794d278c6dd5124d7a76ba34455</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2067 Support &quot;kendoMultiSelect&quot; control when overriding settings per store</MESSAGE>
+      <SHA>db0145c455c673760b6d7d3b65aa100f05f627ca</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Administration/Scripts/admin.common.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6206</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/6206</ISSUEURL>
+  <TITLE>Display mode for parts and named shapes issue.</TITLE>
+  <DESCRIPTION>After creating display mode for various custom parts (added by this pr #5329) and then tried to alter alter shapes position in my Content.cshtml using with the new part display mode : ``` @await DisplayAsync(Model.Content.TitlePart) @{Model.Content.Remove(&quot;TitlePart&quot;)}; ``` This does not work. Instead you have to use the name of the custom display mode eg : ``` @await DisplayAsync(Model.Content.Named(&quot;TitlePart-TitlePart_Display__MyCustomDisplayMode&quot;)) @{Model.Content.Remove(&quot;TitlePart-TitlePart_Display__MyCustomDisplayMode&quot;)}; ``` This is a bit cumbersome , having to know the display mode applied to work with the shape. Would it be possible to preserve the original part name , so you could work with shape part name , regardless of the display mode. ? So shape.Metadata.Name = &quot;TitlePart&quot; will not change based on the display mode ? @deanmarcussen Thanks.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>38</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update template generation docs (#6391) Just removing the quotes so the copy and paste option is useful</MESSAGE>
+    <SHA>4412f5a5e22f226007855ea4d9d7de29677c42af</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #6206: Preserve shape name if type only differs by display mode</MESSAGE>
+      <SHA>5427305288dc530d729323990434fbf8fa717c63</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement.Display/ContentDisplay/ContentFieldDisplayDriver.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement.Display/ContentDisplay/ContentPartDisplayDriverTPart.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement/Views/ShapeResult.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

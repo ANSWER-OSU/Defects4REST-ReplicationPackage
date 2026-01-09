@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18582</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18582</ISSUEURL>
+  <TITLE>Bulk import prefixes with associated VLAN not working when multiple VLANs with the same vid exist.</TITLE>
+  <DESCRIPTION>### Deployment Type Self-hosted ### NetBox Version v4.2.3 ### Python Version 3.12 ### Steps to Reproduce 1. Create multiple VLAN entries with the same vid but associated to different sites. I use this to represent VLANs with the same vid, but located in different sites with different prefixes. 2. Import prefix csv with the following fields: prefix, status, role, scope_type, scope_id, vlan. Include the previously added VLANs vid in the &quot;vlan&quot; field. 3. The import will fail because multiple vlans with the same vid exist ![Image](https://github.com/user-attachments/assets/c3a33b02-f057-4254-98b9-96e8bcf6ba1e) ### Expected Behavior Import succeeds associating the right vlan depending on the DCIM.site value. The import should use the VLAN with the specified vid contained in the specified scope (site). To fix this issue, it could also be possible to specify the VLAN object ID instead of the vid to avoid confusion. ### Observed Behavior Import fails with error : ![Image](https://github.com/user-attachments/assets/c3a33b02-f057-4254-98b9-96e8bcf6ba1e)</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>33</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update source translation strings</MESSAGE>
+    <SHA>89e3f3d3e952f1e4cd7ad9fefe3221d638337923</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes: #18582 Bulk import prefixes with associated VLAN not working when multiple VLANs with the same vid exist. (#18844) * Add site CSVModelChoiceField * Change site field to vlan_site</MESSAGE>
+      <SHA>5d81f911d6203ef4129d926229d28aee875e4d72</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/ipam/forms/bulk_import.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

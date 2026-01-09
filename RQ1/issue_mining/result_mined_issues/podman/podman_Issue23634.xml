@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23634</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23634</ISSUEURL>
+  <TITLE>e2e: events network connection: off-by-one in &quot;expect network connect string&quot;</TITLE>
+  <DESCRIPTION>Seeing this one just often enough to annoy me. Almost definitely a bug in the test itself. Or maybe something weird in debian that we're not accounting for. ``` Podman events [It] podman events network connection # podman-remote [options] events --stream=false --since 30s 2024-07-16 11:28:14.969562329 +0000 UTC system refresh 2024-07-16 11:28:15.096974122 +0000 UTC container create c05b19f96654e621ce6977b6b5a51153b5d44bfe73e24a2af346b29e002c73ad (image=quay.io/libpod/alpine:latest, name=gracious_ganguly) 2024-07-16 11:28:15.167205637 +0000 UTC network connect c05b19f96654e621ce6977b6b5a51153b5d44bfe73e24a2af346b29e002c73ad (container=c05b19f96654e621ce6977b6b5a51153b5d44bfe73e24a2af346b29e002c73ad, name=61da780ddfa3f307ea66dc59f1640d37c70efd83e90b6c38b0721ad2753bae0c) 2024-07-16 11:28:15.075319494 +0000 UTC image pull 961769676411f082461f9ef46626dd7a2d1e2b2a38e6a44364bcbecf51e66dd4 quay.io/libpod/alpine:latest 2024-07-16 11:28:15.203980038 +0000 UTC network disconnect c05b19f96654e621ce6977b6b5a51153b5d44bfe73e24a2af346b29e002c73ad (container=c05b19f96654e621ce6977b6b5a51153b5d44bfe73e24a2af346b29e002c73ad, name=61da780ddfa3f307ea66dc59f1640d37c70efd83e90b6c38b0721ad2753bae0c) [FAILED] Expected &lt;string&gt;: 2024-07-16 11:28:15.075319494 +0000 UTC image pull 961769676411f082461f9ef46626dd7a2d1e2b2a38e6a44364bcbecf51e66dd4 quay.io/libpod/alpine:latest to contain substring &lt;string&gt;: network connect ``` * debian-13 : int remote debian-13 root host sqlite [remote] * PR #23275 * [07-23 20:34](https://api.cirrus-ci.com/v1/artifact/task/5222962364678144/html/int-remote-debian-13-root-host-sqlite.log.html#t--Podman-events-podman-events-network-connection--1) in Podman events podman events network connection * [08-15 10:22](https://api.cirrus-ci.com/v1/artifact/task/4811656197308416/html/int-remote-debian-13-root-host-sqlite.log.html#t--Podman-events-podman-events-network-connection--1) in Podman events podman events network connection * [07-17-2024 17:11](https://api.cirrus-ci.com/v1/artifact/task/6152137690841088/html/int-remote-debian-13-root-host-sqlite.log.html#t--Podman-events-podman-events-network-connection--1) in Podman events podman events network connection * [07-16-2024 07:29](https://api.cirrus-ci.com/v1/artifact/task/6457889936637952/html/int-remote-debian-13-root-host-sqlite.log.html#t--Podman-events-podman-events-network-connection--1) in Podman events podman events network connection | x | x | x | x | x | x | | ---: | ---: | ---: | ---: | ---: | ---: | | int(4) | remote(4) | debian-13(4) | root(4) | host(4) | sqlite(4) |</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>32</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23968 from containers/renovate/github.com-cpuguy83-go-md2man-v2-2.x fix(deps): update module github.com/cpuguy83/go-md2man/v2 to v2.0.5</MESSAGE>
+    <SHA>bd93e1a7ceaec6ed70dd2d5880e3eebcfdbd903a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>CI: e2e: workaround for events out-of-sequence flake podman-remote events are not flushed, so order is not guaranteed. This results in CI flakes. Only on Debian, for reasons unknown. Make the network-connection events test more lenient when remote. Closes: #23634 (but does not actually fix it) Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>111a4bbe71a8801d36cec517656e8323656b1031</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/events_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

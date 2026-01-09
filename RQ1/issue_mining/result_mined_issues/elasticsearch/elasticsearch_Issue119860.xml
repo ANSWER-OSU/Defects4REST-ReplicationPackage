@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>119860</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/119860</ISSUEURL>
+  <TITLE>[CI] RankEvalRequestTests testEqualsAndHashcode failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5767 / release-tests](https://gradle-enterprise.elastic.co/s/lvhnseultgjn6) - [elasticsearch-pull-request #49557 / release-tests](https://gradle-enterprise.elastic.co/s/fbl6yqpwrymlm) - [elasticsearch-pull-request #49557 / release-tests](https://gradle-enterprise.elastic.co/s/dc65v46ebx6iq) **Reproduction Line:** ``` ./gradlew &quot;:modules:rank-eval:test&quot; --tests &quot;org.elasticsearch.index.rankeval.RankEvalRequestTests.testSerialization&quot; -Dtests.seed=143504D5D0FD2FB9 -Dbuild.snapshot=false -Dtests.jvm.argline=&quot;-Dbuild.snapshot=false&quot; -Dlicense.key=x-pack/license-tools/src/test/resources/public.key -Dtests.locale=kxv-Telu-IN -Dtests.timezone=America/Cuiaba -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.index.rankeval.RankEvalRequestTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testEqualsAndHashcode),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: &lt;org.elasticsearch.index.rankeval.RankEvalRequest/unset&gt; but: was &lt;org.elasticsearch.index.rankeval.RankEvalRequest/unset&gt; ``` **Issue Reasons:** - [main] 3 consecutive failures in step release-tests - [main] 3 failures in test testEqualsAndHashcode (1.2% fail rate in 248 executions) - [main] 3 failures in step release-tests (60.0% fail rate in 5 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.index.rankeval.RankEvalRequestTests testSerialization #119859</MESSAGE>
+    <SHA>f66ce0516158cc665ae1f7c10b5ebe5a84e262f8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.index.rankeval.RankEvalRequestTests testEqualsAndHashcode #119860</MESSAGE>
+      <SHA>c04dd692be78ca3f5b9999e8751e97052fdf92bd</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

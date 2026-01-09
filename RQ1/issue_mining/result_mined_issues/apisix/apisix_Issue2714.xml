@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2714</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2714</ISSUEURL>
+  <TITLE>bug: When accessing APISIX route, there are two servers in the response header.</TITLE>
+  <DESCRIPTION>### Issue description When accessing APISIX route, there are two `Server` in the response header, one of which is upstream, can they used different key names? ```shell $ curl http://127.0.0.1:9080/test_core -i HTTP/1.1 200 OK Content-Type: text/html; charset=utf-8 Transfer-Encoding: chunked Connection: keep-alive Server: APISIX/2.0 Server: BaseHTTP/0.3 Python/2.7.13 Date: Thu, 12 Nov 2020 04:31:03 GMT tested by python ``` ### Environment * apisix version (cmd: `apisix version`): master * OS:</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>docs: add create/update_time fields (#2712) Close #2654</MESSAGE>
+    <SHA>2f8762c22ffb90a2935dcaa5716e9d05678bf0f4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>remove upstream 'Server' header info. fix #2714</MESSAGE>
+      <SHA>cd660e630953a1e05f747e6d482532da38680191</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>t/node/remote-addr-ipv6.t</FILE>
+        <FILE>t/plugin/redirect.t</FILE>
+        <FILE>t/router/multi-ssl-certs.t</FILE>
+        <FILE>t/router/radixtree-sni.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: remove upstream 'Server' header info. fix #2714 (#2731) fix #2714</MESSAGE>
+      <SHA>53e2d5387f86d7b36673e75eba6bc58f3a59fb7d</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ngx_tpl.lua</FILE>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>t/APISIX.pm</FILE>
+        <FILE>t/core/utils.t</FILE>
+        <FILE>t/node/remote-addr-ipv6.t</FILE>
+        <FILE>t/plugin/redirect.t</FILE>
+        <FILE>t/router/multi-ssl-certs.t</FILE>
+        <FILE>t/router/radixtree-sni.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

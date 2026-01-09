@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3745</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3745</ISSUEURL>
+  <TITLE>No local caching of files/chunks on fuse mount</TITLE>
+  <DESCRIPTION>**Describe the bug** When using &quot;./weed mount&quot;, the system does not seem to use local caching of the files/chunks only the metadata is cached. Meaning no matter how many times I load/access the same file back-to-back it takes the same time as opposed to only having to pull it from the network once, and after that having fast access from some local on disk cache. This happens with all files I have tried (the range was from 1kb all the way to 10GB), so I do not think it is only a file size issue. Looking at the cacheDir, it looks like only metadata is being downloaded or kept as even when accessing several files over 1GB the files in cacheDir are only in the kilobytes. **System Setup** - List the command line to start &quot;weed master&quot;, &quot;weed volume&quot;, &quot;weed filer&quot;, &quot;weed s3&quot;, &quot;weed mount&quot;. - OS version: Redhat Enterprise Linux 7.9 - output of `weed version`: version 30GB 3.29 1ffb1e696e1f651c6294fc34c86b9abb6db1985d linux amd64 - if using filer, show the content of `filer.toml`: using Filer, but did not make a &quot;filer.toml&quot; - security.toml: exactly as in wiki, certs made with certstrap - '3 masters set up with: `./weed server -dir=/seaweedFS/ -master.defaultReplication=010 -filer -master.peers=s2.seaweed.swf.local:9333,s3.seaweed.swf.local:9333 -ip.bind=0.0.0.0 -ip=s1.seaweed.swf.local -rack=rack01 -dataCenter=dc1 -master.volumePreallocate &amp;` - one test mount set up with: `sudo ./weed mount -filer=s1.seaweed.swf.local:8888,s2.seaweed.swf.local:8888,s3.seaweed.swf.local:8888 -dir=/seaweed-vol/ -filer.path=/ -cacheCapacityMB=25000 -cacheDir=/var/tmp &amp;` **Expected behavior** Remote file that have been recently accessed should be cached for faster access, and subsequent access attempts should be near to the speed of local disk access. **Screenshots** If applicable, add screenshots to help explain your problem. **Additional context** I am testing seaweedfs to see if it can be a good replacement for NFS but with added redundancy and security. looking at my data</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>716</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Remove &quot;Content-Length&quot; header if http.Error is issued (#5981)</MESSAGE>
+    <SHA>d6b0e0ff1c3807edcf82ee95129cb55a5e7fd915</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>bug fix in the data received from cache processing The patch addresses #3745. The cache should return the exact amount of data requested by the buffer. By construction of the cache it is always all requested data range or we have error happening. The old use of minsize miscalculate the requested data size, if non zero offset is requested.</MESSAGE>
+      <SHA>9f27a7cb239b61b7f6897c82bc42c6be4240e42f</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/util/chunk_cache/chunk_cache.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>bug fix in the data received from cache processing (#6002) The patch addresses #3745. The cache should return the exact amount of data requested by the buffer. By construction of the cache it is always all requested data range or we have error happening. The old use of minsize miscalculate the requested data size, if non zero offset is requested.</MESSAGE>
+      <SHA>c04edeed683595e780262a3ee461eb79b7b151a0</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/util/chunk_cache/chunk_cache.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

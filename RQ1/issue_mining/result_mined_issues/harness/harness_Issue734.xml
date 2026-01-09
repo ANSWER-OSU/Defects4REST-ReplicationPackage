@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>734</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/734</ISSUEURL>
+  <TITLE>Docker publish won't trigger if script: [] is empty or exits quickly</TITLE>
+  <DESCRIPTION>I managed to figure out why docker publish does not trigger. Reproduce: ``` yaml image: &lt;any image with git&gt; publish: docker: image_name: foobar &lt;...&gt; ``` As a workaround, I added `sleep 5` to `script: []`.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>137</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add gogs import org/repo support to gitness (#735)</MESSAGE>
+    <SHA>fb892a8ca8e065bb27a7469538e89a6d7c4e7bd9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>refactor of protection package (#734)</MESSAGE>
+      <SHA>1a727b8be10f5a1d36689272b9bd6fd79af7bf2f</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/controller/githook/pre_receive.go</FILE>
+        <FILE>app/api/controller/pullreq/merge.go</FILE>
+        <FILE>app/api/controller/repo/commit.go</FILE>
+        <FILE>app/api/controller/repo/create_branch.go</FILE>
+        <FILE>app/api/controller/repo/create_commit_tag.go</FILE>
+        <FILE>app/api/controller/repo/delete_branch.go</FILE>
+        <FILE>app/api/controller/repo/delete_tag.go</FILE>
+        <FILE>app/services/protection/bypass.go</FILE>
+        <FILE>app/services/protection/interface.go</FILE>
+        <FILE>app/services/protection/pattern.go</FILE>
+        <FILE>app/services/protection/pattern_test.go</FILE>
+        <FILE>app/services/protection/rule_branch.go</FILE>
+        <FILE>app/services/protection/rule_branch_test.go</FILE>
+        <FILE>app/services/protection/service.go</FILE>
+        <FILE>app/services/protection/set.go</FILE>
+        <FILE>app/services/protection/verify_lifecycle.go</FILE>
+        <FILE>app/services/protection/verify_lifestyle_test.go</FILE>
+        <FILE>app/services/protection/verify_pullreq.go</FILE>
+        <FILE>app/services/protection/verify_pullreq_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

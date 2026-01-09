@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>125789</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/125789</ISSUEURL>
+  <TITLE>[CI] SearchableSnapshotActionIT testResumingSearchableSnapshotFromPartialToFull failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #21049 / part5](https://gradle-enterprise.elastic.co/s/gnw5veygwraz4) - [elasticsearch-periodic-platform-support #7287 / amazonlinux-2023_platform-support-aws](https://gradle-enterprise.elastic.co/s/mvuodamokqx2q) - [elasticsearch-periodic #7237 / single-processor-node-tests](https://gradle-enterprise.elastic.co/s/utlglv73rif7s) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:ilm:qa:multi-node:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.ilm.actions.SearchableSnapshotActionIT.testResumingSearchableSnapshotFromPartialToFull&quot; -Dtests.seed=127DEF3256F9FBDC -Dtests.locale=fy -Dtests.timezone=Europe/Vienna -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.ilm.actions.SearchableSnapshotActionIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testResumingSearchableSnapshotFromPartialToFull),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: is &lt;false&gt; but: was &lt;true&gt; ``` **Issue Reasons:** - [main] 3 failures in test testResumingSearchableSnapshotFromPartialToFull (0.3% fail rate in 862 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Use a custom cache record for CityResponse (#125806)</MESSAGE>
+    <SHA>37f6ebe560ee48089dacd833b2c660ec9c630e58</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix some ILM tests for searchable snapshots These tests are very prone to the &quot;quiet test cluster syndrome&quot; and sometimes need a little push by means of some artificial cluster state updates. To hopefully be done with these test failures once and for all (famous last words), I've updated all tests in this class to trigger cluster state updates where necessary. This is basically a follow-up of #108162. Fixes #125683 Fixes #125789</MESSAGE>
+      <SHA>7e6f93497f7b85273ee413c175e6b4c75eb0f74a</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/ilm/qa/multi-node/src/javaRestTest/java/org/elasticsearch/xpack/ilm/actions/SearchableSnapshotActionIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ilm.actions.SearchableSnapshotActionIT testResumingSearchableSnapshotFromPartialToFull #125789</MESSAGE>
+      <SHA>9b7ee210d34eac1f49bc7bd45f4623790acbb2f1</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ilm.actions.SearchableSnapshotActionIT testResumingSearchableSnapshotFromPartialToFull #125789</MESSAGE>
+      <SHA>9db66c917693a584c20dda2577fe2784a9247dc8</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4113</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4113</ISSUEURL>
+  <TITLE>Store datasettings and appsettings parameters as environment variables</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.20 The dataSettings.json file is hard coded in the App_Data folder. If a Docker image is created from this, then any implementation of that Docker image will run against that hard-coded database. Is there a way to parameterize this, to reference an environment variable instead? Then the same Docker container can be used against many different nopCommerce store instances. Perhaps, store in the appsettings.json file. Add some new setting Source: https://www.nopcommerce.com/boards/t/72758/making-nopcommerce-more-docker-friendly.aspx See also: https://github.com/nopSolutions/nopCommerce/issues/4164, https://github.com/nopSolutions/nopCommerce/issues/2494, #5025</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>499</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Removed duplicate locales</MESSAGE>
+    <SHA>144cd8606900370d5420793437009a760d01d614</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4113 Store datasettings parameters as environment variable</MESSAGE>
+      <SHA>0e9c4d5d7dc88d4561ed8c112d9ffa18290c62f5</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Data/DataSettingsManager.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/NopDataSettingsDefaults.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo440/LocalizationMigration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/SettingModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Settings/AppSettingsModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Setting/AppSettings.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Program.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

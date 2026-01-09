@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5305</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/5305</ISSUEURL>
+  <TITLE>request help: APISIX Proxy-mirror plugin support custom path</TITLE>
+  <DESCRIPTION>### Issue description Currently I has test the proxy-mirror plugin in apisix, but I find that the feature of this plugin is different from the ngx_http_mirror_module in nginx. The mirror moudle of nginx can add the uri behind the host in &quot;proxy_pass&quot; directive, for example ``` location / { mirror /mirror; proxy_pass http://backend; } location = /mirror { internal; proxy_pass http://test_backend$request_uri; } ``` But when I test the proxy-mirror plugin in apisix dashboard, it prompts a message that the blank cannot be filled with URI. ![image](https://user-images.githubusercontent.com/35248300/138317932-35e36ef5-2444-4876-84b6-b40a8432fa1d.png) Will the proxy-mirror plugin be optimized to support the URI? ### Environment - apisix version (cmd: `apisix version`):2.9 - OS (cmd: `uname -a`):3.10.0-1160.42.2.el7.x86_64 - OpenResty / Nginx version (cmd: `nginx -V` or `openresty -V`): - etcd version, if have (cmd: run `curl http://127.0.0.1:9090/v1/server_info` to get the info from server-info API): - apisix-dashboard version, if have: - the plugin runner version, if the issue is about a plugin runner (cmd: depended on the kind of runner): - luarocks version, if the issue is about installation (cmd: `luarocks --version`):</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>135</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>docs: fix forward-auth plugin doc (#6444)</MESSAGE>
+    <SHA>c37fc9933a52fd641da3eccbba338e6973f790c0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat(proxy-mirror): support custom path Fix #5305 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>bf8d91102e76fd9a45c341e1ca6589a05239add5</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ngx_tpl.lua</FILE>
+        <FILE>apisix/core/ctx.lua</FILE>
+        <FILE>apisix/plugins/proxy-mirror.lua</FILE>
+        <FILE>t/APISIX.pm</FILE>
+        <FILE>t/plugin/proxy-mirror.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat(proxy-mirror): support custom path Fix #5305 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>fbd77e8a639582e5d7571cf71953788659d8fd1c</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ngx_tpl.lua</FILE>
+        <FILE>apisix/core/ctx.lua</FILE>
+        <FILE>apisix/plugins/proxy-mirror.lua</FILE>
+        <FILE>docs/en/latest/plugins/proxy-mirror.md</FILE>
+        <FILE>docs/zh/latest/plugins/proxy-mirror.md</FILE>
+        <FILE>t/APISIX.pm</FILE>
+        <FILE>t/plugin/proxy-mirror.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

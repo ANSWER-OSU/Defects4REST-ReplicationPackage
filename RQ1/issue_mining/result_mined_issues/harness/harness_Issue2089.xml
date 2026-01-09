@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2089</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2089</ISSUEURL>
+  <TITLE>Unable to access web UI</TITLE>
+  <DESCRIPTION>I am unable to access the Drone Web UI after the set up. It would not response and eventually timeout. I have tried to `curl 127.0.0.1:10010` from my server console but, getting connection timeout `docker ps` shows that, both drone server and drone agent started up and there were no error in the both services. the status of drone agent even shows that `pipeline: request next execution`. ``` CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES afe78e042c14 drone/drone:0.7 &quot;/drone agent&quot; 30 minutes ago Up 30 minutes 80/tcp, 443/tcp, 8000/tcp droneci_drone-agent_1 16865ecff0bf drone/drone:0.7 &quot;/drone server&quot; 30 minutes ago Up 30 minutes 80/tcp, 443/tcp, 127.0.0.1:10010-&gt;8000/tcp droneci_drone-server_1 ``` This is the docker-compose.yml ``` version: '3' services: drone-server: image: drone/drone:0.7 ports: - 127.0.0.1:10010:8000 volumes: - /var/lib/drone:/var/lib/drone restart: always env_file: - /etc/drone-ci/server.env drone-agent: image: drone/drone:0.7 command: agent depends_on: - drone-server volumes: - /var/run/docker.sock:/var/run/docker.sock restart: always env_file: - /etc/drone-ci/agent.env ``` Server.env ``` # Service settings DRONE_SECRET=&lt;SECRET&gt; DRONE_HOST=https://drone.example.com # Registration settings DRONE_OPEN=true DRONE_ADMIN=&lt;BitBucket USERNAME&gt; DRONE_ORGS=&lt;BitBucket TEAM&gt; # VCS Settings DRONE_BITBUCKET=true DRONE_BITBUCKET_CLIENT=&lt;BitBucket-CLIENT&gt; DRONE_BITBUCKET_SECRET=&lt;BitBucket-SECRET&gt; ``` agent.env ``` DRONE_SECRET=&lt;SECRET&gt; DRONE_SERVER=ws://drone-server:8000/ws/broker ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: [ux] Repo summary (#2086)</MESSAGE>
+    <SHA>b3e43476e4362f6f69436938164baa0f041d3840</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: [code-1967]: fix concat (#2089)</MESSAGE>
+      <SHA>4aa055f4e2904f9d7fc4268ac417b7b482fcd6db</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/pages/PullRequests/PullRequestsContentHeader/PullRequestsContentHeader.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

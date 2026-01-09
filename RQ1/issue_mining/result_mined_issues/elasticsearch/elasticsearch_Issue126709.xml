@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126709</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126709</ISSUEURL>
+  <TITLE>Ingesting documents with Amazon Bedrock inference fails with &quot;Invalid value [ingest] received&quot;</TITLE>
+  <DESCRIPTION>### Elasticsearch Version Serverless ### Installed Plugins _No response_ ### Java Version _bundled_ ### OS Version Serverless ### Problem Description Ingesting `semantic_text` content using Amazon Titan is returning inference failures. Digging into what might be causing this error, it's potentially a combination [of this line](https://github.com/elastic/elasticsearch/blame/9784e0ec5f57b1eb15c846b499680dd1f735954c/x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/action/filter/ShardBulkInferenceActionFilter.java#L419) (from 5 months ago) - with a hardcoded InputType.INGEST for chunked inference - combined with [the logic here](https://github.com/elastic/elasticsearch/blame/9784e0ec5f57b1eb15c846b499680dd1f735954c/x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockService.java#L132) added last month. ### Steps to Reproduce Perform the following requests, using Amazon Bedrock credentials with support for `amazon.titan-embed-text-v2:0`: ``` PUT /_inference/text_embedding/my-bedrock-embeddings { &quot;service&quot;: &quot;amazonbedrock&quot;, &quot;service_settings&quot;: { &quot;access_key&quot;: &quot;...&quot;, &quot;secret_key&quot;: &quot;...&quot;, &quot;provider&quot;: &quot;amazontitan&quot;, &quot;model&quot;: &quot;amazon.titan-embed-text-v2:0&quot;, &quot;region&quot;: &quot;us-east-1&quot; } } PUT my-test-index { &quot;mappings&quot;: { &quot;properties&quot;: { &quot;semantic_field&quot;: { &quot;type&quot;: &quot;semantic_text&quot;, &quot;inference_id&quot;: &quot;my-bedrock-embeddings&quot; } } } } PUT my-test-index/_doc/1 { &quot;semantic_field&quot;: &quot;The Jedi Master Yoda said, do or do not, there is no try&quot; } ``` The ingest request will return the following inference error: ``` { &quot;error&quot;: { &quot;root_cause&quot;: [ { &quot;type&quot;: &quot;validation_exception&quot;, &quot;reason&quot;: &quot;Validation Failed: 1: Invalid value [ingest] received. [input_type] is not allowed for provider [amazontitan];&quot; } ], &quot;type&quot;: &quot;validation_exception&quot;, &quot;reason&quot;: &quot;Validation Failed: 1: Invalid value [ingest] received. [input_type] is not allowed for provider [amazontitan];&quot; }, &quot;status&quot;: 400 } ``` The following script has been verified to work on 8.17.4 but is failing in serverless. ### Logs (if relevant) _No response_</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>remove redirects.yml (#126774)</MESSAGE>
+    <SHA>8cb449386be112c1e5863ff8510127ed079e59b1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[ML] Allow InputType for Bedrock Titan Semantic Search can now send InputType as part of the request to non-Cohere Bedrock models. Fix #126709</MESSAGE>
+      <SHA>fb783b1c73a4191d77c13ae74c00b00de6781ccf</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockService.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockServiceTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[ML] Allow InputType for Bedrock Titan (#127021) Semantic Search can now send InputType as part of the request to non-Cohere Bedrock models. Fix #126709</MESSAGE>
+      <SHA>d870f42c907582e7666779dca3dcaa8c64b54f41</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockService.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockServiceTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[ML] Allow InputType for Bedrock Titan (#127021) Semantic Search can now send InputType as part of the request to non-Cohere Bedrock models. Fix #126709</MESSAGE>
+      <SHA>230ca1621b9f13938df8b603d3d7eef5b00b3b9d</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockService.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockServiceTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[ML] Allow InputType for Bedrock Titan (#127021) (#127067) Semantic Search can now send InputType as part of the request to non-Cohere Bedrock models. Fix #126709</MESSAGE>
+      <SHA>e4b558b5ee32ddc655d3cfc6f45f8f55e39c6284</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockService.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockServiceTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>125142</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/125142</ISSUEURL>
+  <TITLE>[CI] ScalingThreadPoolTests testScalingThreadPoolConfiguration failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #20336 / part1](https://gradle-enterprise.elastic.co/s/ynpouzd7jlgou) - [elasticsearch-intake #20333 / part1](https://gradle-enterprise.elastic.co/s/lwns6zofpjul6) - [elasticsearch-pull-request #63038 / part-1](https://gradle-enterprise.elastic.co/s/q56psu2uunweu) **Reproduction Line:** ``` ./gradlew &quot;:server:test&quot; --tests &quot;org.elasticsearch.threadpool.ScalingThreadPoolTests.testScalingThreadPoolConfiguration&quot; -Dtests.seed=E0F53813882DA65D -Dtests.locale=kk-Cyrl-KZ -Dtests.timezone=America/Nuuk -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.threadpool.ScalingThreadPoolTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testScalingThreadPoolConfiguration),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.NullPointerException: Cannot invoke &quot;java.util.function.Function.apply(Object)&quot; because the return value of &quot;java.util.Map.get(Object)&quot; is null ``` **Issue Reasons:** - [main] 3 failures in test testScalingThreadPoolConfiguration (1.0% fail rate in 300 executions) - [main] 2 failures in step part1 (4.9% fail rate in 41 executions) - [main] 2 failures in pipeline elasticsearch-intake (4.9% fail rate in 41 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Truncate step_info and error reason in ILM execution state and history (#125054) This commit adds a limit to the `step_info` contained in `LifecycleExcutionState` so that large step info messages will not be stored in the cluster state. Additionally, when generating an ILM history failure, the full exception that is &quot;stringified&quot; is truncated to the same limit, ensuring that we do not accidentally index gigantic documents in the history store. The default limit is 1024 characters. Resolves #124181</MESSAGE>
+    <SHA>cda26693ca9ffb165f88533f2f0117959d1534d7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.threadpool.ScalingThreadPoolTests testScalingThreadPoolConfiguration #125142</MESSAGE>
+      <SHA>02dc6d4780cc37ecd4eca43686e6adc22754d821</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.threadpool.ScalingThreadPoolTests testScalingThreadPoolConfiguration #125142</MESSAGE>
+      <SHA>fae1aa05a59b4712d2154186cba449cc03d121cd</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.threadpool.ScalingThreadPoolTests testScalingThreadPoolConfiguration #125142</MESSAGE>
+      <SHA>15eff4ef4f8aa9eddbfa0715cede63a6c7f1bcca</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

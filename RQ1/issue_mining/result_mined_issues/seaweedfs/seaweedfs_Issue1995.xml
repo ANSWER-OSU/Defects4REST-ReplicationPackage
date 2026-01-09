@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1995</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/1995</ISSUEURL>
+  <TITLE>[shell] does not return to the terminal by timeout</TITLE>
+  <DESCRIPTION>**Describe the bug** - I run the command weed shell on a machine where master/filer is missing or make a mistake with the ports, then the terminal hangs - If I interrupt the running with Ctrl + C, then it returns to the terminal, but the cursor is not displayed **System Setup** - CentOS Linux release 7.9.2009 - GNU bash, version 4.2.46(2)-release (x86_64-redhat-linux-gnu) - weed version 30GB 2.39 742ab1e linux amd64 - run weed shell master: localhost: 9333 filer: localhost: 8888 **Expected behavior** - Completion of the command by timeout in the absence of a connection to master/filer - If I interrupt forcibly, then display the cursor.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>go fmt</MESSAGE>
+    <SHA>3ce35598e46f55daedee22b57e631b5e1c53c98c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ensure to call line.Close() fix https://github.com/chrislusf/seaweedfs/issues/1995 similar to https://github.com/peterh/liner/issues/104</MESSAGE>
+      <SHA>94890367374d13d3750330ee00311e2b9b87adac</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/shell/shell_liner.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

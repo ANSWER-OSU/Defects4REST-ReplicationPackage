@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>32145</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/32145</ISSUEURL>
+  <TITLE>Ticket module - Condition validation is wrong</TITLE>
+  <DESCRIPTION>### Bug In the ticket/card.php file there is a condition that is evaluated incorrectly because the &quot;private_message&quot; parameter is compared to an unexpected value. `if ($action == 'add_message' &amp;&amp; GETPOSTISSET('btn_add_message') &amp;&amp; $permissiontoread) {` `$ret = $object-&gt;newMessage($user, $action, (GETPOST('private_message', 'alpha') == &quot;on&quot; ? 1 : 0), 0);` GETPOST('private_message', 'alpha') is always &quot;1&quot; or &quot;0&quot;, never is &quot;on&quot; This violates the scenario that if a comment is marked private, the status should not change. ### Dolibarr Version 20.0.2 ### Environment PHP 8.0 ### Environment Database MySQL ### Steps to reproduce the behavior and expected behavior **Behavior** Add a new message in ticket card and mark it as private. The status changes to &quot;IN PROGRESS&quot; **Expected** The status does not change. The same state is maintained. ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix no display of extrafields in bankentries_list (#32149) * Fix no display of extrafields in bankentries_list * fix error * fix comment --------- Co-authored-by: Hystepik &lt;lmarcouiller@nltechno.com&gt;</MESSAGE>
+    <SHA>1080d0718c3c62ee4028d28435f5b4f16c3b145f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #32145 Parameter is always &quot;1&quot; or &quot;0&quot;</MESSAGE>
+      <SHA>7ac863e1c9d566f28f5126135438aad908894051</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/ticket/card.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #32145 (#32162) Parameter is always &quot;1&quot; or &quot;0&quot;</MESSAGE>
+      <SHA>53f566e9f13629b383c1c25944e163fc531d6bd4</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/ticket/card.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

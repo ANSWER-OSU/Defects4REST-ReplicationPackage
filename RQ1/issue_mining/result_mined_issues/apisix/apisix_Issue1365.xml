@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1365</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/1365</ISSUEURL>
+  <TITLE>Better to avoid responsing in header_filter_by_lua and body_filter_by_lua</TITLE>
+  <DESCRIPTION>https://github.com/apache/incubator-apisix/blob/master/lua/apisix.lua#L142 ``` if phase ~= &quot;log&quot; then for i = 1, #plugins, 2 do local phase_fun = plugins[i][phase] if phase_fun then local code, body = phase_fun(plugins[i + 1], api_ctx) if code or body then core.response.exit(code, body) end end end return api_ctx end ``` Since `ngx.print` is meaningless after `content_by_lua`, maybe we can treat the filter phases as another log phase?</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feature: run log plugins in the global rule (#1333) * feature: run log plugins in the global rule Close #1202. * register path as hello3 to avoid conflicts with other test case</MESSAGE>
+    <SHA>be348805eaea2b588004b13021b96be35205ff0e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>bugfix: plugin in header_filter/body_filter should be run like log phase Close #1365</MESSAGE>
+      <SHA>0b5eefc15d10ed7ec1d6064942694b16955de179</SHA>
+      <PATCHEDFILES>
+        <FILE>lua/apisix.lua</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>bugfix: plugin in header_filter/body_filter should be run like log phase Close #1365</MESSAGE>
+      <SHA>b17aba692148f78a56921099df1e040f7f94bba2</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/init.lua</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

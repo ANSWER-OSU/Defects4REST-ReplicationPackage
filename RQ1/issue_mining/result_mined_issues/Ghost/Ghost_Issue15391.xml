@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15391</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/15391</ISSUEURL>
+  <TITLE>Editor Tags searching performance</TITLE>
+  <DESCRIPTION>### Issue Summary The Tag system is just straight out laggy non-responsive. Afterwards it is impossible to update or save the post. Refer to the video for more info https://user-images.githubusercontent.com/10562127/189423443-491068e1-a1c6-4887-90fe-ccf6db8d82c7.mp4 ### Steps to Reproduce 1. Try to save a tag The tag searching function should be responsive and update the query accordingly ### Ghost Version 5.14.0 ### Node.js Version 16.16.0 ### How did you install Ghost? Followed basic installation in https://ghost.org/docs/install/ubuntu/ with Ubuntu 22.04.1 ### Database type MySQL 8 ### Browser &amp; OS version Windows 10 /w Google Chrome 105.0.5195.102 (Official Build) (64-bit) ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Added Solo theme to themes no refs. - the new Solo theme is being released and wasn't listed on Design / Settings / Change theme</MESSAGE>
+    <SHA>a5b2648c07c8d261b8e048a6b41ccf45a9033fa3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed Admin freeze when filtering long tag lists closes https://github.com/TryGhost/Ghost/issues/15391 - `vertical-collection` component was throwing errors during render when the tags list was filtered down causing slowdowns or full Admin crashes - similar regression had popped up before and fixed in https://github.com/TryGhost/Ghost/pull/15207 but the dependency had been bumped again without realising it caused an error - added a test that triggers the error-throwing behaviour in the tags input to help catch this in future dependency updates</MESSAGE>
+      <SHA>e230370b33692264471935b2437907b839fac8a4</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/package.json</FILE>
+        <FILE>ghost/admin/tests/acceptance/editor-test.js</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

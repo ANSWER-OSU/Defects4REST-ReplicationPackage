@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6076</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/6076</ISSUEURL>
+  <TITLE>Adding widget to flowpart does not consider the IsNew context used from driver.</TITLE>
+  <DESCRIPTION>Adding a widget to a flow part with various fields that allow setting default values when new instance is created (like numeric field, boolean field) is not respected. Example: Add a widget with a nemric field and set its default value to 100\. Then add the widget to the flow part . The default value in editor is ignored. This is because of https://github.com/OrchardCMS/OrchardCore/blob/acee23ef121a09568198ebda164d591ae9f084ed/src/OrchardCore.Modules/OrchardCore.Widgets/Views/ContentCard.cshtml#L22 setting the Isnew context variable to false.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Make Content Recipe Step Idempotent (#5487)</MESSAGE>
+    <SHA>29336302a97bf3bd220dd09a531e99ad7fd7527d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>set isNew to true when buidling editor (#6077) fixes #6076</MESSAGE>
+      <SHA>cc27fed6375b5ed27a42e34890f08cc3f57d79d0</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Widgets/Views/ContentCard.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Set isNew to true only for ajax requests Fixes #6076</MESSAGE>
+      <SHA>e7378970f408236566529811ac64034862aafe78</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Widgets/Views/ContentCard.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Set isNew to true only for ajax requests (#6084) Fixes #6076</MESSAGE>
+      <SHA>7a14d3e2e2243f32a0b2d8592500a1f5d48db4eb</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Widgets/Views/ContentCard.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

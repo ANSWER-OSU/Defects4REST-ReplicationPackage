@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>125947</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/125947</ISSUEURL>
+  <TITLE>[CI] ManyShardsIT testCancelUnnecessaryRequests failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7349 / openjdk23_entitlements_false_checkpart3_java-matrix](https://gradle-enterprise.elastic.co/s/z6liemop2vxu4) - [elasticsearch-pull-request #65500 / part-3](https://gradle-enterprise.elastic.co/s/sltclf5h3hah4) - [elasticsearch-periodic-platform-support #7252 / almalinux-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/gm6srf2zlnp7u) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.esql.action.ManyShardsIT.testCancelUnnecessaryRequests&quot; -Dtests.seed=2B36B5E6A61236E2 -Dtests.jvm.argline=&quot;-Des.entitlements.enabled=false&quot; -Dtests.locale=tt-RU -Dtests.timezone=America/Belize -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.action.ManyShardsIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testCancelUnnecessaryRequests),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: safeGet: listener was completed exceptionally ``` **Issue Reasons:** - [main] 3 failures in test testCancelUnnecessaryRequests (0.3% fail rate in 871 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>21</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Rename `IgnoreNoResponseMetricsCollector` (#125934) Originally this metrics collector was just there to ignore API calls that didn't make it all the way to S3, but (a) it doesn't really do that because it also apparently ignores 4xx responses and (b) it also does a bunch of other metrics collection too. `IgnoreNoResponseMetricsCollector` is definitely the wrong name these days so this commit renames it to something more general.</MESSAGE>
+    <SHA>6048d26990c8f7576b82a03d52fca8b42195c01a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.ManyShardsIT testCancelUnnecessaryRequests #125947</MESSAGE>
+      <SHA>be9ebd0084f57876bd5cb6d4319f18dd62a603f8</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

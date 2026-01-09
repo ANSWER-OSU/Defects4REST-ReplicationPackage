@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16301</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/16301</ISSUEURL>
+  <TITLE>Uploading an m4a file to an audio card fails when using Firefox on Windows</TITLE>
+  <DESCRIPTION>### Issue Summary Hi, I noticed that it's not possible to upload an m4a file to an audio card using Firefox on Windows. If you try to do so, the error 'Please select a valid media file.' is displayed. There is no problem using Chrome. The difference I can see is that Firefox specifies the MIME type `audio/mp4`, while Chrome specifies `audio/x-m4a`. Perhaps `audio/mp4` is just missing from this list: https://github.com/TryGhost/Ghost/blob/066db4c46fec15d998325f287a5b5056e13dc961/ghost/core/core/shared/config/overrides.json#L34-L45 ### Steps to Reproduce 1. Create a draft post 2. Add an audio card 3. Upload an .m4a file using Firefox on Windows A zipped sample file of silence is attached (but any m4a file should do). [silence.zip](https://github.com/TryGhost/Ghost/files/10787960/silence.zip) ### Ghost Version 5.35 ### Node.js Version 18.14.1 ### How did you install Ghost? Tested both native on Ubuntu 22.04 and using the container image ### Database type MySQL 8 ### Browser &amp; OS version Firefox 111 beta 2, Windows 10 ### Relevant log / error output ```shell [2023-02-20 21:36:24] ERROR &quot;POST /ghost/api/admin/media/upload/&quot; 415 25ms Please select a valid media file. Error ID: a0036130-b166-11ed-9f6d-e54eb9848d84 ---------------------------------------- UnsupportedMediaTypeError: Please select a valid media file. at mediaUploadValidation (/var/lib/ghost/versions/5.35.0/core/server/web/api/middleware/upload.js:194:25) at Layer.handle [as handle_request] (/var/lib/ghost/versions/5.35.0/node_modules/express/lib/router/layer.js:95:5) at next (/var/lib/ghost/versions/5.35.0/node_modules/express/lib/router/route.js:144:13) at /var/lib/ghost/versions/5.35.0/core/server/web/api/middleware/upload.js:113:9 at Immediate._onImmediate (/var/lib/ghost/versions/5.35.0/node_modules/multer/lib/make-middleware.js:53:37) at processImmediate (node:internal/timers:468:21) ``` ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed uploads of m4a files with audio/mp4 content type fixes https://github.com/TryGhost/Ghost/issues/16301 Previously, audio/x-m4a was allowed but not audio/mp4. This meant uploads of m4a files failed in some cases e.g. Firefox on WIndows.</MESSAGE>
+      <SHA>87c7704925e98b43a44810445778c8a22728564e</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/shared/config/overrides.json</FILE>
+        <FILE>ghost/core/test/e2e-api/admin/media.test.js</FILE>
+        <FILE>ghost/core/test/utils/fixtures/media/sample.m4a</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed uploads of m4a files with audio/mp4 content type fixes https://github.com/TryGhost/Ghost/issues/16301 Previously, audio/x-m4a was allowed but not audio/mp4. This meant uploads of m4a files failed in some cases e.g. Firefox on Windows.</MESSAGE>
+      <SHA>5f1bc696d7ac17879b115c38af078ea0fbadc89d</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/shared/config/overrides.json</FILE>
+        <FILE>ghost/core/test/e2e-api/admin/media.test.js</FILE>
+        <FILE>ghost/core/test/utils/fixtures/media/sample.m4a</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed uploads of m4a files with audio/mp4 content type fixes https://github.com/TryGhost/Ghost/issues/16301 Previously, audio/x-m4a was allowed but not audio/mp4. This meant uploads of m4a files failed in some cases e.g. Firefox on Windows.</MESSAGE>
+      <SHA>e6dc32d5bd5a244d820c065fb5e74b6abb20db87</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/shared/config/overrides.json</FILE>
+        <FILE>ghost/core/test/e2e-api/admin/media.test.js</FILE>
+        <FILE>ghost/core/test/utils/fixtures/media/sample.m4a</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed uploads of m4a files with audio/mp4 content type fixes https://github.com/TryGhost/Ghost/issues/16301 Previously, audio/x-m4a was allowed but not audio/mp4. This meant uploads of m4a files failed in some cases e.g. Firefox on Windows.</MESSAGE>
+      <SHA>c5a4ee89c9af74800263433358608482a6976bad</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/shared/config/overrides.json</FILE>
+        <FILE>ghost/core/test/e2e-api/admin/media.test.js</FILE>
+        <FILE>ghost/core/test/utils/fixtures/media/sample.m4a</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

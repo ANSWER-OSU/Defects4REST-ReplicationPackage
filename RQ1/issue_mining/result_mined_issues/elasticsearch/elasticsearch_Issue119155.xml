@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>119155</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/119155</ISSUEURL>
+  <TITLE>[CI] DocsClientYamlTestSuiteIT test {yaml=reference/search/search-your-data/retrievers-examples/line_98} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #5448 / ubuntu-2404-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/dudnaecuai7qy) - [elasticsearch-pull-request #47587 / part-1](https://gradle-enterprise.elastic.co/s/vqywvyzimy2b4) - [elasticsearch-pull-request #47578 / part-1](https://gradle-enterprise.elastic.co/s/4kuhmhi7a5muw) - [elasticsearch-pull-request #47426 / part-1](https://gradle-enterprise.elastic.co/s/rzddadclv4uyq) - [elasticsearch-pull-request #47423 / part-1](https://gradle-enterprise.elastic.co/s/bcfcvcc2ss4vu) - [elasticsearch-pull-request #47410 / part-1](https://gradle-enterprise.elastic.co/s/yr6qny765mevm) **Reproduction Line:** ``` ./gradlew &quot;:docs:yamlRestTest&quot; --tests &quot;org.elasticsearch.smoketest.DocsClientYamlTestSuiteIT.test {yaml=reference/search/search-your-data/retrievers-examples/line_98}&quot; -Dtests.seed=C2C201F68C61D52A -Dtests.locale=en-MP -Dtests.timezone=Asia/Dubai -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.smoketest.DocsClientYamlTestSuiteIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Byaml%3Dreference%2Fsearch%2Fsearch-your-data%2Fretrievers-examples%2Fline_98%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Failure at [reference/search/search-your-data/retrievers-examples:136]: Expected a map containing _shards: a map containing total: &lt;1&gt; failed: &lt;0&gt; successful: &lt;1&gt; skipped: &lt;0&gt; hits: a map containing hits: a list containing 0: a map containing _index: &quot;retrievers_example&quot; _id: &quot;1&quot; _score: &lt;0.8333334&gt; 1: a map containing _index: &quot;retrievers_example&quot; _id: &quot;2&quot; _score: &lt;0.8333334&gt; 2: a map containing _index: &quot;retrievers_example&quot; _id: expected &quot;3&quot; but was &quot;5&quot; _score: &lt;0.25&gt; total: a map containing value: &lt;3&gt; relation: &quot;eq&quot; max_score: &lt;0.8333334&gt; took: &lt;7&gt; timed_out: &lt;false&gt; ``` **Issue Reasons:** - [main] 6 failures in test test {yaml=reference/search/search-your-data/retrievers-examples/line_98} (1.3% fail rate in 457 executions) - [main] 5 failures in step part-1 (2.0% fail rate in 250 executions) - [main] 5 failures in pipeline elasticsearch-pull-request (2.0% fail rate in 253 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>32</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Conditionally mute synonyms config access test (#119140) This synonyms test checks certain config files cannot be accessed. It relies on security manager, which is not enabled in JDK 24. Until the entitlement based replacement is available, this commit mutes the test. see #119130</MESSAGE>
+    <SHA>39a58e24c77df516667edc57acfe29e38d26983f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.smoketest.DocsClientYamlTestSuiteIT test {yaml=reference/search/search-your-data/retrievers-examples/line_98} #119155</MESSAGE>
+      <SHA>9167db4dcb4c949f9584993bff04871a39724636</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

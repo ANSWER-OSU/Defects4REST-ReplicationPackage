@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5632</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/5632</ISSUEURL>
+  <TITLE>AWX Installation on Minishift Unclear</TITLE>
+  <DESCRIPTION>&lt;!--- The Ansible community is highly committed to the security of our open source projects. Security concerns should be reported directly by email to security@ansible.com. For more information on the Ansible community's practices regarding responsible disclosure, see https://www.ansible.com/security --&gt; ##### ISSUE TYPE &lt;!--- Pick one below and delete the rest: --&gt; - Documentation ##### COMPONENT NAME &lt;!-- Pick the area of AWX for this issue, you can have multiple, delete the rest: --&gt; - Installer ##### SUMMARY &lt;!-- Briefly describe the problem. --&gt; Installation on Minishift fails with cannot get securitycontextconstraints.security.openshift.io The AWX installation documentation for minishift mentions the following: &gt; When using OpenShift for deploying AWX make sure you have correct privileges to add the security context 'privileged', otherwise the installation will fail. The privileged context is needed because of the use of the bubblewrap tool to add an additional layer of security when using containers. However it is not clear to me how I can ensure I have the correct privileges? It appears that the default system user does not have cluster-admin rights and there seems to be no way that I could find to give it that. So more info on the security pre-requisites would be helpful for a successful installation. ##### ENVIRONMENT * AWX version: latest * AWX install method: minishift * Ansible version: 2.8.5 * Operating System: CentOS 8 * Web Browser: FireFox * Minishift: 1.34.1 ##### STEPS TO REPRODUCE &lt;!-- For bugs, please show exactly how to reproduce the problem. For new features, show how the feature would be used. --&gt; Install Minishift Follow the instructions to install AWX ##### EXPECTED RESULTS &lt;!-- For bug reports, what did you expect to happen when running the steps above? --&gt; AWX install succeeds ##### ACTUAL RESULTS &lt;!-- For bug reports, what actually happened? --&gt; Installation on Minishift fails with cannot get securitycontextconstraints.security.openshift.io at the cluster scope: no RBAC policy matched ##### ADDITIONAL INFORMATION &lt;!-- Include any links to sosreport, database dumps, screenshots or other information. --&gt;</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>632</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #5643 from ansible/backport-issue-5641-fact_insights_mount_issues [Backport 4.1] - Do not mount /etc/redhat-access-insights into EEs</MESSAGE>
+    <SHA>8469dba867961a31d878b8d0d8529d387eff04cb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #5632 from ansible/41_rekey_existing [4.1] Allow rekey with an existing key</MESSAGE>
+      <SHA>947ed5785e92c3f337ffc3dfb1841f783d7958d0</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/management/commands/regenerate_secret_key.py</FILE>
+        <FILE>awx/main/tests/functional/commands/test_secret_key_regeneration.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

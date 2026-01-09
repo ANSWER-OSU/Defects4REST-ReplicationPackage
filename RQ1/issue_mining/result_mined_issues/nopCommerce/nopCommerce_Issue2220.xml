@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2220</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2220</ISSUEURL>
+  <TITLE>Upgrade script. Update the &quot;fixedorbyweightsettings.shippingbyweightenabled&quot; setting according to enabled provider</TITLE>
+  <DESCRIPTION>update the shippingbyweightenabled setting appropriately. Currently the upgrade script defaults it to False, meaning use Fixed Rate. [code] --new setting IF NOT EXISTS (S.ELECT 1 FROM [Setting] WHERE [name] = N'fixedorbyweightsettings.shippingbyweightenabled') BEGIN I.NSERT [Setting] ([Name], [Value], [StoreId]) VALUES (N'fixedorbyweightsettings.shippingbyweightenabled', N'[b]False[/b]', 0) END[/code] It should then UPDATE it if shippingsettings.activeshippingratecomputationmethodsystemnames LIKE &quot;%Shipping.ByWeight%&quot; Source: http://www.nopcommerce.com/boards/t/46341/nopcommerce-390-beta-released-please-share-your-impressions.aspx?p=9#184757</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#817 Further changes on added settings indicating whether &quot;default&quot; items should be displayed in the top menu</MESSAGE>
+    <SHA>1adb339706cdce91f74822eac9588cb426944283</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2220 Update setting according to enabled shipping provider</MESSAGE>
+      <SHA>90521d5135380c9e62d52d58c829f70e9618ff41</SHA>
+      <PATCHEDFILES>
+        <FILE>upgradescripts/3.80-the next version/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

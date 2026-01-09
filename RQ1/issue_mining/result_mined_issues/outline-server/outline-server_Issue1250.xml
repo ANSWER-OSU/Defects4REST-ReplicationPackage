@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1250</ISSUENO>
+  <ISSUEURL>https://github.com/Jigsaw-Code/outline-server/issues/1250</ISSUEURL>
+  <TITLE>Security Policy violation Binary Artifacts</TITLE>
+  <DESCRIPTION>_This issue was automatically created by [Allstar](https://github.com/ossf/allstar/)._ **Security Policy Violation** Project is out of compliance with Binary Artifacts policy: binaries present in source code **Rule Description** Binary Artifacts are an increased security risk in your repository. Binary artifacts cannot be reviewed, allowing the introduction of possibly obsolete or maliciously subverted executables. For more information see the [Security Scorecards Documentation](https://github.com/ossf/scorecard/blob/main/docs/checks.md#binary-artifacts) for Binary Artifacts. **Remediation Steps** To remediate, remove the generated executable artifacts from the repository. **Artifacts Found** - third_party/jsign/jsign-4.2.jar **Additional Information** This policy is drawn from [Security Scorecards](https://github.com/ossf/scorecard/), which is a tool that scores a project's adherence to security best practices. You may wish to run a Scorecards scan directly on this repository for more details. --- &lt;!-- Edit section #updates --&gt;&lt;!-- Current result text hash: e049c79475891aabde9ecbfcbc98146520ccc6b3d72d45e5d73bcca068740fdd --&gt;&lt;!-- Edit section #updates --&gt; Allstar has been installed on all Google managed GitHub orgs. Policies are gradually being rolled out and enforced by the GOSST and OSPO teams. Learn more at http://go/allstar This issue will auto resolve when the policy is in compliance. Issue created by Allstar. See https://github.com/ossf/allstar/ for more information. For questions specific to the repository, please contact the owner or maintainer.</DESCRIPTION>
+  <REPONAME>outline-server</REPONAME>
+  <TIMEDIFFERENCEDAYS>22</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: remove broken feedback form (#1252) * remove feedback * switch to comment</MESSAGE>
+    <SHA>8780b4b80d653ba0da006dd2e46b4b89f3959441</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>build(devtools/build): exclude jsign.jar from the repository (#1263) According to #1250 , we are not allowed to include binaries in this repository. In this PR, I removed `./third_party/jsign/jsign-4.2.jar`, it will be downloaded during build process on demand. The workflow is: * If we are not building for Windows, nothing happens * If we are building for Windows but not signing the binaries (for example dev builds), nothing happens * If we are building and signing Windows binaries: * If `jsign-4.2.jar` already exists and matches checksum, nothing happens * otherwise, we will download it from [jsign's official GitHub releases](https://github.com/ebourg/jsign/releases)</MESSAGE>
+      <SHA>244ef062261642adfabe93a122b487e4b44fab67</SHA>
+      <PATCHEDFILES>
+        <FILE>package-lock.json</FILE>
+        <FILE>package.json</FILE>
+        <FILE>src/build/download_file.mjs</FILE>
+        <FILE>src/build/get_file_checksum.mjs</FILE>
+        <FILE>src/build/get_root_dir.mjs</FILE>
+        <FILE>src/server_manager/electron_and_karma_chromium.spec.ts</FILE>
+        <FILE>src/server_manager/electron_app/windows/sign_windows_executable.mjs</FILE>
+        <FILE>src/shadowbox/package.json</FILE>
+        <FILE>third_party/jsign/.gitignore</FILE>
+        <FILE>third_party/jsign/index.mjs</FILE>
+        <FILE>third_party/jsign/jsign-4.2.jar</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

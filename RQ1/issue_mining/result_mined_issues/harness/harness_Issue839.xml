@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>839</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/839</ISSUEURL>
+  <TITLE>Services do not operate correctly when docker net host option is specified</TITLE>
+  <DESCRIPTION>The addition of `--net` in #617 is awesome, I need it, but I may have found a bug - I don't have bandwidth to test this one out at the moment though... The implementation of `services` looks to rely on Docker Links https://github.com/drone/drone/blob/0a6227930dce3e356667506bc950530a9d847c61/shared/build/build.go#L346 Links and `--net=host` are not supported https://github.com/docker/docker/pull/7066 A possible workaround might be to run service containers in `--net=host` but you might run in to port conflict issues if you are, for example, using postgres as the backend for your Drone install and attempting to run a postgres service.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>805</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #827 from bradrydzewski/master partial fix for issue #812</MESSAGE>
+    <SHA>c8ac57c2baf7ac7a78403c9d9850ad85eac3655a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix services behaviour when docker net is host When the image runs with `--net host`, docker links will not work. This commit checks to see if `--net host` has been set, and if so creates the services in `--net host` also. Fixes #839 Signed-off-by: Dave Tucker &lt;dave@dtucker.co.uk&gt;</MESSAGE>
+      <SHA>a6ea6b5bc55220cd8e817858011acd57f52ebd1c</SHA>
+      <PATCHEDFILES>
+        <FILE>shared/build/build.go</FILE>
+        <FILE>shared/build/docker/container.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix services behaviour when docker net is host When the image runs with `--net host`, docker links will not work. This commit checks to see if `--net host` has been set, and if so creates the services in `--net host` also. Fixes #839 Signed-off-by: Dave Tucker &lt;dave@dtucker.co.uk&gt;</MESSAGE>
+      <SHA>8873e72b5a2bf413b0cc35301ac8f5653afd9e8a</SHA>
+      <PATCHEDFILES>
+        <FILE>shared/build/build.go</FILE>
+        <FILE>shared/build/docker/container.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix services behaviour when docker net is host When the image runs with `--net host`, docker links will not work. This commit checks to see if `--net host` has been set, and if so creates the services in `--net host` also. Fixes #839 Signed-off-by: Dave Tucker &lt;dave@dtucker.co.uk&gt;</MESSAGE>
+      <SHA>922c16d327adb3466e8d18a47c188e3ca8d3e1d3</SHA>
+      <PATCHEDFILES>
+        <FILE>shared/build/build.go</FILE>
+        <FILE>shared/build/docker/container.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

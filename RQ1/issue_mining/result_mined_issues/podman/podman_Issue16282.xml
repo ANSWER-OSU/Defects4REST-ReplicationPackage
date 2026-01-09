@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16282</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16282</ISSUEURL>
+  <TITLE>using cached config breaks --connection</TITLE>
+  <DESCRIPTION>&lt;!-- --------------------------------------------------- BUG REPORT INFORMATION --------------------------------------------------- Use the commands below to provide key information from your environment: You do NOT have to include this information if this is a FEATURE REQUEST **NOTE** A large number of issues reported against Podman are often found to already be fixed in more current versions of the project. Before reporting an issue, please verify the version you are running with `podman version` and compare it to the latest release documented on the top of Podman's [README.md](../README.md). If they differ, please update your version of Podman to the latest possible and retry your command before creating an issue. Also, there is a running list of known issues in the [Podman Troubleshooting Guide](https://github.com/containers/podman/blob/main/troubleshooting.md), please reference that page before opening a new issue. If you are filing a bug against `podman build`, please instead file a bug against Buildah (https://github.com/containers/buildah/issues). Podman build executes Buildah to perform container builds, and as such the Buildah maintainers are best equipped to handle these bugs. --&gt; **Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind bug **Description** The changes introduced in https://github.com/containers/podman/pull/16238 seem to break --connection, which now when used always results in `Error: failed to resolve active destination: &quot;fedora&quot; service destination not found` due to the blank config that is returned from https://github.com/vrothberg/libpod/blob/7a9c14d6266a0883c8e95d376ffcae71c7e8621e/cmd/podman/registry/config.go#L83 resulting in an empty service destination array **Steps to reproduce the issue:** 1. podman system connection add 2. podman --connection=name ps 3. error out **Describe the results you received:** **Describe the results you expected:** **Additional information you deem important (e.g. issue happens only occasionally):** **Output of `podman version`:** ``` Client: Podman Engine Version: 4.3.0-dev API Version: 4.3.0-dev Go Version: go1.18.6 Git Commit: 63a8f9aeaacd7ed9aee22d227cc0a68fd9306aba-dirty Built: Mon Oct 24 18:55:10 2022 OS/Arch: linux/amd64 ```</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #16464 from rhatdan/events Add podman system events alias to podman events</MESSAGE>
+    <SHA>c75b05996d6b1d10100058778d4152af851b5e63</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix connection usage with containers.conf --connection was failing due to the servicedestinations array being empty on runtime. Fix by making sure the cached config is used resolves #16282 Signed-off-by: Charlie Doern &lt;cdoern@redhat.com&gt;</MESSAGE>
+      <SHA>69d737ef15b793d698067a691ca7124b3c2ae952</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/root.go</FILE>
+        <FILE>test/e2e/system_connection_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

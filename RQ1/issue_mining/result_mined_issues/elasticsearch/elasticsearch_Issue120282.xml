@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120282</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120282</ISSUEURL>
+  <TITLE>[CI] InferenceIngestInputConfigIT testIngestWithMultipleInputFields failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5873 / openjdk17_checkpart4_java-fips-matrix](https://gradle-enterprise.elastic.co/s/kdecn6d7n4wrw) - [elasticsearch-intake #15579 / part4](https://gradle-enterprise.elastic.co/s/hdsgl5d6grg4k) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:ml:qa:native-multi-node-tests:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.ml.integration.InferenceIngestInputConfigIT.testIngestWithMultipleInputFields&quot; -Dtests.seed=A9D2EF63B7909175 -Dtests.locale=ar-BH -Dtests.timezone=Pacific/Norfolk -Druntime.java=17 -Dtests.fips.enabled=true ``` **Applicable branches:** 8.16 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.ml.integration.InferenceIngestInputConfigIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testIngestWithMultipleInputFields),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: 2 active tasks found: cluster:admin/xpack/ml/job/close 9cKwIoMAQE-i9bLHBbGdug:23658 - transport 1737036008192 14:00:08 5.1m 127.0.0.1 javaRestTest-1 cluster:admin/xpack/ml/job/close[n] 9cKwIoMAQE-i9bLHBbGdug:23664 9cKwIoMAQE-i9bLHBbGdug:23658 transport 1737036008200 14:00:08 5.1m 127.0.0.1 javaRestTest-1 expected:&lt;0&gt; but was:&lt;2&gt; ``` **Issue Reasons:** - [8.16] 2 failures in test testIngestWithMultipleInputFields (0.4% fail rate in 552 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[ML] Update docs to say PUT instead of POST (#120215) (#120229)</MESSAGE>
+    <SHA>db506c30c42e3ca998b78e16c7c948f5585b35ef</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ml.integration.InferenceIngestInputConfigIT testIngestWithMultipleInputFields #120282</MESSAGE>
+      <SHA>5cd7606ba32be6b0653ba8247d30c3adcf184eff</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

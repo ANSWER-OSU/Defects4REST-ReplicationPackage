@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3452</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3452</ISSUEURL>
+  <TITLE>Setup failed: Value cannot be null. Parameter name: hashAlgorithm</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.10 Steps to reproduce the problem: Create a database in Sql Server 2012 sp4 Publish NopCommerce on IIS (v 8.0) with a Nop-Template theme. Run installation ![image](https://user-images.githubusercontent.com/171024/49665151-e964f900-fa4b-11e8-8c07-f44c97ec273d.png) `CodeFirstInstallationService `calls `InstallCustomersAndUsers ` which, at some point, tries to resolve `ICustomerRegistrationService`: ``` //set hashed admin password var customerRegistrationService = EngineContext.Current.Resolve&lt;ICustomerRegistrationService&gt;(); customerRegistrationService.ChangePassword(new ChangePasswordRequest(defaultUserEmail, false, PasswordFormat.Hashed, defaultUserPassword)); ``` and calls `ChangePassword`. `CustomerRegistrationService` uses `_customerSettings` (CustomerSettings) in the constructor but the object is not resolved properly. For hashed password the property `_customerSettings.HashedPasswordFormat` is empty. In happens pretty much all the time but it works smoothly in debug on my local machine. This is a trace of all the properties of `CustomerSettings` found in `CustomerRegistrationService.ChangePassword` ( **&quot;HashedPasswordFormat&quot;: null** ) : ``` { &quot;UsernamesEnabled&quot;: false, &quot;CheckUsernameAvailabilityEnabled&quot;: false, &quot;AllowUsersToChangeUsernames&quot;: false, &quot;UsernameValidationEnabled&quot;: false, &quot;UsernameValidationUseRegex&quot;: false, &quot;UsernameValidationRule&quot;: null, &quot;DefaultPasswordFormat&quot;: &quot;Clear&quot;, &quot;HashedPasswordFormat&quot;: null, &quot;PasswordMinLength&quot;: 0, &quot;UnduplicatedPasswordsNumber&quot;: 0, &quot;PasswordRecoveryLinkDaysValid&quot;: 0, &quot;PasswordLifetime&quot;: 0, &quot;FailedPasswordAllowedAttempts&quot;: 0, &quot;FailedPasswordLockoutMinutes&quot;: 0, &quot;UserRegistrationType&quot;: &quot;0&quot;, &quot;AllowCustomersToUploadAvatars&quot;: false, &quot;AvatarMaximumSizeBytes&quot;: 0, &quot;DefaultAvatarEnabled&quot;: false, &quot;ShowCustomersLocation&quot;: false, &quot;ShowCustomersJoinDate&quot;: false, &quot;AllowViewingProfiles&quot;: false, &quot;NotifyNewCustomerRegistration&quot;: false, &quot;HideDownloadableProductsTab&quot;: false, &quot;HideBackInStockSubscriptionsTab&quot;: false, &quot;DownloadableProductsValidateUser&quot;: false, &quot;CustomerNameFormat&quot;: &quot;0&quot;, &quot;NewsletterEnabled&quot;: false, &quot;NewsletterTickedByDefault&quot;: false, &quot;HideNewsletterBlock&quot;: false, &quot;NewsletterBlockAllowToUnsubscribe&quot;: false, &quot;OnlineCustomerMinutes&quot;: 0, &quot;StoreLastVisitedPage&quot;: false, &quot;StoreIpAddresses&quot;: false, &quot;SuffixDeletedCustomers&quot;: false, &quot;EnteringEmailTwice&quot;: false, &quot;RequireRegistrationForDownloadableProducts&quot;: false, &quot;AllowCustomersToCheckGiftCardBalance&quot;: false, &quot;DeleteGuestTaskOlderThanMinutes&quot;: 0, &quot;GenderEnabled&quot;: false, &quot;DateOfBirthEnabled&quot;: false, &quot;DateOfBirthRequired&quot;: false, &quot;DateOfBirthMinimumAge&quot;: null, &quot;CompanyEnabled&quot;: false, &quot;CompanyRequired&quot;: false, &quot;StreetAddressEnabled&quot;: false, &quot;StreetAddressRequired&quot;: false, &quot;StreetAddress2Enabled&quot;: false, &quot;StreetAddress2Required&quot;: false, &quot;ZipPostalCodeEnabled&quot;: false, &quot;ZipPostalCodeRequired&quot;: false, &quot;CityEnabled&quot;: false, &quot;CityRequired&quot;: false, &quot;CountyEnabled&quot;: false, &quot;CountyRequired&quot;: false, &quot;CountryEnabled&quot;: false, &quot;CountryRequired&quot;: false, &quot;StateProvinceEnabled&quot;: false, &quot;StateProvinceRequired&quot;: false, &quot;PhoneEnabled&quot;: false, &quot;PhoneRequired&quot;: false, &quot;FaxEnabled&quot;: false, &quot;FaxRequired&quot;: false, &quot;AcceptPrivacyPolicyEnabled&quot;: false, &quot;$type&quot;: &quot;CustomerSettings&quot; } ```</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>32</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Added travis badge to readme. (#3470)</MESSAGE>
+    <SHA>0500544070309284e33af1a2c4e875b5422309ee</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3452 Using default hashed password format during installation</MESSAGE>
+      <SHA>f0a22bdc2d1f501db7400df3cb115c55d66917ae</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Customers/ChangePasswordRequest.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/CustomerRegistrationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/NopCustomerServiceDefaults.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Installation/CodeFirstInstallationService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3452 Further changes to use default hashed password format during installation</MESSAGE>
+      <SHA>c418122223ecd09c690cecaf120cda378bff202d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Customers/ChangePasswordRequest.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/CustomerRegistrationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/NopCustomerServiceDefaults.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Installation/CodeFirstInstallationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Installation/SqlFileInstallationService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

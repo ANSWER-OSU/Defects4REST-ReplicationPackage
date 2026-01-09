@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9606</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/9606</ISSUEURL>
+  <TITLE>ZoneOnDemand behavior is confusing</TITLE>
+  <DESCRIPTION>### Is your feature request related to a problem? Please describe. What we see in `NotifyFilter` exhibits the issue: ```c# var layout = await _layoutAccessor.GetLayoutAsync(); var messagesZone = layout.Zones[&quot;Messages&quot;]; if (messagesZone is IShape zone) { foreach (var messageEntry in _existingEntries) { // Also retrieve the actual zone in case it was only a temporary empty zone created on demand. zone = await zone.AddAsync(await _shapeFactory.CreateAsync(&quot;Message&quot;, Arguments.From(messageEntry))); } } ``` Notice that (on the contrary to the older dynamic shape behavior) if you add multiple shapes to the same zone you have to take care of `ZoneOnDemand` potentially creating the zone shape on the first `AddAsync()` call. Thus you can't just do something like this: ```c# await zone.AddAsync(shape1); await zone.AddAsync(shape2); ``` Rather, you have to do something along the lines of: ```c# zone = await zone.AddAsync(shape1); await zone.AddAsync(shape2); ``` Or: ```c# await layout.Zones[&quot;Messages&quot;].AddAsync(shape1); await layout.Zones[&quot;Messages&quot;].AddAsync(shape2); ``` The API doesn't make it obvious that you have to do this. ### Describe the solution you'd like Instead of making consumers do such a check or re-assignment I'd like to see the following just work (this currently yields that the last shape will be displayed, without any indication of what's wrong): ```c# await zone.AddAsync(shape1); await zone.AddAsync(shape2); ``` This could be done by e.g. `Zones.TryGetMemberImpl()` running the `_zoneFactory` right away, i.e. when doing `layout.Zones[&quot;Messages&quot;]` you'd get an actual zone already. However, this would potentially create more shapes than used in the end (though I'd need to understand better why this optimization with `ZoneOnDemand` is there in the first place). ### Describe alternatives you've considered A different API, like differently named methods in the same place would alleviate the issue to an extent too. If `layout.Zones[&quot;Messages&quot;]` doesn't return an `IShape` but some other type that doesn't have `AddAsync()` but maybe something like `GetOrCreateShape()` (which then you can use as usual with `AddAsync()`) then that would work too. Maybe this type could actually be `ZoneOnDemand` but without it deriving from `Shape`.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>19</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix registration with external provider (#9657) Now asking for an email when the email claim is not available and the &quot;Do not ask for email address&quot; option is selected. When the username generated in the script is invalid, the user can fix it in the form.</MESSAGE>
+    <SHA>4f38d2149bc6de0819df50708aac5cde1eebc9cb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #9606 ZoneOnDemand behavior</MESSAGE>
+      <SHA>016875abbe36f5220896ea3867d4b42d5478c0f7</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement/Notify/NotifyFilter.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement/Zones/ZoneHoldingBehavior.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #9606 ZoneOnDemand behavior (Lombiq Technologies: OCORE-58) (#9715)</MESSAGE>
+      <SHA>481702e7e89789ee81dfefcc6ba967142f603fe1</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement/Notify/NotifyFilter.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement/Zones/ZoneHoldingBehavior.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5051</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5051</ISSUEURL>
+  <TITLE>Accessibility - Show dropdown menus on focus</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.3 ## Steps to reproduce the problem: 1. Load the [demo store](https://demo.nopcommerce.com/) in your browser. 1. Hit the tab key and tab through the main navigation (&quot;Computers, Electronics, Apparel&quot;) * Note: without a focus indicator, you will have to use your browsers URL preview to see where you are currently focused (see #5022). ## Result Users are able to tab through the dropdown (the browser won't stop you), but the dropdown does not expand when tabbing through it. ## Expected results When tabbing through a drop down navigation, the dropdown navigation should remain open and be visible while tabbing. This article on [CSS Tricks](https://css-tricks.com/solved-with-css-dropdown-menus/#the-problem) does a great job outlining this issue in more detail. ## Fix ```css @media (min-width: 1001px) { /* Fix dropdown menus for keyboard users: */ .header-menu ul li:focus-within &gt; .sublist { display: block; } } ``` **Note:** See [`focus-within` browser support](https://caniuse.com/css-focus-within). A polyfill is available if needed. ## WCAG Guideline https://www.w3.org/WAI/WCAG21/quickref/?currentsidebar=%23col_overview#focus-visible</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>907</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue-5841-Plugin-ver' into develop # Conflicts: # src/Plugins/Nop.Plugin.DiscountRules.CustomerRoles/plugin.json # src/Plugins/Nop.Plugin.ExchangeRate.EcbExchange/plugin.json # src/Plugins/Nop.Plugin.ExternalAuth.Facebook/plugin.json # src/Plugins/Nop.Plugin.Misc.Sendinblue/plugin.json # src/Plugins/Nop.Plugin.Misc.WebApi.Frontend/plugin.json # src/Plugins/Nop.Plugin.Misc.Zettle/plugin.json # src/Plugins/Nop.Plugin.MultiFactorAuth.GoogleAuthenticator/plugin.json # src/Plugins/Nop.Plugin.Payments.CheckMoneyOrder/plugin.json # src/Plugins/Nop.Plugin.Payments.CyberSource/plugin.json # src/Plugins/Nop.Plugin.Payments.Manual/plugin.json # src/Plugins/Nop.Plugin.Payments.PayPalCommerce/plugin.json # src/Plugins/Nop.Plugin.Pickup.PickupInStore/plugin.json # src/Plugins/Nop.Plugin.Shipping.FixedByWeightByTotal/plugin.json # src/Plugins/Nop.Plugin.Shipping.UPS/plugin.json # src/Plugins/Nop.Plugin.Tax.Avalara/plugin.json # src/Plugins/Nop.Plugin.Tax.FixedOrByCountryStateZip/plugin.json # src/Plugins/Nop.Plugin.Widgets.AccessiBe/plugin.json # src/Plugins/Nop.Plugin.Widgets.FacebookPixel/plugin.json # src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/plugin.json # src/Plugins/Nop.Plugin.Widgets.NivoSlider/plugin.json # src/Plugins/Nop.Plugin.Widgets.What3words/plugin.json</MESSAGE>
+    <SHA>ebc0bcb9d9ce0abd73d792545fd4bcf5a2aa8bb1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Issue #5023 #5051 #5052 #5053 Accessibility</MESSAGE>
+      <SHA>55d2d9deb786c155f76bec59d29b4cf9521c0ae4</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo470/LocalizationMigration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Themes/DefaultClean/Content/css/styles.css</FILE>
+        <FILE>src/Presentation/Nop.Web/Themes/DefaultClean/Content/css/styles.rtl.css</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/Components/TopMenu/Default.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/_Header.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/_Notifications.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/_Root.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

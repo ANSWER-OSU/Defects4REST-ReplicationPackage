@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2466</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2466</ISSUEURL>
+  <TITLE>DRONE_WORKSPACE and CI_WORKSPACE env variable behaves weird</TITLE>
+  <DESCRIPTION>Hi. I am using the latest drone docker image `0.8.6` and experience some weird behaviour with the `DRONE_WORKSPACE`/`CI_WORKSPACE` variables. They seem to be only injected as environment variables when running the image, but are not in the &quot;metadata&quot; (so cannot be used for string operations as explained [here](http://readme.drone.io/0.5/usage/environment-reference/)). Here a quick test case to reproduce: ```yaml pipeline: test1: image: busybox:latest environment: - DRONE_WORKSPACE2=${DRONE_WORKSPACE} commands: # works - echo $DRONE_WORKSPACE # is empty, but I would expected it to be filled, too - echo $DRONE_WORKSPACE2 # is empty, but I would expected it to be filled, too - echo ${DRONE_WORKSPACE} test2: image: busybox:latest environment: - CI_WORKSPACE2=${CI_WORKSPACE} commands: # works - echo $CI_WORKSPACE # is empty, but I would expected it to be filled, too - echo $CI_WORKSPACE2 # is empty, but I would expected it to be filled, too - echo ${CI_WORKSPACE} ``` Is this intentional?</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [CDE-192]: ignore deleted spaces during fetching gitspaces for account (#2465) * feat: [CDE-192]: ignore deleted spaces during fetching gitspaces for account</MESSAGE>
+    <SHA>f247c70311a3ee3a4905e59de4648720452f91a9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: lookup-repo error handling (#2466) * fix: lookup-repo error handling</MESSAGE>
+      <SHA>ec2a7c33612190ac3e88009da17113257526da1c</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/cde-gitness/components/ThirdPartyRepoImportForm/ThirdPartyRepoImportForm.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

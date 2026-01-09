@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8547</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/8547</ISSUEURL>
+  <TITLE>Brand new setup error</TITLE>
+  <DESCRIPTION>I configured a brand new installation with 2 databases. One for the content called MainDB and one for the shell called ConfigDB. I set my appsettings.json file with shell config and default table. When I run the setup page for the first time I get only 2 tables with the prefix of default. Default_Documents and Default_Identifiers The rest of the tables have no prefix. The webpage simply goes back to the setup page. ``` &quot;OrchardCore&quot;: { &quot;ConnectionString&quot;: &quot;Server=???????;&quot;, // Set to the database connection string., &quot;DatabaseProvider&quot;: &quot;SqlConnection&quot;, &quot;OrchardCore_Shells_Database&quot;: { &quot;DatabaseProvider&quot;: &quot;SqlConnection&quot;, // Set to a supported database provider. &quot;ConnectionString&quot;: &quot;Server=???????&quot;, // Set to the database connection string. &quot;TablePrefix&quot;: &quot;OrchardConfig_&quot;, // Optionally, configure a table prefix. &quot;MigrateFromFiles&quot;: false // Optionally, enable to migrate existing App_Data files to Database automatically. }, &quot;Default&quot;: { &quot;TablePrefix&quot;: &quot;Default&quot; } } ```</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ShellHostedService last tweaks (#8559)</MESSAGE>
+    <SHA>97b99f0fbadcd627602f8503b4d3d33046932dd1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #8547 DatabaseShellConfigurationSources NRE</MESSAGE>
+      <SHA>0d16fae20b547d36e3939e447de2496d174d7f27</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.Infrastructure/Shells.Database/Configuration/DatabaseShellConfigurationSources.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

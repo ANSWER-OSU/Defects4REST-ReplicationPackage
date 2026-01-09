@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118401</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118401</ISSUEURL>
+  <TITLE>[CI] XPackRestIT test {p0=migrate/20_reindex_status/Test get reindex status with nonexistent task id} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5318 / release-tests](https://gradle-enterprise.elastic.co/s/fjc2j243jmpfy) - [elasticsearch-pull-request #45667 / rest-compatibility](https://gradle-enterprise.elastic.co/s/rypq6lchovres) - [elasticsearch-pull-request #45661 / rest-compatibility](https://gradle-enterprise.elastic.co/s/wq7lv4m2u34km) - [elasticsearch-pull-request #45652 / rest-compatibility](https://gradle-enterprise.elastic.co/s/aywgsxnbt5tyu) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:yamlRestTest&quot; --tests &quot;org.elasticsearch.xpack.test.rest.XPackRestIT.test {p0=migrate/20_reindex_status/Test get reindex status with nonexistent task id}&quot; -Dtests.seed=310019ECCC8EFF65 -Dbuild.snapshot=false -Dtests.jvm.argline=&quot;-Dbuild.snapshot=false&quot; -Dlicense.key=x-pack/license-tools/src/test/resources/public.key -Dtests.locale=et-EE -Dtests.timezone=Etc/GMT+1 -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.test.rest.XPackRestIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Bp0%3Dmigrate%2F20_reindex_status%2FTest%20get%20reindex%20status%20with%20nonexistent%20task%20id%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Failure at [migrate/20_reindex_status:9]: the error message was expected to match the provided regex but didn't Expected: resource_not_found_exception but: was &quot;no handler found for uri [/_migration/reindex/does_not_exist/_status?error_trace=true] and method [GET]&quot; ``` **Issue Reasons:** - [main] 4 failures in test test {p0=migrate/20_reindex_status/Test get reindex status with nonexistent task id} (6.9% fail rate in 58 executions) - [main] 3 failures in step rest-compatibility (23.1% fail rate in 13 executions) - [main] 3 failures in pipeline elasticsearch-pull-request (10.0% fail rate in 30 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Only perform operator check for migration reindex actions when feature flag is present (#118388)</MESSAGE>
+    <SHA>d30d2727dd9b861c41f6160452454a861cd418d1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.test.rest.XPackRestIT test {p0=migrate/20_reindex_status/Test get reindex status with nonexistent task id} #118401</MESSAGE>
+      <SHA>254dd0de20b9b5243b52eada8f4459348c0cf481</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

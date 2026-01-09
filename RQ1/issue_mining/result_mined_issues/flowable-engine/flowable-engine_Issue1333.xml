@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1333</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/1333</ISSUEURL>
+  <TITLE>Flowable Modeler &amp; Flowable Task &amp; BPMN engine vs script format missing</TITLE>
+  <DESCRIPTION>Hi all, Using Flowable Modeler, I wrote a simple process definition containing only a script task. I used a Flowable Application to deploy it into Flowable Task: 1. First, I create the process definition with setting neither the script format nor the script, 2. When checking the process definition with Flowable Modeler, I get an error. Normal ! 3. I fixed the error setting a Groovy script (the script format was always empty), 4. When checking the process definition no error occurs 5. I deployed the process definition 6. Using Flowable Task, I tried to create a process instance without success. However, no error is dispayed at Flowable Task level. But, an error is logged at the web-application server side: ``` org.flowable.common.engine.api.FlowableException: Error in Script at org.flowable.engine.impl.bpmn.behavior.ScriptTaskActivityBehavior.execute(ScriptTaskActivityBehavior.java:82) ~[flowable-engine-6.4.0-SNAPSHOT.jar:6.4.0-SNAPSHOT] at org.flowable.engine.impl.agenda.ContinueProcessOperation.executeActivityBehavior(ContinueProcessOperation.java:264) ~[flowable-engine-6.4.0-SNAPSHOT.jar:6.4.0-SNAPSHOT] at org.flowable.engine.impl.agenda.ContinueProcessOperation.executeSynchronous(ContinueProcessOperation.java:158) ~[flowable-engine-6.4.0-SNAPSHOT.jar:6.4.0-SNAPSHOT] at org.flowable.engine.impl.agenda.ContinueProcessOperation.continueThroughFlowNode(ContinueProcessOperation.java:113) ~[flowable-engine-6.4.0-SNAPSHOT.jar:6.4.0-SNAPSHOT] at org.flowable.engine.impl.agenda.ContinueProcessOperation.continueThroughSequenceFlow(ContinueProcessOperation.java:311) ~[flowable-engine-6.4.0-SNAPSHOT.jar:6.4.0-SNAPSHOT] at org.flowable.engine.impl.agenda.ContinueProcessOperation.run(ContinueProcessOperation.java:79) ~[flowable-engine-6.4.0-SNAPSHOT.jar:6.4.0-SNAPSHOT] at org.flowable.engine.impl.interceptor.CommandInvoker.executeOperation(CommandInvoker.java:88) ~[flowable-engine-6.4.0-SNAPSHOT.jar:6.4.0-SNAPSHOT] ... ``` 7. When I had set the script format at script task level, all works fine. 8. Perhaps, if the script format is not set, the script must be a JavaScript. I tried with a JavaScript, but I got the same error IMO, several inconsistency exist: * Flowable Modeler should throw an error on process definition validation if the script format is not set, * The error mentioned above should be returned to the user and displayed by Flowable Task, * In this case, the error to return to the user should be clearer, for example: `Script format is not set`. Or a default script format must be used. Regards, Christophe</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>1022</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Flowable-LDAP: Add option to configure connection pooling and enable it by default.</MESSAGE>
+    <SHA>e2992d5a6a0f337ce2e580678e15b88f9783ab2d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Improve script task error message for juel scripts by adding the script format, the script and the process definition id to the error message (fixes #1333).</MESSAGE>
+      <SHA>243ff56eb8cf5e3c4cdb7d140b1c9b75e1fb3c0e</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/ScriptTaskActivityBehavior.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Improve script task error message for juel scripts by adding the script format, the script and the process definition id to the error message (fixes #1333).</MESSAGE>
+      <SHA>8d90f11f4dd985a6d430d1ea82e0ebf13b3c2bbc</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/ScriptTaskActivityBehavior.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Improve the script task error message for juel scripts by adding the script format, the script and the activity id and the process definition id to the error message (fixes #1333).</MESSAGE>
+      <SHA>06ef39e4a0c69adadf3973e736e8d6f6fead8e3b</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/ScriptTaskActivityBehavior.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/examples/bpmn/scripttask/ScriptTaskTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Improve the script task error message for juel scripts by adding the script format, the script and the activity id and the process definition id to the error message (fixes #1333). (#2981)</MESSAGE>
+      <SHA>07beb9216745d4c7c44e6527a6ec40d1e23c26da</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/ScriptTaskActivityBehavior.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/examples/bpmn/scripttask/ScriptTaskTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Improve the script task error message for juel scripts by adding the script format, the script and the activity id and the process definition id to the error message (fixes #1333). (#2981)</MESSAGE>
+      <SHA>7872fe07cf4fd2caabae18aabdcb0765be4f2e41</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/ScriptTaskActivityBehavior.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/examples/bpmn/scripttask/ScriptTaskTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

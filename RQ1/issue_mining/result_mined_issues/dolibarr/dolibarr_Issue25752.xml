@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>25752</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/25752</ISSUEURL>
+  <TITLE>Entering supplier payments not possible anymore</TITLE>
+  <DESCRIPTION>### Bug I've just successfully entered a supplier payment and when hovering to the next payment, i am not seeing the full screen any longer. The screen looks like this: ![image](https://github.com/Dolibarr/dolibarr/assets/5146717/61d66949-0f66-4112-95fb-236cd5f10312) PHP 8.1 (also tried with php8.2) Logs say the following ``` 2023/08/31 12:55:10 [error] 3931785#3931785: *685396 FastCGI sent in stderr: &quot;PHP message: PHP Warning: Undefined array key &quot;labeladddateof&quot; in /var/www/dolibarr.mysrv/chroot/htdocs/core/class/html.form.class.php on line 7076; PHP message: PHP Fatal error: Uncaught TypeError: DateTime::setTimestamp(): Argument #1 ($timestamp) must be of type int, string given in /var/www/dolibarr.mysrv/chroot/htdocs/core/lib/functions.lib.php:2930 Stack trace: #0 /var/www/dolibarr.mysrv/chroot/htdocs/core/lib/functions.lib.php(2930): DateTime-&gt;setTimestamp() #1 /var/www/dolibarr.mysrv/chroot/htdocs/core/class/html.form.class.php(7077): dol_getdate() #2 /var/www/dolibarr.mysrv/chroot/htdocs/fourn/facture/paiement.php(512): Form-&gt;selectDate() #3 {main} thrown in /var/www/dolibarr.mysrv/chroot/htdocs/core/lib/functions.lib.php on line 2930&quot; while reading upstream, client: &lt;someIP&gt;, server: dolibarr.mysrv, request: &quot;GET /fourn/facture/paiement.php?facid=423&amp;action=create&amp;page_y=36 HTTP/2.0&quot;, upstream: &quot;fastcgi://unix:/var/run/php/fpm-dolibarr.mysrv.sock:&quot;, host: &quot;dolibarr.mysrv&quot;, referrer: &quot;https://dolibarr.mysrv/fourn/facture/card.php?facid=423&amp;save_lastsearch_values=1&quot; 2023/08/31 12:55:10 [error] 3931785#3931785: *685398 FastCGI sent in stderr: &quot;PHP message: PHP Fatal error: Uncaught TypeError: array_sum(): Argument #1 ($array) must be of type array, string given in /var/www/dolibarr.mysrv/chroot/htdocs/compta/ajaxpayment.php:84 Stack trace: #0 /var/www/dolibarr.mysrv/chroot/htdocs/compta/ajaxpayment.php(84): array_sum() #1 {main} thrown in /var/www/dolibarr.mysrv/chroot/htdocs/compta/ajaxpayment.php on line 84&quot; while reading response header from upstream, client: 2003:e7:6711:4400:7804:e1dd:c47d:e213, server: dolibarr.mysrv, request: &quot;POST /compta/ajaxpayment.php HTTP/2.0&quot;, upstream: &quot;fastcgi://unix:/var/run/php/fpm-dolibarr.mysrv.sock:&quot;, host: &quot;dolibarr.mysrv&quot;, referrer: &quot;https://dolibarr.mysrv/fourn/facture/paiement.php?facid=423&amp;action=create&amp;page_y=36&quot; ``` ### Environment Version 18.0.0 ### Environment OS Debian GNU/Linux 11 ### Environment Web server nginx ### Environment PHP PHP 8.1.22 ### Environment Database Ver 15.1 Distrib 10.6.15-MariaDB ### Environment URL(s) _No response_ ### Expected and actual behavior Being able to see the full &quot;payments&quot; screen. The current behaviour happens in all available browser (Chrome, Safari, FireFox) and as well in anonymous mode. ### Steps to reproduce the behavior I have no clue what changed, as it was working with all the given versions beforehand. After entering a payment, it stopped working randomly ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '17.0' of git@github.com:Dolibarr/dolibarr.git into 18.0</MESSAGE>
+    <SHA>30bfefeb4a4baf061f9bc15bd95f800f2bd9801c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #25752 fatal error on supplier payment</MESSAGE>
+      <SHA>ea91aadbdc0bf78c36e1e61e79ea3d29f1ba8029</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/class/html.form.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #25754 from Hystepik/fix-#25752-fatal-error Fix #25752 fatal error on supplier payment</MESSAGE>
+      <SHA>713591e323b26a52dae2fe446c044507c90fbcce</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/class/html.form.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

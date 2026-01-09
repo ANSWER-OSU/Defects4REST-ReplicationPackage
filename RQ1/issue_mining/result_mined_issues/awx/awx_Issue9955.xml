@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9955</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/9955</ISSUEURL>
+  <TITLE>Boolean fields on credential inputs sometimes display as true even when they're false</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### STEPS TO REPRODUCE - check out [this pr](https://github.com/ansible/awx/pull/9951) - make a container registry credential - after making the cred, edit it and change the tls flag to false and save again - Note that when you return to the form it'll still display as a checked box but the api value is actually false - Observation: if you log the value of credential.inputs [in the form component](https://github.com/ansible/awx/blob/devel/awx/ui_next/src/screens/Credential/shared/CredentialForm.jsx#L240), it changes to true somehow during initialization.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9435 from nixocio/ui_issue_9433 Fix misalignment checkbox final build Fix misalignment checkbox final build on Organization Lookup. See: #9433 Reviewed-by: Alex Corey &lt;Alex.swansboro@gmail.com&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt; Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt;</MESSAGE>
+    <SHA>5c03fa9e846952fe9601a3a10eecd06817c7927d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9960 from mabashian/9955-cred-bool Fixes bug where credential form checkboxes were erroneously checked SUMMARY link #9955 A couple of things going on here. Updating initialValues.inputs was also modifying credential.inputs because initialValues.inputs was originally a reference to credential.inputs. I changed this so that initialValues.inputs now starts off as a clone of credential.inputs. https://github.com/ansible/awx/compare/devel...mabashian:9955-cred-bool?expand=1#diff-db8df3eaf3e3b3117f845786dea77451fba53e9d6a3f49ae367a26137039fc35L256 &lt;- this line was erroneously evaluating to false when the value of an input was false. We actually just want to make sure the key exists in the object before dropping in to this block. This is what actually fixes the bug. Before this change we would fall in to https://github.com/ansible/awx/compare/devel...mabashian:9955-cred-bool?expand=1#diff-db8df3eaf3e3b3117f845786dea77451fba53e9d6a3f49ae367a26137039fc35R268 where the checkbox value would be erroneously set. ISSUE TYPE Bugfix Pull Request COMPONENT NAME UI Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+      <SHA>35e778b7aefc9adfaaab069c2a49b1c71b7a4336</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/screens/Credential/shared/CredentialForm.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Credential/shared/CredentialForm.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Credential/shared/data.credentialTypes.json</FILE>
+        <FILE>awx/ui_next/src/screens/Credential/shared/data.towerCredential.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>22577</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/22577</ISSUEURL>
+  <TITLE>Rootful podman machine gets stuck using rootless connection if previously there was a rootless podman machine set as default</TITLE>
+  <DESCRIPTION>### Issue Description If the user has two podman machines running at the same time on WSL, one fo them rootful and the other rootless, with the rootless one being set as default, if the user deletes the rootless machine the rootful podman machine will become default, however it's rootless connection will be used, not the rootful one. ### Steps to reproduce the issue Steps to reproduce the issue 1. Have two podman machines running on WSL one rootful and the other rootless, rootless machine should be default. 2. Stop the rootless machine and then delete it. 3. Run command `podman system connection list` and notice that the rootless connection of the remaining rootful podman machine is now default. ### Describe the results you received Rootful podman machine will only using the rootless connection going forward, stopping and starting the machine does not help. ### Describe the results you expected the rootful connection of the rootful podman machine should become default. ### podman info output ```yaml If you are unable to run podman info for any reason, please provide the podman version, operating system and its version and the architecture you are running. ``` ### Podman in a container No ### Privileged Or Rootless Privileged ### Upstream Latest Release Yes ### Additional environment details Issue is only reproducible on Windows operating system. ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>148</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23907 from edsantiago/safename-020 CI: make 020-tag parallel-safe</MESSAGE>
+    <SHA>c38c197c715b942c446256f9c9dd5cd569524942</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix system connections on machine removal When a machine is removed, it removes the current system connection and will select a new one from the top of the alphabetical list. However, when doing this there is no guarantee that, if the new system connection is associated with a machine, the new system connection will have the right rootfulness. This will ensure that the new connection, if associated with a machine, will have proper rootfulness. Fixes: #22577 Signed-off-by: Jake Correnti &lt;jakecorrenti+github@proton.me&gt;</MESSAGE>
+      <SHA>e0179e398c1fab3f570027ff8d1a61a78d49192b</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/system/reset_machine.go</FILE>
+        <FILE>pkg/machine/connection/connection.go</FILE>
+        <FILE>pkg/machine/e2e/rm_test.go</FILE>
+        <FILE>pkg/machine/provider/platform.go</FILE>
+        <FILE>pkg/machine/shim/host.go</FILE>
+        <FILE>pkg/machine/vmconfigs/machine.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

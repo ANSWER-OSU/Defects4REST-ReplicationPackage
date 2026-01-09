@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>190</ISSUENO>
+  <ISSUEURL>https://github.com/sunscrapers/djoser/issues/190</ISSUEURL>
+  <TITLE>Race condition in case of near simultaneous POST API calls</TITLE>
+  <DESCRIPTION>Some of Djoser views are vulnerable to a race condition (which is not really a security issue unless you've setup debug in production). Basically saying, the problem is that in case of near simultaneous requests to endpoint with a POST method, which creates object for a model with a field with unique constraint, it will result in an `IntegrityError` and will return 500 to the client. It happens because of mentioned race condition, where validation step passes for both requests and than it fails on transaction to database.</DESCRIPTION>
+  <REPONAME>djoser</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue/194'</MESSAGE>
+    <SHA>5d52113a157251cefb2f550c8046aff9e17a56ab</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix race condition for near-simultaneous sign-ups Add CANNOT_CREATE_USER_ERROR to constants Add check for IntegrityError at sign-up transaction Add test for sign-up IntegrityError Refactor few hanging indents and long lines Close #190</MESSAGE>
+      <SHA>c54ef8265b9df8b81736ec0b4f66a61af30d6877</SHA>
+      <PATCHEDFILES>
+        <FILE>djoser/constants.py</FILE>
+        <FILE>djoser/serializers.py</FILE>
+        <FILE>djoser/views.py</FILE>
+        <FILE>testproject/testapp/tests.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix race condition for near-simultaneous sign-ups Add CANNOT_CREATE_USER_ERROR to constants Add check for IntegrityError at sign-up transaction Add test for sign-up IntegrityError Refactor few hanging indents and long lines Close #190</MESSAGE>
+      <SHA>8a28b7694971bf47c23ff7085b6b696504d16110</SHA>
+      <PATCHEDFILES>
+        <FILE>djoser/constants.py</FILE>
+        <FILE>djoser/serializers.py</FILE>
+        <FILE>djoser/views.py</FILE>
+        <FILE>testproject/testapp/tests.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

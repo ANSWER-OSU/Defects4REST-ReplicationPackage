@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6580</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6580</ISSUEURL>
+  <TITLE>Fail to send Grafana notification</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY When I try to send a notification to Grafana, AWX returns an error. ##### ENVIRONMENT * AWX version: 10.0.0 * AWX install method: Kubernetes 1.18.0 * Ansible version: 2.9.5 * Operating System: macOS Catalina * Web Browser: Mozilla Firefox 74.0 ##### STEPS TO REPRODUCE 1. Configure Grafana notification 2. Click on &quot;Test notification&quot; ##### EXPECTED RESULTS Notification sent successfully. ##### ACTUAL RESULTS From awx_tasks log: ``` 2020-04-04 23:37:53,653 DEBUG awx.main.dispatch task 7bc53b9c-c78c-4f96-91e6-08dd52eb9285 starting awx.main.tasks.send_notifications(*[[8]]) 2020-04-04 23:37:53,717 ERROR awx.main.notifications.grafana_backend Error sending notification grafana: [{&quot;classification&quot;:&quot;DeserializationError&quot;,&quot;message&quot;:&quot;json: cannot unmarshal string into Go struct field PostAnnotationsCmd.tags of type []string&quot;}] 2020-04-04 23:37:53,719 ERROR awx.main.tasks Send Notification Failed Error sending notification grafana: [{&quot;classification&quot;:&quot;DeserializationError&quot;,&quot;message&quot;:&quot;json: cannot unmarshal string into Go struct field PostAnnotationsCmd.tags of type []string&quot;}] Traceback (most recent call last): File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/main/tasks.py&quot;, line 330, in send_notifications sent = notification.notification_template.send(notification.subject, notification.body) File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/main/models/notifications.py&quot;, line 196, in send return backend_obj.send_messages([notification_obj]) File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/main/notifications/grafana_backend.py&quot;, line 103, in send_messages raise Exception(smart_text(_(&quot;Error sending notification grafana: {}&quot;).format(r.text))) Exception: Error sending notification grafana: [{&quot;classification&quot;:&quot;DeserializationError&quot;,&quot;message&quot;:&quot;json: cannot unmarshal string into Go struct field PostAnnotationsCmd.tags of type []string&quot;}] ``` ##### ADDITIONAL INFORMATION Both AWX and Grafana are deployed in the same Kubernetes cluster.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #6588 from ryanpetrello/400-error-creds fix a typo in the credentials UI Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>592043fa70fd67542f95c83f972672f3db156533</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>don't send tags to the Graphite annotations API if none are specified see: https://github.com/ansible/awx/issues/6580</MESSAGE>
+      <SHA>280da63acda1b86d917d5661b701e07a463c152c</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/notifications/grafana_backend.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>don't send tags to the Grafana annotations API if none are specified see: https://github.com/ansible/awx/issues/6580</MESSAGE>
+      <SHA>7d1006b15bc0ff231d54e5f7a7997cb06a73011a</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/notifications/grafana_backend.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>don't send tags to the Grafana annotations API if none are specified see: https://github.com/ansible/awx/issues/6580</MESSAGE>
+      <SHA>771ca2400a2f6367e2934e3b2befdd0061ccc7c7</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/notifications/grafana_backend.py</FILE>
+        <FILE>awx/main/tests/unit/notifications/test_grafana.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

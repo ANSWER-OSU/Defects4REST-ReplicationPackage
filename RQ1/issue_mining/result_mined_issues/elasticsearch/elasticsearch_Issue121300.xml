@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121300</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121300</ISSUEURL>
+  <TITLE>[CI] PolicyManagerTests testDuplicateFlagEntitlements failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #16877 / part1](https://gradle-enterprise.elastic.co/s/spozxusbtvgag) - [elasticsearch-intake #16876 / part1](https://gradle-enterprise.elastic.co/s/4if2jkmeg6p7u) - [elasticsearch-pull-request #54090 / part-1](https://gradle-enterprise.elastic.co/s/eetzvkdohzqqg) - [elasticsearch-pull-request #54090 / part-1-entitlements](https://gradle-enterprise.elastic.co/s/me3kptmjuou5y) **Reproduction Line:** ``` ./gradlew &quot;:libs:entitlement:test&quot; --tests &quot;org.elasticsearch.entitlement.runtime.policy.PolicyManagerTests.testDuplicateFlagEntitlements&quot; -Dtests.seed=3B7C9C830A45C6E -Dtests.locale=or -Dtests.timezone=America/Vancouver -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.entitlement.runtime.policy.PolicyManagerTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testDuplicateFlagEntitlements),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.junit.ComparisonFailure: expected:&lt;...ment.runtime.policy.[]CreateClassLoaderEnt...&gt; but was:&lt;...ment.runtime.policy.[entitlements.]CreateClassLoaderEnt...&gt; ``` **Issue Reasons:** - [main] 4 failures in test testDuplicateFlagEntitlements (6.8% fail rate in 59 executions) - [main] 2 failures in step part1 (11.1% fail rate in 18 executions) - [main] 2 failures in pipeline elasticsearch-intake (11.1% fail rate in 18 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ESQL: Enable LOOKUP JOIN in non-snapshot builds (#121193) This effectively releases LOOKUP JOIN into tech preview. Docs will follow in a separate PR. * Enable the lexing/grammar for LOOKUP JOIN in non-snapshot builds. * Remove the grammar for the unsupported | JOIN ... command (without LOOKUP as first keyword). The way the lexer modes work, otherwise we'd also have to enable | JOIN ... syntax on non-snapshot builds and would have to add additional validation to provide appropriate error messages. * Remove grammar for LOOKUP JOIN index AS ... because qualifiers are not yet supported. Otherwise we'd have to put in additional validation as well to prevent such queries. --------- Co-authored-by: Bogdan Pintea &lt;bogdan.pintea@elastic.co&gt; Co-authored-by: elasticsearchmachine &lt;infra-root+elasticsearchmachine@elastic.co&gt; Co-authored-by: Nik Everett &lt;nik9000@gmail.com&gt;</MESSAGE>
+    <SHA>70b397cf5718027410323c3dec3f3718df702de9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.entitlement.runtime.policy.PolicyManagerTests testDuplicateFlagEntitlements #121300</MESSAGE>
+      <SHA>ff3950d0259c264b65e181a4ffcce2909798e211</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

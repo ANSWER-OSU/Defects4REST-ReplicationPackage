@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127268</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/127268</ISSUEURL>
+  <TITLE>[CI] MultiClusterSpecIT test {fork.ForkWithMixOfCommands} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-pull-request #69116 / 9.1.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/3f62srcml7nkq) - [elasticsearch-pull-request #69110 / 9.1.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/teobpm3cr4i4i) - [elasticsearch-intake #22240 / 9.1.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/7cffdfy7aw5dy) - [elasticsearch-pull-request #68935 / 9.1.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/lyupwjgvqz3ns) - [elasticsearch-pull-request #68916 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/afasgsnr5cgmm) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:multi-clusters:v9.1.0#newToOld&quot; -Dtests.class=&quot;org.elasticsearch.xpack.esql.ccq.MultiClusterSpecIT&quot; -Dtests.method=&quot;test {fork.ForkWithMixOfCommands}&quot; -Dtests.seed=84AB862A456C9E -Dtests.bwc=true -Dtests.locale=ru-UA -Dtests.timezone=Etc/GMT+2 -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.ccq.MultiClusterSpecIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Bfork.ForkWithMixOfCommands%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected more data but no more entries found after [3] Data mismatch: row 2 column 2:a list containing row 2 column 2:0: expected &quot;2&quot; but was &quot;0&quot; row 2 column 3:a list containing row 2 column 3:0: expected &quot;10081&quot; but was &quot;null&quot; row 2 column 4:a list containing row 2 column 4:0: expected &quot;10048&quot; but was &quot;null&quot; Actual: _fork:keyword | emp_no:integer | x:keyword | y:keyword | z:keyword | a:keyword fork1 | 10048 | Florian | 10048 | Syrotiuk | Florian 10048 Syrotiuk fork1 | 10081 | Zhongwei | 10081 | Rosen | Zhongwei 10081 Rosen fork2 | null | 0 | null | null | null Expected: _fork:keyword | emp_no:integer | x:keyword | y:keyword | z:keyword | a:keyword fork1 | 10048 | Florian | 10048 | Syrotiuk | Florian 10048 Syrotiuk fork1 | 10081 | Zhongwei | 10081 | Rosen | Zhongwei 10081 Rosen [truncated] ``` **Issue Reasons:** - [main] 5 failures in test test {fork.ForkWithMixOfCommands} (0.7% fail rate in 760 executions) - [main] 4 failures in step 9.1.0_bwc-snapshots (2.7% fail rate in 146 executions) - [main] 4 failures in pipeline elasticsearch-pull-request (3.6% fail rate in 112 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Panama vector accelerated optimized scalar quantization (#127118) * Adds accelerates optimized scalar quantization with vectorized functions * Adding benchmark * Update docs/changelog/127118.yaml * adjusting benchmark and delta</MESSAGE>
+    <SHA>059f91c90c6306c354d884d29a225d83bf38a39a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.ccq.MultiClusterSpecIT test {fork.ForkWithMixOfCommands} #127268</MESSAGE>
+      <SHA>6354c0ff10ca6d1bb2da42aed6828225909f70e1</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

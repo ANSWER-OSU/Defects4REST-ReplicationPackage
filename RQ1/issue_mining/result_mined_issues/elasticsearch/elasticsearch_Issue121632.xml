@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121632</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121632</ISSUEURL>
+  <TITLE>[CI] CrossClustersCancellationIT testCancel failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6175 / debian-11_platform-support-unix](https://gradle-enterprise.elastic.co/s/r2vq7lxezefjo) - [elasticsearch-periodic-platform-support #6175 / ubuntu-2204_platform-support-unix](https://gradle-enterprise.elastic.co/s/s7q6rvqvgl7ge) - [elasticsearch-periodic #6186 / openjdk21_checkpart3_java-matrix](https://gradle-enterprise.elastic.co/s/5ltxm6fnwuazk) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.esql.action.CrossClustersCancellationIT.testCloseSkipUnavailable&quot; -Dtests.seed=670A09F69BAC629F -Dtests.locale=yi-UA -Dtests.timezone=Antarctica/Mawson -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.action.CrossClustersCancellationIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testCancel),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.OutOfMemoryError: Java heap space ``` **Issue Reasons:** - [8.x] 3 failures in test testCancel (2.0% fail rate in 147 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.esql.action.CrossClustersCancellationIT testCloseSkipUnavailable #121627</MESSAGE>
+    <SHA>feba92deb70bc2d382f2bd895804bdb462f31e23</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.CrossClustersCancellationIT testCancel #121632</MESSAGE>
+      <SHA>1b7518d5780cef3b8134572a95a82ac375ccef3f</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.CrossClustersCancellationIT testCancel #121632</MESSAGE>
+      <SHA>1099ba87c06dd376028659996179e32fe7042ffa</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

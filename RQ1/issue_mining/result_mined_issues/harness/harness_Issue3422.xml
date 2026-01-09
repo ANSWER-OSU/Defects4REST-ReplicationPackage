@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3422</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/3422</ISSUEURL>
+  <TITLE>Docker-in-Docker sample don't works</TITLE>
+  <DESCRIPTION>pipeline: ```yml kind: pipeline spec: stages: - type: ci spec: volumes: - name: dockersock spec: {} type: temp steps: - name: dind type: background spec: container: image: docker:dind privileged: true mount: - name: dockersock path: /var/run - name: test type: run spec: container: docker:dind mount: - name: dockersock path: /var/run script: |- sleep 5 docker ps -a ``` compose.yml ```yml version: '3.3' services: gitness: volumes: - '/var/run/docker.sock:/var/run/docker.sock' cap_add: - SYS_ADMIN - NET_ADMIN privileged: true image: harness/gitness ``` dind logs: ``` Certificate request self-signature ok subject=CN = docker:dind server /certs/server/cert.pem: OK Certificate request self-signature ok subject=CN = docker:dind client /certs/client/cert.pem: OK ip: can't find device 'ip_tables' ip_tables 32768 11 iptable_mangle,iptable_nat,iptable_filter x_tables 40960 26 xt_state,xt_REDIRECT,xt_ipvs,xt_policy,xt_bpf,iptable_mangle,xt_u32,xt_multiport,xt_nat,xt_MASQUERADE,xt_mark,ip6t_REJECT,xt_hl,ip6t_rt,ipt_REJECT,xt_LOG,xt_comment,xt_limit,xt_addrtype,xt_tcpudp,ip6table_filter,ip6_tables,xt_recent,xt_conntrack,iptable_filter,ip_tables modprobe: can't change directory to '/lib/modules': No such file or directory mount: permission denied (are you root?) Could not mount /sys/kernel/security. AppArmor detection and --privileged mode might break. mount: permission denied (are you root?) ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [PIPE-24894]: Restrict lifecycle operations for reserved repo identifiers (#3426) * feat: [PIPE-24894]: Restrict lifecycle operations for reserved repo identifiers</MESSAGE>
+    <SHA>f85b6c45c3dac71a9ad46decca106e63ab8fa87f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>chore: [CODE-3148]: use refcache.SpaceFinder in usage package (#3422) * use refcache.SpaceFinder in usage package</MESSAGE>
+      <SHA>682f55de7144b754f67a4b58ff797ad1df4e88bc</SHA>
+      <PATCHEDFILES>
+        <FILE>app/services/usage/mocks.go</FILE>
+        <FILE>app/services/usage/usage.go</FILE>
+        <FILE>app/services/usage/usage_test.go</FILE>
+        <FILE>app/services/usage/wire.go</FILE>
+        <FILE>cmd/gitness/wire_gen.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

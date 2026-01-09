@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18780</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18780</ISSUEURL>
+  <TITLE>Connect to external databases</TITLE>
+  <DESCRIPTION>### NetBox version 4.1.11 ### Feature type Data model extension ### Proposed functionality I have a very specific use case, I'm developing a plugin, and I need to query an external DB. I thought about being able to define the connection on `configuration.py` and them merging with Netbox's default db Here's POC: https://github.com/fmluizao/netbox/commit/ce478be45646d73dca69a522d72e4933187c2ad3 Would you accept a PR for this? ### Use case You can create a model in a plugin which can query other databases, like ```python class MyPluginModel(models.model): # ... MyPluginModel.objects.using('otherdbconnection') ``` Maybe we can even define a custom router to avoid `using`: https://docs.djangoproject.com/en/5.2/topics/db/multi-db/#using-routers ### Database changes _No response_ ### External dependencies _No response_</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>16</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Closes: #15842 - Option to hide local login form if SSO is in use (#18924) Closes: #15842 Branched from #18145 by @tobiasge Provides a new LOGIN_FORM_HIDDEN setting which allows the administrator to hide the local login form, intended only to be used when SSO is used exclusively for authentication. Note that this means local login will be impossible in the event of SSO provider issues, and can be remedied only through a change to the application config and a restart of the service. * #15842 - Hide login form This doesn't implement the full solution proposed in #15842 but enables administrators to hide the login form when users should only login with a SSO provider. To prevent a complete lockout when the SSO provider is having issues the GET parameter `skipsso` can be added to the login URL to show the form regardless. * Remove skipsso backdoor * Add warning --------- Co-authored-by: Tobias Genannt &lt;tobias.genannt@qbeyond.de&gt;</MESSAGE>
+    <SHA>f69de12c6d9922ee15138cab326f3cc7ab09dab8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Closes #18780: External database configuration (#18912)</MESSAGE>
+      <SHA>d4f8cb72aa6ef010b3746c29973ecf276f392bf9</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/configuration/required-parameters.md</FILE>
+        <FILE>docs/configuration/system.md</FILE>
+        <FILE>docs/development/getting-started.md</FILE>
+        <FILE>docs/installation/3-netbox.md</FILE>
+        <FILE>netbox/netbox/configuration_example.py</FILE>
+        <FILE>netbox/netbox/configuration_testing.py</FILE>
+        <FILE>netbox/netbox/settings.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

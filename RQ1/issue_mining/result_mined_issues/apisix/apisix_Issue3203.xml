@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3203</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/3203</ISSUEURL>
+  <TITLE>bug: 自定义nginx配置生成不正确</TITLE>
+  <DESCRIPTION>版本：apisix-master bug描述： 我们使用apisix时需要加载一个第三方模块，把第三方模块编译成so文件，使用load_module指令加载进来，但是load_module指令需要写在event配置块前面，目前apisix提供的修改config-default.yaml文件，main_configuration_snippet的解析是在event配置块后面，因此使用load_module指令时会有问题； 另外一个相似的include指令，有时需要include一个配置文件，在http块的末尾，但是现在http_configuration_snippet的解析位置在http块的server配置块的前面，可能会有问题； 上述问题需要修改下ngx_tpl.lua生成nginx.conf的部分</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: make set_more_retries() work when upstream_type is chash (#2676)</MESSAGE>
+    <SHA>500e42d4ecfd8c1f1ea2d0a84b6773dae55cb5d3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: support more customize configure in nginx.conf (#3204) Co-authored-by: 沈鑫杰 &lt;xinjie.shen@chaitin.com&gt; related #3203</MESSAGE>
+      <SHA>4aeef386f02e7dec38cb86080eadfe16e6115375</SHA>
+      <PATCHEDFILES>
+        <FILE>.travis/apisix_cli_test/test_main.sh</FILE>
+        <FILE>apisix/cli/ngx_tpl.lua</FILE>
+        <FILE>conf/config-default.yaml</FILE>
+        <FILE>doc/customize-nginx-configuration.md</FILE>
+        <FILE>doc/zh-cn/customize-nginx-configuration.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat: support more customize configure in nginx.conf (#3204) Co-authored-by: 沈鑫杰 &lt;xinjie.shen@chaitin.com&gt; related #3203</MESSAGE>
+      <SHA>05268e1a6227c649b3cd727ba8469f75b671699b</SHA>
+      <PATCHEDFILES>
+        <FILE>.travis/apisix_cli_test/test_main.sh</FILE>
+        <FILE>apisix/cli/ngx_tpl.lua</FILE>
+        <FILE>conf/config-default.yaml</FILE>
+        <FILE>doc/customize-nginx-configuration.md</FILE>
+        <FILE>doc/zh-cn/customize-nginx-configuration.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

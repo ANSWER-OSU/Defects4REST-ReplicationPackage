@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15569</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15569</ISSUEURL>
+  <TITLE>When generating container names, podman picks the same name every time</TITLE>
+  <DESCRIPTION>**Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind bug **Description** With podman 4.1.0, when creating a container without an explicit name, a randomly generated name is created each time: ``` fedlab1 ~/podman ‹main*› » sudo podman run --rm -i fedora cat /etc/hosts 127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4 ::1 localhost localhost.localdomain localhost6 localhost6.localdomain6 10.88.0.1 host.containers.internal 10.88.0.25 faaed2c156bd boring_johnson fedlab1 ~/podman ‹main*› » sudo podman run --rm -i fedora cat /etc/hosts 127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4 ::1 localhost localhost.localdomain localhost6 localhost6.localdomain6 10.88.0.1 host.containers.internal 10.88.0.26 e666a4b5069c musing_swartz fedlab1 ~/podman ‹main*› » sudo podman run --rm -i fedora cat /etc/hosts 127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4 ::1 localhost localhost.localdomain localhost6 localhost6.localdomain6 10.88.0.1 host.containers.internal 10.88.0.27 c3b6eb0e5100 hungry_perlman ``` With the latest dev build (built from hash 8266dbe7a90f6f03995b42315b3ac2da54cd018f), I get the same name each time: ``` fedlab1 ~/podman ‹main*› » sudo ./bin/podman run --rm -i fedora cat /etc/hosts 127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4 ::1 localhost localhost.localdomain localhost6 localhost6.localdomain6 10.88.0.1 host.containers.internal 10.88.0.31 26d0c7d09680 gallant_mahavira fedlab1 ~/podman ‹main*› » sudo ./bin/podman run --rm -i fedora cat /etc/hosts 127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4 ::1 localhost localhost.localdomain localhost6 localhost6.localdomain6 10.88.0.1 host.containers.internal 10.88.0.32 e4cd25c49b31 gallant_mahavira fedlab1 ~/podman ‹main*› » sudo ./bin/podman run --rm -i fedora cat /etc/hosts 127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4 ::1 localhost localhost.localdomain localhost6 localhost6.localdomain6 10.88.0.1 host.containers.internal 10.88.0.33 55fd02f7baba gallant_mahavira ``` The reason is that c/storage/pkg/stringid changed to use its own RNG instead of sharing the global one. It seems that GetRandomName was benefiting from stringid's seeding of the global RNG. **Steps to reproduce the issue:** 1. On a host without any podman containers, run ```sudo podman run --rm -i fedora cat /etc/hosts``` and note that the container name is always the same. **Have you tested with the latest version of Podman and have you checked the Podman Troubleshooting Guide? (https://github.com/containers/podman/blob/main/troubleshooting.md)** This was tested with podman build from the hash mentioned above. It seems likely that the problem is present in v4.2.0 but I haven't tested this.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #15360 from m0duspwnens/api_compat_containers api: return imageID instead of imageName, for &quot;Image&quot; when Podman api is queried</MESSAGE>
+    <SHA>72f4c77139adf61bc39890e08ed9b86c365ae09b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>libpod: Ensure that generated container names are random Fixes #15569. Signed-off-by: Doug Rabson &lt;dfr@rabson.org&gt;</MESSAGE>
+      <SHA>b667d7340c1717720216ebdb1c62052006e7ac5f</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/runtime.go</FILE>
+        <FILE>libpod/runtime_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>libpod: Ensure that generated container names are random Fixes #15569. Signed-off-by: Doug Rabson &lt;dfr@rabson.org&gt;</MESSAGE>
+      <SHA>85f3c2783cb6807032b779bc2827dd79dbcad3e4</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/runtime.go</FILE>
+        <FILE>libpod/runtime_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

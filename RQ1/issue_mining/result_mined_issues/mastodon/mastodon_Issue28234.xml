@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>28234</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/28234</ISSUEURL>
+  <TITLE>`LinkDetailsExtractor#language` chokes on an Array language type</TITLE>
+  <DESCRIPTION>This is mostly a reproducibility report for another certain bug that'll cause `LinkCrawlWorker`s to pile up in the dead queue. Given a status which contains any of the following links; - https://nos.nl/l/2500401 - https://nos.nl/artikel/2500401-d66-kamerlid-van-weyenberg-volgt-uslu-op-als-staatssecretaris-van-cultuur It'll eventually crash a `LinkCrawlWorker` with the following error; `NoMethodError: undefined method 'to_sym' for [{&quot;@type&quot;=&gt;&quot;Language&quot;, &quot;name&quot;=&gt;&quot;Dutch&quot;}]:Array` Because of the following backtrace; &lt;details&gt; &lt;summary&gt;Backtrace&lt;/summary&gt; ``` app/helpers/languages_helper.rb:294:in `valid_locale?' app/helpers/languages_helper.rb:275:in `valid_locale_or_nil' app/lib/link_details_extractor.rb:202:in `language' app/lib/link_details_extractor.rb:128:in `to_preview_card_attributes' app/services/fetch_link_card_service.rb:152:in `attempt_opengraph' app/services/fetch_link_card_service.rb:42:in `process_url' app/services/fetch_link_card_service.rb:28:in `block in call' app/models/concerns/lockable.rb:12:in `block (2 levels) in with_redis_lock' vendor/bundle/ruby/3.0.0/gems/mario-redis-lock-1.2.1/lib/redis_lock.rb:44:in `acquire' app/models/concerns/lockable.rb:10:in `block in with_redis_lock' vendor/bundle/ruby/3.0.0/gems/connection_pool-2.4.1/lib/connection_pool.rb:110:in `block (2 levels) in with' vendor/bundle/ruby/3.0.0/gems/connection_pool-2.4.1/lib/connection_pool.rb:109:in `handle_interrupt' vendor/bundle/ruby/3.0.0/gems/connection_pool-2.4.1/lib/connection_pool.rb:109:in `block in with' vendor/bundle/ruby/3.0.0/gems/connection_pool-2.4.1/lib/connection_pool.rb:106:in `handle_interrupt' vendor/bundle/ruby/3.0.0/gems/connection_pool-2.4.1/lib/connection_pool.rb:106:in `with' app/lib/redis_configuration.rb:10:in `with' app/models/concerns/redisable.rb:9:in `with_redis' app/models/concerns/lockable.rb:9:in `with_redis_lock' app/services/fetch_link_card_service.rb:26:in `call' app/workers/link_crawl_worker.rb:9:in `perform' (irb):134:in `&lt;main&gt;' ``` &lt;/details&gt; Because the following line allows it to go through without conversion; https://github.com/mastodon/mastodon/blob/89a8e6e6227eb901b5811d8417d81dc8ab1427a9/app/lib/link_details_extractor.rb#L40</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Use `following` and `followers` scopes in CLI (#28154)</MESSAGE>
+    <SHA>af66d3d836b89286423d4ba9fe1518bb6317b499</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix error when processing link preview with an array as `inLanguage` Fixes #28234</MESSAGE>
+      <SHA>829cc0a0b366097ea9cffc75530042376b06b40b</SHA>
+      <PATCHEDFILES>
+        <FILE>app/lib/link_details_extractor.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix error when processing link preview with an array as `inLanguage` Fixes #28234</MESSAGE>
+      <SHA>b942291b25e31288dd422c045e7ce7db0c0aee3b</SHA>
+      <PATCHEDFILES>
+        <FILE>app/lib/link_details_extractor.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

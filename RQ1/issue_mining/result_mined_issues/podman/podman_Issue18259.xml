@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18259</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18259</ISSUEURL>
+  <TITLE>restart=always not properly working with podman stop</TITLE>
+  <DESCRIPTION>### Issue Description Another bug found in my ginkgov2 work. `podman kube play` seems to configure the pod/container in a different way which causes `podman stop --all` to fail. It is a race condition I see quite a lot in the CI logs, however I can reproduce locally in about 1 out of 3 tries. ### Steps to reproduce the issue Steps to reproduce the issue 1. create yaml file ``` $ cat &gt; t.yaml &lt;&lt;EOF apiVersion: v1 kind: Pod metadata: creationTimestamp: &quot;2023-04-18T16:58:12Z&quot; labels: app: test name: test spec: containers: - command: - ip - a image: docker.io/library/alpine:latest name: laughinghaibt EOF ``` 2. run `bin/podman kube play t.yaml &amp;&amp; bin/podman stop --all &amp;&amp; bin/podman rm -fa` Note this is a flake so you may need to run into several times until it fails. ### Describe the results you received podman stop fails and exits with 125 ``` Pod: 2cde8e2fc327ebc2444339244ead6b7bb31693c99e8d4f45cb8fc4711b239822 Container: 01552f3338e7a0f9d04b6519d213983dccceefdb4ab00a5708cda081173b0311 4bc7eecf0816790bec3675f2f68950f8a49b0430a855f7a5706209b927f249c1 Error: cannot get namespace path unless container 4bc7eecf0816790bec3675f2f68950f8a49b0430a855f7a5706209b927f249c1 is running: container is stopped ``` ### Describe the results you expected Podman stop should work. ### podman info output ```yaml latest main branch ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details _No response_ ### Additional information CI log: https://api.cirrus-ci.com/v1/artifact/task/5261073197039616/html/int-podman-debian-12-root-host-boltdb.log.html#t--podman-generate-kube-privileged-container--1 search for `cannot get namespace path unless container` Interestingly enough I was not able to reproduce with pod create and run, CI logs also seems to only show it with play kube.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18268 from edsantiago/bindingtest_fail_early bindings tests: bail out early on image errors</MESSAGE>
+    <SHA>911be1cbcb0ad654a8e10666262bdcee50ee54e0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>libpod: stop containers with --restart=always Commit 1ab833fb73 improved the situation but it is still not enough. If you run short lived containers with --restart=always podman is basically permanently restarting them. To only way to stop this is podman stop. However podman stop does not do anything when the container is already in a not running state. While this makes sense we should still mark the container as explicitly stopped by the user. Together with the change in shouldRestart() which now checks for StoppedByUser this makes sure the cleanup process is not going to start it back up again. A simple reproducer is: ``` podman run --restart=always --name test -d alpine true podman stop test ``` then check if the container is still running, the behavior is very flaky, it took me like 20 podman stop tries before I finally hit the correct window were it was stopped permanently. With this patch it worked on the first try. Fixes #18259 [NO NEW TESTS NEEDED] This is super flaky and hard to correctly test in CI. MY ginkgo v2 work seems to trigger this in play kube tests so that should catch at least some regressions. Also this may be something that should be tested at podman test days by users (#17912). Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>edb64f8a768e28352e43578fcf2ad8c209689ea9</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_api.go</FILE>
+        <FILE>libpod/container_internal.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>libpod: stop containers with --restart=always Commit 1ab833fb73 improved the situation but it is still not enough. If you run short lived containers with --restart=always podman is basically permanently restarting them. To only way to stop this is podman stop. However podman stop does not do anything when the container is already in a not running state. While this makes sense we should still mark the container as explicitly stopped by the user. Together with the change in shouldRestart() which now checks for StoppedByUser this makes sure the cleanup process is not going to start it back up again. A simple reproducer is: ``` podman run --restart=always --name test -d alpine true podman stop test ``` then check if the container is still running, the behavior is very flaky, it took me like 20 podman stop tries before I finally hit the correct window were it was stopped permanently. With this patch it worked on the first try. Fixes #18259 [NO NEW TESTS NEEDED] This is super flaky and hard to correctly test in CI. MY ginkgo v2 work seems to trigger this in play kube tests so that should catch at least some regressions. Also this may be something that should be tested at podman test days by users (#17912). Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>9558af2c4cd55744ffc19fb8d0b1f40abc3ba290</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_api.go</FILE>
+        <FILE>libpod/container_internal.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

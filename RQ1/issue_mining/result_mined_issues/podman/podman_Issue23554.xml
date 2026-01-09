@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23554</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23554</ISSUEURL>
+  <TITLE>race: podman-remote stop --cidfile --ignore does very weird things</TITLE>
+  <DESCRIPTION>I can't find a way to reproduce [this actual bug but it is super reproducible in BATS](https://api.cirrus-ci.com/v1/artifact/task/5432003053486080/html/sys-remote-rawhide-root-host-sqlite.log.html#t--00050p): ``` &lt;+014ms&gt; # # podman-remote --url unix:///tmp/CI_TVd8/podman_tmp_zsap stop --cidfile=/tmp/CI_TVd8/podman_bats.4OGhmH/no-such-file --ignore &lt;+9.98s&gt; # 0090f32ea149f1e6ebc63979910c705b82365860d95f8b034848759ee47e3c12 # Error: no container with name or ID &quot;47158e686535dd8c907085d24b480969c50ddaebc880152c96a9abd0417d51a3&quot; found: no such container ``` That is: wtfff? This sort of reproduces it after a long time (1-2 minutes) but still, wtf?? Window 1: ```console $ podman system service --timeout=0 ``` Window 2: ```console $ while :;do bin/podman run --rm quay.io/libpod/testimage:20240123 date;done ``` Window 3: ``` while :;do bin/podman-remote stop --cidfile /this/does/not/exist --ignore || break;done ``` Window 3 spits out CID after CID after CID ??? Then, after a while, it finally dies ``` Error: no container with ID c0c5b067c03004b53fa800938747e6842c0966b5352a8d477ebe1a8ece3b2a0a found in database: no such container ```</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23449 from ygalblum/quadlet-override-service-name Quadlet override service name</MESSAGE>
+    <SHA>708d6c5e2b84fabe32096a0659be1b34343c5240</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>remote: fix invalid --cidfile + --ignore When the cidfile does not exists and ignore is set the cli parser skips the file without error and we call into the backend code without any names at all. This should logically be a NOP but on remote it caused all containers to be returned which caused podman stop to stop everything in this case. Fixes #23554 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>6fce734f42057435152b337a0af5a9946a195f99</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/infra/tunnel/helpers.go</FILE>
+        <FILE>test/system/050-stop.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>pkg/bindings/containers: handle ignore for stop When the client gets a 404 back we know the container does not exists, if ignore is set as well we should just ignore the error client side. seen in #23554 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>5ec413fac796dc21a5a2d779d72cccc687d3c1de</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/bindings/containers/containers.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

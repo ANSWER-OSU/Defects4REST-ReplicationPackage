@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>124849</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/124849</ISSUEURL>
+  <TITLE>[CI] DataStreamAndIndexLifecycleMixingTests testUpdateIndexTemplateToMigrateFromDataStreamLifecycleToIlm failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6985 / concurrent-search-tests](https://gradle-enterprise.elastic.co/s/55pkc5l6c427k) - [elasticsearch-intake #20071 / part2](https://gradle-enterprise.elastic.co/s/gpv5t4utma4em) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:ilm:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.ilm.DataStreamAndIndexLifecycleMixingTests.testUpdateIndexTemplateToMigrateFromDataStreamLifecycleToIlm&quot; -Dtests.seed=B29C2B0D9A883D2F -Dtests.jvm.argline=&quot;-Des.concurrent_search=true&quot; -Dtests.locale=tg -Dtests.timezone=America/St_Vincent -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.ilm.DataStreamAndIndexLifecycleMixingTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testUpdateIndexTemplateToMigrateFromDataStreamLifecycleToIlm),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.ArrayIndexOutOfBoundsException: Index 3 out of bounds for length 3 ``` **Issue Reasons:** - [main] 2 failures in test testUpdateIndexTemplateToMigrateFromDataStreamLifecycleToIlm (0.9% fail rate in 226 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.backwards.MixedClusterClientYamlTestSuiteIT test {p0=search.vectors/41_knn_search_bbq_hnsw/Test knn search} #124848</MESSAGE>
+    <SHA>b8bd16e8aa8da0b220354be3327fcbabfc859737</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ilm.DataStreamAndIndexLifecycleMixingTests testUpdateIndexTemplateToMigrateFromDataStreamLifecycleToIlm #124849</MESSAGE>
+      <SHA>c632e7719c68bcfafb2065a64b411a0d67938d88</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix data stream retrieval in `DataStreamAndIndexLifecycleMixingTests` These tests had the potential to fail when two consecutive GET data streams requests would hit two different nodes, where one node already had the cluster state that contained the new backing index and the other node didn't yet. Caused by #122852 Fixes #124837 Fixes #124849 Fixes #124850 Fixes #124886 Fixes #125083</MESSAGE>
+      <SHA>0e560b435695573ce7d88d0fd95b784f382af55b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/ilm/src/internalClusterTest/java/org/elasticsearch/xpack/ilm/DataStreamAndIndexLifecycleMixingTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix data stream retrieval in `DataStreamAndIndexLifecycleMixingTests` (#125609) These tests had the potential to fail when two consecutive GET data streams requests would hit two different nodes, where one node already had the cluster state that contained the new backing index and the other node didn't yet. Caused by #122852 Fixes #124837 Fixes #124849 Fixes #124850 Fixes #124886 Fixes #125083</MESSAGE>
+      <SHA>3d9a7abb843c4b0160ee71ed4fd091632206b629</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/ilm/src/internalClusterTest/java/org/elasticsearch/xpack/ilm/DataStreamAndIndexLifecycleMixingTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix data stream retrieval in `DataStreamAndIndexLifecycleMixingTests` (#125609) These tests had the potential to fail when two consecutive GET data streams requests would hit two different nodes, where one node already had the cluster state that contained the new backing index and the other node didn't yet. Caused by #122852 Fixes #124837 Fixes #124849 Fixes #124850 Fixes #124886 Fixes #125083</MESSAGE>
+      <SHA>09f1fa059efe177991bce8ae398487f994405949</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/ilm/src/internalClusterTest/java/org/elasticsearch/xpack/ilm/DataStreamAndIndexLifecycleMixingTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

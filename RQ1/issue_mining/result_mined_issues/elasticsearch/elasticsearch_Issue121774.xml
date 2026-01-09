@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121774</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121774</ISSUEURL>
+  <TITLE>[CI] ReindexDatastreamIndexTransportActionIT testFailIfMetadataBlockSet failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #17311 / part2](https://gradle-enterprise.elastic.co/s/maxpxdd4x5hca) - [elasticsearch-periodic-platform-support #6194 / almalinux-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/hk2q27lnuj72g) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:migrate:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.migrate.action.ReindexDatastreamIndexTransportActionIT.testTimestamp0AddedIfMissing&quot; -Dtests.seed=AEBEE7CAD70EFEA8 -Dtests.locale=fy-NL -Dtests.timezone=Canada/Newfoundland -Druntime.java=23 ``` **Applicable branches:** 8.18 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.migrate.action.ReindexDatastreamIndexTransportActionIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testFailIfMetadataBlockSet),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: All incoming requests on node [node_s3] should have finished. Expected 0 bytes for requests in-flight but got 298 bytes; pending tasks [[]] ``` **Issue Reasons:** - [8.18] 2 failures in test testFailIfMetadataBlockSet (1.5% fail rate in 131 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.ml.integration.ClassificationIT testWithOnlyTrainingRowsAndTrainingPercentIsHundred #121368</MESSAGE>
+    <SHA>4966bc0bc4d84b456e233bf7c1ddac24f3611f12</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.migrate.action.ReindexDatastreamIndexTransportActionIT testFailIfMetadataBlockSet #121774</MESSAGE>
+      <SHA>dfeb14156ae3142d9b0ca79d18ae6a57bba44cf4</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17571</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/17571</ISSUEURL>
+  <TITLE>docker login compatibility issue</TITLE>
+  <DESCRIPTION>### Issue Description There is a docker login registry compatiliby issue. ### Steps to reproduce the issue using the original docker command, everything works fine : ``` $ docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock docker sh # echo &quot;mypasswd&quot; | docker login -u mylogin --password-stdin WARNING! Your password will be stored unencrypted in /root/.docker/config.json. Configure a credential helper to remove this warning. See https://docs.docker.com/engine/reference/commandline/login/#credentials-store Login Succeeded ``` but it fails with podman : ``` $ podman run -it --rm -v $XDG_RUNTIME_DIR/podman/podman.sock:/var/run/docker.sock docker sh # echo &quot;mypasswd&quot; | docker login -u mylogin --password-stdin Error response from daemon: login attempt to https://index.docker.io/v1/ failed with status: pinging container registry index.docker.io/v1/: invalid status code from registry 404 (Not Found) ``` ### Describe the results you received unable to login to registry with podman ### Describe the results you expected The login to registry should succeed. ### podman info output ```yaml $ podman version 125 х │ onedev@sdserver │ 09:12:49 Client: Podman Engine Version: 4.3.1 API Version: 4.3.1 Go Version: go1.19.5 Built: Tue Jan 1 01:00:00 1980 OS/Arch: linux/amd64 ``` ### Podman in a container Yes ### Privileged Or Rootless Rootless ### Upstream Latest Release No ### Additional environment details Additional environment details Test with Nixos 22.11 stable release ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>21</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #17747 from Heniker/main [CI:DOCS] fix cmd `set DOCKER_HOST` suggestion</MESSAGE>
+    <SHA>5cb18a9f473b0bf38908445c637155670a2659c3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>compat: /auth: parse server address correctly Use `auth.Login` as `podman login` does which parses and normalizes the input addresses correctly, especially for docker.io. [NO NEW TESTS NEEDED] as we do not have means to test logging into docker.io in CI. Fixes: #17571 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>bad41f67e78acfe3b09038059cc418ea1fea7bdc</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/compat/auth.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

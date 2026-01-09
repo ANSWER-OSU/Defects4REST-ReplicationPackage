@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1080</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/1080</ISSUEURL>
+  <TITLE>HCFS -put gives java.lang.NoSuchFieldError: INSTANCE</TITLE>
+  <DESCRIPTION>**Describe the bug** I started a filer and tried to run -put as follows: `hdfs dfs -Djava.net.preferIPv4Stack=true -Dfs.seaweedfs.impl=seaweed.hdfs.SeaweedFileSystem -libjars ./seaweedfs-hadoop2-client-1.1.6.jar -put /tmp/testing seaweedfs://10.49.74.155:8888/tmp/testing ` And I get this exception `put: java.util.concurrent.ExecutionException: java.lang.NoSuchFieldError: INSTANCE` **System Setup** - Ran ./weed server -filer=true - Centos 7.5 - version 30GB 1.43 linux amd64 - leveldb2 is only thing enabled in `filer.toml` ``` [leveldb2] enabled = true dir = &quot;/data0/weed/storage&quot; ``` **Expected behavior** I'd expect the file to be put into the FS. I do see a reference to INSTANCE here in context of the SSLFactory which is where I believe this is coming from: https://github.com/chrislusf/seaweedfs/blob/cb299dfaa279e14def8bf3f26816913213a91097/other/java/client/src/main/java/seaweedfs/client/FilerSslContext.java#L62 ---------------- Okay so the above was from using a node with Cloudera CDH Hadoop which is what I'd like to get to work. Potentially could be an issue with multiple jars on the path? When I use a default Apache Hadoop download both hdfs 2 and 3 binaries and run the same hdfs dfs put command I get the below exception (hdfs dfs -ls works on the seaweedfs filer without issue): ``` put: java.util.concurrent.ExecutionException: org.apache.http.conn.HttpHostConnectException: Connect to localhost:8080 [localhost/127.0.0.1] failed: Connection refused (Connection refused) ``` The default Apache Hadoop issue with put has something to do with getting the wrong url for the volume server to write to. I ran the put on the same machine as the server/volumes/filer and that went through. I did try setting the publicIP of volume server on starting the weed server but that didn't seem to help.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>follow the redirected master fix https://github.com/chrislusf/seaweedfs/issues/1070</MESSAGE>
+    <SHA>7a707617e58e3343009b40d51dc56eaa54ac60ac</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>HCFS: 1.22 fix put gives java.lang.NoSuchFieldError: INSTANCE related to Cloudera CDH Hadoop https://github.com/chrislusf/seaweedfs/issues/1080</MESSAGE>
+      <SHA>7057e7a076b109e5d3e9140b27fa4e8beabcbc71</SHA>
+      <PATCHEDFILES>
+        <FILE>other/java/client/pom.xml</FILE>
+        <FILE>other/java/client/src/main/java/seaweedfs/client/SeaweedRead.java</FILE>
+        <FILE>other/java/client/src/main/java/seaweedfs/client/SeaweedWrite.java</FILE>
+        <FILE>other/java/hdfs2/dependency-reduced-pom.xml</FILE>
+        <FILE>other/java/hdfs2/pom.xml</FILE>
+        <FILE>other/java/hdfs3/dependency-reduced-pom.xml</FILE>
+        <FILE>other/java/hdfs3/pom.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>HCFS: 1.2.3 shade org.apache.http in https://github.com/chrislusf/seaweedfs/issues/1080</MESSAGE>
+      <SHA>e9dd5a602a4acf9da21b56e57a510d1f9a24875c</SHA>
+      <PATCHEDFILES>
+        <FILE>other/java/client/pom.xml</FILE>
+        <FILE>other/java/hdfs2/dependency-reduced-pom.xml</FILE>
+        <FILE>other/java/hdfs2/pom.xml</FILE>
+        <FILE>other/java/hdfs3/dependency-reduced-pom.xml</FILE>
+        <FILE>other/java/hdfs3/pom.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

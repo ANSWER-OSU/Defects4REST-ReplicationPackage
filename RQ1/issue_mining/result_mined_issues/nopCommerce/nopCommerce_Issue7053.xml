@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7053</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7053</ISSUEURL>
+  <TITLE>Add setting to log honeypot detection entries</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.60 &gt; How can we control the logging going on from Honeypot? I had to turn it on and also recapcha v3 as it didn't take long for bots to attack my contact us form, etc. Now that I have honeypot in use and recaptcha v3 it appears to mitigate it but I'm getting a ton of log entries from this honeypot / bot. How can I disable logging for bots? Source: https://www.nopcommerce.com/boards/topic/98627/honeypot-clogging-up-log-with-bot-entries Let's add an advanced (without UI) setting `LogHoneypotDetection` in SecuritySettings and log entries only if this setting is enabled.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>74</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7052 Fixed problem with RedisCacheManager.RemoveByPrefixAsync when InstanceName is set</MESSAGE>
+    <SHA>3273bcd9327a8495db3098deee7be40670a47805</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7053 Added LogHoneypotDetection setting and updated 470 settings migration</MESSAGE>
+      <SHA>ddf10e9bfbbdd042fa606ddade5d4eaccabdc1f5</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Security/SecuritySettings.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo470/SettingMigration.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#7053 Updated bot detection to only log when LogHoneypotDetection is true</MESSAGE>
+      <SHA>d7b0747844a9b4599a7df0b7a3e9d731ed311a26</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/ValidateHoneypotAttribute.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#7053 Added setting to log honeypot detection entries</MESSAGE>
+      <SHA>f8e425ab14ae4153242d0d71971f6b148d3d71a0</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Security/SecuritySettings.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo470/SettingMigration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/ValidateHoneypotAttribute.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

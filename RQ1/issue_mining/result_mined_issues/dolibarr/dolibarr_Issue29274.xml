@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>29274</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/29274</ISSUEURL>
+  <TITLE>Add possibility to have several mail for autocopy</TITLE>
+  <DESCRIPTION>### Feature Request Add possibility to have several mail for autocopy, Let me explain myself, it's currently possible to define a mail added in hidden copy each time a mail is send via dolibarr in Home &gt; Setup &gt; Mails &gt; Others options. What I want to add is the possibility to change this email according to the situation. ### Use case Here is an example to better understand: Until now, this email was set up on commercial@my-compagny.com, but I recently added the holiday module manage leaves and my emails were polluted by leave requests and validation, so I need to be able to set up many emails. This feature is necessary for large companies that have different services to manage the commercial side, human resource management... and where each service has its own email address ### Suggested implementation Add a parameter ($autocopyTo) to __construct function of CMailFile class (/core/class/CMailFile.class.php). This param is set to main by default (so if not specified, it just work as always) Further in the function, just before the value of MAIN_MAIL_AUTOCOPY_TO is added to the list, we get the corresponding [$autocopyTo]_MAIL_AUTOCOPY_TO Then we can add option of configuration in Setup &gt; Mails &gt; Others options (Otherwise it's possible to add your own option in Setup &gt; Other Setup) ### Suggested steps _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix PR #28989, create shipment line (#29281) * Fix PR #28989, create shipment line * Fix Phan * Update changelog * Fix stan --------- Co-authored-by: Laurent Destailleur &lt;eldy@destailleur.fr&gt;</MESSAGE>
+    <SHA>e23ccabf362d8fdc821b79e49de49dfa360c27f4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>CLOSE|Close #29274 Add possibility to have different mail for autocopy for holiday (#29275) * Add handdling of multiple autocopy mail to in CMailFile class __construct function * Change mail to autocopy to for leaves * Remove new param and set $sendtobcc to MAIN_MAIL_AUTOCOPY_HOLIDAY_TO</MESSAGE>
+      <SHA>4aca06174cf0a575b9574ab0076dd8d8da524b65</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/holiday/card.php</FILE>
+        <FILE>htdocs/holiday/card_group.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

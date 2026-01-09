@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126083</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126083</ISSUEURL>
+  <TITLE>[CI] MixedClusterEsqlSpecIT test {range.Invalid boundaries date SYNC} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7375 / 8.11.4_bwc](https://gradle-enterprise.elastic.co/s/mhakbx7sqtfi2) - [elasticsearch-pull-request #65757 / 8.13.4_bwc](https://gradle-enterprise.elastic.co/s/vxggegpin7xus) - [elasticsearch-pull-request #65757 / 8.12.2_bwc](https://gradle-enterprise.elastic.co/s/uxpflplc6tws2) - [elasticsearch-pull-request #65757 / 8.11.4_bwc](https://gradle-enterprise.elastic.co/s/vf2j7g7g57qpq) - [elasticsearch-periodic #7368 / 8.12.2_bwc](https://gradle-enterprise.elastic.co/s/zua3peaffksr6) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:mixed-cluster:v8.11.4#javaRestTest&quot; -Dtests.class=&quot;org.elasticsearch.xpack.esql.qa.mixed.MixedClusterEsqlSpecIT&quot; -Dtests.method=&quot;test {range.Invalid boundaries date SYNC}&quot; -Dtests.seed=61E4DACB6DB37410 -Dtests.bwc=true -Dtests.locale=ca-ES -Dtests.timezone=Etc/GMT-4 -Druntime.java=24 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.mixed.MixedClusterEsqlSpecIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Brange.Invalid%20boundaries%20date%20SYNC%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected an empty list 0: &lt;unexpected&gt; but was &quot;Line 2:21: evaluation of [TO_DATETIME(\\\&quot;2025-01-01\\\&quot;)] failed, treating result as null. Only first 20 failures recorded.&quot; 1: &lt;unexpected&gt; but was &quot;Line 2:21: java.lang.IllegalArgumentException: failed to parse date field [2025-01-01] with format [yyyy-MM-dd'T'HH:mm:ss.SSS'Z']&quot; 2: &lt;unexpected&gt; but was &quot;Line 2:63: evaluation of [TO_DATETIME(\\\&quot;2020-01-01\\\&quot;)] failed, treating result as null. Only first 20 failures recorded.&quot; 3: &lt;unexpected&gt; but was &quot;Line 2:63: java.lang.IllegalArgumentException: failed to parse date field [2020-01-01] with format [yyyy-MM-dd'T'HH:mm:ss.SSS'Z']&quot; ``` **Issue Reasons:** - [8.x] 2 consecutive failures in step 8.11.4_bwc - [8.x] 5 failures in test test {range.Invalid boundaries date SYNC} (3.8% fail rate in 130 executions) - [8.x] 2 failures in step 8.12.2_bwc (66.7% fail rate in 3 executions) - [8.x] 2 failures in step 8.11.4_bwc (66.7% fail rate in 3 executions) - [8.x] 2 failures in pipeline elasticsearch-periodic (100.0% fail rate in 2 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Custom getCallerClass in entitlement bridge (#125139) (#126069)</MESSAGE>
+    <SHA>fcb4ecdfdfb150b2cbfc4a14c18f97035beda1b7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.mixed.MixedClusterEsqlSpecIT test {range.Invalid boundaries date SYNC} #126083</MESSAGE>
+      <SHA>7c27fa7e10b6d657ec2d3a9663febe27fd843a8e</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

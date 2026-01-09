@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6309</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6309</ISSUEURL>
+  <TITLE>POST to api/v2/inventories/&lt;ID&gt;/inventory_sources/ with id and name gets 201 created (should be 400)</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY &lt;!-- Briefly describe the problem. --&gt; I was trying to associate an inventory script with an inventory as an inventory source. When I did a POST to api/v2/inventories/&lt;ID&gt;/inventory_sources/ with id and name I got a 201 created (should be 400) and an inventory source object back. I then launched an inventory update and the following traceback was produced: ``` Traceback (most recent call last): File &quot;/var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/main/tasks.py&quot;, line 1308, in run args = self.build_args(self.instance, private_data_dir, passwords) File &quot;/var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/main/tasks.py&quot;, line 2472, in build_args if getattr(settings, '%s_EXCLUDE_EMPTY_GROUPS' % src.upper()): File &quot;/var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/conf/settings.py&quot;, line 511, in __getattr_without_cache__ return getattr(self._wrapped, name) File &quot;/var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/conf/settings.py&quot;, line 418, in __getattr__ value = self._get_default(name) File &quot;/var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/conf/settings.py&quot;, line 405, in _get_default return getattr(self.default_settings, name) AttributeError: 'Settings' object has no attribute '_EXCLUDE_EMPTY_GROUPS' ``` Seems like the bug is that we are not requiring the `source` perhaps among other things and ignoring `id`</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #6463 from ryanpetrello/release-10.0.0 bump version 10.0.0 Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>827adbce7663243fc4c1669558e23bacfc2323c1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>require a source value when creating InventorySources in the API see: https://github.com/ansible/awx/issues/6309</MESSAGE>
+      <SHA>1cbe0b6080199a0de00122bdfbcb30b4eea9b559</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/serializers.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>prevent manual updates at POST /api/v2/inventory_sources/N/update/ see: https://github.com/ansible/awx/issues/6309</MESSAGE>
+      <SHA>831bf9124f6b3a8cb0707d4651141bb5db13caab</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/models/inventory.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

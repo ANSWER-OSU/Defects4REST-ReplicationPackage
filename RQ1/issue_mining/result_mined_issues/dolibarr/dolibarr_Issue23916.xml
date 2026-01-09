@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23916</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/23916</ISSUEURL>
+  <TITLE>No hook result treatment by class eldy in case of left menu</TITLE>
+  <DESCRIPTION>### Bug I tried to modify a redirection of a left menu by hooking to &quot;menuLeftMenuItems&quot; but that didn't work very well. if I set my hook return at 0, nothing change and if I set it at 1 I have the following error `Warning: count(): Parameter must be an array or an object that implements Countable in /home/server/public_html/dev/htdocs/core/menus/standard/eldy.lib.php on line 2037` ### Environment Version 15.0.3 -&gt; dev (verified) ### Environment OS cpanel ### Environment Web server _No response_ ### Environment PHP _No response_ ### Environment Database _No response_ ### Environment URL(s) _No response_ ### Expected and actual behavior after investigation i found there is a call in eldy.lib.php to `$hookmanager-&gt;results` that don't exist (anymore?) and there are no other call with it by replacing `if ($reshook == 0 &amp;&amp; !empty($hookmanager-&gt;results)) { $menu_array[] = $hookmanager-&gt;results; // add } elseif ($reshook == 1) { $menu_array = $hookmanager-&gt;results; // replace }` by `if ($reshook == 0 &amp;&amp; !empty($hookmanager-&gt;resArray)) { $menu_array[] = $hookmanager-&gt;resArray; // add } elseif ($reshook == 1) { $menu_array = $hookmanager-&gt;resArray; // replace }` it work just fine ### Steps to reproduce the behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '17.0' of git@github.com:Dolibarr/dolibarr.git into develop</MESSAGE>
+    <SHA>9d6cf700103b1219ead450d5c4023fc9d6cd7fa6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>modification on leftmenu by hook not applied related to #23916 -usage of $hookmanager-&gt;resArray instead of $hookmanager-&gt;results</MESSAGE>
+      <SHA>33d35d05b9826f63d748bbb4519e8f4a8bb646fb</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/menus/standard/eldy.lib.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>modification on leftmenu by hook not applied related to #23916 -usage of $hookmanager-&gt;resArray instead of $hookmanager-&gt;results</MESSAGE>
+      <SHA>c7746bd6f14af1f9d4feeef1f3d1f343111cb4ff</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/menus/standard/eldy.lib.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

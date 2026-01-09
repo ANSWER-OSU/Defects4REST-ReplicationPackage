@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2065</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/2065</ISSUEURL>
+  <TITLE>docker-registry with seaweedfs weed mount has error</TITLE>
+  <DESCRIPTION>**Describe the bug** docker-registry with seaweedfs weed mount, push image error **System Setup** - List the command line to start &quot;weed master&quot;, &quot;weed volume&quot;, &quot;weed filer&quot;, &quot;weed s3&quot;, &quot;weed mount&quot;. ``` # setup master weed master -port=9333 -mdir=/tmp/master0 -defaultReplication=000 -ip=localhost # setup volume weed volume -port=8080 -dir=/tmp/volume0 -ip=localhost -mserver=localhost:9333 # setup filer weed filer -port=8888 -ip=localhost -master=localhost:9333 #weed mount weed mount -filer=localhost:8888 -cacheCapacityMB=0 -cacheDir=/tmp/cache001 -dir=/root/mnt #setup docker-registry docker run -p 5001:5000 --rm \ --name registry2 \ -v /root/config.yml:/etc/docker/registry/config.yml -v /root/mnt/data:/data registry:2 #push image root@qa-4:~# docker push 10.10.10.224:5001/ubuntu:16.04 The push refers to repository [10.10.10.224:5001/ubuntu] 1a1a19626b20: Pushing [==================================================&gt;] 3.072kB 5b7dc8292d9b: Pushing 11.78kB bbc674332e2e: Pushing [==================================================&gt;] 15.87kB da2785b7bb16: Pushing [&gt; ] 525.3kB/130.7MB unknown blob ``` - OS version `Ubuntu 18.04.4 LTS` - output of `weed version` `version 30GB 2.41 8618526 linux amd64` - if using filer, show the content of `filer.toml` default /root/config.yaml(without cache) ``` version: 0.1 log: fields: service: registry storage: # cache: # blobdescriptor: inmemory filesystem: rootdirectory: /data http: addr: :5000 headers: X-Content-Type-Options: [nosniff] health: storagedriver: enabled: true interval: 10s threshold: 3 ``` **Expected behavior** push &amp; pull image successfully **Screenshots** ![image](https://user-images.githubusercontent.com/28077875/117948127-6abec500-b343-11eb-8a4e-c6a2e81281c0.png) **Additional context** master、volume、filer and weed mount had no related warning and error log. if use local filesystem, everything is fine. if `/root/configy.yaml` enable cache: ``` version: 0.1 log: fields: service: registry storage: cache: blobdescriptor: inmemory filesystem: rootdirectory: /data http: addr: :5000 headers: X-Content-Type-Options: [nosniff] health: storagedriver: enabled: true interval: 10s threshold: 3 ``` then, push image can be successful, but pull image will error(some small images pull many times will eventually succeed，but large images will not): **pull big images**: （btw, the test image can be pulled down from dockerhub(`docker pull jupyter/tensorflow-notebook:ubuntu-20.04`) ![image](https://user-images.githubusercontent.com/28077875/117952978-444f5880-b348-11eb-92f2-09cca527e42e.png) ![image](https://user-images.githubusercontent.com/28077875/117953890-0f8fd100-b349-11eb-846c-be53c01e471a.png) At this time, if stop registry and restart it, then pull image is ok. restart registry use same command: ``` docker run -p 5001:5000 --rm \ --name registry2 \ -v /root/config.yml:/etc/docker/registry/config.yml -v /root/mnt/data:/data registry:2 ``` **pull small image**(pull many times, eventually succeed): ![image](https://user-images.githubusercontent.com/28077875/117951873-2c2b0980-b347-11eb-98f7-26cb4a7d8508.png) BTW, `version 30GB 2.28 37f104f linux amd64` version does not seem to have the above problem.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Adjust error message when bucket name conflicts with existing collections fix https://github.com/chrislusf/seaweedfs/issues/2069</MESSAGE>
+    <SHA>26a55bbb5c1156ede00540c18d82a5c1f1713d7f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>mount: read file when file is still being written a possible fix for https://github.com/chrislusf/seaweedfs/issues/2065</MESSAGE>
+      <SHA>a48ebd7c7391fc649eb1f7925b26e13ad36cc26b</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filesys/dirty_pages_temp_interval.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2993</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2993</ISSUEURL>
+  <TITLE>Google Analytics. UTM and other details are not passed to Google</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.10 Steps to reproduce the problem: 1. Place an order 2. No UTM or other details (e.g. referrer, etc) are passed to GA. They are not available in IPN services because they are not requested by a customer The only way to support it is revert back to the previous implementation with JS that was used in bersion 3.90. But it in case case we'll have the same issue again as we had before (a customer must visit &quot;order completed&quot; page which is not always possible). The only way to go now is to support both ways (current one and 3.90 one). And let a store owner to choose. TODO: 1. Under &quot;Enable E-commerce&quot; setting let's add a new setting - &quot;Send ecommerce info using HTTP request&quot; (enabled by default) 2. When enabled we'll use the current implementation (Nop.Plugin.Widgets.GoogleAnalytics\Events.cs) 3. When disabled, we'll have to use JS code like it was done in 3.90. But one important change. We'll have to do it using new gtag implenentation: https://developers.google.com/analytics/devguides/collection/gtagjs/enhanced-ecommerce?hl=ru (in 3.90 we used another implementation) 4. Add a new {ECOMMERCE} tag to &quot;Tracking code&quot; field (default value). We'll replace it with appropriate code on &quot;Order completed&quot; page when &quot;Send ecommerce info using HTTP request&quot; is disabled. Let's hard-code (no need for new inputs) information that will be generated in JS 5. &quot;Order completed&quot; page should work fine even when it's opened multiple times - {ECOMMERCE} should not be generated twice (we had such validation in 3.90) 6. When &quot;Send ecommerce info using HTTP request&quot; is enabled, then &quot;HandleEvent(OrderCancelledEvent eventMessage)&quot; should check whether an order is paid (because with this setting enabled we notify Google Analytics only about already paid orders.) But when this setting is disabled, then we have to notify Google Analytics no matter of payment status because with this setting disabled we notify Google Analytics even about unpaid orders, just placed). And for such cases also add support for &quot;Order deleted&quot; event We need to support only &quot;gtag('event', 'purchase',&quot; command Also see https://www.nopcommerce.com/boards/t/51595/nop-40-google-analytics-problem-with-conversions-analytics-widget-problemdelete-ecommerce.aspx</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>45</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#3053 Changed GDPR consents and &quot;Accept privacy policy&quot; checkboxes markup and styles</MESSAGE>
+    <SHA>adc1f213fd37e32d3a8e9b55760b6dc2745dcae4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2992 Google Analytics plugin. Product quanlity wasn't not properly passed #2993 Google Analytics plugin. UTM (campaign) details were ignored when passing ecommerce details to GA IMPORTANT NOTE: the plugin should be re-installed to work properly</MESSAGE>
+      <SHA>8863ffd7157aaa15eeb39e4096ee401e6ba97f01</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Components/WidgetsGoogleAnalyticsViewComponent.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Controllers/WidgetsGoogleAnalyticsController.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Events.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/GoogleAnalyticsPlugin.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/GoogleAnalyticsSettings.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Models/ConfigurationModel.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Views/Configure.cshtml</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

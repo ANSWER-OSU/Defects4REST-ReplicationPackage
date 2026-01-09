@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>28233</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/28233</ISSUEURL>
+  <TITLE>LinkCrawlWorker throws a NoMethodError `[]` for `nilClass` because Link Oembed json resolves to &quot;null&quot;</TITLE>
+  <DESCRIPTION>This is mostly a reproducibility report for a certain bug that'll cause `LinkCrawlWorker`s to pile up in the dead queue. Given a status which contains the following link; - https://www.fimfiction.net/oembed\?url\=https%3A%2F%2Fwww.fimfiction.net%2Fblog%2F1027689%2Fasking-for-help It'll eventually crash a `LinkCrawlWorker` with the following error; `NoMethodError: undefined method '[]' for nil:NilClass` Because of the following backtrace; &lt;details&gt; &lt;summary&gt;Backtrace&lt;/summary&gt; ``` live/app/services/fetch_oembed_service.rb:103:in `validate' live/app/services/fetch_oembed_service.rb:88:in `fetch!' live/app/services/fetch_oembed_service.rb:19:in `call' live/app/services/fetch_link_card_service.rb:107:in `attempt_oembed' live/app/services/fetch_link_card_service.rb:42:in `process_url' live/app/services/fetch_link_card_service.rb:28:in `block in call' live/app/models/concerns/lockable.rb:12:in `block (2 levels) in with_redis_lock' live/vendor/bundle/ruby/3.0.0/gems/mario-redis-lock-1.2.1/lib/redis_lock.rb:44:in `acquire' live/app/models/concerns/lockable.rb:10:in `block in with_redis_lock' live/vendor/bundle/ruby/3.0.0/gems/connection_pool-2.4.1/lib/connection_pool.rb:110:in `block (2 levels) in with' live/vendor/bundle/ruby/3.0.0/gems/connection_pool-2.4.1/lib/connection_pool.rb:109:in `handle_interrupt' live/vendor/bundle/ruby/3.0.0/gems/connection_pool-2.4.1/lib/connection_pool.rb:109:in `block in with' live/vendor/bundle/ruby/3.0.0/gems/connection_pool-2.4.1/lib/connection_pool.rb:106:in `handle_interrupt' live/vendor/bundle/ruby/3.0.0/gems/connection_pool-2.4.1/lib/connection_pool.rb:106:in `with' live/app/lib/redis_configuration.rb:10:in `with' live/app/models/concerns/redisable.rb:9:in `with_redis' live/app/models/concerns/lockable.rb:9:in `with_redis_lock' live/app/services/fetch_link_card_service.rb:26:in `call' live/app/workers/link_crawl_worker.rb:9:in `perform' ``` &lt;/details&gt; Because `body` on the following line will become the string `&quot;null&quot;`; https://github.com/mastodon/mastodon/blob/89a8e6e6227eb901b5811d8417d81dc8ab1427a9/app/services/fetch_oembed_service.rb#L84</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix `Style/RedundantArgument` cop (#28321)</MESSAGE>
+    <SHA>2c6369918c61a7f948f39926f987fcfa0b02fb82</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix `LinkCrawlWorker` error when encountering empty OEmbed response Fixes #28233</MESSAGE>
+      <SHA>303d8e883a9d53e879f7ae46d170f91b6a7a6b33</SHA>
+      <PATCHEDFILES>
+        <FILE>app/services/fetch_oembed_service.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

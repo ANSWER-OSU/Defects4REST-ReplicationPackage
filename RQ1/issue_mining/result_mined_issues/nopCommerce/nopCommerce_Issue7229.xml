@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7229</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7229</ISSUEURL>
+  <TITLE>Incorrect change of order item price in admin area</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.70 &gt; Set `AutoUpdateOrderTotalsOnEditingOrder=True` &gt; Open the order in nop admin mode and change the price for the order item. &gt; The order total will be recalculated, but the order item price will be the same. &gt; &gt; Set `AutoUpdateOrderTotalsOnEditingOrder=False` &gt; Open the order in nop admin mode and change the price for the order item. &gt; The order total will not be recalculated, but the order item price will be changed. &gt; &gt; OrderProcessingService.cs &gt; public virtual async Task UpdateOrderTotalsAsync(UpdateOrderParameters updateOrderParameters) &gt; &gt; Add the next lines &gt; ``` &gt; if (!itemDeleted) &gt; { &gt; var product = await _productService.GetProductByIdAsync(updatedShoppingCartItem.ProductId); &gt; var store = await _storeService.GetStoreByIdAsync(updatedShoppingCartItem.StoreId); &gt; &gt; updateOrderParameters.Warnings.AddRange(await _shoppingCartService.GetShoppingCartItemWarningsAsync(customer, updatedShoppingCartItem.ShoppingCartType, &gt; product, updatedOrder.StoreId, updatedShoppingCartItem.AttributesXml, updatedShoppingCartItem.CustomerEnteredPrice, &gt; updatedShoppingCartItem.RentalStartDateUtc, updatedShoppingCartItem.RentalEndDateUtc, updatedShoppingCartItem.Quantity, false, updatedShoppingCartItem.Id)); &gt; &gt; updatedOrderItem.ItemWeight = await _shippingService.GetShoppingCartItemWeightAsync(updatedShoppingCartItem); &gt; updatedOrderItem.OriginalProductCost = await _priceCalculationService.GetProductCostAsync(product, updatedShoppingCartItem.AttributesXml); &gt; updatedOrderItem.AttributeDescription = await _productAttributeFormatter.FormatAttributesAsync(product, &gt; updatedShoppingCartItem.AttributesXml, customer, store); &gt; &gt; //gift cards &gt; await AddGiftCardsAsync(product, updatedShoppingCartItem.AttributesXml, updatedShoppingCartItem.Quantity, updatedOrderItem, updatedOrderItem.UnitPriceExclTax); &gt; } &gt; &gt; await _orderTotalCalculationService.UpdateOrderTotalsAsync(updateOrderParameters, restoredCart); &gt; &gt; if (!itemDeleted) &gt; await _orderService.UpdateOrderItemAsync(updatedOrderItem); &gt; ``` Source: https://www.nopcommerce.com/boards/topic/99293/bug-dont-change-the-price-of-the-order-item-in-nop-admin-mode See also: #8</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7247 Fixed discounts caching issue</MESSAGE>
+    <SHA>934b13ab0209b08f97b5d1f677925ce308f0f3a6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7229 Fixed problem with saving order item price in admin area</MESSAGE>
+      <SHA>e4997c758442d0c7052bf593a33b0b440d6b40d4</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderProcessingService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

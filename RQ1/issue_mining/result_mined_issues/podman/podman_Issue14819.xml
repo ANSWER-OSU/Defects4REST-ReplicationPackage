@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14819</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14819</ISSUEURL>
+  <TITLE>TestEnvVarValue fails on several architectures</TITLE>
+  <DESCRIPTION>/kind bug **Description** I've updated the Debian package to version 4.1, and while the package builds and seeimgly works fine on amd64 and arm64, any other architectures fail while running the testsuite. I've seen two kind of failures: On: - i386 (32bit intel) - armel - armhf - mipsel The test TestEnvVarValue fails with this output: ``` === RUN TestEnvVarValue/ResourceFieldRefNoLimitMemory -246611968 8343322624 play_test.go:787: Error Trace: play_test.go:787 Error: Not equal: expected: (*string)(0xa3f73ec) actual : (*string)(0xa3491c8) Diff: Test: TestEnvVarValue/ResourceFieldRefNoLimitMemory === RUN TestEnvVarValue/ResourceFieldRefNoRequestMemory -246611968 8343322624 play_test.go:787: Error Trace: play_test.go:787 Error: Not equal: expected: (*string)(0xa3f752c) actual : (*string)(0xa349260) Diff: Test: TestEnvVarValue/ResourceFieldRefNoRequestMemory === RUN TestEnvVarValue/ResourceFieldRefNoLimitCPU 4 4 === RUN TestEnvVarValue/ResourceFieldRefNoRequestCPU 4 4 --- FAIL: TestEnvVarValue (0.01s) ``` I note that these are all 32bit architectures, and the test fails while comparing a pointer. There is a different failure signature on: - s390x - mips64el - ppc64el ``` === RUN TestMonitorTwoDirGood/bad-primary-new-addition time=&quot;2022-07-03T23:35:24Z&quot; level=error msg=&quot;Failed loading hooks for /tmp/hooks-test-primary-1983903746/0a.json: parsing hook \&quot;/tmp/hooks-test-primary-1983903746/0a.json\&quot;: unrecognized hook version: \&quot;-1\&quot;&quot; time=&quot;2022-07-03T23:35:24Z&quot; level=error msg=&quot;Failed loading hooks for /tmp/hooks-test-primary-1983903746/0a.json: parsing hook \&quot;/tmp/hooks-test-primary-1983903746/0a.json\&quot;: unrecognized hook version: \&quot;-1\&quot;&quot; expected: &lt;nil&gt; actual: &amp;{[{/bin/sh [] [] 0xc00001a458}] [] [] [] [] []} ``` (at least that's what I think fails). I note that all these architectures are 64bit.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14807 from eriksjolund/fix_read_only_spelling [CI:DOCS] Fix spelling &quot;read only&quot; -&gt; &quot;read-only&quot;</MESSAGE>
+    <SHA>a406b950e4f8cf64bdd2c1e03a8480d4b5f97226</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>envVarValueResourceFieldRef: use int64 for value int can be 32 or 64 bit depending on the architecture. The total memory is int64 so we have to use int64 for the value as well otherwise we get an overflow on 32 bit systems. Fixes #14819 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>3fbe93371258704e56dc741218b4faa399395f8a</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/specgen/generate/kube/kube.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

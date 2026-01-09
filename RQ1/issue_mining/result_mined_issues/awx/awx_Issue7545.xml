@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7545</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/7545</ISSUEURL>
+  <TITLE>Permission denied for launch_awx.sh and launch_awx_task.sh</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY I am currently working on updating @ikke-t [awx_pod playbook](https://github.com/ikke-t/awx_pod) for using awx 13. My deployment is a bit different from the installation instructions here, but I would expect that the error below appears when using e.g. docker-compose as well. I am using the following image: ``docker.io/ansible/awx:13.0.0`` The following files have permissions 0700: * /usr/bin/launch_awx.sh * /usr/bin/launch_awx_task.sh which leads to issues when running ``docker.io/ansible/awx:13.0.0`` with non-root user ``1000`` imho this files should have 0755. ##### ENVIRONMENT * AWX version: 13.0.0 * AWX install method: podman / awx_pod playbook * Ansible version: 2.9.10 * Operating System: EL8 (CentOS 8) ##### STEPS TO REPRODUCE ``` $ ansible-playbook -K -i centos-8, awx-install.yml $ podman logs -f awx_awxweb $ podman logs -f awx_awxtask ``` ##### EXPECTED RESULTS ``` RESULT 2 OK ``` ##### ACTUAL RESULTS Permission denied for launch_awx.sh and launch_awx_task.sh ``` $ podman logs awx_awxweb /bin/sh: /usr/bin/launch_awx.sh: Permission denied $ podman logs awx_awxtask /bin/sh: /usr/bin/launch_awx_task.sh: Permission denied ``` ##### ADDITIONAL INFORMATION Creating a derived container using `` RUN chmod 755 /usr/bin/launch_awx*.sh `` resolves this issue.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #7432 from elyezer/update-module-tests Only pass either user or org on modules test Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>a74fbd65785baa014b12a654efe04c59efde7759</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Allow anyone to start awx and awx_task [#7545]</MESSAGE>
+      <SHA>22e794d60643637902b60065fffd183908134a30</SHA>
+      <PATCHEDFILES>
+        <FILE>installer/roles/image_build/tasks/main.yml</FILE>
+        <FILE>installer/roles/image_build/templates/Dockerfile.j2</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Allow anyone to start awx and awx_task [#7545]</MESSAGE>
+      <SHA>1f7c3d0eabaf92901bfce16d51605da96643009d</SHA>
+      <PATCHEDFILES>
+        <FILE>installer/roles/image_build/tasks/main.yml</FILE>
+        <FILE>installer/roles/image_build/templates/Dockerfile.j2</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Allow anyone to start awx and awx_task [#7545]</MESSAGE>
+      <SHA>6c107dbd666c0166e7938745440e1363db4ab272</SHA>
+      <PATCHEDFILES>
+        <FILE>installer/roles/image_build/tasks/main.yml</FILE>
+        <FILE>installer/roles/image_build/templates/Dockerfile.j2</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Allow anyone to start awx and awx_task [#7545]</MESSAGE>
+      <SHA>8b4b1f5f816de6282ab221399f529668824e3e84</SHA>
+      <PATCHEDFILES>
+        <FILE>installer/roles/image_build/tasks/main.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #7552 from ikke-t/fix-7545 Allow anyone to start awx and awx_task [#7545] Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+      <SHA>9a6da9cea7f5a1b79393cd550b5aa98df7bc02b9</SHA>
+      <PATCHEDFILES>
+        <FILE>installer/roles/image_build/tasks/main.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

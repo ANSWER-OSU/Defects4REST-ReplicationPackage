@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2760</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/2760</ISSUEURL>
+  <TITLE>404 error for removing deployment takes forever to exit</TITLE>
+  <DESCRIPTION>Try removing any deployment (might be related to having used an alias) and you will notice that the command (even thought it printed a 404) will take forever to exit: ![2019-08-14 00 43 07](https://user-images.githubusercontent.com/6170607/62982483-8c1c1580-be2c-11e9-8d61-9e03d6413790.gif)</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now dev] Use canary builders for the canary version (#2753) * Use canary builders for the canary version * Use the `getDistTag` function instead * Fix function call * Add tests * Remove unused code * Remove logging</MESSAGE>
+    <SHA>ef793bf7e9934fcccab9c9261d8859e942713e62</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now rm] Use the proper `client` so that the process does not hang The crux of this fix is that `getDeploymentByIdOrHost()` and `getProjectByIdOrName()` were improperly being passed the `Now` instance instead of the expected `Client` instance, and for some reason that would cause the process to hang until the underlying `http.Agent` timed out its connection to the API server. Also ran `prettier` on this file. Fixes #2760.</MESSAGE>
+      <SHA>d53f3869986c5b4b973f242f30934564df025ad9</SHA>
+      <PATCHEDFILES>
+        <FILE>src/commands/remove.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now rm] Use the proper `client` so that the process does not hang (#2762) * [now rm] Use the proper `client` so that the process does not hang The crux of this fix is that `getDeploymentByIdOrHost()` and `getProjectByIdOrName()` were improperly being passed the `Now` instance instead of the expected `Client` instance, and for some reason that would cause the process to hang until the underlying `http.Agent` timed out its connection to the API server. Also ran `prettier` on this file. Fixes #2760. * Remove `console.error()` * Add integration test * Fix syntax error * Add `now rm` 404 integration test * Remove `.only`</MESSAGE>
+      <SHA>740a7c88866f99f7007b2e5adbac4c296ae8aad0</SHA>
+      <PATCHEDFILES>
+        <FILE>src/commands/remove.js</FILE>
+        <FILE>test/integration.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now rm] Use the proper `client` so that the process does not hang (#2762) * [now rm] Use the proper `client` so that the process does not hang The crux of this fix is that `getDeploymentByIdOrHost()` and `getProjectByIdOrName()` were improperly being passed the `Now` instance instead of the expected `Client` instance, and for some reason that would cause the process to hang until the underlying `http.Agent` timed out its connection to the API server. Also ran `prettier` on this file. Fixes #2760. * Remove `console.error()` * Add integration test * Fix syntax error * Add `now rm` 404 integration test * Remove `.only`</MESSAGE>
+      <SHA>f3f68806323aa8d4176fbbbc049880336fca03f6</SHA>
+      <PATCHEDFILES>
+        <FILE>src/commands/remove.js</FILE>
+        <FILE>test/integration.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

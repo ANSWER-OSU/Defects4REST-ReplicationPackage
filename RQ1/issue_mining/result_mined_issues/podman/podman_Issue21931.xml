@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>21931</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/21931</ISSUEURL>
+  <TITLE>minikube flakes</TITLE>
+  <DESCRIPTION>No useful diagnostics: ``` # X Exiting due to RUNTIME_ENABLE: Failed to enable container runtime: sudo systemctl restart cri-docker.socket: Process exited with status 1 ``` Smells like the quay flakiness, but there's nothing to go on. Tests should probably be instrumented to run `journalctl`, `minikube logs`, and anything else that could give a user some hints. * fedora-39 : minikube podman fedora-39 rootless host sqlite * PR #21908 * [03-01 13:52](https://api.cirrus-ci.com/v1/artifact/task/6174705799921664/html/minikube-podman-fedora-39-rootless-host-sqlite.log.html#t--00001) in [minikube] minikube - check cluster is up * PR #21862 * [02-29 14:12](https://api.cirrus-ci.com/v1/artifact/task/6425760194363392/html/minikube-podman-fedora-39-rootless-host-sqlite.log.html#t--00002) in [minikube] [001] minikube - deploy generated container yaml to minikube * PR #21601 * [02-28 14:12](https://api.cirrus-ci.com/v1/artifact/task/5118444224380928/html/minikube-podman-fedora-39-rootless-host-sqlite.log.html#t--00001) in [minikube] minikube - check cluster is up | x | x | x | x | x | x | | ---: | ---: | ---: | ---: | ---: | ---: | | minikube(3) | podman(3) | fedora-39(3) | rootless(3) | host(3) | sqlite(3) |</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>127</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #22074 from edsantiago/xref-rst xref-helpmsgs-manpages: cross-check Commands.rst</MESSAGE>
+    <SHA>8a643c243ea8a9f9ac95ed137d014b90797470ca</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>minikube: instrument tests, to allow debugging failures New run_minikube() helper, modeled after run_podman(). Echoes each command being run and its output. On failure, runs minikube logs. Addresses (does not close) #21931 which is hitting us hard in CI. Probably quay flakes, but it's impossible to tell without logs. Also: bug fix: one &quot;run podman&quot; fixed to run_podman Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>aa5c4879b432a95333cb73b2816b97f7e0ebff4f</SHA>
+      <PATCHEDFILES>
+        <FILE>test/minikube/001-kube.bats</FILE>
+        <FILE>test/minikube/helpers.bash</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

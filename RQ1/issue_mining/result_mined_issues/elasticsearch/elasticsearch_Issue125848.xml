@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>125848</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/125848</ISSUEURL>
+  <TITLE>[CI] SmokeTestMultiNodeClientYamlTestSuiteIT test {yaml=cat.allocation/10_basic/Node forecasts} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7357 / ubuntu-2004_platform-support-unix](https://gradle-enterprise.elastic.co/s/mon4gm5o627la) - [elasticsearch-pull-request #64677 / part-1](https://gradle-enterprise.elastic.co/s/fkwmjjl4mf37o) - [elasticsearch-pull-request #64547 / part-1](https://gradle-enterprise.elastic.co/s/ihj6fxfaa44qu) **Reproduction Line:** ``` ./gradlew &quot;:qa:smoke-test-multinode:yamlRestTest&quot; --tests &quot;org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT&quot; -Dtests.method=&quot;test {yaml=cat.allocation/10_basic/Node forecasts}&quot; -Dtests.seed=A06E19E12355931B -Dtests.locale=ee-TG -Dtests.timezone=Australia/Yancowinna -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Byaml%3Dcat.allocation%2F10_basic%2FNode%20forecasts%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Failure at [cat.allocation/10_basic:292]: field [$body] was expected to match the provided regex but didn't Expected: ^ ( [-\w.]+ \s+ [-\w.]+ \s+ [-\w.]+ \s+ [\w]+ \n )+ $ but: was &quot;test-cluster-1 0 0.0 11.9kb\ntest-cluster-0 0 0.0 0b\n&quot; ``` **Issue Reasons:** - [main] 3 failures in test test {yaml=cat.allocation/10_basic/Node forecasts} (0.3% fail rate in 894 executions) - [main] 2 failures in step part-1 (0.6% fail rate in 315 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (0.6% fail rate in 315 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Start indexing throttling only after disk IO unthrottling does not keep up with the merge load (#125654) Fixes an issue where indexing throttling kicks in while disk IO is throttling. Instead disk IO should first unthrottle, and only then, if we still can't keep up with the merging load, start throttling indexing. Fixes elastic/elasticsearch-benchmarks#2437 Relates #120869</MESSAGE>
+    <SHA>84e1372af25a9618343b213464534122bba99cea</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT test {yaml=cat.allocation/10_basic/Node forecasts} #125848</MESSAGE>
+      <SHA>994ff36a2e48852dc5705e4c6ede92bae650ad4b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

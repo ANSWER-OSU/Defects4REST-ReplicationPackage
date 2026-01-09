@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14640</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/14640</ISSUEURL>
+  <TITLE>Email stats don't work with Mailgun EU domain</TITLE>
+  <DESCRIPTION>### Issue Summary Email stats are updated only for the first fetched page of stats from Mailgun due to a missing EU domain in the code. This is resolved in https://github.com/TryGhost/Publishing/pull/73 Opening a ticket here just in case the PR gets missed. ### Steps to Reproduce 1. Send a lot of emails through EU Mailgun account 2. Wait until email stats are updated They will be updated only partially - only the first 300 events are fetched. ### Ghost Version 4.46.0 ### Node.js Version 14 ### How did you install Ghost? cli ### Database type MySQL 5.7 ### Browser &amp; OS version _No response_ ### Relevant log / error output ```shell [2022-05-02 11:13:01] INFO Worker for job &quot;email-analytics-fetch-latest&quot; online 2022-05-02T11:13:01.652Z ghost:jobs:email-analytics:fetch-latest Starting email analytics fetch of latest events 2022-05-02T11:13:01.664Z ghost:services:email-analytics getLastSeenEventTimestamp: finished in 8ms 2022-05-02T11:13:01.664Z @tryghost/email-analytics-service:services:email-analytics fetchLatest: starting 2022-05-02T11:13:01.665Z @tryghost/email-analytics-provider-mailgun:email-analytics-provider-mailgun _fetchPages: starting fetching first events page 2022-05-02T11:13:01.928Z @tryghost/email-analytics-provider-mailgun:email-analytics-provider-mailgun _fetchPages: finished fetching first page with 300 events 2022-05-02T11:13:03.503Z @tryghost/email-analytics-provider-mailgun:email-analytics-provider-mailgun _fetchPages: starting fetching next page https://api.eu.mailgun.net/v3/example.com/events/xxxxxxx 2022-05-02T11:13:03.553Z @tryghost/email-analytics-provider-mailgun:email-analytics-provider-mailgun _fetchPages: finished fetching next page with 0 events 2022-05-02T11:13:03.553Z @tryghost/email-analytics-service:services:email-analytics fetchLatest: finished in 1889ms. Fetched 300 events 2022-05-02T11:13:03.553Z ghost:jobs:email-analytics:fetch-latest Finished fetching 300 analytics events in 1901ms 2022-05-02T11:13:03.553Z ghost:jobs:email-analytics:fetch-latest Starting email analytics aggregation for 1 emails 2022-05-02T11:13:04.847Z ghost:jobs:email-analytics:fetch-latest Finished aggregating email analytics in 1294ms [2022-05-02 11:13:04] INFO Worker for job email-analytics-fetch-latest sent a message: Fetched 300 events and aggregated stats for 1 emails in 3195ms [2022-05-02 11:13:04] INFO Worker for job email-analytics-fetch-latest sent a message: done ``` ``` ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Removed members/api/site closes: https://github.com/TryGhost/Team/issues/1599 - remove the now unused members/api/site endpoint - portal now talks to the content API instead</MESSAGE>
+    <SHA>962971c436c36ad052c198d2db21ad239813b825</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed email stats not working for EU Mailgun endpoints closes https://github.com/TryGhost/Ghost/issues/14640 credit @ceecko https://github.com/TryGhost/Publishing/pull/73 - Email stats were only updated for the first page of stats from Mailgun due to missing handling for EU endpoints</MESSAGE>
+      <SHA>297a7bc301dd8e707fa3569109f500d5575aaadc</SHA>
+      <PATCHEDFILES>
+        <FILE>package.json</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed email stats not working for EU Mailgun endpoints closes https://github.com/TryGhost/Ghost/issues/14640 credit @ceecko https://github.com/TryGhost/Publishing/pull/73 - Email stats were only updated for the first page of stats from Mailgun due to missing handling for EU endpoints</MESSAGE>
+      <SHA>43badac286dbf042af3f141791ae68491a70b350</SHA>
+      <PATCHEDFILES>
+        <FILE>package.json</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Added support for eu Mailgun domain (#73) closes: https://github.com/TryGhost/Ghost/issues/14640 - eu mailgun domains have a different structure. - we weren't accounting for this when fetching the next page of results, meaning that email stats didn't work on EU domains</MESSAGE>
+      <SHA>a9cce0281d0028987c68a1dae9b085d5d0765918</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/email-analytics-provider-mailgun/lib/provider-mailgun.js</FILE>
+        <FILE>ghost/email-analytics-provider-mailgun/test/fixtures/all-1-eu.json</FILE>
+        <FILE>ghost/email-analytics-provider-mailgun/test/fixtures/all-2-eu.json</FILE>
+        <FILE>ghost/email-analytics-provider-mailgun/test/provider-mailgun.test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

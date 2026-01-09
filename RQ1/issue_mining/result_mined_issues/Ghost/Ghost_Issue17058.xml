@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17058</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/17058</ISSUEURL>
+  <TITLE>Code blocks are not sanitized during excerpt generation. Unintended script execution possible.</TITLE>
+  <DESCRIPTION>### Issue Summary If the user creates a code block in the Ghost editor (old or beta version) at the very start of the post, and does not set a custom_excerpt, the excerpt generated can lead to unintended injection of any scripts onto the homepage. A simple example: Post looks like this: ![image](https://github.com/TryGhost/Ghost/assets/42299862/cfe2022b-4c11-4988-bbda-46ae0426cc00) Front page (Ruby) renders that like this: ![image](https://github.com/TryGhost/Ghost/assets/42299862/e79682ca-34f2-47b8-92fc-f389713f85ae) [Not just a Ruby problem. Can repro in any theme with an excerpt on the index page] ### Steps to Reproduce Create a post. Start it with a code card. Start the code card with a script tag. Using a theme that displays excerpts on the front page, navigate to the front page. ### Ghost Version 5.51 ### Node.js Version on Ghost Pro ### How did you install Ghost? Ghost Pro ### Database type MySQL 8 ### Browser &amp; OS version Chrome, Windows 10, recent. ### Relevant log / error output ```shell see above - and yes, that shows up in my console logs! ``` ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>177</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>AdminX Portal UI (#17185) refs. https://github.com/TryGhost/Team/issues/3545 As the first step of Portal settings being rebuilt in AdminX, we needed a couple of static skeleton components to get started. For this we also had to extend the props of Preview modal component in the design system.</MESSAGE>
+    <SHA>de4186ab977597ef7c4af605aca02e39660b9846</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed XSS vulnerability involving post excerpts closes #17058 Using the lodash escape function. We can avoid XSS vulnerabilities in post excerpts.</MESSAGE>
+      <SHA>0707fb91937da67111698ddc9cb9ef033be631b1</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/frontend/helpers/excerpt.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed XSS vulnerability involving post excerpts fixes https://github.com/TryGhost/Ghost/issues/17058 - Uses the lodash `escape` function. - Avoids XSS vulnerabilities in post excerpts.</MESSAGE>
+      <SHA>d347a0a9808ec5d1a2be283df720faf7ca6e0a55</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/frontend/helpers/excerpt.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed XSS vulnerability involving post excerpts fixes https://github.com/TryGhost/Ghost/issues/17058 - Uses the lodash `escape` function. - Avoids XSS vulnerabilities in post excerpts.</MESSAGE>
+      <SHA>a88880474b04bf896ae4cb7aa90e80669685fdc6</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/frontend/helpers/excerpt.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed XSS vulnerability involving post excerpts (#17190) closes https://github.com/TryGhost/Ghost/issues/17058 - Uses the lodash `escape` function. - Avoids XSS vulnerabilities in post excerpts.</MESSAGE>
+      <SHA>dc7e2b9261555f4a1a160ea4369e9d9578194358</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/frontend/helpers/excerpt.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

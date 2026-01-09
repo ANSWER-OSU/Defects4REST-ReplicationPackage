@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15048</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15048</ISSUEURL>
+  <TITLE>share-nothing pod does not start the infra container</TITLE>
+  <DESCRIPTION>**Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind bug **Description** when creating a share-nothing pod using `podman pod create` with `--share=&quot;&quot;` infra containers is not started and status is reported as `Degraded` **Steps to reproduce the issue:** ``` $ podman pod create --name=mypod --share=&quot;&quot; 93e43419780832f79579ef01f21ac5ba61020bec95db6c3fdf13e2b1b0f5f836 $ podman run -d --name mycontainer1 --pod=mypod busybox httpd -f -p 8123 -h /etc/ 243d0b36fb38b8bc55d760ca4756b5ebf29f3a67e561d54042a7ecd99b0f4a09 $ podman pod ls POD ID NAME STATUS CREATED INFRA ID # OF CONTAINERS 93e434197808 mypod Degraded 2 minutes ago 1e7e9644d101 2 $ podman ps -a -f 'pod=mypod' CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES 1e7e9644d101 localhost/podman-pause:4.1.0-1653926608 4 minutes ago Created 93e434197808-infra 243d0b36fb38 docker.io/library/busybox:latest httpd -f -p 8123 ... 3 minutes ago Up 3 minutes ago mycontainer1 ``` **Describe the results you received:** status is reported as `Degraded` and infra is created but not started **Describe the results you expected:** status should be up and running and infra should be up **Additional information you deem important (e.g. issue happens only occasionally):** **Output of `podman version`:** it applies to both 3.x and 4.x I'm using 4.1.0 ``` podman version 4.1.0 ``` **Package info (e.g. output of `rpm -q podman` or `apt list podman`):** ``` podman-4.1.0-8.fc36.x86_64 ``` **Have you tested with the latest version of Podman and have you checked the Podman Troubleshooting Guide? (https://github.com/containers/podman/blob/main/troubleshooting.md)** No **Additional environment details (AWS, VirtualBox, physical, etc.):** this feature is needed by podman-compose when placing multiple containers in a single pod, two containers might have different hostnames</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #15035 from cdoern/cgroup fix container create/run throttle devices</MESSAGE>
+    <SHA>da1f47921685f40f1b26405278cbf9cb2d06fe09</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>pod create --share none should not create infra for podman pod create, when we are not sharing any namespaces there is no point for the infra container. This is especially true since resources have also been decoupled from the container recently. handle this on the cmd level so that we can still create infra if set explicitly resolves #15048 Signed-off-by: Charlie Doern &lt;cdoern@redhat.com&gt;</MESSAGE>
+      <SHA>27679d80b897b80c10553db0e2048a19ca17737d</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/pods/create.go</FILE>
+        <FILE>docs/source/markdown/podman-pod-create.1.md</FILE>
+        <FILE>test/e2e/pod_infra_container_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

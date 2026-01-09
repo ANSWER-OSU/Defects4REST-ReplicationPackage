@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>404</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/404</ISSUEURL>
+  <TITLE>Variables not set, extra event when CallActivity defined with terminate end event</TITLE>
+  <DESCRIPTION>Seeing two potential issues when Called Activity (External subprocess) is defined with terminate end event. First, the process variables are not returned to the calling process. Second, we are seeing an unexpected PROCESS_COMPLETED event as we already received a PROCESS_COMPLETED_WITH_TERMINATE_END_EVENT event. Included test recreates the issues. Pull request https://github.com/flowable/flowable-engine/pull/403 contains the test case that recreates the two issues.</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'callActivityTerminateEnd' of https://github.com/stephraleigh/flowable-engine</MESSAGE>
+    <SHA>c4bb427e35e97f86b98a2cdd3d66442164937c93</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix issue with terminate end event and call activity elements #404</MESSAGE>
+      <SHA>7dfaa64889b09b3b11e76e64f37c5979d19b7a2e</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/agenda/EndExecutionOperation.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/BoundaryEventActivityBehavior.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/ParallelMultiInstanceBehavior.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/TerminateEndEventActivityBehavior.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/helper/ErrorPropagation.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/ExecutionEntityManager.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/ExecutionEntityManagerImpl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4621</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4621</ISSUEURL>
+  <TITLE>GetAllCheckoutAttributes returns incorrect list of store-specific attributes</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.20 For example, if we have this setup: Stores: * Store1 (ID: **1**) * Store2 (ID: **2**) Checkout attributes: * Attribute1 (All stores - not limited) * Attribute2 (Limited to Store2) Calling `GetAllCheckoutAttributes(2)` while in the admin area of Store1, will only return Attribute1. Given that I'm passing in the store id of Store2, shouldn't that have returned both Attribute1 and Attribute2? Shouldn't this authorization check `_storeMappingService.Authorize(ca)` be passing in the `storeId` parameter instead? (i.e. `_storeMappingService.Authorize(ca, storeId)`). At the moment, the `storeId` parameter is not used anywhere to actually limit the list to that store. More info: https://github.com/nopSolutions/nopCommerce/blob/develop/src/Libraries/Nop.Services/Orders/CheckoutAttributeService.cs#L103</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#4623 Fixed problem with multi-store checkboxes on the configuration page</MESSAGE>
+    <SHA>894053e89ed9b5abbe7070d3a19b901467d44dca</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4621 Fix getting invalid checkout attributes for store</MESSAGE>
+      <SHA>bef82e817c6440a177645aff80414336bd2fda14</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Orders/CheckoutAttributeService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

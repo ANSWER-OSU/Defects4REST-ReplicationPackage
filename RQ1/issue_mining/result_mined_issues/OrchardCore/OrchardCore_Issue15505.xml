@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15505</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/15505</ISSUEURL>
+  <TITLE>Inconsistent JObject.SelectNode() behavior and feature loss</TITLE>
+  <DESCRIPTION>### Describe the bug I have a few concerns with the new `JObject.SelectNode()` extension method: If you try to use it on a content part's `Content` property, it won't work unless you re-serialize the JSON object first, e.g.: ```csharp var content = (JsonObject)contentElement.Content; content.SelectNode(path); // This is null. JsonSerializer.SerializeToNode(content).SelectNode(path); // This is not null. ``` Also you can't chain `SelectNode` calls, the second call will still search from the same position, e.g.: ![image](https://github.com/OrchardCMS/OrchardCore/assets/4007293/feae5df1-1a00-4f3a-86f4-2a77e63680a3) I think when you query a `JsonObject`, it tries to query from its document root instead of the current element. This is unexpected. Finally, I'm not sure if anyone is affected, but after the migration to STJ we have lost full compliant JSONPath query support. The documentation of `JObject.SelectNode()` extension method [claims that it searches using &quot;a JSON path&quot;](https://github.com/OrchardCMS/OrchardCore/blob/50583b0644fe90f0a7253c78885504c910c4175a/src/OrchardCore/OrchardCore.Abstractions/Json/Nodes/JObject.cs#L89), however this is misleading because it's compliant with [the JSONPath specification](https://www.ietf.org/archive/id/draft-goessner-dispatch-jsonpath-00.html). An example of a query that should work but doesn't (using the same JSON as above): ```csharp var data = JsonNode.Parse(&quot;{\&quot;SelectedContentItem\&quot;:{\&quot;ContentItemIds\&quot;:[\&quot;48yrgcwkhv7hkwarvtzpw3ccms\&quot;]},\&quot;Name\&quot;:\&quot;My Content\&quot;}&quot;); data.SelectNode(&quot;SelectedContentItem.ContentItemIds&quot;); // works, result: [ &quot;48yrgcwkhv7hkwarvtzpw3ccms&quot; ] data.SelectNode(&quot;$.SelectedContentItem.ContentItemIds&quot;); // works, result: [ &quot;48yrgcwkhv7hkwarvtzpw3ccms&quot; ] data.SelectNode(&quot;$..ContentItemIds&quot;); // doesn't work, result is null but it should be the same as above ``` You can verify that the last one should work using the [JSONPath Online Evaluator](https://jsonpath.com/): ![image](https://github.com/OrchardCMS/OrchardCore/assets/4007293/1d32f137-b6f1-42b7-aaa2-388e39824a9e) Also it works with Newtonsoft: ![image](https://github.com/OrchardCMS/OrchardCore/assets/4007293/cb74eef3-1283-4009-9e77-721891a603a2) ### Expected behavior - `SelectNode` should query from the current element. - Ideally it should keep supporting full JSONPath. ### Suggestion Beyond fixing `JObject.SelectNode` to search from the current node, the documentation should be updated: - The documentation comment I linked above should include a `&lt;remarks&gt;` section explaining what is and what isn't supported by the current implementation. - The 1.9 release notes should mention this breaking change in [the &quot;Drop Newtonsoft.Json Support&quot; section](https://github.com/OrchardCMS/OrchardCore/blob/50583b0644fe90f0a7253c78885504c910c4175a/src/docs/releases/1.9.0.md#drop-newtonsoftjson-support). Consider if there is a JSONPath library we can use instead of a homebrew implementation. I haven't used it yet, but [JsonPath.Net](https://www.nuget.org/packages/JsonPath.Net/0.1.3) of the [json-everything](https://github.com/gregsdennis/json-everything) project might be suitable? It's for STJ, MIT licensed and it seems to be actively maintained.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix functional test command docs (#15398)</MESSAGE>
+    <SHA>50583b0644fe90f0a7253c78885504c910c4175a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>try fix #15505</MESSAGE>
+      <SHA>4ecdcbefb36ae54be440b559b51535657b469987</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.Abstractions/Json/Dynamic/JsonDynamicObject.cs</FILE>
+        <FILE>test/OrchardCore.Tests/Data/ContentItemTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

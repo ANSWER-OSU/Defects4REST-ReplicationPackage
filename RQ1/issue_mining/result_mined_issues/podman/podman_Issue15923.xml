@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15923</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15923</ISSUEURL>
+  <TITLE>podman-system-service.1.html contains &quot;&lt;title&gt;podman-service &amp;#8212; Podman documentation&lt;/title&gt;&quot;</TITLE>
+  <DESCRIPTION>&lt;!-- --------------------------------------------------- BUG REPORT INFORMATION --------------------------------------------------- Use the commands below to provide key information from your environment: You do NOT have to include this information if this is a FEATURE REQUEST **NOTE** A large number of issues reported against Podman are often found to already be fixed in more current versions of the project. Before reporting an issue, please verify the version you are running with `podman version` and compare it to the latest release documented on the top of Podman's [README.md](../README.md). If they differ, please update your version of Podman to the latest possible and retry your command before creating an issue. Also, there is a running list of known issues in the [Podman Troubleshooting Guide](https://github.com/containers/podman/blob/main/troubleshooting.md), please reference that page before opening a new issue. If you are filing a bug against `podman build`, please instead file a bug against Buildah (https://github.com/containers/buildah/issues). Podman build executes Buildah to perform container builds, and as such the Buildah maintainers are best equipped to handle these bugs. --&gt; **Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind bug **Description** The man page [podman-system-service.1.html](https://docs.podman.io/en/latest/markdown/podman-system-service.1.html) has an incorrect title &lt;!-- Briefly describe the problem you are having in a few paragraphs. --&gt; **Steps to reproduce the issue:** ``` $ curl -Ls https://docs.podman.io/en/latest/markdown/podman-system-service.1.html | grep '&lt;title&gt;' &lt;title&gt;podman-service &amp;#8212; Podman documentation&lt;/title&gt; ``` **Describe the results you received:** ``` &lt;title&gt;podman-service &amp;#8212; Podman documentation&lt;/title&gt; ``` **Describe the results you expected:** ``` &lt;title&gt;podman-system-service &amp;#8212; Podman documentation&lt;/title&gt; ```</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #15900 from rhatdan/VENDOR Update vendor of containers(image, common, buildah, storage)</MESSAGE>
+    <SHA>40e8bcb8482f2a1f60b93524ceda05770d20739e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[CI:DOCS] man pages: fix incorrect title Fixes: https://github.com/containers/podman/issues/15923 Signed-off-by: Erik Sjölund &lt;erik.sjolund@gmail.com&gt;</MESSAGE>
+      <SHA>337f1f586931a30ac86c1abaa2742a5d5e217de3</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-system-service.1.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>man page xref: verify page title Issue #15923 should have never happened: the problem should've been autodetected. Make it so henceforth (and fix another existing discrepancy) Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>fde4d21be5ed3a696f2b6dc777ca153646c69f48</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-machine-list.1.md</FILE>
+        <FILE>hack/xref-helpmsgs-manpages</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

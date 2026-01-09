@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1774</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/1774</ISSUEURL>
+  <TITLE>filer: elasticsearch7 no longer works</TITLE>
+  <DESCRIPTION>Hello Since 2.21 elasticsearch7 does not work when db already exist. On a new cluster (&gt;=2.21), the 3 indces are created on startup. ``` indices: .seaweedfs_buckets: green .seaweedfs_topics: green .seaweedfs_kv_entries: green ``` Filer and s3 are accessibles. But if filer service are restarted, the filer don't restart. filer daemon in not listening on network ports (filer and s3) **cmdline** ``` weed-filer -logtostderr -v 6 filer -port=8888 -s3 -ip=test-seaweedfs1-f -defaultReplicaPlacement=002 -master=test-seaweedfs1-m:9333,test-seaweedfs2-m:9333,test-seaweedfs3-m:9333,test-seaweedfs4-m:9333,test-seaweedfs5-m:9333 -dataCenter=vau -encryptVolumeData ``` **filer.toml** ``` [filer.options] recursive_delete = false [elastic7] enabled = true servers = [ &quot;http://test-sdv-seaweedfs1-f:9200&quot;, &quot;http://test-sdv-seaweedfs2-f:9200&quot;, &quot;http://test-sdv-seaweedfs3-f:9200&quot;, &quot;http://test-sdv-seaweedfs4-f:9200&quot;, &quot;http://test-sdv-seaweedfs5-f:9200&quot;, ] ``` **log for &gt;=2.21** ``` févr. 02 17:12:45 test-seaweedfs1 systemd[1]: Started seaweedfs-filer. févr. 02 17:12:45 test-seaweedfs1 weed-filer[26971]: I0202 17:12:45 26971 config.go:29] Reading security.toml from févr. 02 17:12:45 test-seaweedfs1 weed-filer[26971]: I0202 17:12:45 26971 metrics.go:155] filer server sends metrics to test-seaweedfs:9091 every 15 seconds févr. 02 17:12:45 test-seaweedfs1 weed-filer[26971]: I0202 17:12:45 26971 config.go:29] Reading filer.toml from févr. 02 17:12:45 test-seaweedfs1 weed-filer[26971]: W0202 17:12:45 26971 filer_server.go:115] skipping default store dir in ./filerldb2 févr. 02 17:12:45 test-seaweedfs1 weed-filer[26971]: I0202 17:12:45 26971 config.go:29] Reading notification.toml from févr. 02 17:12:45 test-seaweedfs1 weed-filer[26971]: I0202 17:12:45 26971 config.go:36] Reading : Config File &quot;notification&quot; Not Found in &quot;[/usr/local /var/empty/seaweed/.seaweedfs /usr/local/etc/seaweedfs /etc/seaweedfs]&quot; févr. 02 17:12:45 test-seaweedfs1 weed-filer[26971]: I0202 17:12:45 26971 elastic_store.go:70] filer store elastic endpoints: [http://test-seaweedfs1-f:9200 http://test-seaweedfs2-f:9200 http://test-seaweedfs3-f:9200 http://test-seaweedfs4-f:9200 http://test-seaweedfs5-f:9200]. févr. 02 17:12:45 test-seaweedfs1 weed-filer[26971]: I0202 17:12:45 26971 filer.go:101] existing filer.store.id = -379500687 févr. 02 17:12:45 test-seaweedfs1 weed-filer[26971]: I0202 17:12:45 26971 configuration.go:28] configured filer store to elastic7 févr. 02 17:12:45 test-seaweedfs1 weed-filer[26971]: I0202 17:12:45 26971 filerstore_wrapper.go:220] ListDirectoryPrefixedEntries /buckets from prefix limit 2147483648 ``` No more log availble :/ The daemon in not listening on network port (filer, s3) With 2.20 the service works and can be restarted, filer and s3 are accessibles. Antoine</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>s3: DeleteMultipleObjectsHandler clean up leftover empty folders fix https://github.com/chrislusf/seaweedfs/issues/1772</MESSAGE>
+    <SHA>609daaf3878927f86a4d4a59eb7f8d9786232a5c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>filer: fix elastic search pagination possible fix for https://github.com/chrislusf/seaweedfs/issues/1774</MESSAGE>
+      <SHA>2396ac234c060774ef0640f513fee2e424fbb706</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filer/elastic/v7/elastic_store.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

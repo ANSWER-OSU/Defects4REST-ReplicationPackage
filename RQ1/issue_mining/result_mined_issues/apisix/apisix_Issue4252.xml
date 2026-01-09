@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4252</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/4252</ISSUEURL>
+  <TITLE>bug: The proxy-rewrite plugin can't rewrite &quot;X-Forwarded-Proto&quot; header</TITLE>
+  <DESCRIPTION>### Issue description The proxy-rewrite plugin can't rewrite &quot;X-Forwarded-Proto&quot; header ### Environment * apisix version 2.5 with docker * docker image apache/apisix:2.5-centos * etcd version 3.4 * apisix-dashboard 2.6 ### Minimal test code / Steps to reproduce the issue Bug report without steps to reproduce will be ignored or closed. 1. Start a http server as upstream, http server print the request header. [http server code](https://gist.github.com/mdonkers/63e115cc0c79b4f6b8b3a6b797e485c7) 2. Create a route with the &quot;proxy-rewrite&quot; plugin, upstream to the step 1 server, with the following plugin configuration ```json { &quot;proxy-rewrite&quot;: { &quot;headers&quot;: { &quot;X-Forwarded-Proto&quot;: &quot;https&quot; } } } ``` 3. Make a request with http, and check server's log ### What's the actual result? X-Forwarded-Proto: http ### What's the expected result? X-Forwarded-Proto: https</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix(DNS): support IPv6 resolver (#4242)</MESSAGE>
+    <SHA>c70d797c7cd5b2bd38a6d099b6ac57aae2c46051</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: avoid overriding customized X-Forwarded-Proto header Close #4252 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>b9952d22bdeb6adf6eb0b6c4d16f97e1caab23d2</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ngx_tpl.lua</FILE>
+        <FILE>apisix/core/ctx.lua</FILE>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>t/APISIX.pm</FILE>
+        <FILE>t/plugin/proxy-rewrite2.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat: avoid overriding customized X-Forwarded-Proto header Close #4252 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>179fe9b951b195c134ed2bcf6f91febd9d0f6e43</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ngx_tpl.lua</FILE>
+        <FILE>apisix/core/ctx.lua</FILE>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>t/APISIX.pm</FILE>
+        <FILE>t/lib/server.lua</FILE>
+        <FILE>t/plugin/proxy-rewrite2.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat: avoid overriding customized X-Forwarded-Proto header (#4260) Close #4252 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>5d58dacaa8d279ae9ec6e061800b771b8a49e5e1</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ngx_tpl.lua</FILE>
+        <FILE>apisix/core/ctx.lua</FILE>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>t/APISIX.pm</FILE>
+        <FILE>t/lib/server.lua</FILE>
+        <FILE>t/plugin/proxy-rewrite2.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

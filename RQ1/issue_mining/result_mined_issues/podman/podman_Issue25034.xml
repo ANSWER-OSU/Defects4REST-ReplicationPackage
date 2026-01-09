@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>25034</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/25034</ISSUEURL>
+  <TITLE>Healthcheck always shows &quot;starting&quot; for quadlet service</TITLE>
+  <DESCRIPTION>### Issue Description I'm trying to setup some containers using quadlet and podman but the healthchecks are stuck at &quot;starting&quot; and never execute. It is basically the same thing that was discussed here https://github.com/containers/podman/discussions/19381, but I definitely have systemd on my system. I am doing this on a NixOS machine. ```json &quot;Health&quot;: { &quot;Status&quot;: &quot;starting&quot;, &quot;FailingStreak&quot;: 0, &quot;Log&quot;: null }, ``` It does work when I manually run `podman healthcheck run id` and it works if I run the same container just from my user with `podman run`. So it definitely is an issue with systemd. ### Steps to reproduce the issue Steps to reproduce the issue 1. Setup a NixOS 2. Create a Quadlet service for podman that includes a HealthCmd 3. Watch the status of that container never change ### Describe the results you received The container never reaches a `healthy` state. ### Describe the results you expected A container with a healthy state. ### podman info output ```yaml host: arch: amd64 buildahVersion: 1.38.0 cgroupControllers: - cpuset - cpu - io - memory - hugetlb - pids - rdma - misc cgroupManager: systemd cgroupVersion: v2 conmon: package: Unknown path: /nix/store/fpm49w5pv1fnnnczbwngnr7pfnqbmp7f-podman-helper-binary-wrapper/bin/conmon version: 'conmon version 2.1.12, commit: ' cpuUtilization: idlePercent: 81.31 systemPercent: 2.84 userPercent: 15.84 cpus: 8 databaseBackend: sqlite distribution: codename: warbler distribution: nixos version: &quot;25.05&quot; eventLogger: journald freeLocks: 2013 hostname: hati idMappings: gidmap: null uidmap: null kernel: 6.6.64 linkmode: dynamic logDriver: journald memFree: 25469820928 memTotal: 33221525504 networkBackend: netavark networkBackendInfo: backend: netavark dns: package: Unknown path: /nix/store/szxc93qlzmy33si8nvwnl33qn4ypf8qd-podman-5.3.1/libexec/podman/aardvark-dns version: aardvark-dns 1.13.1 package: Unknown path: /nix/store/szxc93qlzmy33si8nvwnl33qn4ypf8qd-podman-5.3.1/libexec/podman/netavark version: netavark 1.7.0 ociRuntime: name: crun package: Unknown path: /nix/store/fpm49w5pv1fnnnczbwngnr7pfnqbmp7f-podman-helper-binary-wrapper/bin/crun version: |- crun version 1.18.2 commit: 1.18.2 rundir: /run/user/0/crun spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +CRIU +YAJL os: linux pasta: executable: /nix/store/szxc93qlzmy33si8nvwnl33qn4ypf8qd-podman-5.3.1/libexec/podman/pasta package: Unknown version: | pasta 2024_10_30.ee7d0b6 Copyright Red Hat GNU General Public License, version 2 or later &lt;https://www.gnu.org/licenses/old-licenses/gpl-2.0.html&gt; This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. remoteSocket: exists: true path: /run/podman/podman.sock rootlessNetworkCmd: pasta security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: false seccompEnabled: true seccompProfilePath: &quot;&quot; selinuxEnabled: false serviceIsRemote: false slirp4netns: executable: &quot;&quot; package: &quot;&quot; version: &quot;&quot; swapFree: 0 swapTotal: 0 uptime: 11h 30m 29.00s (Approximately 0.46 days) variant: &quot;&quot; plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan - ipvlan volume: - local registries: search: - docker.io - quay.io store: configFile: /etc/containers/storage.conf containerStore: number: 15 paused: 0 running: 4 stopped: 11 graphDriverName: overlay graphOptions: {} graphRoot: /var/lib/containers/storage graphRootAllocated: 66795933696 graphRootUsed: 53149421568 graphStatus: Backing Filesystem: extfs Native Overlay Diff: &quot;true&quot; Supports d_type: &quot;true&quot; Supports shifting: &quot;true&quot; Supports volatile: &quot;true&quot; Using metacopy: &quot;false&quot; imageCopyTmpDir: /var/tmp imageStore: number: 6 runRoot: /run/containers/storage transientStore: false volumePath: /var/lib/containers/storage/volumes version: APIVersion: 5.3.1 Built: 315532800 BuiltTime: Tue Jan 1 01:00:00 1980 GitCommit: &quot;&quot; GoVersion: go1.23.3 Os: linux OsArch: linux/amd64 Version: 5.3.1 ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release No ### Additional environment details NixOS on a Proxmox VM ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>47</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #25423 from Honny1/hc-kill-status Add stopped status for HealthCheck</MESSAGE>
+    <SHA>4ac061f3833ef3564163fb3a3c536be9146133d8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>report healtcheck start errors When starting a container consider healtchcheck errors fatal. That way user know when systemd-run failed to setup the timer to run the healtcheck and we don't get into a state where the container is running but not the healtcheck. This also fixes the broken error reporting from the systemd-run exec, if the binary could not be run the output was just empty leaving the users with no idea what failed. Fixes #25034 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>4c069a846f9901e3fe9d68882c29666192e77dce</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_internal.go</FILE>
+        <FILE>libpod/healthcheck.go</FILE>
+        <FILE>libpod/healthcheck_linux.go</FILE>
+        <FILE>test/system/220-healthcheck.bats</FILE>
+        <FILE>test/system/helpers.bash</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>report healthcheck start errors When starting a container consider healthcheck errors fatal. That way user know when systemd-run failed to setup the timer to run the healthcheck and we don't get into a state where the container is running but not the healthcheck. This also fixes the broken error reporting from the systemd-run exec, if the binary could not be run the output was just empty leaving the users with no idea what failed. Fixes #25034 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>a385e0efe8821e21957e92c7165a7b583b7a5ac1</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_internal.go</FILE>
+        <FILE>libpod/healthcheck.go</FILE>
+        <FILE>libpod/healthcheck_linux.go</FILE>
+        <FILE>test/system/220-healthcheck.bats</FILE>
+        <FILE>test/system/helpers.bash</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>report healthcheck start errors When starting a container consider healthcheck errors fatal. That way user know when systemd-run failed to setup the timer to run the healthcheck and we don't get into a state where the container is running but not the healthcheck. This also fixes the broken error reporting from the systemd-run exec, if the binary could not be run the output was just empty leaving the users with no idea what failed. Fixes #25034 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>c7cb738e734260d943784bd8a6b2c607724cd728</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_internal.go</FILE>
+        <FILE>libpod/healthcheck.go</FILE>
+        <FILE>libpod/healthcheck_linux.go</FILE>
+        <FILE>test/system/220-healthcheck.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>report healthcheck start errors When starting a container consider healthcheck errors fatal. That way user know when systemd-run failed to setup the timer to run the healthcheck and we don't get into a state where the container is running but not the healthcheck. This also fixes the broken error reporting from the systemd-run exec, if the binary could not be run the output was just empty leaving the users with no idea what failed. Fixes #25034 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>c4a889f5b2662cbc4a42909964a70d6687702e8a</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_internal.go</FILE>
+        <FILE>libpod/healthcheck.go</FILE>
+        <FILE>libpod/healthcheck_linux.go</FILE>
+        <FILE>test/system/220-healthcheck.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>report healthcheck start errors When starting a container consider healthcheck errors fatal. That way user know when systemd-run failed to setup the timer to run the healthcheck and we don't get into a state where the container is running but not the healthcheck. This also fixes the broken error reporting from the systemd-run exec, if the binary could not be run the output was just empty leaving the users with no idea what failed. Fixes #25034 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>47a743bba2bb1cd62cae5a6a9a94fbd680686dca</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_internal.go</FILE>
+        <FILE>libpod/healthcheck.go</FILE>
+        <FILE>libpod/healthcheck_linux.go</FILE>
+        <FILE>test/system/220-healthcheck.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

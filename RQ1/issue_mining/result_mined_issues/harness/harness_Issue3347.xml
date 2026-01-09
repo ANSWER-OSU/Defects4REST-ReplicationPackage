@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3347</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/3347</ISSUEURL>
+  <TITLE>Issue with environment variables in build</TITLE>
+  <DESCRIPTION>Hello, I'm having an issue with environment variable interpolation in drone CI. I want to define an environment variable called VERSION and use it in my build to define a docker tag. This variable has to be concatenated with DRONE_COMMIT_BRANCH variable. I have tried many thing like putting this variable at the top of the file, using it like $VERSION, $$VERSION or ${VERSION} but nothing works on my side. Can you help me, please, figure out what I'm doing wrong ? Thanks in advance, Alexandre. ```yml kind: pipeline type: kubernetes name: default environment: DRONE_LOGS_DEBUG: true platform: os: linux arch: amd64 steps: - name: build and push docker image on IAM registry image: git.toto.com/tools/drone-docker-plugin:latest privileged: true environment: VERSION: 0.0.1-SNAPSHOT PLUGIN_MTU: 1300 settings: tags: - ${DRONE_COMMIT_BRANCH}_$VERSION - latest username: drone dockerfile: Dockerfile context: . password: password repo: git.toto.com/iam/keycloak-ak-sk-spi registry: git.toto.com ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>chore: [CODE-3073]: Remove circular dependencies - 2 (#3326) * fix: [CODE-3073]: lint check * fix: [CODE-3097]: address comments * chore: [CODE-3073]: lint check * chore: [CODE-3073]: Remove circular dependencies - 2</MESSAGE>
+    <SHA>762123335585abf16cfe904102c3d1ea8c275d10</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: [ML-620]: Remove enum (#3347) * fix: [ML-620]: Fix linting * fix: [ML-620]: Remove enum</MESSAGE>
+      <SHA>7f66fba7743faa4260837289d94e0e731bcff6e4</SHA>
+      <PATCHEDFILES>
+        <FILE>genai/genai.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

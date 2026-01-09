@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4966</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4966</ISSUEURL>
+  <TITLE>EntityRepository.Update(entities) updating records one by one</TITLE>
+  <DESCRIPTION>Is there any particular reason [EntityRepository.Update(entities)](https://github.com/nopSolutions/nopCommerce/blob/develop/src/Libraries/Nop.Data/EntityRepository.cs#L105) is performing update in foreach loop? ``` public virtual void Update(IEnumerable&lt;TEntity&gt; entities) { if (entities == null) throw new ArgumentNullException(nameof(entities)); foreach (var entity in entities) { Update(entity); } } ``` Seems like this can be done in bulk update as noted [here](https://github.com/linq2db/linq2db/issues/806) &gt; If you need to insert or update records from list using primary key fields, it could be achived with following merge command: ``` db.GetTable&lt;T&gt;() .Merge() .Using(yourList) // here you pass your list .OnTargetKey() // make decision on primary key .UpdateWhenMatched() // update all fields from mapping //.InsertWhenNotMatched() // insert all fields from mapping .Merge(); ```</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>167</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#3794 Fixed default administrative connection database used during installation on PostgreSQL</MESSAGE>
+    <SHA>01daa4435320f76037738651763aa7704b3f6017</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4966 Use MERGE for bulk update (MsSql server only)</MESSAGE>
+      <SHA>b189cf5372d0938c7bb4abbc72d9157a11b28325</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Data/DataProviders/BaseDataProvider.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/DataProviders/MsSqlDataProvider.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/EntityRepository.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/INopDataProvider.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/SqLiteNopDataProvider.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3086</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3086</ISSUEURL>
+  <TITLE>[s3] put fakedir/ key object</TITLE>
+  <DESCRIPTION>required for integration with [NextCloud](https://docs.nextcloud.com/server/latest/admin_manual/configuration_files/primary_storage.html) cmd put key ``` aws --debug --endpoint-url http://127.0.0.1:8333 s3api put-object --bucket test --key fakedir/ 2022-05-21 13:01:18,267 - MainThread - botocore.endpoint - DEBUG - Sending http request: &lt;AWSPreparedRequest stream_output=False, method=PUT, url=http://127.0.0.1:8333/test/fakedir/, headers={'User-Agent': b'aws-cli/2.5.1 Python/3.9.12 Darwin/20.6.0 source/x86_64 prompt/off command/s3api.put-object', 'Content-MD5': b'1B2M2Y8AsgTpgAmY7PhCfg==', 'X-Amz-Date': b'20220521T080118Z', 'X-Amz-Content-SHA256': b'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'Authorization': b'AWS4-HMAC-SHA256 Credential=some_access_key1/20220521/us-west-2/s3/aws4_request, SignedHeaders=content-md5;host;x-amz-content-sha256;x-amz-date, Signature=0e8e0ad443c9fad591a885de961a475f2fb6979bd22500e3e40940b7dedf5dfc', 'Content-Length': '0'}&gt; 2022-05-21 13:01:18,268 - MainThread - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): 127.0.0.1:8333 2022-05-21 13:01:18,274 - MainThread - urllib3.connectionpool - DEBUG - http://127.0.0.1:8333 &quot;PUT /test/fakedir/ HTTP/1.1&quot; 200 0 2022-05-21 13:01:18,274 - MainThread - botocore.parsers - DEBUG - Response headers: {'Accept-Ranges': 'bytes', 'Content-Length': '0', 'Server': 'SeaweedFS S3', 'X-Amz-Request-Id': '1653120078293682028', 'Date': 'Sat, 21 May 2022 08:01:18 GMT'} 2022-05-21 13:01:18,274 - MainThread - botocore.parsers - DEBUG - Response body: b'' 2022-05-21 13:01:18,275 - MainThread - botocore.hooks - DEBUG - Event needs-retry.s3.PutObject: calling handler &lt;bound method RetryHandler.needs_retry of &lt;botocore.retries.standard.RetryHandler object at 0x10816ba00&gt;&gt; 2022-05-21 13:01:18,275 - MainThread - botocore.retries.standard - DEBUG - Not retrying request. 2022-05-21 13:01:18,275 - MainThread - botocore.hooks - DEBUG - Event needs-retry.s3.PutObject: calling handler &lt;bound method S3RegionRedirector.redirect_from_error of &lt;botocore.utils.S3RegionRedirector object at 0x10816ba90&gt;&gt; 2022-05-21 13:01:18,275 - MainThread - botocore.hooks - DEBUG - Event after-call.s3.PutObject: calling handler &lt;function enhance_error_msg at 0x103971280&gt; 2022-05-21 13:01:18,275 - MainThread - botocore.hooks - DEBUG - Event after-call.s3.PutObject: calling handler &lt;bound method RetryQuotaChecker.release_retry_quota of &lt;botocore.retries.standard.RetryQuotaChecker object at 0x10816b5b0&gt;&gt; 2022-05-21 13:01:18,275 - MainThread - awscli.formatter - DEBUG - RequestId: 1653120078293682028 ``` logs put key ``` s3_1 | I0521 07:58:13 1 s3api_object_handlers.go:49] PutObjectHandler test /fakedir/ s3_1 | I0521 07:58:13 1 filer_client.go:234] mkdir: directory:&quot;/buckets&quot; entry:{name:&quot;test/fakedir/&quot; is_directory:true attributes:{mtime:1653119893 file_mode:2147484159 crtime:1653119893}} filer_1 | I0521 07:58:13 1 filer_grpc_server.go:138] CreateEntry /buckets/test/fakedir/ filer_1 | I0521 07:58:13 1 filer.go:190] UpdateEntry /buckets/test/fakedir/: old entry: filer_1 | I0521 07:58:13 1 filer.go:202] CreateEntry /buckets/test/fakedir/: created ``` cmd get key ``` aws --debug --endpoint-url http://127.0.0.1:8333 s3api get-object --bucket test --key fakedir/ /tmp/fackedir ``` logs get key with / ``` s3_1 | I0521 08:05:50 1 s3api_object_handlers.go:136] GetObjectHandler test /fakedir/ s3_1 | I0521 08:05:50 1 error_handler.go:85] status 501 application/xml: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; s3_1 | &lt;Error&gt;&lt;Code&gt;NotImplemented&lt;/Code&gt;&lt;Message&gt;A header you provided implies functionality that is not implemented&lt;/Message&gt;&lt;Resource&gt;/test/fakedir/&lt;/Resource&gt;&lt;RequestId&gt;1653120350340582368&lt;/RequestId&gt;&lt;Key&gt;fakedir/&lt;/Key&gt;&lt;BucketName&gt;test&lt;/BucketName&gt;&lt;/Error&gt; ``` fs.meta.cat ``` &gt; fs.meta.cat buckets/test/fakedir { &quot;name&quot;: &quot;fakedir&quot;, &quot;isDirectory&quot;: true, &quot;chunks&quot;: [ ], &quot;attributes&quot;: { &quot;fileSize&quot;: &quot;0&quot;, &quot;mtime&quot;: &quot;1653119827&quot;, &quot;fileMode&quot;: 2147484159, &quot;uid&quot;: 0, &quot;gid&quot;: 0, &quot;crtime&quot;: &quot;1653119827&quot;, &quot;mime&quot;: &quot;&quot;, &quot;replication&quot;: &quot;&quot;, &quot;collection&quot;: &quot;&quot;, &quot;ttlSec&quot;: 0, &quot;userName&quot;: &quot;&quot;, &quot;groupName&quot;: [ ], &quot;symlinkTarget&quot;: &quot;&quot;, &quot;md5&quot;: null, &quot;diskType&quot;: &quot;&quot;, &quot;rdev&quot;: 0, &quot;inode&quot;: &quot;0&quot; }, &quot;extended&quot;: { }, &quot;hardLinkId&quot;: null, &quot;hardLinkCounter&quot;: 0, &quot;content&quot;: null, &quot;remoteEntry&quot;: null, &quot;quota&quot;: &quot;0&quot; } chunks 0 meta size: 31 gzip:59 ``` ``` aws --debug --endpoint-url http://127.0.0.1:8333 s3api put-object --bucket test --key &quot;fakedir/.&quot; s3_1 | I0521 08:40:03 1 s3api_object_handlers.go:49] PutObjectHandler test /fakedir/. s3_1 | I0521 08:40:03 1 s3api_object_handlers.go:100] putToFiler uploadUrl: http://filer:8888/buckets/test/fakedir/. filer_1 | I0521 08:40:03 1 filer_server_handlers_read_dir.go:55] listDirectory /buckets/test/fakedir, last file fakedir, limit 100: 1 items s3_1 | E0521 08:40:03 1 s3api_object_handlers.go:414] failing to read upload to http://filer:8888/buckets/test/fakedir/. : &lt;!DOCTYPE html&gt; s3_1 | I0521 08:40:03 1 error_handler.go:85] status 500 application/xml: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; s3_1 | &lt;Error&gt;&lt;Code&gt;InternalError&lt;/Code&gt;&lt;Message&gt;We encountered an internal error, please try again.&lt;/Message&gt;&lt;Resource&gt;/test/fakedir/.&lt;/Resource&gt;&lt;RequestId&gt;1653122403355812077&lt;/RequestId&gt;&lt;Key&gt;fakedir/.&lt;/Key&gt;&lt;BucketName&gt;test&lt;/BucketName&gt;&lt;/Error&gt; ``` https://docs.nextcloud.com/server/latest/admin_manual/configuration_files/external_storage_configuration_gui.html ``` s3_1 | I0525 07:54:09 1 s3api_object_handlers.go:49] PutObjectHandler test /nextcloud_external_dir/ s3_1 | I0525 07:54:09 1 filer_server_handlers_read.go:98] Not found /buckets/test/nextcloud_external_dir: filer: no entry is found in filer store s3_1 | E0525 07:54:09 1 s3api_object_handlers.go:416] failing to read upload to http://172.18.0.4:8888/buckets/test/nextcloud_external_dir/. : s3_1 | I0525 07:54:09 1 error_handler.go:85] status 500 application/xml: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; s3_1 | &lt;Error&gt;&lt;Code&gt;InternalError&lt;/Code&gt;&lt;Message&gt;We encountered an internal error, please try again.&lt;/Message&gt;&lt;Resource&gt;/test/nextcloud_external_dir/&lt;/Resource&gt;&lt;RequestId&gt;1653465249823314600&lt;/RequestId&gt;&lt;Key&gt;nextcloud_external_dir/&lt;/Key&gt;&lt;BucketName&gt;test&lt;/BucketName&gt;&lt;/Error&gt; ``` minio work: ``` minio:9000 [REQUEST s3.ListObjectsV2] [2022-05-25T16:36:32:000] [Client IP: 172.18.0.6] minio:9000 GET /nextcloud?list-type=2&amp;prefix=folder%2F&amp;max-keys=1 minio:9000 Proto: HTTP/1.1 minio:9000 Host: minio:9000 minio:9000 Aws-Sdk-Retry: 0/0 minio:9000 Content-Length: 0 minio:9000 X-Amz-Content-Sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 minio:9000 Authorization: AWS4-HMAC-SHA256 Credential=some_access_key1/20220525/eu-west-1/s3/aws4_request, SignedHeaders=host;x-amz-content-sha256;x-amz-date;x-amz-user-agent, Signature=b9b57b5dbee317c10d38e3d6fbed47a5e50e8de58a0722d1aefce620f60e5043 minio:9000 Aws-Sdk-Invocation-Id: 553ad64750d8847d39090f67e71231a5 minio:9000 User-Agent: aws-sdk-php/3.212.2 OS/Linux/5.10.25-linuxkit lang/php/8.0.18 GuzzleHttp/7 minio:9000 X-Amz-Date: 20220525T113632Z minio:9000 X-Amz-User-Agent: aws-sdk-php/3.212.2 minio:9000 minio:9000 [RESPONSE] [2022-05-25T16:36:32:000] [ Duration 684µs ↑ 130 B ↓ 901 B ] minio:9000 200 OK minio:9000 Accept-Ranges: bytes minio:9000 X-Amz-Request-Id: 16F25604EA79315C minio:9000 X-Xss-Protection: 1; mode=block minio:9000 Content-Length: 585 minio:9000 Content-Security-Policy: block-all-mixed-content minio:9000 Content-Type: application/xml minio:9000 Server: MinIO minio:9000 Strict-Transport-Security: max-age=31536000; includeSubDomains minio:9000 Vary: Origin,Accept-Encoding minio:9000 X-Content-Type-Options: nosniff minio:9000 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;ListBucketResult xmlns=&quot;http://s3.amazonaws.com/doc/2006-03-01/&quot;&gt;&lt;Name&gt;nextcloud&lt;/Name&gt;&lt;Prefix&gt;folder/&lt;/Prefix&gt;&lt;KeyCount&gt;1&lt;/KeyCount&gt;&lt;MaxKeys&gt;1&lt;/MaxKeys&gt;&lt;Delimiter&gt;&lt;/Delimiter&gt;&lt;IsTruncated&gt;false&lt;/IsTruncated&gt;&lt;Contents&gt;&lt;Key&gt;folder/&lt;/Key&gt;&lt;LastModified&gt;2022-05-25T11:36:32.178Z&lt;/LastModified&gt;&lt;ETag&gt;&amp;#34;d41d8cd98f00b204e9800998ecf8427e&amp;#34;&lt;/ETag&gt;&lt;Size&gt;0&lt;/Size&gt;&lt;Owner&gt;&lt;ID&gt;02d6176db174dc93cb1b899f7c6078f08654445fe8cf1b6ce98d8855f66bdbf4&lt;/ID&gt;&lt;DisplayName&gt;minio&lt;/DisplayName&gt;&lt;/Owner&gt;&lt;StorageClass&gt;STANDARD&lt;/StorageClass&gt;&lt;/Contents&gt;&lt;/ListBucketResult&gt; minio:9000 ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>3.06</MESSAGE>
+    <SHA>2f846777bbceea307771e79d4452e071b0bd5a51</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>docker compose file for nextcloud testing https://github.com/chrislusf/seaweedfs/issues/3086</MESSAGE>
+      <SHA>a34438384e478c23aa817357c2e392626fbcba34</SHA>
+      <PATCHEDFILES>
+        <FILE>docker/Makefile</FILE>
+        <FILE>docker/compose/local-nextcloud-compose.yml</FILE>
+        <FILE>docker/seaweedfs.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>show fake dirs https://github.com/chrislusf/seaweedfs/issues/3086</MESSAGE>
+      <SHA>26f36469615e55580f48473daeba28cb7ab13f59</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/s3api/s3api_object_handlers.go</FILE>
+        <FILE>weed/s3api/s3api_objects_list_handlers.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>list self dir https://github.com/chrislusf/seaweedfs/issues/3086</MESSAGE>
+      <SHA>62e5e3822ceb400e8c72ea9087f3b6ca40f76246</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/s3api/s3api_objects_list_handlers.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix show empty dir https://github.com/chrislusf/seaweedfs/issues/3086</MESSAGE>
+      <SHA>b86628f85d7647251af1b43e2397ab7e9bfbc0bd</SHA>
+      <PATCHEDFILES>
+        <FILE>docker/Dockerfile.s3tests</FILE>
+        <FILE>docker/README.md</FILE>
+        <FILE>docker/compose/local-s3tests-compose.yml</FILE>
+        <FILE>weed/s3api/s3api_objects_list_handlers.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>s3 fix get fake dir object key https://github.com/seaweedfs/seaweedfs/issues/3086</MESSAGE>
+      <SHA>80cfd2b2f185863087bd84ad1822101c1298043b</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/s3api/s3_constants/s3_actions.go</FILE>
+        <FILE>weed/s3api/s3api_object_handlers.go</FILE>
+        <FILE>weed/server/filer_server_handlers_read.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>s3 fix get list of dir object key with slash suffix https://github.com/seaweedfs/seaweedfs/issues/3086</MESSAGE>
+      <SHA>146347cbbb3492bea3c74662b620b4c2db0e13cf</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/s3api/s3api_objects_list_handlers.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>s3 fix get list of dir object key with slash suffix (#4391) * s3 fix get list of dir object key with slash suffix https://github.com/seaweedfs/seaweedfs/issues/3086 * list only entry dir eq prefix --------- Co-authored-by: Konstantin Lebedev &lt;9497591+kmlebedev@users.noreply.github.co&gt;</MESSAGE>
+      <SHA>44ad07276c719328d1f11aa06d1fca48ce9ddcba</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/s3api/s3api_objects_list_handlers.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5528</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5528</ISSUEURL>
+  <TITLE>Import Products - Exception &quot;Sequence contains no matching element&quot; when removing unpublished category</TITLE>
+  <DESCRIPTION>See post [https://www.nopcommerce.com/en/boards/topic/57290/excel-import-error/page/2#283051](url) nopCommerce version: 4.30 (although I think the same will apply to 4.40) Steps to reproduce the problem: -Create a product having a Category that is unpublished. -Product List &gt; Export that product to Excel -Edit the exported Excel file. Remove the unpublished category from the Categories column -Product List &gt; Import the Excel The problem is in the code in \Libraries\Nop.Services\ExportImport\ImportManager.cs ``` //delete product categories var deletedProductCategories = categories.Where(categoryId =&gt; !importedCategories.Contains(categoryId)) .Select(categoryId =&gt; _categoryService.GetProductCategoriesByProductId(product.Id).First(pc =&gt; pc.CategoryId == categoryId)); ``` The showHidden should be passed in as 'true'&quot; _categoryService.GetProductCategoriesByProductId(product.Id, **showHidden:true**) I suspect 'backend' functions should see unpublished categories, so, you should also check ExportManager.cs: ExportProductsToXml() - var productCategories = _categoryService.GetProductCategoriesByProductId(product.Id); - (the export to xlsx uses helper GetCategories() which does have 'true') CopyProductService.cs: CopyCategoriesMapping() But even 'front end' calculations could be impacted - e.g. (although I don't recall if the HasCategory discount requirement allows selecting an unpublished category: PriceCalculationService.cs: GetAllowedDiscountsAppliedToCategories()</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5348 Next changes on fixed dataprovider detecting</MESSAGE>
+    <SHA>d612bbe22f65344720c6aa64a7f06612094d096c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5528 Fixed &quot;Sequence contains no matching element&quot; exception</MESSAGE>
+      <SHA>6f5e4282bb7df0a9d1b26792ff2b932fcd737686</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/ExportImport/ExportManager.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/ExportImport/ImportManager.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#5528 Fixed &quot;Sequence contains no matching element&quot; exception</MESSAGE>
+      <SHA>01b490d540a26cde9ab560421eae84017094d083</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/ExportImport/ExportManager.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/ExportImport/ImportManager.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

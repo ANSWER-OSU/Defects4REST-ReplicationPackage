@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>124106</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/124106</ISSUEURL>
+  <TITLE>[CI] MetricsApmIT testApmIntegration failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6803 / single-processor-node-tests](https://gradle-enterprise.elastic.co/s/aezic2msvnmqe) - [elasticsearch-pull-request #59957 / part-1-windows](https://gradle-enterprise.elastic.co/s/dmd663yud3h4k) - [elasticsearch-pull-request #59829 / part-1-windows](https://gradle-enterprise.elastic.co/s/uc7nnjuejgvis) **Reproduction Line:** ``` ./gradlew &quot;:test:external-modules:test-apm-integration:javaRestTest&quot; --tests &quot;org.elasticsearch.test.apmintegration.MetricsApmIT.testApmIntegration&quot; -Dtests.seed=32EED3E3A08D717F -Dtests.configure_test_clusters_with_one_processor=true -Dtests.locale=fr-BI -Dtests.timezone=Europe/Istanbul -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.test.apmintegration.MetricsApmIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testApmIntegration),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.RuntimeException: An error occurred orchestrating test cluster. ``` **Issue Reasons:** - [main] 3 failures in test testApmIntegration (0.4% fail rate in 759 executions) - [main] 2 failures in step part-1-windows (40.0% fail rate in 5 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (0.8% fail rate in 259 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Remove synthetic recovery source feature flag. (#122615) This feature flag controls whether synthetic recovery source is enabled by default when the source mode is synthetic. The synthetic recovery source feature itself is already available via the index.recovery.use_synthetic_source index setting and can be enabled by anyone using synthetic source. The default value of index.recovery.use_synthetic_source setting defaults to true when index.mapping.source.mode is enabled. The index.mapping.source.mode default to true if index.mode is logsdb or time_series. In other words, with this change synthetic recovery source will be enabled by default for logsdb and tsdb. Closes #116726</MESSAGE>
+    <SHA>26de5343a21e85c17fcc8aee0c6c47d86cae66f9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.test.apmintegration.MetricsApmIT testApmIntegration #124106</MESSAGE>
+      <SHA>152d086c0f3c2bb8198bed111ca2a530a9ef661f</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Revert &quot;Mute org.elasticsearch.test.apmintegration.MetricsApmIT testApmIntegration #124106&quot; This reverts commit 152d086c0f3c2bb8198bed111ca2a530a9ef661f.</MESSAGE>
+      <SHA>e2322c59cbabfde8b67d0c32d21545440ec6c784</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Revert &quot;Mute org.elasticsearch.test.apmintegration.MetricsApmIT testApmIntegration #124106&quot; (#124108) This reverts commit 152d086c0f3c2bb8198bed111ca2a530a9ef661f.</MESSAGE>
+      <SHA>e6d6d30360081bb9b238b9d4b4066ce46026b950</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.test.apmintegration.MetricsApmIT testApmIntegration #124106</MESSAGE>
+      <SHA>b6f58b3df1509b7573a41abace76c841e1d32e87</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Revert &quot;Mute org.elasticsearch.test.apmintegration.MetricsApmIT testApmIntegration #124106&quot; (#124108) This reverts commit 152d086c0f3c2bb8198bed111ca2a530a9ef661f.</MESSAGE>
+      <SHA>441c0af7ffe01210846b99720885b0761f1760b9</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

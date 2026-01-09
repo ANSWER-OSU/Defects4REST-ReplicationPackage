@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23640</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23640</ISSUEURL>
+  <TITLE>race(?) in podman run --rm then podman rm?</TITLE>
+  <DESCRIPTION>This is NOT in a parallel test: ``` [+0821s] not ok 376 [800] podman CONTAINERS_CONF - override runtime name in 2441ms # (from function `bail-now' in file test/system/[helpers.bash, line 192](https://github.com/containers/podman/blob/39893e2725cdd5a71a386c19de203197ec82ea01/test/system/helpers.bash#L192), # from function `die' in file test/system/[helpers.bash, line 944](https://github.com/containers/podman/blob/39893e2725cdd5a71a386c19de203197ec82ea01/test/system/helpers.bash#L944), # from function `run_podman' in file test/system/[helpers.bash, line 546](https://github.com/containers/podman/blob/39893e2725cdd5a71a386c19de203197ec82ea01/test/system/helpers.bash#L546), # in test file test/system/[800-config.bats, line 82](https://github.com/containers/podman/blob/39893e2725cdd5a71a386c19de203197ec82ea01/test/system/800-config.bats#L82)) # `CONTAINERS_CONF=&quot;$conf_tmp&quot; run_podman 1 rm &quot;$cid&quot;' failed # &lt;+ &gt; # # podman info --format {{ .Host.OCIRuntime.Path }} &lt;+590ms&gt; # /usr/bin/crun # &lt;+010ms&gt; # # podman info --format {{ .Host.DatabaseBackend }} &lt;+590ms&gt; # sqlite # &lt;+013ms&gt; # # podman run -d --rm quay.io/libpod/testimage:20240123 true &lt;+245ms&gt; # 6a7e6cd12a3246d01ff62d6ddb199052ba5b9f288b4308bee8ea82c9754bb828 # &lt;+010ms&gt; # # podman wait 6a7e6cd12a3246d01ff62d6ddb199052ba5b9f288b4308bee8ea82c9754bb828 &lt;+054ms&gt; # 0 # &lt;+010ms&gt; # # podman rm 6a7e6cd12a3246d01ff62d6ddb199052ba5b9f288b4308bee8ea82c9754bb828 &lt;+314ms&gt; # 6a7e6cd12a3246d01ff62d6ddb199052ba5b9f288b4308bee8ea82c9754bb828 # #/vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv # #| FAIL: exit code is 0; expected 1 # #\^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ``` [debian root](https://api.cirrus-ci.com/v1/artifact/task/6293576747843584/html/sys-podman-debian-13-root-host-sqlite.log.html#t--00376). Technically it is in #23275, my parallel test, but this happened in the FIRST Bats run, the serial one. The comments in this part of the code read: https://github.com/containers/podman/blob/951f774864dae226e1da55690f164aeb721ac572/test/system/800-config.bats#L74-L83</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23645 from Luap99/mount-race podman mount: fix storage/libpod ctr race</MESSAGE>
+    <SHA>e8410b839522ec0912bc0c798cdd5b8a1ccfb585</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>podman wait: allow waiting for removal of containers By default wait only waits for the exit of a container, there is really no way to make it wait for the removal too when the container was created with --rm. I though I found a clever way in 8a943311db but this is not working race free. While it works most of the time any other parallel process might call syncContainer() before the cleanup process holds the lock until it removes it. As such the wait hack to only update the state and not sync the exit file did not work so we can drop that. However the test wants to wait for the removal to happen by the cleanup process and we can already say --condition=removing to do this but this will throw an error if the ctr was removed instead of counting this as success so fix that as well. Fixes #23640 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>80639df27acd135e760fd552e6f4a4fb2ffbb116</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-wait.1.md.in</FILE>
+        <FILE>libpod/container_api.go</FILE>
+        <FILE>test/system/800-config.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>320</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/320</ISSUEURL>
+  <TITLE>now alias fails when now.json does not define deployment type</TITLE>
+  <DESCRIPTION>now version: `4.5.6` Performing `now alias` with a `now.json` of the following: ```JSON { &quot;alias&quot;: &quot;this-is-a-test.now.sh&quot; } ``` Fails with: ``` &gt; Error! Failed to read JSON in &quot;/Users/hugo/Desktop/test/package.json&quot; ``` This error doesn't occur if `now.json` defines a `type`. Ideally, `now` should work out the deployment type as it does when running `now` without a `now.json` file. I believe this could be fixed by modifying [read-metadata.js](https://github.com/zeit/now-cli/blob/b1a2e6feeeb2e0082e97e8cf69e7d8f7bd989e29/lib/read-metadata.js).</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now-build-utils] Pin &quot;end-of-stream&quot; dependency to v1.4.1 (#319) All of the other deps are pinned versions, so this is for consistency.</MESSAGE>
+    <SHA>a9af9ebb5a081f41f71d571fd7be074a303b43c8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-built-utils] Use constants for the `type` field (#320) This is important for TypeScript usage with the combined `File` type declaration. It helps the compiler understand the proper type in consuming code via `if` checks to avoid casting.</MESSAGE>
+      <SHA>6ec823e292aa26374e58a2a383fd3e60cb924ab9</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-build-utils/src/file-blob.ts</FILE>
+        <FILE>packages/now-build-utils/src/file-fs-ref.ts</FILE>
+        <FILE>packages/now-build-utils/src/file-ref.ts</FILE>
+        <FILE>packages/now-build-utils/src/lambda.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

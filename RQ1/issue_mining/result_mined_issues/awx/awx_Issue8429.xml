@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8429</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/8429</ISSUEURL>
+  <TITLE>Expose the SCM Branch name in the playbook environment</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Feature Idea ##### SUMMARY Today if I launch a job and put `foobar` in the &quot;SCM Branch&quot; field, the corresponding commit hash is exposed as `awx_project_revision` but the proper human readable name of my branch/tag `foobar` remains inaccessible. A use case to access this information is to put it in configuration files (eg. in a UI to document which version of the platform was deployed). Many more can be envisioned too. I see two paths for implementation: * Change the `awx_project_revision` content to keep the SCM Branch as it was in the input (stop turning it into a hash) * Expose this into a variable of its own, like `awx_project_scm_branch`</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>226</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Expose {awx,tower}_project_scm_branch variables in the environment</MESSAGE>
+    <SHA>979b7f42da15155fa087e228a4ad1fd2c6785f80</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Expose {awx,tower}_job_scm_branch variables in the environment related #8429</MESSAGE>
+      <SHA>af2f0b94b1990f1c4392f7b36a4f9ce39b6ef7b8</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/models/jobs.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

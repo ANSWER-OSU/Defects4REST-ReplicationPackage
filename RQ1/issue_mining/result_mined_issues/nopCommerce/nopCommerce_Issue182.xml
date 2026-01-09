@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>182</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/182</ISSUEURL>
+  <TITLE>Delete address functionality should use &quot;POST&quot; (any XSRF validation)</TITLE>
+  <DESCRIPTION>It could be possible for an attacker to delete addresses of a logged in customer due to the fact that to delete an address you only have to make a request to a URL and pass in an addressId. Whilst there is some protection in the fact that a check occurs to ensure that the customer owns the address, the attacker could still iterate through a range of sequential integers. I propose that the delete functionality is replaced with a post and CSRF token before someone exploits this. I agree this is an unlikely attack but it is possible. Source: http://www.nopcommerce.com/boards/t/39962/security-delete-addresses-addressescshtml.aspx [AM] Same is true for RemoveExternalAssociation in the same controller.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Further changes on the recent commit related to blog dates</MESSAGE>
+    <SHA>6cedf057e1a13b21338dce99d987a99e20c81761</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#182 Security. Delete address functionality should use &quot;POST&quot; (XSRF validation).</MESSAGE>
+      <SHA>ee71f7e068b86a202117309fda80f7b83c7f7322</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Controllers/CustomerController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Infrastructure/RouteProvider.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Customer/Addresses.cshtml</FILE>
+        <FILE>src/Tests/Nop.Web.MVC.Tests/Public/Infrastructure/RoutesTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Fixes #1129] Added XSRF proection to delete a customer address functionality (further changes on #182)</MESSAGE>
+      <SHA>0cf1dd5e7145da74d149a367f7493cb2a7e421f9</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Controllers/CustomerController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Customer/Addresses.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

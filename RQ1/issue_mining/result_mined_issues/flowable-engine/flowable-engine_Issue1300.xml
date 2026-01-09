@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1300</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/1300</ISSUEURL>
+  <TITLE>No mapping found for HTTP request with URI [/flowable-task/cmmn-api/management/jobs/</TITLE>
+  <DESCRIPTION>Using Flowable Admin (deployed using Docker Compose), in CMMN part: 1. list executable jobs through the tab `Jobs`, filter `Executable jobs` 2. select a job 3. execute the job using button `Execute job` The following error occurs: ``` No mapping found for HTTP request with URI [/flowable-task/cmmn-api/management/jobs/&lt;job-id&gt;] in DispatcherServlet with name 'Flowable CMMN Rest API' org.flowable.ui.admin.service.engine.exception.FlowableServiceException: An error occurred while calling Flowable: HTTP/1.1 404 at org.flowable.ui.admin.service.engine.FlowableClientService.executeRequestNoResponseBody(FlowableClientService.java:462) ~[flowable-ui-admin-logic-6.3.1.jar!/:6.3.1] at org.flowable.ui.admin.service.engine.CmmnJobService.executeJob(CmmnJobService.java:88) ~[flowable-ui-admin-logic-6.3.1.jar!/:6.3.1] at org.flowable.ui.admin.rest.client.CmmnJobClientResource.executeCmmnJob(CmmnJobClientResource.java:89) [flowable-ui-admin-rest-6.3.1.jar!/:6.3.1] at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_102] at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_102] at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_102] at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_102] at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:209) [spring-web-5.0.6.RELEASE.jar!/:5.0.6.RELEASE] ``` It seems to me that the REST API used to execute an executable job is not the right one. I think it should be `/flowable-task/cmmn-api/cmmn-management/jobs/&lt;job-id&gt;` No error occurs executing a timer job in the same way but using the filter `Timer jobs`.</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add include case variables query option in REST service + fix Flowable 5 compile error</MESSAGE>
+    <SHA>e9dedb219b355bed026af2962ac06f6d0625e1a4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix issue with execute cmmn job in admin app #1300</MESSAGE>
+      <SHA>13bc5673e437663f64a2fd4b40a930e397f513c9</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-ui-admin/flowable-ui-admin-logic/src/main/java/org/flowable/ui/admin/service/engine/CmmnJobService.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>31230</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/31230</ISSUEURL>
+  <TITLE>Notifications not generated for mention received from NodeBB</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem 1. [NodeBB] Create a new post and tag a user on a mastodon instance (in this case, it was @julian@bb.devnull.land to @devnull@crag.social) 2. [Mastodon] Navigate to the sender's profile (https://crag.social/@julian@bb.devnull.land) 3. [Mastodon] Note that the post has been correctly received, and contains a mention, but that your notification inbox remains empty ### Expected behaviour I should have been notified due to the mention ### Actual behaviour I was not notified ### Detailed description Additional details here: https://community.nodebb.org/topic/18210/mentions-and-notifications-over-the-fediverse Here is the full Note object containing two mentions, when queried via S2S API: ``` { &quot;@context&quot;:&quot;https://www.w3.org/ns/activitystreams&quot;, &quot;id&quot;:&quot;https://bb.devnull.land/post/72&quot;, &quot;type&quot;:&quot;Note&quot;, &quot;to&quot;:[ &quot;https://www.w3.org/ns/activitystreams#Public&quot;, &quot;https://bb.devnull.land/uid/1&quot; ], &quot;cc&quot;:[ &quot;https://bb.devnull.land/uid/1/followers&quot;, &quot;https://crag.social/users/devnull&quot;, &quot;https://activitypub.academy/users/babeta_zondaist&quot; ], &quot;inReplyTo&quot;:&quot;https://bb.devnull.land/post/71&quot;, &quot;published&quot;:&quot;2024-07-30T02:49:42.616Z&quot;, &quot;url&quot;:&quot;https://bb.devnull.land/post/72&quot;, &quot;attributedTo&quot;:&quot;https://bb.devnull.land/uid/1&quot;, &quot;context&quot;:&quot;https://bb.devnull.land/topic/38&quot;, &quot;audience&quot;:&quot;https://bb.devnull.land/category/-1&quot;, &quot;sensitive&quot;:false, &quot;summary&quot;:null, &quot;name&quot;:&quot;Re: Testing a notification&quot;, &quot;content&quot;:&quot;&lt;p&gt;no context or audience &lt;a href=\&quot;https://crag.social/@devnull\&quot;&gt;@devnull@crag.social&lt;/a&gt; &lt;a href=\&quot;https://activitypub.academy/@babeta_zondaist\&quot;&gt;@babeta_zondaist@activitypub.academy&lt;/a&gt;&lt;/p&gt; &quot;, &quot;source&quot;:{ &quot;content&quot;:&quot;no context or audience @devnull@crag.social @babeta_zondaist@activitypub.academy&quot;, &quot;mediaType&quot;:&quot;text/markdown&quot; }, &quot;tag&quot;:[ { &quot;type&quot;:&quot;Mention&quot;, &quot;href&quot;:&quot;https://crag.social/users/devnull&quot;, &quot;name&quot;:&quot;@devnull@crag.social&quot; }, { &quot;type&quot;:&quot;Mention&quot;, &quot;href&quot;:&quot;https://activitypub.academy/users/babeta_zondaist&quot;, &quot;name&quot;:&quot;@babeta_zondaist@activitypub.academy&quot; } ], &quot;attachment&quot;:[ ], &quot;replies&quot;:[ ] } ``` ### Mastodon instance crag.social, mastodon.social ### Mastodon version v4.2.10 ### Technical details `crag.social` is hosted via masto.host, but @trwnh, who originally notified me of this issue, has an account on `mastodon.social`. I was directed to post an issue here by @renchap</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add endpoints to accept and dismiss multiple notification requests at once (#31242)</MESSAGE>
+    <SHA>da5b45a573808d345839507cf024c8be73b1d610</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix status processing failing halfway when a remote post has a malformed `replies` attribute Fixes #31230</MESSAGE>
+      <SHA>e71a578590c22a903094c6841d621a5d915f957b</SHA>
+      <PATCHEDFILES>
+        <FILE>app/lib/activitypub/activity/create.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

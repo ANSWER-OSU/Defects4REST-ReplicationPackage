@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>180</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/180</ISSUEURL>
+  <TITLE>/var/cache/drone is used, but not created</TITLE>
+  <DESCRIPTION>Now `/var/cache/drone` is not created automatically. We also cannot just put `mkdir -p /var/cache/drone` in Makefile because it requires sudo access.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[MISC] disable 'update' git hook (#181)</MESSAGE>
+    <SHA>5e3837b9cf22fb8b7ac935859f1e2805f69b7d0b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[Webhook] Add display_name/description/latest_execution_result to webhook (#180) This PR adds the following fields to webhooks: - 'DisplayName' - the display name of the webhook for easier recognition in UI (no uniqueness guarantees) - 'Description' - an (optional) description of the webhook - 'LatestExecutionResult' - contains the result of the latest execution of the webhook</MESSAGE>
+      <SHA>a74d779dc4112cc87f7b0bb9c69e71b8b258d424</SHA>
+      <PATCHEDFILES>
+        <FILE>internal/api/controller/webhook/create.go</FILE>
+        <FILE>internal/api/controller/webhook/update.go</FILE>
+        <FILE>internal/store/database/migrate/postgres/0007_create_table_webhooks.up.sql</FILE>
+        <FILE>internal/store/database/migrate/sqlite/0007_create_table_webhooks.up.sql</FILE>
+        <FILE>internal/store/database/webhook.go</FILE>
+        <FILE>internal/store/store.go</FILE>
+        <FILE>internal/webhook/trigger.go</FILE>
+        <FILE>mocks/mock.go</FILE>
+        <FILE>mocks/mock_store.go</FILE>
+        <FILE>types/check/common.go</FILE>
+        <FILE>types/check/repo.go</FILE>
+        <FILE>types/check/space.go</FILE>
+        <FILE>types/webhook.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

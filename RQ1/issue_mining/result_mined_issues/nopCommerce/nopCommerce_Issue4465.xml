@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4465</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4465</ISSUEURL>
+  <TITLE>4.30 Remove Address when checking out &quot;Sequence contains no elements&quot;</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.30 Steps to reproduce the problem: 1. Have 2 addresses in your address book 2. Start to check out 3. Delete one of the addresses from your book 4. Continue to try and check out 5. I get the error when trying to finish paying OR when I leave the page and try to go back into my cart I keep getting System.InvalidOperationException: 'Sequence contains no elements' I cleared my cache in my browser and through NopAdmin **CustomerService.cs** ![image](https://user-images.githubusercontent.com/20989983/78414667-41cdeb80-75eb-11ea-8599-a871de8c0c65.png) The address ID being passed in is 4206 ![image](https://user-images.githubusercontent.com/20989983/78414738-8bb6d180-75eb-11ea-82da-eba0ec9f07c2.png) But I think that address is the one I deleted ![image](https://user-images.githubusercontent.com/20989983/78414751-a0936500-75eb-11ea-8161-3d8f7cd9cf40.png)</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#4430 Check if a customer is not admin when send apply for vendor account form</MESSAGE>
+    <SHA>594962785c8a493d3cb153b5a59833e65861b04f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4465 &quot;GetCustomerAddress&quot; refactoring in checkout</MESSAGE>
+      <SHA>7d6e1478f7c8b5903e1a228f30721ced39198b0a</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Customers/CustomerService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/CheckoutController.cs</FILE>
+        <FILE>upgradescripts/4.20-4.30 (under development)/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

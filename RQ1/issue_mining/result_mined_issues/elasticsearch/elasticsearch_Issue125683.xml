@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>125683</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/125683</ISSUEURL>
+  <TITLE>[CI] SearchableSnapshotActionIT testSearchableSnapshotsInHotPhasePinnedToHotNodes failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7266 / oraclelinux-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/kwbjvfaghg57w) - [elasticsearch-pull-request #64774 / checkpart5_release-tests](https://gradle-enterprise.elastic.co/s/eyxawwsnb3tyq) - [elasticsearch-periodic #7223 / single-processor-node-tests](https://gradle-enterprise.elastic.co/s/4nkgp3udfwphe) - [elasticsearch-periodic-platform-support #7245 / ubuntu-2404_platform-support-unix](https://gradle-enterprise.elastic.co/s/6yievx36cl2j6) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:ilm:qa:multi-node:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.ilm.actions.SearchableSnapshotActionIT.testSearchableSnapshotsInHotPhasePinnedToHotNodes&quot; -Dtests.seed=23428F9DB66FBCCC -Dtests.locale=nl-CW -Dtests.timezone=America/Indianapolis -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.ilm.actions.SearchableSnapshotActionIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testSearchableSnapshotsInHotPhasePinnedToHotNodes),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: is &lt;{&quot;phase&quot;:&quot;hot&quot;,&quot;action&quot;:&quot;complete&quot;,&quot;name&quot;:&quot;complete&quot;}&gt; but: was &lt;{&quot;phase&quot;:&quot;null&quot;,&quot;action&quot;:&quot;null&quot;,&quot;name&quot;:&quot;null&quot;}&gt; ``` **Issue Reasons:** - [main] 4 failures in test testSearchableSnapshotsInHotPhasePinnedToHotNodes (2.0% fail rate in 204 executions) - [main] 2 failures in pipeline elasticsearch-periodic-platform-support (50.0% fail rate in 4 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Doc: Update links to logstash plugin docs (#125675) * Add logstash plugin repo to cross_links</MESSAGE>
+    <SHA>f0168b4b840fbb53d621cb1da7f6411e13a51900</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ilm.actions.SearchableSnapshotActionIT testSearchableSnapshotsInHotPhasePinnedToHotNodes #125683</MESSAGE>
+      <SHA>7c6427ffb3eceb89fc41604b0517a64d754b583e</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix some ILM tests for searchable snapshots These tests are very prone to the &quot;quiet test cluster syndrome&quot; and sometimes need a little push by means of some artificial cluster state updates. To hopefully be done with these test failures once and for all (famous last words), I've updated all tests in this class to trigger cluster state updates where necessary. This is basically a follow-up of #108162. Fixes #125683 Fixes #125789</MESSAGE>
+      <SHA>7e6f93497f7b85273ee413c175e6b4c75eb0f74a</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/ilm/qa/multi-node/src/javaRestTest/java/org/elasticsearch/xpack/ilm/actions/SearchableSnapshotActionIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

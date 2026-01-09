@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14223</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14223</ISSUEURL>
+  <TITLE>completion: panic: reflect: indirection through nil pointer to embedded struct</TITLE>
+  <DESCRIPTION>Happens for: * pod inspect --format '{{.Created.' * pod inspect --format '{{.InfraConfig.' * pod ps --format '{{.Created.' ```console $ bin/podman __completeNoDesc pod ps --format '{{.Created.' panic: reflect: indirection through nil pointer to embedded struct goroutine 1 [running]: reflect.Value.FieldByIndex(0x1863d20, 0xc0000105c0, 0x199, 0xc000afe700, 0x2, 0x2, 0x0, 0x1bc0ff8, 0x18e8fe0) /usr/lib/golang/src/reflect/value.go:889 +0x325 reflect.Value.FieldByName(0x1863d20, 0xc0000105c0, 0x199, 0x7ffe7669192a, 0x7, 0x2, 0xc000af28d0, 0x3) /usr/lib/golang/src/reflect/value.go:905 +0x16d github.com/containers/podman/v4/cmd/podman/common.AutocompleteFormat.func1(0x24bedc0, 0x2580ca0, 0x0, 0x0, 0x7ffe76691927, 0xb, 0xc000adf5e0, 0xc00003c220, 0x0, 0x2) /home/esm/src/atomic/2018-02.podman/libpod/cmd/podman/common/completion.go:1013 +0x23d github.com/spf13/cobra.(*Command).getCompletions(0xc000508280, 0xc00003c200, 0x4, 0x4, 0x24bedc0, 0x80000, 0xc00011e360, 0xc000abac80, 0xc000117380, 0x12, ...) /home/esm/src/atomic/2018-02.podman/libpod/vendor/github.com/spf13/cobra/completions.go:442 +0xa32 github.com/spf13/cobra.(*Command).initCompleteCmd.func1(0xc000508280, 0xc00003c200, 0x4, 0x4) /home/esm/src/atomic/2018-02.podman/libpod/vendor/github.com/spf13/cobra/completions.go:163 +0x67 github.com/spf13/cobra.(*Command).execute(0xc000508280, 0xc00003c200, 0x4, 0x4, 0xc000508280, 0xc00003c200) /home/esm/src/atomic/2018-02.podman/libpod/vendor/github.com/spf13/cobra/command.go:860 +0x2c2 github.com/spf13/cobra.(*Command).ExecuteC(0x24c5440, 0xc0000421f0, 0x1704140, 0x2580ca0) /home/esm/src/atomic/2018-02.podman/libpod/vendor/github.com/spf13/cobra/command.go:974 +0x375 github.com/spf13/cobra.(*Command).Execute(...) /home/esm/src/atomic/2018-02.podman/libpod/vendor/github.com/spf13/cobra/command.go:902 github.com/spf13/cobra.(*Command).ExecuteContext(...) /home/esm/src/atomic/2018-02.podman/libpod/vendor/github.com/spf13/cobra/command.go:895 main.Execute() /home/esm/src/atomic/2018-02.podman/libpod/cmd/podman/root.go:100 +0xe7 main.main() /home/esm/src/atomic/2018-02.podman/libpod/cmd/podman/main.go:40 +0x9e ```</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>shell completion --format: fix embedded struct handling When a struct is embeeded it is possible that we end up with same names but different types, this results in incorrect completions. The go template logic always preferes the actual field/method name before the one from the embedded one. Thefore the completion logic should do the same. First get all method/fields names from the struct and then only add the field names from the embedded struct when they are not already present in the list. Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+    <SHA>ecd6edb19186b43c064a09b0a824732ff5f5242e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>shell completion --format: support maps and functions Currently we only support structs in a template string like this: `{{.var1.test.` -&gt; this meams that test must be a struct field on var1. Now with this var1 and test could also be either a map or function which returns a struct. A actual example: `podman container inspect --format {{.NetworkSettings.Networks.netname.` Now we can complete the struct fileds after netname. Note that this cannot complete map keys since they are empty by default, so it is impossible to get them in the completion logic. Also this fixes a panic with embeeded nil structs Fixes #14223 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>3d8a1f91731b7935ae5239023d588a028dcd51e8</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/common/completion.go</FILE>
+        <FILE>cmd/podman/common/completion_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>shell completion --format: support maps and functions Currently we only support structs in a template string like this: `{{.var1.test.` -&gt; this meams that test must be a struct field on var1. Now with this var1 and test could also be either a map or function which returns a struct. A actual example: `podman container inspect --format {{.NetworkSettings.Networks.netname.` Now we can complete the struct fileds after netname. Note that this cannot complete map keys since they are empty by default, so it is impossible to get them in the completion logic. Also this fixes a panic with embeeded nil structs Fixes #14223 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>f8157dee7b75aefe340431a4c296bc70ef326265</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/common/completion.go</FILE>
+        <FILE>cmd/podman/common/completion_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126</ISSUENO>
+  <ISSUEURL>https://github.com/MobSF/Mobile-Security-Framework-MobSF/issues/126</ISSUEURL>
+  <TITLE>API Fuzzer: bug replace codecs with io</TITLE>
+  <DESCRIPTION>https://github.com/ajinabraham/Mobile-Security-Framework-MobSF/blob/55f42771b1992e1d27519bd6a431ddf11c81eb0c/DynamicAnalyzer/pyWebProxy/pywebproxy.py#L88 The problem is due to a bug in the &quot;codec&quot; library that detects the character &quot;F4&quot; and assumes this is the first character of a sequence of characters and wait to receive the remaining 3 bytes, and the resulting string is truncated. A better and safer approach would be to read the entire stream and only then proceed to the decoding phase, as done by the ”io” module. ref: https://www.owasp.org/images/c/cb/OWASP_Romania_Branca.pdf page 29</DESCRIPTION>
+  <REPONAME>Mobile-Security-Framework-MobSF</REPONAME>
+  <TIMEDIFFERENCEDAYS>90</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>quantified code badge</MESSAGE>
+    <SHA>059e9fd9e8f0ac05f8ad2bf91f15fa929704cf0b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #126. Replaced codecs with io module. Not much efforts was required, since codecs and io have kind of same definition for &quot;open&quot;.</MESSAGE>
+      <SHA>a64343f56464b33e17a21dd2cab43bfba10bc19c</SHA>
+      <PATCHEDFILES>
+        <FILE>DynamicAnalyzer/pyWebProxy/pywebproxy.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

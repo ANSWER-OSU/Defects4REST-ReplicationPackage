@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121115</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121115</ISSUEURL>
+  <TITLE>[CI] FullClusterRestartIT testGeoIpSystemFeaturesMigration {cluster=UPGRADED} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #17066 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/fc35qx2khz3rw) - [elasticsearch-pull-request #54520 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/x33khmyowqx74) - [elasticsearch-intake #17032 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/xb4afw3cllpvm) - [elasticsearch-pull-request #54491 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/vh3ceaqqiceok) - [elasticsearch-pull-request #54467 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/j2ribtc7is33m) - [elasticsearch-pull-request #54462 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/ck24wcp362khw) - [elasticsearch-pull-request #54431 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/lcky57aomrbzy) - [elasticsearch-pull-request #54369 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/vqtkfc6d4nxru) - [elasticsearch-pull-request #54343 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/4g6qumpfs7ud6) - [elasticsearch-pull-request #54332 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/rvodvepqhx5la) **Reproduction Line:** ``` ./gradlew &quot;:modules:ingest-geoip:qa:full-cluster-restart:v8.19.0#bwcTest&quot; -Dtests.class=&quot;org.elasticsearch.ingest.geoip.FullClusterRestartIT&quot; -Dtests.method=&quot;testGeoIpSystemFeaturesMigration {cluster=UPGRADED}&quot; -Dtests.seed=728EAD38AD55261E -Dtests.bwc=true -Dtests.locale=tr -Dtests.timezone=Europe/Andorra -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.ingest.geoip.FullClusterRestartIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testGeoIpSystemFeaturesMigration%20%7Bcluster%3DUPGRADED%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.client.ResponseException: method [GET], host [http://[::1]:38811], URI [_cat/indices/*?s=index&amp;h=index&amp;expand_wildcards=all], status line [HTTP/1.1 404 Not Found] {&quot;error&quot;:{&quot;root_cause&quot;:[{&quot;type&quot;:&quot;index_not_found_exception&quot;,&quot;reason&quot;:&quot;no such index [.geoip_databases-reindexed-for-10]&quot;,&quot;index_uuid&quot;:&quot;_na_&quot;,&quot;resource.type&quot;:&quot;index_or_alias&quot;,&quot;resource.id&quot;:&quot;.geoip_databases-reindexed-for-10&quot;,&quot;index&quot;:&quot;.geoip_databases-reindexed-for-10&quot;}],&quot;type&quot;:&quot;index_not_found_exception&quot;,&quot;reason&quot;:&quot;no such index [.geoip_databases-reindexed-for-10]&quot;,&quot;index_uuid&quot;:&quot;_na_&quot;,&quot;resource.type&quot;:&quot;index_or_alias&quot;,&quot;resource.id&quot;:&quot;.geoip_databases-reindexed-for-10&quot;,&quot;index&quot;:&quot;.geoip_databases-reindexed-for-10&quot;},&quot;status&quot;:404} ``` **Issue Reasons:** - [main] 54 failures in test testGeoIpSystemFeaturesMigration {cluster=UPGRADED} (9.9% fail rate in 546 executions) - [main] 17 failures in step 8.19.0_bwc-snapshots (8.9% fail rate in 190 executions) - [main] 35 failures in step 8.18.0_bwc-snapshots (11.8% fail rate in 296 executions) - [main] 12 failures in pipeline elasticsearch-intake (7.5% fail rate in 159 executions) - [main] 41 failures in pipeline elasticsearch-pull-request (12.4% fail rate in 330 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>16</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.backwards.MixedClusterClientYamlTestSuiteIT test {p0=nodes.stats/11_indices_metrics/indices mappings exact count test for indices level} #120950</MESSAGE>
+    <SHA>f403e38ef25e0829f6fe67d4556c8ea1e0b23c83</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.ingest.geoip.FullClusterRestartIT testGeoIpSystemFeaturesMigration {cluster=UPGRADED} #121115</MESSAGE>
+      <SHA>3df200384f424558c7f41bf82e6202a3cdb2a4f7</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Revert &quot;Mute org.elasticsearch.ingest.geoip.FullClusterRestartIT testGeoIpSystemFeaturesMigration {cluster=UPGRADED} #121115&quot; This reverts commit 3df200384f424558c7f41bf82e6202a3cdb2a4f7.</MESSAGE>
+      <SHA>be3e6994fbc5acf20b92514f398d36aaa1a6f215</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

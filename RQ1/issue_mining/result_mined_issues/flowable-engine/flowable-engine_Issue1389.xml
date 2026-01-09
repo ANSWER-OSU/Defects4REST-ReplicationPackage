@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1389</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/1389</ISSUEURL>
+  <TITLE>Unable to deploy WARs to jetty server</TITLE>
+  <DESCRIPTION>See [this](https://forum.flowable.org/t/unable-to-deploy-flowable-wars-to-jetty-server/) forum post. The reason is that somehow `spring-boot-devtools` were packaged in the lib (probably because they are as `runtime` scope).</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Cmmn: docs for event listener automatic removal</MESSAGE>
+    <SHA>afa2a96120e5fd8c8ece1ede72b156d89040a2be</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Make sure that spring-boot-devtools are in the provided scope so they don't get packaged spring-boot-devtools are automatically ignored by the spring-boot-maven-plugin when the jar / war is repacked Having spring-boot-devtools packaged causes problems when the application starts in jetty Closes gh-1389</MESSAGE>
+      <SHA>5eb7abda6ea37b99e185becf18b1a0285d281f46</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-ui-admin/flowable-ui-admin-app/pom.xml</FILE>
+        <FILE>modules/flowable-ui-idm/flowable-ui-idm-app/pom.xml</FILE>
+        <FILE>modules/flowable-ui-modeler/flowable-ui-modeler-app/pom.xml</FILE>
+        <FILE>modules/flowable-ui-task/flowable-ui-task-app/pom.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

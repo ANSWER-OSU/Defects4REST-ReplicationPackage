@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>10</ISSUENO>
+  <ISSUEURL>https://github.com/shopizer-ecommerce/shopizer/issues/10</ISSUEURL>
+  <TITLE>Hello Carl</TITLE>
+  <DESCRIPTION>Hello Carl, I don't know you ever understand alibaba druid connection pool, with good, recommend you.</DESCRIPTION>
+  <REPONAME>shopizer</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Agrega configuraciones p/deploy via docker de producción - En producción se usa el profile de spring: 'cloud'</MESSAGE>
+    <SHA>3f7b31c8e55863d05c8dc69ce00f9d6e300f29da</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #10 from sodep/feature/ECO-43 Lincoln desea prescindir de las funcionalidades de puntuación y opiniones</MESSAGE>
+      <SHA>9205ef5d93cf09d4c19afa91e0374883bd7fcc2b</SHA>
+      <PATCHEDFILES>
+        <FILE>sm-core-model/src/main/java/com/salesmanager/core/model/system/MerchantConfig.java</FILE>
+        <FILE>sm-shop-model/src/main/java/com/salesmanager/shop/model/system/Configs.java</FILE>
+        <FILE>sm-shop/src/main/java/com/salesmanager/shop/init/data/InitializationLoader.java</FILE>
+        <FILE>sm-shop/src/main/java/com/salesmanager/shop/store/controller/customer/CustomerProductReviewController.java</FILE>
+        <FILE>sm-shop/src/main/java/com/salesmanager/shop/store/controller/product/ShopProductController.java</FILE>
+        <FILE>sm-shop/src/main/resources/bundles/shopizer.properties</FILE>
+        <FILE>sm-shop/src/main/resources/bundles/shopizer_es.properties</FILE>
+        <FILE>sm-shop/src/main/resources/bundles/shopizer_fr.properties</FILE>
+        <FILE>sm-shop/src/main/resources/bundles/shopizer_ru.properties</FILE>
+        <FILE>sm-shop/src/main/webapp/pages/admin/configuration/system.jsp</FILE>
+        <FILE>sm-shop/src/main/webapp/pages/shop/common/catalog/rating.jsp</FILE>
+        <FILE>sm-shop/src/main/webapp/pages/shop/common/catalog/review.jsp</FILE>
+        <FILE>sm-shop/src/main/webapp/pages/shop/common/catalog/reviews.jsp</FILE>
+        <FILE>sm-shop/src/main/webapp/pages/shop/templates/bootstrap/pages/product.jsp</FILE>
+        <FILE>sm-shop/src/main/webapp/pages/shop/templates/december/pages/product.jsp</FILE>
+        <FILE>sm-shop/src/main/webapp/pages/shop/templates/exoticamobilia/pages/product.jsp</FILE>
+        <FILE>sm-shop/src/main/webapp/pages/shop/templates/generic/pages/product.jsp</FILE>
+        <FILE>sm-shop/src/main/webapp/pages/shop/templates/lincoln/pages/product.jsp</FILE>
+        <FILE>sm-shop/src/main/webapp/pages/shop/templates/sodep/pages/product.jsp</FILE>
+        <FILE>sm-shop/src/main/webapp/pages/shop/templates/summer/pages/product.jsp</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[8] @ [DefaultPackagingImpl.java] [2 - REJECTED] [Avoid nested loops] INTENDED IMPROVEMENT: 1. **Avoid nested loops (FINDING-#10)**: The nested loop over `ProductAttribute` was replaced with a stream operation to sum the weights, improving readability and potentially performance. 2. **Avoid calling a function in a condition loop (FINDING-#11)**: The `product.getDescriptions().size()` call was moved outside the loop and replaced with a single call, improving efficiency. 3. **Avoid nested loops (FINDING-#12)**: The nested loop to create multiple `PackageDetails` was replaced with `Collections.nCopies`, which avoids explicit looping and improves readability. DECISION: 2 - REJECTED REASONING FOR THE DECISION: The changes made to the code primarily focus on improving readability and slightly optimizing specific parts of the logic: 1. Using a stream to sum the weights of `ProductAttribute` objects instead of a nested loop. This change improves readability but does not significantly affect computational complexity since it still processes each attribute. 2. Moving the `product.getDescriptions().size()` call outside the loop condition to avoid redundant calls. This is a minor optimization. 3. Using `Collections.nCopies` to create multiple `PackageDetails` objects instead of an explicit loop. This change improves readability but does not significantly affect computational complexity. Overall, while the changes improve the code's readability and make minor optimizations, they do not result in a significant improvement in computational complexity or efficiency.</MESSAGE>
+      <SHA>ce8da8f55c0c176e7c3b492525287a920d2282ee</SHA>
+      <PATCHEDFILES>
+        <FILE>sm-core/src/main/java/com/salesmanager/core/business/modules/integration/shipping/impl/DefaultPackagingImpl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

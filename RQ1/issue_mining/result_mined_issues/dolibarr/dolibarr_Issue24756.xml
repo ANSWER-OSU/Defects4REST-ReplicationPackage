@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24756</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/24756</ISSUEURL>
+  <TITLE>Report in Module Bank</TITLE>
+  <DESCRIPTION>### Bug In version 17.0.1 (using php 8.0) the sums in monthly report in the module &quot;bank&quot; are incorrect. I found a problem in the file compta/bank/annuel.php. In line 199 and 200 the annual sums for &quot;sorties&quot; and &quot;entrees&quot; are set to zero every month in the loop over years. So as a final result I only see the sum of December. Instead of ``` for ($annee = $year_start; $annee &lt;= $year_end; $annee++) { $totsorties[$annee] = 0; $totentrees[$annee] = 0; ``` it should be like this: ``` $totsorties[$annee] = 0;| $totentrees[$annee] = 0;| for ($annee = $year_start; $annee &lt;= $year_end; $annee++) { ``` I'm not a developer, so maybe someone can fix this for future releases. thx, Peter ### Environment Version 17.0.1 ### Environment OS synology disk station - linux ### Environment Web server nginx ### Environment PHP 8.0 ### Environment Database MariaDB 10 ### Environment URL(s) _No response_ ### Expected and actual behavior explained in Bug-Description. ### Steps to reproduce the behavior In the menu Bank open the monthly report. The sum for the year is incorrect. ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>28</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #25022 from Hystepik/develop_v17#1 Fix : impossibility to add default filter for search_billed</MESSAGE>
+    <SHA>182562406baa43df814cce7d1814681103869713</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #24996 from aspangaro/17p9 FIX #24756 Total sum on annual report bank</MESSAGE>
+      <SHA>e25a56741d2e4ffc3e043d8ab94e1537cc222cd0</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/compta/bank/annuel.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

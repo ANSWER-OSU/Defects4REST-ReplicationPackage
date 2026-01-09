@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>203</ISSUENO>
+  <ISSUEURL>https://github.com/HTTP-APIs/hydrus/issues/203</ISSUEURL>
+  <TITLE>Single abstract method for OpenAPI parser</TITLE>
+  <DESCRIPTION>### I'm submitting a - [ ] bug report. - [x] feature request. ### Current Behaviour: &lt;!-- Describe about the bug --&gt; In OpenAPI parser, there are global variables such as `classAndClassDefinition` and `definitionSet` in L214 and L215 respectively. These variables are not explicitly declared as global, and are defined under the condition `if __name__ == &quot;__main__&quot;`. In case the methods of the parser are imported from another script, this portion of code would not run, thus causing the declarations/initialisation of the variables to be ignored and causing errors in the code. It is advisable to not use global variables unless it is absolutely necessary. Any user must otherwise create such global variables before he/she actually uses the methods defined in the parser. ### Expected Behaviour: &lt;!-- Describe what will happen if bug is removed --&gt; There should be a much more abstract method that takes an OpenAPI spec(as a json object) and returns a Hydra API Documentation(as a json object). This method must take care of all the necessary declarations and initialisation and must pass variables as parameters, rather than using global declarations. Once the objects have been modified, they can be returned to the parent method using the `return` statement. Please note that you can return multiple objects in using the `return` statement in Python. ### Steps to reproduce: &lt;!-- If you can then please provide the steps to reproduce the bug --&gt; ### Do you want to work on this issue? &lt;!-- yes/no --&gt; No</DESCRIPTION>
+  <REPONAME>hydrus</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #199 from vaibhavchellani/newImplementation New implementation of parser WIP</MESSAGE>
+    <SHA>9d1bef64371d109687c0ad03c772f9f82b202a51</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>removed global variables , #203 fixed</MESSAGE>
+      <SHA>117e5f472947f77c3dda1ebd2668b17645ebe4aa</SHA>
+      <PATCHEDFILES>
+        <FILE>hydrus/parser/openapi_parser.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

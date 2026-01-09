@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>453</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/453</ISSUEURL>
+  <TITLE>Handle Token Expiration</TITLE>
+  <DESCRIPTION>Scenario: 1. User sets up a private Github repository in Drone 2. Time passes 3. User's Github token expires 4. Drone builds break unexpectedly and with zero explanation The first build attempt after the token expires will result in a &quot;No .drone.yml was found in this repository. You need to add one.&quot; message, which might prompt somebody to look in the repo and confirm that `.drone.yml` is indeed there, shrug, and retry the build. This time the error is even less heplful: &quot;Error: missing Docker image&quot;. This again gives zero information about what the actual failure is. Looking in the Drone log does not help either; the error received from Github while trying to fetch `.drone.yml` is not logged _anywhere_. Now, let's assume that I somehow figure out that the issue is an expired token. What do I do? I'm not the user who created the repo (and that actual user no longer works at the company). I have no way to reassign a repo to myself. I have no way to refresh the token. It's not even obvious how I can get a token for my own user. Fixing this required me to try to add a new repo just to trigger the Github authentication so that my user can acquire a Github token, and then manually remap all affected repos in `drone.sqlite` to my user. I can't help but wonder if this is the right way to handle this.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>134</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix merge issue (#482)</MESSAGE>
+    <SHA>015bac567998e7061108607e5318c0f511c71180</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge branch 'eb/code-817' of _OKE5H2PQKOUfzFFDuD4FA/default/CODE/gitness (#453)</MESSAGE>
+      <SHA>fcea227b3715feed40185994ea57daaa1a32f6f9</SHA>
+      <PATCHEDFILES>
+        <FILE>.local.env</FILE>
+        <FILE>cli/server/server.go</FILE>
+        <FILE>cmd/gitness/wire.go</FILE>
+        <FILE>cmd/gitness/wire_gen.go</FILE>
+        <FILE>internal/services/metric/metrics.go</FILE>
+        <FILE>internal/services/metric/wire.go</FILE>
+        <FILE>internal/services/wire.go</FILE>
+        <FILE>internal/store/database/execution.go</FILE>
+        <FILE>internal/store/database/pipeline.go</FILE>
+        <FILE>internal/store/database/principal_user.go</FILE>
+        <FILE>internal/store/database/repo.go</FILE>
+        <FILE>types/config.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

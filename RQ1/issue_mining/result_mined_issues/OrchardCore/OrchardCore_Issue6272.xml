@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6272</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/6272</ISSUEURL>
+  <TITLE>FileSystemStore issues</TITLE>
+  <DESCRIPTION>When getting file system info a relative path is passed to the FileSystemStoreEntry. ```csharp public Task&lt;IFileStoreEntry&gt; GetFileInfoAsync(string path) { var physicalPath = GetPhysicalPath(path); var fileInfo = new PhysicalFileInfo(new FileInfo(physicalPath)); if (fileInfo.Exists) { return Task.FromResult&lt;IFileStoreEntry&gt;(new FileSystemStoreEntry(path, fileInfo)); } return Task.FromResult&lt;IFileStoreEntry&gt;(null); } ``` When calling ```csharp public Task&lt;Stream&gt; GetFileStreamAsync(IFileStoreEntry fileStoreEntry) { if (!File.Exists(fileStoreEntry.Path)) { throw new FileStoreException($&quot;Cannot get file stream because the file '{fileStoreEntry.Path}' does not exist.&quot;); } var stream = File.OpenRead(fileStoreEntry.Path); return Task.FromResult&lt;Stream&gt;(stream); } ``` File operations are made with relative path. I think path must be converted to physical one or in FileStoreEntry ctor a physical one should be passed.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Themes: Title, default theme screenshot and tags (#6273)</MESSAGE>
+    <SHA>b140de9981a044fcbce4ab47a6098fded9ee06ec</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes FileSystemStore issues #6272 (#6277)</MESSAGE>
+      <SHA>815e29753e1455b830bf75886b6f5063abed5cf2</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.FileStorage.FileSystem/FileSystemStore.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>124608</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/124608</ISSUEURL>
+  <TITLE>ESQL: Encapsulate Categorize instanceof checks inside aggs &amp; rules</TITLE>
+  <DESCRIPTION>### Description Code dedicated to Categorize has made its way into Aggregate &amp; replaced rules such as (`ReplaceAggregateAggExpressionWithEval` or `ReplaceAggregateNestedExpressionWithEval`). While some of it is marked with TODO, this needs to extracted into a central place (to better manage it) or even better, make it work with the existing rules either by breaking down categorize into existing primitives (e.g. Aware interfaces) or extracting these if missing. From the logical plan perspective, `Categorize` is just another aggregate function - special handling is typically an indicator of wrong abstraction (which causes the rules to 'misfire').</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>30</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Allow a tsdb data stream to rolled over to a logsdb data stream (#126640) and the other way around. This doesn't make much sense. However, if a data stream's index mode differs from the index mode of most recent backing index, then this can cause confusion. Typically, misconfiguration is a reason this can happen. Related to #126637</MESSAGE>
+    <SHA>f658af66282abbdee1b8f769df2e6dfbc8d2c5d3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ESQL: Split grouping functions based on their EVAL-ability (#126597) This splits the grouping functions in two: those that can be evaluated independently through the EVAL operator (`BUCKET`) and those that don't (like those that that are evaluated through an agg operator, `CATEGORIZE`). Closes #124608</MESSAGE>
+      <SHA>9784e0ec5f57b1eb15c846b499680dd1f735954c</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/reference/query-languages/esql/_snippets/functions/description/categorize.md</FILE>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/categorize.csv-spec</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/expression/function/grouping/Bucket.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/expression/function/grouping/Categorize.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/expression/function/grouping/GroupingFunction.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/optimizer/rules/logical/CombineProjections.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/optimizer/rules/logical/FoldNull.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/optimizer/rules/logical/ReplaceAggregateAggExpressionWithEval.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/optimizer/rules/logical/ReplaceAggregateNestedExpressionWithEval.java</FILE>
+        <FILE>x-pack/plugin/esql/src/test/java/org/elasticsearch/xpack/esql/optimizer/LogicalPlanOptimizerTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: Split grouping functions based on their EVAL-ability (#126597) (#126715) This splits the grouping functions in two: those that can be evaluated independently through the EVAL operator (`BUCKET`) and those that don't (like those that that are evaluated through an agg operator, `CATEGORIZE`). Closes #124608 (cherry picked from commit 9784e0ec5f57b1eb15c846b499680dd1f735954c)</MESSAGE>
+      <SHA>ed59920f95c5ab4a28638568dc9c170e83cb8e72</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/reference/esql/functions/description/categorize.asciidoc</FILE>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/categorize.csv-spec</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/expression/function/grouping/Bucket.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/expression/function/grouping/Categorize.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/expression/function/grouping/GroupingFunction.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/optimizer/rules/logical/CombineProjections.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/optimizer/rules/logical/FoldNull.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/optimizer/rules/logical/ReplaceAggregateAggExpressionWithEval.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/optimizer/rules/logical/ReplaceAggregateNestedExpressionWithEval.java</FILE>
+        <FILE>x-pack/plugin/esql/src/test/java/org/elasticsearch/xpack/esql/optimizer/LogicalPlanOptimizerTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

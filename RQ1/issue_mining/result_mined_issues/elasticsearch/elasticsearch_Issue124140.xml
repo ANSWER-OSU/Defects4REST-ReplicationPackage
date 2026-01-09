@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>124140</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/124140</ISSUEURL>
+  <TITLE>[CI] QueryPhaseTimeoutTests testScorerTimeoutPoints failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #19479 / part1](https://gradle-enterprise.elastic.co/s/b233quyczq3am) - [elasticsearch-periodic-platform-support #6780 / opensuse-leap-15_platform-support-unix](https://gradle-enterprise.elastic.co/s/4hu2zg7gk4qmm) **Reproduction Line:** ``` ./gradlew &quot;:server:test&quot; --tests &quot;org.elasticsearch.search.query.QueryPhaseTimeoutTests.testScorerTimeoutPoints&quot; -Dtests.seed=FC34D732AE5ADC5A -Dtests.locale=und -Dtests.timezone=Europe/Madrid -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.search.query.QueryPhaseTimeoutTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testScorerTimeoutPoints),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: expected:&lt;2048&gt; but was:&lt;2399&gt; ``` **Issue Reasons:** - [main] 2 failures in test testScorerTimeoutPoints (0.9% fail rate in 213 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Use FallbackSyntheticSourceBlockLoader for boolean and date fields (#124050)</MESSAGE>
+    <SHA>99262c6256465fbcfbce8a549dfc9529c7b25edd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.search.query.QueryPhaseTimeoutTests testScorerTimeoutPoints #124140</MESSAGE>
+      <SHA>8a28b51c574fb7ec5e7c239ec28141af25d7b50b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Address test issue in QueryPhaseTimeoutTests The test that is verifying timeout handling when pulling a scorer supplier is going to always score the entire segment. The test needs to be adjusted accordingly. While at it, I added docs and clarified the tests a bit, as well as added a couple new tests that cover for timeout handling when retrieving a scorer from the scorer supplier. Closes #124140</MESSAGE>
+      <SHA>c29468d4197e349eb6137ddcf2b7878f362af6d0</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/search/query/QueryPhaseTimeoutTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Address test issue in QueryPhaseTimeoutTests (#124327) The test that is verifying timeout handling when pulling a scorer supplier is going to always score the entire segment. The test needs to be adjusted accordingly. While at it, I added docs and clarified the tests a bit, as well as added a couple new tests that cover for timeout handling when retrieving a scorer from the scorer supplier. Closes #124140 * [CI] Auto commit changes from spotless * iter * iter * spotless --------- Co-authored-by: elasticsearchmachine &lt;infra-root+elasticsearchmachine@elastic.co&gt;</MESSAGE>
+      <SHA>22d7f397ede3bd201eb088f470007d782507a0e8</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/search/query/QueryPhaseTimeoutTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Address test issue in QueryPhaseTimeoutTests (#124327) The test that is verifying timeout handling when pulling a scorer supplier is going to always score the entire segment. The test needs to be adjusted accordingly. While at it, I added docs and clarified the tests a bit, as well as added a couple new tests that cover for timeout handling when retrieving a scorer from the scorer supplier. Closes #124140</MESSAGE>
+      <SHA>1c87abbaa034e440cff4f8272cae4ec8c9acaeaf</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/test/java/org/elasticsearch/search/query/QueryPhaseTimeoutTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2492</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/2492</ISSUEURL>
+  <TITLE>now cli update throwing EBUSY error</TITLE>
+  <DESCRIPTION>``` $ now update &gt; UPDATE AVAILABLE The latest version of Now CLI is 15.6.2 &gt; Run the `now update` command to update to the latest version &gt; Changelog: https://github.com/zeit/now-cli/releases/tag/15.6.2 &gt; Now CLI 15.5.0 update (beta) — https://zeit.co/feedback/update &gt; Updating Now CLI... Configuration platform win arch x64 location C:\Users\reach\AppData\Roaming\npm\node_modules\now\download\dist\now.exe version 15.6.2 (latest stable release) &gt; Downloading `now` binary... &gt; Binary URL: https://github.com/zeit/now-cli/releases/download/15.6.2/now-win.exe.gz &gt; Update Now CLI? [y/N] y &gt; Error! An unexpected error occurred in update: Error: EBUSY: resource busy or locked, open 'C:\Users\reach\AppData\Roaming\npm\node_modules\now\download\dist\now.exe' at WriteStream.t.error.t (C:\snapshot\repo\dist\index.js:1:1589155) at WriteStream.emit (events.js:187:15) at WriteStream.EventEmitter.emit (domain.js:442:20) at C:\snapshot\repo\dist\index.js:1:2874894 at C:\snapshot\repo\dist\index.js:1:2875329 at FSReqWrap.oncomplete (fs.js:171:20) ```</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now dev] Move the `MissingDotenvVarsError` handling to the correct place (#2489) `validateEnvConfig()` used to be invoked inside of `validateNowConfig()`, but now it is invoked separately. Explicitly exiting the process avoids reports going to Sentry.</MESSAGE>
+    <SHA>e0c6bb40941c413732b65e0a57406481fa3a4ef4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now update] Add message saying that Windows is not supported And direct the user back to the download page in order to re-install. Closes #2492.</MESSAGE>
+      <SHA>060fe31ded247e8c88cdc42805a6d0ded31651f8</SHA>
+      <PATCHEDFILES>
+        <FILE>src/commands/update.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now update] Add message saying that Windows is not supported (#2493) * [now update] Add message saying that Windows is not supported And direct the user back to the download page in order to re-install. Closes #2492. * Exit 1 Co-Authored-By: Steven &lt;steven@ceriously.com&gt;</MESSAGE>
+      <SHA>887b2ccc6b3b79d4bf7cb905c038b721f51d2fd2</SHA>
+      <PATCHEDFILES>
+        <FILE>src/commands/update.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now update] Add message saying that Windows is not supported (#2493) * [now update] Add message saying that Windows is not supported And direct the user back to the download page in order to re-install. Closes #2492. * Exit 1 Co-Authored-By: Steven &lt;steven@ceriously.com&gt;</MESSAGE>
+      <SHA>1712405cd32f7c9c6fcbf3403248129d390b31f5</SHA>
+      <PATCHEDFILES>
+        <FILE>src/commands/update.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

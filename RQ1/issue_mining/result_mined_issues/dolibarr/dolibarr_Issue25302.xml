@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>25302</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/25302</ISSUEURL>
+  <TITLE>Sum of tasks time spent on project referrers page (projet/element.php)</TITLE>
+  <DESCRIPTION>### Bug On project referrers page, the display of time spent by task differs from the computing of total of time spent. For total of time spent : ``` if ($idofelementuser) { $tmp = $element-&gt;getSumOfAmount($elementuser, $dates, $datee); $total_ht_by_line = price2num($tmp['amount'], 'MT'); } else { $tmp = $element-&gt;getSumOfAmount('', $dates, $datee); $total_ht_by_line = price2num($tmp['amount'], 'MT'); } ``` (***) but in detail section, there's ``` $tmpprojtime = $element-&gt;getSumOfAmount($elementuser, $dates, $datee); // $element is a task. $elementuser may be empty ``` which had to be replaced by ``` $tmpprojtime = $element-&gt;getSumOfAmount($idofelementuser ? $elementuser : '', $dates, $datee); // $element is a task. $elementuser may be empty ``` I will make a PR for that ### Environment Version All (***) this section may be much simplified with ``` $tmp = $element-&gt;getSumOfAmount($idofelementuser ? $elementuser : '' , $dates, $datee); $total_ht_by_line = price2num($tmp['amount'], 'MT'); ```</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '18.0' of git@github.com:Dolibarr/dolibarr.git into develop</MESSAGE>
+    <SHA>f18fae5271c59f9a01c39b74121c32672a285572</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #25302 Sum of tasks time spent on project referrers page (projet/element.php)</MESSAGE>
+      <SHA>d47f004759fbdc2741d32260c608fc926f3add7a</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/projet/element.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #25305 from vmaury/fix-25302 Fix #25302 Sum of tasks time spent on project referrers page</MESSAGE>
+      <SHA>671a534a1caba8b23a11c74189a816411ce1f2bb</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/projet/element.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

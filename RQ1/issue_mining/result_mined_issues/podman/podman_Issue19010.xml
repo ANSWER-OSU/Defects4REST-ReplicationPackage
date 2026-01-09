@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19010</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/19010</ISSUEURL>
+  <TITLE>CI: debian remote startup is very slow</TITLE>
+  <DESCRIPTION>[Split from #15272 ] Podman-remote e2e tests on debian are very slow. Take for example these results: [f38](https://api.cirrus-ci.com/v1/artifact/task/5072880539533312/html/int-remote-fedora-38-root-host-sqlite.log.html#t--Verify-podman-containers-conf-usage-cgroupns--1) and [debian](https://api.cirrus-ci.com/v1/artifact/task/5917305469665280/html/int-remote-debian-12-root-host-sqlite.log.html#t--Verify-podman-containers-conf-usage-cgroupns--1) (`usage cgroupns` test chosen pseudorandomly, no special reason). 2.760s on f38, 4.650 on debian. Almost every part of the Ginkgo task is slower on debian. Looking at the `Exit` lines on each, we see: | | f38 | debian | | --- | --- | --- | | Exit [BeforeEach] TOP-LEVEL | 435ms | **1.026s** | | Exit [BeforeEach] Verify podman containers.conf usage | 312ms | 861ms | | Exit [It] cgroupns | 1.651s | 2.476s | | Exit [AfterEach] TOP-LEVEL | 360ms | 285ms | | Total | 2.760s | 4.650s | I downloaded the raw logs, ran a little perl/find/math on them, and time spent in `BeforeEach` on debian is **2122s**, compared to *908* on f38. That's pretty huge. (Time spent in `It` and in `AfterEach` is comparable). I think there's something broken in podman-remote startup on debian. I think it's taking too long. Can someone with access to a debian VM PTAL?</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>api: fix slow version endpoint This endpoint queried the same package versions twice causing it to be slower than info. Because it already called info we can just reuse the package versions from there. Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+    <SHA>70428baef36d88e02ca67f0efe3c42221935fbe8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>test/e2e: wait for socket Do not use podman info/version as they are expensive and clutter the log for no reason. Just checking if we can connect to the socket should be good enough and much faster. Fix the non existing error checking, so that we actually see an useful error when this does not work. Also change the interval, why wait 2s for a retry lets take 100ms steps instead. Fixes #19010 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>97fd03ccdf89d822e5d06c4801e2475400ea53ec</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/common_test.go</FILE>
+        <FILE>test/e2e/libpod_suite_remote_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>test/e2e: wait for socket Do not use podman info/version as they are expensive and clutter the log for no reason. Just checking if we can connect to the socket should be good enough and much faster. Fix the non existing error checking, so that we actually see an useful error when this does not work. Also change the interval, why wait 2s for a retry lets take 100ms steps instead. Fixes #19010 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>258135221260202c1652aaac1e10499a78fe73ad</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/common_test.go</FILE>
+        <FILE>test/e2e/libpod_suite_remote_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>21842</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/21842</ISSUEURL>
+  <TITLE>podman machine (v5.0.0-rc3) fails to start on MacOS</TITLE>
+  <DESCRIPTION>### Issue Description podman v5.0.0-rc3, fail to start the default machine: ``` $ podman machine start Starting machine &quot;podman-machine-default&quot; Error: vfkit exited unexpectedly with exit code 1 ``` On an M2 machine with Sonoma 14.3.1 (Sorry if this is expected due a to a missing step, I'm not familiar with MacOS) ### Steps to reproduce the issue Steps to reproduce the issue 1. Install podman v5.0.0-rc3 on MacOS from the github release page: https://github.com/containers/podman/releases 2. Set the policy file: ``` curl https://raw.githubusercontent.com/containers/image/main/default-policy.json -o ~/.config/containers/policy.json ``` 3. Init default podman machine: `podman machine init` 4. Start default podman machine: `podman machine start` ### Describe the results you received Just running `podman machine start` I got: ``` Starting machine &quot;podman-machine-default&quot; Error: vfkit exited unexpectedly with exit code 1 ``` but, running `vfkit` directly with debug enabled: ``` /opt/podman/bin/vfkit \ --log-level debug \ --cpus 4 \ --memory 2048 \ --bootloader efi,variable-store=/Users/german/.local/share/containers/podman/machine/applehv/efi-bl-podman-machine-default,create \ --device virtio-blk,path=/Users/german/.local/share/containers/podman/machine/applehv/podman-machine-default-arm64.raw \ --device virtio-rng \ --device virtio-fs,sharedDir=/Users,mountTag=Users \ --restful-uri tcp://localhost:49568 \ --device virtio-gpu,width=800,height=600 \ --device virtio-input,pointing \ --device virtio-input,keyboard \ --gui \ ``` I got: ``` Error: Error Domain=VZErrorDomain Code=2 Description=&quot;Invalid virtual machine configuration. The process doesn’t have the “com.apple.security.virtualization” entitlement.&quot; UserInfo={ NSLocalizedFailure = &quot;Invalid virtual machine configuration.&quot;; NSLocalizedFailureReason = &quot;The process doesn\U2019t have the \U201ccom.apple.security.virtualization\U201d entitlement.&quot;; } ``` ( I think it could be useful to also pass `--log-level debug` to `vfkit` if podman ran with the same level) ### Describe the results you expected default podman machine to start ### podman info output ```yaml podman info output: OS: darwin/arm64 provider: applehv version: 5.0.0-rc3 ``` podman machine info output: ``` host: arch: arm64 currentmachine: podman-machine-default defaultmachine: podman-machine-default eventsdir: /var/folders/wn/wq9m0yd12kncff7fzt87hnrc0000gn/T/storage-run-501/podman machineconfigdir: /Users/german/.config/containers/podman/machine/applehv machineimagedir: /Users/german/.local/share/containers/podman/machine/applehv machinestate: Stopped numberofmachines: 1 os: darwin vmtype: applehv version: apiversion: 5.0.0-rc3 version: 5.0.0-rc3 goversion: go1.22.0 gitcommit: 54795efeb7baedc03f414c86f34ab17ccb1d3f4f builttime: Thu Feb 22 22:05:39 2024 built: 1708635939 osarch: darwin/arm64 os: darwin ``` This is an M2 machine with Sonoma 14.3.1 ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details _No response_ ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>macos-installer: Remove hvf.entitlements That's a left-over from 87947761ed Signed-off-by: Christophe Fergeau &lt;cfergeau@redhat.com&gt;</MESSAGE>
+    <SHA>15734f8c5a92a80f640e9ec29fbae63451255cf3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>macos installer: Add vfkit entitlement vfkit needs the com.apple.security.virtualization entitlement or it wont' be able to start virtual machines: Error: Error Domain=VZErrorDomain Code=2 Description=&quot;Invalid virtual machine configuration. The process doesn’t have the “com.apple.security.virtualization” entitlement.&quot; UserInfo={ NSLocalizedFailure = &quot;Invalid virtual machine configuration.&quot;; NSLocalizedFailureReason = &quot;The process doesn\U2019t have the \U201ccom.apple.security.virtualization\U201d entitlement.&quot;; } This fixes https://github.com/containers/podman/issues/21842 Signed-off-by: Christophe Fergeau &lt;cfergeau@redhat.com&gt;</MESSAGE>
+      <SHA>9f5c20f9bf175085c8db174cee3e0fc1e7a4c776</SHA>
+      <PATCHEDFILES>
+        <FILE>contrib/pkginstaller/Makefile</FILE>
+        <FILE>contrib/pkginstaller/vfkit.entitlements</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

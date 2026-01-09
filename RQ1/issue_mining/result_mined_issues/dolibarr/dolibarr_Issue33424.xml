@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>33424</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/33424</ISSUEURL>
+  <TITLE>Create cronjob security key not posible in version 20 and higher</TITLE>
+  <DESCRIPTION>We have an live installation with version 19, here we can create/refresh the cronjob Security key. Our test installation has version is 20, here we are not able to create an cronjob Security key. To find out if there was an setup problem, i put an new installation in an subdomain, here is what i found: git install version 19, only enable cronjobs and check for the button (yes it is there). delete all DB tables checkout version 20, only enable cronjobs and check for the button (no it is not there). Version 21 has the same result as version 20. Only cronjobs have been enabled no other settings have been changed, an real clean install. In version 19 on the page &quot;Home &gt; Modules/Applications &gt; Scheduled jobs &gt; Miscellaneous&quot; there is a button to create an new Security key. The constant `CRON_DISABLE_KEY_CHANGE` is not present in de DB In version 20 the create button is not present and the `CRON_DISABLE_KEY_CHANGE` is also not present in the DB. I MUST add the constant. I added it in &quot;Home &gt; Modules/Applications &gt; Other Setup&quot; name `CRON_DISABLE_KEY_CHANGE` with value of `0`. If i understand it correct there has been an change in: `/htdocs/cron/admin/cron.php` after version 19. This is the only file that this constant is used (i could not find an other one). I assume that there now should be a entry add in `llx_const` with the setting i used above. If the constant is not added, the please update the docs to punt to this. My problem is solved for this installation, but other will also have an hard time finding out what is going on. It toke me more then two days, reading tickets, documentation and forms.</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>19</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[MC] Fix illegal table.column PostgreSQL UPDATE syntax (#33673)</MESSAGE>
+    <SHA>ccc25e597033df5073117490890341b61180a4d9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX #33424 Create cronjob security key not posible FIX Create cronjob security key not posible because constant CRON_DISABLE_KEY_CHANGE does not exist</MESSAGE>
+      <SHA>93202c94f2877f52688a57ad7d5ca75532fa4ee1</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/cron/admin/cron.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>FIX #33424 Create cronjob security key not posible (#33677) * FIX #33424 Create cronjob security key not posible FIX Create cronjob security key not posible because constant CRON_DISABLE_KEY_CHANGE does not exist * Update cron.php using getDolGlobalInt() is better than using getDolGlobalString because the default value is 0; then the refresh button works fine</MESSAGE>
+      <SHA>a6f2001f4349d1cf637cc75cf7bc7ffabb3692f5</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/cron/admin/cron.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>FIX #33424 Create cronjob security key not posible (#33677) * FIX #33424 Create cronjob security key not posible FIX Create cronjob security key not posible because constant CRON_DISABLE_KEY_CHANGE does not exist * Update cron.php using getDolGlobalInt() is better than using getDolGlobalString because the default value is 0; then the refresh button works fine</MESSAGE>
+      <SHA>3d066c4631d113f92f935775ac05e5c3d9992ef4</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/cron/admin/cron.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

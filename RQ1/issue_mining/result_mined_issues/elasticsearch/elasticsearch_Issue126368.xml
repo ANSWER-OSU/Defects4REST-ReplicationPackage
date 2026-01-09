@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126368</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126368</ISSUEURL>
+  <TITLE>[CI] MixedClusterClientYamlTestSuiteIT test {p0=search.vectors/42_knn_search_bbq_flat/Vector rescoring has same scoring as exact search for kNN section} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7461 / openjdk23_9.0.0_java-matrix-bwc](https://gradle-enterprise.elastic.co/s/jxgdhyca6ferg) - [elasticsearch-pull-request #65989 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/wlyxssvovbpow) - [elasticsearch-pull-request #65989 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/jn5thzlutpv4u) **Reproduction Line:** ``` ./gradlew &quot;:qa:mixed-cluster:v9.0.0#mixedClusterTest&quot; -Dtests.class=&quot;org.elasticsearch.backwards.MixedClusterClientYamlTestSuiteIT&quot; -Dtests.method=&quot;test {p0=search.vectors/42_knn_search_bbq_flat/Vector rescoring has same scoring as exact search for kNN section}&quot; -Dtests.seed=8EA4B61C9E959D2D -Dtests.bwc=true -Dtests.locale=rof -Dtests.timezone=Europe/Chisinau -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.backwards.MixedClusterClientYamlTestSuiteIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Bp0%3Dsearch.vectors%2F42_knn_search_bbq_flat%2FVector%20rescoring%20has%20same%20scoring%20as%20exact%20search%20for%20kNN%20section%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Failure at [search.vectors/42_knn_search_bbq_flat:142]: Expected: &lt;3&gt; but: was &lt;2&gt; ``` **Issue Reasons:** - [main] 3 failures in test test {p0=search.vectors/42_knn_search_bbq_flat/Vector rescoring has same scoring as exact search for kNN section} (0.4% fail rate in 754 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>19</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT test {rerank.Reranker add the _score column when missing SYNC} #126367</MESSAGE>
+    <SHA>354a56dc913becf1df94b4e841cec2437251af0f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.backwards.MixedClusterClientYamlTestSuiteIT test {p0=search.vectors/42_knn_search_bbq_flat/Vector rescoring has same scoring as exact search for kNN section} #126368</MESSAGE>
+      <SHA>e808bc2c330bb2572c81570f2a9c2ab1ccc0bea7</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

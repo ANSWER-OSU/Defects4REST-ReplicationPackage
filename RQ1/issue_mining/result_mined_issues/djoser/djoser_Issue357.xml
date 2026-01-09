@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>357</ISSUENO>
+  <ISSUEURL>https://github.com/sunscrapers/djoser/issues/357</ISSUEURL>
+  <TITLE>Compatility issue with Django 2.2</TITLE>
+  <DESCRIPTION>Djoser is not compatible with Django 2.2 expected to be released on April 1st. The change in [urlsafe_base64_encode](https://docs.djangoproject.com/en/2.2/ref/utils/#django.utils.http.urlsafe_base64_encode) broke djoser's `encode_uid` in `utils.py`. ``` File &quot;.../python3.7/site-packages/djoser/utils.py&quot;, line 9, in encode_uid return urlsafe_base64_encode(force_bytes(pk)).decode() AttributeError: 'str' object has no attribute 'decode' ```</DESCRIPTION>
+  <REPONAME>djoser</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update Changelog</MESSAGE>
+    <SHA>65709fe59417da06d0b5c0963a235b503ae75b89</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #357</MESSAGE>
+      <SHA>843df1934478ddf2fbcfb3c60f1774e091cf2ad1</SHA>
+      <PATCHEDFILES>
+        <FILE>djoser/utils.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #363 from sunscrapers/fix/357-base64 Fix #357</MESSAGE>
+      <SHA>f3ea719b8897fa18e3b374aaff5ffa917880c43f</SHA>
+      <PATCHEDFILES>
+        <FILE>djoser/utils.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

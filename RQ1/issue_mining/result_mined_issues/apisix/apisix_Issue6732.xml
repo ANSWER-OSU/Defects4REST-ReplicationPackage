@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6732</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/6732</ISSUEURL>
+  <TITLE>bug: dns service discovery upstreams are not working in GKE</TITLE>
+  <DESCRIPTION>### Current Behavior APISIX is throwing an error related to port being 0 when upstream has discovery_type &quot;dns&quot;. same exact setup works fine with clusters from other kubernetes providers. ### Expected Behavior Should not throw the error `http_access_phase(): failed to set upstream: invalid nodes format: failed to validate item 1: property &quot;port&quot; validation failed: expected 0 to be at least 1` ### Error Logs in web response - 503 Service Temporarily Unavailable in apisix pod - init.lua:520: http_access_phase(): failed to set upstream: invalid nodes format: failed to validate item 1: property &quot;port&quot; validation failed: expected 0 to be at least 1 ### Steps to Reproduce 1. Create a standard Google Kubernetes Engine cluster. 2. Install APISIX with ingress controller and dashboard via api7 helm chart version 0.8.4 using this [values.yaml](https://gist.githubusercontent.com/ukanwat/46b505edccf4d10f7241042815f72f72/raw/8f8af4ca5803a4b60e780e281a5c7609731877de/apisix-values.yaml) file (in ingress-apisix namespace). 3. create this upstream via admin api - ` { &quot;id&quot;: &quot;398808046194655761&quot;, &quot;create_time&quot;: 1647237719, &quot;update_time&quot;: 1647237719, &quot;timeout&quot;: { &quot;connect&quot;: 6, &quot;send&quot;: 6, &quot;read&quot;: 6 }, &quot;type&quot;: &quot;roundrobin&quot;, &quot;scheme&quot;: &quot;http&quot;, &quot;discovery_type&quot;: &quot;dns&quot;, &quot;pass_host&quot;: &quot;node&quot;, &quot;name&quot;: &quot;apisix-dashboard&quot;, &quot;service_name&quot;: &quot;apisix-dashboard.ingress-apisix.svc.cluster.local&quot;, &quot;keepalive_pool&quot;: { &quot;idle_timeout&quot;: 60, &quot;requests&quot;: 1000, &quot;size&quot;: 320 } }` 4. create this route via admin api - `{&quot;id&quot;:&quot;398808266596942353&quot;,&quot;create_time&quot;:1647237850,&quot;update_time&quot;:1647441243,&quot;uri&quot;:&quot;/*&quot;,&quot;name&quot;:&quot;apisix-dashboard&quot;,&quot;priority&quot;:50,&quot;methods&quot;:[&quot;GET&quot;,&quot;POST&quot;,&quot;PUT&quot;,&quot;DELETE&quot;,&quot;PATCH&quot;,&quot;HEAD&quot;,&quot;OPTIONS&quot;,&quot;CONNECT&quot;,&quot;TRACE&quot;],&quot;host&quot;:&quot;apisix-dashboard.example.com&quot;,&quot;plugins&quot;:{&quot;redirect&quot;:{&quot;http_to_https&quot;:true}},&quot;upstream_id&quot;:&quot;398808046194655761&quot;,&quot;labels&quot;:{&quot;API_VERSION&quot;:&quot;v1&quot;},&quot;status&quot;:1}` 5. visit the host in the route and then check the logs in the apisix pod. ### Environment - APISIX version (run `apisix version`): 2.12.1 - Operating system (run `uname -a`): kubernetes (GKE) Rest of the values are whatever is bundled in apisix/apisix version 0.8.4 helm chart. - OpenResty / Nginx version (run `openresty -V` or `nginx -V`): - etcd version, if relevant (run `curl http://127.0.0.1:9090/v1/server_info`): - APISIX Dashboard version, if relevant: - Plugin runner version, for issues related to plugin runners: - LuaRocks version, for installation issues (run `luarocks --version`):</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: `env.lua` should use absolute path (#6758)</MESSAGE>
+    <SHA>b454ceb6ba303d646ef4bbf65be272d03932c52b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat(DNS): allow specifying port to override the discovered one It makes the workaround in https://github.com/apache/apisix/issues/6732#issuecomment-1082597439 work. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>c956c0578fa925df2c4786e09f7be02a2f91ddda</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/discovery/dns/init.lua</FILE>
+        <FILE>docs/en/latest/discovery/dns.md</FILE>
+        <FILE>docs/zh/latest/discovery/dns.md</FILE>
+        <FILE>t/discovery/dns/sanity.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat(DNS): allow specifying port to override the discovered one It makes the workaround in https://github.com/apache/apisix/issues/6732#issuecomment-1082597439 work. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>adcbf0bab143bfddd74cf7375218f02d89401a48</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/discovery/dns/init.lua</FILE>
+        <FILE>docs/en/latest/discovery/dns.md</FILE>
+        <FILE>docs/zh/latest/discovery/dns.md</FILE>
+        <FILE>t/discovery/dns/sanity.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat(DNS): allow specifying port to override the discovered one (#6764) It makes the workaround in https://github.com/apache/apisix/issues/6732#issuecomment-1082597439 work. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>ecfd3ff3b475ee6546ebd8cbf99d1b60c17d7912</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/discovery/dns/init.lua</FILE>
+        <FILE>docs/en/latest/discovery/dns.md</FILE>
+        <FILE>docs/zh/latest/discovery/dns.md</FILE>
+        <FILE>t/discovery/dns/sanity.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat(DNS): allow specifying port to override the discovered one (#6764) It makes the workaround in https://github.com/apache/apisix/issues/6732#issuecomment-1082597439 work. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>be80f78f1946422fe4884fade1010acff01ee088</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/discovery/dns/init.lua</FILE>
+        <FILE>docs/en/latest/discovery/dns.md</FILE>
+        <FILE>docs/zh/latest/discovery/dns.md</FILE>
+        <FILE>t/discovery/dns/sanity.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat(DNS): allow specifying port to override the discovered one (#6764) It makes the workaround in https://github.com/apache/apisix/issues/6732#issuecomment-1082597439 work. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>aa27460be0c087cdb9576933544463944571e208</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/discovery/dns/init.lua</FILE>
+        <FILE>docs/en/latest/discovery/dns.md</FILE>
+        <FILE>docs/zh/latest/discovery/dns.md</FILE>
+        <FILE>t/discovery/dns/sanity.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121490</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121490</ISSUEURL>
+  <TITLE>[CI] MixedClusterEsqlSpecIT test {date.Implicit casting strings to dates for IN operator ASYNC} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7270 / 8.14.3_bwc](https://gradle-enterprise.elastic.co/s/6ft3i6crt6hdg) - [elasticsearch-pull-request #65114 / 8.15.5_bwc](https://gradle-enterprise.elastic.co/s/vlmpteeovzelm) - [elasticsearch-pull-request #65114 / 8.14.3_bwc](https://gradle-enterprise.elastic.co/s/r3qcwk2q6dawy) - [elasticsearch-periodic #7242 / 8.14.3_bwc](https://gradle-enterprise.elastic.co/s/ivwho4q7h6rgm) - [elasticsearch-periodic #7242 / 8.15.5_bwc](https://gradle-enterprise.elastic.co/s/nzldcqdnlm6um) - [elasticsearch-periodic #7228 / 8.15.5_bwc](https://gradle-enterprise.elastic.co/s/gwwrymzq5aeck) - [elasticsearch-periodic #7228 / 8.14.3_bwc](https://gradle-enterprise.elastic.co/s/vfhh52iznafws) - [elasticsearch-periodic #7221 / 8.14.3_bwc](https://gradle-enterprise.elastic.co/s/cu4tkuqld527e) - [elasticsearch-periodic #7214 / 8.14.3_bwc](https://gradle-enterprise.elastic.co/s/jdlbcslpcf44y) - [elasticsearch-periodic #7207 / 8.15.5_bwc](https://gradle-enterprise.elastic.co/s/wtzcwnm67yvoo) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:mixed-cluster:v8.14.3#javaRestTest&quot; -Dtests.class=&quot;org.elasticsearch.xpack.esql.qa.mixed.MixedClusterEsqlSpecIT&quot; -Dtests.method=&quot;test {date.Implicit casting strings to dates for IN operator ASYNC}&quot; -Dtests.seed=8A4606AD6DD5BF6D -Dtests.bwc=true -Dtests.locale=mua-CM -Dtests.timezone=Europe/Rome -Druntime.java=24 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.mixed.MixedClusterEsqlSpecIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Bdate.Implicit%20casting%20strings%20to%20dates%20for%20IN%20operator%20ASYNC%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected more data but no more entries found after [0] Data mismatch: Actual: emp_no:integer | first_name:keyword Expected: emp_no:integer | first_name:keyword 10006 | Anneke 10025 | Prasadram ``` **Issue Reasons:** - [8.x] 2 consecutive failures in step 8.14.3_bwc - [8.x] 10 failures in test test {date.Implicit casting strings to dates for IN operator ASYNC} (2.0% fail rate in 505 executions) - [8.x] 6 failures in step 8.14.3_bwc (54.5% fail rate in 11 executions) - [8.x] 4 failures in step 8.15.5_bwc (40.0% fail rate in 10 executions) - [8.x] 6 failures in pipeline elasticsearch-periodic (60.0% fail rate in 10 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>61</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.application.ModelRegistryUpgradeIT testUpgradeModels {upgradedNodes=0} #125549</MESSAGE>
+    <SHA>f2ced508c771f809736f276ef761457a76fa6661</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.mixed.MixedClusterEsqlSpecIT test {date.Implicit casting strings to dates for IN operator ASYNC} #121490</MESSAGE>
+      <SHA>aa4d8d0eeab63aa150946488d4a54929b1a3f6f9</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

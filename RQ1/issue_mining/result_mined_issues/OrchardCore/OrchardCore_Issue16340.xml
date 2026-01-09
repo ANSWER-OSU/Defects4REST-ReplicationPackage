@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16340</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/16340</ISSUEURL>
+  <TITLE>Target attribute on menus breaks HTML validation</TITLE>
+  <DESCRIPTION>### Describe the bug Since `target` attribute has been added to menu links (#15541) validation via `html-validate` fails. This is because if there is no target specified, it creates an empty attribute, like `&lt;a class=&quot;nav-link px-lg-3 py-3 py-lg-4&quot; href=&quot;/&quot; target=&quot;&quot;&gt;Home&lt;/a&gt;`. This is not valid. If there is no target specified, the attribute should be omitted. Note: [according to MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#target) the default is `target=&quot;_self&quot;` so falling back to that value is also acceptable when omitting the `target` attribute would be complicated. ### Orchard Core version Latest preview, at least TheBlogTheme package is affected. ### Expected behavior Menu should produce valid HTML. ### Logs and screenshots An example entry of the validation report: ```json { &quot;ruleId&quot;: &quot;attribute-allowed-values&quot;, &quot;severity&quot;: 2, &quot;message&quot;: &quot;Attribute \&quot;target\&quot; has invalid value \&quot;\&quot;&quot;, &quot;offset&quot;: 2331, &quot;line&quot;: 55, &quot;column&quot;: 6, &quot;size&quot;: 1, &quot;selector&quot;: &quot;#navbarResponsive &gt; ul &gt; li:nth-child(2) &gt; a&quot;, &quot;ruleUrl&quot;: &quot;https://html-validate.org/rules/attribute-allowed-values.html&quot;, &quot;context&quot;: { &quot;element&quot;: &quot;a&quot;, &quot;attribute&quot;: &quot;target&quot;, &quot;value&quot;: &quot;&quot;, &quot;allowed&quot;: { &quot;enum&quot;: [ {}, &quot;_blank&quot;, &quot;_self&quot;, &quot;_parent&quot;, &quot;_top&quot; ] } } } ```</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add serialisation compatibility of TimeSpan and DateTime (#16205) Co-authored-by: Mike Alhayek &lt;mike@crestapps.com&gt; Co-authored-by: Hisham Bin Ateya &lt;hishamco_2007@yahoo.com&gt;</MESSAGE>
+    <SHA>3d3f172dd99aa552caf7e7a21ce6ceea6a4c003f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix Target attribute on menus breaks HTML validation ，Fixes: #16340</MESSAGE>
+      <SHA>a2f0b26a2e3d36b0354df38b8a83d43da1c7e58d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Menu/Models/HtmlMenuItemPart.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Menu/Models/LinkMenuItemPart.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Menu/ViewModels/HtmlMenuItemPartEditViewModel.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Menu/ViewModels/LinkMenuItemPartEditViewModel.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Menu/Views/MenuItemLink-LinkMenuItem.cshtml</FILE>
+        <FILE>src/OrchardCore.Themes/TheAgencyTheme/Views/MenuItemLink-HtmlMenuItem.liquid</FILE>
+        <FILE>src/OrchardCore.Themes/TheAgencyTheme/Views/MenuItemLink-LinkMenuItem.liquid</FILE>
+        <FILE>src/OrchardCore.Themes/TheBlogTheme/Views/MenuItemLink-HtmlMenuItem.liquid</FILE>
+        <FILE>src/OrchardCore.Themes/TheBlogTheme/Views/MenuItemLink-LinkMenuItem.liquid</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Navigation.Core/MenuItem.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

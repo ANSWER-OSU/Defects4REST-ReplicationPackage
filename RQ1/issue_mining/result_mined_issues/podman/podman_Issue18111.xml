@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18111</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18111</ISSUEURL>
+  <TITLE>Podman relies in config on specific qemu version to start a machine</TITLE>
+  <DESCRIPTION>### Issue Description The config that is set up has this line: &quot;file=/opt/homebrew/Cellar/qemu/7.2.0/share/qemu/edk2-aarch64-code.fd,if=pflash,format=raw,readonly=on&quot;, However, my quemu has been updated to 7.2.1 and is therefore not available anymore. I manually updated the path, otherwise I wouldn't be able to start the machine. ### Steps to reproduce the issue Steps to reproduce the issue 1. install podman and init a new machine 2. update quemu to a different version 3. be unable to start machine because of different quemu versions ### Describe the results you received Can't start machine ### Describe the results you expected machine starts ### podman info output ```yaml ~ podman machine start Starting machine &quot;podman-machine-default&quot; Waiting for VM ... Error: qemu exited unexpectedly with exit code 1, stderr: qemu-system-aarch64: -drive file=/opt/homebrew/Cellar/qemu/7.2.0/share/qemu/edk2-aarch64-code.fd,if=pflash,format=raw,readonly=on: Could not open '/opt/homebrew/Cellar/qemu/7.2.0/share/qemu/edk2-aarch64-code.fd': No such file or directory ``` ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details M2 MacBook Air ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>16</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18257 from vrothberg/fix-18250 Makefile: do not prefix /etc</MESSAGE>
+    <SHA>3c536218856fea34ec7345b6c120544d24f72e2f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Revert &quot;Resolve symlink path for qemu directory if possible&quot; This reverts commit 6b6458916eaa51f0dbbcfeccd740706697697ad3 (Resolve symlink path for qemu directory if possible). Fully resolving the symlink to qemu solves some issues for aarch64-darwin nix with regards to finding `edk2-aarch64-code.fd`, but unfortunately the fully resolved path includes the version number, making it so that even patch updates break the path to homebrew-installed qemu files. Fixes https://github.com/containers/podman/issues/18111 [NO NEW TESTS NEEDED] Signed-off-by: Nathan Henrie &lt;nate@n8henrie.com&gt;</MESSAGE>
+      <SHA>6014f26c4744acc98a1e109e5e77eb2302fec6c9</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/machine/qemu/options_darwin_arm64.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Revert &quot;Resolve symlink path for qemu directory if possible&quot; This reverts commit 6b6458916eaa51f0dbbcfeccd740706697697ad3 (Resolve symlink path for qemu directory if possible). Fully resolving the symlink to qemu solves some issues for aarch64-darwin nix with regards to finding `edk2-aarch64-code.fd`, but unfortunately the fully resolved path includes the version number, making it so that even patch updates break the path to homebrew-installed qemu files. Fixes https://github.com/containers/podman/issues/18111 [NO NEW TESTS NEEDED] Signed-off-by: Nathan Henrie &lt;nate@n8henrie.com&gt;</MESSAGE>
+      <SHA>b1281ae46739d2f2d700e8844274c0964ef213ed</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/machine/qemu/options_darwin_arm64.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,193 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6010</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6010</ISSUEURL>
+  <TITLE>2097151k isn't enough for everyone (job event id overflow)</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY The primary key for `main_jobevent` (and other event tables) is an `int`, which can only handle _at most_ 2B+ events before overflowing: https://www.postgresql.org/docs/9.1/datatype-numeric.html ``` tower=# select max(id) from public.main_jobevent; max ------------ 2147483647 ``` ##### STEPS TO REPRODUCE Run very chatty playbooks very often across very many devices. ##### EXPECTED RESULTS ![cady-heron](https://media.giphy.com/media/4zQ5yigKckj5u/giphy.gif) ##### ACTUAL RESULTS ![pac-man-bug](https://media.giphy.com/media/DWtn59Up9b5GE/giphy.gif)</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>36</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #6022 from wenottingham/get-a-handle Tweak workflow error message for clarity Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>a42ff9865b7af9dd2f4e17d51f91524d5108de4b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>migrate event table primary keys from integer to bigint see: https://github.com/ansible/awx/issues/6010</MESSAGE>
+      <SHA>9ca6829b5a5a9218684045381fc03e7bee4d05cb</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0109_v370_event_bigint.py</FILE>
+        <FILE>awx/main/models/events.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>migrate event table primary keys from integer to bigint see: https://github.com/ansible/awx/issues/6010</MESSAGE>
+      <SHA>1af2a941410e07dc0d4bb6896c9be0530ff3fcd1</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0109_v370_event_bigint.py</FILE>
+        <FILE>awx/main/models/events.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>migrate event table primary keys from integer to bigint see: https://github.com/ansible/awx/issues/6010</MESSAGE>
+      <SHA>30ed67772482bdf6f6bf41e3aa4612aba404f1ca</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0109_v370_event_bigint.py</FILE>
+        <FILE>awx/main/models/__init__.py</FILE>
+        <FILE>awx/main/models/events.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>migrate event table primary keys from integer to bigint see: https://github.com/ansible/awx/issues/6010</MESSAGE>
+      <SHA>bcb050b2e8aa641909c9905a35b0a54930bc1ac1</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0109_v370_event_bigint.py</FILE>
+        <FILE>awx/main/models/__init__.py</FILE>
+        <FILE>awx/main/models/events.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>migrate event table primary keys from integer to bigint see: https://github.com/ansible/awx/issues/6010</MESSAGE>
+      <SHA>8d9f708b0baeee68cbbe43ed875238befd7279c8</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0109_v370_event_bigint.py</FILE>
+        <FILE>awx/main/models/__init__.py</FILE>
+        <FILE>awx/main/models/events.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>migrate event table primary keys from integer to bigint see: https://github.com/ansible/awx/issues/6010</MESSAGE>
+      <SHA>3ed232a9a9b9f331fc45d79ac38923dc367208aa</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0109_v370_event_bigint.py</FILE>
+        <FILE>awx/main/models/__init__.py</FILE>
+        <FILE>awx/main/models/events.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>migrate event table primary keys from integer to bigint see: https://github.com/ansible/awx/issues/6010</MESSAGE>
+      <SHA>74744fb2fcfd8fe7db2c78dcd49fec366a0b895f</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0109_v370_event_bigint.py</FILE>
+        <FILE>awx/main/models/__init__.py</FILE>
+        <FILE>awx/main/models/events.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>migrate event table primary keys from integer to bigint see: https://github.com/ansible/awx/issues/6010</MESSAGE>
+      <SHA>06d746842c6ac72020f059f38c77c739a44ebb6e</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0109_v370_event_bigint.py</FILE>
+        <FILE>awx/main/models/__init__.py</FILE>
+        <FILE>awx/main/models/events.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>migrate event table primary keys from integer to bigint see: https://github.com/ansible/awx/issues/6010</MESSAGE>
+      <SHA>4e601f68f77d084f82ba3833bb48edce535e3667</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0109_v370_event_bigint.py</FILE>
+        <FILE>awx/main/models/__init__.py</FILE>
+        <FILE>awx/main/models/events.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>migrate event table primary keys from integer to bigint see: https://github.com/ansible/awx/issues/6010</MESSAGE>
+      <SHA>f0aeb3f51dc31ddb8358741f00d1a47cb7127169</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0109_v370_event_bigint.py</FILE>
+        <FILE>awx/main/models/__init__.py</FILE>
+        <FILE>awx/main/models/events.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>migrate event table primary keys from integer to bigint see: https://github.com/ansible/awx/issues/6010</MESSAGE>
+      <SHA>44e3b3c9c3fda70d3dfd0f582cb3afa070078a34</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0109_v370_event_bigint.py</FILE>
+        <FILE>awx/main/models/__init__.py</FILE>
+        <FILE>awx/main/models/events.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>migrate event table primary keys from integer to bigint see: https://github.com/ansible/awx/issues/6010</MESSAGE>
+      <SHA>451b4c1aa1edaa91acb64bed6f8226886dcf0226</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0109_v370_event_bigint.py</FILE>
+        <FILE>awx/main/models/__init__.py</FILE>
+        <FILE>awx/main/models/events.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>migrate event table primary keys from integer to bigint see: https://github.com/ansible/awx/issues/6010</MESSAGE>
+      <SHA>a79592b500c9b6cac87f03de1213bbd41321f971</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0109_v370_event_bigint.py</FILE>
+        <FILE>awx/main/models/__init__.py</FILE>
+        <FILE>awx/main/models/events.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>migrate event table primary keys from integer to bigint see: https://github.com/ansible/awx/issues/6010</MESSAGE>
+      <SHA>122072ae9ca22bb56b3c74f034fdb4cbc2a823ca</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0109_v370_event_bigint.py</FILE>
+        <FILE>awx/main/models/__init__.py</FILE>
+        <FILE>awx/main/models/events.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>migrate event table primary keys from integer to bigint see: https://github.com/ansible/awx/issues/6010</MESSAGE>
+      <SHA>28a98abb02f698b7173cd33d79d4953c48393758</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0109_v370_event_bigint.py</FILE>
+        <FILE>awx/main/models/__init__.py</FILE>
+        <FILE>awx/main/models/events.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>migrate event table primary keys from integer to bigint see: https://github.com/ansible/awx/issues/6010</MESSAGE>
+      <SHA>75e5bacdf086d61fb87fa48e55b874ce0a226d2f</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0109_v370_event_bigint.py</FILE>
+        <FILE>awx/main/models/__init__.py</FILE>
+        <FILE>awx/main/models/events.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>migrate event table primary keys from integer to bigint see: https://github.com/ansible/awx/issues/6010</MESSAGE>
+      <SHA>40239e79ea3ae6c7f069f934ca3f5271be8cc40b</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0109_v370_event_bigint.py</FILE>
+        <FILE>awx/main/models/__init__.py</FILE>
+        <FILE>awx/main/models/events.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>migrate event table primary keys from integer to bigint see: https://github.com/ansible/awx/issues/6010</MESSAGE>
+      <SHA>a0a6f11fbd9cc4f6ad034745ab0e450688275ad0</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0109_v370_event_bigint.py</FILE>
+        <FILE>awx/main/models/__init__.py</FILE>
+        <FILE>awx/main/models/events.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

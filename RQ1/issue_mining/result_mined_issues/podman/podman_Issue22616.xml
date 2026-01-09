@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>22616</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/22616</ISSUEURL>
+  <TITLE>podman-remote volume rm ambiguous-name: unmarshalling error</TITLE>
+  <DESCRIPTION>```console $ bin/podman-remote volume create myvol1 myvol1 $ bin/podman-remote volume create myvol2 myvol2 $ bin/podman-remote volume rm myv Error: unmarshalling error into &amp;errorhandling.ErrorModel{Because:&quot;&quot;, Message:&quot;&quot;, ResponseCode:0}, data &quot;{\&quot;cause\&quot;:\&quot;volume already exists\&quot;,\&quot;message\&quot;:\&quot;more than one result for volume name myv: volume already exists\&quot;,\&quot;response\&quot;:500}\n{\&quot;cause\&quot;:\&quot;volume already exists\&quot;,\&quot;message\&quot;:\&quot;more than one result for volume name myv: volume already exists\&quot;,\&quot;response\&quot;:404}\n&quot;: invalid character '{' after top-level value ```</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #22691 from nalind/events-bad-filters `podman events`: check for an error after we finish reading events</MESSAGE>
+    <SHA>759e5462173a36a4a6fd9927a18f601b8aa88653</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Return StatusNotFound when multiple volumes matching occurs Fixes #22616 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>6408a05927e763b1ca02a8c46f0b4049734efac3</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/utils/errors.go</FILE>
+        <FILE>test/e2e/volume_rm_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

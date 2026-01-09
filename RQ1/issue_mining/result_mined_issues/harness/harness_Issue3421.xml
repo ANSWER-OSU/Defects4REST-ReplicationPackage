@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3421</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/3421</ISSUEURL>
+  <TITLE>Cloudflare Pages deploy issue</TITLE>
+  <DESCRIPTION>When adding the cloudflare-pages plugin to a build pipeline, an error occurs upon execution. Take the basic pipeline: ```version: 1 kind: pipeline spec: stages: - name: build type: ci spec: steps: - type: plugin spec: name: cloudflare-pages inputs: branch: deploy cloudflare_account_id: ${{ secrets.get(&quot;CLOUDFLARE_ACCOUNT_ID&quot;) }} cloudflare_api_token: ${{ secrets.get(&quot;CLOUDFLARE_API_TOKEN&quot;) }} path: public/ project_name: pname ``` I get the following error in the WebUI when trying to run the pipeline: ``` Error response from daemon: manifest for mgzamharness/cf-pages-drone-plugin:latest not found: manifest unknown: manifest unknown ``` Checking out that image on DockerHub, there is no ```latest``` tag: https://hub.docker.com/r/mgzamharness/cf-pages-drone-plugin/tags</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>435</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [CDE-609]: add log key to gitspaceConfig (#3419) * add log key</MESSAGE>
+    <SHA>0e372cc7ec465e557cd6a149df4d28deee27bcfc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>chore: [CODE-3148]: remove repo git info cache (#3421) * remove repo git info cache</MESSAGE>
+      <SHA>a4a05b628114ef4cda4c1b448f86e99d350fccda</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/controller/githook/post_receive.go</FILE>
+        <FILE>app/services/pullreq/handlers_branch.go</FILE>
+        <FILE>app/services/pullreq/handlers_code_comments.go</FILE>
+        <FILE>app/services/pullreq/handlers_file_viewed.go</FILE>
+        <FILE>app/services/pullreq/handlers_head_ref.go</FILE>
+        <FILE>app/services/pullreq/handlers_mergeable.go</FILE>
+        <FILE>app/services/pullreq/service.go</FILE>
+        <FILE>app/services/pullreq/service_list.go</FILE>
+        <FILE>app/services/pullreq/wire.go</FILE>
+        <FILE>app/store/cache.go</FILE>
+        <FILE>app/store/cache/wire.go</FILE>
+        <FILE>app/store/database.go</FILE>
+        <FILE>app/store/database/repo_git_info.go</FILE>
+        <FILE>app/store/database/wire.go</FILE>
+        <FILE>cmd/gitness/wire_gen.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

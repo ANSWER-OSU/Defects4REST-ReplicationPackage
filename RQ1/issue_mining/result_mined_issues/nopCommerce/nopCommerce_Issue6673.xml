@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6673</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6673</ISSUEURL>
+  <TITLE>Wrong token name for VatValidationResult in WorkflowMessageService.cs</TITLE>
+  <DESCRIPTION>**nopCommerce version:** 4.60.2 **Steps to reproduce the problem:** In Tax Settings, check &quot;EU VAT enabled&quot;, check &quot;Notify admin when new VAT number is submitted&quot;. In Content management, make sure template &quot;NewVATSubmitted.StoreOwnerNotification&quot; is active. Register a new customer with a valid EU VAT. An email is sent to the store owner, however the validated Name and Address from the VAT validation webservice are missing, and only showing the replacement token name. ![image](https://user-images.githubusercontent.com/33549355/231724186-96778fd2-888b-4775-b3ae-481b7beff454.png) **How to fix the problem:** In Nop.Services-&gt;WorkflowMessageService.cs lines 2246 and 2247 change &quot;VatValidatio&quot; to &quot;VatValidationResult&quot;. VatValidationResult is the actual name of the token in message template &quot;NewVATSubmitted.StoreOwnerNotification&quot;. ![image](https://user-images.githubusercontent.com/33549355/231722214-5660b435-300b-4b0b-9412-ea72e6d9be21.png)</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6677 Fixed problem with product attribute deletion</MESSAGE>
+    <SHA>280e128acabc85fd765dce8daeac0b78f97dc118</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6673 Fixed token name for VatValidationResult in WorkflowMessageService.cs</MESSAGE>
+      <SHA>30f6c72935438b8dc41437dc041f97c4eecf5f7d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Messages/WorkflowMessageService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6673 Fixed token name for VatValidationResult in WorkflowMessageService.cs</MESSAGE>
+      <SHA>1883f40dd3cd2d9b0f037207428154c80798eb34</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Messages/WorkflowMessageService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

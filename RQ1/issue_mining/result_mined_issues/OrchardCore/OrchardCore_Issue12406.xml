@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>12406</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/12406</ISSUEURL>
+  <TITLE>When the roles feature is disable the site breaks</TITLE>
+  <DESCRIPTION>### Describe the bug If the user disable the roles module the site crashes because the Users needs the following services to work - IRoleService - RoleManager&lt;IRole&gt; - IRoleStore&lt;IRole&gt; ### To Reproduce Steps to reproduce the behavior: 1. Disable the Roles module ### Expected behavior No exception when disabling the roles module. There are 2 possible fixes here. 1. In the users module add `OrchardCore.Roles` to the dependency list. But this would force the user to use the roles modules to be able to authenticate users in OC. 2. Add the following services to the Users startup file ``` services.TryAddScoped&lt;IRoleService, RoleService&gt;(); services.TryAddScoped&lt;RoleManager&lt;IRole&gt;&gt;(); services.TryAddScoped&lt;IRoleStore&lt;IRole&gt;, RoleStore&gt;(); ``` But to do we have to move `RolesDocument`, `RoleService` and `RoleStore` from `OrchardCore.Roles` to `OrchardCore.Roles.Core` which I believe where they should live anyway.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>116</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Simplify AssignUserToRole and ManageUsersInRole_</MESSAGE>
+    <SHA>ea0e953839d923f4ccacf44aa5cacb203aeb176c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Unfixing #12406</MESSAGE>
+      <SHA>2311bacf137fe2a869c00ee3cbc1dcfa578c5bbf</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Roles/Models/RolesDocument.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Roles/Services/RoleService.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Roles/Services/RoleStore.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Users/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Users/Views/UserName.Edit.cshtml</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Roles.Core/OrchardCore.Roles.Core.csproj</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Prevent Users feature from breaking when Roles feature is disabled. Fix #12406</MESSAGE>
+      <SHA>bec9e08ea1d11f53432b61e3241474745b9c110d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Users/Startup.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Roles.Core/Models/RolesDocument.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Roles.Core/OrchardCore.Roles.Core.csproj</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Roles.Core/Services/RoleService.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Roles.Core/Services/RoleStore.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

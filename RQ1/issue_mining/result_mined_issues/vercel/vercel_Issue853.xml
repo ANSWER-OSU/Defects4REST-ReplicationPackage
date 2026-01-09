@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>853</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/853</ISSUEURL>
+  <TITLE>now switch no longer accepts token</TITLE>
+  <DESCRIPTION>Since Now 8, it seems I cannot `now switch` to a team from a script, because `--token` is no longer respected. I love the fact that `--team` was introduced but it is annoying and less maintainable to have to specify `--team` with every single command in the script (e.g. if our team name changes, more chance for mistakes). As far as I can tell, this shouldn't be necessary. I consider this a regression, personally, unless I am missing something. Let's keep it DRY. ## Before Now 7.4.0: ```console $ now switch my-team --token=$ZEIT_TOKEN &gt; Success! The team My Team is now active! ``` ## After Now 8.3.0: ```console $ now switch my-team --token=$ZEIT_TOKEN; &gt; Error! This command doesn't work with &quot;--token&quot;. Please use &quot;--team&quot;. ```</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[build-utils] Experimental flag to allow nodejs18.x (#8836) Add a new experimental flag to allow `nodejs18.x`</MESSAGE>
+    <SHA>d42a8a658893398e3b55157cec5c17fb105edfdb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[next] Prepend basePath to edge function destination (#8835) For Next.js apps, a custom `basePath` in the `next.config.js` file was being prepended to all paths except edge functions of which this PR resolves. ### Related Issues &gt; Fixes [#853](https://github.com/vercel/customer-issues/issues/853) ### Checklist &lt;!-- Please keep your PR as a Draft until the checklist is complete --&gt; #### Tests - [x] The code changed/added as part of this PR has been covered with tests - [x] All tests pass locally with `yarn test-unit` #### Code Review - [ ] This PR has a concise title and thorough description useful to a reviewer - [ ] Issue from task tracker has a link to this PR</MESSAGE>
+      <SHA>bcb8d4f8124beb279239fc295f2a977dc3015e4d</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/next/src/utils.ts</FILE>
+        <FILE>packages/next/test/unit/fixtures/02-edge-function-basepath/index.test.js</FILE>
+        <FILE>packages/next/test/unit/fixtures/02-edge-function-basepath/next-env.d.ts</FILE>
+        <FILE>packages/next/test/unit/fixtures/02-edge-function-basepath/next.config.js</FILE>
+        <FILE>packages/next/test/unit/fixtures/02-edge-function-basepath/package.json</FILE>
+        <FILE>packages/next/test/unit/fixtures/02-edge-function-basepath/pages/api/hello.ts</FILE>
+        <FILE>packages/next/test/unit/fixtures/02-edge-function-basepath/pages/index.tsx</FILE>
+        <FILE>packages/next/test/unit/fixtures/02-edge-function-basepath/tsconfig.json</FILE>
+        <FILE>packages/next/test/unit/fixtures/02-edge-function-basepath/yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

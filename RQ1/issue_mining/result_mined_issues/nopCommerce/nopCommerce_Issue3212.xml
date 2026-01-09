@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3212</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3212</ISSUEURL>
+  <TITLE>UrlRecord not unique (sample data during installation)</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.10 Steps to reproduce the problem: There is a problem with UrlRecord. If I enter in sql management studio: &quot;select count(*), Slug from urlrecord group by Slug, LanguageId order by 1&quot; for the demo database, I get a sorted list and at the end are a lot of duplicate entries. Maybe I didn't understand everything very well, but overall only one identical slug-entry per language is allowed. ![urlrecord](https://user-images.githubusercontent.com/37210350/43687986-ea070492-98e0-11e8-950c-6096465f0892.jpg) But there are 10x &quot;apparel&quot;, where one EntityName='Category', the remaining 9 are from the category'ProductTag'. There seems to be a problem here, on the one hand these ProductTag were created several times, on the other hand there is an overlap with Category.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>29</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#3237 Fixed preselected value of produxt attribytes combinations in edit window</MESSAGE>
+    <SHA>96daf7d38eed86250fa9faac636cc3ade02e5b10</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3212 Fixed duplicate entries in UrlRecord table</MESSAGE>
+      <SHA>1d8fa43dffd328118ece3458bc9f4e7efb26fb68</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Installation/CodeFirstInstallationService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3212 search engine friendly names were not unique (sample data during installation)</MESSAGE>
+      <SHA>ecd610eb292b4994f10553a29cfb60915aa9aa3f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Installation/CodeFirstInstallationService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2480</ISSUENO>
+  <ISSUEURL>https://github.com/louislam/uptime-kuma/issues/2480</ISSUEURL>
+  <TITLE>gRPC check throws errors</TITLE>
+  <DESCRIPTION>### ⚠️ Please verify that this bug has NOT been raised before. - [X] I checked and didn't find similar issue ### ️ Security Policy - [X] I agree to have read this project [Security Policy](https://github.com/louislam/uptime-kuma/security/policy) ### Description The gRPC check fails but i get the expected output in bloomrpc. ### Reproduction steps URL: `routing.ot-hosting.de:443` Keyword: `version` Enable TLS: :heavy_check_mark: Proto Service Name: ``` service.v1.RoutingService ``` Proto Method: ``` Info ``` Proto Content: ```proto syntax = &quot;proto3&quot;; package service.v1; message Envelope { double min_longitude = 1; double max_longitude = 2; double min_latitude = 3; double max_latitude = 4; } message InfoRequest { } message InfoResponse { string version = 1; string gh_version = 2; int64 data_timestamp = 3; Envelope bounding_box = 4; map&lt;string,string&gt; configuration = 5; } service RoutingService { rpc Info (InfoRequest) returns (InfoResponse); } ``` Body: ``` {} ``` ### Expected behavior ![image](https://user-images.githubusercontent.com/22315436/209657257-93235079-89ad-4f75-b799-4b02078c5a1c.png) ### Actual Behavior Depending on the case of the method `Info`/`info` i get the following errors: ``` WARN: Monitor #67 'routing': Failing: response.substring is not a function | Interval: 60 seconds | Type: grpc-keyword | Down Count: 0 | Resend Interval: 0 ``` ``` WARN: Monitor #67 'routing': Failing: grpcService[grpcMethod] is not a function | Interval: 60 seconds | Type: grpc-keyword | Down Count: 0 | Resend Interval: 0 ``` ### Uptime-Kuma Version 1.19.2 ### Operating System and Arch Ubuntu 22.04 ### Browser Firefox ### Docker Version 20.10.22 ### NodeJS Version _No response_ ### Relevant log output _No response_</DESCRIPTION>
+  <REPONAME>uptime-kuma</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update SECURITY.md</MESSAGE>
+    <SHA>8c684e92936b5860139b09e50917d55c0b041891</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: #2480</MESSAGE>
+      <SHA>4147a4c4040512670be065f9ad29b94d511b7248</SHA>
+      <PATCHEDFILES>
+        <FILE>server/model/monitor.js</FILE>
+        <FILE>server/server.js</FILE>
+        <FILE>server/util-server.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

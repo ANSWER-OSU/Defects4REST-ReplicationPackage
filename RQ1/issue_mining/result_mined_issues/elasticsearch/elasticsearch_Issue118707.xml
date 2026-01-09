@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118707</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118707</ISSUEURL>
+  <TITLE>[CI] PhysicalPlanOptimizerTests testVerifierOnMissingReferencesWithBinaryPlans {default} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5404 / release-tests](https://gradle-enterprise.elastic.co/s/ubwh6aotuscu2) - [elasticsearch-periodic #5399 / release-tests](https://gradle-enterprise.elastic.co/s/wzjt3kfgngygy) - [elasticsearch-periodic #5394 / release-tests](https://gradle-enterprise.elastic.co/s/nvmeu5n6vlywe) - [elasticsearch-periodic #5389 / release-tests](https://gradle-enterprise.elastic.co/s/sdkbeuipmxshi) - [elasticsearch-periodic #5384 / release-tests](https://gradle-enterprise.elastic.co/s/zhu7uj2xbamcg) - [elasticsearch-periodic #5379 / release-tests](https://gradle-enterprise.elastic.co/s/zevswelfzb3iw) - [elasticsearch-periodic #5374 / release-tests](https://gradle-enterprise.elastic.co/s/f3gdwa22kpxgy) - [elasticsearch-periodic #5369 / release-tests](https://gradle-enterprise.elastic.co/s/3hnx53xnq6tya) - [elasticsearch-periodic #5364 / release-tests](https://gradle-enterprise.elastic.co/s/ibcyencayyjc6) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:test&quot; --tests &quot;org.elasticsearch.xpack.esql.optimizer.PhysicalPlanOptimizerTests.testVerifierOnMissingReferencesWithBinaryPlans {default}&quot; -Dtests.seed=A84415800A7C81F8 -Dbuild.snapshot=false -Dtests.jvm.argline=&quot;-Dbuild.snapshot=false&quot; -Dlicense.key=x-pack/license-tools/src/test/resources/public.key -Dtests.locale=kab -Dtests.timezone=Australia/Brisbane -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.optimizer.PhysicalPlanOptimizerTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testVerifierOnMissingReferencesWithBinaryPlans%20%7Bdefault%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.xpack.esql.parser.ParsingException: line 4:3: mismatched input 'LOOKUP' expecting {'dissect', 'drop', 'enrich', 'eval', 'grok', 'keep', 'limit', 'mv_expand', 'rename', 'sort', 'stats', 'where'} ``` **Issue Reasons:** - [main] 9 consecutive failures in step release-tests - [main] 9 failures in test testVerifierOnMissingReferencesWithBinaryPlans {default} (3.1% fail rate in 294 executions) - [main] 9 failures in step release-tests (100.0% fail rate in 9 executions) - [main] 9 failures in pipeline elasticsearch-periodic (100.0% fail rate in 9 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add ReindexDatastreamIndexAction (#116996) (#118703) Add an action to reindex a single index from a source index to a destination index. Unlike the reindex action, this action copies settings and mappings from the source index to the dest index before performing the reindex. This action is part of work to reindex data streams and will be called on each of the backing indices within a data stream. (cherry picked from commit 0a6ce27825d15a7e8294a99ee1aca52eb05f8ae0)</MESSAGE>
+    <SHA>7954d9119d30dde4a7215f1ed8d5cf0f1b16eea0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.optimizer.PhysicalPlanOptimizerTests testVerifierOnMissingReferencesWithBinaryPlans {default} #118707</MESSAGE>
+      <SHA>d68d355e9ce2050cb68c767d40b98cab8eb5e17e</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Disable test on release builds (#118752) Fix https://github.com/elastic/elasticsearch/issues/118707 I plan to manually backport this to un-mute the test on 8.x.</MESSAGE>
+      <SHA>df01f8124dd26cb545fd1f797fd48bf492a306e3</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/src/test/java/org/elasticsearch/xpack/esql/optimizer/PhysicalPlanOptimizerTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.optimizer.PhysicalPlanOptimizerTests testVerifierOnMissingReferencesWithBinaryPlans {default} #118707</MESSAGE>
+      <SHA>eea6da5f9a14a49d2ad5356089107c8c0998f44f</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

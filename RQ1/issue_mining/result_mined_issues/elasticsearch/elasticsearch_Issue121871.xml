@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121871</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121871</ISSUEURL>
+  <TITLE>[CI] NoSecurityManagerTests testPrepopulateSecurityCaller failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6321 / openjdk24_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/ugdu5yhetykuu) - [elasticsearch-periodic #6314 / openjdk24_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/onqxomtzadmuu) - [elasticsearch-periodic #6307 / openjdk24_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/o5deishzcppbq) - [elasticsearch-periodic #6300 / openjdk24_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/lrhq2cllc6xsq) - [elasticsearch-periodic #6293 / openjdk24_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/h75prbvbxfdz6) - [elasticsearch-periodic #6279 / openjdk24_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/uzxuupok7f2su) - [elasticsearch-periodic #6272 / openjdk24_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/5t3wp3ne2rzom) - [elasticsearch-periodic #6251 / openjdk24_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/2lcpjsgt7vc56) - [elasticsearch-periodic #6237 / openjdk24_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/jjkukr4usxm3y) - [elasticsearch-periodic #6223 / openjdk24_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/qqwas4uxlb2b4) **Reproduction Line:** ``` null ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.bootstrap.NoSecurityManagerTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testPrepopulateSecurityCaller),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: is &lt;true&gt; but: was &lt;false&gt; ``` **Issue Reasons:** - [main] 11 consecutive failures in test testPrepopulateSecurityCaller - [main] 11 consecutive failures in step openjdk24_checkpart1_java-matrix - [main] 11 consecutive failures in pipeline elasticsearch-periodic - [main] 11 failures in test testPrepopulateSecurityCaller (100.0% fail rate in 11 executions) - [main] 11 failures in step openjdk24_checkpart1_java-matrix (100.0% fail rate in 11 executions) - [main] 11 failures in pipeline elasticsearch-periodic (100.0% fail rate in 11 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add a parameter to describe the lambda in a transformedMatch matcher (#122013)</MESSAGE>
+    <SHA>3ed5f73600764a919cef7516c2e398c46ca59541</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Skip security manager hack test on jdk 24+ This test only makes sense when security manager is actually available. This commit skips the test otherwise. closes #121871</MESSAGE>
+      <SHA>5e29fae658e6bc9f742ac7db11b623b1ee736fef</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/test/java/org/elasticsearch/bootstrap/NoSecurityManagerTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Skip security manager hack test on jdk 24+ (#122070) This test only makes sense when security manager is actually available. This commit skips the test otherwise. closes #121871</MESSAGE>
+      <SHA>57c2a7ef4d9d94e2218c939769bb69984d0c11be</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/test/java/org/elasticsearch/bootstrap/NoSecurityManagerTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Skip security manager hack test on jdk 24+ (#122070) This test only makes sense when security manager is actually available. This commit skips the test otherwise. closes #121871 (cherry picked from commit 57c2a7ef4d9d94e2218c939769bb69984d0c11be)</MESSAGE>
+      <SHA>26678dfef34c5f6cfa7b02e31e122ddbb5072f2c</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/test/java/org/elasticsearch/bootstrap/NoSecurityManagerTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Skip security manager hack test on jdk 24+ (#122070) This test only makes sense when security manager is actually available. This commit skips the test otherwise. closes #121871 (cherry picked from commit 57c2a7ef4d9d94e2218c939769bb69984d0c11be)</MESSAGE>
+      <SHA>457bd0f36be535c1113ab2a0f93c354459770c01</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/test/java/org/elasticsearch/bootstrap/NoSecurityManagerTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Skip security manager hack test on jdk 24+ (#122070) This test only makes sense when security manager is actually available. This commit skips the test otherwise. closes #121871 (cherry picked from commit 57c2a7ef4d9d94e2218c939769bb69984d0c11be)</MESSAGE>
+      <SHA>fd1bc7bfdd247bad9e1d428a352b0a094fa6e543</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/test/java/org/elasticsearch/bootstrap/NoSecurityManagerTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Skip security manager hack test on jdk 24+ (#122070) (#123464) This test only makes sense when security manager is actually available. This commit skips the test otherwise. closes #121871 (cherry picked from commit 57c2a7ef4d9d94e2218c939769bb69984d0c11be) Co-authored-by: Ryan Ernst &lt;ryan@iernst.net&gt;</MESSAGE>
+      <SHA>82af7738ab646d58c1303b993db04e0284d7338e</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/test/java/org/elasticsearch/bootstrap/NoSecurityManagerTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Skip security manager hack test on jdk 24+ (#122070) (#123465) This test only makes sense when security manager is actually available. This commit skips the test otherwise. closes #121871 (cherry picked from commit 57c2a7ef4d9d94e2218c939769bb69984d0c11be) Co-authored-by: Ryan Ernst &lt;ryan@iernst.net&gt;</MESSAGE>
+      <SHA>8bd3fd892d8a41b4aebc6fd156d43bca3758ae6d</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/test/java/org/elasticsearch/bootstrap/NoSecurityManagerTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Skip security manager hack test on jdk 24+ (#122070) (#123466) This test only makes sense when security manager is actually available. This commit skips the test otherwise. closes #121871 (cherry picked from commit 57c2a7ef4d9d94e2218c939769bb69984d0c11be) Co-authored-by: Ryan Ernst &lt;ryan@iernst.net&gt;</MESSAGE>
+      <SHA>d684a2c57d7d9a74a59790d2f8d799734c6c6a57</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/test/java/org/elasticsearch/bootstrap/NoSecurityManagerTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19041</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/19041</ISSUEURL>
+  <TITLE>IndexError: list index out of range when adding a new front port with a label</TITLE>
+  <DESCRIPTION>### Deployment Type Self-hosted ### NetBox Version v4.2.6 ### Python Version 3.10 ### Steps to Reproduce When attempting to add a new front port on a device and providing a label, an `IndexError` occurs. ## Steps to Reproduce: 1. Go to Device. 2. Add 'Add a new front port'. 3. Select Device. 4. Give name [0-9]. 5. Give Label. 6. Assign Type. 7. Assign Rear Port. ### Expected Behavior To see the range of ports created successfully. ### Observed Behavior Get error: ``` Server Error There was a problem with your request. Please contact an administrator. The complete exception is provided below: &lt;class 'IndexError'&gt; list index out of range Python version: 3.10.12 NetBox version: 4.2.6 Plugins: None installed ``` **Please note that the issue only occurs, when a label is assigned in the process. Without a label it works fine.**</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update source translation strings</MESSAGE>
+    <SHA>bbd5e9cab9d1342c501c5e1e05fef10a9112e50f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix(forms): Call super().clean() in clean methods Adds a call to super().clean() in the clean methods of object creation forms. This ensures base class validation logic is executed properly before custom logic is applied. Fixes #19041</MESSAGE>
+      <SHA>e74d48722b55855888ee13720fdec800d24da0ac</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/dcim/forms/object_create.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>test(forms): Add tests for front port form validation Introduces unit tests for validating FrontPortCreateForm behavior. Tests include scenarios for matching and mismatched name-label pairs to ensure proper form validation logic. Fixes #19041</MESSAGE>
+      <SHA>9564f64b6210109a1a86a55986b3acd2da72cea5</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/dcim/tests/test_forms.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #19041: Call super().clean() in FrontPortCreateForm (#19051) * fix(forms): Call super().clean() in clean methods Adds a call to super().clean() in the clean methods of object creation forms. This ensures base class validation logic is executed properly before custom logic is applied. Fixes #19041 * test(forms): Add tests for front port form validation Introduces unit tests for validating FrontPortCreateForm behavior. Tests include scenarios for matching and mismatched name-label pairs to ensure proper form validation logic. Fixes #19041 * Omit errant print statement --------- Co-authored-by: Jeremy Stretch &lt;jstretch@netboxlabs.com&gt;</MESSAGE>
+      <SHA>f17bbe610eda143dad3a07499981fd120199eb14</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/dcim/forms/object_create.py</FILE>
+        <FILE>netbox/dcim/tests/test_forms.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>91</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/91</ISSUEURL>
+  <TITLE>Google analytics plugin. Reverse an ecommerce transaction. And we could skip &quot;placed&quot; orders with redirection payment method used</TITLE>
+  <DESCRIPTION>We should be sure that it won't slow down the site. And it can property handle exceptions (e.g. DNS issues). Also add a setting indicating whether we should use this new logic And when done we don't need js ecommerce anymore The first issue. Google Analytics Plugin should reverse transactions when an order is cancelled. Source: http://www.nopcommerce.com/boards/t/34266/google-analytics-plugin-reverse-an-ecommerce-transaction.aspx The second issue. User completes the checkout is using Paypal Standard plugin. It works in such a way that user is presented with &quot;Confirm&quot; button that takes them to the Paypal website. When Confirm buttton is pressed the user is redirected (via POST) to PayPal. Order placed page (which includes google analytics e-commerce tracking) is NOT shown and transaction is not recorded. User completes the payment but because the paypal requires two explicit actions for user to return to the store, this very often doesn't happen. User just closes the browser while on paypal page and transaction never gets recorded. In my store this is what happens maybe 50% of the time. RESULT: About 50% of paypal transactions are not recorded which makes making any meaningful marketing decisions very difficult. Forum source: http://www.nopcommerce.com/boards/t/23138/google-analytics-not-recording-significant-numer-of-e-commerce-transactions.aspx</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>607</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Minor formatting issue fixed (with inputs) in Google Analytics plugin</MESSAGE>
+    <SHA>15ff6ae27bfd2ab387695eb89dabdea61b603f69</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#91 Google analytics plugin. Reverse an ecommerce transaction. And process only already paid orders (not just placed)</MESSAGE>
+      <SHA>4c6445eae006fa3fb960ef3f5211976ec1905c86</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Api/GoogleRequest.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Api/Helpers.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Api/Transaction.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Api/TransactionItem.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Components/WidgetsGoogleAnalyticsViewComponent.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Controllers/WidgetsGoogleAnalyticsController.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Description.txt</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Events.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/GoogleAnalyticPlugin.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/GoogleAnalyticsSettings.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Models/ConfigurationModel.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Views/Configure.cshtml</FILE>
+        <FILE>upgradescripts/3.90-4.00 (under development)/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#91 Added support of the async requests in GoogleAnalytics plugin</MESSAGE>
+      <SHA>6dcbab1597ab2383173a43054ee2231e0d72a5ff</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Api/GoogleRequest.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Nop.Plugin.Widgets.GoogleAnalytics.csproj</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

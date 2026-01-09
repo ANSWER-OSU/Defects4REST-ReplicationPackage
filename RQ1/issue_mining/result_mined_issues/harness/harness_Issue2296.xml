@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2296</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2296</ISSUEURL>
+  <TITLE>In drone got an error “/bin/sh: 1: base64: not found ”.</TITLE>
+  <DESCRIPTION>**My .drone.yml file as follows code .** ``` branches: include: [ master, dev ] exclude: [ develop, feature/* ] clone: git: image: plugins/git depth: 50 workspace: base: /go path: src/xink.com/metis pipeline: build: when: branch: master image: golang:alpine volumes: - /var/run/docker.sock:/var/run/docker.sock # - /usr/bin/base64:/bin/base64 environment: - CGO=0 - GOOS=linux - GOARCH=amd64 - PATH=$PATH:/go - GOPATH=/go commands: - go env - go build -v -o metis ``` ![tim 20180110105337](https://user-images.githubusercontent.com/18027793/34759158-27e78530-f615-11e7-9d47-812de0b7a5c2.png) **When push code the Drone start pipeline build step. I try &quot; /usr/bin/base64:/bin/base64 &quot; by volumes but got &quot; standard_init_linux.go:195: exec user process caused 'no such file or directory' &quot; .** ![tim 20180110144744](https://user-images.githubusercontent.com/18027793/34759175-3c58dcc6-f615-11e7-9e27-43244dd31a04.png) _**I make file as follows code got successful status.**_ ``` branches: include: [ master, dev ] exclude: [ develop, feature/* ] clone: git: image: plugins/git depth: 50 workspace: base: /go path: src/xink.com/metis pipeline: build: when: branch: master image: golang:alpine commands: go build -v -o metis ``` ![tim 333](https://user-images.githubusercontent.com/18027793/34759231-6e9c23b4-f615-11e7-8146-d2d2f19586d8.png) **So ， I think this should be a bug in resolve .drone.yml at &quot;environment&quot;,&quot;commands&quot;,&quot;volumes&quot; node with multiple parameters or my .drone.yml configuration file is wrong ？**</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add restricted by query label count when using query and sanitize empty label (value) text (#2335) * Add restricted by query label count when using query and sanitize empty label (value) text</MESSAGE>
+    <SHA>f392fb1015e264395a9a73b074a926372d51d2f9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add pullreq label activities (#2296) * Add colors to label activity info * Refactor FindValueByLabelID query * Simplify more label activity assign logic * Simplify label activity assign logic * Add pullreq label activities</MESSAGE>
+      <SHA>bb77a835cf32e6758ffa849365bc05a1054c3473</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/controller/pullreq/label_assign.go</FILE>
+        <FILE>app/api/controller/pullreq/label_unassign.go</FILE>
+        <FILE>app/services/label/label.go</FILE>
+        <FILE>app/services/label/label_pullreq.go</FILE>
+        <FILE>app/store/database.go</FILE>
+        <FILE>app/store/database/label_pullreq.go</FILE>
+        <FILE>types/enum/pullreq.go</FILE>
+        <FILE>types/pullreq_activity_payload.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

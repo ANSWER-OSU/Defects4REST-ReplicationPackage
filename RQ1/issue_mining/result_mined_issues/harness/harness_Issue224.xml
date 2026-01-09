@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>224</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/224</ISSUEURL>
+  <TITLE>sqlite db migration fails on table already existing</TITLE>
+  <DESCRIPTION>Trying to upgrade to the latest version of drone and seeing this error on startup: ``` $ ./bin/droned 2014/03/26 13:32:28 Failed to upgrade to Revision Number 1 2014/03/26 13:32:28 table users already exists 2014/03/26 13:32:28 starting drone version 9f43d5c on port :8080 ``` I changed ``` go func (s *sqliteDriver) CreateTable(tableName string, args []string) (sql.Result, error) ``` to use `CREATE TABLE IF NOT EXISTS`, which seems more accurate. I'll submit a PR shortly.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [CODE-626,CODE-627]: space membership API&amp;DB (#194)</MESSAGE>
+    <SHA>baa4eb5ac9328ef1635aa887a1b638463ca7a38b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge branch 'mg/small-fixes' of _OKE5H2PQKOUfzFFDuD4FA/default/CODE/gitness (#224)</MESSAGE>
+      <SHA>6fb9b6740449a41d8a1c0c6960e8c419e76cf4f8</SHA>
+      <PATCHEDFILES>
+        <FILE>internal/api/auth/auth.go</FILE>
+        <FILE>internal/api/auth/repo.go</FILE>
+        <FILE>internal/api/auth/service.go</FILE>
+        <FILE>internal/api/auth/service_account.go</FILE>
+        <FILE>internal/api/auth/space.go</FILE>
+        <FILE>internal/api/auth/user.go</FILE>
+        <FILE>internal/api/controller/space/membership_add.go</FILE>
+        <FILE>internal/store/database/membership.go</FILE>
+        <FILE>types/membership.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

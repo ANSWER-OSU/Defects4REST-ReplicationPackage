@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20445</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/20445</ISSUEURL>
+  <TITLE>Bookmark for YouTube links not working</TITLE>
+  <DESCRIPTION>### Issue Summary Adding a bookmark card with a link to YouTube seems to have broken in v5.86.0. Previously, adding a bookmark card with a valid link to a YouTube video resulted in this: ![CleanShot 2024-06-23 at 14 59 44@2x](https://github.com/TryGhost/Ghost/assets/25703384/44000a43-9c13-4823-a50a-143cb1ef3123) Response from XXX in v5.85.2: ``` { &quot;version&quot;: &quot;1.0&quot;, &quot;type&quot;: &quot;bookmark&quot;, &quot;url&quot;: &quot;https://www.youtube.com/watch?v=aqz-KE-bpKQ&quot;, &quot;metadata&quot;: { &quot;url&quot;: &quot;https://www.youtube.com/watch?v=aqz-KE-bpKQ&quot;, &quot;title&quot;: &quot;Big Buck Bunny 60fps 4K - Official Blender Foundation Short Film&quot;, &quot;description&quot;: &quot;Enjoy this UHD High Frame rate version of one of the iconic short films produced by Blender Institute!Learn more about the project here http://bbb3d.renderfa…&quot;, &quot;author&quot;: null, &quot;publisher&quot;: &quot;YouTube&quot;, &quot;thumbnail&quot;: &quot;https://i.ytimg.com/vi/aqz-KE-bpKQ/maxresdefault.jpg&quot;, &quot;icon&quot;: &quot;https://www.youtube.com/s/desktop/9f65bf98/img/favicon_144x144.png&quot; } } ``` From v5.86.0 onwards (tested in v5.86.1 as well), the same link in a bookmark card produces an error: ![CleanShot 2024-06-23 at 15 00 22@2x](https://github.com/TryGhost/Ghost/assets/25703384/2597c59b-b7d2-4d82-be45-7230d5c19580) Response from XXX in v5.86.0 and v5.86.1: ``` { &quot;errors&quot;: [ { &quot;message&quot;: &quot;Validation error, cannot read oembed.&quot;, &quot;context&quot;: &quot;URL contains insufficient metadata. https://www.youtube.com/watch?v=aqz-KE-bpKQ&quot;, &quot;type&quot;: &quot;ValidationError&quot;, &quot;details&quot;: null, &quot;property&quot;: null, &quot;help&quot;: null, &quot;code&quot;: null, &quot;id&quot;: &quot;8c6cb290-3160-11ef-bc69-01c02bf2f945&quot;, &quot;ghostErrorCode&quot;: null } ] } ``` ### Steps to Reproduce 1. Create a new post in v5.86.0 or v5.86.1 2. Add a bookmark card 3. Enter any YouTube URL (for example https://www.youtube.com/watch?v=aqz-KE-bpKQ) 4. Error is shown ### Ghost Version v5.86.0 ### Node.js Version 18 LTS ### How did you install Ghost? Ubuntu 22.04 with Ghost CLI ### Database type MySQL 8 ### Browser &amp; OS version _No response_ ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>v5.86.1</MESSAGE>
+    <SHA>7dcc82b951e5df473e684c02e9395dadcf8e31c1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed YouTube bookmark creation https://github.com/TryGhost/Ghost/issues/20445 - after switching to a browser-like user-agent, YouTube started responding with a &quot;supported browsers&quot; message rather than the actual video meaning bookmark creation failed - when trying other user-agents it was discovered that nytimes.com (why the user-agent was originally changed) had a problem with the github.com address in the user-agent. By switching to using https://ghost.org instead the request was allowed through fixing both YouTube and NYTimes embeds</MESSAGE>
+      <SHA>a9cc89fd9538c19733d166345eded19fabe3fc03</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/oembed-service/lib/OEmbedService.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed YouTube bookmark creation https://github.com/TryGhost/Ghost/issues/20445 - after switching to a browser-like user-agent, YouTube started responding with a &quot;supported browsers&quot; message rather than the actual video meaning bookmark creation failed - when trying other user-agents it was discovered that nytimes.com (why the user-agent was originally changed) had a problem with the github.com address in the user-agent. By switching to using https://ghost.org instead the request was allowed through fixing both YouTube and NYTimes embeds</MESSAGE>
+      <SHA>1593fd87d2fe55de63ab5803c109a7c67e14331b</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/oembed-service/lib/OEmbedService.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,90 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>124667</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/124667</ISSUEURL>
+  <TITLE>Scaling EsExecutors with core size 0 might starve work due to missing workers</TITLE>
+  <DESCRIPTION>This was discovered in cases where `masterService#updateTask` had work enqueued, but no worker to process it. The root cause of the issue is a bug in `EsExecutors`. When the pool core size is set to 0 and max pool size is 1 (though, also possible with a higher max pool size, but less likely), `EsThreadPoolExecutor` sometimes fails to add another worker to execute the task because we're already at the max pool size (expected). However, in rare cases, a single worker thread (or threads) can time out at about the same time (based on their `keepAliveTime`) when then queueing the new task via `ForceQueuePolicy` (triggered by the initial rejection as we failed to add a worker). Unless more tasks are submitted later (which is not the case for `masterService#updateTask`), this task will starve in the queue without any worker to process it. Respective code in `EsExecutors` is old and unchanged. We were able to reproduce the bug on `main `using Java 21, 22, 23 as well as `8.0` using Java 17. Likely the same is possible for older versions of ES. It looks as if the bug is triggered more frequently with more recent versions of the JDK, but this might just be an observation bias as we haven't been aware of this bug earlier.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix test timeouts</MESSAGE>
+    <SHA>dd33e6ddbccd340e4ead1c3f574ba0dadb3d78bc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Implement worker pool probing to prevent #124667 if max pool size &gt; 1.</MESSAGE>
+      <SHA>30d4a50e25e2c3fb6a14d71c058f34b052a06bf1</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elasticsearch/common/util/concurrent/EsExecutors.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/common/util/concurrent/EsThreadPoolExecutor.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/common/util/concurrent/EsExecutorsTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Prevent work starvation bug if using scaling EsThreadPoolExecutor with core pool size = 0 (#124732) When `ExecutorScalingQueue` rejects work to make the worker pool scale up while already being at max pool size (and a new worker consequently cannot be added), available workers might timeout just about at the same time as the task is then force queued by `ForceQueuePolicy`. This has caused starvation of work as observed for `masterService#updateTask` in #124667 where max pool size 1 is used. This configuration is most likely to expose the bug. This PR changes `EsExecutors.newScaling` to not use `ExecutorScalingQueue` if max pool size is 1 (and core pool size is 0). A regular `LinkedTransferQueue` works perfectly fine in this case. If max pool size &gt; 1, a probing approach is used to ensure the worker pool is adequately scaled to at least 1 worker after force queueing work in `ForceQueuePolicy`. Fixes #124667 Relates to #18613</MESSAGE>
+      <SHA>c987df2c3033e13f9dff447997ced49ea534ef28</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/124732.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/common/util/concurrent/EsExecutors.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/common/util/concurrent/EsThreadPoolExecutor.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/threadpool/ScalingExecutorBuilder.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/action/support/RefCountingRunnableTests.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/common/util/concurrent/EsExecutorsTests.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/search/SearchServiceSingleNodeTests.java</FILE>
+        <FILE>test/framework/src/main/java/org/elasticsearch/repositories/blobstore/ESMockAPIBasedRepositoryIntegTestCase.java</FILE>
+        <FILE>test/framework/src/main/java/org/elasticsearch/test/transport/MockTransportService.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Prevent work starvation bug if using scaling EsThreadPoolExecutor with core pool size = 0 (#124732) (#124965) When `ExecutorScalingQueue` rejects work to make the worker pool scale up while already being at max pool size (and a new worker consequently cannot be added), available workers might timeout just about at the same time as the task is then force queued by `ForceQueuePolicy`. This has caused starvation of work as observed for `masterService#updateTask` in #124667 where max pool size 1 is used. This configuration is most likely to expose the bug. This PR changes `EsExecutors.newScaling` to not use `ExecutorScalingQueue` if max pool size is 1 (and core pool size is 0). A regular `LinkedTransferQueue` works perfectly fine in this case. If max pool size &gt; 1, a probing approach is used to ensure the worker pool is adequately scaled to at least 1 worker after force queueing work in `ForceQueuePolicy`. Fixes #124667 Relates to #18613</MESSAGE>
+      <SHA>542f83ac80c5075840e250fb18af2c7cedb564a1</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/124732.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/common/util/concurrent/EsExecutors.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/common/util/concurrent/EsThreadPoolExecutor.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/threadpool/ScalingExecutorBuilder.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/action/support/RefCountingRunnableTests.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/common/util/concurrent/EsExecutorsTests.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/search/SearchServiceSingleNodeTests.java</FILE>
+        <FILE>test/framework/src/main/java/org/elasticsearch/repositories/blobstore/ESMockAPIBasedRepositoryIntegTestCase.java</FILE>
+        <FILE>test/framework/src/main/java/org/elasticsearch/test/transport/MockTransportService.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Prevent work starvation bug if using scaling EsThreadPoolExecutor with core pool size = 0 (#124732) When `ExecutorScalingQueue` rejects work to make the worker pool scale up while already being at max pool size (and a new worker consequently cannot be added), available workers might timeout just about at the same time as the task is then force queued by `ForceQueuePolicy`. This has caused starvation of work as observed for `masterService#updateTask` in #124667 where max pool size 1 is used. This configuration is most likely to expose the bug. This PR changes `EsExecutors.newScaling` to not use `ExecutorScalingQueue` if max pool size is 1 (and core pool size is 0). A regular `LinkedTransferQueue` works perfectly fine in this case. If max pool size &gt; 1, a probing approach is used to ensure the worker pool is adequately scaled to at least 1 worker after force queueing work in `ForceQueuePolicy`. Fixes #124667 Relates to #18613</MESSAGE>
+      <SHA>36874e866368e5b6d2e9e2d7838646ca239443ea</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/124732.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/common/util/concurrent/EsExecutors.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/common/util/concurrent/EsThreadPoolExecutor.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/threadpool/ScalingExecutorBuilder.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/action/support/RefCountingRunnableTests.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/common/util/concurrent/EsExecutorsTests.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/search/SearchServiceSingleNodeTests.java</FILE>
+        <FILE>test/framework/src/main/java/org/elasticsearch/repositories/blobstore/ESMockAPIBasedRepositoryIntegTestCase.java</FILE>
+        <FILE>test/framework/src/main/java/org/elasticsearch/test/transport/MockTransportService.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Improve reproduction of scaling EsExecutors bug #124667 to work with max pool size &gt; 0. Relates to #124867, ES-10640</MESSAGE>
+      <SHA>5c08f6f9c5e4b30d5261b480900cc8da23ea3655</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/test/java/org/elasticsearch/common/util/concurrent/EsExecutorsTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Prevent work starvation bug if using scaling EsThreadPoolExecutor with core pool size = 0 (#124732) When `ExecutorScalingQueue` rejects work to make the worker pool scale up while already being at max pool size (and a new worker consequently cannot be added), available workers might timeout just about at the same time as the task is then force queued by `ForceQueuePolicy`. This has caused starvation of work as observed for `masterService#updateTask` in #124667 where max pool size 1 is used. This configuration is most likely to expose the bug. This PR changes `EsExecutors.newScaling` to not use `ExecutorScalingQueue` if max pool size is 1 (and core pool size is 0). A regular `LinkedTransferQueue` works perfectly fine in this case. If max pool size &gt; 1, a probing approach is used to ensure the worker pool is adequately scaled to at least 1 worker after force queueing work in `ForceQueuePolicy`. Fixes #124667 Relates to #18613 (cherry picked from commit 36874e866368e5b6d2e9e2d7838646ca239443ea) # Conflicts: # test/framework/src/main/java/org/elasticsearch/test/transport/MockTransportService.java</MESSAGE>
+      <SHA>77240925cb721d1b0e64773e17a19530781cbc6d</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/124732.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/common/util/concurrent/EsExecutors.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/common/util/concurrent/EsThreadPoolExecutor.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/threadpool/ScalingExecutorBuilder.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/action/support/RefCountingRunnableTests.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/common/util/concurrent/EsExecutorsTests.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/search/SearchServiceSingleNodeTests.java</FILE>
+        <FILE>test/framework/src/main/java/org/elasticsearch/repositories/blobstore/ESMockAPIBasedRepositoryIntegTestCase.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

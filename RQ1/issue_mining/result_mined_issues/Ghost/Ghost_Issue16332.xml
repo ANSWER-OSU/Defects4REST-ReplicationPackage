@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16332</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/16332</ISSUEURL>
+  <TITLE>Handlebars helper for assets errors when input is SafeString</TITLE>
+  <DESCRIPTION>### Issue Summary Try to compute asset path with `asset` helper and passing `(concat &quot;some&quot; &quot;string&quot;)` as input i.e. check `{{asset (concat 'some' 'string'}}`. It will error with `[error.hbs] path.match is not a function`. Relevant lines of code: https://github.com/TryGhost/Ghost/blob/c667620d8f2e32c96fe376ad0f3dabc79488532a/ghost/core/core/frontend/helpers/asset.js#L28 https://github.com/TryGhost/Ghost/blob/c667620d8f2e32c96fe376ad0f3dabc79488532a/ghost/core/core/frontend/meta/asset-url.js#L16 https://github.com/TryGhost/Ghost/blob/c667620d8f2e32c96fe376ad0f3dabc79488532a/ghost/core/core/frontend/helpers/concat.js#L7 ### Steps to Reproduce `{{asset (concat 'some' 'string'}}` produces error regardless of the concatenated string provided. The reason is that asset helper expect plain strings as input but `(concat …)` produces `SafeString` object which results in the above error. ### Ghost Version 5.35.1-alpine (https://hub.docker.com/_/ghost) ### Node.js Version Comes with https://hub.docker.com/_/ghost ### How did you install Ghost? https://hub.docker.com/_/ghost ### Relevant log / error output ```shell TypeError: path.match is not a function at getAssetUrl (core/frontend/meta/asset-url.js:16:14) at Object.asset (core/frontend/helpers/asset.js:40:9) at Object.wrapper (/home/monkeysees/ghost-git/node_modules/handlebars/dist/cjs/handlebars/internal/wrapHelper.js:15:19) at Object.eval [as main] (eval at createFunctionContext (/home/monkeysees/ghost-git/node_modules/handlebars/dist/cjs/handlebars/compiler/javascript-compiler.js:262:23), &lt;anonymous&gt;:10:123) at main (/home/monkeysees/ghost-git/node_modules/handlebars/dist/cjs/handlebars/runtime.js:208:32) at ret (/home/monkeysees/ghost-git/node_modules/handlebars/dist/cjs/handlebars/runtime.js:212:12) at ret (/home/monkeysees/ghost-git/node_modules/handlebars/dist/cjs/handlebars/compiler/compiler.js:519:21) ``` ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixed uploads of m4a files with audio/mp4 content type fixes https://github.com/TryGhost/Ghost/issues/16301 Previously, audio/x-m4a was allowed but not audio/mp4. This meant uploads of m4a files failed in some cases e.g. Firefox on Windows.</MESSAGE>
+    <SHA>c5a4ee89c9af74800263433358608482a6976bad</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed Handlebars’ asset helper for SafeString input closes https://github.com/TryGhost/Ghost/issues/16332 Passing `SafeString` input to `asset` helper was resulting in the exception being thrown. This meant that we couldn’t combine `asset` helper with other helpers which produce `SafeString` e.g. `concat` helper for string concatenation.</MESSAGE>
+      <SHA>838516efb0117d782789d9e75f43cf0730a0426b</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/frontend/meta/asset-url.js</FILE>
+        <FILE>ghost/core/test/unit/frontend/meta/asset-url.test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

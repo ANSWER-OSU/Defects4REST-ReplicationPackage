@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5935</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/5935</ISSUEURL>
+  <TITLE>custom facts can break fact cache</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY User-forwarded traceback: ``` 2020-02-13 19:10:29,258 ERROR awx.main.tasks job 909 (successful) Final run hook errored. Traceback (most recent call last): File &quot;/var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/main/tasks.py&quot;, line 1411, in run self.final_run_hook(self.instance, status, private_data_dir, fact_modification_times, isolated_manager_instance=isolated_manager_instance) File &quot;/var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/main/tasks.py&quot;, line 1864, in final_run_hook fact_modification_times, File &quot;/var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/main/models/jobs.py&quot;, line 821, in finish_job_fact_cache ansible_local_system_id = ansible_facts.get('ansible_local', {}).get('insights', {}).get('system_id', None) AttributeError: 'str' object has no attribute 'get' ``` User stated they were returning custom windows facts. Assumption - this needs bulletproofed against arbitrary data structures in these namespaces. ##### ENVIRONMENT * AWX version: current</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #6145 from ryanpetrello/fix-grafana fix broken grafana notifications Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>d009ce49f549d4e2da381818c7dddac0b4049217</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>make fact saving code more robust to unexpected fact data see: https://github.com/ansible/awx/issues/5935</MESSAGE>
+      <SHA>5432f431083db154b1abcbdaaf4189d8ea1840de</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/models/jobs.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>make fact saving code more robust to unexpected fact data see: https://github.com/ansible/awx/issues/5935</MESSAGE>
+      <SHA>e232cd392c9b2252a6a2ddecb1d6d44a5a5a3771</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/models/jobs.py</FILE>
+        <FILE>awx/main/tests/unit/models/test_jobs.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

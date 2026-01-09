@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2432</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2432</ISSUEURL>
+  <TITLE>bug: incorrect json schema definition for plugin request-validation</TITLE>
+  <DESCRIPTION>Part of #2082 . Current request-validation schema definition is shown as below: ```json { &quot;anyOf&quot;: [ { &quot;required&quot;: [ &quot;body_schema&quot; ] }, { &quot;required&quot;: [ &quot;header_schema&quot; ] } ], &quot;properties&quot;: { &quot;body_schema&quot;: { &quot;type&quot;: &quot;object&quot; }, &quot;header_schema&quot;: { &quot;type&quot;: &quot;object&quot; } }, &quot;type&quot;: &quot;object&quot; } ``` The definition should be changed to: ```json { &quot;anyOf&quot;:[ { &quot;title&quot;: &quot;Body schema&quot;, &quot;properties&quot;:{ &quot;body_schema&quot;:{ &quot;type&quot;:&quot;object&quot; } }, &quot;required&quot;:[ &quot;body_schema&quot; ] }, { &quot;title&quot;: &quot;Header schema&quot;, &quot;properties&quot;:{ &quot;header_schema&quot;:{ &quot;type&quot;:&quot;object&quot; } }, &quot;required&quot;:[ &quot;header_schema&quot; ] } ], &quot;type&quot;: &quot;object&quot; } ``` **BTW**: Honestly, after the schema has been updated, we are still not be able to input anything for `header_schema` and `body_schema` fields. See the snapshot below: ![image](https://user-images.githubusercontent.com/2542401/96113795-43bc2400-0f17-11eb-8a01-0dc1aeea7455.png) The reason is that both `body_schema` and `header_schema` are of `object` type without any `properties` defined, while the react-jsonschema-form library will not show any input fields for them. I tried to refer to https://react-jsonschema-form.readthedocs.io/en/v1.8.1/form-customization/ , unfortunately there seems no way to make use of `uiSchema` to solve this problem. After discussed with @liuxiran , in order to make it happen that we could define the schema on the web, we also need to customize the dashboard UI, as well as well design the `header_schema` and `body_schema` data structures submitted to APISIX. That could be committed to dashboard project following this issue got fixed.</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feature: plugin `limit-count` support to use `redis` cluster (#2406) fix #638 Co-authored-by: liuheng &lt;liuhengloveyou@gmail.com&gt;</MESSAGE>
+    <SHA>c65f5c9465d2c0ad212545382adc57d90edea674</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fixbug #2432: modify json schema definition for plugin request-validation</MESSAGE>
+      <SHA>0d0c558d3f89d0886e6992b32f0efec5f7360c9e</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/request-validation.lua</FILE>
+        <FILE>t/plugin/request-validation.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fixbug #2432: modify json schema definition for plugin request-validation</MESSAGE>
+      <SHA>aa15e8e297a71c838d96522013ab12cdf51b0c6e</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/request-validation.lua</FILE>
+        <FILE>t/plugin/request-validation.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fixbug #2432: modify json schema definition for plugin request-validation</MESSAGE>
+      <SHA>9f38a4518ae0597485c91ba5c7af247707f1ea53</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/request-validation.lua</FILE>
+        <FILE>t/plugin/request-validation.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fixbug #2432: modify json schema definition for plugin request-validation</MESSAGE>
+      <SHA>b7a82b9ba506a88bc866fb1652f630b6d4ff3fa9</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/request-validation.lua</FILE>
+        <FILE>t/plugin/request-validation.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fixbug #2432: modify json schema definition for plugin request-validation</MESSAGE>
+      <SHA>54fe78172e14d0a6b3017a2b1b07bdfac6baa611</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/request-validation.lua</FILE>
+        <FILE>t/plugin/request-validation.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fixbug #2432: modify json schema definition for plugin request-validation</MESSAGE>
+      <SHA>e3e3ab10cbafd1d7a2ddd40c78c9f747312b207c</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/request-validation.lua</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

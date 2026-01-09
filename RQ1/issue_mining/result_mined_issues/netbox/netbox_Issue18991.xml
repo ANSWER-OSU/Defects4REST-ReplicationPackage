@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18991</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18991</ISSUEURL>
+  <TITLE>Path tracing broken for front/rear ports in REST API</TITLE>
+  <DESCRIPTION>### Deployment Type Self-hosted ### NetBox Version v4.2.6 ### Python Version 3.12 ### Steps to Reproduce 1. Go to https://[SERVER_URL]/api/dcim/rear-ports/ 2. Select any existing port by clicking on its &quot;url&quot; 3. The REST API now display the data for a single port, for example: https://[SERVER_URL]/api/dcim/rear-ports/70479/ 4. Append &quot;paths/&quot; to this URL: https://[SERVER_URL]/api/dcim/rear-ports/70479/paths ### Expected Behavior The REST API should return the CablePaths which traverse the given pass-through port. ### Observed Behavior 'AttributeError' is raised. ``` 'NoneType' object has no attribute 'model' ``` This error is not observed on NetBox 4.2.5 I believe this may have been introduced by https://github.com/netbox-community/netbox/pull/18826 ?</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixes: #18783 Add a tag_id filter for all models which support tagging (#18889)</MESSAGE>
+    <SHA>9a1d9365cd7c703413ca8d15c0b8b737067c275e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #18991: AttributeError: NoneType object has not attribute model `GenericArrayForeignKey`, which was added in #18826, advertised itself as a many_to_many relation, which is somewhat inaccurate and triggered DRF's introspection of many_to_many relations which looks for a `remote_field.model` property chain on the relation. Since that doesn't exist, DRF threw an AttributeError resulting in a 500 error. This changes `GenericArrayForeignKey` to advertise itself to DRF as a one_to_many relation, which is more accurate, and does not trigger the property access in DRF that was causing the problem. This also adds a regression test for both FrontPort and RearPort &quot;path&quot; API view.</MESSAGE>
+      <SHA>636148f9654b82f7e664645f3e781a4591a22132</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/dcim/tests/test_api.py</FILE>
+        <FILE>netbox/utilities/fields.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #18991: AttributeError: NoneType object has not attribute model (#19006)</MESSAGE>
+      <SHA>fd2bcda8b8777b955222644a5ff94417ba510cb2</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/dcim/tests/test_api.py</FILE>
+        <FILE>netbox/utilities/fields.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

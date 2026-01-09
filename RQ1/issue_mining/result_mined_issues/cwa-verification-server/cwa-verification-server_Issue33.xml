@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>33</ISSUENO>
+  <ISSUEURL>https://github.com/corona-warn-app/cwa-verification-server/issues/33</ISSUEURL>
+  <TITLE>[BSI][0.3.1-alpha] Fields in Request Body not Checked</TITLE>
+  <DESCRIPTION>Rating: Informational Description: Many of the PostMapping functions do not verify the structure of the request bodies before trying to access fields within the JSON data. In case a specific field is not present, the getter functions return Null which leads to NullPointerExceptions when further processing these values. Proof of Concept: [verification_fields_not_checked.txt](https://github.com/corona-warn-app/cwa-verification-server/files/4671782/verification_fields_not_checked.txt)</DESCRIPTION>
+  <REPONAME>cwa-verification-server</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: actuator properties moved to application-cloud.yml (#84)</MESSAGE>
+    <SHA>a6e93fc8d8a7a085c21c9f32a1fbb862844f992b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: Nullcheck on Request parameter (see BSI-Bugfix [#33])</MESSAGE>
+      <SHA>e95b47c8a83b584d24bdfcb6f922ad99b06c135d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/main/java/app/coronawarn/verification/controller/VerificationController.java</FILE>
+        <FILE>src/test/java/app/coronawarn/verification/VerificationApplicationTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: Nullcheck on Request parameter (see BSI-Bugfix [#33])</MESSAGE>
+      <SHA>6a6a922ed68c11ba4c86ec37747b8fc8be584e19</SHA>
+      <PATCHEDFILES>
+        <FILE>src/test/java/app/coronawarn/verification/VerificationApplicationTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: Validation on Input Parameter (Issue #33) (#102) * fix: Nullcheck on Request parameter (see BSI-Bugfix [#33]) * fix: introduce verification-check of hashed guid into the controller. Verify that a hashed guid has a hashed format * fix: Nullcheck on Request parameter (see BSI-Bugfix [#33]) * fix: introduce verification-check of hashed guid into the controller. Verify that a hashed guid has a hashed format * fix: @Valid validation on inputParameter in Controller + @Pattern validation for registration token and tan + Exceptionhandling * fix: log message * fix: unreachable statement * fix: rename into VerificationServerException</MESSAGE>
+      <SHA>5522680bcf7c02a30b23051eb5b9bf8720ef0a7f</SHA>
+      <PATCHEDFILES>
+        <FILE>pom.xml</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/controller/VerificationController.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/controller/VerificationExceptionHandler.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/exception/VerificationServerException.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/model/RegistrationToken.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/model/RegistrationTokenRequest.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/model/Tan.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/service/AppSessionService.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/service/HashingService.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/service/TanService.java</FILE>
+        <FILE>src/test/java/app/coronawarn/verification/VerificationApplicationTest.java</FILE>
+        <FILE>src/test/java/app/coronawarn/verification/service/TanServiceTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: Validation on Input Parameter (Issue #33) (#102) * fix: Nullcheck on Request parameter (see BSI-Bugfix [#33]) * fix: introduce verification-check of hashed guid into the controller. Verify that a hashed guid has a hashed format * fix: Nullcheck on Request parameter (see BSI-Bugfix [#33]) * fix: introduce verification-check of hashed guid into the controller. Verify that a hashed guid has a hashed format * fix: @Valid validation on inputParameter in Controller + @Pattern validation for registration token and tan + Exceptionhandling * fix: log message * fix: unreachable statement * fix: rename into VerificationServerException</MESSAGE>
+      <SHA>088700f201fefaafe66cb952424a007bf068fc3c</SHA>
+      <PATCHEDFILES>
+        <FILE>pom.xml</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/controller/VerificationController.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/controller/VerificationExceptionHandler.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/exception/VerificationServerException.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/model/RegistrationToken.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/model/RegistrationTokenRequest.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/model/Tan.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/service/AppSessionService.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/service/HashingService.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/service/TanService.java</FILE>
+        <FILE>src/test/java/app/coronawarn/verification/VerificationApplicationTest.java</FILE>
+        <FILE>src/test/java/app/coronawarn/verification/service/TanServiceTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>34080</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/34080</ISSUEURL>
+  <TITLE>Streaming server can't deal with unix socket path in DATABASE_URL</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem Use unix socket as the method to access Postgres, with username and password set, by setting `DATABASE_URL` to this value: ``` DATABASE_URL=postgresql://&lt;username&gt;:&lt;password&gt;@%2F&lt;path&gt;%2F&lt;to&gt;%2F&lt;socket&gt;/&lt;database_name&gt;?host=/&lt;path&gt;/&lt;to&gt;/&lt;socket&gt; ``` This URL works well with `web` container. ### Expected behaviour Streaming server boots up ### Actual behaviour Streaming server won't boot due to missing port number ### Detailed description I can add this small patch in `database.js`: ```js //... if (env.DATABASE_URL_STREAMING) { baseConfig = pgConnectionString.parse(env.DATABASE_URL_STREAMING); } else if (env.DATABASE_URL) { //... ``` And add a additional environment variable as workaround: ``` DATABASE_URL_STREAMING=socket://&lt;username&gt;:&lt;password&gt;@/&lt;path&gt;/&lt;to&gt;/&lt;socket&gt;?db=&lt;database_name&gt; ``` ### Mastodon instance N/A ### Mastodon version v4.3.4 ### Environment N/A ### Technical details Error before mitigation applied: ``` Node.js v20.18.0 file:///opt/mastodon/streaming/database.js:55 throw new Error('Invalid port specified in DATABASE_URL environment variable'); ^ Error: Invalid port specified in DATABASE_URL environment variable at Module.configFromEnv (file:///opt/mastodon/streaming/database.js:55:15) at startServer (file:///opt/mastodon/streaming/index.js:104:44) at file:///opt/mastodon/streaming/index.js:1401:1 at ModuleJob.run (node:internal/modules/esm/module_job:234:25) at async ModuleLoader.import (node:internal/modules/esm/loader:473:24) at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:123:5) ```</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>18</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>chore(deps): update yarn to v4.7.0 (#34047) Co-authored-by: renovate[bot] &lt;29139614+renovate[bot]@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>64719aa4ee892183f3a7701f6a3057de1e940920</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix streaming server refusing unix socket path in `DATABASE_URL` Fixes #34080</MESSAGE>
+      <SHA>063c1c2ec37cf33e191d3f8367870890f89a9dc0</SHA>
+      <PATCHEDFILES>
+        <FILE>streaming/database.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix streaming server refusing unix socket path in `DATABASE_URL` Fixes #34080</MESSAGE>
+      <SHA>c1a7df69bb80935d4201f584179810723efc4417</SHA>
+      <PATCHEDFILES>
+        <FILE>streaming/database.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

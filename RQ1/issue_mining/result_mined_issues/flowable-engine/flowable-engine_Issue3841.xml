@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3841</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/3841</ISSUEURL>
+  <TITLE>Missing Groovy engine in OSGi environment</TITLE>
+  <DESCRIPTION>**Describe the bug** Using Groovy in OSGi environment throws `FlowableException` (_Can't find scripting engine for 'groovy'_). For example, the exception will be thrown when you use the following execution listener: ``` &lt;flowable:executionListener event=&quot;start&quot; class=&quot;org.flowable.engine.impl.bpmn.listener.ScriptExecutionListener&quot;&gt; &lt;flowable:field name=&quot;script&quot;&gt; &lt;flowable:string&gt;execution.setVariable('foo', 'bar')&lt;/flowable:string&gt; &lt;/flowable:field&gt; &lt;flowable:field name=&quot;language&quot;&gt; &lt;flowable:string&gt;groovy&gt;&lt;/flowable:string&gt; &lt;/flowable:field&gt; &lt;/flowable:executionListener&gt; ``` **Expected behavior** Groovy language can be used in OSGi environment. **Code** The `Extender` component tries to read the factory class from the first line of the corresponding Groovy configuration file ([groovy-jsr223/javax.script.ScriptEngineFactory](https://github.com/apache/groovy/blob/359ee64eda6bdafde7fa5c53ccab38f5e89df493/subprojects/groovy-jsr223/src/main/resources/META-INF/services/javax.script.ScriptEngineFactory)), but it is the license header. https://github.com/flowable/flowable-engine/blob/356c0084c2c24e52f18bcac88e9e828f4b69ccae/modules/flowable-osgi/src/main/java/org/flowable/osgi/Extender.java#L371 **Additional context** I'm using the following components: - flowable-engine-6.7.2 - flowable-osgi-6.7.2 - groovy-all-2.4.21 I will try to submit a pull request with the fix.</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Make sure rotation is positive during export</MESSAGE>
+    <SHA>356c0084c2c24e52f18bcac88e9e828f4b69ccae</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix parsing of service provider file (#3841).</MESSAGE>
+      <SHA>c155f76faec5592ff5f9d3ae5a7c801c894e47d2</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-osgi/pom.xml</FILE>
+        <FILE>modules/flowable-osgi/src/main/java/org/flowable/osgi/Extender.java</FILE>
+        <FILE>modules/flowable-osgi/src/test/java/org/flowable/osgi/BundleScriptEngineResolverTest.java</FILE>
+        <FILE>modules/flowable-osgi/src/test/resources/META-INF/services/javax.script.ScriptEngineFactory</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix parsing of service provider file (#3841).</MESSAGE>
+      <SHA>7a90f8eebaa85ff43ec882cc7f2ec7c1f5247e9c</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-osgi/pom.xml</FILE>
+        <FILE>modules/flowable-osgi/src/main/java/org/flowable/osgi/Extender.java</FILE>
+        <FILE>modules/flowable-osgi/src/test/java/org/flowable/osgi/BundleScriptEngineResolverTest.java</FILE>
+        <FILE>modules/flowable-osgi/src/test/resources/META-INF/services/javax.script.ScriptEngineFactory</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix parsing of service provider file (#3841).</MESSAGE>
+      <SHA>9b931482f29fd82c72a6a61e18d20cb3c3a97c98</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-osgi/pom.xml</FILE>
+        <FILE>modules/flowable-osgi/src/main/java/org/flowable/osgi/Extender.java</FILE>
+        <FILE>modules/flowable-osgi/src/test/java/org/flowable/osgi/BundleScriptEngineResolverTest.java</FILE>
+        <FILE>modules/flowable-osgi/src/test/resources/META-INF/services/javax.script.ScriptEngineFactory</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix parsing of service provider file (#3841).</MESSAGE>
+      <SHA>22bbd38c80e0157c27e87c604cf7f016fe913dc2</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-osgi/pom.xml</FILE>
+        <FILE>modules/flowable-osgi/src/main/java/org/flowable/osgi/Extender.java</FILE>
+        <FILE>modules/flowable-osgi/src/test/java/org/flowable/osgi/BundleScriptEngineResolverTest.java</FILE>
+        <FILE>modules/flowable-osgi/src/test/resources/META-INF/services/javax.script.ScriptEngineFactory</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix parsing of service provider file (#3841).</MESSAGE>
+      <SHA>32ad8ffa34c142a71fd6b8e63c2dfe3cc978f236</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-osgi/pom.xml</FILE>
+        <FILE>modules/flowable-osgi/src/main/java/org/flowable/osgi/Extender.java</FILE>
+        <FILE>modules/flowable-osgi/src/test/java/org/flowable/osgi/BundleScriptEngineResolverTest.java</FILE>
+        <FILE>modules/flowable-osgi/src/test/resources/META-INF/services/javax.script.ScriptEngineFactory</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix parsing of service provider file for OSGi Fixes #3841</MESSAGE>
+      <SHA>5bca8a4a95d6bdb6d2a1e482547ba2168b9b7d24</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-osgi/pom.xml</FILE>
+        <FILE>modules/flowable-osgi/src/main/java/org/flowable/osgi/Extender.java</FILE>
+        <FILE>modules/flowable-osgi/src/test/java/org/flowable/osgi/BundleScriptEngineResolverTest.java</FILE>
+        <FILE>modules/flowable-osgi/src/test/resources/META-INF/services/javax.script.ScriptEngineFactory</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

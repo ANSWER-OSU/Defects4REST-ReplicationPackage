@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24201</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/24201</ISSUEURL>
+  <TITLE>v17.0.0 upload of external module fails to copy from incorrectly generated temp source dir</TITLE>
+  <DESCRIPTION>### Bug Since 17.0.0 it is not possible to install an external module using the provided form because the system fails to copy from an unexisting source path. Not related to file permission, but bad source file path. ![Capture d’écran de 2023-03-13 20-42-25](https://user-images.githubusercontent.com/3855975/224863344-8155e91a-c0ba-421d-8e4a-f475575e4e24.png) ### Environment Version 17.0.0 ### Environment OS Linux ### Environment Web server Apache ### Environment PHP 7.4, 8.1 ### Environment Database MySQL ### Environment URL(s) /admin/modules.php ### Expected and actual behavior **Expected** Uploading a custom module shall copy it to /htdocs/custom/ folder and install the module. **Actual** System is trying to copy a source folder that does not exzist, therefore breaking the installation of external module. In detail, the system append a _htdocs_ folder in the temporary path of the uploaded module, that does not exist on disk, creating the error. ![Capture d’écran de 2023-03-13 20-35-29](https://user-images.githubusercontent.com/3855975/224862471-c19a7bfb-a2d2-483a-be4e-d19511cc0d25.png) ### Steps to reproduce the behavior Upload any external module using the form in /admin/modules.php . ### Attached files ![Capture d’écran de 2023-03-13 20-35-29](https://user-images.githubusercontent.com/3855975/224862509-ca08b307-d293-4773-8c59-2c6682cbdab8.png) ![Capture d’écran de 2023-03-13 20-37-05](https://user-images.githubusercontent.com/3855975/224862647-ffedd1e5-b3ab-42f9-9eee-34e27e4d6aac.png)</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>16</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '16.0' of git@github.com:Dolibarr/dolibarr.git into 17.0</MESSAGE>
+    <SHA>e247337fc27f78c1da611a31e10422b2ae6aa093</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX #24201 Upload of external module fails to copy from incorrectly generated temp source dir</MESSAGE>
+      <SHA>3f2f9da4278262cddfe7b264990678c9966b8f79</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/admin/modules.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #24340 from simnandez/17.0 FIX #24201 upload of external module fails to copy from incorrectly generated temp source dir</MESSAGE>
+      <SHA>292385adcfab142c74d9bf8ffa91a3c3d1254993</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/admin/modules.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

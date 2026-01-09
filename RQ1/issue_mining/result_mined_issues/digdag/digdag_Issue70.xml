@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>70</ISSUENO>
+  <ISSUEURL>https://github.com/treasure-data/digdag/issues/70</ISSUEURL>
+  <TITLE>project structure and workflow suffix changes</TITLE>
+  <DESCRIPTION>- no `digdag.yml` project file - workflow file suffixes change from `.yml` to `.dig` - all `.dig` files in project directory are picked up automatically by digdag - digdag cli gains a `--project` option to specify the project directory - `digdag run` `-f` option is removed - `digdag init` creates: - `.digdag` directory in project directory - `.digdag/config` file - digdag cli looks for `.digdag` directory, starting in current directory and then recurses into parent directories (like git). - `digdag push` pushes entire project (as identified by `.digdag`) in some parent dir, even if executed in a subdir. - filenames referenced by a `.dig` file are resolved relative to the path of the `.dig` file so that given a project with: ``` .digdag/config subdir/workflow.dig queries/foo.sql ``` Then a user can both be in the project dir and do: ``` digdag run subdir/workflow ``` Or ``` cd subdir/ digdag run workflow ``` with the same result. The `subdir/workflow.dig` file must reference the query file as `../queries/foo.sql`. - digdag does not change &quot;CWD&quot; when executing a workflow. - `digdag run` `&lt;workflow name&gt;` parameter can include `.dig` suffix so that the below invocation semantics are identical: - `digdag run foo` - `digdag run foo.dig`</DESCRIPTION>
+  <REPONAME>digdag</REPONAME>
+  <TIMEDIFFERENCEDAYS>2435</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>verify command line param overrides config param</MESSAGE>
+    <SHA>2b13fec3e02785402928fe1ff3dff10b0d363777</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>move ~/.digdag/ to ~/.config/digdag/ This follows the XDG Base Directory Specification[1], avoids cluttering the user $HOME directory and resolves the future issue where $HOME would be considered a digdag project after implementing these project structure changes: https://github.com/treasure-data/digdag/issues/70 [1]: https://standards.freedesktop.org/basedir-spec/latest/index.html</MESSAGE>
+      <SHA>32a715c4ba6cd49832ec41b9cbb17f3b43071f76</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-cli/src/main/java/io/digdag/cli/Arguments.java</FILE>
+        <FILE>digdag-cli/src/main/java/io/digdag/cli/Command.java</FILE>
+        <FILE>digdag-cli/src/main/java/io/digdag/cli/ConfigUtil.java</FILE>
+        <FILE>digdag-cli/src/main/java/io/digdag/cli/Main.java</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/config/PropertyUtils.java</FILE>
+        <FILE>digdag-docs/src/command_reference.rst</FILE>
+        <FILE>digdag-tests/src/test/java/acceptance/ConfigIT.java</FILE>
+        <FILE>digdag-tests/src/test/java/acceptance/InitPushStartConfigIT.java</FILE>
+        <FILE>digdag-tests/src/test/java/acceptance/TestUtils.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

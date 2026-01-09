@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5046</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/5046</ISSUEURL>
+  <TITLE>Child WorkflowJob not started when Inventory on WorkflowJobTemplateNode</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY I have nested workflow templates, when I set Prompt on launch on child workflow template and set Inventory through &quot;Prompt&quot; in Workflow visualizer, then Launch is in Running state forever and Workflow job for child Workflow template doesn't exist (is probably deleted, because there is missing ID in list of Jobs) ##### ENVIRONMENT * AWX version: Tower 3.5.0 * AWX install method: AMI - https://www.ansible.com/products/tower/trial - Tower in Amazon EC2 * Ansible version: 2.8.0 * Operating System: * Web Browser: Google Chrome 77.0.3865.120 ##### STEPS TO REPRODUCE Child Workflow template contains: - No inventory, Prompt on launch - Job Template with https://github.com/mkanoor/playbook/blob/master/hello_world.yml - No inventory, Prompt on launch - Workflow Job Template Node with Inventory1 (added through &quot;Prompt&quot; button in Workflow visualizer) Parent Workflow template contains: - No inventory - Child workflow - (No inventory, Prompt on Launch) - Workflow Job Template Node with Inventory2 (added through &quot;Prompt&quot; button in Workflow visualizer) ``` Parent Workflow (without Inventory) (Start) ==&gt; (Inventory2 on Workflow Node) ==&gt; [ Child Workflow (without Inventory, Prompt on Launch) =&gt; (Start) ==&gt; (Inventory1 on Workflow Node) ==&gt; Job Template with Prompt on Launch ] ``` ##### EXPECTED RESULTS Job Template should be successfully finished (I suppose with Inventory2?) ##### ACTUAL RESULTS Parent workflow job Status = Running forever Child workflow job doesn't exist (probably deleted, one ID in Jobs is missing) API: (the only node) in `api/workflow_jobs/&lt;parent_workflow_id&gt;/workflow_nodes` doesn't have `/summary_fields/job`, also `/related/job` doesn't exist. But there are `/summary_fields/inventory` and `/related/inventory`. Parent workflow doesn't have inventory In another case that Parent workflow has inventory and workflow node doesn't have, then `/summary_fields/job` and `/related/job` links exist and point to child workflow. ##### ADDITIONAL INFORMATION &lt;!-- Include any links to sosreport, database dumps, screenshots or other information. --&gt;</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>74</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #5041 from mabashian/toolbar-user-tooltip Removes tooltip from user in page toolbar</MESSAGE>
+    <SHA>2452973a7df85fa8e59185fac695082b031d8dac</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #5046 from mabashian/details-enabled-options Change Options to Enabled Options in various details views</MESSAGE>
+      <SHA>c6a31295099ef617e5a680041c1c3d92016ac058</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/components/PromptDetail/PromptInventorySourceDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/components/PromptDetail/PromptInventorySourceDetail.test.jsx</FILE>
+        <FILE>awx/ui_next/src/components/PromptDetail/PromptJobTemplateDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/components/PromptDetail/PromptJobTemplateDetail.test.jsx</FILE>
+        <FILE>awx/ui_next/src/components/PromptDetail/PromptProjectDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/components/PromptDetail/PromptProjectDetail.test.jsx</FILE>
+        <FILE>awx/ui_next/src/components/PromptDetail/PromptWFJobTemplateDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/components/PromptDetail/PromptWFJobTemplateDetail.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Credential/CredentialDetail/CredentialDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Credential/CredentialDetail/CredentialDetail.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventorySourceDetail/InventorySourceDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventorySourceDetail/InventorySourceDetail.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Project/ProjectDetail/ProjectDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Project/ProjectDetail/ProjectDetail.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/JobTemplateDetail/JobTemplateDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/WorkflowJobTemplateDetail/WorkflowJobTemplateDetail.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4911</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/4911</ISSUEURL>
+  <TITLE>need a reaper for hung/zombie job pods left by container groups</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Feature Idea ##### SUMMARY &lt;!-- Briefly describe the problem or desired enhancement. --&gt; This is a known issue of #4189 that will be resolved in follow up PR. If for some reason (Tower restart, network problems, etc) job pods get left running in the namespace provided by a ContainerGroup, there is currently no reaper to check on these jobs and clean them up. As a matter of due diligence, we should do this. @shanemcd and @ryanpetrello may want to flesh this out a bit more</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>17</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Change healthcheck from wget and grep to python with httplib</MESSAGE>
+    <SHA>28b8089c87e1f988fe60fd19b79be715a05197d5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>implement a simple periodic pod reaper for container groups see: https://github.com/ansible/awx/issues/4911</MESSAGE>
+      <SHA>0c3a5fa1c058b2509268118a8c4f5f6f5b3fb043</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/scheduler/kubernetes.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/settings/defaults.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>implement a simple periodic pod reaper for container groups see: https://github.com/ansible/awx/issues/4911</MESSAGE>
+      <SHA>96f7365767429bcaf3ab720767c0ce2e5225c1c6</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/scheduler/kubernetes.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/settings/defaults.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

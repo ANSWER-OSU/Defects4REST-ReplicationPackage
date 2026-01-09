@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>10008</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/10008</ISSUEURL>
+  <TITLE>awx.awx.tower_job_launch tags are not properly passed to API</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY If you are using awx.awx.tower_job_launch to launch a job-/workflowtemplate in AWX and you pass tags to the job launch they will be ignored. Against expectations all tasks are executed not only those with the provided tags ##### ENVIRONMENT * AWX version: Tower 3.8.2 * Ansible version: Ansible 2.9.13 * Operating System: RHEL 8.3 ##### STEPS TO REPRODUCE Create a playbook similar to this: ``` - hosts: localhost gather_facts: no environment: TOWER_USERNAME: &quot;&lt;&lt;INPUT TOWER USERNAME HERE&gt;&gt;&quot; TOWER_HOST: &quot;&lt;&lt;INPUT TOWER HOST HERE&gt;&gt;&quot; TOWER_PASSWORD: &quot;&lt;&lt;INPUT TOWER USER PASSWORD HERE&gt;&gt;&quot; vars: ansible_connection: local tasks: - name: Launch a job template with a tag on remote Tower instance awx.awx.tower_job_launch: job_template: &quot;test_template&quot; inventory: &quot;test_inventory&quot; tags: - example_tag ``` Create a second playbook named &quot;test_template&quot; with two random tasks. One needs to be tagged with &quot;example_tag&quot; ##### EXPECTED RESULTS Only the task tagged with &quot;example_tag&quot; will be executed ##### ACTUAL RESULTS All tasks will be executed ##### ADDITIONAL INFORMATION The error occurs because [tower_job_launch.py](https://github.com/ansible/awx/blob/devel/awx_collection/plugins/modules/tower_job_launch.py) passes the wrong post data to the api. The tags have to be provided under key &quot;job_tags&quot;. This can be found in [API documentation](https://docs.ansible.com/ansible-tower/latest/html/towerapi/api_ref.html#/Job_Templates/Job_Templates_job_templates_launch_read). Certainly the module passes the tags with the key &quot;tags&quot; which is wrong I think the follwing code needs to be adjusted: https://github.com/ansible/awx/blob/devel/awx_collection/plugins/modules/tower_job_launch.py#L184 The correct line should be: ` optional_args['job_tags'] = module.params.get('tags')` I will test the suggestion on monday and report the result.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>60</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #10047 from sean-m-sullivan/org_label add org search to labels SUMMARY After having an issue with labels I saw that orgs were referenced, Remembering #7567 implemented the code to do the search for orgs so you can search for labels within an org, Tests include creating the same named label in two orgs, and the search not erroring out that it found two labels of that name. ISSUE TYPE Bugfix Pull Request COMPONENT NAME awx_collection AWX VERSION 19.0.0 Reviewed-by: Bianca Henderson &lt;beeankha@gmail.com&gt; Reviewed-by: Rebeccah Hunter &lt;rhunter@redhat.com&gt;</MESSAGE>
+    <SHA>da9a0750008e54487296825719acd910a8a5dc5e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #10077 from sean-m-sullivan/job_launch_tags Fix tower_job_launch tags being passed to API SUMMARY #10008 Fix tower_job_launch tags being passed to API Previously the wrong field was being used on the api to pass tags, also while the module accepts lists, the API does not, so it would error. Take a users list, and converts to comma separated string, in order to maintain status quo. ISSUE TYPE Bugfix Pull Request COMPONENT NAME awx_collection AWX VERSION 19.1.0 Reviewed-by: Bianca Henderson &lt;beeankha@gmail.com&gt; Reviewed-by: Rebeccah Hunter &lt;rhunter@redhat.com&gt; Reviewed-by: Alan Rominger &lt;arominge@redhat.com&gt;</MESSAGE>
+      <SHA>10474cd64ce5a8c5f82cbed8da355df8a3f4989e</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/plugins/modules/tower_job_launch.py</FILE>
+        <FILE>awx_collection/tests/integration/targets/tower_job_launch/tasks/main.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

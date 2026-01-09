@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5178</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5178</ISSUEURL>
+  <TITLE>Incorrect formatting for strings in NopCommonDefaults.cs</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.3 Incorrect formatting for SingleFaviconHeadLink, FaviconAndAppIconsPath and LocalePatternPath. May result failing HTML verification if single favicon.ico is uploaded. The path is formatted with backslashes (\\) instead of common slash (/) Steps to reproduce the problem: In file &quot;Nop.Services/Common/NopCommonDefaults.cs&quot; In current version: ``` public static string SingleFaviconHeadLink =&gt; &quot;&lt;link rel=\&quot;shortcut icon\&quot; href=\&quot;\\icons\\icons_{0}\\{1}\&quot;&gt;&quot;; public static string FaviconAndAppIconsPath =&gt; &quot;icons\\icons_{0}&quot;; public static string LocalePatternPath =&gt; &quot;lib\\cldr-data\\main\\{0}&quot;; ``` Should be: ``` public static string SingleFaviconHeadLink =&gt; &quot;&lt;link rel=\&quot;shortcut icon\&quot; href=\&quot;/icons/icons_{0}/{1}\&quot;&gt;&quot;; public static string FaviconAndAppIconsPath =&gt; &quot;icons/icons_{0}&quot;; public static string LocalePatternPath =&gt; &quot;lib/cldr-data/main/{0}&quot;; ```</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue-5083-Add-the-back-to-link-to-the-shipping-method-restrictions-page' into develop</MESSAGE>
+    <SHA>954b20cb89e9b24f7b02bb1d318277bc590baa34</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #5189 from badijm/5178-NopCommonDefaults #5178 Fix of: Incorrect formatting for strings in NopCommonDefaults.cs</MESSAGE>
+      <SHA>02e848853cbd93454577fb3551bb43fb724a3449</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Common/NopCommonDefaults.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>743</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/743</ISSUEURL>
+  <TITLE>Run builds with --rm flag on the container</TITLE>
+  <DESCRIPTION>I have been looking around and haven't found anything on this, but it doesn't look like Drone is running the builds with the `docker run --rm` flag enabled. This becomes an issue with images that have docker volumes used during the build. They fill up the ../vfs/.. directory. Has this been considered? Are there workarounds that people have used to mitigate? I think this could be coded as the default, or opted in, like privileged. Looking at the code, a similar pattern as the privileged flag could be followed and bubbled up in the UI under repository settings. It seems like running with this flag would prevent cleanup scripts etc. to maintain the host. I don't think it would interfere with caching directories since bind mounts are not impacted.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>323</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[Protection Rules] Load user from store in pre-receive hook (#747)</MESSAGE>
+    <SHA>3418dd11278adb106e2080b29309ee37f142f94b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>empty pattern matches all (#743)</MESSAGE>
+      <SHA>f0d87f4437aab7740ee898f0ad3cb159da3199aa</SHA>
+      <PATCHEDFILES>
+        <FILE>app/services/protection/pattern.go</FILE>
+        <FILE>app/services/protection/pattern_test.go</FILE>
+        <FILE>app/services/protection/service.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

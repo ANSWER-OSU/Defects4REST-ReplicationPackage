@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>350</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/350</ISSUEURL>
+  <TITLE>Multiple bugs in error propagation</TITLE>
+  <DESCRIPTION>When a sub process element has two error boundary events, one with a specific error code and one without, the first one should be chosen, when the error codes match. In my case during execution of the sub process an error end event is executed calling method _propagateError_ of class _org.flowable.engine.impl.bpmn.helper.ErrorPropagation_. In method _findCatchingEventsForProcess_ both error boundary events of the parent process are correctly found and returned in the same list as value of the returned event map but in method _executeCatch_ (line 157) simply the first error boundary event in the list (in my case the one without error code) is chosen and propagated without checking the other error boundary event in the list for a matching error code. I attached a small example to demonstrate the error. [example.zip](https://github.com/flowable/flowable-engine/files/950640/example.zip) I also found out that the complete error propagation fails, when in method _propagateError_ the first call of method _findCatchingEventsForProcess_ returns an eventMap with irrelevant error boundary events and then method _executeCatch_ is called. In case of a call activity you get a &quot;No matching parent execution for error code&quot; exception because the search for catching events only includes parent executions but not super executions. I attached a small example for this type of error too. [error_example.zip](https://github.com/flowable/flowable-engine/files/950712/error_example.zip)</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Added other job types to admin app #355</MESSAGE>
+    <SHA>8f18edf0819d929263fada78b90ae092bfc32aaa</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix error propagation issue #350</MESSAGE>
+      <SHA>3a63d169c2c94e614dc6679be67bf085f6baea4b</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/helper/ErrorPropagation.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/event/error/BoundaryErrorEventTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/event/error/BoundaryErrorEventTest.multipleErrorsCatch.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/event/error/BoundaryErrorEventTest.multipleErrorsThrow.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/event/error/BoundaryErrorEventTest.multipleErrorsThrow2.bpmn20.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>More error propagation fixing #350</MESSAGE>
+      <SHA>6672417f3b970e1de1d9a31cc140a481b704958f</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/helper/ErrorPropagation.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/event/error/BoundaryErrorEventTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/event/error/BoundaryErrorEventTest.callActivityWithErrorEndEventCatch.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/event/error/BoundaryErrorEventTest.callActivityWithErrorEndEventThrow.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/event/error/BoundaryErrorEventTest.callActivityWithErrorEndEventThrow2.bpmn20.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

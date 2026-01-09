@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118406</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118406</ISSUEURL>
+  <TITLE>[CI] SearchableSnapshotActionIT testUpdatePolicyToAddPhasesYieldsInvalidActionsToBeSkipped failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #5826 / windows-2022_checkpart5_platform-support-windows](https://gradle-enterprise.elastic.co/s/vicv2keggo2fe) - [elasticsearch-pull-request #49424 / part-5](https://gradle-enterprise.elastic.co/s/zfekaa6tbbbok) **Reproduction Line:** ``` gradlew &quot;:x-pack:plugin:ilm:qa:multi-node:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.ilm.actions.SearchableSnapshotActionIT.testUpdatePolicyToAddPhasesYieldsInvalidActionsToBeSkipped&quot; -Dtests.seed=3D05FB81E22D2F83 -Dtests.locale=jgo-CM -Dtests.timezone=Australia/Tasmania -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.ilm.actions.SearchableSnapshotActionIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testUpdatePolicyToAddPhasesYieldsInvalidActionsToBeSkipped),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: is &quot;cold&quot; but: was &quot;hot&quot; ``` **Issue Reasons:** - [main] 2 failures in test testUpdatePolicyToAddPhasesYieldsInvalidActionsToBeSkipped (0.2% fail rate in 925 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>126</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Run `TransportClusterGetSettingsAction` on local node (#119831) This action solely needs the cluster state, it can run on any node. Additionally, it needs to be cancellable to avoid doing unnecessary work after a client failure or timeout. The `?local` parameter becomes a no-op and is marked as deprecated.</MESSAGE>
+    <SHA>4ccd377d27f34f8e9b1c0618e10083af0460b5d0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ilm.actions.SearchableSnapshotActionIT testUpdatePolicyToAddPhasesYieldsInvalidActionsToBeSkipped #118406</MESSAGE>
+      <SHA>476797e523ff7c226c7cb850066684b1ec4a6e25</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ilm.actions.SearchableSnapshotActionIT testUpdatePolicyToAddPhasesYieldsInvalidActionsToBeSkipped #118406</MESSAGE>
+      <SHA>fb1b69342c07a89fa8448538dbce070d494796d2</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

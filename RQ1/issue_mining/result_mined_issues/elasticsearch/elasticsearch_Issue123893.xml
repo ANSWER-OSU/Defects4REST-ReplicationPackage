@@ -1,0 +1,86 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>123893</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/123893</ISSUEURL>
+  <TITLE>Batched rollover requests hoard heap space</TITLE>
+  <DESCRIPTION>A master node OOMed because a large number of rollover requests (`586` to be precise) were batched into one cluster state update task. When we process all the batched rollover requests, we add a `RolloverResult` for every request to a [list](https://github.com/elastic/elasticsearch/blob/5a70623d8de8fcdec0c80923e59c68f063f2b41f/server/src/main/java/org/elasticsearch/action/admin/indices/rollover/LazyRolloverAction.java#L192). The issue is that every `RolloverResult` contains a field for the resulting cluster state, meaning we're holding on to all of those intermediate cluster state objects until the whole batch is finished. From the looks of it, we don't actually need the intermediate cluster states, so we should be able to refactor this to avoid keeping references to the intermediate ones and only return the final one. This specific occurrence was seen on `v8.17.2`, but it probably goes back to when rollover became batched.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ESQL: Fix ShapeGeometryFieldMapperTests (and rename) (#122871) Fixes #122661. The issue was caused by RandomIndexWriter (randomly) reshuffling the document writing order. Since this test also ensures that the documents are read in the input order, I've opted to use a regular IndexWriter instead. I've also renamed the class to AbstractShapeGeometryFieldMapperTests since it was originally renamed due to a misunderstanding of muted tests (which caused it to be muted again! Busted ).</MESSAGE>
+    <SHA>5a62fd1b0ee0405044cc07f20a14ecd6a9800126</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Avoid hoarding cluster state references during rollover By keeping a list of all the rollover results in a rollover request batch, we were keeping references to all the intermediate cluster states that we built. We've seen this list take up ~1.4GB with 600 rollover requests in one batch. We only kept the list of results to compute the &quot;reason&quot; for the allocation reroute, so we can easily drop the cluster state reference from the list and only keep what we need. Fixes #123893</MESSAGE>
+      <SHA>f007da08ca15df1d01547ce58478a62d5d7091bd</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/rollover/LazyRolloverAction.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/rollover/TransportRolloverAction.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Avoid hoarding cluster state references during rollover (#124107) By keeping a list of all the rollover results in a rollover request batch, we were keeping references to all the intermediate cluster states that we built. We've seen this list take up ~1.4GB with 600 rollover requests in one batch. We only kept the list of results to compute the &quot;reason&quot; for the allocation reroute, so we can easily drop the cluster state reference from the list and only keep what we need. Fixes #123893</MESSAGE>
+      <SHA>ff6465b83b41a65028b05071b4fd62aa2d85de5e</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/124107.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/rollover/LazyRolloverAction.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/rollover/TransportRolloverAction.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Avoid hoarding cluster state references during rollover (#124107) By keeping a list of all the rollover results in a rollover request batch, we were keeping references to all the intermediate cluster states that we built. We've seen this list take up ~1.4GB with 600 rollover requests in one batch. We only kept the list of results to compute the &quot;reason&quot; for the allocation reroute, so we can easily drop the cluster state reference from the list and only keep what we need. Fixes #123893</MESSAGE>
+      <SHA>3bd22c4acedc8d56975a112727bd7ccfa94b7ec6</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/124107.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/rollover/LazyRolloverAction.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/rollover/TransportRolloverAction.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Avoid hoarding cluster state references during rollover (#124107) (#124257) By keeping a list of all the rollover results in a rollover request batch, we were keeping references to all the intermediate cluster states that we built. We've seen this list take up ~1.4GB with 600 rollover requests in one batch. We only kept the list of results to compute the &quot;reason&quot; for the allocation reroute, so we can easily drop the cluster state reference from the list and only keep what we need. Fixes #123893</MESSAGE>
+      <SHA>60992fe7866db58a9f42eb11fde2b2a2ad08b705</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/124107.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/rollover/LazyRolloverAction.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/rollover/TransportRolloverAction.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Avoid hoarding cluster state references during rollover (#124107) By keeping a list of all the rollover results in a rollover request batch, we were keeping references to all the intermediate cluster states that we built. We've seen this list take up ~1.4GB with 600 rollover requests in one batch. We only kept the list of results to compute the &quot;reason&quot; for the allocation reroute, so we can easily drop the cluster state reference from the list and only keep what we need. Fixes #123893 (cherry picked from commit ff6465b83b41a65028b05071b4fd62aa2d85de5e) # Conflicts: # server/src/main/java/org/elasticsearch/action/admin/indices/rollover/LazyRolloverAction.java</MESSAGE>
+      <SHA>b0a78ab37e5a8162ba3b88757d8c35466dce5a34</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/124107.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/rollover/LazyRolloverAction.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/rollover/TransportRolloverAction.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Avoid hoarding cluster state references during rollover (#124107) By keeping a list of all the rollover results in a rollover request batch, we were keeping references to all the intermediate cluster states that we built. We've seen this list take up ~1.4GB with 600 rollover requests in one batch. We only kept the list of results to compute the &quot;reason&quot; for the allocation reroute, so we can easily drop the cluster state reference from the list and only keep what we need. Fixes #123893 (cherry picked from commit ff6465b83b41a65028b05071b4fd62aa2d85de5e) # Conflicts: # server/src/main/java/org/elasticsearch/action/admin/indices/rollover/LazyRolloverAction.java</MESSAGE>
+      <SHA>b7f54506a9087974aa4ee094441669d53d299c2d</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/124107.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/rollover/LazyRolloverAction.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/rollover/TransportRolloverAction.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Avoid hoarding cluster state references during rollover (#124107) By keeping a list of all the rollover results in a rollover request batch, we were keeping references to all the intermediate cluster states that we built. We've seen this list take up ~1.4GB with 600 rollover requests in one batch. We only kept the list of results to compute the &quot;reason&quot; for the allocation reroute, so we can easily drop the cluster state reference from the list and only keep what we need. Fixes #123893</MESSAGE>
+      <SHA>748141183667e3f9d312dd225df0c911e03d45f2</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/124107.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/rollover/LazyRolloverAction.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/rollover/TransportRolloverAction.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Avoid hoarding cluster state references during rollover (#124107) By keeping a list of all the rollover results in a rollover request batch, we were keeping references to all the intermediate cluster states that we built. We've seen this list take up ~1.4GB with 600 rollover requests in one batch. We only kept the list of results to compute the &quot;reason&quot; for the allocation reroute, so we can easily drop the cluster state reference from the list and only keep what we need. Fixes #123893</MESSAGE>
+      <SHA>8d443d86325034b8c03db7eb1ddbbb998023104d</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/124107.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/rollover/LazyRolloverAction.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/admin/indices/rollover/TransportRolloverAction.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>199</ISSUENO>
+  <ISSUEURL>https://github.com/strapdata/elassandra/issues/199</ISSUEURL>
+  <TITLE>Deletion of ALL elements of a List doesn't removes the document on ES</TITLE>
+  <DESCRIPTION>**Elassandra version**: 5.5.0.18 The problem occurs from a table with a compound key and a list of any type. When the last element of the list is removed, the row is deleted from cassandra but the document remains on ES without the source. **Steps to reproduce**: 1. Given the table ```sql CREATE TABLE table_test ( id1 text, id2 text, list list&lt;text&gt;, PRIMARY KEY (id1, id2) ); ``` 2. The ES index mapping ```json { &quot;settings&quot;: { &quot;keyspace&quot;: &quot;ks_test&quot; }, &quot;mappings&quot;: { &quot;table_test&quot;: { &quot;discover&quot;: &quot;.*&quot; } } } ``` 3. Insert a row into the table: ```sql UPDATE table_test SET list = list + ['foo'] where id1='1' and id2='2'; ``` 4. Search the document on ES: ```bash get ks_test/_search?pretty=true ``` ```json { &quot;took&quot; : 2, &quot;timed_out&quot; : false, &quot;_shards&quot; : { &quot;total&quot; : 1, &quot;successful&quot; : 1, &quot;failed&quot; : 0 }, &quot;hits&quot; : { &quot;total&quot; : 1, &quot;max_score&quot; : 1.0, &quot;hits&quot; : [ { &quot;_index&quot; : &quot;ks_test&quot;, &quot;_type&quot; : &quot;table_test&quot;, &quot;_id&quot; : &quot;[\&quot;1\&quot;,\&quot;2\&quot;]&quot;, &quot;_score&quot; : 1.0, &quot;_source&quot; : { &quot;id2&quot; : &quot;2&quot;, &quot;id1&quot; : &quot;1&quot;, &quot;list&quot; : &quot;foo&quot; } } ] } ``` 5. Remove the last element from the list: ```sql UPDATE table_test SET list = list - ['foo'] where id1='1' and id2='2'; ``` 6. Search the document on ES again: ```bash get ks_test/_search?pretty=true ``` ```json { &quot;took&quot; : 1, &quot;timed_out&quot; : false, &quot;_shards&quot; : { &quot;total&quot; : 1, &quot;successful&quot; : 1, &quot;failed&quot; : 0 }, &quot;hits&quot; : { &quot;total&quot; : 1, &quot;max_score&quot; : 1.0, &quot;hits&quot; : [ { &quot;_index&quot; : &quot;ks_test&quot;, &quot;_type&quot; : &quot;table_test&quot;, &quot;_id&quot; : &quot;[\&quot;1\&quot;,\&quot;2\&quot;]&quot;, &quot;_score&quot; : 1.0 } ] } } ``` 7. But on Cassandra... ```sql SELECT * FROM table_test; ``` ```plain id1 | id2 | list -----+-----+------ (0 rows) ``` Thanks in advance.</DESCRIPTION>
+  <REPONAME>elassandra</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Enhance multicloud support</MESSAGE>
+    <SHA>18cf7405d61a1afe47c01fa8c9db0fa23c451f4a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #199 cassandra null update</MESSAGE>
+      <SHA>f71af9338bb7b6b972ef740489a57ba66aa222b2</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elassandra/index/ElasticSecondaryIndex.java</FILE>
+        <FILE>server/src/test/java/org/elassandra/CqlTypesTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #199 cassandra update to null</MESSAGE>
+      <SHA>a17ec8c8404147e9eeeedb7cc209d36059560f17</SHA>
+      <PATCHEDFILES>
+        <FILE>core/src/main/java/org/elassandra/index/ElasticSecondaryIndex.java</FILE>
+        <FILE>core/src/test/java/org/elassandra/CompactionTests.java</FILE>
+        <FILE>core/src/test/java/org/elassandra/CqlTypesTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix bug #199 with node.name</MESSAGE>
+      <SHA>51f10b58d00d3158bb8e46890cfceb05c2cfa2df</SHA>
+      <PATCHEDFILES>
+        <FILE>core/src/main/java/org/apache/cassandra/service/ElassandraDaemon.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>27123</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/27123</ISSUEURL>
+  <TITLE>Missing translation key &quot;ErrorStartDateGreaterEnd&quot;</TITLE>
+  <DESCRIPTION>### Bug The translation key `ErrorStartDateGreaterEnd` is called by multiple files, but isn't defined in V18 and probably develop (V19). On a V18.0.3 this key is called from: ``` grep -Rl &quot;ErrorStartDateGreaterEnd&quot; . ./htdocs/comm/propal/class/propal.class.php ./htdocs/commande/class/commande.class.php ./htdocs/fourn/class/fournisseur.facture.class.php ./htdocs/fourn/class/fournisseur.commande.class.php ./htdocs/compta/facture/class/facture.class.php ./htdocs/contrat/class/contrat.class.php ``` For example here: https://github.com/Dolibarr/dolibarr/blob/24703a0f3d63dc2f6f900cbc0147abed4f6335d2/htdocs/fourn/class/fournisseur.facture.class.php#L2076-L2080 or here: https://github.com/Dolibarr/dolibarr/blob/24703a0f3d63dc2f6f900cbc0147abed4f6335d2/htdocs/fourn/class/fournisseur.commande.class.php#L1902-L1906 or here: https://github.com/Dolibarr/dolibarr/blob/24703a0f3d63dc2f6f900cbc0147abed4f6335d2/htdocs/compta/facture/class/facture.class.php#L4123-L4127 I've checked on Transifex but couldn't find it: https://app.transifex.com/dolibarr-association/dolibarr/translate/#fr_FR/$?q=key%3AErrorStartDateGreaterEnd It probably existed before and has been deleted at some point. I guess this key should be added to `/htdocs/langs/en_US/errors.lang` since we've always got `$langs-&gt;load(&quot;errors&quot;);` just before it's called. ### Environment Version 18.0.3 ### Environment OS _No response_ ### Environment Web server _No response_ ### Environment PHP _No response_ ### Environment Database _No response_ ### Environment URL(s) _No response_ ### Expected and actual behavior _No response_ ### Steps to reproduce the behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '17.0' of git@github.com:Dolibarr/dolibarr.git into 18.0 Conflicts: htdocs/modulebuilder/template/myobject_list.php</MESSAGE>
+    <SHA>bb65d9520dc2ad6e0f07edd444b80c456da7984b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #27124 from thibdrev/patch-1 fix #27123 - Missing translation key &quot;ErrorStartDateGreaterEnd&quot;</MESSAGE>
+      <SHA>4979b43ebc3d1cde869de819b796eb0517cd436d</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/langs/en_US/errors.lang</FILE>
+        <FILE>htdocs/langs/fr_FR/errors.lang</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

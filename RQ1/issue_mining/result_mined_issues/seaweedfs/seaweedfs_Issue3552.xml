@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3552</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3552</ISSUEURL>
+  <TITLE>[s3] DATA RACE on NewS3ApiServer</TITLE>
+  <DESCRIPTION>https://github.com/seaweedfs/seaweedfs/issues/3507 ``` I0830 08:17:15.016626 s3api_circuit_breaker.go:40 s3 circuit breaker not configured: read S3 circuit breaker config: filer: no entry is found in filer store ================== WARNING: DATA RACE Read at 0x00c00055adb0 by goroutine 46: github.com/seaweedfs/seaweedfs/weed/s3api.NewS3ApiServer() /go/src/github.com/seaweedfs/seaweedfs/weed/s3api/s3api_server.go:62 +0x584 github.com/seaweedfs/seaweedfs/weed/command.(*S3Options).startS3Server() /go/src/github.com/seaweedfs/seaweedfs/weed/command/s3.go:188 +0xa9b github.com/seaweedfs/seaweedfs/weed/command.runFiler.func1() /go/src/github.com/seaweedfs/seaweedfs/weed/command/filer.go:178 +0x44 github.com/seaweedfs/seaweedfs/weed/command.runFiler.func6() /go/src/github.com/seaweedfs/seaweedfs/weed/command/filer.go:179 +0x47 Previous write at 0x00c00055adb0 by main goroutine: github.com/seaweedfs/seaweedfs/weed/command.(*FilerOptions).startFiler() /go/src/github.com/seaweedfs/seaweedfs/weed/command/filer.go:297 +0x1b8b github.com/seaweedfs/seaweedfs/weed/command.runFiler() /go/src/github.com/seaweedfs/seaweedfs/weed/command/filer.go:203 +0x892 main.main() /go/src/github.com/seaweedfs/seaweedfs/weed/weed.go:81 +0x943 Goroutine 46 (running) created at: github.com/seaweedfs/seaweedfs/weed/command.runFiler() /go/src/github.com/seaweedfs/seaweedfs/weed/command/filer.go:176 +0x564 main.main() /go/src/github.com/seaweedfs/seaweedfs/weed/weed.go:81 +0x943 ================== ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>avoid race conditions access to SuperBlock.Version (#3539) * avoid race conditions access to SuperBlock.Version https://github.com/seaweedfs/seaweedfs/issues/3515 * superBlockAccessLock replace to sync.Mutex</MESSAGE>
+    <SHA>ade94b0d0a71db7db117454c075dc93f839e1c9c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>avoid DATA RACE on S3Options.localFilerSocket https://github.com/seaweedfs/seaweedfs/issues/3552</MESSAGE>
+      <SHA>426636a7b93c6b96ffab0778abb7d0e57ac1bf8b</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/s3.go</FILE>
+        <FILE>weed/s3api/s3api_server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>avoid DATA RACE on S3Options.localFilerSocket (#3571) * avoid DATA RACE on S3Options.localFilerSocket https://github.com/seaweedfs/seaweedfs/issues/3552 * copy localSocket</MESSAGE>
+      <SHA>8c3040db81ac3c3a5b80d675ba3cf044420d4b9a</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/filer.go</FILE>
+        <FILE>weed/command/s3.go</FILE>
+        <FILE>weed/s3api/s3api_server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

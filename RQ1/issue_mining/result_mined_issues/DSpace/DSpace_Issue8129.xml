@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8129</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/8129</ISSUEURL>
+  <TITLE>Prefix Solr core names to facilitate multiple DSpace instances on a single Solr instance</TITLE>
+  <DESCRIPTION>When running multiple DSpace instances, it is often convenient to gather all of their Solr cores under a single Solr instance. This requires distinct names for Solr cores across DSpace instances. The core names are configured in various places scattered through DSpace's configuration files, making management of the core names more error-prone. To reduce the chance of error, and keep things neatly organized, I propose defining a new configuration property `solr.core.prefix` which, when set, adds a single prefix to all configured core names. The prefixing takes place entirely within the assembly of the runtime configuration -- no Java code changes are required. The relevant properties extracted from a sample instance: ``` mwood@barn ~/dspaces/ds7/config $ grep solr.core.prefix . -r ./modules/solr-statistics.cfg:solr-statistics.server = ${solr.server}/${solr.core.prefix}statistics ./modules/oai.cfg:oai.solr.url=${solr.server}/${solr.core.prefix}oai ./modules/discovery.cfg:discovery.search.server = ${solr.server}/${solr.core.prefix}search ./local.cfg:solr.core.prefix = dspace7- ./local.cfg:solr.authority.server = ${solr.server}/${solr.core.prefix}authority mwood@barn ~/dspaces/ds7/config $ ``` Thus, this DSpace instance's Solr cores will be named `dspace7-search`, `dspace7-authority`, `dspace7-oai`, and `dspace7-statistics`. By default the prefix property will be unset, causing the un-prefixed names to be used, as is the case now.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>34</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #8022 from astrowq/dev/new-date-format fix an error when harvesting arXiv OAI-PMH</MESSAGE>
+    <SHA>750426988bc6ff87d8ab7c42ebef31144b692597</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Invent 'solr.multicorePrefix' to distinguish multiple DSpace instances running against a single Solr instance. #8129</MESSAGE>
+      <SHA>f36ce778fb55d3363aaee72cb7719b5ae5738d2a</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace/config/dspace.cfg</FILE>
+        <FILE>dspace/config/modules/discovery.cfg</FILE>
+        <FILE>dspace/config/modules/iiif.cfg</FILE>
+        <FILE>dspace/config/modules/oai.cfg</FILE>
+        <FILE>dspace/config/modules/solr-statistics.cfg</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add core prefix property to local.cfg.EXAMPLE #8129</MESSAGE>
+      <SHA>e261e1ce4340af3dc89d31e083a6fdf8d61a1610</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace/config/local.cfg.EXAMPLE</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

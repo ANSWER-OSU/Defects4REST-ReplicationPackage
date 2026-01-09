@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>213</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/213</ISSUEURL>
+  <TITLE>Remove old deployments for app that are not aliased</TITLE>
+  <DESCRIPTION>I'm using `now` to deploy my blog, and trying to make deployment seamless by automatically removing old deployments that are not aliased (the non-production ones). I make sure to name all my deployments under the same app name, so they all show up when I type `now ls domain.com` However, if I redeploy, I get a list of all former deployments and have to manually delete them. For the time being I wrote this deploy script. Is there any easier way than this? A `now rm --not-aliased my-app` would be amazing to have. ``` echo &quot;Deploying $DOMAIN...&quot; now --static ./public --token=$TOKEN -n $DOMAIN -a $DOMAIN ALIAS=&quot;$(now alias list|grep &quot;$DOMAIN&quot;|awk '/now\.sh/ { print $2}')&quot; echo &quot;Currently aliased to $ALIAS, removing all others for $DOMAIN...&quot; now ls $DOMAIN | grep -v &quot;$ALIAS&quot; | awk '/.*([A-Za-z0-9]{24}).*/ { print $1; }' | xargs -I{} now -y rm {} ``` I would be happy to make a PR for now-cli if this is a wanted feature. There is definitely a more elegant way to do this from within the app's code.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>565</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Publish - @now/build-utils@0.4.35-canary.2 - @now/go@0.2.13-canary.1 - @now/rust@0.0.3-canary.1</MESSAGE>
+    <SHA>ac1a3dab224d7935ce1ffb510eda5b0e1493ebcd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-rust] Build `.rs` entrypoints (#213)</MESSAGE>
+      <SHA>2fabe95f6e059c00e688e561c81c18cbb95b5589</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-rust/download-install-rust-toolchain.js</FILE>
+        <FILE>packages/now-rust/index.js</FILE>
+        <FILE>packages/now-rust/inferCargoBinaries.js</FILE>
+        <FILE>packages/now-rust/launcher.rs</FILE>
+        <FILE>packages/now-rust/package.json</FILE>
+        <FILE>packages/now-rust/test/test.js</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

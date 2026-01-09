@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1126</ISSUENO>
+  <ISSUEURL>https://github.com/louislam/uptime-kuma/issues/1126</ISSUEURL>
+  <TITLE>Google Chat notification error</TITLE>
+  <DESCRIPTION>### ⚠️ Please verify that this bug has NOT been raised before. - [X] I checked and didn't find similar issue ### ️ Security Policy - [X] I agree to have read this project [Security Policy](https://github.com/louislam/uptime-kuma/security/policy) ### Description The new Google Chat notification produces an error upon testing sending a notification ### Reproduction steps 1. create a notification of type Google Chat 2. click the test button ### Expected behavior a notification is sent to Google Chat ### Actual Behavior an error is shown : `Error: Notification type is not supported` ### Uptime-Kuma Version 1.11.2 ### Operating System and Arch docker ### Browser Google Chrome 96.0.4664.110 (Build officiel) (32 bits) ### Docker Version 20.10.12 ### NodeJS Version _No response_ ### Relevant log output ```shell server log kuma_1 | Error: Notification type is not supported kuma_1 | at Function.send (/app/server/notification.js:96:19) kuma_1 | at Socket.&lt;anonymous&gt; (/app/server/server.js:1036:46) kuma_1 | at Socket.emit (events.js:400:28) kuma_1 | at Socket.emitUntyped (/app/node_modules/socket.io/dist/typed-events.js:69:22) kuma_1 | at /app/node_modules/socket.io/dist/socket.js:428:39 kuma_1 | at processTicksAndRejections (internal/process/task_queues.js:77:11) ``` ```</DESCRIPTION>
+  <REPONAME>uptime-kuma</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>update to 1.11.3</MESSAGE>
+    <SHA>ec5037f30d01f57ea9e0d0f38db68f0b53f879ca</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix `TypeError: Cannot read property 'id' of null` when testing a Google Chat notification see https://github.com/louislam/uptime-kuma/issues/1126#issuecomment-1006343423</MESSAGE>
+      <SHA>46fa6a56fa79c3ce793dcb73cd73b8be8fdfb0db</SHA>
+      <PATCHEDFILES>
+        <FILE>server/notification-providers/google-chat.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

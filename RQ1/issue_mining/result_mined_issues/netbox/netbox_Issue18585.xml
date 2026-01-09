@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18585</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18585</ISSUEURL>
+  <TITLE>Filtering circuits by location not working</TITLE>
+  <DESCRIPTION>### Deployment Type NetBox Cloud ### NetBox Version v4.2.3 ### Python Version 3.11 ### Steps to Reproduce 1. Attach a location to a circuit as a termination point. 2. Go to the location and under &quot;Related objects&quot; click on circuits (or circuits terminations). 3. `https://netbox.local/circuits/circuits/?location_id=&lt;id&gt;` ### Expected Behavior Only the attached circuit(s) show(s) up. ### Observed Behavior Filter not working, all circuits are being displayed.</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixes 18555: Fix model URL generator for plugins (#18607) * Fix model URL generator for plugins * Fix reverse accessor warning * Revert &quot;Fix reverse accessor warning&quot; This reverts commit f07642bb997910205d0acc09fc8df3dde30c7981. * Add URL test case for regular models * Split dummy models Instead of using a single model for testing, one is used for testing the plugin API and a dedicated one is used for testing the NetBox plugin model features. * Fix filterset test case error * Rename test module --------- Co-authored-by: Jeremy Stretch &lt;jstretch@netboxlabs.com&gt;</MESSAGE>
+    <SHA>6c6cb321bf60a03ff23ec2db2f6fcdc4e354098d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #18585: filtering circuits by location (#18641) * Fixes #18585: filtering circuits by location This also fixes a related issue where selected filter is not shown in the filter form. Changes: - Adds `CircuitFilterSet.location_id` field to enable filtering with incoming GET params - Adds `CirciotFilterForm.location_id` field to enable filtering from list form - Adds `location_id` to the Location fieldset on `CircuitFilterForm` * Adds test for new CircuitFilterset.location_id filter</MESSAGE>
+      <SHA>70dddb673b82c476ec5ce09570b41baa10597aae</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/circuits/filtersets.py</FILE>
+        <FILE>netbox/circuits/forms/filtersets.py</FILE>
+        <FILE>netbox/circuits/tests/test_filtersets.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #18585: filtering circuits by location (#18641) * Fixes #18585: filtering circuits by location This also fixes a related issue where selected filter is not shown in the filter form. Changes: - Adds `CircuitFilterSet.location_id` field to enable filtering with incoming GET params - Adds `CirciotFilterForm.location_id` field to enable filtering from list form - Adds `location_id` to the Location fieldset on `CircuitFilterForm` * Adds test for new CircuitFilterset.location_id filter</MESSAGE>
+      <SHA>567e7460030918c4da8c511cd5a802a93077fb84</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/circuits/filtersets.py</FILE>
+        <FILE>netbox/circuits/forms/filtersets.py</FILE>
+        <FILE>netbox/circuits/tests/test_filtersets.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

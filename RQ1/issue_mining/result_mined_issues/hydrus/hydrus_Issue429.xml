@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>429</ISSUENO>
+  <ISSUEURL>https://github.com/HTTP-APIs/hydrus/issues/429</ISSUEURL>
+  <TITLE>demo returns incomplete contexts</TITLE>
+  <DESCRIPTION>### I'm submitting a - [X] bug report. ### Current Behaviour: I'm exploring the hydrus demo to understand how Hydra works. From what I understand, the linked JSON-LD contexts do not provide enough information to parse a response as RDF. Requesting the `DroneCollection` returns the following JSON-LD document: ```jsonc // GET http://localhost:8080/serverapi/DroneCollection { &quot;@context&quot;: &quot;/serverapi/contexts/DroneCollection.jsonld&quot;, &quot;@id&quot;: &quot;/serverapi/DroneCollection/&quot;, &quot;@type&quot;: &quot;DroneCollection&quot;, &quot;members&quot;: [], &quot;search&quot;: { &quot;@type&quot;: &quot;IriTemplate&quot;, &quot;mapping&quot;: [ { &quot;@type&quot;: &quot;IriTemplateMapping&quot;, &quot;property&quot;: &quot;http://auto.schema.org/speed&quot;, &quot;required&quot;: false, &quot;variable&quot;: &quot;DroneState[Speed]&quot; }, // ... ], &quot;template&quot;: &quot;/serverapi/Drone(DroneState[Speed], DroneState[Position], DroneState[Direction], DroneState[Battery], DroneState[SensorStatus], DroneState[DroneID], name, model, MaxSpeed, Sensor, pageIndex, limit, offset)&quot;, &quot;variableRepresentation&quot;: &quot;hydra:BasicRepresentation&quot; }, &quot;totalItems&quot;: 0, &quot;view&quot;: { &quot;@id&quot;: &quot;/serverapi/DroneCollection?page=1&quot;, &quot;@type&quot;: &quot;PartialCollectionView&quot;, &quot;first&quot;: &quot;/serverapi/DroneCollection?page=1&quot;, &quot;last&quot;: &quot;/serverapi/DroneCollection?page=1&quot; } } ``` However, the linked JSON-LD context does not contain mappings for all the Hydra-specific identifiers: ```jsonc // GET http://localhost:8080/serverapi/contexts/DroneCollection.jsonld { &quot;@context&quot;: { &quot;Drone&quot;: &quot;vocab:Drone&quot;, &quot;DroneCollection&quot;: &quot;vocab:DroneCollection&quot;, &quot;hydra&quot;: &quot;http://www.w3.org/ns/hydra/core#&quot;, &quot;members&quot;: &quot;http://www.w3.org/ns/hydra/core#member&quot;, &quot;vocab&quot;: &quot;http://localhost:8080/serverapi/vocab#&quot; } } ``` Almost none of the Hydra-identifiers in the response (`search`, `IriTemplate`, `totalItems`, `first`, `last`, etc.) can be mapped to their URIs. The issue becomes obvious, when you paste the JSON-LD along with the JSON-LD context into the JSON-LD playground: http://tinyurl.com/rrq6cc8 ### Expected Behaviour: Either the JSON-LD context maps all the identifiers to their URIs or the identifiers are prefixed with `hydra:` in the document. E.g. like this: ```jsonc { &quot;@context&quot;: &quot;/serverapi/contexts/DroneCollection.jsonld&quot;, &quot;@id&quot;: &quot;/serverapi/DroneCollection/&quot;, &quot;@type&quot;: &quot;DroneCollection&quot;, &quot;members&quot;: [], &quot;hydra:search&quot;: { &quot;@type&quot;: &quot;hydra:IriTemplate&quot;, &quot;hydra:mapping&quot;: [ { &quot;@type&quot;: &quot;hydra:IriTemplateMapping&quot;, &quot;hydra:property&quot;: &quot;http://auto.schema.org/speed&quot;, &quot;hydra:required&quot;: false, &quot;hydra:variable&quot;: &quot;DroneState[Speed]&quot; }, // ... ], &quot;hydra:template&quot;: &quot;/serverapi/Drone(DroneState[Speed], DroneState[Position], DroneState[Direction], DroneState[Battery], DroneState[SensorStatus], DroneState[DroneID], name, model, MaxSpeed, Sensor, pageIndex, limit, offset)&quot;, &quot;hydra:variableRepresentation&quot;: &quot;hydra:BasicRepresentation&quot; }, &quot;hydra:totalItems&quot;: 0, &quot;hydra:view&quot;: { &quot;@id&quot;: &quot;/serverapi/DroneCollection?page=1&quot;, &quot;@type&quot;: &quot;hydra:PartialCollectionView&quot;, &quot;hydra:first&quot;: &quot;/serverapi/DroneCollection?page=1&quot;, &quot;hydra:last&quot;: &quot;/serverapi/DroneCollection?page=1&quot; } } ``` Here's the JSON-LD playground for this document: http://tinyurl.com/r2oje6q The same applies to other responses, e.g. the `Drone` representation, which links to the same JSON-LD context as the collection leaving `MaxSpeed`, `Sensor`, `model` and `name` undefined: ```jsonc // GET http://localhost:8080/serverapi/DroneCollection/9299bee8-bdc6-4d6f-9f48-f5884b3ef29c { &quot;@context&quot;: &quot;/serverapi/contexts/DroneCollection.jsonld&quot;, &quot;@id&quot;: &quot;/serverapi/DroneCollection/9299bee8-bdc6-4d6f-9f48-f5884b3ef29c&quot;, &quot;@type&quot;: &quot;Drone&quot;, &quot;MaxSpeed&quot;: &quot;100&quot;, &quot;Sensor&quot;: &quot;Temperature&quot;, &quot;model&quot;: &quot;xyz&quot;, &quot;name&quot;: &quot;Drone 1&quot; } ``` ### Steps to reproduce: - Start the demo according to README - Authenticate - `GET http://localhost:8080/serverapi/DroneCollection` - `GET http://localhost:8080/serverapi/contexts/DroneCollection.jsonld` - Copy/paste both, document and context, into the JSON-LD playground (or click link above) ### Do you want to work on this issue? no, I'm not familiar with python and only wanted to learn about Hydra.</DESCRIPTION>
+  <REPONAME>hydrus</REPONAME>
+  <TIMEDIFFERENCEDAYS>97</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Refactor Item class in resources.py (#435) * Refactor checkClassOp() in resources.py related to #424 * Fix failing imports * Fix pep8 compliance * Fix build errors * Refactor post method in Item class * Refactor put method in item class * Refactor delete method in Item class * Fix PEP8 issues</MESSAGE>
+    <SHA>963290c200b337a190259435f5f99b53ab099caa</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX: Incomplete contexts in hydrus demo Add context to the following properties: `totalItems`, `view`, `first`, `last`. related to #429.</MESSAGE>
+      <SHA>f0504689920c5bd02bca3fa393a988591c8360d8</SHA>
+      <PATCHEDFILES>
+        <FILE>hydrus/data/crud.py</FILE>
+        <FILE>hydrus/data/crud_helpers.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>FIX: incomplete contexts in hydrus demo (#441) * FIX: Incomplete contexts in hydrus demo Add context to the following properties: `totalItems`, `view`, `first`, `last`. related to #429. * Regenerate the API Documentation for the hydrus demo Fixed incomplete contexts in API documentation of hydrus demo and regenerated it. * Fix tests with respect to context changes made * Fix PEP8 issues * Fix PEP8</MESSAGE>
+      <SHA>5444d6ac833b8fe74a445a85f8b471df2a2a5829</SHA>
+      <PATCHEDFILES>
+        <FILE>examples/drones/doc.py</FILE>
+        <FILE>hydrus/data/crud.py</FILE>
+        <FILE>hydrus/data/crud_helpers.py</FILE>
+        <FILE>hydrus/tests/test_app.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

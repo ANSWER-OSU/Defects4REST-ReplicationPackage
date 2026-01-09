@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>541</ISSUENO>
+  <ISSUEURL>https://github.com/k8ssandra/management-api-for-apache-cassandra/issues/541</ISSUEURL>
+  <TITLE>readOnlyRootFilesystem still fails due to some Spark folders in OpenShift</TITLE>
+  <DESCRIPTION>We've seen that OpenShift is still having some issues with the readOnlyRootFilesystem feature. In the Dockerfile, we create additional directories for Spark: https://github.com/k8ssandra/management-api-for-apache-cassandra/blob/master/dse/Dockerfile-dse6.8.jdk11#L171-L175 Then in the entrypoint.sh, we create subdirectories for Spark in some of the above directories: https://github.com/k8ssandra/management-api-for-apache-cassandra/blob/master/dse/files/entrypoint.sh#L15-L18 While this works fine with &quot;standard&quot; Kubernetes distributions (including GKE), OpenShift isn't happy about it. Standard distros seem to allow writes to these directories which OpenShift disallows. We should remove the creation of these directories in the Dockerfile and rely on mounts at runtime instead, and have the entrypoint check for the presence of the directories before trying to create the additional subdirectories. ┆Issue is synchronized with this [Jira Story](https://datastax.jira.com/browse/MAPI-66) by [Unito](https://www.unito.io) ┆Issue Number: MAPI-66</DESCRIPTION>
+  <REPONAME>management-api-for-apache-cassandra</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add Cassandra 4.0.14 to the build matrix (#546) Add Cassandra 4.1.7 to the build matrix Add Cassandra 5.0.1 to the build matrix Add DSE 6.8.51 to the build matrix</MESSAGE>
+    <SHA>68701d64fb0afa01926596acd687928d180ed0e1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Release v0.1.87 * [FEATURE] [#535](https://github.com/k8ssandra/management-api-for-apache-cassandra/issues/535) Add Cassandra 5.0.0 to the build matrix * [BUGFIX] [#541](https://github.com/k8ssandra/management-api-for-apache-cassandra/issues/541) readOnlyRootFilesystem still fails due to some Spark folders in OpenShift * [FEATURE] [#543](https://github.com/k8ssandra/management-api-for-apache-cassandra/issues/543) Add Cassandra 5.0.1 to the build matrix * [FEATURE] [#544](https://github.com/k8ssandra/management-api-for-apache-cassandra/issues/544) Add Cassandra 4.0.14 to the build matrix * [FEATURE] [#545](https://github.com/k8ssandra/management-api-for-apache-cassandra/issues/545) Add Cassandra 4.1.7 to the build matrix * [FEATURE] [#534](https://github.com/k8ssandra/management-api-for-apache-cassandra/issues/534) Add DSE 6.8.51 to the build matrix</MESSAGE>
+      <SHA>30be84dcdbfd39314ab320366a08710ad80a9b92</SHA>
+      <PATCHEDFILES>
+        <FILE>CHANGELOG.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

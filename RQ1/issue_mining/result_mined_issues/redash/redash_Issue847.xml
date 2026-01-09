@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>847</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/847</ISSUEURL>
+  <TITLE>presto query runner merges columns with same name</TITLE>
+  <DESCRIPTION>The query `SELECT 'foo' AS same_name, 'not foo' AS same_name` against a Presto data source generates surprising results: ('foo', 'foo') instead of ('foo', 'not foo') The issue is in https://github.com/getredash/redash/blob/d74442184e30a8aeb19edacb39e1ca22cbb523c1/redash/query_runner/presto.py#L87. From experimenting with other data sources, it looks like redash itself supports showing result sets that have duplicated column names.</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update query runners for new config class</MESSAGE>
+    <SHA>5efbd18ff0f55010430da3208157f5a284d57bf1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>presto: don't merge columns with the same name Fixes #847</MESSAGE>
+      <SHA>008ea2e8a62962139d1b94b970c6e05e88eca2c6</SHA>
+      <PATCHEDFILES>
+        <FILE>query_runner/presto.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

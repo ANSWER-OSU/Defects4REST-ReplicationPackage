@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>909</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/909</ISSUEURL>
+  <TITLE>Arguments order and path</TITLE>
+  <DESCRIPTION>Contrary to what now --help prints, the path must appear first in the arguments. Using now 8.3.9, I get the following behavior. This works and publishes the ```build``` directory: ``` now ./build --static --name chaud --public ``` But this publishes the current directory, ignoring ```./build```: ``` now --static --name chaud --public ./build ```</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Removed accidental echo output</MESSAGE>
+    <SHA>fd68ad8a79d52d1f35484d772431d9d4ac5b69dd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Ensured correct arguments order This closes #909</MESSAGE>
+      <SHA>8083740804a2fd3dc536f847c37de2d57185f512</SHA>
+      <PATCHEDFILES>
+        <FILE>src/providers/sh/commands/deploy.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now-next] Use `debug()` from build-utils (#909) * Use `debug()` from build-utils * Revert back to warning output</MESSAGE>
+      <SHA>430de312920c6ad4f40ba2a25be7b71f4e7a7103</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-next/src/index.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now-next] Use `debug()` from build-utils (#2881) * [now-next] Use `debug()` from build-utils (#909) * Use `debug()` from build-utils * Revert back to warning output * Remove unnecessary debug check</MESSAGE>
+      <SHA>45bd08e4e5f4846e7ba52e8b6c5c1aca33a166fd</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-next/src/index.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now-next] Use `debug()` from build-utils (#2881) * [now-next] Use `debug()` from build-utils (#909) * Use `debug()` from build-utils * Revert back to warning output * Remove unnecessary debug check</MESSAGE>
+      <SHA>bb794029994a801354e7cc422bd861359ba2075c</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-next/src/index.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

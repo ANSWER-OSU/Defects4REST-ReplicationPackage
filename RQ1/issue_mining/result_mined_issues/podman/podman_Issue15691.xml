@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15691</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15691</ISSUEURL>
+  <TITLE>`healthcheck run` may log error when timer already exists</TITLE>
+  <DESCRIPTION>We've seen the below error in the system tests while working on https://github.com/containers/podman/pull/15687: &gt; [+1061s] # #| &gt; 'time=&quot;2022-09-08T05:39:35-05:00&quot; level=error msg=&quot;Failed to start transient timer unit: Unit c26ee584b585cd1078cc26692d3f905006b65bda1ec1fc6e2fb19c5218a1d595.timer already exists.\n&quot;' For now, the error will be lowered to debug level but we need to investigate the source of the issue.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #15737 from Juneezee/refactor/os.ReadDir refactor: use `os.ReadDir` for lightweight directory reading</MESSAGE>
+    <SHA>1635fe8620fa454647cf7db2af9ed0c9b52eacfb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>health checks: restart timers Restart the health-check timers instead of starting them. This will surpress annoying errors stating that an already running timer cannot be started anymore. Also make sure that the transient units/timers are stopped and removed when stopping a container. Fixes: #15691 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>c8c2aab50d73ab767b8eb720b4d1abbc9bb36b62</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_internal.go</FILE>
+        <FILE>libpod/healthcheck_linux.go</FILE>
+        <FILE>test/system/220-healthcheck.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

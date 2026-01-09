@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3227</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/3227</ISSUEURL>
+  <TITLE>Sort options are not reported in the proper order</TITLE>
+  <DESCRIPTION>**Describe the bug** The `discovery.xml` file allows to configure which sortOptions are available for each configuration and set also a default sorting see https://github.com/DSpace/DSpace/blob/main/dspace/config/spring/api/discovery.xml#L160 https://github.com/DSpace/DSpace/blob/main/dspace/config/spring/api/discovery.xml#L157-L159 The structure is not efficient as having the default sort set in a separate property can lead to different scenarios that need to be managed - the default sort option is included in the list of available options - the default sort option is an additional one Moreover, in the current implementation the default sort is always appended as last options in the REST response, see https://github.com/DSpace/DSpace/blob/main/dspace-server-webapp/src/main/java/org/dspace/app/rest/converter/DiscoverConfigurationConverter.java#L39 and there is no explicit mention of the default sort in the REST response, instead the example of the default configuration seems to indicate that the order of sort options matter (using the blame link as I haven't found a different way to link directly the line) https://github.com/DSpace/RestContract/blame/main/search-endpoint.md#L151 **To Reproduce** Steps to reproduce the behavior: 1. https://api7.dspace.org/server/#https://api7.dspace.org/server/api/discover/search 2. look to the sortOptions ``` &quot;sortOptions&quot;: [ { &quot;name&quot;: &quot;dc.title&quot; }, { &quot;name&quot;: &quot;dc.date.issued&quot; }, { &quot;name&quot;: &quot;dc.date.accessioned&quot; }, { &quot;name&quot;: &quot;score&quot; } ``` **Expected behavior** We propose to simplify the discovery.xml configuration revisiting the sortOption bean definition to include a defaultDirection property that can be used to set the default direction of the sort option (i.e. DESC for score and date, ASC for title). We suggest to don't include any restriction about the directions that can be manually applied to the sort, i.e. it will be possible for the user to ask for result in score ASC, this is currently supported by solr and the REST API so we should introduce this constraint only if we get an explicit motivated request from our users as it would lead obviously to extra complexity (in configuration and validation) `discovery.xml` ``` &lt;bean id=&quot;defaultConfiguration&quot; class=&quot;org.dspace.discovery.configuration.DiscoveryConfiguration&quot; scope=&quot;prototype&quot;&gt; ... &lt;property name=&quot;searchSortConfiguration&quot;&gt; &lt;bean class=&quot;org.dspace.discovery.configuration.DiscoverySortConfiguration&quot;&gt; &lt;property name=&quot;sortFields&quot;&gt; &lt;list&gt; &lt;ref bean=&quot;sortScore&quot; /&gt; &lt;ref bean=&quot;sortTitle&quot; /&gt; &lt;ref bean=&quot;sortDateIssued&quot; /&gt; &lt;ref bean=&quot;sortDateAccessioned&quot;/&gt; &lt;/list&gt; &lt;/property&gt; &lt;/bean&gt; &lt;/property&gt; .... &lt;/bean&gt; ... &lt;bean id=&quot;sortScore&quot; class=&quot;org.dspace.discovery.configuration.DiscoverySortFieldConfiguration&quot;&gt; &lt;!-- no metadataField specified to represent the score or a different implementation of the sortFieldConfiguration. TBD during implementation --&gt; &lt;property name=&quot;defaultSortOrder&quot; value=&quot;desc&quot;/&gt; &lt;/bean&gt; &lt;bean id=&quot;sortTitle&quot; class=&quot;org.dspace.discovery.configuration.DiscoverySortFieldConfiguration&quot;&gt; &lt;property name=&quot;metadataField&quot; value=&quot;dc.title&quot;/&gt; &lt;property name=&quot;defaultSortOrder&quot; value=&quot;desc&quot;/&gt; &lt;/bean&gt; ``` **Related work** This is related to https://github.com/DSpace/dspace-angular/issues/1071 and the corresponding PR https://github.com/DSpace/dspace-angular/pull/1086</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>27</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merged in task/dspace-cris-2023_02_x/DSC-2213 (pull request #3548) [DSC-2213] Cris Security and special group error Approved-by: Stefano Maffei</MESSAGE>
+    <SHA>85f4e70715c6a2eb5dbc47594696d7a393d14a9f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merged in task/dspace-cris-2023_02_x/DSC-2088 (pull request #3227) [DSC-2088] change the scope of curator to CURATION Approved-by: Stefano Maffei</MESSAGE>
+      <SHA>0232e9070de552cc66c08eb21a7394ee0f18f17b</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/curate/XmlWorkflowCuratorServiceImpl.java</FILE>
+        <FILE>dspace-api/src/test/data/dspaceFolder/config/workflow-curation.xml</FILE>
+        <FILE>dspace-api/src/test/java/org/dspace/workflow/WorkflowCurationIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

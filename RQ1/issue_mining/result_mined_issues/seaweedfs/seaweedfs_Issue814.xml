@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>814</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/814</ISSUEURL>
+  <TITLE>Seaweedfs client core dump when calling DeleteFiles</TITLE>
+  <DESCRIPTION>Sponsors SeaweedFS via Patreon https://www.patreon.com/seaweedfs **Describe the bug** When seaweedfs client calls DeleteFiles (e.g. fileId=123,xxx, volume 123 not exist), it ALWAYS crashes. **Screenshots** goroutine 89 [running]: github.com/chrislusf/seaweedfs/weed/operation.DeleteFilesWithLookupVolumeId(0xc42061d578, 0x1, 0x1, 0xc4206a4160, 0x20, 0x20, 0xc4206a4140, 0x7fbfd979d1e0, 0x0) github.com/chrislusf/seaweedfs/weed/operation/delete_content.go:74 +0xce9 github.com/chrislusf/seaweedfs/weed/operation.DeleteFiles(0xc420286090, 0xe, 0xc42061d578, 0x1, 0x1, 0xc42061d538, 0x4126c8, 0x20, 0x9b9ca0, 0x725201) github.com/chrislusf/seaweedfs/weed/operation/delete_content.go:36 +0x8a</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>increase batch deletion size to 1024</MESSAGE>
+    <SHA>251b596bc535b2e6361c698c44960cdb0fbe017f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix https://github.com/chrislusf/seaweedfs/issues/814</MESSAGE>
+      <SHA>c5884873a9fc67b14592a4d9935efc65dd0d23fc</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/operation/delete_content.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>398</ISSUENO>
+  <ISSUEURL>https://github.com/r-spacex/SpaceX-API/issues/398</ISSUEURL>
+  <TITLE>Launchpad/Landpad status field</TITLE>
+  <DESCRIPTION>Model returned from the Launchpads endpoint contains `Status` field which is defined as enum (https://github.com/r-spacex/SpaceX-API/blob/master/docs/v4/launchpads/schema.md): ``` &quot;status&quot;: { &quot;type&quot;: &quot;String&quot;, &quot;enum&quot;: [ &quot;active&quot;, &quot;inactive&quot;, &quot;unknown&quot;, &quot;retired&quot;, &quot;lost&quot;, &quot;under construction&quot; ], &quot;required&quot;: true }, ``` The model returned from the Landpads endpoint has also a similar one, but in the schema, it's defined just as a plain string (https://github.com/r-spacex/SpaceX-API/blob/master/docs/v4/landpads/schema.md): ``` &quot;status&quot;: { &quot;type&quot;: &quot;String&quot;, &quot;default&quot;: null }, ``` Shouldn't be the second one exactly the same as the first one? From what I saw comparing data from both endpoints, this field has exactly the same meaning and the same values.</DESCRIPTION>
+  <REPONAME>SpaceX-API</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #397 from r-spacex/dependabot/npm_and_yarn/mongoose-5.9.23 Bump mongoose from 5.9.22 to 5.9.23</MESSAGE>
+    <SHA>03dc2862d27df28d9f7091ef95af51741856fae8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>make landpad status an enum #398</MESSAGE>
+      <SHA>769bbd1aba6dfdf9481166014c58932a566bbca9</SHA>
+      <PATCHEDFILES>
+        <FILE>services/v4/landpads/model.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>update landpad docs schema #398</MESSAGE>
+      <SHA>22d335256360688d7fc703ffb637121639d8a829</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/v4/landpads/schema.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

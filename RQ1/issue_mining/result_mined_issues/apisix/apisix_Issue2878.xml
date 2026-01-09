@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2878</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2878</ISSUEURL>
+  <TITLE>request help: should strengthen the verification of operators</TITLE>
+  <DESCRIPTION>### Issue description create with vars which operator was wrong, but APISIX still returns 200 and insert to etcd. ### Environment * apisix version (cmd: `apisix version`): master * OS: ### Minimal test code / Steps to reproduce the issue ``` { caseDesc: &quot;add route with invalid vars (error operators)&quot;, Object: MangerApiExpect(t), Method: http.MethodPut, Path: &quot;/apisix/admin/routes/r1&quot;, Body: `{ &quot;uri&quot;: &quot;/hello&quot;, &quot;vars&quot;: [ [&quot;arg_name&quot;,&quot;=&quot;,&quot;aaa&quot;] ], &quot;upstream&quot;: { &quot;type&quot;: &quot;roundrobin&quot;, &quot;nodes&quot;: [{ &quot;host&quot;: &quot;172.16.238.20&quot;, &quot;port&quot;: 1980, &quot;weight&quot;: 1 }] } }`, Headers: map[string]string{&quot;Authorization&quot;: token}, ExpectStatus: http.StatusNotFound, }, ``` ### What's the actual result? (including assertion message &amp; call stack if applicable) return 200, and insert the route to etcd, but it is useless. ### What's the expected result? return 400</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: reject &quot;&quot; for route's remote_addrs (#2907) This change imroves the IP schema validation.</MESSAGE>
+    <SHA>ddfeb5de1de629ca2263f58371d624281f6451ff</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: validate the operator in vars Fix #2878</MESSAGE>
+      <SHA>2d3c5aa111425114a4fb5eb73d33ad191f6bb65f</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/admin/routes.lua</FILE>
+        <FILE>apisix/http/route.lua</FILE>
+        <FILE>apisix/http/router/radixtree_host_uri.lua</FILE>
+        <FILE>apisix/http/router/radixtree_uri.lua</FILE>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+        <FILE>t/admin/routes.t</FILE>
+        <FILE>t/config-center-yaml/route.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat: validate the operator in vars (#2911) Fix #2878</MESSAGE>
+      <SHA>bbbd10e1b3c83e32d984c0e63cca29ba5a15677e</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/admin/routes.lua</FILE>
+        <FILE>apisix/http/route.lua</FILE>
+        <FILE>apisix/http/router/radixtree_host_uri.lua</FILE>
+        <FILE>apisix/http/router/radixtree_uri.lua</FILE>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+        <FILE>t/admin/routes.t</FILE>
+        <FILE>t/config-center-yaml/route.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1512</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/1512</ISSUEURL>
+  <TITLE>2.03: FUSE read error on graceful volume shutdown</TITLE>
+  <DESCRIPTION>A simple test setup: one master (started with `-defaultReplication=001`), one filer, two volume servers. Filer started with `-defaultReplicaPlacement=001 -encryptVolumeData -disableHttp`. Mounted file system with FUSE, copied 30 GB to the store, observed symmetric volume data growth on both volume servers. Run CRC check on data and during read operations stopped one volume server gracefully (with Ctrl+C). After 10 seconds, the very moment volume server stopped, got an `Read failed: Input/output error`. FUSE mount reported the following error: ~~~ fuse: panic in handler for Read [ID=0x17b830 Node=0x22 Uid=1000 Gid=1000 Pid=96109] 0x1 131072 @0x1607c000 dir=false fl=0 lock=0 ffl=OpenReadOnly: runtime error: slice bounds out of range [:114688] with capacity 0 ~~~ During CRC check, both volume servers were active (I/O, CPU). I'm not sure whether this problem is incomplete replication or lack of fail-over (to alternative/available volume) in FUSE client. It does not matter which volume server I stop as stopping either of them result in read error on FUSE mount. I tried to re-start CRC check with just one volume server but that failed with read error as well, despite explicit prior `volume.balance` and `volume.fix.replication` given in `weed shell` (both commands did not report anything). It looks like data landed to both volume servers, that have identical size of &quot;data&quot; directory roughly matching the amount of data copied to FUSE mount. So replication appears to be working yet I could not read the whole data from FUSE mount when one volume server not running.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>master: check peers for existing leader before starting a leader election fix https://github.com/chrislusf/seaweedfs/issues/1509</MESSAGE>
+    <SHA>da4edf3651d0dd17570057388e5e012eeda4ff80</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>read from alternative replica related to https://github.com/chrislusf/seaweedfs/issues/1512</MESSAGE>
+      <SHA>a8624c2e4f94dce96448f6f3b33fb0f71e1f07df</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/benchmark.go</FILE>
+        <FILE>weed/filer/filechunk_manifest.go</FILE>
+        <FILE>weed/filer/reader_at.go</FILE>
+        <FILE>weed/filer/stream.go</FILE>
+        <FILE>weed/replication/repl_util/replication_utli.go</FILE>
+        <FILE>weed/replication/sink/azuresink/azure_sink.go</FILE>
+        <FILE>weed/replication/sink/b2sink/b2_sink.go</FILE>
+        <FILE>weed/replication/sink/gcssink/gcs_sink.go</FILE>
+        <FILE>weed/replication/sink/s3sink/s3_write.go</FILE>
+        <FILE>weed/replication/source/filer_source.go</FILE>
+        <FILE>weed/server/filer_grpc_server.go</FILE>
+        <FILE>weed/wdclient/vid_map.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

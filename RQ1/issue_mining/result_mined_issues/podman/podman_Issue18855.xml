@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18855</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18855</ISSUEURL>
+  <TITLE>e2e: GetRandomIPAddress(): needs to be parallel-safe</TITLE>
+  <DESCRIPTION>The current code is not parallel-safe: https://github.com/containers/podman/blob/32d96f40c3ab46a4c918a9099266748a54cb0772/test/e2e/common_test.go#L489-L490 Sample [failure](https://api.cirrus-ci.com/v1/artifact/task/6049777226350592/html/int-podman-rawhide-root-host-sqlite.log.html#t--Podman-checkpoint-podman-checkpoint-and-restore-container-with-file-locks--1): ``` [It] podman checkpoint and restore container with --file-locks ... # podman [options] run [...] --ip 10.88.180.132 [...] Error: IPAM error: requested ip address 10.88.180.132 is already allocated to container ID c973ff80056a613f766187c7706f42eaea655b3e58b4abe06f3111db00c70210 ``` Simple fix, this is just a placeholder until I (or anyone) gets the round tuit.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18507 from mheon/fix_rm_depends Fix `podman rm -fa` with dependencies</MESSAGE>
+    <SHA>3cae574ab2858895dc124c1cd88abc15b4ab311e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>e2e: GetRandomIPAddress(): parallelize Fixes: #18855 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>837b47244141e2977d4a2bf5e8d1b4be4492bddd</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/common_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

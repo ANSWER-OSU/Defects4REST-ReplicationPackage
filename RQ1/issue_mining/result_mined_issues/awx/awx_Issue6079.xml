@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6079</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6079</ISSUEURL>
+  <TITLE>AWX CLI not giving correct rc when job fails with --monitor set</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY Hello! I am testing the awx cli on my CI environment to launch jobs on AWX. First time using **awx cli** so I might be missing something but I was under the impression that if a launched a `job_template` with `--monitor` and this one failed, it was supposed to give an `rc != 0`, so it correctly shows it on the CI interface. ##### ENVIRONMENT * AWX version: 9.1.1 * AWX CLI version: 3.6.2 * AWX install method: docker on linux * Ansible version: 2.8.5 * Operating System: Centos 7 * Web Browser: Google Chrome ##### STEPS TO REPRODUCE ```shell $ awx job_template launch &quot;[F5] Onboarding&quot; --monitor -f human ------Starting Standard Out Stream------ PLAY [F5 Onboarding tasks] ***************************************************** TASK [get creds from vault] **************************************************** fatal: [lab-f5]: FAILED! =&gt; {&quot;msg&quot;: &quot;An unhandled exception occurred while running the lookup plugin 'hashi_vault'. Error was a &lt;class 'ansible.errors.AnsibleError'&gt;, original message: Please pip install hvac to use the hashi_vault lookup module.&quot;} PLAY RECAP ********************************************************************* lab-f5 : ok=0 changed=0 unreachable=0 failed=1 skipped=0 rescued=0 ignored=0 ------End of Standard Out Stream-------- id name === =============== 374 [F5] Onboarding ``` ##### EXPECTED RESULTS The return code to be different than 0, so is correctly marked as a failed step on the pipeline. ##### ACTUAL RESULTS Return code equal to 0 ```shell $ echo $? 0 ``` ##### ADDITIONAL INFORMATION &lt;!-- Include any links to sosreport, database dumps, screenshots or other information. --&gt;</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #6077 from Spredzy/fix_linting awx-api-lint: Fix setup.cfg syntax for linter test Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>7e5776c66f2b2123c38e248339b09c337fca66b0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>cli: make launch with --monitor return code respect the final job status see: https://github.com/ansible/awx/issues/5920 see: https://github.com/ansible/awx/issues/6079</MESSAGE>
+      <SHA>a6ffececc725128663ba61784023e925d7b99754</SHA>
+      <PATCHEDFILES>
+        <FILE>awxkit/awxkit/cli/client.py</FILE>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>cli: make launch with --monitor return code respect the final job status see: https://github.com/ansible/awx/issues/5920 see: https://github.com/ansible/awx/issues/6079</MESSAGE>
+      <SHA>2c299f7d6bde22bf345896bd46fbbd0aba2bf1d6</SHA>
+      <PATCHEDFILES>
+        <FILE>awxkit/awxkit/cli/client.py</FILE>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>cli: make launch with --monitor return code respect the final job status see: https://github.com/ansible/awx/issues/5920 see: https://github.com/ansible/awx/issues/6079</MESSAGE>
+      <SHA>373f22d8f20b7ff514680e6466ac6b7eed8d66d5</SHA>
+      <PATCHEDFILES>
+        <FILE>awxkit/awxkit/cli/client.py</FILE>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>cli: make launch with --monitor return code respect the final job status see: https://github.com/ansible/awx/issues/5920 see: https://github.com/ansible/awx/issues/6079</MESSAGE>
+      <SHA>6480fe903663dbb1e85629bad066713c03c28f17</SHA>
+      <PATCHEDFILES>
+        <FILE>awxkit/awxkit/cli/client.py</FILE>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>cli: make launch with --monitor return code respect the final job status see: https://github.com/ansible/awx/issues/5920 see: https://github.com/ansible/awx/issues/6079</MESSAGE>
+      <SHA>4a8eea55a2831567f7fd41e1f1e243e217d417f7</SHA>
+      <PATCHEDFILES>
+        <FILE>awxkit/awxkit/cli/client.py</FILE>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>cli: make launch with --monitor return code respect the final job status see: https://github.com/ansible/awx/issues/5920 see: https://github.com/ansible/awx/issues/6079</MESSAGE>
+      <SHA>946d643795b0df2989e0dbacfb04e82ded755523</SHA>
+      <PATCHEDFILES>
+        <FILE>awxkit/awxkit/cli/client.py</FILE>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

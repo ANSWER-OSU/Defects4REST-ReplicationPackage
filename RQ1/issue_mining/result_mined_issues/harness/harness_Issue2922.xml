@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2922</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2922</ISSUEURL>
+  <TITLE>Does Drone's Postgres client library support scram-sha-256?</TITLE>
+  <DESCRIPTION>I setup Drone successfully on Docker using the built-in SQLite database. I then tried to setup Drone again (deleting all old volumes), but changed the database to use Postgres. Nothing else changed except the database connection. When starting the Drone docker container, I get this in the logs over and over. ``` {&quot;error&quot;:&quot;pq: unknown authentication response: 10&quot;,&quot;level&quot;:&quot;fatal&quot;,&quot;msg&quot;:&quot;main: cannot initialize server&quot;,&quot;time&quot;:&quot;2020-02-18T14:04:47Z&quot;}, {&quot;error&quot;:&quot;pq: unknown authentication response: 10&quot;,&quot;level&quot;:&quot;fatal&quot;,&quot;msg&quot;:&quot;main: cannot initialize server&quot;,&quot;time&quot;:&quot;2020-02-18T14:05:19Z&quot;}, {&quot;error&quot;:&quot;pq: unknown authentication response: 10&quot;,&quot;level&quot;:&quot;fatal&quot;,&quot;msg&quot;:&quot;main: cannot initialize server&quot;,&quot;time&quot;:&quot;2020-02-18T14:05:50Z&quot;}, {&quot;error&quot;:&quot;pq: unknown authentication response: 10&quot;,&quot;level&quot;:&quot;fatal&quot;,&quot;msg&quot;:&quot;main: cannot initialize server&quot;,&quot;time&quot;:&quot;2020-02-18T14:06:22Z&quot;}, {&quot;error&quot;:&quot;pq: unknown authentication response: 10&quot;,&quot;level&quot;:&quot;fatal&quot;,&quot;msg&quot;:&quot;main: cannot initialize server&quot;,&quot;time&quot;:&quot;2020-02-18T14:06:54Z&quot;}, {&quot;error&quot;:&quot;pq: unknown authentication response: 10&quot;,&quot;level&quot;:&quot;fatal&quot;,&quot;msg&quot;:&quot;main: cannot initialize server&quot;,&quot;time&quot;:&quot;2020-02-18T14:07:26Z&quot;}, {&quot;error&quot;:&quot;pq: unknown authentication response: 10&quot;,&quot;level&quot;:&quot;fatal&quot;,&quot;msg&quot;:&quot;main: cannot initialize server&quot;,&quot;time&quot;:&quot;2020-02-18T14:07:57Z&quot;}, {&quot;error&quot;:&quot;pq: unknown authentication response: 10&quot;,&quot;level&quot;:&quot;fatal&quot;,&quot;msg&quot;:&quot;main: cannot initialize server&quot;,&quot;time&quot;:&quot;2020-02-18T14:08:29Z&quot;}, {&quot;error&quot;:&quot;pq: unknown authentication response: 10&quot;,&quot;level&quot;:&quot;fatal&quot;,&quot;msg&quot;:&quot;main: cannot initialize server&quot;,&quot;time&quot;:&quot;2020-02-18T14:09:01Z&quot;}, ``` A quick Google shows this is due to my use of [scram-sha-256 in Postgres](https://www.postgresql.org/docs/11/auth-password.html) instead of MD5. I can confirm this because when I switched my Drone database user in Postgres to MD5, Drone started without issue. I see that you're using [pq](https://github.com/lib/pq), and it looks like pq added support for scram-sha-256 in [v1.1.0](https://github.com/lib/pq/releases/tag/v1.1.0). I don't know anything about the Go language, but does [this file](https://github.com/drone/drone/blob/ad6be2073b8f8bd935a4dda9aaf9a449f3d2d000/go.mod) mean you're using v1.0.0? If so, can you update to v.1.1.0?</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: [PIPE-22872]: fixed swagger schema for existing APIs (#2921) * fix: [PIPE-22872]: fixed swagger schema for existing APIs</MESSAGE>
+    <SHA>6adad6a1f26f424d3483686b86f94890777973ab</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: [CDE-454]: added null check for logs, apply state filter (#2922) * fix: [CDE-454]: added null check for logs. * fix: [CDE-454]: added null check for logs.</MESSAGE>
+      <SHA>0ca7e83e346ef003179c024501f8bfdb536d7919</SHA>
+      <PATCHEDFILES>
+        <FILE>app/gitspace/orchestrator/orchestrator_impl.go</FILE>
+        <FILE>app/store/database/gitspace_config.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3163</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/3163</ISSUEURL>
+  <TITLE>Error in Helm chart breaks cluster issuer</TITLE>
+  <DESCRIPTION>**Describe the bug** The current chart is undeployable when cluster issuer (for SSL) is enabled **Expected behavior** Chart should deploy using certificate obtained from cluster issuer (eg LetsEncrypt provider) **Code** As highlighted at: https://github.com/flowable/flowable-engine/commit/c8790ea0e7b86c209347358d7ed140187752328c#r62682082 Simply revert that line leaving: ``` {{- if .Values.ingress.clusterIssuer }} cert-manager.io/cluster-issuer: &quot;{{ .Values.ingress.clusterIssuer }}&quot; {{- end }} ```</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'main' of github.com:flowable/flowable-engine into main</MESSAGE>
+    <SHA>a497652891c557f328ee741efd73bc91462e8f29</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Resolve #3163</MESSAGE>
+      <SHA>d2cf07980b526deb5013e866b0433f57abe06da7</SHA>
+      <PATCHEDFILES>
+        <FILE>k8s/flowable/templates/ingress.yaml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

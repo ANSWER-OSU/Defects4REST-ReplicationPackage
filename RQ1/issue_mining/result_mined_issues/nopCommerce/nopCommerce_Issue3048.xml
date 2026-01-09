@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3048</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3048</ISSUEURL>
+  <TITLE>No need to call AddAutoMapper()</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.00 Steps to reproduce the problem: In NopEngine.cs, **ConfigureServices** method, we use Automapper: ```C# //register mapper configurations AddAutoMapper(services, typeFinder); ``` in AddAutoMapper: ```C# //create AutoMapper configuration var config = new MapperConfiguration(cfg =&gt; { foreach (var instance in instances) { cfg.AddProfile(instance.GetType()); } }); //register AutoMapper services.AddAutoMapper(); //register AutoMapperConfiguration.Init(config); ``` After investigate AddAutoMapper() method, I think we don't need to call this, because we can use IMapperProfile interface implement this, we also can remove [AddAutoMapper extension method](https://github.com/AutoMapper/AutoMapper.Extensions.Microsoft.DependencyInjection/blob/master/src/AutoMapper.Extensions.Microsoft.DependencyInjection/ServiceCollectionExtensions.cs) This method just scan current domain's assemblies and find classes inherited from **Profile** and register the mapping config and mapper. ```c# var profiles = allTypes .Where(t =&gt; typeof(Profile).GetTypeInfo().IsAssignableFrom(t) &amp;&amp; !t.IsAbstract) .ToArray(); // omit some code // create mapper configuration IConfigurationProvider config; if (UseStaticRegistration) { Mapper.Initialize(ConfigAction); config = Mapper.Configuration; } else { config = new MapperConfiguration(ConfigAction); } // .. omit searching other types // register mapper configuration, register IMapper services.AddSingleton(config); return services.AddScoped&lt;IMapper&gt;(sp =&gt; new Mapper(sp.GetRequiredService&lt;IConfigurationProvider&gt;(), sp.GetService)); ``` So, in AddAutoMapper() method, it already load mapping configuration file and Mapper, then registered. In NopEngine.cs AddAutoMapper method, we create mapper config and mapper, it's duplicated. Becase we're using IMapperProfile to search mapping config file, we don't need to scan assembly search Profile. so it's safe to remove the services.AddAutoMapper(); line ```C# //create AutoMapper configuration var config = new MapperConfiguration(cfg =&gt; { foreach (var instance in instances) { cfg.AddProfile(instance.GetType()); } }); // just remove this line // services.AddAutoMapper(); //register AutoMapperConfiguration.Init(config); ```</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixed the some unit test errors</MESSAGE>
+    <SHA>b2c434f91a564adf1ba01c7fd930850f19cd6edd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3048 Removed redundant executing of IServiceCollection.AddAutoMapper method</MESSAGE>
+      <SHA>645afb261fbfd690011595bf7aa7aa907d6d58a9</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Infrastructure/NopEngine.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

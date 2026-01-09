@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2993</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/2993</ISSUEURL>
+  <TITLE>ScriptingEngines fails to cache Groovy engine instance</TITLE>
+  <DESCRIPTION>**Describe the bug** org.flowable.common.engine.impl.scripting.ScriptingEngines#getEngineByName is supposed to cache engines by name, but it fails to do so because of an implementation defect. **Expected behavior** if the cache flag is enabled an engine used from multiple threads should only instantiate one Groovy scripting engine ScriptingEngines uses a regular HashMap for the cache; and doesn't lock it: `cachedEngines = new HashMap&lt;&gt;();`</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>21</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>HttpTask and MailTask should be able to have an association</MESSAGE>
+    <SHA>e692d9fd88b2452e0fd69c5bd9a1d7ba2c31aaf6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Improve Script Engine caching for concurrent access (fixes #2993).</MESSAGE>
+      <SHA>b8c0c66b64383d7938e89e19d582dc1faee33dfa</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine-common/src/main/java/org/flowable/common/engine/impl/scripting/ScriptingEngines.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Improve Script Engine caching for concurrent access (fixes #2993).</MESSAGE>
+      <SHA>56511a0c34feba83ac3fb2743b6f3d0b6e7e27f3</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine-common/src/main/java/org/flowable/common/engine/impl/scripting/ScriptingEngines.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

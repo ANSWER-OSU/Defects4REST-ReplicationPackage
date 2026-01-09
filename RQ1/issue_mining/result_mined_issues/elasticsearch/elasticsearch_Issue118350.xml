@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118350</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118350</ISSUEURL>
+  <TITLE>[CI] CrossClusterEsqlRCS1UnavailableRemotesIT testEsqlRcs1UnavailableRemoteScenarios failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #5292 / windows-2022_checkpart4_platform-support-windows](https://gradle-enterprise.elastic.co/s/iml7kd2mdcniu) - [elasticsearch-pull-request #44776 / part-4](https://gradle-enterprise.elastic.co/s/rfsy5d3rxee4w) - [elasticsearch-pull-request #44706 / part-4](https://gradle-enterprise.elastic.co/s/a2a6mie2kngju) **Reproduction Line:** ``` gradlew &quot;:x-pack:plugin:security:qa:multi-cluster:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.remotecluster.CrossClusterEsqlRCS1UnavailableRemotesIT.testEsqlRcs1UnavailableRemoteScenarios&quot; -Dtests.seed=A423397337C6646C -Dtests.locale=en-GD -Dtests.timezone=Atlantic/Cape_Verde -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.remotecluster.CrossClusterEsqlRCS1UnavailableRemotesIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testEsqlRcs1UnavailableRemoteScenarios),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: a string containing &quot;connect_transport_exception&quot; but: was &quot;method [POST], host [http://[::1]:50649], URI [_query], status line [HTTP/1.1 500 Internal Server Error] {&quot;error&quot;:{&quot;root_cause&quot;:[{&quot;type&quot;:&quot;node_disconnected_exception&quot;,&quot;reason&quot;:&quot;[][[::1]:50919][indices:data/read/esql/resolve_fields] disconnected&quot;}],&quot;type&quot;:&quot;node_disconnected_exception&quot;,&quot;reason&quot;:&quot;[][[::1]:50919][indices:data/read/esql/resolve_fields] disconnected&quot;},&quot;status&quot;:500}&quot; ``` **Issue Reasons:** - [main] 3 failures in test testEsqlRcs1UnavailableRemoteScenarios (0.4% fail rate in 851 executions) - [main] 2 failures in step part-4 (0.6% fail rate in 341 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (0.6% fail rate in 340 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>45</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Some ILM tidying cleanups, mostly around String formatting (#118338)</MESSAGE>
+    <SHA>906c5b669df6fac6fcce66f52b55b825d2ebe6da</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.remotecluster.CrossClusterEsqlRCS1UnavailableRemotesIT testEsqlRcs1UnavailableRemoteScenarios #118350</MESSAGE>
+      <SHA>cc3df21064df89105c82d8b32c96c98310285cbc</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

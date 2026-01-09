@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7183</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7183</ISSUEURL>
+  <TITLE>Enable Transit time on UPS plugin</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.6+ Current implementation does not return transit times for shipping quotes. I can confirm these changes allow for transit times for both US Domestic and International shipments. `UPSService.cs` function `private async Task&lt;RateRequest&gt; CreateRateRequestAsync(GetShippingOptionRequest shippingOptionRequest, bool saturdayDelivery = false)`: ```cs //set request details var request = new RateRequest { Request = new RateRequest_Request { //used to define the request type //Shop - the server validates the shipment, and returns rates for all UPS products from the ShipFrom to the ShipTo addresses RequestOption = &quot;shoptimeintransit&quot;, //change from &quot;shop&quot; to &quot;shoptimeintransit&quot; } }; ``` ```cs request.Shipment = new RateRequest_Shipment { Shipper = new Shipment_Shipper { ShipperNumber = _upsSettings.AccountNumber, Address = addressFrom }, ShipFrom = new Shipment_ShipFrom { Address = addressFromDetails }, ShipTo = new Shipment_ShipTo { Address = addressToDetails }, //add DeliveryTimeInformation object DeliveryTimeInformation = new Shipment_DeliveryTimeInformation() { PackageBillType = &quot;03&quot;, Pickup = new DeliveryTimeInformation_Pickup() { Date = DateTime.UtcNow.ToLocalTime().Date.AddDays(1).ToString(&quot;yyyyMMdd&quot;), } } }; ``` Add this just before `return request;` ```cs request.Shipment.ShipmentTotalWeight = new Shipment_ShipmentTotalWeight() { UnitOfMeasurement = new ShipmentTotalWeight_UnitOfMeasurement() { Code = _upsSettings.WeightType, Description = _upsSettings.WeightType }, Weight = request.Shipment.Package.Sum(x =&gt; decimal.TryParse(x.PackageWeight.Weight, out var wt) ? wt : 0).ToString() }; var currencyCode = (await _currencyService.GetCurrencyByIdAsync(_currencySettings.PrimaryStoreCurrencyId))?.CurrencyCode; request.Shipment.InvoiceLineTotal = new Shipment_InvoiceLineTotal() { CurrencyCode = currencyCode, MonetaryValue = shippingOptionRequest.Items.Sum(x =&gt; x.Product.Price * x.GetQuantity()).ToString(&quot;F2&quot;) }; ``` `UPSService.cs` function `private async Task&lt;IEnumerable&lt;ShippingOption&gt;&gt; PrepareShippingOptionsAsync(RateResponse rateResponse)` (i updated this as total transit days will be more accurate than businessDays alone, but if there are no rest days, then totalDays is null, so fallback to businessDays) ```cs if (serviceSummary != null) { if (!string.IsNullOrWhiteSpace(serviceSummary.EstimatedArrival.TotalTransitDays) &amp;&amp; int.TryParse(serviceSummary.EstimatedArrival.TotalTransitDays, out var totalTransitDays)) transitDays = totalTransitDays; else if(!string.IsNullOrEmpty(serviceSummary.EstimatedArrival.BusinessDaysInTransit) &amp;&amp; int.TryParse(serviceSummary.EstimatedArrival.BusinessDaysInTransit, out var businessDaysInTransit)) transitDays = businessDaysInTransit; } ``` `NopRateClient.cs` function `public async Task&lt;RateResponse&gt; ProcessRateAsync(RateRequest request)` Change `string.Empty` to `&quot;timeintransit&quot;` for the additionalInfo parameter. ```cs var response = await RateAsync(Guid.NewGuid().ToString(), _upsSettings.UseSandbox ? &quot;testing&quot; : UPSDefaults.SystemName, &quot;timeintransit&quot;, &quot;v2403&quot;, &quot;Shop&quot;, new RATERequestWrapper { RateRequest = request }); ```</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>42</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '4.70-bug-fixes' into develop</MESSAGE>
+    <SHA>68333c4b0325f8002cd9eae4277b21f372dc57d2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7183 Enabled transit time on UPS plugin</MESSAGE>
+      <SHA>3e107909f532deda3b4ebd8d02156512bebd428b</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/API/Rates/NopRateClient.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/Services/UPSService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

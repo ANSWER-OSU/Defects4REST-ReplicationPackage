@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>363</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/363</ISSUEURL>
+  <TITLE>`AUTO_RECEIVE_SCHEDULE` seems to be broken</TITLE>
+  <DESCRIPTION>### The problem So I'm trying to make the `AUTO_RECEIVE_SCHEDULE` work, but it feels like either smth has changed in the CLI config structure or the code for the CRON is outdated, or smth else :-( I've tried using 2 schedules that should just be calling the `receive` very frequently. The `* * * * *` - just to call it every minute and the `*/2 * * * *` - to call it once every 2 minutes. Both seem to do nothing. The container I'm running is the [v64](https://github.com/bbernhard/signal-cli-rest-api/releases/tag/0.64) and runs in `native` mode. I've tried enabling debug mode and see no debug logs from the CRON. I also don't see any logs with any errors. Just no CRON task logs whatsoever. ### Are you using the latest released version? - [ ] Yes ### Have you read the troubleshooting page? - [X] Yes ### What type of installation are you running? signal-cli-rest-api Docker Container ### In which mode are you using the docker container? Native Mode ### What's the architecture of your host system? x86-64 ### Additional information Also, I see the health checks and `send` works fine and getting groups, etc. ![image](https://user-images.githubusercontent.com/5675689/236333830-4235e095-94ed-4af9-a8ba-763c341b7c1a.png) I'm not sure I fully understand the CRON file scanning logic, but it seems like there must be a file with a phone number format name in it (starts with `+`) in the signal CLI config (https://github.com/bbernhard/signal-cli-rest-api/blob/11da8f867d9b9931fbd4da6dded9c041c4d80236/src/main.go#L272) and I don't think there's anything like that in the config folder. I'm using the default config folder and it's content looks like this: ![image](https://user-images.githubusercontent.com/5675689/236334406-e73fb30b-c025-47f2-b7cf-c6be6894ee6a.png) (the JSON RPC is from the previous runs, I'm positive that I'm running in Native mode now). Also the `data` looks like this: ![image](https://user-images.githubusercontent.com/5675689/236334517-f54247f7-ef59-4199-a61d-b87d0372cdb7.png)</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>229</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'master' of github.com:bbernhard/signal-cli-rest-api</MESSAGE>
+    <SHA>b98f4cf3f95ae0a02c3a17b896091582a3a84862</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>consider linked number in AUTO_RECEIVE_SCHEDULE * up to now, linked numbers weren't considered in the AUTO_RECEIVE_SCHEDULE. see #363</MESSAGE>
+      <SHA>99da94d048b917ff733c30c6ba341700aedd44c6</SHA>
+      <PATCHEDFILES>
+        <FILE>src/main.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>handle non existing accounts.json gracefully see #363</MESSAGE>
+      <SHA>99c760df66a76d8a21f14acc0fcc69b57ecf4d1d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/main.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

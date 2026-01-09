@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14577</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14577</ISSUEURL>
+  <TITLE>Allow mounting -v /run:/run without leaking .containerenv file to the host</TITLE>
+  <DESCRIPTION>/kind feature **Description** Not sure if this is a bug or RFE, i guess it depends on the point of view :smiley: . Some of our containers are tightly coupled to the host, and they mount `-v /run:/run`. This results in creation of `/run/.containerenv` **on the host machine**, which makes programs running on the host machine (not in a container) think that they are running in a container. I understand that &quot;don't mount /run&quot; is one way to solve this, but it may not be workable for all our containers. So i'd like us to have some option to mount `-v /run:/run` without breaking the host. Possible solutions that come to my mind are: * Make podman bind mount the `/run/.containerenv` file into the container, rather than creating it via a mechanic like `touch /run/.containerenv`. (I don't know how Podman creates the file, but given that the file exists on the host after container exits, i preseume Podman creates the file on filesystem inside the container, rather than bind mounting the file into the container namespace?) * Allow us to explicitly disable the creation of containerenv file for a given container. I guess that would mean adding something like `--no-containerenv` option to `podman create` and `podman run` commands. **Steps to reproduce the issue:** ``` [root@dendrit ~]# systemd-detect-virt none [root@dendrit ~]# ls /run/.containerenv ls: cannot access '/run/.containerenv': No such file or directory [root@dendrit ~]# podman run -v /run:/run quay.io/fedora/fedora:35-x86_64 true [root@dendrit ~]# systemd-detect-virt podman [root@dendrit ~]# ls /run/.containerenv /run/.containerenv ``` **Output of `podman version`:** Tested on 2 systems, one with: ``` podman version 4.1.0 ``` and another with: ``` podman version 3.4.7 ``` (I don't think the other debug info from the template is helpful here, but can provide it on request.) **Have you tested with the latest version of Podman and have you checked the Podman Troubleshooting Guide? (https://github.com/containers/podman/blob/main/troubleshooting.md)** Yes</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14484 from marshall-lee/test/manifest-push Add missing tests for manifests API</MESSAGE>
+    <SHA>576c739e5ff01c760b383a258c62ed3ca7e1c30c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>container: do not create .containerenv with -v SRC:/run if /run is on a volume do not create the file /run/.containerenv as it would leak outside of the container. Closes: https://github.com/containers/podman/issues/14577 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>fcfcd4cdb1b19fe00f6769f33e6704a7f8700d40</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_internal_linux.go</FILE>
+        <FILE>test/e2e/run_volume_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

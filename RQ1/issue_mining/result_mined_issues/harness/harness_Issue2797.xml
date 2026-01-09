@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2797</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2797</ISSUEURL>
+  <TITLE>Stage name is limited to 50 characters</TITLE>
+  <DESCRIPTION>As soon as I put 51 characters in a name, then drone does not start from my GitHub PR. IMO this is because a lot of the database fields are limited to `VARCHAR(50)` e.g. https://github.com/drone/drone/blob/master/store/shared/migrate/mysql/files/005_create_table_stages.sql Is there a reason for that limit? Can we make it longer? (100, 128, 256?) e.g. I am generating the drone matrix from a starlark script. I end up with names like: ``` kind: pipeline type: docker name: webUIActivitySharingInternal-firefox-master-mariadb10.2-php7.0 ``` I am generating a unique name that describes all the variable pieces of the environment that are used in the stage: - test suite `webUIActivitySharingInternal` - browser `firefox` - SW version `master` - database `mariadb10.2` - PHP version `php7.0` That makes a long name! But the generated names need to be unique so that they can be mentioned in `depends_on`</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>1962</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [ML-338] Change PipelineContext yaml field name (#2794) * Change PipelineContext yaml field name</MESSAGE>
+    <SHA>069a2a9198967d3f8247cc185b7961798e5aea67</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: [CODE-2489]: Expand detection of repo not found cases in git error parsing (#2797)</MESSAGE>
+      <SHA>966cd70c4acb1b0cf6cb3aceb690c1eac778792b</SHA>
+      <PATCHEDFILES>
+        <FILE>git/api/errors.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

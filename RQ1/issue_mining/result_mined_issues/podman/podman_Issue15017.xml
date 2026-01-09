@@ -1,0 +1,61 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15017</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15017</ISSUEURL>
+  <TITLE>push tests: networking: timed out waiting for port</TITLE>
+  <DESCRIPTION>Test is [failing under ubuntu-2204 remote with runc and cgroupsv1](https://api.cirrus-ci.com/v1/artifact/task/5879373692665856/html/int-remote-ubuntu-2204-root-host.log.html#t--authenticated-push--1): ``` authenticated push ... error running \&quot;podman-registry\&quot;: : `podman-registry -i docker-archive:/tmp/quay.io-libpod-registry-2.6.tar start` failed: Getting image source signatures Copying blob sha256:9d08b7a37338462dc618dd3c25c2c4f713fe3e833f75561950a92bd9130f77ac Copying blob sha256:d91b7ec2cc52de561af295d6ea89c55c0c891f8728e65d794e96422f9e815ca7 Copying blob sha256:849b4a0a6bf5273a3ea90c036c62439d058946f28bb4ad4a8d19255d6237f475 Copying blob sha256:0341148c78bcafac0ba6f9e0b9056f91af7a380ac1b67ca8d770bdd4eb532bb2 Copying blob sha256:7444ea29e45e927abea1f923bf24cac20deaddea603c4bb1c7f2f5819773d453 Copying config sha256:10b45af23ff36baa99dda944a461425494a4bd103f3d4361d30e929f13aa8dda Writing manifest to image destination\nStoring signatures podman-registry: Timed out waiting for port 5353 (exit status 1) ``` Only happening in Ubuntu 2204, and only in `remote`. Consistent failure.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14876 from cdoern/cgroup resource limits for pods</MESSAGE>
+    <SHA>ee937c518e7efb9c47d21a4e1050b966ca02d005</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Bump VMs, to Ubuntu 2204 with cgroups v1 ...and enable the at-test-time confirmation, the one that double-checks that if CI requests runc we actually use runc. This exposed a nasty surprise in our setup: there are steps to define $OCI_RUNTIME, but that's actually a total fakeout! OCI_RUNTIME is used only in e2e tests, it has no effect whatsoever on actual podman itself as invoked via command line such as in system tests. Solution: use containers.conf Given how fragile all this runtime stuff is, I've also added new tests (e2e and system) that will check $CI_DESIRED_RUNTIME. Image source: https://github.com/containers/automation_images/pull/146 Since we haven't actually been testing with runc, we need to fix a few tests: - handle an error-message change (make it work in both crun and runc) - skip one system test, &quot;survive service stop&quot;, that doesn't work with runc and I don't think we care. ...and skip a bunch, filing issues for each: - #15013 pod create --share-parent - #15014 timeout in dd - #15015 checkpoint tests time out under $CONTAINER - #15017 networking timeout with registry - #15018 restore --pod gripes about missing --pod - #15025 run --uidmap broken - #15027 pod inspect cgrouppath broken - ...and a bunch more (&quot;podman pause&quot;) that probably don't even merit filing an issue. Also, use /dev/urandom in one test (was: /dev/random) because the test is timing out and /dev/urandom does not block. (But the test is still timing out anyway, even with this change) Also, as part of the VM switch we are now using go 1.18 (up from 1.17) and this broke the gitlab tests. Thanks to @Luap99 for a quick fix. Also, slight tweak to #15021: include the timeout value, and reword message so command string is at end. Also, fixed a misspelling in a test name. Fixes: #14833 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>0a160fed77c753d1d5683ad40285bb41f1c895d5</SHA>
+      <PATCHEDFILES>
+        <FILE>.cirrus.yml</FILE>
+        <FILE>contrib/cirrus/runner.sh</FILE>
+        <FILE>contrib/cirrus/setup_environment.sh</FILE>
+        <FILE>test/e2e/build_test.go</FILE>
+        <FILE>test/e2e/checkpoint_image_test.go</FILE>
+        <FILE>test/e2e/checkpoint_test.go</FILE>
+        <FILE>test/e2e/info_test.go</FILE>
+        <FILE>test/e2e/kill_test.go</FILE>
+        <FILE>test/e2e/manifest_test.go</FILE>
+        <FILE>test/e2e/network_connect_disconnect_test.go</FILE>
+        <FILE>test/e2e/pod_create_test.go</FILE>
+        <FILE>test/e2e/run_test.go</FILE>
+        <FILE>test/system/005-info.bats</FILE>
+        <FILE>test/system/030-run.bats</FILE>
+        <FILE>test/system/160-volumes.bats</FILE>
+        <FILE>test/system/170-run-userns.bats</FILE>
+        <FILE>test/system/200-pod.bats</FILE>
+        <FILE>test/system/251-system-service.bats</FILE>
+        <FILE>test/system/400-unprivileged-access.bats</FILE>
+        <FILE>test/system/500-networking.bats</FILE>
+        <FILE>test/utils/utils.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>integration test: fix network backend option with remote I honestly do not understand all this extra option parsing here but there is really no reason to exclude the option for remote, all the other global options are also set there. This fixes a problem with mixed cni/netavark use because the option was unset. Fixes #15017 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>290116bf81a0ef68d1fcfe39ea3c3aeb2b3de008</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/common_test.go</FILE>
+        <FILE>test/e2e/libpod_suite_remote_test.go</FILE>
+        <FILE>test/e2e/manifest_test.go</FILE>
+        <FILE>test/utils/utils.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>integration test: fix network backend option with remote I honestly do not understand all this extra option parsing here but there is really no reason to exclude the option for remote, all the other global options are also set there. This fixes a problem with mixed cni/netavark use because the option was unset. Fixes #15017 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>fd1f5f55ab2b098d8b59d86c0aded15e8f11f392</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/common_test.go</FILE>
+        <FILE>test/e2e/libpod_suite_remote_test.go</FILE>
+        <FILE>test/utils/utils.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

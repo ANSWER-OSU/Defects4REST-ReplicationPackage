@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1825</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/1825</ISSUEURL>
+  <TITLE>An unauthorized (read only) user can create queries</TITLE>
+  <DESCRIPTION>### Issue Summary I created a user on the default group and set the data source capabilities to &quot;Read only&quot; on that group. Accessing as this brand new user, I really can't create a new query, but I can fork a existing one, and modify it as I want. I think this could be a security flaw. ### Steps to Reproduce 1. Installed with docker, connect to a data source (I created a MySQL one); 2. Create a few queries; 3. Create a user and assign him to the &quot;default&quot; group; 4. Set the permissions of the data source for the default group to read only; 5. Do login with the brand new user and click to list the queries; 6. Choice one of the queries and fork it. I expect that a &quot;read only&quot; role should really be read only. ### Technical details: * Redash Version: 1.0.3+b2850 * Browser/OS: Google Chrome 59/Fedora 25 * How did you install Redash: Docker with the suggested `docker-compose.production.yml`</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>139</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Remove unused variables</MESSAGE>
+    <SHA>97217f56c1a97b25fe6f02ad7677a459d6fbffca</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix: require full access to the data source to fork a query. Ref #1825.</MESSAGE>
+      <SHA>2bc3885977f812db080657545d56415f133f781d</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/handlers/queries.py</FILE>
+        <FILE>tests/handlers/test_queries.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix: require full access to the data source to fork a query. Ref #1825.</MESSAGE>
+      <SHA>0e99b1d6aa9d5b3141dd68195b36e3eff93f3e7b</SHA>
+      <PATCHEDFILES>
+        <FILE>handlers/queries.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

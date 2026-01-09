@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>915</ISSUENO>
+  <ISSUEURL>https://github.com/treasure-data/digdag/issues/915</ISSUEURL>
+  <TITLE>retry limit value cannot be set using an _export parameter</TITLE>
+  <DESCRIPTION>When I set a retry limit value with an _export paramter on the digdag server of version 0.9.31, I got an error of 'Invalid _retry format (config)'. The project file that I used is as follows, ``` timezone: Asia/Tokyo _export: MAX_RETRY_COUNT: 2 +task1: _retry: ${MAX_RETRY_COUNT} sh&gt;: scripts/fail.sh ``` On the digdag server of version 0.9.20, which we use for a production environment, I never get the error.</DESCRIPTION>
+  <REPONAME>digdag</REPONAME>
+  <TIMEDIFFERENCEDAYS>90</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #909 from muga/upgrade_littleproxy_1.1.2 Update LittleProxy 1.1.2 from 1.1.1</MESSAGE>
+    <SHA>390663bea7a4f5634b3e9d68793a93acd4d7127c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #915.</MESSAGE>
+      <SHA>250b8c65a3095283a174ecbc4f50528341037fb0</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-plugin-utils/src/main/java/io/digdag/util/RetryControl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #915 again.</MESSAGE>
+      <SHA>6c8150ae62a6e1b8ff4004174d5d2c346c58ac73</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-core/src/test/java/io/digdag/core/workflow/WorkflowExecutorTest.java</FILE>
+        <FILE>digdag-plugin-utils/src/main/java/io/digdag/util/RetryControl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #917 from yoyama/fix_retry_with_variable Fix retry with variable. issue #915</MESSAGE>
+      <SHA>5fe721d26c3db6f409ec67c50119757070e96611</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-core/src/test/java/io/digdag/core/workflow/WorkflowExecutorTest.java</FILE>
+        <FILE>digdag-plugin-utils/src/main/java/io/digdag/util/RetryControl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

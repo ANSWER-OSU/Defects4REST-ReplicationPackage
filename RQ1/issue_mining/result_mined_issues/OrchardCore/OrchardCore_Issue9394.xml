@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9394</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/9394</ISSUEURL>
+  <TITLE>KendoUI script error after upgrade to latest dev branch</TITLE>
+  <DESCRIPTION>I developed some modules on Kendo UI framework and that works fine. after upgrade to the latest dev branch, this error occurred on my page: `Uncaught TypeError: jQuery(...).kendoLoader is not a function` I think this is because ResorceManagement class moved `&lt;script src=&quot;/OrchardCore.Resources/Scripts/jquery.js&quot;&gt;&lt;/script&gt;` to the end of page. how can I set `OrchardCore.Resources` scripts inserted in `&lt;head&gt;` tag??</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Media cache : Azure Blob Storage issue with 0 byte files (#8750)</MESSAGE>
+    <SHA>9d81069595e9056f81d7f7b193a1201c3363844c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix a bug and add a test when a resource at head and a resource at foot have the same dependency and the dependency is moved at foot fixes #9394</MESSAGE>
+      <SHA>8a10a59edf46529f7063ede3549f175ebd9bee62</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.ResourceManagement/ResourceManager.cs</FILE>
+        <FILE>test/OrchardCore.Tests/ResourceManagement/ResourceManagerTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #9394 If A at Foot depends on B at Head, B should stay at Head</MESSAGE>
+      <SHA>8f6db7d6c67bbb9b53510b5092333e14a43bdd0e</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.ResourceManagement.Abstractions/RequireSettings.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #9394 Resource dependency location (#9437)</MESSAGE>
+      <SHA>ba87e2ee1f4e045587b0a67f013b179c69877d2d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.ResourceManagement.Abstractions/RequireSettings.cs</FILE>
+        <FILE>test/OrchardCore.Tests/ResourceManagement/ResourceManagerTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

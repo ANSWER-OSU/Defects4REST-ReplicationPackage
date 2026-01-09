@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15921</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15921</ISSUEURL>
+  <TITLE>podman remote logs &quot;EOF&quot; error when building from an empty directory</TITLE>
+  <DESCRIPTION>**Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind bug **Description** When building from an empty directory, podman remote logs an unexpected &quot;EOF&quot; error. **Steps to reproduce the issue:** (Tested using the `quay.io/podman/upstream` image) 1. Setup an empty build context and an Dockerfile not located in this build context: ``` [root@fa7e0c9e34d1 /]# mkdir empty-directory [root@fa7e0c9e34d1 /]# echo &quot;FROM scratch&quot; &gt; Dockerfile ``` 2. Try to build this image with an empty build context without using remote podman, it works: ``` [root@fa7e0c9e34d1 /]# podman build -f Dockerfile empty-directory/ STEP 1/1: FROM scratch COMMIT --&gt; 8540bc5d966 8540bc5d966cc291b91b724dcd49b51674d12a30cd1375fdfa7e9fb048723217 ``` 3. Start a podman server, and try the same thing with podman remote, it seems to work, but it logs an unexpected EOF error: ``` [root@fa7e0c9e34d1 /]# podman system service -t 0 &amp; [1] 56 [root@fa7e0c9e34d1 /]# podman --remote build -f Dockerfile empty-directory/ ERRO[0000] While reading directory /empty-directory: EOF STEP 1/1: FROM scratch COMMIT --&gt; 13f8e206674 13f8e20667465573de921f6e98356d4d6acb7d923739e554ad232fffa80888d0 ``` **Describe the results you received:** There is an unexpected log `ERRO[0000] While reading directory /empty-directory: EOF` when using podman remote. **Describe the results you expected:** There should be no error log. **Additional information you deem important (e.g. issue happens only occasionally):** **Output of `podman version`:** ``` [root@fa7e0c9e34d1 /]# podman version Client: Podman Engine Version: 4.3.0-dev API Version: 4.3.0-dev Go Version: go1.18.6 Built: Thu Jan 1 00:00:00 1970 OS/Arch: linux/amd64 ```</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>310</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19333 from lsm5/conditionalize-gvproxy [CI:BUILD] RPM: separate out gvproxy for copr and rawhide</MESSAGE>
+    <SHA>b6a52f1f8b39e2c6eb8547b5cb249905d2958e5b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Don't log EOF error when using podman --remote build with an empty context directory. Closes #15921. Signed-off-by: Romain Geissler &lt;romain.geissler@amadeus.com&gt;</MESSAGE>
+      <SHA>4ee31dc37f8891673098352a1b64f8ab75155168</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/bindings/images/build.go</FILE>
+        <FILE>test/system/070-build.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

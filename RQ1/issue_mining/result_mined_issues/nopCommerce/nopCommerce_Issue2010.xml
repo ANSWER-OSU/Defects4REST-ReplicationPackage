@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2010</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2010</ISSUEURL>
+  <TITLE>Do not allow an individual to submit a new password that is the same as any of the last four passwords used (compliance with PCI DSS 3.2 requirements)</TITLE>
+  <DESCRIPTION>Requirement 8.2.5: Do not allow an individual to submit a new password that is the same as any of the last four passwords used.If password history isn’t maintained, the effectiveness of changing passwords is reduced, as previous passwords can be reused over and over. Requiring that passwords cannot be reused for a period of time reduces the likelihood that passwords that have been guessed or brute-forced will be used in the future. This way we should store them (or salt, hash, etc). Let's make it configurable (number of passwords, enabled/disabled) as per this work item (https://github.com/nopSolutions/nopCommerce/issues/2009) let's add an option to require it for users with admin access only Source: http://www.nopcommerce.com/boards/t/38848/nopcommerce-380-roadmap-and-estimated-release-date-lets-discuss.aspx?p=5#159909 Also see related items - https://github.com/nopSolutions/nopCommerce/issues/2009 and https://github.com/nopSolutions/nopCommerce/issues/786</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>34</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#2096 &quot;Show product images on cart&quot; setting was used instead of &quot;Show product images on wishlist&quot;</MESSAGE>
+    <SHA>8132921e17bb389b4793ff1869b289e96b1b51e2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2010 Settings for disable the customer to submit a new password that is the same as one of the previous</MESSAGE>
+      <SHA>9a160aa000a924bde8daa4801681e1367403be4f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Customers/Customer.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Domain/Customers/CustomerPassword.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Domain/Customers/CustomerSettings.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Nop.Core.csproj</FILE>
+        <FILE>src/Libraries/Nop.Data/Mapping/Customers/CustomerMap.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Mapping/Customers/CustomerPasswordMap.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Nop.Data.csproj</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/CustomerRegistrationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/CustomerService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/ICustomerService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/ExportImport/ExportManager.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Installation/CodeFirstInstallationService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Controllers/SettingController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Models/Settings/CustomerUserSettingsModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Views/Setting/CustomerUser.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Tests/Nop.Core.Tests/Domain/Customers/CustomerTests.cs</FILE>
+        <FILE>src/Tests/Nop.Data.Tests/Customers/CustomerPasswordPersistenceTests.cs</FILE>
+        <FILE>src/Tests/Nop.Data.Tests/Customers/CustomerPersistenceTests.cs</FILE>
+        <FILE>src/Tests/Nop.Data.Tests/Nop.Data.Tests.csproj</FILE>
+        <FILE>src/Tests/Nop.Services.Tests/Customers/CustomerRegistrationServiceTests.cs</FILE>
+        <FILE>src/Tests/Nop.Services.Tests/ExportImport/ExportManagerTests.cs</FILE>
+        <FILE>upgradescripts/3.80-the next version/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

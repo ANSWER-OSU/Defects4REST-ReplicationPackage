@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23803</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23803</ISSUEURL>
+  <TITLE>Image list sorted by repository is not always deterministic</TITLE>
+  <DESCRIPTION>### Issue Description In certain conditions, `podman image list --sort=repository` produces different results. See the steps to reproduce. I think, it's based on the time the images were last touched on the disk. It would be nice if sort could be tuned by a second field - also fixing this issue. [sort=repository,tag] ### Steps to reproduce the issue ```bash alias podman-images=&quot;podman image list --filter=dangling=false --sort=repository --format='{{.Repository}}:{{.Tag}}'&quot; podman pull quay.io/oszi/toolbox:latest quay.io/oszi/toolbox:latest-amd64 podman-images podman-images | xargs podman pull podman-images ``` ### Describe the results you received The two tags of the same image are flipped after every pull. ### Describe the results you expected Sorting should always be deterministic. ### podman info output REDACTED / `podman-5.2.2-1.fc40.x86_64` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details _No response_ ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23884 from containers/renovate/golang.org-x-net-0.x fix(deps): update module golang.org/x/net to v0.29.0</MESSAGE>
+    <SHA>2be86b72afcdebb1f23803ff79b6e2f4aee6d6b4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>podman images: sort repository with tags When you sort by repository a user most likely also want the tags to be sorted as well. At the very least to get a stable output as the order could be changed pull podman tag/pull even if they keep using the same tag name. Fixes #23803 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>0abbcfa50a4325f53c474351f197bdc18f248afe</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/images/list.go</FILE>
+        <FILE>docs/source/markdown/podman-images.1.md.in</FILE>
+        <FILE>test/system/020-tag.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

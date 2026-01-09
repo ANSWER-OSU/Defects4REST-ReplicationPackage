@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>124181</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/124181</ISSUEURL>
+  <TITLE>ILM `LifecycleExecutionState#stepInfo` adds unbounded data to cluster state</TITLE>
+  <DESCRIPTION>In a recent outage in which a cluster state grew [too large to fit into a single transport message](https://github.com/elastic/elasticsearch/issues/124068), we discovered that most of the space was being taken up by a `LifecycleExecutionState#stepInfo` of the following form: `{&quot;type&quot;:&quot;repository_exception&quot;,&quot;reason&quot;:&quot;[found-snapshots] failed to delete snapshots [...6500 snapshot names elided...]&quot;,&quot;caused_by&quot;:{&quot;type&quot;:&quot;i_o_exception&quot;,&quot;reason&quot;:&quot;Exception when listing blobs by prefix [null]&quot;,&quot;caused_by&quot;:{&quot;type&quot;:&quot;sdk_client_exception&quot;,&quot;reason&quot;:&quot;Unable to execute HTTP request: Read timed out&quot;,&quot;caused_by&quot;:{&quot;type&quot;:&quot;socket_timeout_exception&quot;,&quot;reason&quot;:&quot;Read timed out&quot;}}}}` The `[...6500 snapshot names elided...]` is about 750kiB. And because this error affected around 6500 indices this message was duplicated that many times in the cluster state, which added up to a little over 4.6GiB. Note that this is different from the problem that #84266 fixes, it's not stack traces taking all the space, it's just the top-level exception message itself. It's certainly useful to have information about ILM errors stored somewhere for future investigation, but could it be somewhere else? If it has to be in the cluster state, could we put a length limit on it just to protect against such a pathological case? Relates #124183</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Document allow_partial_results (#125044)</MESSAGE>
+    <SHA>f0ee146f7fbde566d59aad9fa425f5fae3565935</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Truncate step_info and error reason in ILM execution state and history This commit adds a limit to the `step_info` contained in `LifecycleExcutionState` so that large step info messages will not be stored in the cluster state. Additionally, when generating an ILM history failure, the full exception that is &quot;stringified&quot; is truncated to the same limit, ensuring that we do not accidentally index gigantic documents in the history store. The default limit is 1024 characters. Resolves #124181</MESSAGE>
+      <SHA>a38efb092027797b5d370295bc46a64d7208f258</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elasticsearch/cluster/metadata/LifecycleExecutionState.java</FILE>
+        <FILE>x-pack/plugin/core/src/test/java/org/elasticsearch/xpack/core/ilm/LifecycleExecutionStateTests.java</FILE>
+        <FILE>x-pack/plugin/ilm/src/main/java/org/elasticsearch/xpack/ilm/history/ILMHistoryItem.java</FILE>
+        <FILE>x-pack/plugin/ilm/src/test/java/org/elasticsearch/xpack/ilm/history/ILMHistoryItemTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Truncate step_info and error reason in ILM execution state and history (#125054) This commit adds a limit to the `step_info` contained in `LifecycleExcutionState` so that large step info messages will not be stored in the cluster state. Additionally, when generating an ILM history failure, the full exception that is &quot;stringified&quot; is truncated to the same limit, ensuring that we do not accidentally index gigantic documents in the history store. The default limit is 1024 characters. Resolves #124181</MESSAGE>
+      <SHA>cda26693ca9ffb165f88533f2f0117959d1534d7</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/125054.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/cluster/metadata/LifecycleExecutionState.java</FILE>
+        <FILE>x-pack/plugin/core/src/test/java/org/elasticsearch/xpack/core/ilm/LifecycleExecutionStateTests.java</FILE>
+        <FILE>x-pack/plugin/ilm/src/main/java/org/elasticsearch/xpack/ilm/history/ILMHistoryItem.java</FILE>
+        <FILE>x-pack/plugin/ilm/src/test/java/org/elasticsearch/xpack/ilm/history/ILMHistoryItemTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Truncate step_info and error reason in ILM execution state and history (#125054) This commit adds a limit to the `step_info` contained in `LifecycleExcutionState` so that large step info messages will not be stored in the cluster state. Additionally, when generating an ILM history failure, the full exception that is &quot;stringified&quot; is truncated to the same limit, ensuring that we do not accidentally index gigantic documents in the history store. The default limit is 1024 characters. Resolves #124181</MESSAGE>
+      <SHA>674e35e39e87845cbe2a56a30b03550629839a53</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/125054.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/cluster/metadata/LifecycleExecutionState.java</FILE>
+        <FILE>x-pack/plugin/core/src/test/java/org/elasticsearch/xpack/core/ilm/LifecycleExecutionStateTests.java</FILE>
+        <FILE>x-pack/plugin/ilm/src/main/java/org/elasticsearch/xpack/ilm/history/ILMHistoryItem.java</FILE>
+        <FILE>x-pack/plugin/ilm/src/test/java/org/elasticsearch/xpack/ilm/history/ILMHistoryItemTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Truncate step_info and error reason in ILM execution state and history (#125054) (#125140) This commit adds a limit to the `step_info` contained in `LifecycleExcutionState` so that large step info messages will not be stored in the cluster state. Additionally, when generating an ILM history failure, the full exception that is &quot;stringified&quot; is truncated to the same limit, ensuring that we do not accidentally index gigantic documents in the history store. The default limit is 1024 characters. Resolves #124181</MESSAGE>
+      <SHA>9f0047ca6fbb8476718aeb9e0af52afd54385549</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/125054.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/cluster/metadata/LifecycleExecutionState.java</FILE>
+        <FILE>x-pack/plugin/core/src/test/java/org/elasticsearch/xpack/core/ilm/LifecycleExecutionStateTests.java</FILE>
+        <FILE>x-pack/plugin/ilm/src/main/java/org/elasticsearch/xpack/ilm/history/ILMHistoryItem.java</FILE>
+        <FILE>x-pack/plugin/ilm/src/test/java/org/elasticsearch/xpack/ilm/history/ILMHistoryItemTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Truncate step_info and error reason in ILM execution state and history (#125054) This commit adds a limit to the `step_info` contained in `LifecycleExcutionState` so that large step info messages will not be stored in the cluster state. Additionally, when generating an ILM history failure, the full exception that is &quot;stringified&quot; is truncated to the same limit, ensuring that we do not accidentally index gigantic documents in the history store. The default limit is 1024 characters. Resolves #124181</MESSAGE>
+      <SHA>b34018c3db38af22f7abfef24538e31ec0af8372</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/125054.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/cluster/metadata/LifecycleExecutionState.java</FILE>
+        <FILE>x-pack/plugin/core/src/test/java/org/elasticsearch/xpack/core/ilm/LifecycleExecutionStateTests.java</FILE>
+        <FILE>x-pack/plugin/ilm/src/main/java/org/elasticsearch/xpack/ilm/history/ILMHistoryItem.java</FILE>
+        <FILE>x-pack/plugin/ilm/src/test/java/org/elasticsearch/xpack/ilm/history/ILMHistoryItemTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Truncate step_info and error reason in ILM execution state and history (#125054) This commit adds a limit to the `step_info` contained in `LifecycleExcutionState` so that large step info messages will not be stored in the cluster state. Additionally, when generating an ILM history failure, the full exception that is &quot;stringified&quot; is truncated to the same limit, ensuring that we do not accidentally index gigantic documents in the history store. The default limit is 1024 characters. Resolves #124181</MESSAGE>
+      <SHA>bff43498afd3c2234fee7e884f8fc1463ff0abf0</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/125054.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/cluster/metadata/LifecycleExecutionState.java</FILE>
+        <FILE>x-pack/plugin/core/src/test/java/org/elasticsearch/xpack/core/ilm/LifecycleExecutionStateTests.java</FILE>
+        <FILE>x-pack/plugin/ilm/src/main/java/org/elasticsearch/xpack/ilm/history/ILMHistoryItem.java</FILE>
+        <FILE>x-pack/plugin/ilm/src/test/java/org/elasticsearch/xpack/ilm/history/ILMHistoryItemTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

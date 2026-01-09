@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122661</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122661</ISSUEURL>
+  <TITLE>[CI] ShapeGeometryFieldMapperTests testCartesianBoundsBlockLoader failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6760 / openjdk21_checkpart1_java-fips-matrix](https://gradle-enterprise.elastic.co/s/kosh2jdd4gsuw) - [elasticsearch-pull-request #60105 / part-1](https://gradle-enterprise.elastic.co/s/rn4qfnq5nfpki) - [elasticsearch-pull-request #59827 / part-1](https://gradle-enterprise.elastic.co/s/afzf2d6ftynvo) **Reproduction Line:** ``` ./gradlew &quot;:server:test&quot; --tests &quot;org.elasticsearch.index.mapper.ShapeGeometryFieldMapperTests.testCartesianBoundsBlockLoader&quot; -Dtests.seed=BB0E51E39EFD3660 -Dtests.locale=ff-Latn-SN -Dtests.timezone=America/Kentucky/Louisville -Druntime.java=21 -Dtests.fips.enabled=true ``` **Applicable branches:** 9.0 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.index.mapper.ShapeGeometryFieldMapperTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testCartesianBoundsBlockLoader),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: geometry[0] 'BBOX (-5.3897702806159435E35, 4.170412018425846E35, 3.4028234346940236E35, -5.492458298191494E35)' wasn't extracted correctly Expected: &quot; BBOX (-5.3897702806159435E35, 4.170412018425846E35, 3.4028234346940236E35, -5.492458298191494E35)&quot; but: was &lt;BBOX (-4.1557785768094616E35, -1.209586260625588E35, 1.4328447853025805E35, -1.6270996623167576E35)&gt; ``` **Issue Reasons:** - [9.0] 3 failures in test testCartesianBoundsBlockLoader (1.2% fail rate in 249 executions) - [9.0] 2 failures in step part-1 (7.4% fail rate in 27 executions) - [9.0] 2 failures in pipeline elasticsearch-pull-request (7.7% fail rate in 26 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>18</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Separate stop flag and is_partial (#122654)</MESSAGE>
+    <SHA>bb9c2c344417df609fa40bc912d42ced53d2e763</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.index.mapper.ShapeGeometryFieldMapperTests testCartesianBoundsBlockLoader #122661</MESSAGE>
+      <SHA>ac727857a5841120c25a7902170f130a9267cae2</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.index.mapper.ShapeGeometryFieldMapperTests testCartesianBoundsBlockLoader #122661</MESSAGE>
+      <SHA>08bf3b9e3ecb4878b337b3305b57b354deda7f21</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.index.mapper.ShapeGeometryFieldMapperTests testCartesianBoundsBlockLoader #122661</MESSAGE>
+      <SHA>273b2442fdd04c5f12a52e73dd8f74817bc30f54</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

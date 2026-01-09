@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1597</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/1597</ISSUEURL>
+  <TITLE>Error when editing a SingleSelect column</TITLE>
+  <DESCRIPTION>NocoDB used as docker : true NocoDB version : v0.84.15 Database used in NC_DB URL : mysql Project was created by clicking : New Project Database on which spreadsheet is created : mysql OS on which NocoDB is running : ubuntu Node.js version if running as node : Database version : 10.7.3 **Steps To Reproduce** 1. Go to Table with a SingleSelect column type 2. Click on Edit and add an option. 3. Displays an error. **Expected behavior** An error should not happen. **Log** ``` Error: ALTER TABLE `nc_ve0y__players` CHANGE COLUMN `Buy or Sell` `Buy or Sell` enum('Sell','Buy','Maybe Buy','Maybe Sell') NULL DEFAULT &quot;NULL&quot;; - Invalid default value for 'Buy or Sell' at Packet.asError (/usr/src/app/node_modules/mysql2/lib/packets/packet.js:728:17) at Query.execute (/usr/src/app/node_modules/mysql2/lib/commands/command.js:29:26) at Connection.handlePacket (/usr/src/app/node_modules/mysql2/lib/connection.js:456:32) at PacketParser.onPacket (/usr/src/app/node_modules/mysql2/lib/connection.js:85:12) at PacketParser.executeStart (/usr/src/app/node_modules/mysql2/lib/packet_parser.js:75:16) at Socket.&lt;anonymous&gt; (/usr/src/app/node_modules/mysql2/lib/connection.js:92:25) at Socket.emit (events.js:314:20) at Socket.EventEmitter.emit (domain.js:483:12) at addChunk (_stream_readable.js:297:12) at readableAddChunk (_stream_readable.js:272:9) { code: 'ER_INVALID_DEFAULT', errno: 1067, sqlState: '42000', sqlMessage: &quot;Invalid default value for 'Buy or Sell'&quot;, sql: 'ALTER TABLE `nc_ve0y__players` \n' + ' CHANGE\n' + &quot; COLUMN `Buy or Sell` `Buy or Sell` enum('Sell','Buy','Maybe Buy','Maybe Sell') NULL\n&quot; + ' DEFAULT &quot;NULL&quot;;' } ``` Join our discord : https://discord.gg/5RgZmkW for realtime help. Node version : **v12.22.1** Arch type: **arm64** Platform: **linux** Docker: **true** Database: **mysql** packageVersion: **0.9.27**</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: select field update issue Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+    <SHA>b7f7ea10e0fc798ff00ee7a246d50e9e27b8d6d5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: select field default value removal re #1597 Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+      <SHA>07cae29c8b74c8e31fd7c21c66ae20a0563224e3</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/components/project/spreadsheet/components/editColumn.vue</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

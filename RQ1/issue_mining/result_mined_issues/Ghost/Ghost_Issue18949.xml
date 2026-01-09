@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18949</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/18949</ISSUEURL>
+  <TITLE>Unintended behavior when entering post title using Japanese IME</TITLE>
+  <DESCRIPTION>### Issue Summary In the Japanese (and possibly other languages) IME, enter key is pressed when converting a string, but the string is then duplicated and entered into the body of the article as well. It may be happening with IMEs in other languages. https://github.com/TryGhost/Ghost/assets/10049972/18bad31a-e71d-4e37-bb4e-7f9d7c3a6799 ### Steps to Reproduce 1. Enter a post title using Japanese IME 2. Press enter key to convert a string It is expected that the conversion will be done correctly and the cursor will be behind the converted string. ### Ghost Version 5.72.2 ### Node.js Version 18.12.1 ### How did you install Ghost? \- ### Database type MySQL 5.7 ### Browser &amp; OS version _No response_ ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>v5.73.0</MESSAGE>
+    <SHA>f46ba34c5409028c469b88eb5565dae14f09bf09</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed the post title writing issue using Japanese IME refs https://github.com/TryGhost/Ghost/issues/18949 - changed editor to control on a keyCode basis instead of key</MESSAGE>
+      <SHA>9a912e7fedd4f752b887492fcca820700fee9e79</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/app/components/gh-koenig-editor-lexical.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed the post title writing issue using Japanese IME refs https://github.com/TryGhost/Ghost/issues/18949 - return early if isComposing is true in onTitleKeydown</MESSAGE>
+      <SHA>887ecf07a9dbd08a18f48ca2a8785f665e4a5726</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/app/components/gh-koenig-editor-lexical.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed Enter key not working correctly when using IME in post title (#18950) closes https://github.com/TryGhost/Ghost/issues/18949 - added check for `isComposing` in Enter key handler to avoid the move-to-post-body behaviour when the Enter keypress is used to end IME composition --------- Co-authored-by: t8m8 &lt;tomomasa.matsunaga@gmail.com&gt;</MESSAGE>
+      <SHA>e7ade505469681483dcb677a9d7496edbe12baf4</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/app/components/gh-koenig-editor-lexical.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

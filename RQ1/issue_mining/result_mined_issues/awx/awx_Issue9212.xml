@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9212</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/9212</ISSUEURL>
+  <TITLE>[execution-environments] Image cleanup</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Feature Idea ##### SUMMARY Steps: - User creates a new EE that references a new custom image - Runs jobs with this EE - Deletes the EE through the API Over time, the user accumulates bulky images, on the scale of 100s of Gb. The API needs to provide some means of deleting both - Images no longer referenced by an execution environment in the API - Dangling images If not, some users can run out of space.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>138</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9954 from jbradberry/missing-dry-run-check Add in the missing dry-run check for csv analytics collectors SUMMARY Follow on bug fix for the analytics gathering feature. @chrismeyersfsu noticed that dry-run gathers of sufficiently large data was breaking out of the loop after the first csv chunk was packaged. ISSUE TYPE Bugfix Pull Request COMPONENT NAME API AWX VERSION awx: 19.0.0 Reviewed-by: Chris Meyers &lt;None&gt; Reviewed-by: Elijah DeLee &lt;kdelee@redhat.com&gt; Reviewed-by: Christian Adams &lt;rooftopcellist@gmail.com&gt; Reviewed-by: Julen Landa Alustiza &lt;None&gt; Reviewed-by: Bianca Henderson &lt;beeankha@gmail.com&gt;</MESSAGE>
+    <SHA>1d89ecaf4f29c00638b0f1bb95356895c6d69765</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9907 from fosterseth/feat_a9212_image_cleanup Add cleanup_images scheduled task SUMMARY #9212 Removes dangling podman images on the system [70e6cc8a] awx.main.tasks Cleanup execution environment images: deleting quay.io/fosterseth/awx-ee:v1, 643 MB ISSUE TYPE Feature Pull Request COMPONENT NAME API AWX VERSION awx: 19.0.0 Reviewed-by: Seth Foster &lt;None&gt; Reviewed-by: Ryan Petrello &lt;ryan@ryanpetrello.com&gt; Reviewed-by: Alan Rominger &lt;arominge@redhat.com&gt; Reviewed-by: Shane McDonald &lt;me@shanemcd.com&gt;</MESSAGE>
+      <SHA>182d4d3098434e391a0a80629af0e8e74345d51b</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/settings/defaults.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

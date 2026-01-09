@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18358</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18358</ISSUEURL>
+  <TITLE>e2e: image trust: Getting key identity: exit status 2</TITLE>
+  <DESCRIPTION>Happening in both `podman image trust show` and `..show --json` tests: ``` # podman [options] image trust show \ --registrypath /var/tmp/go/src/github.com/containers/podman/test \ --policypath /var/tmp/go/src/github.com/containers/podman/test/policy.json --json time=&quot;2023-04-24T16:39:52-05:00&quot; level=error msg=&quot;Getting key identity: exit status 2&quot; [ ..... { &quot;transport&quot;: &quot;repository&quot;, &quot;name&quot;: &quot;registry.access.redhat.com&quot;, &quot;repo_name&quot;: &quot;registry.access.redhat.com&quot;, &quot;sigstore&quot;: &quot;https://access.redhat.com/webassets/docker/content/sigstore&quot;, &quot;type&quot;: &quot;signed&quot; &gt;&gt;&gt;&gt;MISSING GPG_ID&lt;&lt;&lt;&lt;&lt; } ] ``` The test then fails because the expected `gpg_id: security@redhat.com` entry is missing. `registry.access.redhat.com` is reliably unreliable, so I'm betting this is a registry flake. Maybe the error logging could be improved? * fedora-36 : int podman fedora-36 root container sqlite * PR #17831 * [03-29 17:18](https://api.cirrus-ci.com/v1/artifact/task/6008273120264192/html/int-podman-fedora-36-root-container-sqlite.log.html#t--podman-image-trust-show--1) in Podman trust [It] podman image trust show * fedora-36 : int podman fedora-36 root host sqlite * PR #17831 * [04-06 17:00](https://api.cirrus-ci.com/v1/artifact/task/5854813972332544/html/int-podman-fedora-36-root-host-sqlite.log.html#t--podman-image-trust-show---json--1) in Podman trust [It] podman image trust show --json * fedora-37 : int podman fedora-37 root host boltdb * PR #17831 * [04-25 19:04](https://api.cirrus-ci.com/v1/artifact/task/5337611150032896/html/int-podman-fedora-37-root-host-boltdb.log.html#t--podman-image-trust-show--1) in Podman trust [It] podman image trust show * fedora-37 : int podman fedora-37 rootless host boltdb * PR #17831 * [03-29 23:28](https://api.cirrus-ci.com/v1/artifact/task/6414147026419712/html/int-podman-fedora-37-rootless-host-boltdb.log.html#t--podman-image-trust-show---json--1) in Podman trust [It] podman image trust show --json * fedora-37 : int podman fedora-37 rootless host sqlite * PR #17831 * [03-28-2023 16:24](https://api.cirrus-ci.com/v1/artifact/task/6562743499620352/html/int-podman-fedora-37-rootless-host-sqlite.log.html#t--podman-image-trust-show---json--1) in Podman trust [It] podman image trust show --json * [03-28-2023 08:02](https://api.cirrus-ci.com/v1/artifact/task/5561330535497728/html/int-podman-fedora-37-rootless-host-sqlite.log.html#t--podman-image-trust-show---json--1) in Podman trust [It] podman image trust show --json * rawhide : int podman rawhide root host sqlite * PR #17831 * [04-24 18:08](https://api.cirrus-ci.com/v1/artifact/task/4661467065090048/html/int-podman-rawhide-root-host-sqlite.log.html#t--podman-image-trust-show-json--1) in Podman trust [It] podman image trust show --json</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>42</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18554 from n1hility/sync-docker-sock Sync machine docker.sock according to rootful flag</MESSAGE>
+    <SHA>4c399fc6fb2de70e0a197cd81fc3978d586e23ee</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>e2e: serialize gpg tests Reason: gpg tests all run with a different GNUPGHOME, and gpg-agent does not like that, and there's no longer any way to run gpg without the agent. So, do not run these tests in parallel, and clean up agent after each test. Fixes: #17966 (I hope) May also fix #18358 but it will take some time to be sure. Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>a485ba505a60d9fc6c608e51b5d740d6695b0183</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/image_sign_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>e2e: add ginkgo decorators to address flakes - trust_test: adding 'Ordered' seems to resolve a very common flake. I've tested this for dozens of CI runs, and haven't seen the flake recur (normally it fails every few runs). - exec and search tests: add FlakeAttempts(3). This is a NOP under our current CI setup, in which we run ginkgo with a global --flake-attempts=3. I am submitting this as an optimistic step toward a no-flake-attempts world (#17967) Fixes: #18358 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>b65ba90df31ce09136eef675abbc3388bb58fb58</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/exec_test.go</FILE>
+        <FILE>test/e2e/search_test.go</FILE>
+        <FILE>test/e2e/trust_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8063</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/8063</ISSUEURL>
+  <TITLE>Cannot find module in the workspace?</TITLE>
+  <DESCRIPTION>### What version of Turborepo are you using? 1.3.1 ### What package manager are you using / does the bug impact? Yarn v1 ### What operating system are you using? Mac ### Describe the Bug First of all, thank you for this amazing project. We've been enjoying using turborepo for the past 6 months and we love it so far! I'm not sure if this is a bug report, but after digging into the issues and discussions, I couldn't find anything near the problem we are currently facing and after triple checking the docs and a few hours of debug, we decided to open an issue ✋ We're currently using Vercel and deploying an api using Fastify, we are using a similar setup than [this one](https://vercel.com/guides/using-express-with-vercel), we named it `@acme/api` for the reproduction. When trying to import another package (`@acme/utils`) into the `@acme/api` project, the project would not build: ```NowBuildError: src/app.ts(2,23): error TS2307: Cannot find module '@acme/utils' or its corresponding type declarations.``` I made the logs public, if it helps: https://turbo-vercel-repro-h8fvyigkv-blatty.vercel.app/_logs And here's our `turbo.json`: ```json { &quot;$schema&quot;: &quot;https://turborepo.org/schema.json&quot;, &quot;pipeline&quot;: { &quot;build&quot;: { &quot;dependsOn&quot;: [&quot;^build&quot;], &quot;outputs&quot;: [&quot;dist/**&quot;, &quot;build/**&quot;, &quot;.next/**&quot;, &quot;public/**&quot;] }, &quot;@acme/api#build&quot;: { &quot;dependsOn&quot;: [&quot;^build&quot;, &quot;@acme/utils#build&quot;], &quot;outputs&quot;: [&quot;dist/**&quot;, &quot;build/**&quot;] }, &quot;@acme/utils#build&quot;: { &quot;dependsOn&quot;: [&quot;^build&quot;], &quot;outputs&quot;: [&quot;dist/**&quot;] }, &quot;start&quot;: { &quot;cache&quot;: false }, &quot;dev&quot;: { &quot;cache&quot;: false } }, &quot;baseBranch&quot;: &quot;origin/main&quot;, &quot;globalDependencies&quot;: [&quot;$GITHUB_TOKEN&quot;, &quot;tsconfig.json&quot;] } ``` ### Expected Behavior Expected `@acme/utils` to be included in `@acme/api` ### To Reproduce 1. Clone the reproduction repo: https://github.com/Blatty/turbo-vercel-repro 2. Deploy to vercel, set the root directory to `apps/api` 3. Set the build command to `cd ../../ &amp;&amp; npx turbo run build --filter=@acme/api` We also tried with `--no-cache` &amp; `--force`, `yarn install --cwd ../..` as the &quot;install command&quot; to trigger the `postinstall` but without success</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[tests] Add missing function import in Project mock (#8143) A function `formatProvider` wasn't imported in the `Project` mock endpoint. This wasn't caught before #8100 was merged, and dodged CI. ### Checklist &lt;!-- Please keep your PR as a Draft until the checklist is complete --&gt; #### Tests - [ ] The code changed/added as part of this PR has been covered with tests - [ ] All tests pass locally with `yarn test-unit` #### Code Review - [ ] This PR has a concise title and thorough description useful to a reviewer - [ ] Issue from task tracker has a link to this PR</MESSAGE>
+    <SHA>c5a7c574a29b9cae6af63ddad46ef255ddffeb35</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[cli] Fix `vercel build` sort order (#8144) - Fixes #8063</MESSAGE>
+      <SHA>c67d1a8525df916932181d6cc3e60a2acd83785e</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/cli/src/commands/build.ts</FILE>
+        <FILE>packages/cli/src/util/build/sort-builders.ts</FILE>
+        <FILE>packages/cli/test/unit/util/build/sort-builders.test.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

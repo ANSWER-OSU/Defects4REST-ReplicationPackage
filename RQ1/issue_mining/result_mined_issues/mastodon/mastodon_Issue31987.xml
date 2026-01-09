@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>31987</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/31987</ISSUEURL>
+  <TITLE>sidekiq: FeedInsertWorker: undefined method `account_id' for nil:NilClass</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem 1. use the instance normally. ### Expected behaviour home feed is not empty ### Actual behaviour home feed is empty and there are many failed sidekiq jobs ### Detailed description 1. My home feed is suddenly empty, and `RAILS_ENV=production ./bin/tootctl feeds build` does not solve it. 2. the log of sidekiq seems to say it could not insert into feed. ### Mastodon instance jing.lgbt ### Mastodon version v4.2.12 ### Technical details If this is happening on your own Mastodon server, please fill out those: - Ruby version: ruby 3.2.3 (2024-01-18 revision 52bb2ac0a6) [x86_64-linux] - Node.js version: v20.17.0 journald: ``` Sep 20 01:38:48 mastodon1 bundle[1042215]: 2024-09-19T16:38:48.333Z pid=1042215 tid=ilnj class=FeedInsertWorker jid=537fcecfb09c55be7366b105 INFO: start Sep 20 01:38:48 mastodon1 bundle[1042215]: 2024-09-19T16:38:48.344Z pid=1042215 tid=ilnj class=FeedInsertWorker jid=537fcecfb09c55be7366b105 elapsed=0.012 INFO: fail Sep 20 01:38:48 mastodon1 bundle[1042215]: 2024-09-19T16:38:48.344Z pid=1042215 tid=ilnj WARN: {&quot;context&quot;:&quot;Job raised exception&quot;,&quot;job&quot;:{&quot;retry&quot;:true,&quot;queue&quot;:&quot;default&quot;,&quot;class&quot;:&quot;FeedInsertWorker&quot;,&quot;args&quot;:[113159302227197083,111832116425341006,&quot;home&quot;,{&quot;update&quot;:null}],&quot;jid&quot;:&quot;537fcecfb09c55be7366b105&quot;,&quot;created_at&quot;:1726673923.177217,&quot;enqueued_at&quot;:1726763928.3325593,&quot;error_message&quot;:&quot;undefined method `account_id' for nil:NilClass&quot;,&quot;error_class&quot;:&quot;NoMethodError&quot;,&quot;failed_at&quot;:1726673923.183306,&quot;retry_count&quot;:13,&quot;retried_at&quot;:1726735322.2056925}} Sep 20 01:38:48 mastodon1 bundle[1042215]: 2024-09-19T16:38:48.344Z pid=1042215 tid=ilnj WARN: NoMethodError: undefined method `account_id' for nil:NilClass Sep 20 01:38:48 mastodon1 bundle[1042215]: 2024-09-19T16:38:48.344Z pid=1042215 tid=ilnj WARN: /home/mastodon/live/app/lib/feed_manager.rb:561:in `block in build_crutches' Sep 20 01:38:48 mastodon1 bundle[1042215]: /home/mastodon/live/app/lib/feed_manager.rb:556:in `each' Sep 20 01:38:48 mastodon1 bundle[1042215]: /home/mastodon/live/app/lib/feed_manager.rb:556:in `flat_map' ```</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix dashboard quick access button text spilling over if too long to fit Fixes #142601</MESSAGE>
+    <SHA>37ef507126c72eea3efc14e7dae1efa4a15255f2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix issue when encountering reblog of deleted post in feed rebuild Fixes #31987</MESSAGE>
+      <SHA>c0a7a1d5f38077daa1508bb6176d852e60470380</SHA>
+      <PATCHEDFILES>
+        <FILE>app/lib/feed_manager.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix issue when encountering reblog of deleted post in feed rebuild Fixes #31987</MESSAGE>
+      <SHA>7f19f4794530a65e4af8c2a71dd91384a5ff9d17</SHA>
+      <PATCHEDFILES>
+        <FILE>app/lib/feed_manager.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>308</ISSUENO>
+  <ISSUEURL>https://github.com/sunscrapers/djoser/issues/308</ISSUEURL>
+  <TITLE>Bug when using custom serializers</TITLE>
+  <DESCRIPTION>Running Djoser 1.3.0 on Django 2.1.1 I can successfully create and use one custom serializer like so: ``` # users/serializers.py class CustomUserCreateSerializer(UserCreateSerializer): class Meta: fields = tuple(User.REQUIRED_FIELDS) + ( User.USERNAME_FIELD, User._meta.pk.name, 'password', 'is_manager', ) # settings.py DJOSER = { 'SERIALIZERS': { 'user_create': 'users.serializers.CustomUserCreateSerializer', }, } ``` But as soon as I create a second serializer I get an error: ``` # users/serializers.py class CustomUserCreateSerializer(UserCreateSerializer): class Meta: fields = tuple(User.REQUIRED_FIELDS) + ( User.USERNAME_FIELD, User._meta.pk.name, 'password', 'is_manager', ) class CustomUserSerializer(UserSerializer): class Meta: model = User fields = tuple(User.REQUIRED_FIELDS) + ( User._meta.pk.name, User.USERNAME_FIELD, 'is_manager', ) read_only_fields = (User.USERNAME_FIELD,) # settings.py DJOSER = { 'SERIALIZERS': { 'user_create': 'users.serializers.CustomUserCreateSerializer', 'user': 'users.serializers.CustomUserSerializer', }, } ``` I receive this error: `ImportError: Module &quot;users.serializers&quot; does not define a &quot;UserSerializer&quot; attribute/class`. The traceback leads me back to `class CurrentUserSerializer(settings.SERIALIZERS.user):` in djoser/serializers.py. If I remove that `CurrentUserSerializer` class, or if I change its inherited class to `serializers.ModelSerializer` then everything runs as expected. My guess is that this is a sort of circular dependency issue with the new CurrentUserSerializer, but I'm not quite sure how to solve it in my code (or if that's possible).</DESCRIPTION>
+  <REPONAME>djoser</REPONAME>
+  <TIMEDIFFERENCEDAYS>19</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #300 from joshua-s/issue-299 Use partial_update for PATCH on /me</MESSAGE>
+    <SHA>2b9603f62be6c50ae8e8c7b7c3bf3c66cc210df1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix cyclic import with CurrentUserSerializer Fix #308</MESSAGE>
+      <SHA>78d0cfa44e9ac91bf6b5dfa983a2352b09b0d7eb</SHA>
+      <PATCHEDFILES>
+        <FILE>djoser/serializers.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

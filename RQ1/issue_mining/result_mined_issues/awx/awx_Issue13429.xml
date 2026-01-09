@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>13429</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/13429</ISSUEURL>
+  <TITLE>admin_role disassociated despite remove_admins = false</TITLE>
+  <DESCRIPTION>### Please confirm the following - [X] I agree to follow this project's [code of conduct](https://docs.ansible.com/ansible/latest/community/code_of_conduct.html). - [X] I have checked the [current issues](https://github.com/ansible/awx/issues) for duplicates. - [X] I understand that AWX is open source software provided for free and that I might not receive a timely response. ### Bug Summary After upgrading from AWX 21.5.1 to 21.10.2 all organization admin roles were removed from the users' accounts. We're using LDAP with an organization map looking like this: ``` { &quot;Org1&quot;: { &quot;admins&quot;: false, &quot;remove_admins&quot;: false, &quot;remove_users&quot;: true, &quot;users&quot;: [ &quot;CN=...&quot; ] } } ``` Users were manually granted the organization admin role. That had worked before, but after the upgrade, the role was removed from the users with the following activity message: ``` | 13.1.2023, 14:10:40 | system | disassociated Org1 admin_role from jdoe ``` And AWX was logging the following: ``` DEBUG [4ecb27399afb4cb7b9ad2fd5e666a8ca] awx.sso.backends LDAP adapter removing user jdoe permission of admin_role from organization Org1 ``` I tried to remove '&quot;admins&quot;: false' from the config or replace it with an empty list ('admins&quot;: [],') but that didn't change anything. &quot;None&quot; was not accepted by the form. According to the Automation Platform docs that should work: https://docs.ansible.com/automation-controller/4.2.1/html/administration/social_auth.html#organization-mapping This seems to be related to the following PR: https://github.com/ansible/awx/pull/12949 ### AWX version 21.10.2 ### Select the relevant components - [ ] UI - [X] API - [ ] Docs - [ ] Collection - [ ] CLI - [ ] Other ### Installation method docker development environment ### Modifications no ### Ansible version 2.12.2 ### Operating system Debian 11 ### Web browser Firefox ### Steps to reproduce 1) Add default LDAP settings 2) Create an organization map with &quot;admins: false&quot; 3) Add a user manually as organization admin to an organization 4) Login with that user and recognize that the admin_role was removed ### Expected results The system doesn't remove the admin_role from the user. ### Actual results The admin_role is removed from the user ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #13367 from kialam/fix-13290-instance-404 Conditionally query /health_check endpoint for execution node only.</MESSAGE>
+    <SHA>ca07bc85cbd34a760589278eb42bb453a00039a5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>sso/backends: remove_* must not change the user _update_m2m_from_groups must return None if remove_* is false or empty, because None indicates that the user permissions will not be changed. related #13429</MESSAGE>
+      <SHA>3fb4418bbe303e474b78133ddfe03aa7dc9ce895</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/sso/backends.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>sso/backends: remove_* must not change the user _update_m2m_from_groups must return None if remove_* is false or empty, because None indicates that the user permissions will not be changed. related #13429</MESSAGE>
+      <SHA>e6b51ce8e7fe376ceede65f01ef4eec5d107b100</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/sso/backends.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>sso/backends: remove_* must not change the user _update_m2m_from_groups must return None if remove_* is false or empty, because None indicates that the user permissions will not be changed. related #13429</MESSAGE>
+      <SHA>e5a6e292d834c744bd6d94917476cb8e7544f32c</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/sso/backends.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>sso/backends: remove_* must not change the user (#13430) _update_m2m_from_groups must return None if remove_* is false or empty, because None indicates that the user permissions will not be changed. related #13429</MESSAGE>
+      <SHA>d7025a919c8a837045ac1f8eb4bd84c951378315</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/sso/backends.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>sso/backends: remove_* must not change the user (#13430) (#6294) _update_m2m_from_groups must return None if remove_* is false or empty, because None indicates that the user permissions will not be changed. related #13429 Co-authored-by: anxstj &lt;51952982+anxstj@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>d358ce76ed8039f6ae6fb3dcf0fcb93acd8a2078</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/sso/backends.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

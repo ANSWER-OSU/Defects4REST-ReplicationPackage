@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2494</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2494</ISSUEURL>
+  <TITLE>Full web farm support</TITLE>
+  <DESCRIPTION>Actually we already fully support Azure web apps with multiple instances. So we can say that this scenario of web farm environment is support. Find more about it at https://docs.nopcommerce.com/en/installation-and-upgrading/installing-nopcommerce/installing-on-microsoft-azure.html Let's also add support for multiple servers. For example, multiple real physical servers or multiple virtual machines (on Azure). So there are one thing to be supported in such environments. It's a shared file system. We have to store files on some shared storage. For example, 1) Plugin.json and other setting files 2) PDF files (attachments). Source: http://www.nopcommerce.com/boards/t/40525/web-farm-mode-taskscheduler-pdf-invoice-attachment-missing-in-order-place-notification.aspx 3) Exported files (e.g. excel) 4) Ensure that bundling and minification works in web farms 5) etc - ? (also see comments below) I think it's not correct to store them in database. So we have to investigate two possible scenarios: 1. File Replication - Each server hosts copies of the load balanced website files and a file replication service is running to ensure that all files on all servers are up to date 2. Centralized file share - The load balanced website files are located on a centralized file share (SAN/NAS/Clustered File Server/Network Share) Find more info on how it's described (with configuration details) for Umbraco at https://our.umbraco.com/documentation/Getting-Started/Setup/Server-Setup/Load-Balancing/ Once it's done we have to write a good tutorial for our documentation portal on how to configure web farms Some other useful links: 1. https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/web-farm?view=aspnetcore-5.0 2. https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/proxy-load-balancer?view=aspnetcore-5.0 Also see how it's implemented at Umbraco: 1. https://our.umbraco.com/documentation/Getting-Started/Setup/Server-Setup/Load-Balancing/azure-web-apps 2. https://our.umbraco.com/documentation/Getting-Started/Setup/Server-Setup/Load-Balancing/</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1284</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #2999 from a-patel/develop Use cookie-based TempData provider (useful in webfarm)</MESSAGE>
+    <SHA>375c6828ed9332b100a80853fb0a36263ff64597</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2494 Further changes to use cookie-based TempData provider by default</MESSAGE>
+      <SHA>8f54a762bc31c904303d4527cf8a19d85d3a4e43</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Configuration/NopConfig.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ServiceCollectionExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/appsettings.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

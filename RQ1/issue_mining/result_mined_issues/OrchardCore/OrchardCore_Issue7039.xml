@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7039</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/7039</ISSUEURL>
+  <TITLE>Fix all the API controllers decorated with [Authorize(AuthenticationSchemes = &quot;Api&quot;)] to return ChallengeOrForbid(&quot;Api&quot;)</TITLE>
+  <DESCRIPTION>Most of the OC API controllers are configured to use the &quot;Api&quot; scheme for authentication, but return `ChallengeOrForbid()`, that ultimately uses the default challenge scheme (which is typically the cookie handler when the Users module is enabled). To fix that, the API controllers must be updated to do `ChallengeOrForbid(&quot;Api&quot;)` instead of `ChallengeOrForbid()`, so that challenges are properly handled by OpenIddict when the OpenID token validation feature is enabled. /cc @deanmarcussen @OrchardSkills</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add missing page link in documentation for Azure AD</MESSAGE>
+    <SHA>31a83f73bfef49180ebc48d77141242843924a8d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ChallengeOrForbid in Api controllers Fixes #7039</MESSAGE>
+      <SHA>b8c9dc07b4237cfa9e101e6db1531332cb59027c</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Contents/Controllers/ApiController.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Demo/Controllers/ContentApiController.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Lucene/Controllers/ApiController.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Tenants/Controllers/ApiController.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Mvc.Core/Utilities/ControllerExtensions.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

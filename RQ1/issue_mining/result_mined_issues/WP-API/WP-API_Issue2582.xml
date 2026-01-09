@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2582</ISSUENO>
+  <ISSUEURL>https://github.com/WP-API/WP-API/issues/2582</ISSUEURL>
+  <TITLE>Using term filters can cause the API to return objects instead of arrays</TITLE>
+  <DESCRIPTION>Hi, WordPress allows you to filter processes like get_terms. Through this you can unset terms from the array that's then returned for further processing. A side effect of doing this that affects the JSON encoder but not normally further PHP processing is that the JSON encoder must now output arrays filtered in this way as JSON objects instead of arrays, because the internal structure of the array is now key/value due to deleted numeric keys (wrong terminology, but it sort of works). An example of the problem is here: http://stackoverflow.com/questions/5943149/rebase-array-keys-after-unsetting-elements Should the API: a) defensively call array_values on things it expects to be trying to output as an array? (So that the API contract can't be broken), or: b) should this be documented behaviour and it's the responsibility of the filter developer to call array_values? I might suggest (a), if only because there may be plugins out in the world that do not call array_values because it's never affected PHP, but being used on sites that then would have potentially random WP-API behaviour switching between Object and Array for filtered and non-filtered term arrays. This probably isn't restricted to term filters, but it's where I noted the behaviour.</DESCRIPTION>
+  <REPONAME>WP-API</REPONAME>
+  <TIMEDIFFERENCEDAYS>80</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge remote-tracking branch 'refs/remotes/WP-API/develop' into develop</MESSAGE>
+    <SHA>81ff9c52bf8ed9639fd02625559d3a6e9c0e2283</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Call array_values() on user roles to ensure array is returned. #2582 was fixed in #2724, but it is also possible to remove user roles from an array in `set_user_role`, `add_user_role`, or `remove_user_role`. It would be pretty hard to do so, and most likely no one does it, but here is a PR just in case.</MESSAGE>
+      <SHA>d92d62c2dfd648837d0b48c62dc5f50fec8409bb</SHA>
+      <PATCHEDFILES>
+        <FILE>lib/endpoints/class-wp-rest-users-controller.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #2728 from BE-Webdesign/#2582-call-array-values-on-roles #2582 call array values on roles</MESSAGE>
+      <SHA>21297d8cce72cdf891f22ab27cad257e4d846a07</SHA>
+      <PATCHEDFILES>
+        <FILE>lib/endpoints/class-wp-rest-users-controller.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

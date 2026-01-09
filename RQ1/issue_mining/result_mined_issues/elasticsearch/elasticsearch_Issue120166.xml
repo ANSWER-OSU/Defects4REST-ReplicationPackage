@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120166</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120166</ISSUEURL>
+  <TITLE>[CI] DatafeedJobsIT testLookbackOnly failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #15764 / part4](https://gradle-enterprise.elastic.co/s/3qw5uu3apfmj6) - [elasticsearch-pull-request #50450 / part-4](https://gradle-enterprise.elastic.co/s/5owzgo7w6gc66) - [elasticsearch-pull-request #50364 / part-4](https://gradle-enterprise.elastic.co/s/te5qlscbevkyg) - [elasticsearch-periodic #5840 / openjdk21_checkpart4_java-matrix](https://gradle-enterprise.elastic.co/s/fs352qwgvvhwi) - [elasticsearch-periodic #5840 / openjdk17_checkpart4_java-fips-matrix](https://gradle-enterprise.elastic.co/s/uvdfdrnjmlu5k) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:ml:qa:native-multi-node-tests:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.ml.integration.DatafeedJobsIT.testLookbackOnly&quot; -Dtests.seed=E8BEDA900AE77AA3 -Dtests.locale=sq-AL -Dtests.timezone=Asia/Tokyo -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.ml.integration.DatafeedJobsIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testLookbackOnly),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.tasks.TaskCancelledException: Task was cancelled ``` **Issue Reasons:** - [8.x] 5 failures in test testLookbackOnly (3.5% fail rate in 144 executions) - [8.x] 2 failures in step part-4 (10.5% fail rate in 19 executions) - [8.x] 2 failures in pipeline elasticsearch-pull-request (11.1% fail rate in 18 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.ml.integration.DatafeedJobsIT testStopLookbackFollowedByProcessKill #120122</MESSAGE>
+    <SHA>38946d0a63748a178c64c414982691fe46268926</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ml.integration.DatafeedJobsIT testLookbackOnly #120166</MESSAGE>
+      <SHA>3edf627706fa6f9111da790d3926c4330b9587fe</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

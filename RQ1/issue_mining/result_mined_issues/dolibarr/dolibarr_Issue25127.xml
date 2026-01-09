@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>25127</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/25127</ISSUEURL>
+  <TITLE>Unable to use cancel action on form with mandatory fields defined in llx_default_values table</TITLE>
+  <DESCRIPTION>### Bug If you set a field as mandatory on the /admin/defaultvalues.php page, you can't use the CANCEL button on the form without filling out the mandatory field. Issue is due to the fact that the CANCEL button is a SUBMIT button with name set to cancel. So you have to submit the form if you want to cancel your action. And because the field has now the property &quot;required&quot;, the browser will not allow you to submit the form. Property required is set with the following JS code https://github.com/Dolibarr/dolibarr/blob/128b31feccd9edc7c1087c55b9eba9e1800b2dad/htdocs/core/lib/functions.lib.php#L9834 ### Environment Version 16, 17, 18 ### Environment OS _No response_ ### Environment Web server _No response_ ### Environment PHP _No response_ ### Environment Database _No response_ ### Environment URL(s) _No response_ ### Expected and actual behavior Actual behavior : unable to use the cancel button without filling out user configured mandatory fields Expected behavior : ability to use the cancel button without filling out the form ### Steps to reproduce the behavior 1. Define the field `accountancy_code_sell` as mandatory on url `product/card.php` on the admin page `/admin/defaultvalues.php` 2. Create a new product 3. Clic on cancel button ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>108</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #26092 from OPEN-DSI/develop_new_add_trigger_delete_bank_account_line NEW: Add trigger when delete a bank account line</MESSAGE>
+    <SHA>5bc9be8fc375bf9739530cd1ea1ae314599de154</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #26083 from hansemschnokeloch/fix-25127 FIX #25127</MESSAGE>
+      <SHA>12bed4e0042cc61c8a097844fb91c2682a10ba0b</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/functions.lib.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

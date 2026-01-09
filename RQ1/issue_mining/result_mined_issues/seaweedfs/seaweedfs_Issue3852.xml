@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3852</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3852</ISSUEURL>
+  <TITLE>`AppendAtNs` is not guaranteed to monotonically increase.</TITLE>
+  <DESCRIPTION>Is not guaranteed that `AppendAtNs` will increase for each sequential entry. Sequential records may contain the same `AppendAtNs` or even decreasing ones. Although such events are not very likely, they may cause `tailVolume` to malfunction and cause loss of data during synchronization. Each new `AppendAtNs` should not be generated using `uint64(time.Now().UnixNano())` but `max(uint64(time.Now().UnixNano()), lastAppendAtNs+1)` here and in few more places around the codebase https://github.com/seaweedfs/seaweedfs/blob/824f7ad9e192c1999fdb5da3a9af8c112904cc66/weed/storage/volume_write.go#L159-L166</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>build(deps): bump docker/setup-buildx-action from 2.0.0 to 2.2.0 (#3876) Bumps [docker/setup-buildx-action](https://github.com/docker/setup-buildx-action) from 2.0.0 to 2.2.0. - [Release notes](https://github.com/docker/setup-buildx-action/releases) - [Commits](https://github.com/docker/setup-buildx-action/compare/dc7b9719a96d48369863986a06765841d7ea23f6...c74574e6c82eeedc46366be1b0d287eff9085eb6) --- updated-dependencies: - dependency-name: docker/setup-buildx-action dependency-type: direct:production update-type: version-update:semver-minor ... Signed-off-by: dependabot[bot] &lt;support@github.com&gt; Signed-off-by: dependabot[bot] &lt;support@github.com&gt; Co-authored-by: dependabot[bot] &lt;49699333+dependabot[bot]@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>7e9c53bb5e99a153d2b0893f271413cb74c6debe</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ensure monotonic n.AppendAtNs in each place https://github.com/seaweedfs/seaweedfs/issues/3852</MESSAGE>
+      <SHA>97d3e861270bf66fbab127ab53e64d18e2b09e12</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/storage/needle/needle.go</FILE>
+        <FILE>weed/storage/volume_write.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ensure monotonic n.AppendAtNs in each place (#3880) https://github.com/seaweedfs/seaweedfs/issues/3852 Co-authored-by: Chris Lu &lt;chrislusf@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>6253058d9dbe99c6dd7f2e5af2f34a623548e870</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/storage/needle/needle.go</FILE>
+        <FILE>weed/storage/volume_write.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

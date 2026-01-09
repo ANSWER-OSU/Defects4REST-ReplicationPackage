@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117136</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/117136</ISSUEURL>
+  <TITLE>[CI] IndexingIT testTsdb {upgradedNodes=3} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #13138 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/edezft6t4frle) - [elasticsearch-intake #13139 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/o473lltfahdpe) - [elasticsearch-pull-request #41713 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/uhjq723zit2aa) - [elasticsearch-pull-request #41640 / 8.17.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/c52j2znt6psai) - [elasticsearch-pull-request #41624 / 8.17.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/psw6zqiyjjv5s) **Reproduction Line:** ``` ./gradlew &quot;:qa:rolling-upgrade:v9.0.0#bwcTest&quot; -Dtests.class=&quot;org.elasticsearch.upgrades.IndexingIT&quot; -Dtests.method=&quot;testTsdb {upgradedNodes=2}&quot; -Dtests.seed=124BB3C25C670031 -Dtests.bwc=true -Dtests.locale=ko-KR -Dtests.timezone=Asia/Muscat -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.upgrades.IndexingIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testTsdb%20%7BupgradedNodes%3D3%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected a map containing aggregations: a map containing tsids: a map containing buckets: a list containing 0: a map containing key: expected &quot;JFFUy14C9UcX3MnFnsFrpf0UyQYeoe87sMXUQ025sHhvhKDa4g&quot; but was &quot;JFFUy14C9UcX3MnFnsFrpf1fK0gnGg01X2P0BuJX0wb-7i2pqA&quot; avg: a map containing value: expected a numeric value within &lt;0.5&gt; of &lt;218.95&gt; but &lt;21895.0&gt; differed by &lt;21675.55&gt; more than delta &lt;0.5&gt; doc_count: &lt;4380&gt; unexpected but ok 1: a map containing key: expected &quot;JFFUy14C9UcX3MnFnsFrpf1fK0gnGg01X2P0BuJX0wb-7i2pqA&quot; but was &quot;JFFUy14C9UcX3MnFnsFrpf0UyQYeoe87sMXUQ025sHhvhKDa4g&quot; avg: a map containing value: expected a numeric value within &lt;0.005&gt; of &lt;21895.0&gt; but &lt;217.47068965517755&gt; differed by &lt;21677.524310344823&gt; more than delta &lt;0.005&gt; doc_count: &lt;4350&gt; unexpected but ok 2: a map containing key: expected &quot;JFFUy14C9UcX3MnFnsFrpf1qe4IAVEfi3wL8wnx3pd_rA41HpA&quot; but was &quot;JFFUy14C9UcX3MnFnsFrpf3X1Mw5gSg0zb_Y50PDlARq0q0ANA&quot; avg: a map containing value: expected a numeric value within &lt;0.005&gt; of &lt;2408.45&gt; but &lt;-217.47068965517755&gt; differed by &lt;2625.915689655177&gt; more than delta &lt;0.005&gt; doc_count: &lt;4350&gt; unexpected but ok 3: a map containing key: expected &quot;JFFUy14C9UcX3MnFnsFrpf3X1Mw5gSg0zb_Y50PDlARq0q0ANA&quot; but was &quot;JFFUy14C9UcX3MnFnsFrpf1qe4IAVEfi3wL8wnx3pd_rA41HpA&quot; avg: a map containing value: expected a numeric value within &lt;0.005&gt; of &lt;-218.95&gt; but &lt;4800.95&gt; differed by &lt;5019.8949999999995&gt; more than delta &lt;0.005&gt; doc_count: &lt;30&gt; unexpected but ok doc_count_error_upper_bound: &lt;0&gt; unexpected but ok sum_other_doc_count: &lt;0&gt; unexpected but ok _shards: &lt;{total=1, failed=0, successful=1, skipped=0}&gt; unexpected but ok hits: &lt;{hits=[], total={value=10000, relation=gte}, max_score=null}&gt; unexpected but ok took: &lt;94&gt; unexpected but ok timed_out: &lt;false&gt; unexpected but ok ``` **Issue Reasons:** - [main] 5 failures in test testTsdb {upgradedNodes=3} (0.7% fail rate in 687 executions) - [main] 3 failures in step 9.0.0_bwc-snapshots (0.9% fail rate in 324 executions) - [main] 2 failures in step 8.17.0_bwc-snapshots (0.7% fail rate in 277 executions) - [main] 2 failures in pipeline elasticsearch-intake (2.4% fail rate in 84 executions) - [main] 3 failures in pipeline elasticsearch-pull-request (1.1% fail rate in 269 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.upgrades.IndexingIT testIndexing {upgradedNodes=3} #117135</MESSAGE>
+    <SHA>0fabe093352e89cda1eed6a72741f47295d46c1f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.upgrades.IndexingIT testTsdb {upgradedNodes=3} #117136</MESSAGE>
+      <SHA>96934b91fceae9ce45a7dbb88669ee7378c04086</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.upgrades.IndexingIT testTsdb {upgradedNodes=3} #117136</MESSAGE>
+      <SHA>0c8c290e68e1fd719624043bdca814257ce2eb58</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.upgrades.IndexingIT testTsdb {upgradedNodes=3} #117136</MESSAGE>
+      <SHA>428033a8c30a57ed89b2789f46b46b77941137f4</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

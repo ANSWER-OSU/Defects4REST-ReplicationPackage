@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1143</ISSUENO>
+  <ISSUEURL>https://github.com/WP-API/WP-API/issues/1143</ISSUEURL>
+  <TITLE>Multiple errors via param validation should be programmatically readable</TITLE>
+  <DESCRIPTION>Currently if a request contains multiple invalid request args, we compile an error string showing all the issues. However, we don't pass all the different fields that errored. From @rmccue in slack: &gt; `new WP_Error( 'json_missing_field', 'Missing $field', array( 'key' =&gt; $field ) )` &gt; Would output as `[ { &quot;code&quot;: &quot;json_missing_field&quot;, &quot;message&quot;: &quot;Missing abc&quot;, &quot;data&quot;: { &quot;key&quot;: &quot;abc&quot; } }]`</DESCRIPTION>
+  <REPONAME>WP-API</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #1170 from WP-API/1061-retool-terms Retool `WP_REST_Terms_Controller` to follow Posts controller pattern</MESSAGE>
+    <SHA>383da252cf098340834eba7b827af27e68337a82</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Include programmatically readbidle erros for validation This was the client know exactly which fields failed. See #1143</MESSAGE>
+      <SHA>467d573282f5e58cbec35e4e2633e3171d1fbd86</SHA>
+      <PATCHEDFILES>
+        <FILE>lib/infrastructure/class-wp-rest-request.php</FILE>
+        <FILE>tests/test-rest-request.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

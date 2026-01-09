@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>475</ISSUENO>
+  <ISSUEURL>https://github.com/confluentinc/kafka-rest/issues/475</ISSUEURL>
+  <TITLE>Kafka Rest API incorrect message returned by GET request for specified offset when data is compressed</TITLE>
+  <DESCRIPTION>Test on a compressed topic vs a non-compressed topic. Should fail on compressed topic. GET /topics/myTopic/partitions/0/messages?offset=10&amp;count=1 Tested using this call on the rest api using docker image version 4.1.0 and 5.0.0 and re-created on both. When requesting an offset between 0-8 it returns offset 0, when requesting from 9-149 it returns 9, when requesting from 150-265 it returns 150 etc... Performing a /topics/myTopic/partitions/0/messages?offset=0&amp;count=1000 shows that we have no offset gaps from 0 to 1000 Compressed format: ByteBufferMessageSet( LegacyRecordBatch(offset=8, Record(magic=1, attributes=1, compression=GZIP, crc=3359863988, CreateTime=1537196426232, key=0 bytes, value=703 bytes)), LegacyRecordBatch(offset=149, Record(magic=1, attributes=1, compression=GZIP, crc=712877603, CreateTime=1537196426317, key=0 bytes, value=6199 bytes)), Regular format: ByteBufferMessageSet( LegacyRecordBatch(offset=1, Record(magic=1, attributes=0, compression=NONE, crc=1309344491, CreateTime=-1, key=3 bytes, value=4 bytes)), LegacyRecordBatch(offset=2, Record(magic=1, attributes=0, compression=NONE, crc=1309344491, CreateTime=-1, key=3 bytes, value=4 bytes)), LegacyRecordBatch(offset=3, Record(magic=1, attributes=0, compression=NONE, crc=1309344491, CreateTime=-1, key=3 bytes, value=4 bytes)),</DESCRIPTION>
+  <REPONAME>kafka-rest</REPONAME>
+  <TIMEDIFFERENCEDAYS>1185</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '4.1.2-post' into 4.1.x</MESSAGE>
+    <SHA>46ed40d85ce7c3b3eeb6fb59fb4cbd77c8eb08ed</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed bug where the API would return the incorrect offset when specific offset was requested and the topic was compressed. The SimpleConsumerManager assumed the first offset in the returned MessageSet was the requested offset, this is not necessarily the case with compressed formats. See bug #475</MESSAGE>
+      <SHA>b5b7718187abc621d2abe1914fb2241086335e62</SHA>
+      <PATCHEDFILES>
+        <FILE>kafka-rest/src/main/java/io/confluent/kafkarest/SimpleConsumerManager.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122704</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122704</ISSUEURL>
+  <TITLE>[CI] RollingUpgradeSearchableSnapshotIndexCompatibilityIT testSearchableSnapshotUpgrade {p0=[9.1.0, 9.1.0, 9.1.0]} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #18212 / part1](https://gradle-enterprise.elastic.co/s/p5aiefginciki) - [elasticsearch-intake #18214 / part1](https://gradle-enterprise.elastic.co/s/na755lpoq3vgw) - [elasticsearch-intake #18213 / part1](https://gradle-enterprise.elastic.co/s/aeeszu5gl24ee) - [elasticsearch-intake #18215 / part1](https://gradle-enterprise.elastic.co/s/etml3limielna) - [elasticsearch-pull-request #56914 / part-1](https://gradle-enterprise.elastic.co/s/vikfowzvjrhui) - [elasticsearch-pull-request #56896 / part-1](https://gradle-enterprise.elastic.co/s/7gubbfqoprje2) - [elasticsearch-intake #18006 / part1](https://gradle-enterprise.elastic.co/s/bw7o3csrfau2u) - [elasticsearch-pull-request #56840 / part-1](https://gradle-enterprise.elastic.co/s/uqfutigzrtbcc) - [elasticsearch-pull-request #56852 / part-1](https://gradle-enterprise.elastic.co/s/se77l7hkvryde) - [elasticsearch-pull-request #56851 / part-1](https://gradle-enterprise.elastic.co/s/k6jntq76zse5m) **Reproduction Line:** ``` ./gradlew &quot;:qa:lucene-index-compatibility:javaRestTest&quot; --tests &quot;org.elasticsearch.lucene.RollingUpgradeSearchableSnapshotIndexCompatibilityIT&quot; -Dtests.method=&quot;testMountSearchableSnapshot {p0=[9.1.0, 9.1.0, 8.19.0]}&quot; -Dtests.seed=12A24FE6F1B2F9F1 -Dtests.locale=ky-Cyrl-KG -Dtests.timezone=America/Tijuana -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.lucene.RollingUpgradeSearchableSnapshotIndexCompatibilityIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testSearchableSnapshotUpgrade%20%7Bp0%3D%5B9.1.0%2C%209.1.0%2C%209.1.0%5D%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.RuntimeException: An error occurred while checking cluster 'test-cluster' status. ``` **Issue Reasons:** - [main] 4 consecutive failures in test testSearchableSnapshotUpgrade {p0=[9.1.0, 9.1.0, 9.1.0]} - [main] 4 consecutive failures in step part1 - [main] 4 consecutive failures in pipeline elasticsearch-intake - [main] 21 failures in test testSearchableSnapshotUpgrade {p0=[9.1.0, 9.1.0, 9.1.0]} (4.5% fail rate in 464 executions) - [main] 9 failures in step part1 (12.3% fail rate in 73 executions) - [main] 12 failures in step part-1 (7.0% fail rate in 172 executions) - [main] 9 failures in pipeline elasticsearch-intake (12.3% fail rate in 73 executions) - [main] 11 failures in pipeline elasticsearch-pull-request (6.5% fail rate in 170 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.lucene.RollingUpgradeSearchableSnapshotIndexCompatibilityIT testMountSearchableSnapshot {p0=[9.1.0, 9.1.0, 8.19.0]} #122703</MESSAGE>
+    <SHA>df4b1390d5814520ce94c1170055f3ff450759ec</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.lucene.RollingUpgradeSearchableSnapshotIndexCompatibilityIT testSearchableSnapshotUpgrade {p0=[9.1.0, 9.1.0, 9.1.0]} #122704</MESSAGE>
+      <SHA>1ebccd2a019750b2e9acf4c59b10270ce1b84a7f</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Unmute RollingUpgrade*IndexCompatibilityTestCase All those issues have been opened by test automation, before some missing transport versions was fixed (see #122580). Closes #122688 Closes #122689 Closes #122690 Closes #122691 Closes #122694 Closes #122695 Closes #122696 Closes #122697 Closes #122698 Closes #122700 Closes #122701 Closes #122702 Closes #122703 Closes #122704 Closes #122705</MESSAGE>
+      <SHA>11b09d8cad3421613feb759400002d3ff6a8db88</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Unmute RollingUpgrade*IndexCompatibilityTestCase (#122856) All those issues have been opened by test automation, before some missing transport versions was fixed (see #122580). Closes #122688 Closes #122689 Closes #122690 Closes #122691 Closes #122694 Closes #122695 Closes #122696 Closes #122697 Closes #122698 Closes #122700 Closes #122701 Closes #122702 Closes #122703 Closes #122704 Closes #122705</MESSAGE>
+      <SHA>60176b804c4f5df190387289a81e8f653db46996</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

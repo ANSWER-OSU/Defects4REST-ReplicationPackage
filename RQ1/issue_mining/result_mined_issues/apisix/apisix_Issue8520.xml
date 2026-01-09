@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8520</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/8520</ISSUEURL>
+  <TITLE>bug: timer leak in request-id plugin when reloaded</TITLE>
+  <DESCRIPTION>### Current Behavior The timer created by this plugin is only destroyed when `snowflake_inited` is true. But on some conditions, i.e. `etcd_cli:keepalive(lease_id)`, `snowflake_inited` would be set to `nil` but keep the timer running, then plugin reload would cause a timer leak. ```lua function _M.init() ... if attr.snowflake.enable then if process.type() == &quot;worker&quot; then ngx.timer.at(0, snowflake_init) end end end function _M.destroy() if snowflake_inited then timers.unregister_timer(&quot;plugin#request-id&quot;) end end local function snowflake_init() if snowflake_inited == nil then ... data_machine = gen_data_machine(max_number) if data_machine == nil then return &quot;&quot; end ... snowflake_inited = true end end local function gen_data_machine(max_number) if data_machine == nil then ... local handler = function() ... local _, err4 = etcd_cli:keepalive(lease_id) if err4 then snowflake_inited = nil data_machine = nil core.log.error(&quot;snowflake data_machine: &quot; .. id ..&quot; lease failed.&quot;) end start_at = now core.log.info(&quot;snowflake data_machine: &quot; .. id ..&quot; lease success.&quot;) end timers.register_timer(&quot;plugin#request-id&quot;, handler) ... break end end if data_machine == nil then core.log.error(&quot;No data_machine is not available&quot;) return nil end end return data_machine end ``` ### Expected Behavior _No response_ ### Error Logs _No response_ ### Steps to Reproduce curl http://127.0.0.1:9180/apisix/admin/plugins/reload -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT ### Environment - APISIX version (run `apisix version`): master branch - Operating system (run `uname -a`): - OpenResty / Nginx version (run `openresty -V` or `nginx -V`): - etcd version, if relevant (run `curl http://127.0.0.1:9090/v1/server_info`): - APISIX Dashboard version, if relevant: - Plugin runner version, for issues related to plugin runners: - LuaRocks version, for installation issues (run `luarocks --version`):</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: interact etcd via gRPC before Nginx starts (#8548)</MESSAGE>
+    <SHA>ccffa0e8d729b048e2702bd7f591e2e8d4e8e8eb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: unregister timer when snowflake etcd keepalive failed (#8556) Fixes https://github.com/apache/apisix/issues/8520</MESSAGE>
+      <SHA>86132659d8f46c720693479b9a341b8a52a282fe</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/request-id.lua</FILE>
+        <FILE>t/plugin/request-id-reload-bugfix.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: unregister timer when snowflake etcd keepalive failed (#8556) Fixes https://github.com/apache/apisix/issues/8520</MESSAGE>
+      <SHA>a91c612491281857b1d5eb8148337c6b10448cef</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/request-id.lua</FILE>
+        <FILE>t/plugin/request-id-reload-bugfix.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: unregister timer when snowflake etcd keepalive failed (#8556) Fixes https://github.com/apache/apisix/issues/8520</MESSAGE>
+      <SHA>0575742b9fc6f3817367a29edd1ef96f3c664392</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/request-id.lua</FILE>
+        <FILE>t/plugin/request-id-reload-bugfix.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

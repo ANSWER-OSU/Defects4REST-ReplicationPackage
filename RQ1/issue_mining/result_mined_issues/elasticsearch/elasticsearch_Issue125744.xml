@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>125744</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/125744</ISSUEURL>
+  <TITLE>[CI] ThreadPoolMergeSchedulerStressTestIT testMergingFallsBehindAndThenCatchesUp failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #20849 / part1](https://gradle-enterprise.elastic.co/s/b47bj364pigce) - [elasticsearch-periodic-platform-support #7273 / ubuntu-2404-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/ha5n6iyhvpnhq) **Reproduction Line:** ``` ./gradlew &quot;:server:internalClusterTest&quot; --tests &quot;org.elasticsearch.index.engine.ThreadPoolMergeSchedulerStressTestIT.testMergingFallsBehindAndThenCatchesUp&quot; -Dtests.seed=BEBE22A867691519 -Dtests.locale=ml-Mlym-IN -Dtests.timezone=Africa/Timbuktu -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.index.engine.ThreadPoolMergeSchedulerStressTestIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testMergingFallsBehindAndThenCatchesUp),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.Error: Maximum permit count exceeded ``` **Issue Reasons:** - [main] 2 failures in test testMergingFallsBehindAndThenCatchesUp (0.9% fail rate in 212 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Make SnapshotsInProgress project compatible (#125470) This PR adds project-id to both SnapshotsInProgress and Snapshot so that they are aware of projects and ready to handle snapshots from multiple projects. Relates: ES-10224</MESSAGE>
+    <SHA>0c8daaeca57565e44fd8df31a9af173127949918</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.index.engine.ThreadPoolMergeSchedulerStressTestIT testMergingFallsBehindAndThenCatchesUp #125744</MESSAGE>
+      <SHA>2826f37a2efaba608b3a780ff2da4ea91656f285</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.index.engine.ThreadPoolMergeSchedulerStressTestIT testMergingFallsBehindAndThenCatchesUp #125744</MESSAGE>
+      <SHA>14b7ebdd38c973109a179b56ae8802477d89f745</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix ThreadPoolMergeSchedulerStressTestIT testMergingFallsBehindAndThenCatchesUp (#125956) We don't know how many semaphore merge permits we need to release, or how many are already released. Fixes #125744</MESSAGE>
+      <SHA>edc5379e6add4feeab43b5feca4b1ab2442d29e2</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/internalClusterTest/java/org/elasticsearch/index/engine/ThreadPoolMergeSchedulerStressTestIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix ThreadPoolMergeSchedulerStressTestIT testMergingFallsBehindAndThenCatchesUp (#125956) We don't know how many semaphore merge permits we need to release, or how many are already released. Fixes #125744</MESSAGE>
+      <SHA>b106564f3a8035d6c9a47986d32973b47b086d21</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/internalClusterTest/java/org/elasticsearch/index/engine/ThreadPoolMergeSchedulerStressTestIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

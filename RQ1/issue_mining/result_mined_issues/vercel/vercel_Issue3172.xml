@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3172</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/3172</ISSUEURL>
+  <TITLE>File permissions are not preserved with now@16.3.0 and up</TITLE>
+  <DESCRIPTION>I using the following config to upload a executable file in my `now.json`: ```json &quot;builds&quot;: [ { &quot;src&quot;: &quot;index.go&quot;, &quot;use&quot;: &quot;@now/go&quot;, &quot;config&quot;: { &quot;includeFiles&quot;: [ &quot;domain/files/myExec&quot; ] } }] ``` ..and using it with this code: ```go cmd := exec.Command(&quot;./domain/files/myExec&quot;) err := cmd.Run() ``` This worked fine with `16.2.0`. Today I updated to `16.3.1` (and also testet `16.3.0` - same issue) and for some reasons I get this error: &gt; Error: fork/exec ./domain/files/myExec: permission denied () From my naiv point of view it looks like that the permission of that file aren't set in 16.3.+ anymore. But could be also totally wrong For now I will stick at `16.2.0`. So not a very important fix required for me but maybe for others.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Publish - gatsby-plugin-now@1.2.1-canary.4 - @now/build-utils@1.0.0-canary.20 - now@16.1.4-canary.35 - now-client@5.1.1-canary.15 - @now/go@0.5.11-canary.7 - @now/next@1.0.0-canary.20 - @now/node@1.0.0-canary.12 - @now/python@0.2.17-canary.9 - @now/ruby@0.1.5-canary.5 - @now/static-build@0.9.9-canary.19</MESSAGE>
+    <SHA>b7f8f7c366d4b4f43cd694393d1d5ff91b4984c3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-client] Fix file permissions for source files (#3180) There was a regression since 16.3.0 (now-client refactor) causing file permissions for source files to be not be preserved. The solution was to add the FS `mode` to each file. Fixes #3172</MESSAGE>
+      <SHA>6efe7d04bca81b1d471982449fbec3d881aa1a2a</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-client/src/utils/hashes.ts</FILE>
+        <FILE>packages/now-client/src/utils/index.ts</FILE>
+        <FILE>packages/now-client/tests/create-deployment.test.ts</FILE>
+        <FILE>packages/now-client/tests/fixtures/v2-file-permissions/api/index.js</FILE>
+        <FILE>packages/now-client/tests/fixtures/v2-file-permissions/now.json</FILE>
+        <FILE>packages/now-client/tests/fixtures/v2-file-permissions/package.json</FILE>
+        <FILE>packages/now-client/tests/fixtures/v2-file-permissions/script.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now-client] Fix file permissions for source files (#3180) There was a regression since 16.3.0 (now-client refactor) causing file permissions for source files to be not be preserved. The solution was to add the FS `mode` to each file. Fixes #3172</MESSAGE>
+      <SHA>f4df1dfe41e97329cd4874f7334dfa486da30610</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-client/src/utils/hashes.ts</FILE>
+        <FILE>packages/now-client/src/utils/index.ts</FILE>
+        <FILE>packages/now-client/tests/create-deployment.test.ts</FILE>
+        <FILE>packages/now-client/tests/fixtures/v2-file-permissions/api/index.js</FILE>
+        <FILE>packages/now-client/tests/fixtures/v2-file-permissions/now.json</FILE>
+        <FILE>packages/now-client/tests/fixtures/v2-file-permissions/package.json</FILE>
+        <FILE>packages/now-client/tests/fixtures/v2-file-permissions/script.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

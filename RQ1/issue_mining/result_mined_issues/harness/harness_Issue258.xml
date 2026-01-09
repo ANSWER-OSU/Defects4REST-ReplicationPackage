@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>258</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/258</ISSUEURL>
+  <TITLE>Runtime Panic</TITLE>
+  <DESCRIPTION>I'm following a very simple setup described [here](http://jipiboily.com/2014/from-zero-to-fully-working-ci-server-in-less-than-10-minutes-with-drone-docker). I'm running Ubuntu 12.04.4 x64. After `dpkg -i drone.deb`, nothing seems to work, even after repeated `start drone` commands: ``` Bash root@drone-ci:~# tail -n 100 /var/log/upstart/drone.log panic: stat /var/cache/drone/src/github.com/drone/drone/pkg/template/pages: no such file or directory goroutine 1 [running]: runtime.panic(0x922660, 0xc21008bde0) /usr/local/go/src/pkg/runtime/panic.c:266 +0xb6 github.com/GeertJohan/go%2erice.MustFindBox(0xa05500, 0x5, 0x48ef8a) /var/cache/drone/src/github.com/drone/drone/Godeps/_workspace/src/github.com/GeertJohan/go.rice/box.go:81 +0x71 github.com/drone/drone/pkg/template.init·1() /var/cache/drone/src/github.com/drone/drone/pkg/template/template.go:36 +0x3f github.com/drone/drone/pkg/template.init() /var/cache/drone/src/github.com/drone/drone/pkg/template/template.go:178 +0xbb github.com/drone/drone/pkg/mail.init() /var/cache/drone/src/github.com/drone/drone/pkg/mail/mail.go:142 +0x3d github.com/drone/drone/pkg/plugin/notify.init() /var/cache/drone/src/github.com/drone/drone/pkg/plugin/notify/zapier.go:1 +0x65 github.com/drone/drone/pkg/queue.init() /var/cache/drone/src/github.com/drone/drone/pkg/queue/worker.go:243 +0x4c main.init() /var/cache/drone/src/github.com/drone/drone/cmd/droned/drone.go:264 +0x3d ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[Docker] Add docker file for GitRPC (#260)</MESSAGE>
+    <SHA>e9fa438dfe41dd2b3ae43c8df40b9c40cb484e03</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: [scm-73]: fix empty repo page (#258)</MESSAGE>
+      <SHA>7e98f4828bb3a6f867da33068e8defdf2493c310</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/framework/strings/stringTypes.ts</FILE>
+        <FILE>web/src/i18n/strings.en.yaml</FILE>
+        <FILE>web/src/pages/Repository/Repository.module.scss</FILE>
+        <FILE>web/src/pages/Repository/Repository.module.scss.d.ts</FILE>
+        <FILE>web/src/pages/Repository/Repository.tsx</FILE>
+        <FILE>web/src/pages/RepositoryFileEdit/FileEditor/FileEditor.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge branch 'mg/fix/pr-update' of _OKE5H2PQKOUfzFFDuD4FA/default/CODE/gitness (#258)</MESSAGE>
+      <SHA>83ad18841dd3fad466246a40c83f1263cc892ce4</SHA>
+      <PATCHEDFILES>
+        <FILE>internal/store/database/pullreq.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

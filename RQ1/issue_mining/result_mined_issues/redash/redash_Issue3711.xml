@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3711</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/3711</ISSUEURL>
+  <TITLE>Cannot Add Query-based Dropdown Parameter to a Saved Query</TITLE>
+  <DESCRIPTION>&lt;!-- We use GitHub only for bug reports Anything else should be posted to https://discuss.redash.io For support, help &amp; questions use https://discuss.redash.io/c/support For feature requests &amp; ideas use https://discuss.redash.io/c/feature-requests **Found a security vulnerability?** Please email security@redash.io to report any security vulnerabilities. We will acknowledge receipt of your vulnerability and strive to send you regular updates about our progress. If you're curious about the status of your disclosure please feel free to email us again. If you want to encrypt your disclosure email, you can use this PGP key. --&gt; ### Issue Summary On a new query, query-based dropdown parameters get their values from `/api/queries/:id/dropdown` and on saved queries they get them by association from their parent query id (`/api/queries/:parent_id/dropdowns/:id`). When adding a query-based dropdown parameter to a saved query, the association is not yet created which results in a 403. ### Steps to Reproduce 1. Create a new query without a parameter 2. Save it 3. Add a query-based parameter to the query. 4. The dropdown is not populated with values (a 403 occurs)</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>25</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>propagate `isDirty` down to `QueryBasedParameterInput`</MESSAGE>
+    <SHA>5a782cb37b9a8ed727a86c5a9c90e645401d4080</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>go to /api/:id/dropdown while editing a query, since dropdown queries might still not be associated with the parent. see #3711</MESSAGE>
+      <SHA>bc48a2385ba72c8ebbd06e3b288dd80e53cde876</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/components/QueryBasedParameterInput.jsx</FILE>
+        <FILE>client/app/services/query.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix Ability to Add Query-based Parameters to Existing Queries (#3716) * propagate `isDirty` down to `QueryBasedParameterInput` * go to /api/:id/dropdown while editing a query, since dropdown queries might still not be associated with the parent. see #3711 * show helpful error message if dropdown values cannot be fetched * use backticks instead of line concatenation * remove requirement to have direct access to dropdown query in order validate it. parent query association checks are sufficient * remove isDirty-based implementation and allow dropdown queries through nested ACL even if they aren't associated yet (given that the user has _direct_ access to the dropdown query) * fix tests to cover all cases for /api/queries/:id/dropdowns/:id * fix indentation * require access to the query, not the data source * use require_access instead of has_access</MESSAGE>
+      <SHA>50a6f723b1bfc11878ec36f2a49c74cc00027199</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/handlers/query_results.py</FILE>
+        <FILE>redash/models/parameterized_query.py</FILE>
+        <FILE>tests/handlers/test_query_results.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Allow Parameters on Public Dashboards (#3659) * change has_access and require_access signatures to work with the objects that require access, instead of their groups * use the textless endpoint (/api/queries/:id/results) for pristine queriest * Revert &quot;use the textless endpoint (/api/queries/:id/results) for pristine&quot; This reverts commit cd2cee77385ecf79efd2f1aa21fab0dd43943264. * go to textless /api/queries/:id/results by default * change `run_query`'s signature to accept a ParameterizedQuery instead of constructing it inside * raise HTTP 400 when receiving invalid parameter values. Fixes #3394 * enqueue jobs for ApiUsers * rename `id` to `user_id` * support executing queries using Query api_keys by instantiating an ApiUser that would be able to execute the specific query * show deprecation messages for ALLOW_PARAMETERS_IN_EMBEDS. Also, move other message (email not verified) to use the same mechanism * add link to forum message regarding embed deprecation * change API to /api/queries/:id/dropdowns/:dropdown_id * split to 2 different dropdown endpoints and implement the second * add test cases for /api/queries/:id/dropdowns/:id * use new /dropdowns endpoint in frontend * first e2e test for sharing embeds * Pleasing the CodeClimate overlords * All glory to CodeClimate * remove residues from bad rebase * add query id and data source id to serialized public dashboards * add global parameters directive to public dashboards page * allow access to a query by the api_key of the dashboard which includes it * rename `object` to `obj` * simplify permission tests once `has_access` accepts groups * support global parameters for public dashboards * change has_access and require_access signatures to work with the objects that require access, instead of their groups * rename `object` to `obj` * simplify permission tests once `has_access` accepts groups * no need to log `is_api_key` * send parameters to public dashboard page * allow access to a query by the api_key of the dashboard which includes it * disable sharing if dashboard is associated with unsafe queries * remove cypress test added in the wrong place due to a faulty rebase * add support for clicking buttons in cy.clickThrough * Cypress test which verifies that dashboards with safe queries can be shared * Cypress test which verifies that dashboards with unsafe queries can't be shared * remove duplicate tests * use this.enabled and negate when needed * remove stale comment * add another Cypress test to verify that unauthenticated users have access to public dashboards with parameters * obviously, I commit 'only' the first time I use it * search for query access by query id and not api_key * no need to fetch latest query data as it is loaded by frontend from the textless endpoint * test that queries associated with dashboards are accessible when supplying the dashboard api_key * propagate `isDirty` down to `QueryBasedParameterInput` * go to /api/:id/dropdown while editing a query, since dropdown queries might still not be associated with the parent. see #3711 * show helpful error message if dropdown values cannot be fetched * use backticks instead of line concatenation * remove requirement to have direct access to dropdown query in order validate it. parent query association checks are sufficient * remove isDirty-based implementation and allow dropdown queries through nested ACL even if they aren't associated yet (given that the user has _direct_ access to the dropdown query) * fix tests to cover all cases for /api/queries/:id/dropdowns/:id * fix indentation * require access to the query, not the data source * resolve dashboard user by query id * apply new copy to Cypress tests * if only something would have prevented me from commiting an 'only' call * very important handling of whitespace * respond to parameter's Apply button * text widgets are safe for sharing * remove redundant event * add a safety check that object has dashboard_api_keys before calling it * supply a parameter value for text parameters to have it show up * add parameter values for date and datetime * use the current year and month to avoid pagination * use Cypress.moment() instead of preinstalled moment() * explicitly create parameters * refresh query data if a querystring parameter is provided * avoid sending a data_source_id - it's only relevant to unsaved queries, since a saved query's data_source is available in the backend * remove empty query text workaround * provide default value to parameter * add a few more dashboard sharing specs * lint * wait for DynamicTable to appear to reveal that actual results are displaying * override error message for unsafely shared widgets</MESSAGE>
+      <SHA>51d8131db5d10e8bfe2dda8fddb6f970017cb08b</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/pages/dashboards/ShareDashboardDialog.jsx</FILE>
+        <FILE>client/app/pages/dashboards/dashboard.html</FILE>
+        <FILE>client/app/pages/dashboards/dashboard.js</FILE>
+        <FILE>client/app/pages/dashboards/public-dashboard-page.html</FILE>
+        <FILE>client/app/pages/dashboards/public-dashboard-page.js</FILE>
+        <FILE>client/app/services/dashboard.js</FILE>
+        <FILE>client/app/services/query.js</FILE>
+        <FILE>client/app/services/widget.js</FILE>
+        <FILE>client/cypress/integration/dashboard/dashboard_spec.js</FILE>
+        <FILE>client/cypress/integration/query/parameter_spec.js</FILE>
+        <FILE>client/cypress/support/commands.js</FILE>
+        <FILE>redash/handlers/authentication.py</FILE>
+        <FILE>redash/handlers/queries.py</FILE>
+        <FILE>redash/handlers/query_results.py</FILE>
+        <FILE>redash/models/__init__.py</FILE>
+        <FILE>redash/permissions.py</FILE>
+        <FILE>redash/serializers/__init__.py</FILE>
+        <FILE>redash/tasks/queries.py</FILE>
+        <FILE>tests/handlers/test_query_results.py</FILE>
+        <FILE>tests/test_permissions.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix Ability to Add Query-based Parameters to Existing Queries (#3716) * propagate `isDirty` down to `QueryBasedParameterInput` * go to /api/:id/dropdown while editing a query, since dropdown queries might still not be associated with the parent. see #3711 * show helpful error message if dropdown values cannot be fetched * use backticks instead of line concatenation * remove requirement to have direct access to dropdown query in order validate it. parent query association checks are sufficient * remove isDirty-based implementation and allow dropdown queries through nested ACL even if they aren't associated yet (given that the user has _direct_ access to the dropdown query) * fix tests to cover all cases for /api/queries/:id/dropdowns/:id * fix indentation * require access to the query, not the data source * use require_access instead of has_access</MESSAGE>
+      <SHA>888723dac090646c795fd3c39d7cb1949a6dc024</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/handlers/query_results.py</FILE>
+        <FILE>redash/models/parameterized_query.py</FILE>
+        <FILE>tests/handlers/test_query_results.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Allow Parameters on Public Dashboards (#3659) * change has_access and require_access signatures to work with the objects that require access, instead of their groups * use the textless endpoint (/api/queries/:id/results) for pristine queriest * Revert &quot;use the textless endpoint (/api/queries/:id/results) for pristine&quot; This reverts commit cd2cee77385ecf79efd2f1aa21fab0dd43943264. * go to textless /api/queries/:id/results by default * change `run_query`'s signature to accept a ParameterizedQuery instead of constructing it inside * raise HTTP 400 when receiving invalid parameter values. Fixes #3394 * enqueue jobs for ApiUsers * rename `id` to `user_id` * support executing queries using Query api_keys by instantiating an ApiUser that would be able to execute the specific query * show deprecation messages for ALLOW_PARAMETERS_IN_EMBEDS. Also, move other message (email not verified) to use the same mechanism * add link to forum message regarding embed deprecation * change API to /api/queries/:id/dropdowns/:dropdown_id * split to 2 different dropdown endpoints and implement the second * add test cases for /api/queries/:id/dropdowns/:id * use new /dropdowns endpoint in frontend * first e2e test for sharing embeds * Pleasing the CodeClimate overlords * All glory to CodeClimate * remove residues from bad rebase * add query id and data source id to serialized public dashboards * add global parameters directive to public dashboards page * allow access to a query by the api_key of the dashboard which includes it * rename `object` to `obj` * simplify permission tests once `has_access` accepts groups * support global parameters for public dashboards * change has_access and require_access signatures to work with the objects that require access, instead of their groups * rename `object` to `obj` * simplify permission tests once `has_access` accepts groups * no need to log `is_api_key` * send parameters to public dashboard page * allow access to a query by the api_key of the dashboard which includes it * disable sharing if dashboard is associated with unsafe queries * remove cypress test added in the wrong place due to a faulty rebase * add support for clicking buttons in cy.clickThrough * Cypress test which verifies that dashboards with safe queries can be shared * Cypress test which verifies that dashboards with unsafe queries can't be shared * remove duplicate tests * use this.enabled and negate when needed * remove stale comment * add another Cypress test to verify that unauthenticated users have access to public dashboards with parameters * obviously, I commit 'only' the first time I use it * search for query access by query id and not api_key * no need to fetch latest query data as it is loaded by frontend from the textless endpoint * test that queries associated with dashboards are accessible when supplying the dashboard api_key * propagate `isDirty` down to `QueryBasedParameterInput` * go to /api/:id/dropdown while editing a query, since dropdown queries might still not be associated with the parent. see #3711 * show helpful error message if dropdown values cannot be fetched * use backticks instead of line concatenation * remove requirement to have direct access to dropdown query in order validate it. parent query association checks are sufficient * remove isDirty-based implementation and allow dropdown queries through nested ACL even if they aren't associated yet (given that the user has _direct_ access to the dropdown query) * fix tests to cover all cases for /api/queries/:id/dropdowns/:id * fix indentation * require access to the query, not the data source * resolve dashboard user by query id * apply new copy to Cypress tests * if only something would have prevented me from commiting an 'only' call * very important handling of whitespace * respond to parameter's Apply button * text widgets are safe for sharing * remove redundant event * add a safety check that object has dashboard_api_keys before calling it * supply a parameter value for text parameters to have it show up * add parameter values for date and datetime * use the current year and month to avoid pagination * use Cypress.moment() instead of preinstalled moment() * explicitly create parameters * refresh query data if a querystring parameter is provided * avoid sending a data_source_id - it's only relevant to unsaved queries, since a saved query's data_source is available in the backend * remove empty query text workaround * provide default value to parameter * add a few more dashboard sharing specs * lint * wait for DynamicTable to appear to reveal that actual results are displaying * override error message for unsafely shared widgets</MESSAGE>
+      <SHA>c5b63dc6bd803f81ae99e9b8c36bb611b19eab3e</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/pages/dashboards/ShareDashboardDialog.jsx</FILE>
+        <FILE>client/app/pages/dashboards/dashboard.html</FILE>
+        <FILE>client/app/pages/dashboards/dashboard.js</FILE>
+        <FILE>client/app/pages/dashboards/public-dashboard-page.html</FILE>
+        <FILE>client/app/pages/dashboards/public-dashboard-page.js</FILE>
+        <FILE>client/app/services/dashboard.js</FILE>
+        <FILE>client/app/services/query.js</FILE>
+        <FILE>client/app/services/widget.js</FILE>
+        <FILE>client/cypress/integration/dashboard/dashboard_spec.js</FILE>
+        <FILE>client/cypress/integration/query/parameter_spec.js</FILE>
+        <FILE>client/cypress/support/commands.js</FILE>
+        <FILE>redash/handlers/authentication.py</FILE>
+        <FILE>redash/handlers/queries.py</FILE>
+        <FILE>redash/handlers/query_results.py</FILE>
+        <FILE>redash/models/__init__.py</FILE>
+        <FILE>redash/permissions.py</FILE>
+        <FILE>redash/serializers/__init__.py</FILE>
+        <FILE>redash/tasks/queries.py</FILE>
+        <FILE>tests/handlers/test_query_results.py</FILE>
+        <FILE>tests/test_permissions.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

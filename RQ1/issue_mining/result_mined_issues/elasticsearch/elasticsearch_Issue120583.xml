@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120583</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120583</ISSUEURL>
+  <TITLE>[CI] SearchProgressActionListenerIT testSearchProgressWithHitsAndAggs failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #16288 / part1](https://gradle-enterprise.elastic.co/s/csb6uymdpoqk6) - [elasticsearch-intake #16224 / part1](https://gradle-enterprise.elastic.co/s/me5zruufagf52) **Reproduction Line:** ``` ./gradlew &quot;:server:internalClusterTest&quot; --tests &quot;org.elasticsearch.action.search.SearchProgressActionListenerIT.testSearchProgressWithHitsAndAggs&quot; -Dtests.seed=8855CD8A9F3C0651 -Dtests.locale=rw -Dtests.timezone=America/Adak -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.action.search.SearchProgressActionListenerIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testSearchProgressWithHitsAndAggs),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: &lt;16&gt; but: was &lt;10&gt; ``` **Issue Reasons:** - [8.x] 2 failures in test testSearchProgressWithHitsAndAggs (1.4% fail rate in 144 executions) - [8.x] 2 failures in step part1 (10.0% fail rate in 20 executions) - [8.x] 2 failures in pipeline elasticsearch-intake (10.0% fail rate in 20 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Log local hot-threads when shard creation fails due to shardLock (#120495) Closes: ES-10493</MESSAGE>
+    <SHA>dd2fb5bd465aa268bdac27005caef6b26b37dd86</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.action.search.SearchProgressActionListenerIT testSearchProgressWithHitsAndAggs #120583</MESSAGE>
+      <SHA>3d43f73736bff9334c3c55bf9e37de5d80e9be34</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5637</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5637</ISSUEURL>
+  <TITLE>Wrong text used for order confirm button on One Page Checkout</TITLE>
+  <DESCRIPTION>**nopCommerce version:** 4.3, 4.4 **Steps to reproduce the problem:** The confirm button on the OnePageCheckout.cshtml is using the wrong translation. Currently the translation `@T(&quot;Common.Confirm&quot;)` is used but it should be `@T(&quot;Checkout.ConfirmButton&quot;)`. **Wrong implementation (one page checkout)** `src/Presentation/Nop.Web/Views/Checkout/OnePageCheckout.cshtml` ``` &lt;li id=&quot;opc-confirm_order&quot; class=&quot;tab-section&quot;&gt; &lt;div class=&quot;step-title&quot;&gt; &lt;span class=&quot;number&quot;&gt;@confirmOrderStepNumber&lt;/span&gt; &lt;h2 class=&quot;title&quot;&gt;@T(&quot;Checkout.ConfirmOrder&quot;)&lt;/h2&gt; &lt;/div&gt; &lt;div id=&quot;checkout-step-confirm-order&quot; class=&quot;step a-item&quot; style=&quot;display: none;&quot;&gt; &lt;div id=&quot;checkout-confirm-order-load&quot;&gt; @*confirm order content will be loaded here*@ &lt;/div&gt; &lt;script asp-location=&quot;Footer&quot;&gt; ConfirmOrder.init('@(storeLocation)checkout/OpcConfirmOrder/', '@Url.RouteUrl(&quot;CheckoutCompleted&quot;)'); &lt;/script&gt; &lt;div class=&quot;buttons&quot; id=&quot;confirm-order-buttons-container&quot;&gt; &lt;p class=&quot;back-link&quot;&gt; &lt;a href=&quot;#&quot; onclick=&quot;Checkout.back(); return false;&quot;&gt;&lt;small&gt;&amp;laquo; &lt;/small&gt;@T(&quot;Common.Back&quot;)&lt;/a&gt; &lt;/p&gt; &lt;button type=&quot;button&quot; class=&quot;button-1 confirm-order-next-step-button&quot; onclick=&quot;ConfirmOrder.save()&quot;&gt;@T(&quot;Common.Confirm&quot;)&lt;/button&gt; &lt;span class=&quot;please-wait&quot; id=&quot;confirm-order-please-wait&quot; style=&quot;display: none;&quot;&gt;@T(&quot;Checkout.SubmittingOrder&quot;)&lt;/span&gt; &lt;/div&gt; &lt;/div&gt; &lt;/li&gt; ``` **Correct implementation (multi page checkout** The multipage checkout is using the correct button text `@T(&quot;Checkout.ConfirmButton&quot;)` so it should be the same on the OPC as well. `src/Presentation/Nop.Web/Views/Checkout/Confirm.cshtml` ``` &lt;div class=&quot;buttons&quot;&gt; &lt;button type=&quot;submit&quot; name=&quot;nextstep&quot; class=&quot;button-1 confirm-order-next-step-button&quot;&gt;@T(&quot;Checkout.ConfirmButton&quot;)&lt;/button&gt; &lt;/div&gt; ```</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>154</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5820 Wrapped all Bulk operations in a transaction</MESSAGE>
+    <SHA>fff869d1e59f039daecc970f5e1023d1761e64a9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5637 Changed confirm button text on One Page Checkout</MESSAGE>
+      <SHA>7a2241676fc20df8d93d60c937d4763f2c2f64ad</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Views/Checkout/OnePageCheckout.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

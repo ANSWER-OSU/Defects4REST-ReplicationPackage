@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6771</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6771</ISSUEURL>
+  <TITLE>GetCurrentIpAddress() MapToIpv4() turns ipv6 in nonsense IPv4 addresses</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.6.3 I'm wondering if there is a reason that the WebHelper function GetCurrentIpAddress() uses MapToIpv4() on all IP addresses? I've built a plugin that uses IP Quality Score's API to check user's IP addresses and when users connect with IPv6, the MapToIPv4() function translates them into nonsensical IPv4 address, like 0.0.0.9 (obviously invalid) or 250.204.72.95 (reserved IP space, not used), neither of which are valid IPv4 addresses. in the database: ActivityLog.IpAddress is varchar(200) Customer.LastIpAddress is longtext ForumPost.IPAddress is varchar(100) Log.IpAddress is varchar(200) Order.CustomerIp is longtext I'm not sure if there are others, but considering these entities as example, i highly doubt any entities were made with an IP property specifically long enough for IPv4 (15 characters.) The longest an IPv6 address can be is 39 characters. Or in the worst, highly unlikely, case IPv4 mapped to IPv6, it can be 45 characters long. So, even this shouldn't produce a problem for the given database entities. I could see a change to this possibly making problems for plugins expecting an IPv4 address - but they should be compensating for that on their own if they require it.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>29</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6788 Renamed the &quot;Downloadable product&quot; hint. We should note that it's recommended to use the 'Use download URL' feature for large files (instead of uploading them to the database)</MESSAGE>
+    <SHA>b943ec3add44227b4e33c7abf0c4c69e4fd10b7f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6771 Refused to map IP v6 to v4 Bringing one type of IP addresses to another did not make sense, since the end result of such a conversion gave an invalid result</MESSAGE>
+      <SHA>10a98e16db8857fe012ffab9c262c499ba8055ff</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/WebHelper.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Mapping/Builders/Customers/CustomerBuilder.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Mapping/Builders/Logging/ActivityLogBuilder.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Mapping/Builders/Logging/LogBuilder.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Mapping/Builders/Orders/OrderBuilder.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/UpgradeTo470/SchemaMigration.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

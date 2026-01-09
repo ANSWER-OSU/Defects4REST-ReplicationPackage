@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3330</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/3330</ISSUEURL>
+  <TITLE>Packager does not retain UUIDs on restore</TITLE>
+  <DESCRIPTION>**Describe the bug** As has historically been the case with handles, the `-r` packager option should also re-use the UUID of the original item. Item UUIDs are intended to be immutable references to items that exist in DSpace. For example, people's bookmarks and spiders will have those old UUIDs in their URLs. Therefore, when an item is being restored into DSpace (e.g. due to disaster recovery), it is important to have the ability to retain the original UUID and thus URL references. **To Reproduce** Steps to reproduce the behavior: 1. Do a packager export 2. Run a packager import 3. Notice how the UUID is different **Expected behavior** The UUID should be retained. **Related work** Addressed by this PR: https://github.com/DSpace/DSpace/pull/3329</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>79</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #3322 from tysonlt/import_relationships Import relationships via SAF (Simple Archive Format)</MESSAGE>
+    <SHA>028df96e0d436caf85ea4df78bff3f5afffd4658</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #3329 from atmire/w2p-80200_Retain_UUIDs Fix #3330: Retain UUIDs on packager restore</MESSAGE>
+      <SHA>5d91ff2564e38374ed38f2aa0d3b656f8e39e191</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/content/Collection.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/content/CollectionServiceImpl.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/content/Community.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/content/CommunityServiceImpl.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/content/DSpaceObject.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/content/Item.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/content/ItemServiceImpl.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/content/PredefinedUUIDGenerator.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/content/WorkspaceItemServiceImpl.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/content/packager/AbstractMETSDisseminator.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/content/packager/AbstractMETSIngester.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/content/packager/PackageUtils.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/content/service/CollectionService.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/content/service/CommunityService.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/content/service/ItemService.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/content/service/WorkspaceItemService.java</FILE>
+        <FILE>dspace-api/src/test/java/org/dspace/app/packager/PackagerIT.java</FILE>
+        <FILE>dspace-api/src/test/java/org/dspace/content/WorkspaceItemTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

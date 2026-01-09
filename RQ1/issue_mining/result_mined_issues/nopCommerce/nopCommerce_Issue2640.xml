@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2640</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2640</ISSUEURL>
+  <TITLE>Profit calculation does not take into account payment fees (make configurable)</TITLE>
+  <DESCRIPTION>Is there a way to reduce payment fees from Profit? Example (assume a product cost of $0): How it works currently: Order subtotal $73.90 excl tax Order shipping $0.00 excl tax Payment method additional fee $2.48 excl tax Order tax $6.10 Order total $82.48 Profit $76.38 - NOTE: This is subtotal + fee How it should work since Payment fees are not profit: Order subtotal $73.90 excl tax Order shipping $0.00 excl tax Payment method additional fee $2.48 excl tax Order tax $6.10 Order total $82.48 Profit $73.90 - NOTE: Only subtotal should be profit Source: https://www.nopcommerce.com/boards/t/49084/profit-calculation-does-not-take-into-account-payment-fees.aspx Make configurable (but don'r move this setting to UI)</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>152</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#1223 Sync quantity of required products in the cart</MESSAGE>
+    <SHA>571051ecacdf9b05b8a237be73c6ea5c86d1ef86</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2640 Exclude payment fees from profit report</MESSAGE>
+      <SHA>26cb7e1cb45634e4a1255835bfd690b1853cba86</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Orders/OrderAverageReportLine.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderReportService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

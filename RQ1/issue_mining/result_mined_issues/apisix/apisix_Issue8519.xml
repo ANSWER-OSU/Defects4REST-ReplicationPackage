@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8519</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/8519</ISSUEURL>
+  <TITLE>bug: grpc-transcode do not close core.config instance when the plugin is unloaded</TITLE>
+  <DESCRIPTION>### Current Behavior https://github.com/apache/apisix/blob/5f071049777facc1bc0b690ede3928f9da6b49c5/apisix/plugins/grpc-transcode.lua#L121 https://github.com/apache/apisix/blob/5f071049777facc1bc0b690ede3928f9da6b49c5/apisix/plugins/grpc-transcode/proto.lua#L253-L256 This plugin does not define `destroy()`. config instance of etcd would create a timer to refresh `&quot;/protos&quot;` resource. We need to close the instance in `destroy()`, which in turn closes the timer. ### Expected Behavior _No response_ ### Error Logs _No response_ ### Steps to Reproduce ```bash curl http://127.0.0.1:9180/apisix/admin/plugins/reload -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT ``` ### Environment - APISIX version (run `apisix version`): master branch - Operating system (run `uname -a`): - OpenResty / Nginx version (run `openresty -V` or `nginx -V`): - etcd version, if relevant (run `curl http://127.0.0.1:9090/v1/server_info`): - APISIX Dashboard version, if relevant: - Plugin runner version, for issues related to plugin runners: - LuaRocks version, for installation issues (run `luarocks --version`):</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: consumer-restriction plugin support consumer_group_id type (#8567) Fixes https://github.com/apache/apisix/issues/8563</MESSAGE>
+    <SHA>053c53a588a371f83b3c18d8bd3a5ebcfbdd1298</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: define destroy() to close protos (#8557) Fixes https://github.com/apache/apisix/issues/8519</MESSAGE>
+      <SHA>0f1391693bf98a38c7716b1091f40181de8690bb</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/grpc-transcode.lua</FILE>
+        <FILE>apisix/plugins/grpc-transcode/proto.lua</FILE>
+        <FILE>t/plugin/grpc-transcode-reload-bugfix.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: define destroy() to close protos (#8557) Fixes https://github.com/apache/apisix/issues/8519</MESSAGE>
+      <SHA>18361d348a07697b87f692f52f7fd9f2054ac8a7</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/grpc-transcode.lua</FILE>
+        <FILE>apisix/plugins/grpc-transcode/proto.lua</FILE>
+        <FILE>t/plugin/grpc-transcode-reload-bugfix.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: define destroy() to close protos (#8557) Fixes https://github.com/apache/apisix/issues/8519</MESSAGE>
+      <SHA>edc68b5580e07d7bd6ecb56a1e6ccd7b2bece90c</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/grpc-transcode.lua</FILE>
+        <FILE>apisix/plugins/grpc-transcode/proto.lua</FILE>
+        <FILE>t/plugin/grpc-transcode-reload-bugfix.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

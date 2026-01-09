@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6636</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6636</ISSUEURL>
+  <TITLE>Copying WFJTs renders a copy with an empty workflow</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY When attempting to copy a small workflow (with a single approval node), I found that the copied workflow launched and completed without requesting an approval. Further investigation showed that the copied workflow visualizer showed an empty workflow. ##### ENVIRONMENT * AWX version: latest ##### STEPS TO REPRODUCE Both @jakemcdermott and I were able to reproduce this (osx, fedora) 1. Create a new workflow job template. 2. Add one approval node to the workflow. Save it, and launch it. Do not approve the workflow, so it stays in a pending state. 3. Copy the workflow using the copy button in the template list. 4. Attempt to launch the copied workflow. ##### EXPECTED RESULTS The workflow also waits for approval. ##### ACTUAL RESULTS The workflow does not wait for approval. Inspection shows that the workflow is empty.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix CVE-2024-33663 and bring in updates for social-auth-app-django (#6634)</MESSAGE>
+    <SHA>467024bc54a8bbb2a5a678395a6eb0f6defe6767</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>update django to 4.2.15 to address multiple CVEs (#6636)</MESSAGE>
+      <SHA>8b293e7046874798d7b21ba676dc8c53386db840</SHA>
+      <PATCHEDFILES>
+        <FILE>requirements/requirements.in</FILE>
+        <FILE>requirements/requirements.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

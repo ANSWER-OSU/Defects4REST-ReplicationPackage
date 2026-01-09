@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6028</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6028</ISSUEURL>
+  <TITLE>RenderButtonCustom.OnClickFunctionName only allows numeric parameters</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40.x and above Steps to reproduce the problem: Reference: https://github.com/nopSolutions/nopCommerce/blob/cf1cdbe9ccc7a5dfa44f3617e6ed92583e353f84/src/Presentation/Nop.Web/Areas/Admin/Views/Currency/List.cshtml#L108-L116 1. Create a new DataTable 2. And create a columproperty rendering an RenderButtonCustom 3. Set a OnClickFunctionName to whatever you want 4. Make sure that your parameter of ColumnProperty refers to a non-numeric value, i.e. a string. 5. Open the change in your browser and have a look at your console. Depending on your string content, you will see an error message there or not. But if you navigate to the source code of the button click, you will see that your string is supposed to be an object. You will probably get an error upon calling your custom button. Workaround (really messy): Render your column like this (take care on the extra braces in OnClickFunctionName ): ```c# new ColumnProperty(nameof(LocaleResourceModel.Id)) { Title = T(&quot;myresource&quot;).Text, Width = &quot;100&quot;, ClassName = NopColumnClassDefaults.Button, Render = new RenderButtonCustom(NopButtonClassDefaults.Default, T(&quot;Plugins.Misc.FancyPdf.InsertIntoEditor&quot;).Text) { OnClickFunctionName = &quot;copyToTinyMce(this);&quot; } } ``` and then get the value your parameter something like this in JS ```js function copyToTinyMce(element) { let text = $(element).parent().parent().find(&quot;td:first-child&quot;).text(); // do something } ```</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue-405-unit-tests' into develop</MESSAGE>
+    <SHA>ded8b89a978b858e43d57a9dffbbb884b177cc56</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6028 RenderButtonCustom.OnClickFunctionName function parameter is passed as a string to handle values such as GUID</MESSAGE>
+      <SHA>83a7886f8740069d396a33922c5fe6e56f514e3c</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Shared/_Table.Definition.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

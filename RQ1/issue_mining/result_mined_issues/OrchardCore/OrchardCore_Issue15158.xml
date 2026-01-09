@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15158</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/15158</ISSUEURL>
+  <TITLE>TheTheme has Navbar UserMenu malformed HTML</TITLE>
+  <DESCRIPTION>### Describe the bug TheTheme's Navbar seems to have the light/dark theme toggle and a user menu by default. The HTML for the user menu portion is malformed as an `li` inside of an `li`. &lt;li class=&quot;nav-item&quot;&gt; &lt;li class=&quot;nav-item dropdown text-end&quot;&gt; &lt;a href=&quot;#&quot; class=&quot;nav-link dropdown-toggle&quot; data-bs-toggle=&quot;dropdown&quot;&gt; &lt;i class=&quot;fa-solid fa-user fa-fw&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; admin &lt;/a&gt; &lt;ul class=&quot;dropdown-menu dropdown-menu-end&quot;&gt; &lt;li&gt; &lt;a class=&quot;dropdown-item&quot; href=&quot;/Admin&quot;&gt; &lt;i class=&quot;fa fa-desktop fa-fw&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; Dashboard &lt;/a&gt; &lt;/li&gt; &lt;li&gt; &lt;a class=&quot;dropdown-item&quot; href=&quot;/Admin/Users/Edit?returnUrl=%2F&quot;&gt; &lt;i class=&quot;far fa-address-card&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; Profile &lt;/a&gt; &lt;/li&gt; &lt;li&gt; &lt;a class=&quot;dropdown-item&quot; href=&quot;/ChangePassword?returnUrl=%2F&quot;&gt; &lt;i class=&quot;fa-solid fa-key&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; Change password &lt;/a&gt; &lt;/li&gt; &lt;li&gt; &lt;form method=&quot;post&quot; class=&quot;no-multisubmit&quot; action=&quot;/Users/LogOff&quot;&gt; &lt;button type=&quot;submit&quot; class=&quot;dropdown-item&quot;&gt; &lt;i class=&quot;fa-solid fa-sign-out-alt&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; Log off &lt;/button&gt; &lt;input name=&quot;__RequestVerificationToken&quot; type=&quot;hidden&quot; value=&quot;...&quot; /&gt; &lt;/form&gt; &lt;/li&gt; &lt;/ul&gt; &lt;/li&gt; &lt;/li&gt; ### To Reproduce Steps to reproduce the behavior: 1. Create a new site using SaaS template 2. Log in as user created in setup 3. Go to homepage and observe the page source is as above. ### Expected behavior I believe this is a matter of the shape needing a wrapper cleared, but I'm still learning my way with Shapes. ### Screenshots ![image](https://github.com/OrchardCMS/OrchardCore/assets/5550607/165bdfeb-a643-416e-ab23-e944ef15160a)</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Wrong placement is applied (#15174)</MESSAGE>
+    <SHA>e34a1388586e86e27ccba770afe2d810124a6174</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix TheTheme navbar Fix #15158</MESSAGE>
+      <SHA>3464dba26164099d215efab8e53c7a951623a058</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Themes/TheTheme/Views/NavbarUserMenu.cshtml</FILE>
+        <FILE>src/OrchardCore.Themes/TheTheme/Views/UserNotificationNavbar.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

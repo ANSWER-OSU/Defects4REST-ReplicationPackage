@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>247</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/247</ISSUEURL>
+  <TITLE>Now-cli console and web console messages not in sync</TITLE>
+  <DESCRIPTION>When e.g I'm deploying [this code](https://github.com/relatenow/relate/tree/f89847422eeb0f83d3ddae1dcf2a9002133e45c5), I see this in the console: &lt;details&gt; ``` $ now &gt; Deploying ~/Documents/relate &gt; Warning! Skipping file /Users/sdubois/Documents/relate/.next/bundles/pages/auth/callback.json (size exceeded 1MB) &gt; Warning! Skipping file /Users/sdubois/Documents/relate/.next/bundles/pages/auth/login.json (size exceeded 1MB) &gt; Warning! Skipping file /Users/sdubois/Documents/relate/.next/commons.js (size exceeded 1MB) &gt; Warning! 3 of the files exceeded the limit for your plan. &gt; See https://zeit.co/account to upgrade. &gt; Using Node.js 7.0.0 (default) &gt; Ready! https://relate-jonxlpwpir.now.sh (copied to clipboard) [2s] &gt; Upload [====================] 100% 0.0s &gt; Sync complete (72.55kB) [2s] &gt; Initializing… &gt; Building &gt; ▲ npm install &gt; ‣ eslint@^3.8.1 &gt; ‣ eslint-config-airbnb@^14.0.0 &gt; ‣ nodemon@^1.11.0 &gt; ‣ pre-commit@^1.1.3 &gt; ‣ apollo-client@^0.7.2 &gt; ‣ graphql-anywhere@^2.0.0 &gt; ‣ graphql-tag@^1.1.2 &gt; ‣ react-apollo@^0.8.1 &gt; ‣ react-player@^0.14.1 ``` &lt;/details&gt;&lt;br/&gt; But I see this in the browser at https://relate-jonxlpwpir.now.sh: &lt;details&gt; ``` npm install ✓ Using &quot;yarn.lock&quot; ⧗ Installing: ‣ babel-eslint@^7.1.0 ‣ eslint@^3.8.1 ‣ eslint-config-airbnb@^14.0.0 ‣ eslint-plugin-import@^2.0.1 ‣ eslint-plugin-jsx-a11y@^3.0.2 ‣ eslint-plugin-react@^6.4.1 ‣ lint-staged@^3.2.0 ‣ nodemon@^1.11.0 ‣ pre-commit@^1.1.3 ‣ apollo-client@^0.7.2 ‣ auth0-lock@^10.7.2 ‣ graphql-anywhere@^2.0.0 ‣ graphql-tag@^1.1.2 ‣ next@^2.0.0-beta ‣ nprogress@^0.2.0 ‣ path-match@^1.2.4 ‣ react-apollo@^0.8.1 ‣ react-ga@^2.1.2 ‣ react-player@^0.14.1 ‣ smooch@^3.9.3 ‣ uuid@^3.0.1 ``` &lt;/details&gt;&lt;br/&gt; I wondered why the messages are different (e.g `▲ npm install` vs. `npm install ... ✓ Using &quot;yarn.lock&quot; ... ⧗ Installing`) and why the package list is different.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>15</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now-php] improve routes test</MESSAGE>
+    <SHA>73db9e11dd37f6edcaaab63881bc1c430555edf0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Update `go` to v1.12 (#247) This might allow users to use `go.mod`, since on 1.12 they did the following: &gt; ... the go command now supports module-aware operations outside of a module directory, provided that those operations do not need to resolve import paths relative to the current directory or explicitly edit the go.mod file. ... Perhaps after that, the users would be simply able to add this to their config files and make it work? ``` &quot;build&quot;: { &quot;env&quot;: { &quot;GO111MODULE&quot;: &quot;on&quot; } }, ``` Also related to #241.</MESSAGE>
+      <SHA>42577c915c4e47904e3df4eb387b5013f1474bc2</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-go/go-helpers.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

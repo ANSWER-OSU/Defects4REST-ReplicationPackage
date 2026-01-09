@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3403</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/3403</ISSUEURL>
+  <TITLE>the `plugin_proxy_rewrite_args` method used for testing can cause unstable test cases</TITLE>
+  <DESCRIPTION>### Issue description The output data of the `plugin_proxy_rewrite_args` method in the `apisix/t/lib/server.lua` file is disordered, which will result in unstable test cases using this method. E.g: ```bash --- request GET /plugin_proxy_rewrite_args?name=james&amp;age=36 --- response_body uri: /plugin_proxy_rewrite_args age2: 36 name2: james --- no_error_log [error] ``` ```bash --- request GET /plugin_proxy_rewrite_args?name=james&amp;age=36 --- response_body uri: /plugin_proxy_rewrite_args name2: james age2: 36 --- no_error_log [error] ``` ### Environment * apisix version (cmd: `apisix version`):2.2 * OS: (cmd: `uname -a`): Linux * OpenResty / Nginx version: (cmd: `nginx -V` or `openresty -V`): openresty/1.19.3.1</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>chore: change the msg when compacted happened to make it more clear (#3439) Fix #3438. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+    <SHA>b78223c38cfe19529c0d96882dc85eb4c9e2bb54</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>test: sort the output data of the plugin_proxy_rewrite_args method close #3403</MESSAGE>
+      <SHA>74d0218192b8ec873b321de49d1c82b26533f84f</SHA>
+      <PATCHEDFILES>
+        <FILE>t/lib/server.lua</FILE>
+        <FILE>t/plugin/proxy-rewrite.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>test: sort the output data of the plugin_proxy_rewrite_args method (#3448) close #3403</MESSAGE>
+      <SHA>75c69237d7f68c3315fb04f0d4e7872a587e5c04</SHA>
+      <PATCHEDFILES>
+        <FILE>t/lib/server.lua</FILE>
+        <FILE>t/plugin/proxy-rewrite.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

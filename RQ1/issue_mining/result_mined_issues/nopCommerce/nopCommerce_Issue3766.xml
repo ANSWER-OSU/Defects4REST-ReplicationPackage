@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3766</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3766</ISSUEURL>
+  <TITLE>RoxyFilemanController + Linux + DatabaseRoxyFilemanService</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.2 Current Develop Steps to reproduce the problem: &quot;Store pictures in database&quot; is set to true: Go to content management, select topics, and edit the first topic. Insert a new image. The system saves the image in the database AND is storing it in the file system. It is also checking the file system to verify the name is unique. I did not check to see where the image comes from when displaying it on a content page. It should check the database for a unique file name. It should not store the image on the file system. If you are using the file system to save images and running on Linux: The path is incorrect for the conf.json config file. With the current path, it will try to create a file at the root called &quot;wwwroot\lib\Roxy_Fileman\conf.json&quot;, rather than putting it in that directory. The file upload paths need to be updated to work in Linux.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#3838 System log show full message exception</MESSAGE>
+    <SHA>2663ad6e731675f138c305fa4a619cc056134e85</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3766 Fixed problem with working the GetFullPath method on UNIX system</MESSAGE>
+      <SHA>296e43c68bda447526955a6b4c3945b9800c76fc</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Media/RoxyFileman/BaseRoxyFilemanService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

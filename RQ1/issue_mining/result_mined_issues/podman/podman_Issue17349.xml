@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17349</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/17349</ISSUEURL>
+  <TITLE>[Bug]: man page for podman-quadlet isn't installed</TITLE>
+  <DESCRIPTION>### Issue Description When I install `podman-quadlet` on Fedora 37, there's no manpage available even though there's https://github.com/containers/podman/blob/main/docs/source/markdown/podman-systemd.unit.5.md upstream. ``` $ man podman-systemd.unit No manual entry for podman-systemd.unit ``` ### Steps to reproduce the issue Steps to reproduce the issue 1. `man podman-systemd.unit` ### Describe the results you received No man page is installed. ### Describe the results you expected `podman-systemd.unit.5` is installed. ### podman info output ```shell host: arch: amd64 buildahVersion: 1.29.0 cgroupControllers: - cpu - io - memory - pids cgroupManager: systemd cgroupVersion: v2 conmon: package: conmon-2.1.5-1.fc37.x86_64 path: /usr/bin/conmon version: 'conmon version 2.1.5, commit: ' cpuUtilization: idlePercent: 92.76 systemPercent: 1.34 userPercent: 5.91 cpus: 8 distribution: distribution: fedora variant: workstation version: &quot;37&quot; eventLogger: journald hostname: localhost.localdomain idMappings: gidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 100000 size: 65536 uidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 100000 size: 65536 kernel: 6.1.8-200.fc37.x86_64 linkmode: dynamic logDriver: journald memFree: 2946306048 memTotal: 33348505600 networkBackend: netavark ociRuntime: name: crun package: crun-1.7.2-3.fc37.x86_64 path: /usr/bin/crun version: |- crun version 1.7.2 commit: 0356bf4aff9a133d655dc13b1d9ac9424706cac4 rundir: /run/user/1000/crun spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +CRIU +LIBKRUN +WASM:wasmedge +YAJL os: linux remoteSocket: exists: true path: /run/user/1000/podman/podman.sock security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID rootless: true seccompEnabled: true seccompProfilePath: /usr/share/containers/seccomp.json selinuxEnabled: false serviceIsRemote: false slirp4netns: executable: /usr/bin/slirp4netns package: slirp4netns-1.2.0-8.fc37.x86_64 version: |- slirp4netns version 1.2.0 commit: 656041d45cfca7a4176f6b7eed9e4fe6c11e8383 libslirp: 4.7.0 SLIRP_CONFIG_VERSION_MAX: 4 libseccomp: 2.5.3 swapFree: 8589406208 swapTotal: 8589930496 uptime: 48h 19m 44.00s (Approximately 2.00 days) plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan volume: - local registries: search: - registry.fedoraproject.org - registry.access.redhat.com - docker.io - quay.io store: configFile: /home/obudai/.config/containers/storage.conf containerStore: number: 4 paused: 0 running: 0 stopped: 4 graphDriverName: overlay graphOptions: {} graphRoot: /home/obudai/.local/share/containers/storage graphRootAllocated: 998483427328 graphRootUsed: 462399258624 graphStatus: Backing Filesystem: btrfs Native Overlay Diff: &quot;true&quot; Supports d_type: &quot;true&quot; Using metacopy: &quot;false&quot; imageCopyTmpDir: /var/tmp imageStore: number: 235 runRoot: /run/user/1000/containers transientStore: false volumePath: /home/obudai/.local/share/containers/storage/volumes version: APIVersion: 4.4.0 Built: 1675341170 BuiltTime: Thu Feb 2 13:32:50 2023 GitCommit: &quot;&quot; GoVersion: go1.19.5 Os: linux OsArch: linux/amd64 Version: 4.4.0 ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details _No response_ ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #17350 from giuseppe/allow-keep-id-for-root libpod: allow userns=keep-id for root</MESSAGE>
+    <SHA>3654a26421ff994750452d09b36afcd7e86be72f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Install podman-systemd.unit man page, make quadlet discoverable Currently we are shipping no data about quadlet, since the podman-systemd.unit file is not shipped. Also want to add the quadlet name to the description of the man page so that man -k quadlet will help users find the man page. Also add a link file such that if the user types in man quadlet man will show the podman-systemd.unit file. Also eliminate the subpackage podman-quadlet Fixes: https://github.com/containers/podman/issues/17349 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>3c3526e5321357dc9e87c6436430fde99fdc9898</SHA>
+      <PATCHEDFILES>
+        <FILE>Makefile</FILE>
+        <FILE>docs/source/markdown/links/quadlet.5</FILE>
+        <FILE>docs/source/markdown/podman-systemd.unit.5.md</FILE>
+        <FILE>podman.spec.rpkg</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Install podman-systemd.unit man page, make quadlet discoverable Currently we are shipping no data about quadlet, since the podman-systemd.unit file is not shipped. Also want to add the quadlet name to the description of the man page so that man -k quadlet will help users find the man page. Also add a link file such that if the user types in man quadlet man will show the podman-systemd.unit file. Also eliminate the subpackage podman-quadlet Fixes: https://github.com/containers/podman/issues/17349 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>f3ea361004206c31608e0d3f4c327c964e96cd20</SHA>
+      <PATCHEDFILES>
+        <FILE>Makefile</FILE>
+        <FILE>docs/source/markdown/links/quadlet.5</FILE>
+        <FILE>docs/source/markdown/podman-systemd.unit.5.md</FILE>
+        <FILE>podman.spec.rpkg</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

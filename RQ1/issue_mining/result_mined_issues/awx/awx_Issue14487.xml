@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14487</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/14487</ISSUEURL>
+  <TITLE>Tower Settings of type on/off idempotency not working</TITLE>
+  <DESCRIPTION>### Please confirm the following - [X] I agree to follow this project's [code of conduct](https://docs.ansible.com/ansible/latest/community/code_of_conduct.html). - [X] I have checked the [current issues](https://github.com/ansible/awx/issues) for duplicates. - [X] I understand that AWX is open source software provided for free and that I might not receive a timely response. - [X] I am **NOT** reporting a (potential) security vulnerability. (These should be emailed to `security@ansible.com` instead.) ### Bug Summary When trying to set the setting named AWX_MOUNT_ISOLATED_PATHS_ON_K8S to true, no matter what I put in the playbook it is always marked as &quot;changed: true&quot;, even if the setting is already true.. Sample Task: ``` - name: SET AWX EXPOSE HOST PATHS awx.awx.settings: name: &quot;AWX_MOUNT_ISOLATED_PATHS_ON_K8S&quot; value: true ``` When I change the playbook value and register the results of the task to review the results I get this: | Value In Playbook | Resulting Debug| | ------- | ------- | | true | ok: [awxlab] =&gt; {&lt;br&gt; &quot;this_setting&quot;: {&lt;br&gt; &quot;changed&quot;: true,&lt;br&gt; &quot;failed&quot;: false,&lt;br&gt; &quot;new_values&quot;: {&lt;br&gt; &quot;AWX_MOUNT_ISOLATED_PATHS_ON_K8S&quot;: &quot;True&quot;&lt;br&gt; },&lt;br&gt; &quot;old_values&quot;: {&lt;br&gt; &quot;AWX_MOUNT_ISOLATED_PATHS_ON_K8S&quot;: true&lt;br&gt; },&lt;br&gt; &quot;value&quot;: true&lt;br&gt; }&lt;br&gt;}| | True | ok: [awxlab] =&gt; {&lt;br&gt; &quot;this_setting&quot;: {&lt;br&gt; &quot;changed&quot;: true,&lt;br&gt; &quot;failed&quot;: false,&lt;br&gt; &quot;new_values&quot;: {&lt;br&gt; &quot;AWX_MOUNT_ISOLATED_PATHS_ON_K8S&quot;: &quot;True&quot;&lt;br&gt; },&lt;br&gt; &quot;old_values&quot;: {&lt;br&gt; &quot;AWX_MOUNT_ISOLATED_PATHS_ON_K8S&quot;: true&lt;br&gt; },&lt;br&gt; &quot;value&quot;: true&lt;br&gt; }&lt;br&gt;}| | &quot;true&quot; | ok: [awxlab] =&gt; {&lt;br&gt; &quot;this_setting&quot;: {&lt;br&gt; &quot;changed&quot;: true,&lt;br&gt; &quot;failed&quot;: false,&lt;br&gt; &quot;new_values&quot;: {&lt;br&gt; &quot;AWX_MOUNT_ISOLATED_PATHS_ON_K8S&quot;: &quot;true&quot;&lt;br&gt; },&lt;br&gt; &quot;old_values&quot;: {&lt;br&gt; &quot;AWX_MOUNT_ISOLATED_PATHS_ON_K8S&quot;: true&lt;br&gt; },&lt;br&gt; &quot;value&quot;: true&lt;br&gt; }&lt;br&gt;}| | &quot;True&quot; | ok: [awxlab] =&gt; {&lt;br&gt; &quot;this_setting&quot;: {&lt;br&gt; &quot;changed&quot;: true,&lt;br&gt; &quot;failed&quot;: false,&lt;br&gt; &quot;new_values&quot;: {&lt;br&gt; &quot;AWX_MOUNT_ISOLATED_PATHS_ON_K8S&quot;: &quot;True&quot;&lt;br&gt; },&lt;br&gt; &quot;old_values&quot;: {&lt;br&gt; &quot;AWX_MOUNT_ISOLATED_PATHS_ON_K8S&quot;: true&lt;br&gt; },&lt;br&gt; &quot;value&quot;: true&lt;br&gt; }&lt;br&gt;} | yes | ok: [awxlab] =&gt; {&lt;br&gt; &quot;this_setting&quot;: {&lt;br&gt; &quot;changed&quot;: true,&lt;br&gt; &quot;failed&quot;: false,&lt;br&gt; &quot;new_values&quot;: {&lt;br&gt; &quot;AWX_MOUNT_ISOLATED_PATHS_ON_K8S&quot;: &quot;True&quot;&lt;br&gt; },&lt;br&gt; &quot;old_values&quot;: {&lt;br&gt; &quot;AWX_MOUNT_ISOLATED_PATHS_ON_K8S&quot;: true&lt;br&gt; },&lt;br&gt; &quot;value&quot;: true&lt;br&gt; }&lt;br&gt;} The documentation says this: ```&gt; AWX.AWX.SETTINGS ([...]collections/ansible_collections/awx/awx/plugins/modules/settings.py) Modify Automation Platform Controller settings. See https://www.ansible.com/tower for an overview. OPTIONS (= is mandatory): - value Value to be modified for given setting. **If given a non-string type, will make best effort to cast it to type API expects.** For better control over types, use the `settings' param instead. default: null type: str ``` This leads me to believe that the logic used to sanitize the input might be doing a little extra or the conversion of 'settings' parameters to/from name/value parameters. The documentation does show an example of how to use both the settings parameter and the name/value parameter. So, this may be lower priority but I wanted to get this somewhere that could be search by others who may be running into this issue. ### AWX version 23.1.0 ### Select the relevant components - [ ] UI - [ ] UI (tech preview) - [ ] API - [ ] Docs - [X] Collection - [ ] CLI - [ ] Other ### Installation method kubernetes ### Modifications no ### Ansible version 2.15.4 ### Operating system CentOS Stream release 9 ### Web browser Firefox ### Steps to reproduce Use a playbook that modifies a boolean setting. Use the awx.awx.setting module. Use the name/value parameters instead of the settings paremeter. Sample: ``` - name: SET AWX EXPOSE HOST PATHS awx.awx.settings: name: &quot;AWX_MOUNT_ISOLATED_PATHS_ON_K8S&quot; value: true register: this_setting - name: Debug this setting debug: var=this_setting ``` ### Expected results When the setting is already true, idempotency keeps the playbook from trying to update the setting again. ### Actual results Regardless if the setting is true or not, the playbook always updates the setting. ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Simplified release notes for AWX (#14485)</MESSAGE>
+    <SHA>15925f14165aa297f64d799678c457ae17540979</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: make type conversions work correctly (related #14487)</MESSAGE>
+      <SHA>6f1b3648c4fdd68316dfd318d61cf49dc91907de</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/plugins/modules/settings.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: make type conversions work correctly (related #14487) Co-authored-by: Alan Rominger &lt;arominge@redhat.com&gt; Signed-off-by: kurokobo &lt;2920259+kurokobo@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>91d9eaf7b79042a7ab1f42f362c59996ed6772fb</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/plugins/modules/settings.py</FILE>
+        <FILE>awx_collection/tests/integration/targets/settings/tasks/main.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: make type conversions work correctly (related #14487) Co-authored-by: Alan Rominger &lt;arominge@redhat.com&gt; Signed-off-by: kurokobo &lt;2920259+kurokobo@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>9d0532997887a792098cb0937dc70f2f62a26754</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/plugins/modules/settings.py</FILE>
+        <FILE>awx_collection/tests/integration/targets/settings/tasks/main.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: make type conversions work correctly (related #14487) (#14489) Signed-off-by: kurokobo &lt;2920259+kurokobo@users.noreply.github.com&gt; Co-authored-by: Alan Rominger &lt;arominge@redhat.com&gt;</MESSAGE>
+      <SHA>05582702c6f4c671b7579cf5430b95e5f4916150</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/plugins/modules/settings.py</FILE>
+        <FILE>awx_collection/tests/integration/targets/settings/tasks/main.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: make type conversions work correctly (related #14487) (#14489) Signed-off-by: kurokobo &lt;2920259+kurokobo@users.noreply.github.com&gt; Co-authored-by: Alan Rominger &lt;arominge@redhat.com&gt;</MESSAGE>
+      <SHA>43f4627aab9f9e049791fb76f3a1b0b2bf36e8f2</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/plugins/modules/settings.py</FILE>
+        <FILE>awx_collection/tests/integration/targets/settings/tasks/main.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: make type conversions work correctly (related #14487) (#14489) Signed-off-by: kurokobo &lt;2920259+kurokobo@users.noreply.github.com&gt; Co-authored-by: Alan Rominger &lt;arominge@redhat.com&gt;</MESSAGE>
+      <SHA>a1c391900f492ebaafa6467f36b59d325ec4d96e</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/plugins/modules/settings.py</FILE>
+        <FILE>awx_collection/tests/integration/targets/settings/tasks/main.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

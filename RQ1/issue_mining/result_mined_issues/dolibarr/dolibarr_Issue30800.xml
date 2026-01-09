@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>30800</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/30800</ISSUEURL>
+  <TITLE>WebHook Error in Make.com</TITLE>
+  <DESCRIPTION>### Bug When trying to establish a connection with Make, I encountered many issues because the JSON that Make.com was receiving was malformed. So, what I did was add the following variable to the `interface_95_modWebhook_WebhookTriggers.class.php` file: $headers = array( 'Content-Type: application/json', 'Accept: application/json' ); And the getURLContent method ended up as follows: $response = getURLContent($tmpobject-&gt;url, 'POST', $jsonstr, 1, $headers, array('http', 'https'), 0, -1); ### Dolibarr Version 19.03 ### Environment PHP 7.4 ### Environment Database MariaDB ### Steps to reproduce the behavior and expected behavior Create a webhook in Make.com, copy the webhook link, and configure it in the Dolibarr WebHook module. Set the parameter as CREATE_COMPANY and wait to analyze the string that Make.com receives. ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix missing $object</MESSAGE>
+    <SHA>4a2e001f1cdcb6de386c5488cb042d8eebabd19f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix #30800 bad GetUrlContent with no hearders for webhook</MESSAGE>
+      <SHA>eaf259dbde94a81f48384b6255117e23cf137130</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/triggers/interface_95_modWebhook_WebhookTriggers.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix #30800 bad GetUrlContent with no hearders for webhook (#30803) Co-authored-by: Hystepik &lt;lmarcouiller@nltechno.com&gt;</MESSAGE>
+      <SHA>cfd56c06532f26ef5d6d4198142c70d2f7ae6c6b</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/triggers/interface_95_modWebhook_WebhookTriggers.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>830</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/830</ISSUEURL>
+  <TITLE>KeepConnected only checks once whether leader or not, causing rpc client get the outdated leader</TITLE>
+  <DESCRIPTION>Sponsors SeaweedFS via Patreon https://www.patreon.com/seaweedfs **Reproduce steps** 1. rpc client finds leader A through stream.Recv in masterclient.go &gt; [seaweedfs/weed/wdclient/masterclient.go] &gt; Line 66 in [masterclient.go](https://github.com/chrislusf/seaweedfs/blob/master/weed/wdclient/masterclient.go#L66) ``` if volumeLocation, err := stream.Recv(); err != nil { ``` 2. instantly new leader B elected, however, rpc client is not aware of leader changing from A to B **Proposal** - Send heartbeat to rpc client in [master_grpc_server.go](https://github.com/chrislusf/seaweedfs/blob/master/weed/server/master_grpc_server.go#L175) to declare the leader.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #827 from suilongfei/master change log_dir to logdir for the &quot;flag redefined:log_dir&quot; error when use another package with &quot;github.com/golang/glog&quot;</MESSAGE>
+    <SHA>8613e4f55826a2d12cf1559f643a6c68c872a11b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix https://github.com/chrislusf/seaweedfs/issues/830</MESSAGE>
+      <SHA>af772ae31a2d717bf8c983d233858872d81ffd57</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/master_grpc_server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix https://github.com/chrislusf/seaweedfs/issues/830</MESSAGE>
+      <SHA>b71d6f4b886b7def4e03208f00dec101ea29412e</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/master_grpc_server.go</FILE>
+        <FILE>weed/server/master_grpc_server_volume.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #832 from PapaYofen/fix-830 Fix https://github.com/chrislusf/seaweedfs/issues/830</MESSAGE>
+      <SHA>2ff95ead5737421323eea624ac98a8510fd2efaa</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/master_grpc_server.go</FILE>
+        <FILE>weed/server/master_grpc_server_volume.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118</ISSUENO>
+  <ISSUEURL>https://github.com/confluentinc/kafka-rest/issues/118</ISSUEURL>
+  <TITLE>Not possible to send keyed Avro messages via Proxy</TITLE>
+  <DESCRIPTION>We tried different ways, like curl or [kafka-node-rest](https://github.com/confluentinc/kafka-rest-node), to send a Avro message to a topic with a key. The topic is created and schema submitted to schema registry, however, sending the message fails with a HTTP error code 500. Setting like ports etc. are all defaults for the platform. Here an example what we tried with kafka-node-rest: - create the schemata for key and value ``` javascript var idSchema = new KafkaRest.AvroSchema('string'); var valueSchema = new KafkaRest.AvroSchema( { 'namespace': 'mynamespace', 'type': 'record', 'name': 'myschema', 'fields': [ { 'name': 'key', 'type': 'string' }, { 'name': 'date', 'type': 'string' }, { 'name': 'title', 'type': 'string' } ] }); ``` - send it ``` javascript topic.produce(idSchema, valueSchema, { 'key': link, 'value': { 'key': link, 'date': date, 'title': title } }, function(err, res) { ... }); ``` what throws an error. ``` javascript { name: 'APIError', status: 500, message: 'Internal Server Error', data: { error_code: 500, message: 'Internal Server Error' } } ``` - sending without a key works ``` javascript topic.produce(valueSchema, { 'key': link, 'date': date, 'title': title }, function(err, res) { ... }); ``` result: ``` javascript { offsets: [ { partition: 0, offset: 750, error_code: null, error: null } ], key_schema_id: null, value_schema_id: 121 } ``` However, with the **kafka-avro-console-producer** works fine ``` shell ./bin/kafka-avro-console-producer --broker-list localhost:9092 --topic rss \ --property parse.key=true \ --property key.separator=, \ --property key.schema='{&quot;type&quot;:&quot;string&quot;}' \ --property value.schema=&quot;{\&quot;type\&quot;: \&quot;record\&quot;, \&quot;name\&quot;: \&quot;rss\&quot;, \&quot;fields\&quot;: [{\&quot;name\&quot;: \&quot;key\&quot;, \&quot;type\&quot;: \&quot;string\&quot;}, {\&quot;name\&quot;: \&quot;title\&quot;, \&quot;type\&quot;: \&quot;string\&quot;}, {\&quot;name\&quot;: \&quot;content\&quot;, \&quot;type\&quot;: \&quot;string\&quot;}, {\&quot;name\&quot;: \&quot;date\&quot;, \&quot;type\&quot;: \&quot;string\&quot;}]}&quot; &quot;test&quot;,{&quot;key&quot;: &quot;http://example.com&quot;, &quot;title&quot;: &quot;test title&quot;, &quot;content&quot;: &quot;test content&quot;, &quot;date&quot;: &quot;2015-10-18'T'20:20:20&quot;} ``` Any idea what could be wrong? Maybe this issue relates to [#114](https://github.com/confluentinc/kafka-rest/issues/114). Thanks in advance.</DESCRIPTION>
+  <REPONAME>kafka-rest</REPONAME>
+  <TIMEDIFFERENCEDAYS>143</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #164 from alexlod/2.x-merge-to-master 2.x merge to master</MESSAGE>
+    <SHA>2f7985ce1e240718ac553ba45e86b87753ca4b8b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix for issue confluentinc/kafka-rest/issues/118 This is a quick fix, not intended to be the best solution, for solving the issue with string partition keys in avro messages.</MESSAGE>
+      <SHA>4391b34bbc4caadc5aede4c4493bb918b74031a2</SHA>
+      <PATCHEDFILES>
+        <FILE>src/main/java/io/confluent/kafkarest/AvroRestProducer.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/AvroProducerTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

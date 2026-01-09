@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7506</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7506</ISSUEURL>
+  <TITLE>PayPal Commerce plugin. Incorrect calculation of taxable shipping</TITLE>
+  <DESCRIPTION>&gt; I see the new PayPal plugin has changed the way rounding errors are handled. i.e. with a new Adjustment item being added. The problem is that a large adjustment is added for every transaction when the order has any tax. &gt; Please see image of a debugger snapshot and the cart. I’ve pinned the values so you can see what is happening. The tax on the shipping (£3.00) is added as an adjustment item for the unit amount and tax. The subtotal has an extra £3.00, then the discount is £3.00. So yes it does end up at the correct amount, but every order placed has a large adjustment and the subtotal and discount are wrong by some margin. Source: https://www.nopcommerce.com/boards/topic/101661/new-paypal-plugin</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>86</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7508 BaseAdminMenuCreatedEventConsumer should check if the plugin is not null</MESSAGE>
+    <SHA>debaf49f8b9e48264e909e3b45bca763b08d6684</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7506 PayPal Commerce plugin. Fix incorrect calculation of taxable shipping</MESSAGE>
+      <SHA>62df760a024867809ef466b48fb129780f837533</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/Services/PayPalCommerceServiceManager.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#7506 PayPal Commerce plugin. Next changes to fix incorrect calculation of taxable shipping</MESSAGE>
+      <SHA>ebd27af8be8cd697950b6e38420c24dd2f6d9e11</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/Services/PayPalCommerceServiceManager.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#7506 PayPal Commerce plugin. Use taxable shipping according to settings</MESSAGE>
+      <SHA>2098d215fa6d7ebc540baba8fb2f332505cbc57d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/Services/PayPalCommerceServiceManager.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

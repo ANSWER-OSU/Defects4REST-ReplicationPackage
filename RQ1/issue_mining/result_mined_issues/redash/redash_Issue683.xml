@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>683</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/683</ISSUEURL>
+  <TITLE>config request - cleanup_query_results</TITLE>
+  <DESCRIPTION>The cleanup cron is great because it reduces size of redash database. This also allows for smaller quicker backups of its data. If possible, someone can add in a little configuration? In tasks.py, make it configurable to set a value instead of hardcoded 100. For example, I might want 1000 here: ``` unused_query_results = models.QueryResult.unused().limit(100) ``` And in models.py, make it configurable on date range instead of hardcoded week_ago. For example, I might only want 1 day here: ``` week_ago = datetime.datetime.now() - datetime.timedelta(days=7) ```</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add migration for AlertSubscriber table</MESSAGE>
+    <SHA>68f6e9b5e55a76ebd73217adc8a1b30613dc30c1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add settings to query results cleanup (closes #683)</MESSAGE>
+      <SHA>ab72531889f47f8e3d653849ebdf97cac1455a47</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/models.py</FILE>
+        <FILE>redash/settings.py</FILE>
+        <FILE>redash/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add settings to query results cleanup (closes #683)</MESSAGE>
+      <SHA>19ee219bfb9c60b9adc0945e8b9ec8a05056f393</SHA>
+      <PATCHEDFILES>
+        <FILE>models.py</FILE>
+        <FILE>settings.py</FILE>
+        <FILE>tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

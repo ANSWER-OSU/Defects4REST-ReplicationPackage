@@ -1,0 +1,96 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>103</ISSUENO>
+  <ISSUEURL>https://github.com/snarfed/granary/issues/103</ISSUEURL>
+  <TITLE>render &lt;video&gt;s</TITLE>
+  <DESCRIPTION>we currently only render links and thumbnail/poster images for videos. we should render actual `&lt;video class=&quot;u-video&quot;&gt;`s! inspired by microformats/h-entry#5. example silo copies of http://tantek.com/2016/055/t12/fast-walk-hike-beach-video * https://brid.gy/post/flickr/39039882@N00/24615676754 * https://brid.gy/post/facebook/214611/10102143546607213 * https://brid.gy/post/twitter/t/702695028464812034</DESCRIPTION>
+  <REPONAME>granary</REPONAME>
+  <TIMEDIFFERENCEDAYS>281</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>mf2 to html: de-dupe image and attachments, take 3 move choice of whether to render attachments back to render_content, as caller param. default to false. override in atom. still for #120.</MESSAGE>
+    <SHA>1d4d323206be0149795409998717a497ca9d609d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>checkpoint: render video as HTML for #121, #103</MESSAGE>
+      <SHA>a846ef15a0b32ae0bfee2f1b401778b4d4cba996</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/microformats2.py</FILE>
+        <FILE>granary/test/test_microformats2.py</FILE>
+        <FILE>granary/test/testdata/article_with_audio_video.mf2.html</FILE>
+        <FILE>granary/test/testdata/article_with_video_duplicated_as_attachment.as.json</FILE>
+        <FILE>granary/test/testdata/article_with_video_duplicated_as_attachment.mf2-from-as.json</FILE>
+        <FILE>granary/test/testdata/article_with_video_duplicated_as_attachment.mf2.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>finish rendering video and audio as HTML also use u-photo, u-video, u-audio classes more often. for #121, #103</MESSAGE>
+      <SHA>92550dd860ea30a36990d417832ae4d5c8be0497</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/atom.py</FILE>
+        <FILE>granary/microformats2.py</FILE>
+        <FILE>granary/test/test_atom.py</FILE>
+        <FILE>granary/test/test_facebook.py</FILE>
+        <FILE>granary/test/test_instagram.py</FILE>
+        <FILE>granary/test/test_microformats2.py</FILE>
+        <FILE>granary/test/test_twitter.py</FILE>
+        <FILE>granary/test/testdata/article_with_audio_video.mf2-from-as.json</FILE>
+        <FILE>granary/test/testdata/article_with_audio_video.mf2.html</FILE>
+        <FILE>granary/test/testdata/article_with_image_duplicated_as_attachment.mf2.html</FILE>
+        <FILE>granary/test/testdata/article_with_photo.mf2.html</FILE>
+        <FILE>granary/test/testdata/article_with_video_duplicated_as_attachment.mf2.html</FILE>
+        <FILE>granary/test/testdata/note.mf2.html</FILE>
+        <FILE>granary/test/testdata/note_with_composite_photo.mf2.html</FILE>
+        <FILE>granary/test/testdata/note_with_multiple_photos.mf2.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>video and audio: switch rest of AS1 from top-level 'url' to 'stream' #121, #103</MESSAGE>
+      <SHA>030f6da323f3afda30dff7229bbe9af5195d0ea9</SHA>
+      <PATCHEDFILES>
+        <FILE>README.md</FILE>
+        <FILE>granary/as2.py</FILE>
+        <FILE>granary/jsonfeed.py</FILE>
+        <FILE>granary/microformats2.py</FILE>
+        <FILE>granary/test/test_microformats2.py</FILE>
+        <FILE>granary/test/test_testdata.py</FILE>
+        <FILE>granary/test/testdata/article_with_audio_video.as.json</FILE>
+        <FILE>granary/test/testdata/note_with_audio_video.as-from-mf2.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>as2: handle attachments with stream as list for #103, https://console.cloud.google.com/errors/6058117267008723362</MESSAGE>
+      <SHA>8499edd3cb4b07c8da386334c68bd578b3407792</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/as2.py</FILE>
+        <FILE>granary/test/testdata/article_with_video_stream_list.as.json</FILE>
+        <FILE>granary/test/testdata/article_with_video_stream_list.as2-from-as.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>atom: fix audio/video enclosures to use stream for #103, #121</MESSAGE>
+      <SHA>1455ece0c8f05e68e4170f096eecd32ff47e388b</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/atom.py</FILE>
+        <FILE>granary/templates/_entry.atom</FILE>
+        <FILE>granary/test/test_atom.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>twitter: handle converting videos to AS for #103</MESSAGE>
+      <SHA>b62be7a14759ec09d9c31097892f80a7627f1a76</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/test/test_twitter.py</FILE>
+        <FILE>granary/twitter.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>twitter video: set top-level object's stream instead of image for #103</MESSAGE>
+      <SHA>8aafddba4a48091b55cc2701ec2019d3b876862e</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/test/test_twitter.py</FILE>
+        <FILE>granary/twitter.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

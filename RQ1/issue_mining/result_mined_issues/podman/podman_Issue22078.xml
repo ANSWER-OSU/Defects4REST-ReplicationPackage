@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>22078</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/22078</ISSUEURL>
+  <TITLE>`--userns=keep-id:uid=1001,gid=0`: container create failed (no logs from conmon)</TITLE>
+  <DESCRIPTION>### Issue Description I'm trying to spin up a VS Code DevContainer using a UBI9/python-311 image, which is setup to use a user with UID 1001, and GID 0. I have gotten it to work by mapping it to root inside the container, but I really would like to have it running as UID 1001. For this i'm adding `--userns=&quot;keep-id:uid=1001,gid=1001&quot;` as runArgs, which seem to work flawlessly, except for the fact that the GID doesn't match the users GID inside the container, so when files are created inside the DevContainer they get the wrong GID outside (wrong not being my local users default GID). I would expect that I could run the DevContainer with `--userns=&quot;keep-id:uid=1001,gid=0&quot;` and have eveything working as expected, however Podman fails with an error when i try to do this. It seems like the same parsing error happens if I try and set uid to 0 in the above. I am explicitly using the keep-id feature, as i don't know the UID of everyone who is going to use this, so `--uidmap` and `--gidmap` is not easily useable in this scenario. ### Steps to reproduce the issue Steps to reproduce the issue 1. `podman run --rm -it --userns=keep-id:uid=1001,gid=0 registry.access.redhat.com/ubi9/python-311:latest bash` ### Describe the results you received Podman errored with the following: ``` Error: container create failed (no logs from conmon): conmon bytes &quot;&quot;: readObjectStart: expect { or n, but found , error found in #0 byte of ...||..., bigger context ...||...` ``` ### Describe the results you expected That the container starts with GID 0 mapped to 0 such that it matched my default group outside the container. Something like the following (hopefully i have calculated the numbers correctly below): ``` $ podman run --rm -it --userns=keep-id:uid=1001,gid=0 registry.access.redhat.com/ubi9/python-311:latest cat /proc/self/gid_map 0 0 1 1 1 65536 ``` ### podman info output ```yaml $ podman version Client: Podman Engine Version: 4.9.4-dev API Version: 4.9.4-dev Go Version: go1.21.7 (Red Hat 1.21.7-1.module_el8+960+4060efbe) Built: Wed Feb 21 18:03:29 2024 OS/Arch: linux/amd64 ``` Running on CentOS Stream 8 ``` ### Podman in a container No ### Privileged Or Rootless Rootless ### Upstream Latest Release Yes ### Additional environment details _No response_ ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>utils: add test for the new function Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+    <SHA>0e38815387ef69c661c78690bc97a190268a4092</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>utils: do not generate duplicate range do not generate a duplicated range when --userns=keep-id:uid=0 or --userns=keep-id:gid=0 are used. Closes: https://github.com/containers/podman/issues/22078 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>816c7279e132016c3a26d44097c4203381911468</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/util/utils.go</FILE>
+        <FILE>pkg/util/utils_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>418</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/418</ISSUEURL>
+  <TITLE>Error when deploying meteor</TITLE>
+  <DESCRIPTION>``` ⢈⠩ [METEOR-NOW] - building meteor app (this can take several minutes)Possibly unhandled Error: 1 at Promise$_rejecter (/usr/local/lib/node_modules/meteor-now/node_modules/promise-spawner/node_modules/bluebird/js/main/promise.js:590:44) at /usr/local/lib/node_modules/meteor-now/node_modules/promise-spawner/index.js:85:13 at tryCatch1 (/usr/local/lib/node_modules/meteor-now/node_modules/promise-spawner/node_modules/bluebird/js/main/util.js:63:19) at Promise$_callHandler [as _callHandler] (/usr/local/lib/node_modules/meteor-now/node_modules/promise-spawner/node_modules/bluebird/js/main/promise.js:695:13) at Promise$_settlePromiseFromHandler [as _settlePromiseFromHandler] (/usr/local/lib/node_modules/meteor-now/node_modules/promise-spawner/node_modules/bluebird/js/main/promise.js:711:18) at Promise$_settlePromiseAt [as _settlePromiseAt] (/usr/local/lib/node_modules/meteor-now/node_modules/promise-spawner/node_modules/bluebird/js/main/promise.js:868:14) at Promise$_settlePromises [as _settlePromises] (/usr/local/lib/node_modules/meteor-now/node_modules/promise-spawner/node_modules/bluebird/js/main/promise.js:1006:14) at Promise$_rejectPromises [as _rejectPromises] (/usr/local/lib/node_modules/meteor-now/node_modules/promise-spawner/node_modules/bluebird/js/main/promise.js:999:10) at Async$_consumeFunctionBuffer [as _consumeFunctionBuffer] (/usr/local/lib/node_modules/meteor-now/node_modules/promise-spawner/node_modules/bluebird/js/main/async.js:74:12) at Async$consumeFunctionBuffer (/usr/local/lib/node_modules/meteor-now/node_modules/promise-spawner/node_modules/bluebird/js/main/async.js:37:14) ``` Does anyone know what could be the problem?</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Revert &quot;[now-node] Add initial Builder v2 API (#424)&quot; (#425) This reverts commit dc3f112d4fece31b8301b2f5f2cf765d254ee030.</MESSAGE>
+    <SHA>2b3efb06beeca51c9747c8cfab322ca31909e367</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-static-build] Add `now-dev` package.json script (#418) * [static-build] Add `now-dev` package.json script This will cause `now dev` to run the `now-dev` script as defined in the `package.json` file. `now dev` sets the `$PORT` env variable for use in the `now-dev` script, which is expected to launch a file watching server (for example `hugo dev`) on the specified `$PORT`. `now dev` wait for this port to be bound before returning the `build()` function with the generated assets. The `watch` array is just &quot;watch everything in the `path.dirname(entrypoint)`&quot; so any file changed within that directory will trigger a &quot;re-sync&quot; of the source files that `now dev` is working with, which the user spawned static build watcher should pick up on and return the updated assets. * Use `routes` instead of globbing the output dir Proxy passing to the development server is a cleaner approach, since it removes the race condition about the builder not having knowledge of when a dev watcher server rebuilds, so it's not possible to know how long to wait to return outputs upon another call to `build()`. * Make `watch` be an array Co-Authored-By: TooTallNate &lt;n@n8.io&gt; * Fix `promise-timeout` require() * Inherit from `process.env` for `yarn run` Otherwise ENOENT happens because there is no `PATH` env var set * Only validate dist dir in production builds * Fix `routes` and `watch` output * Remove dev logging, add better timeout error message * Populate `routes` upon rebuild * Pass `meta` to the `download()` function * Revert version change in `package.json` * Save devport sooner</MESSAGE>
+      <SHA>8e2d5de4460043f70e2d09e27b350b67a7ba5474</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-static-build/index.js</FILE>
+        <FILE>packages/now-static-build/package.json</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

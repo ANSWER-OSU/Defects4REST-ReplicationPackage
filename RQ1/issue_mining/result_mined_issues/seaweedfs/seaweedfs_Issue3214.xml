@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3214</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3214</ISSUEURL>
+  <TITLE>[NewHashicorpRaftServer] boltdb.NewBoltStore(&quot;/data/m9333/logs.dat&quot;): open /data/m9333/logs.dat: no such file or directory</TITLE>
+  <DESCRIPTION>**Describe the bug** master CrashLoopBackOff ``` F0621 08:29:10 1 master.go:172] NewHashicorpRaftServer: boltdb.NewBoltStore(&quot;/data/m9333/logs.dat&quot;): open /data/m9333/logs.dat: no such file or directory ``` **System Setup** 3.12 ``` + exec /usr/bin/weed '-logtostderr=true' '-v=4' master -mdir /data -port 9333 '-defaultReplication=100' '-metricsPort=9090' '-volumeSizeLimitMB=1000' '-resumeState=false' -raftHashicorp '-ip.bind=0.0.0.0' ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>3.12</MESSAGE>
+    <SHA>4dc27e1ed598b1c1aa4facae856da1f71df00ea1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>avoid no such raft date directory https://github.com/chrislusf/seaweedfs/issues/3214</MESSAGE>
+      <SHA>c1c8dad67716666dcfd118a3ed2a95dc74227c10</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/raft_hashicorp.go</FILE>
+        <FILE>weed/server/raft_server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

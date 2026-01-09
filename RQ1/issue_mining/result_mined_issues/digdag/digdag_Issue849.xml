@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>849</ISSUENO>
+  <ISSUEURL>https://github.com/treasure-data/digdag/issues/849</ISSUEURL>
+  <TITLE>Group retry does not work in call&gt; operator</TITLE>
+  <DESCRIPTION>Group retry does not work when the digdag script called from call&gt; operator. ### Environment Digdag version: 0.9.27 Mode: local ### Procedure for reproducing * parent.dig ``` +call_child: call&gt;: ./child.dig ``` * child.dig ``` _retry: 2 +run: sh&gt;: sleep 3; exit 1 ``` * Run ``` $ digdag run --rerun ./parent.dig ``` * Result Only executed one time, not retried. ``` 2018-08-27 12:16:06 +0900: Digdag v0.9.27 2018-08-27 12:16:07 +0900 [WARN] (main): Reusing the last session time 2018-08-23T00:00:00+00:00. 2018-08-27 12:16:07 +0900 [INFO] (main): Using session /home/.../.digdag/status/20180823T000000+0000. 2018-08-27 12:16:07 +0900 [INFO] (main): Starting a new session project id=1 workflow name=parent session_time=2018-08-23T00:00:00+00:00 2018-08-27 12:16:08 +0900 [INFO] (0017@[0:default]+parent+call_child): call&gt;: ./child.dig 2018-08-27 12:16:09 +0900 [INFO] (0017@[0:default]+parent+call_child^sub+run): sh&gt;: sleep 3; exit 1 2018-08-27 12:16:12 +0900 [ERROR] (0017@[0:default]+parent+call_child^sub+run): Task failed with unexpected error: Command failed with code 1 java.lang.RuntimeException: Command failed with code 1 at io.digdag.standards.operator.ShOperatorFactory$ShOperator.runTask(ShOperatorFactory.java:143) at io.digdag.util.BaseOperator.run(BaseOperator.java:35) at io.digdag.core.agent.OperatorManager.callExecutor(OperatorManager.java:312) at io.digdag.cli.Run$OperatorManagerWithSkip.callExecutor(Run.java:694) at io.digdag.core.agent.OperatorManager.runWithWorkspace(OperatorManager.java:254) at io.digdag.core.agent.OperatorManager.lambda$runWithHeartbeat$2(OperatorManager.java:137) at io.digdag.core.agent.LocalWorkspaceManager.withExtractedArchive(LocalWorkspaceManager.java:25) at io.digdag.core.agent.OperatorManager.runWithHeartbeat(OperatorManager.java:135) at io.digdag.core.agent.OperatorManager.run(OperatorManager.java:119) at io.digdag.cli.Run$OperatorManagerWithSkip.run(Run.java:676) at io.digdag.core.agent.MultiThreadAgent.lambda$null$0(MultiThreadAgent.java:127) at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) at java.util.concurrent.FutureTask.run(FutureTask.java:266) at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) at java.lang.Thread.run(Thread.java:748) 2018-08-27 12:16:12 +0900 [INFO] (0017@[0:default]+parent^failure-alert): type: notify error: * +parent+call_child^sub+run: Command failed with code 1 (runtime) Task state is saved at /home/.../.digdag/status/20180823T000000+0000 directory. * Use --session &lt;daily | hourly | &quot;yyyy-MM-dd[ HH:mm:ss]&quot;&gt; to not reuse the last session time. * Use --rerun, --start +NAME, or --goal +NAME argument to rerun skipped tasks. ``` ### Cause of problem When added tasks to retry, INITIAL_TASK is not set to state_flags, so the tasks are not picked up in DatabaseSessionStoreManager.copyInitialTasksForRetry(). If I added INITIAL_TASK in TaskControl.addGeneratedSubtasks(), it looks like working correctly. But I don't know the role of INITIAL_TASK, so it may not correct way.</DESCRIPTION>
+  <REPONAME>digdag</REPONAME>
+  <TIMEDIFFERENCEDAYS>155</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #914 from pdelagrave/apt-idea-plugin Added the gradle plugin to make IntelliJ able to process the annotations</MESSAGE>
+    <SHA>a5d2b7721024fb76fb9a90ffa6487092872546cd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #849. Add INITIAL_TASK flag when sub task generated.</MESSAGE>
+      <SHA>2f3be3e5639a9011034ee27c1017e75b94e8ebe8</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-core/src/main/java/io/digdag/core/workflow/TaskControl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #928 from yoyama/fix-issue-849 Fix #849. Add INITIAL_TASK flag when sub task generated.</MESSAGE>
+      <SHA>c5ad05b73fb1a0d0506d6af6479da26d54956a8d</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-core/src/main/java/io/digdag/core/workflow/TaskControl.java</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/workflow/WorkflowExecutor.java</FILE>
+        <FILE>digdag-core/src/test/java/io/digdag/core/workflow/WorkflowExecutorTest.java</FILE>
+        <FILE>digdag-core/src/test/resources/io/digdag/core/workflow/retry_in_call_child.dig</FILE>
+        <FILE>digdag-core/src/test/resources/io/digdag/core/workflow/retry_in_call_parent.dig</FILE>
+        <FILE>digdag-core/src/test/resources/io/digdag/core/workflow/retry_in_loop.dig</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

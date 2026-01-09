@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121336</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121336</ISSUEURL>
+  <TITLE>[CI] ShuffleForcedMergePolicyTests testDiagnostics failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6102 / rocky-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/35atahghgt7ce) - [elasticsearch-pull-request #54240 / part-1](https://gradle-enterprise.elastic.co/s/p6nixutlnepmu) - [elasticsearch-periodic-platform-support #6081 / ubuntu-2004_platform-support-unix](https://gradle-enterprise.elastic.co/s/apcmh5zzj3i3e) **Reproduction Line:** ``` null ``` **Applicable branches:** 9.0 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.index.engine.ShuffleForcedMergePolicyTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testDiagnostics),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: null ``` **Issue Reasons:** - [9.0] 3 failures in test testDiagnostics (1.9% fail rate in 156 executions) - [9.0] 2 failures in pipeline elasticsearch-periodic-platform-support (50.0% fail rate in 4 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Ignore main branch in staging DRA jobs</MESSAGE>
+    <SHA>385a4a60d9345fb9cabc658ff750a932c3fb3a24</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.index.engine.ShuffleForcedMergePolicyTests testDiagnostics #121336</MESSAGE>
+      <SHA>b3a23df83ffdca5a0cef17412efb561a69aec0dc</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.index.engine.ShuffleForcedMergePolicyTests testDiagnostics #121336</MESSAGE>
+      <SHA>6befc0c1dbb44dbf6997263dc033fb5d3986dd03</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.index.engine.ShuffleForcedMergePolicyTests testDiagnostics #121336</MESSAGE>
+      <SHA>dacd0df0541a8329831b12aaa012a8d87ef82a76</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.index.engine.ShuffleForcedMergePolicyTests testDiagnostics #121336</MESSAGE>
+      <SHA>5ca1620e83e12d0264157bb37318e3a5df3d5ae8</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix ShuffleForcedMergePolicyTests#testDiagnostics This commit ensures that opening the DirectoryReader won't merge all the segments into one, making the tested force merge a no-op. Closes #121336</MESSAGE>
+      <SHA>33c5747f9260ca47c4e4d270a8c7171f891c30bf</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/index/engine/ShuffleForcedMergePolicyTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

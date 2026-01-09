@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>123116</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/123116</ISSUEURL>
+  <TITLE>[CI] EsqlClientYamlIT test {p0=esql/40_tsdb/to_string aggregate_metric_double} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #18604 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/meg6fa7nfxx3e) - [elasticsearch-pull-request #58620 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/sx724b22dxv2u) - [elasticsearch-pull-request #58619 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/3bdgyxrvlfheo) - [elasticsearch-intake #18603 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/gbdbtv45b2yky) - [elasticsearch-intake #18602 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/eb42a2hkmplfq) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:mixed-cluster:v9.0.0#yamlRestTest&quot; -Dtests.class=&quot;org.elasticsearch.xpack.esql.qa.mixed.EsqlClientYamlIT&quot; -Dtests.method=&quot;test {p0=esql/46_downsample/Render stats from downsampled index}&quot; -Dtests.seed=BED54CAAA81590D6 -Dtests.bwc=true -Dtests.locale=hu-HU -Dtests.timezone=Asia/Ashkhabad -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.mixed.EsqlClientYamlIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Bp0%3Desql%2F40_tsdb%2Fto_string%20aggregate_metric_double%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Failure at [esql/46_downsample:148]: field [values.0.0] is null ``` **Issue Reasons:** - [main] 5 consecutive failures in step 9.0.0_bwc-snapshots - [main] 5 failures in test test {p0=esql/40_tsdb/to_string aggregate_metric_double} (7.1% fail rate in 70 executions) - [main] 5 failures in step 9.0.0_bwc-snapshots (100.0% fail rate in 5 executions) - [main] 3 failures in pipeline elasticsearch-intake (18.8% fail rate in 16 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (4.8% fail rate in 42 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[TEST] Cover basic license in logsdb rolling upgrade tests (#123095) * Use min node version to guard injecting settings in logs provider * Update docs/changelog/123005.yaml * no random in cluster init * Cover basic license in logsdb rolling upgrade tests</MESSAGE>
+    <SHA>a79b15d41477503468eb34b89959782d7149d0fc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.mixed.EsqlClientYamlIT test {p0=esql/40_tsdb/to_string aggregate_metric_double} #123116</MESSAGE>
+      <SHA>c182fd3a5e0a86478c2975b8c77857726c4e04cc</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Unmute aaaall the affected tests (#123136) Depends on https://github.com/elastic/elasticsearch/pull/123133 and https://github.com/elastic/elasticsearch/pull/123132 Fixes https://github.com/elastic/elasticsearch/issues/123096 Fixes https://github.com/elastic/elasticsearch/issues/123097 Fixes https://github.com/elastic/elasticsearch/issues/123098 Fixes https://github.com/elastic/elasticsearch/issues/123099 Fixes https://github.com/elastic/elasticsearch/issues/123100 Fixes https://github.com/elastic/elasticsearch/issues/123103 Fixes https://github.com/elastic/elasticsearch/issues/123104 Fixes https://github.com/elastic/elasticsearch/issues/123107 Fixes https://github.com/elastic/elasticsearch/issues/123108 Fixes https://github.com/elastic/elasticsearch/issues/123109 Fixes https://github.com/elastic/elasticsearch/issues/123116 Fixes https://github.com/elastic/elasticsearch/issues/123117 Fixes https://github.com/elastic/elasticsearch/issues/123118 Fixes https://github.com/elastic/elasticsearch/issues/123119 Fixes https://github.com/elastic/elasticsearch/issues/123120 Fixes https://github.com/elastic/elasticsearch/issues/123122 Fixes https://github.com/elastic/elasticsearch/issues/123123 Fixes https://github.com/elastic/elasticsearch/issues/123124 Fixes https://github.com/elastic/elasticsearch/issues/123130 Fixes https://github.com/elastic/elasticsearch/issues/123131</MESSAGE>
+      <SHA>5013eee400a87fd6f52b9fa50310ae856d72e629</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

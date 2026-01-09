@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17946</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/17946</ISSUEURL>
+  <TITLE>ci: unable to find network with name or ID podman-default-kube-network</TITLE>
+  <DESCRIPTION>In [e2e tests](https://api.cirrus-ci.com/v1/artifact/task/5692933098176512/html/int-podman-fedora-36-rootless-host-sqlite.log.html#t--podman-play-kube-no-host--1): ``` podman play kube --no-host ... podman [options] play kube --no-hosts /tmp/podman_test3817601232/kube.yaml ... starting container &lt;sha&gt;: unable to find network with name or ID podman-default-kube-network: network not found starting container &lt;sha&gt;: a dependency of container &lt;sha&gt; failed to start: container state improper Error: failed to start 2 containers ``` Probably a collision between multiple tests. Predicted solution: rewrite tests to stop using default network, or at least so there's at most one test that does so.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>23</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #17974 from vrothberg/fix-17956 fix volume-plugin-test flake</MESSAGE>
+    <SHA>3e44a7afed7a5751ef700729f97b9f6e955fcc5e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>test/e2e: use fresh network config dir for each test The e2e test are isolated and have their own --root/--runroot arguments. However networks were always shared, this causes problem with tests that do a prune or reset because they can effect other parallel running tests. Over the time I fixed some of of these cases to use their own config dir but #17946 suggests that this is not enough. Instead of trying to find and fix these tests just go with the big hammer and make every test use a new clean network config directory. This will also make the use of `defer podmanTest.removeNetwork(...)` unnecessary. This is required at the moment for every test which creates a network. However to keep the diff small and to see if it is even working I will do it later in a follow up commit. Fixes #17946 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>afa3bc7e67c83fec4b19c9485d82205cc6352269</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/common_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>test/e2e: use custom network config dir where needed Since commit f250560a8043 the play kube command uses its own network. this is racy be design because we create the network followed by creating/running pod/containers. This means in the meantime another prune or reset process could wipe out the network config because we have to share the network config directory by design in the test. The problem is we only have one host netns which is shared between tests. If the network config dir is not shared we cannot make conflict checks for interface names and ip address. This results in different tests trying to use the same interface and/or ip address which will cause runtime failures in CNI and netavark. The only solution I see is to make sure only the reset/prune tests are using a custom network dir. This makes sure they do not wipe configs that are otherwise required by other parallel running tests. Fixes #17946 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>dc9a65e348debf349307be9b9bf597742435d4a6</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/build_test.go</FILE>
+        <FILE>test/e2e/common_test.go</FILE>
+        <FILE>test/e2e/network_test.go</FILE>
+        <FILE>test/e2e/prune_test.go</FILE>
+        <FILE>test/e2e/system_reset_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix more &quot;podman-default-kube-network&quot; flakes ...in &quot;built using Dockerfile&quot; test and &quot;play kube fail with custom selinux label&quot; test. The latter, since it's in a test file with lots of other kube tests, I just put into BeforeEach(). References: Issue #17946, PR #18085 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>44868919e6fc4e9cebce5d7a8c4c21a9317423d6</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/play_build_test.go</FILE>
+        <FILE>test/e2e/play_kube_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

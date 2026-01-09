@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6180</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/6180</ISSUEURL>
+  <TITLE>Chunk was not found after creation</TITLE>
+  <DESCRIPTION>**Describe the bug** In rare cases chunks are lost on volume. Chronology of events: - writing the object - chunk and meta are created - trying to get an object - we get an error from the volume server: &quot;404 Not Found&quot; - deleting an object I'm attaching a log from the filer. 15419,125fdba732959c7a corresponds to the file /buckets/data/commits/9fd45ae7a5f8.tmp [filer.log](https://github.com/user-attachments/files/17574846/filer.log) **System Setup** We have SeaweedFS running on Kubernetes via SeaweedFS Operator. There are 3 Masters, 48 Volume Servers, 32 Filers (with Scylla as its backend) - List the command line to start &quot;weed master&quot;, &quot;weed volume&quot;, &quot;weed filer&quot;, &quot;weed s3&quot;, &quot;weed mount&quot;: Master: ``` weed -logtostderr=true master -volumeSizeLimitMB=30720 -defaultReplication=001 -ip=$(POD_NAME).seaweedfs1-test-master-peer.seaweedfs-test -peers=seaweedfs1-test-master-0.seaweedfs1-test-master-peer.seaweedfs-test:9333,seaweedfs1-test-master-1.seaweedfs1-test-master-peer.seaweedfs-test:9333,seaweedfs1-test-master-2.seaweedfs1-test-master-peer.seaweedfs-test:9333 -metricsPort=9999` ``` Volume Server: ``` weed -logtostderr=true volume -port=8444 -max=0 -ip=$(POD_NAME).seaweedfs1-test-volume-peer.seaweedfs-test -metricsPort=9999 -mserver=seaweedfs1-test-master-0.seaweedfs1-test-master-peer.seaweedfs-test:9333,seaweedfs1-test-master-1.seaweedfs1-test-master-peer.seaweedfs-test:9333,seaweedfs1-test-master-2.seaweedfs1-test-master-peer.seaweedfs-test:9333 -dir=/data0 -concurrentDownloadLimitMB=0 -concurrentUploadLimitMB=0` ``` Filer: ``` weed -logtostderr=true filer -port=8888 -ip=$(POD_NAME).seaweedfs1-test-filer-peer.seaweedfs-test -master=seaweedfs1-test-master-0.seaweedfs1-test-master-peer.seaweedfs-test:9333,seaweedfs1-test-master-1.seaweedfs1-test-master-peer.seaweedfs-test:9333,seaweedfs1-test-master-2.seaweedfs1-test-master-peer.seaweedfs-test:9333 -metricsPort=9999 -s3 -concurrentUploadLimitMB=0 ``` - OS version: Fedora CoreOS 33.20210426.3.0 - output of `weed version`: version 8000GB 3.77 - if using filer, show the content of `filer.toml`: ``` [leveldb2] enabled = false [etcd] enabled = false servers = &quot;seaweed-etcd.seaweedfs:2379&quot; timeout = &quot;3s&quot; [cassandra] enabled = true keyspace=&quot;seaweedfs&quot; hosts=[ &quot;seaweed-scylla-client.seaweedfs:9042&quot;, ] superLargeDirectories = [ ] ``` **Expected behavior** There should be no arbitrary deletion of chunks</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>39</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>3.79</MESSAGE>
+    <SHA>228946369cad29ee8edc07a42a2e0d218ba16d0b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>adding more debug message related to https://github.com/seaweedfs/seaweedfs/issues/6180</MESSAGE>
+      <SHA>3feb66d0a14d641a61479835415cd05c5ac9006a</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/filer_server_handlers_write_upload.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>pass in bytes buffer to avoid possible race condition related to https://github.com/seaweedfs/seaweedfs/issues/6180</MESSAGE>
+      <SHA>8802843511ef84b6e218076ba7223f3088dac685</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/filer_server_handlers_write_upload.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

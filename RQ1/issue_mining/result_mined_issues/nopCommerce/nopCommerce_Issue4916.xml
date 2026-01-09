@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4916</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4916</ISSUEURL>
+  <TITLE>LocalizationService.ImportResourcesFromXml creates duplicate LocaleStringResource</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.3 Steps to reproduce the problem: After upgrading to 4.3 in my test environment I realized that the application creates some duplicate entry in LocaleStringResource. After debugging I found that inside ImportResourcesFromXml the comparison is done with case sensitivity and hence it was adding duplicate entry. When adding a LocalStringResouce from the admin interface it add the resource name as all lowercase. When running the application it will compare the camel case ResourceName with all lowercase ResouceName and creates duplicate entry. var lsNamesList = _lsrRepository.Table .Where(lsr =&gt; lsr.LanguageId == language.Id) .ToDictionary(lsr =&gt; lsr.ResourceName, lsr =&gt; lsr, **StringComparer.InvariantCultureIgnoreCase**); var lrsToUpdateList = new List&lt;LocaleStringResource&gt;(); var lrsToInsertList = new Dictionary&lt;string, LocaleStringResource&gt;(**StringComparer.InvariantCultureIgnoreCase**);</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#4893 Added ordering by id to keeping the latest version of the resource</MESSAGE>
+    <SHA>a92a985b07c769f9fed426901e728d2f6fa2cbb5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4916 Fixed problem with creates duplicate LocaleStringResource</MESSAGE>
+      <SHA>0c88608252bd38c1a0790687c82a27f0e67ed0bb</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Localization/LocalizationService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#4916 Next changes on &quot;Fixed problem with creates duplicate LocaleStringResource&quot;</MESSAGE>
+      <SHA>9139dd9fe5b05fa6490be1e8fe5675cd5c3eb381</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Localization/LocalizationService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

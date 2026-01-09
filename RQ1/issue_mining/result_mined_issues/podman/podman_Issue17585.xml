@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17585</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/17585</ISSUEURL>
+  <TITLE>Creating an Existing Network Via REST API Returns Different Status Code vs. Docker</TITLE>
+  <DESCRIPTION>### Issue Description When trying to run [Supabase](https://supabase.com) locally with their CLI you will always get a `network already exists` error. Copied [comment](https://github.com/containers/podman/issues/15499#issuecomment-1331508660) from #15499 by @jgraettinger: &gt; I ran into this while attempting to use the supabase CLI tool with podman instead of docker. &gt; &gt; The supabase CLI spins up a bunch of containers, and at several points [attempts to create a docker &gt; network if it doesn't already exist](https://github.com/supabase/cli/blob/main/internal/utils/docker.go?rgh-link-date=2022-11-30T00%3A57%3A59Z#L51-L68), as determined by [docker library error helpers which are explicitly looking for HTTP 409 status](https://github.com/moby/moby/blob/master/errdefs/http_helpers.go?rgh-link-date=2022-11-30T00%3A57%3A59Z#L20), and don't properly interpret podman's 500. &gt; &gt; I'm unsure if this belongs as a separate issue, but it's an example where the HTTP 500 rather than 409 behavior diverges from the Docker REST API. ### Steps to reproduce the issue Steps to reproduce the issue 1. Set up and run a Supabase Project locally - [Guide](https://supabase.com/docs/guides/cli/local-development#prerequisites) 2. See error ### Describe the results you received Podman says that the network already exists, but when you run `podman network ls` it does not. None of the containers have started. ### Describe the results you expected The containers to all be running and accessible. ### podman info output ```yaml ❯ podman info host: arch: amd64 buildahVersion: 1.28.0 cgroupControllers: [] cgroupManager: cgroupfs cgroupVersion: v1 conmon: package: conmon-2.1.5-1.fc36.x86_64 path: /usr/bin/conmon version: 'conmon version 2.1.5, commit: ' cpuUtilization: idlePercent: 99.68 systemPercent: 0.18 userPercent: 0.14 cpus: 32 distribution: distribution: fedora variant: container version: &quot;36&quot; eventLogger: journald hostname: UMBRA idMappings: gidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 100000 size: 65536 uidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 100000 size: 65536 kernel: 5.15.57.1-microsoft-standard-WSL2+ linkmode: dynamic logDriver: journald memFree: 15241453568 memTotal: 16722722816 networkBackend: netavark ociRuntime: name: crun package: crun-1.7.2-3.fc36.x86_64 path: /usr/bin/crun version: |- crun version 1.7.2 commit: 0356bf4aff9a133d655dc13b1d9ac9424706cac4 rundir: /run/user/1000/crun spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +CRIU +WASM:wasmedge +YAJL os: linux remoteSocket: exists: true path: /run/user/1000/podman/podman.sock security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: true seccompEnabled: true seccompProfilePath: /usr/share/containers/seccomp.json selinuxEnabled: false serviceIsRemote: true slirp4netns: executable: /usr/bin/slirp4netns slirp4netns version 1.2.0-beta.0 commit: 477db14a24ff1a3de3a705e51ca2c4c1fe3dda64 libslirp: 4.6.1 SLIRP_CONFIG_VERSION_MAX: 3 libseccomp: 2.5.3 swapFree: 4294967296 swapTotal: 4294967296 uptime: 0h 15m 0.00s plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan volume: - local registries: search: - docker.io store: configFile: /home/user/.config/containers/storage.conf containerStore: number: 1 paused: 0 running: 0 stopped: 1 graphDriverName: overlay graphOptions: {} graphRoot: /home/user/.local/share/containers/storage graphRootAllocated: 1081101176832 graphRootUsed: 10558271488 graphStatus: Backing Filesystem: extfs Native Overlay Diff: &quot;true&quot; Supports d_type: &quot;true&quot; Using metacopy: &quot;false&quot; imageCopyTmpDir: /var/tmp imageStore: number: 20 runRoot: /run/user/1000/containers transientStore: false volumePath: /home/user/.local/share/containers/storage/volumes version: APIVersion: 4.3.1 Built: 1668180253 BuiltTime: Fri Nov 11 16:24:13 2022 GitCommit: &quot;&quot; GoVersion: go1.18.7 Os: linux OsArch: linux/amd64 Version: 4.3.1 ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details _No response_ ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #17591 from vrothberg/vendor-common vendor c/common@852ca05a1fbb</MESSAGE>
+    <SHA>ea66c7bfd2d1e2d6ecbc3dc8baee31839b2b7bb1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>compat API: network create return 409 for duplicate If the name already exists and CheckDuplicate is set we need to return 409, if CheckDuplicate is not set we return the network without error. Fixes #17585 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>4b4b423b6cde7efa7d1bfcb2005dc498758f0d3c</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/compat/networks.go</FILE>
+        <FILE>test/apiv2/35-networks.at</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>compat API: network create return 409 for duplicate If the name already exists and CheckDuplicate is set we need to return 409, if CheckDuplicate is not set we return the network without error. Fixes #17585 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>d737a815a916946496409c9ccd1a96ac70ac16c2</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/compat/networks.go</FILE>
+        <FILE>test/apiv2/35-networks.at</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

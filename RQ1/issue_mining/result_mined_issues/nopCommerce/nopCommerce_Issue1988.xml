@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1988</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/1988</ISSUEURL>
+  <TITLE>Reduce the size of cached values to be more Redis friendly</TITLE>
+  <DESCRIPTION>I've been trying to use Redis with NopCommerce and there are some issues with the size of the keys that create a lot of traffic between the Redis server and the application. The biggest values are: * `Nop.lsr.all` (about 580Kb) - Only if you enable loading all the strings at once * `Nop.setting.all` (about 80Kb) - All the settings, used several times per request For the language stuff, a simple option would be disabling `LoadAllLocaleRecordsOnStartup` when Redis is enabled. Or at least informing the user that this should be disabled when using Redis. For the settings, they should be stored in their own keys (one per setting) to avoid this excessive network pressure. Every call on `GetSetting` and `GetSettingByKey` retrieve the entire value and this happens several times on each request. I don't think this would be very difficult to implement and this is the only key that has given me timeouts on Redis from time to time. What do you think? also see http://www.nopcommerce.com/boards/t/45927/reducing-the-cache-key-sizes-to-use-with-redis.aspx</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>55</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#1965 Settings for using pickup point address for tax calculation</MESSAGE>
+    <SHA>13022cd7d86f506507fafc43ab068b33ac0f9a25</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#1988 Warning to admin when LoadAllLocaleRecordsOnStartup setting is enabled and Redis cache is used</MESSAGE>
+      <SHA>abe040b5d8562aa259f9886784f449023550a09c</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Administration/Controllers/SettingController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Views/Setting/GeneralCommon.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>upgradescripts/3.80-the next version/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

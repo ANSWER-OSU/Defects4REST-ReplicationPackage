@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6370</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6370</ISSUEURL>
+  <TITLE>Test broken on linux OSs</TITLE>
+  <DESCRIPTION># nopCommerce version: # `develop` and `release-4.50.3` # Steps to reproduce the problem: # ```shell cd src dotnet clean dotnet build dotnet test --no-build --no-restore Tests/Nop.Tests/Nop.Tests.csproj --filter FullyQualifiedName~Nop.Tests.Nop.Web.Tests.Public.Factories ``` ## Actual result: ## Test case `Nop.Tests.Nop.Web.Tests.Public.Factories.CommonModelFactoryTests.CanPrepareRobotsTextFile()` fails, due to newline mismatch. *Image* ![test_failure](https://user-images.githubusercontent.com/1569800/193911369-91657400-643f-41aa-8515-764c534a3fc4.png) *Tex form* ```shell Starting test execution, please wait... A total of 1 test files matched the specified pattern. Failed CanPrepareRobotsTextFile [109 ms] Error Message: Expected model.Trim().Split(&quot;\r\n&quot;).Length to be 74, but found 1 (difference of -73). Stack Trace: at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message) at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message) at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message) at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc) at FluentAssertions.Numeric.NumericAssertions`2.Be(T expected, String because, Object[] becauseArgs) at Nop.Tests.Nop.Web.Tests.Public.Factories.CommonModelFactoryTests.CanPrepareRobotsTextFile() in XXX/nopCommerce/src/Tests/Nop.Tests/Nop.Web.Tests/Public/Factories/CommonModelFactoryTests.cs:line 276 at NUnit.Framework.Internal.TaskAwaitAdapter.GenericAdapter`1.GetResult() at NUnit.Framework.Internal.AsyncToSyncAdapter.Await(Func`1 invoke) at NUnit.Framework.Internal.Commands.TestMethodCommand.RunTestMethod(TestExecutionContext context) at NUnit.Framework.Internal.Commands.TestMethodCommand.Execute(TestExecutionContext context) at NUnit.Framework.Internal.Execution.SimpleWorkItem.&lt;&gt;c__DisplayClass4_0.&lt;PerformWork&gt;b__0() at NUnit.Framework.Internal.ContextUtils.&lt;&gt;c__DisplayClass1_0`1.&lt;DoIsolated&gt;b__0(Object _) Failed! - Failed: 1, Passed: 104, Skipped: 0, Total: 105, Duration: 1 m 3 s - XXX/nopCommerce/src/Tests/Nop.Tests/bin/Debug/net6.0/Nop.Tests.dll (net6.0) ``` ## Actual result: ## All tests under `Nop.Tests.Nop.Web.Tests.Public.Factories` should pass.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Added tests for LocalizedEntityService</MESSAGE>
+    <SHA>7d10f02606e6e471d48723eaf5ec5f45889d6967</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fixes #6370 Replace &quot;\r\n&quot; with Environment.NewLine on test case.</MESSAGE>
+      <SHA>555c080e3037734dddf52c8bbee847f834b63f84</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Tests/Nop.Tests/Nop.Web.Tests/Public/Factories/CommonModelFactoryTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #6371 from lsolano/issue-6370-fix-test-case-for-linux Fixes #6370 Test broken on linux OSs</MESSAGE>
+      <SHA>408423a7b58a212655d7f05684c0ca8502dad7f0</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Tests/Nop.Tests/Nop.Web.Tests/Public/Factories/CommonModelFactoryTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fixes #6370 Replace &quot;\r\n&quot; with Environment.NewLine on test case.</MESSAGE>
+      <SHA>681b626e872aec2165c245e2da485a58a5798cca</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Tests/Nop.Tests/Nop.Web.Tests/Public/Factories/CommonModelFactoryTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

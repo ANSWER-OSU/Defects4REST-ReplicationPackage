@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>533</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/533</ISSUEURL>
+  <TITLE>Flask, Connexion, Click Dependency Mismatches</TITLE>
+  <DESCRIPTION>I observed a dependency mismatch in `annif==0.54.*` In fact I got this also for older versions. This leads to an error exit code when using `pipenv`. I think you don't support `pipenv` at the moment. I still wanted to report this as other projects may want to use annif as dependency when using `pipenv`. Additionally the dependency conflict is still there even if it is not reported via exit code when using `pip`. Steps to reproduce: ``` mkdir /tmp/pipenv_test cd /tmp/pipenv_test pipenv --python 3.8 pipenv install &quot;annif==0.54.*&quot; ``` This threw an error with respect to the version of `Werkzeug`: `Could not find a version that matches werkzeug&lt;2.0,&gt;=1.0,&gt;=2.0` Turns out that the most recent published version of `Connexion` requires `Flask&lt;2.0` But Pipenv installed `Flask 2.0.2` I tried to install `Connexion` first. This would install `flask 1.1.4` which has a dependency `click&lt;8.0,&gt;=5.1`. This conflicts with the annif dependency specification `'click==8.0.*',` Since the pinning is probably on purpose, I hand this over to you. **Hint**: The current master of Connexion sets `'flask&gt;=1.0.4,&lt;3'` So this will probably be resolved in the future. When installing using `pip` without `pipenv`, as done for the Docker container, this will print an error and install `click==8.0.3`. The exit code will indicate a success. As a workaround with `pipenv` you can do the following: ``` pipenv shell pip install &quot;annif==0.54.*&quot; ``` But is is not possible to add annif to a Pipfile.</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #528 from NatLibFi/fix-dateutil-dependency Declare dateutil dependency</MESSAGE>
+    <SHA>739a13b816892f191674ecbff6daaf44e219d195</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Adjust flask and click versions to avoid dependency mismatches. Fixes #533</MESSAGE>
+      <SHA>28026331414b8c5471c08331bc967d84268962bc</SHA>
+      <PATCHEDFILES>
+        <FILE>setup.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

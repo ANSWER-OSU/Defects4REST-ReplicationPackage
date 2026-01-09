@@ -1,0 +1,87 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14544</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14544</ISSUEURL>
+  <TITLE>podman-remote build fails buildah `bud-logfile-with-split-logfile-by-platform` test</TITLE>
+  <DESCRIPTION>To keep everything in order, a dedicated issue carried over from https://github.com/containers/podman/pull/14526: ``` [+0543s] not ok 112 bud-logfile-with-split-logfile-by-platform [+0543s] # (from function `assert' in file tests/helpers.bash, line 465, [+0543s] # from function `expect_output' in file tests/helpers.bash, line 492, [+0543s] # in test file tests/bud.bats, line 1722) [+0543s] # `expect_output --substring &quot;FROM alpine&quot;' failed [+0543s] # /var/tmp/go/src/github.com/containers/podman/test-buildah-v1.26.1-0.20220607182634-005447be07ee/tests /var/tmp/go/src/github.com/containers/podman/test-buildah-v1.26.1-0.20220607182634-005447be07ee [+0543s] # $ podman build --force-rm=false --layers=false --logfile /var/tmp/buildah_tests.dvbiqm/logfile --logsplit --platform linux/arm64,linux/amd64 --signature-policy /var/tmp/go/src/github.com/containers/podman/test-buildah-v1.26.1-0.20220607182634-005447be07ee/tests/policy.json /var/tmp/buildah_tests.dvbiqm/my-dir [+0543s] # #/vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv [+0543s] # #| FAIL: podman build --force-rm=false --layers=false --logfile /var/tmp/buildah_tests.dvbiqm/logfile --logsplit --platform linux/arm64,linux/amd64 --signature-policy /var/tmp/go/src/github.com/containers/podman/test-buildah-v1.26.1-0.20220607182634-005447be07ee/tests/policy.json /var/tmp/buildah_tests.dvbiqm/my-dir [+0543s] # #| expected: =~ 'FROM alpine' [+0543s] # #| actual: 'cat: /var/tmp/buildah_tests.dvbiqm/logfile_linux_arm64: No such file or directory' [+0543s] # #\^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ [+0543s] # /var/tmp/go/src/github.com/containers/podman/test-buildah-v1.26.1-0.20220607182634-005447be07ee ``` The test will for now be disabled for the remote client.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>62</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14405 from rhatdan/docs [CI:DOCS] Mount propagation works with named volumes</MESSAGE>
+    <SHA>9f1bd0a0a1494f46a49ca7f22511c5a78006afd8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>vendor buildah@main Note that the bud-logfile-with-split-logfile-by-platform test is skipped on the remote client (see #14544). Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>46c8da7d9acd6011f318ce8fa9c38591888654f0</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/images/build.go</FILE>
+        <FILE>docs/source/markdown/podman-build.1.md</FILE>
+        <FILE>go.mod</FILE>
+        <FILE>go.sum</FILE>
+        <FILE>test/buildah-bud/apply-podman-deltas</FILE>
+        <FILE>vendor/github.com/Microsoft/hcsshim/internal/hcs/system.go</FILE>
+        <FILE>vendor/github.com/Microsoft/hcsshim/internal/hns/hnspolicy.go</FILE>
+        <FILE>vendor/github.com/Microsoft/hcsshim/internal/jobobject/iocp.go</FILE>
+        <FILE>vendor/github.com/Microsoft/hcsshim/internal/jobobject/jobobject.go</FILE>
+        <FILE>vendor/github.com/Microsoft/hcsshim/internal/jobobject/limits.go</FILE>
+        <FILE>vendor/github.com/Microsoft/hcsshim/internal/queue/mq.go</FILE>
+        <FILE>vendor/github.com/Microsoft/hcsshim/internal/winapi/iocp.go</FILE>
+        <FILE>vendor/github.com/Microsoft/hcsshim/internal/winapi/jobobject.go</FILE>
+        <FILE>vendor/github.com/Microsoft/hcsshim/internal/winapi/process.go</FILE>
+        <FILE>vendor/github.com/Microsoft/hcsshim/internal/winapi/winapi.go</FILE>
+        <FILE>vendor/github.com/Microsoft/hcsshim/internal/winapi/zsyscall_windows.go</FILE>
+        <FILE>vendor/github.com/containers/buildah/.cirrus.yml</FILE>
+        <FILE>vendor/github.com/containers/buildah/Makefile</FILE>
+        <FILE>vendor/github.com/containers/buildah/bind/mount.go</FILE>
+        <FILE>vendor/github.com/containers/buildah/bind/util.go</FILE>
+        <FILE>vendor/github.com/containers/buildah/commit.go</FILE>
+        <FILE>vendor/github.com/containers/buildah/config.go</FILE>
+        <FILE>vendor/github.com/containers/buildah/copier/copier.go</FILE>
+        <FILE>vendor/github.com/containers/buildah/define/build.go</FILE>
+        <FILE>vendor/github.com/containers/buildah/define/types_unix.go</FILE>
+        <FILE>vendor/github.com/containers/buildah/go.mod</FILE>
+        <FILE>vendor/github.com/containers/buildah/go.sum</FILE>
+        <FILE>vendor/github.com/containers/buildah/image.go</FILE>
+        <FILE>vendor/github.com/containers/buildah/imagebuildah/build.go</FILE>
+        <FILE>vendor/github.com/containers/buildah/imagebuildah/stage_executor.go</FILE>
+        <FILE>vendor/github.com/containers/buildah/install.md</FILE>
+        <FILE>vendor/github.com/containers/buildah/pkg/cli/build.go</FILE>
+        <FILE>vendor/github.com/containers/buildah/pkg/cli/common.go</FILE>
+        <FILE>vendor/github.com/containers/buildah/pkg/overlay/overlay.go</FILE>
+        <FILE>vendor/github.com/containers/buildah/pkg/parse/parse.go</FILE>
+        <FILE>vendor/github.com/containers/buildah/pkg/parse/parse_unix.go</FILE>
+        <FILE>vendor/github.com/containers/buildah/run.go</FILE>
+        <FILE>vendor/github.com/containers/buildah/run_linux.go</FILE>
+        <FILE>vendor/github.com/containers/buildah/util/util.go</FILE>
+        <FILE>vendor/github.com/fsouza/go-dockerclient/AUTHORS</FILE>
+        <FILE>vendor/github.com/fsouza/go-dockerclient/README.md</FILE>
+        <FILE>vendor/github.com/fsouza/go-dockerclient/container_stats.go</FILE>
+        <FILE>vendor/github.com/fsouza/go-dockerclient/go.mod</FILE>
+        <FILE>vendor/github.com/fsouza/go-dockerclient/go.sum</FILE>
+        <FILE>vendor/github.com/moby/sys/mount/flags_bsd.go</FILE>
+        <FILE>vendor/github.com/moby/sys/mount/flags_unix.go</FILE>
+        <FILE>vendor/github.com/moby/sys/mount/go.mod</FILE>
+        <FILE>vendor/github.com/moby/sys/mount/go.sum</FILE>
+        <FILE>vendor/github.com/moby/sys/mount/mount_errors.go</FILE>
+        <FILE>vendor/github.com/moby/sys/mount/mount_unix.go</FILE>
+        <FILE>vendor/github.com/moby/sys/mount/mounter_freebsd.go</FILE>
+        <FILE>vendor/github.com/moby/sys/mount/mounter_linux.go</FILE>
+        <FILE>vendor/github.com/moby/sys/mount/mounter_openbsd.go</FILE>
+        <FILE>vendor/github.com/moby/sys/mount/mounter_unsupported.go</FILE>
+        <FILE>vendor/github.com/moby/sys/mountinfo/go.mod</FILE>
+        <FILE>vendor/github.com/moby/sys/mountinfo/go.sum</FILE>
+        <FILE>vendor/github.com/moby/sys/mountinfo/mounted_linux.go</FILE>
+        <FILE>vendor/github.com/moby/sys/mountinfo/mounted_unix.go</FILE>
+        <FILE>vendor/github.com/moby/sys/mountinfo/mountinfo.go</FILE>
+        <FILE>vendor/github.com/moby/sys/mountinfo/mountinfo_bsd.go</FILE>
+        <FILE>vendor/github.com/moby/sys/mountinfo/mountinfo_freebsdlike.go</FILE>
+        <FILE>vendor/github.com/moby/sys/mountinfo/mountinfo_openbsd.go</FILE>
+        <FILE>vendor/github.com/moby/sys/mountinfo/mountinfo_unsupported.go</FILE>
+        <FILE>vendor/golang.org/x/term/term.go</FILE>
+        <FILE>vendor/golang.org/x/term/terminal.go</FILE>
+        <FILE>vendor/modules.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

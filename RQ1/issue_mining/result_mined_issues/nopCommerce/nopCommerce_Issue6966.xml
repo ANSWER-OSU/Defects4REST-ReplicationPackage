@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6966</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6966</ISSUEURL>
+  <TITLE>Non existing page - first 302 and then 404</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.70, 4.60 Steps to reproduce the problem: When I enter wrong url (non existing page) - e.g. https://demo.nopcommerce.com/nonexistingurl The browser get HTTP 302 redirect to /page-not-found and then the content of &quot;pagenotfound&quot; with status 404 (so the url in the browser is /page-not-found). It has negative impact for SEO. It was mentioned also in nopcommerce forum - https://www.nopcommerce.com/en/boards/topic/97204/google-seo-soft-404-issue, https://www.nopcommerce.com/en/boards/topic/96727/non-existing-page-first-302-and-then-404. I will prepare PR with fix for this issue.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>436</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7537 Optimize GetAssociatedProductsAsync to Apply ACL &amp; Store Mapping at Query Level</MESSAGE>
+    <SHA>193f18e14a378ac7a14a8eafd9b636515698623a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6966 Use ReExecuteFeature to return 404 status code without redirect (#6967)</MESSAGE>
+      <SHA>79802e8f014fc52746f4d5ed06cdaefc0d42f71d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ApplicationBuilderExtensions.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6966 Refactoring of using ReExecuteFeature</MESSAGE>
+      <SHA>99786a71cdc9936fd1dfcb3a2886d6434e9176c9</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ApplicationBuilderExtensions.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6966 Remove status code setting. Due to using ReExecuteFeature status code 404 is saved, no need to set it again</MESSAGE>
+      <SHA>53daf1ef983bdacb824e89d7244eb815de6fcd2f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Controllers/CommonController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

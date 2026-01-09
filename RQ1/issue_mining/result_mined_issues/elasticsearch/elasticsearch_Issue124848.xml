@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>124848</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/124848</ISSUEURL>
+  <TITLE>[CI] MixedClusterClientYamlTestSuiteIT test {p0=search.vectors/41_knn_search_bbq_hnsw/Test knn search} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6985 / openjdk21_9.0.0_java-fips-matrix-bwc](https://gradle-enterprise.elastic.co/s/23g2ohc6fs5ks) - [elasticsearch-pull-request #62285 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/5kwno73ildess) - [elasticsearch-pull-request #62164 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/e6e4a7sfjqjwu) - [elasticsearch-pull-request #62164 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/lilvllivwuzba) **Reproduction Line:** ``` ./gradlew &quot;:qa:mixed-cluster:v9.0.0#mixedClusterTest&quot; -Dtests.class=&quot;org.elasticsearch.backwards.MixedClusterClientYamlTestSuiteIT&quot; -Dtests.method=&quot;test {p0=search.vectors/41_knn_search_bbq_hnsw/Test knn search}&quot; -Dtests.seed=EC439959769A3C6F -Dtests.bwc=true -Dtests.locale=mgo-Latn-CM -Dtests.timezone=Pacific/Galapagos -Druntime.java=21 -Dtests.fips.enabled=true ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.backwards.MixedClusterClientYamlTestSuiteIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Bp0%3Dsearch.vectors%2F41_knn_search_bbq_hnsw%2FTest%20knn%20search%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Failure at [search.vectors/41_knn_search_bbq_hnsw:105]: Expected: &quot;3&quot; but: was &quot;2&quot; ``` **Issue Reasons:** - [main] 4 failures in test test {p0=search.vectors/41_knn_search_bbq_hnsw/Test knn search} (0.8% fail rate in 486 executions) - [main] 2 failures in step 8.19.0_bwc-snapshots (0.9% fail rate in 219 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (1.1% fail rate in 176 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.datastreams.lifecycle.DataStreamLifecycleServiceIT testAutomaticForceMerge #124846</MESSAGE>
+    <SHA>1e8edd5abd84bd3eae1390ec05c976dcb24729ea</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.backwards.MixedClusterClientYamlTestSuiteIT test {p0=search.vectors/41_knn_search_bbq_hnsw/Test knn search} #124848</MESSAGE>
+      <SHA>b8bd16e8aa8da0b220354be3327fcbabfc859737</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

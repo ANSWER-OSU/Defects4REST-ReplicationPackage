@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19104</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/19104</ISSUEURL>
+  <TITLE>ginkgo: uninitialized LockTmpDir is scary</TITLE>
+  <DESCRIPTION>Every so often my ginkgo tests fail to start, because I share `TMPDIR=/var/tmp/ginkgo` between root &amp; rootless, and permission denied blah. I can live with that. What really terrifies me is this failure mode: ``` [FAILED] Unexpected error: &lt;*fs.PathError | 0xc0004066f0&gt;: open /timings-1: permission denied { Op: &quot;open&quot;, Path: &quot;/timings-1&quot;, Err: &lt;syscall.Errno&gt;0xd, } ``` To understand why that is scary, this is the failure line: https://github.com/containers/podman/blob/e0846ac383da353e699d8bf61b1da25d503a02cb/test/e2e/common_test.go#L199 Okay, `LockTmpDir` is obviously undefined, no big deal, except for: https://github.com/containers/podman/blob/e0846ac383da353e699d8bf61b1da25d503a02cb/test/e2e/common_test.go#L255-L256 Could someone please add sanity checks to ensure early bailout if `LockTmpDir` can't be set?</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19085 from dfr/emulate-linux pkg/specgen: properly identify image OS on FreeBSD</MESSAGE>
+    <SHA>f33a3bdc35e952b9381207df95b43690c09a1fdc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>test/e2e: write timings directly to file There is no need to buffer them all into an array then write them once at the end. Just write directly to the file. Fixes #19104 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>c20612babc7fe2cb3516ead22ac2cde7a5c5db26</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/common_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

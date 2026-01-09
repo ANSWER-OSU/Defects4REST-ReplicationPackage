@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9664</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/9664</ISSUEURL>
+  <TITLE>Conflicts between default DSpace OpenAIREv4 and Creative Commons integrations</TITLE>
+  <DESCRIPTION>**Describe the bug** If you enable OpenAIREv4 support (including the submission forms) out of the box, together with the DSpace Creative Commons integration, there is a conflict out of the box. **Metadata schema difference/conflict** The creative commons integration stores the CC url into dc.rights.uri The OpenAIRE integration integration stores the CC url into oaire.license.condition **CC URI values difference/conflict** The creative commons integration allows the user to define a license based on answering questions, where a license URL is provided by the creative commons API, as the output to store in the metadata. The OpenAIRE integration however, relies on a subset of what's possible to configure with creative commons, as a fixed set of values offered by a dropdown selector as openaire_license_types: https://github.com/DSpace/DSpace/blob/main/dspace/config/submission-forms.xml#L1542C40-L1542C62 **dc.rights** Both features use dc.rights, but OpenAIRE supplies a very specific vocabulary here that uses purl urls as the values: https://github.com/DSpace/DSpace/blob/main/dspace/config/submission-forms.xml#L1909 **Solution path 1: Just clarify this in the documentation** One option could be to just make it clear that you can't just enable both features, but that you'll have to configure one of the two to be compatible with the other. **Solution path 2: make the creative commons integration a mandatory piece of OpenAIRE** Another option that I can think of, is that the docs should clearly state that the creative commons integration has to be enabled &amp; that the OpenAIRE crosswalk would read from dc.rights.uri, and not anymore from oaire.license.condition.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>233</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>121971: #9716 - Only dc.date.embargo should have date type Available</MESSAGE>
+    <SHA>31c79500ceec1c8e36228195b802a289ac9c30c9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>121971: #9664 - Make cclicense step required in openaire submission form</MESSAGE>
+      <SHA>52e5b35c0653afc17ebd47ce1272549ddf205469</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace/config/item-submission.xml</FILE>
+        <FILE>dspace/config/submission-forms.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

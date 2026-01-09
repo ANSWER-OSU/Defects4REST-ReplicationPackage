@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>767</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/767</ISSUEURL>
+  <TITLE>websocket problem when deployed behind nginx</TITLE>
+  <DESCRIPTION>When drone is deployed behind nginx, the websocket support is broken even if nginx is configured as per http://readme.drone.io/setup/misc/nginx/ After some debugging, I found the problem is that gorilla/websocket library by default checks whether the Host header matches the Origin header, and return a 403 Forbidden when they don't match. When using nginx, the `Origin` header is the external url, and the `Host` header is the address drone is listening on, so they differ and the browser get a 403 for websocket requests. The correspondent code is [here](https://github.com/gorilla/websocket/blob/9007e29/server.go#L62) . A temporary hack is to set the origin header to an empty string in nginx configration, e.g: ``` nginx location /api/stream { proxy_pass http://127.0.0.1:8000; proxy_http_version 1.1; proxy_set_header Upgrade $http_upgrade; proxy_set_header Connection $http_connection; proxy_set_header Origin ''; } ``` The above hack works for me, but I hope we can find a more elegant solution for this.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[MISC] Add `.CS` Syntax Highlighting (#768)</MESSAGE>
+    <SHA>3ad550ce69a3db84aa3a2a94f52a2c612255d504</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>require latest source sha as param for the merge API (#767)</MESSAGE>
+      <SHA>e731c0fdffa87bf7cd0b4a898b9f2fda3d8e9a1d</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/controller/pullreq/merge.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

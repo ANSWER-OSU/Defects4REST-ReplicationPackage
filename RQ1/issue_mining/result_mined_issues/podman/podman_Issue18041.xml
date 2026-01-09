@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18041</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18041</ISSUEURL>
+  <TITLE>[apiv2] play/kube test: name is in use, pod already exists</TITLE>
+  <DESCRIPTION>Two slightly different variants. Possibly a race in the test itself: ``` not ok 1202 [80-kube] POST libpod/play/kube : status # expected: 200 # actual: 500 # response: {&quot;cause&quot;:&quot;pod already exists&quot;, &quot;message&quot;:&quot;playing YAML file: adding pod to state: name \&quot;peacefulgoldberg-pod\&quot; is in use: pod already exists&quot;, &quot;response&quot;:500} ``` and ``` # response: {&quot;cause&quot;:&quot;pod already exists&quot;, &quot;message&quot;:&quot;playing YAML file: encountered while bringing up pod modestfeistel-pod-deployment-pod: adding pod to state: name \&quot;modestfeistel-pod-deployment-pod\&quot; is in use: pod already exists&quot;, &quot;response&quot;:500} ``` ### [APIv2] [80-kube] POST libpod/play/kube : status * fedora-37 : APIv2 test on fedora-37 (rootless) * PR #17993 * [04-03 14:43](https://api.cirrus-ci.com/v1/task/6489412033314816/logs/main.log#t--01209) * PR #17925 * [03-25 06:39](https://api.cirrus-ci.com/v1/task/5563134824415232/logs/main.log#t--01202)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>438</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>system service: do not close Body The standard lib states that server handlers don't need to close the body, so let's not do that to avoid any unforeseen side effect. [NO TESTS NEEDED] - existing tests should suffice. Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+    <SHA>1f3ae8a4fb96ab6b5b731e704e12ea66345da339</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>test/apiv2/80-kube.at Check the DELETE reports for both deletes. #18041 indicates that the pod hasn't been removed which made me suspicious about the 1st delete. Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>e1be7d14179aaa6b4f120897836c8d39767f2965</SHA>
+      <PATCHEDFILES>
+        <FILE>test/apiv2/80-kube.at</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #18043 from vrothberg/fix-18041 test updates to help debug #18041</MESSAGE>
+      <SHA>b39cdff8c2a473f65086c9673e008e2721a42aff</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/compat/images_build.go</FILE>
+        <FILE>pkg/api/handlers/libpod/kube.go</FILE>
+        <FILE>test/apiv2/80-kube.at</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

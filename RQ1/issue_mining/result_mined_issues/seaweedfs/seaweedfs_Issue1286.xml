@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1286</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/1286</ISSUEURL>
+  <TITLE>Filer cannot upload files to the new deployed free volume</TITLE>
+  <DESCRIPTION>Hi I use `docker-compose` to setup a bunch of application for `seaweedfs`. Let's just say I have 2 Linux Server(CN0, CN1) and they all contains `Docker` Here's my environment: - CN0: I deployed 5 services: `master`, `volume`, `filer`, `kafka` and `etcd`. The `volume` bind to `/data/disk1` which contains 1G free space in `xfs` format. - CN1: I deployed 1 service: `volume`. The `volume` bind to `/data/disk1` which contains 1G free space in `xfs` format. First I deploy CN0, and upload many files in order to make it full. When CN0's `volume` has only `600k~800k` (according to http://CN0:8080/ui/index.html), I can not upload files through `filer` anymore. Then I deploy CN1 (add `volume` only), I want to enlarge my `seaweedfs`'s free space. When it's done, I still cannot upload any files through CN0's `filer`. At this time, `filer` and `master` has no error log or normal log printed. But in CN0's `volume`, it print `failed to write to local disk: write /data/1.dat: no space left on device`. It seems that `filer` is not upload my files to the free CN1 `volume` but upload to the CN0 `volume` which is out of space. I've also tried restart `master`, `filer` but no luck. I upload files through `filer`. I use `etcd` as `filer`'s database (also tried origin `leveldb2` but no luck). Here's my info: ### docker-compose.yml &gt; CN0 ```yaml version: '3.6' services: master: image: ${IMAGE} # use a remote image restart: always ports: - 9333:9333 - 19333:19333 command: 'master -ip=${CN0IP} -ip.bind=&quot;0.0.0.0&quot;' container_name: weedfs_master ulimits: nproc: 65535 volume: image: ${IMAGE} # use a remote image restart: always ports: - 8080:8080 - 18080:18080 command: 'volume -mserver=&quot;${CN0IP}:9333&quot; -ip=${CN0IP} -ip.bind=&quot;0.0.0.0&quot; -dataCenter=EuDataCenter -port=8080' container_name: weedfs_volume ulimits: nproc: 65535 volumes: - type: bind source: ${DATAPATH} target: /data depends_on: - master filer: image: ${IMAGE} # use a remote image restart: always ulimits: nproc: 65535 ports: - 8888:8888 - 18888:18888 command: 'filer -master=&quot;${MASTERIP}:9333&quot; -port=8888 -dataCenter=EuDataCenter' container_name: weedfs_filer tty: true stdin_open: true volumes: - type: bind source: /data/leveldb2 target: /data/filerleveldb2 environment: RABBIT_SERVER_URL: '${RABBIT_SERVER_URL}' depends_on: - master - volume ``` &gt; CN1 ```yml version: '3.6' services: volume: image: ${IMAGE} # use a remote image restart: always ports: - 8080:8080 - 18080:18080 command: 'volume -mserver=&quot;${CN0IP}:9333&quot; -ip=${CN1IP} -ip.bind=&quot;0.0.0.0&quot; -dataCenter=EuDataCenter -port=8080' container_name: weedfs_volume ulimits: nproc: 65535 volumes: - type: bind source: ${DATAPATH} target: /data ``` ### *.tomls &gt; notification.toml ```toml [notification.kafka] enabled = true hosts = [ &quot;{EUDIC_KAFKA_ADDRESS}:9092&quot; #10.117.2.80:9092 ] topic = &quot;seaweedfs_replication&quot; offsetFile = &quot;/notification/last.offset&quot; offsetSaveIntervalSeconds = 10 ``` &gt; filer.toml ```toml [filer.options] recursive_delete = false buckets_folder = &quot;/&quot; #changed, origin is /bucket buckets_fsync = [ &quot;important_bucket&quot;, &quot;should_always_fsync&quot;, ] [leveldb2] enabled = false dir = &quot;/data/filerldb2&quot; # directory to store level db files [etcd] enabled = true servers = &quot;{CN0IP}:2379&quot; timeout = &quot;3s&quot; ``` &gt; master.toml ```toml [master.maintenance] scripts = &quot;&quot;&quot; ec.encode -fullPercent=95 -quietFor=1h ec.rebuild -force ec.balance -force volume.balance -collection=ALL_COLLECTIONS -force volume.fix.replication &quot;&quot;&quot; sleep_minutes = 1 # changed, origin is 19 [master.filer] default = &quot;{CN0}:8888&quot; # used by maintenance scripts if the scripts needs to use fs related commands [master.sequencer] type = &quot;etcd&quot; # changed, origin is memory. but if I change it back to memory it still the same sequencer_etcd_urls = &quot;http://{CN0}:2379&quot; ``` &gt; replication.toml ```toml [source.filer] enabled = true grpcAddress = &quot;{CN0}:18888&quot; #localhost:18888 # all files under this directory tree are replicated. # this is not a directory on your hard drive, but on your filer. # i.e., all files with this &quot;prefix&quot; are sent to notification message queue. directory = &quot;/&quot; [sink.filer] enabled = true grpcAddress = &quot;{CN2}:18888&quot; #localhost:18888 # all replicated files are under this directory tree # this is not a directory on your hard drive, but on your filer. # i.e., all received files will be &quot;prefixed&quot; to this directory. directory = &quot;/&quot; replication = &quot;&quot; collection = &quot;&quot; ttlSec = 0 ``` Tested `seaweedfs` version: 1.74~1.75 What's the best practice of enlarge `seaweedfs`'s free space and make `filer` to upload my files to the right `volume`? Thanks for your time!</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>make lock/unlock optional</MESSAGE>
+    <SHA>bdc337a71938dfa0821203a79dd4a0f7e69df6ab</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>master: add cluster wide lock/unlock operation in weed shell fix https://github.com/chrislusf/seaweedfs/issues/1286</MESSAGE>
+      <SHA>73564e6a01770316f5ab57e7f4ba8227cedbf1dd</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/master_server.go</FILE>
+        <FILE>weed/server/master_server_handlers_ui.go</FILE>
+        <FILE>weed/shell/command_ec_balance.go</FILE>
+        <FILE>weed/shell/command_ec_decode.go</FILE>
+        <FILE>weed/shell/command_ec_encode.go</FILE>
+        <FILE>weed/shell/command_ec_rebuild.go</FILE>
+        <FILE>weed/shell/command_volume_balance.go</FILE>
+        <FILE>weed/shell/command_volume_configure_replication.go</FILE>
+        <FILE>weed/shell/command_volume_copy.go</FILE>
+        <FILE>weed/shell/command_volume_delete.go</FILE>
+        <FILE>weed/shell/command_volume_fix_replication.go</FILE>
+        <FILE>weed/shell/command_volume_fsck.go</FILE>
+        <FILE>weed/shell/command_volume_mount.go</FILE>
+        <FILE>weed/shell/command_volume_move.go</FILE>
+        <FILE>weed/shell/command_volume_tier_download.go</FILE>
+        <FILE>weed/shell/command_volume_tier_upload.go</FILE>
+        <FILE>weed/shell/command_volume_unmount.go</FILE>
+        <FILE>weed/shell/commands.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

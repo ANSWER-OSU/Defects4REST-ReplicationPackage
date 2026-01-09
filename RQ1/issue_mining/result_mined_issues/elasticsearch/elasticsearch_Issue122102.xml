@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122102</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122102</ISSUEURL>
+  <TITLE>[CI] ClientYamlTestSuiteIT test {yaml=snapshot.delete/10_basic/Delete a snapshot asynchronously} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #17787 / part1](https://gradle-enterprise.elastic.co/s/f7rwyakv3ve2e) - [elasticsearch-periodic #6312 / openjdk22_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/h2psikblydvek) - [elasticsearch-periodic #6263 / openjdk22_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/2ak7jfyxx3j34) **Reproduction Line:** ``` ./gradlew &quot;:rest-api-spec:yamlRestTest&quot; --tests &quot;org.elasticsearch.test.rest.ClientYamlTestSuiteIT&quot; -Dtests.method=&quot;test {yaml=snapshot.delete/10_basic/Delete a snapshot asynchronously}&quot; -Dtests.seed=CBF9F93163E3253A -Dtests.locale=sah-Cyrl-RU -Dtests.timezone=Africa/Juba -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.test.rest.ClientYamlTestSuiteIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Byaml%3Dsnapshot.delete%2F10_basic%2FDelete%20a%20snapshot%20asynchronously%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.client.ResponseException: method [DELETE], host [http://[::1]:40727], URI [_snapshot/test_repo_create_1], status line [HTTP/1.1 409 Conflict] {&quot;error&quot;:{&quot;root_cause&quot;:[{&quot;type&quot;:&quot;repository_conflict_exception&quot;,&quot;reason&quot;:&quot;[test_repo_create_1] trying to modify or unregister repository that is currently used (snapshot deletion is in progress)&quot;}],&quot;type&quot;:&quot;repository_conflict_exception&quot;,&quot;reason&quot;:&quot;[test_repo_create_1] trying to modify or unregister repository that is currently used (snapshot deletion is in progress)&quot;},&quot;status&quot;:409} ``` **Issue Reasons:** - [8.x] 3 failures in test test {yaml=snapshot.delete/10_basic/Delete a snapshot asynchronously} (0.7% fail rate in 457 executions) - [8.x] 2 failures in step openjdk22_checkpart1_java-matrix (16.7% fail rate in 12 executions) - [8.x] 2 failures in pipeline elasticsearch-periodic (16.7% fail rate in 12 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.security.CoreWithSecurityClientYamlTestSuiteIT test {yaml=update/100_synthetic_source/keyword} #122101</MESSAGE>
+    <SHA>80916dd3918600225fbd707c34242beb5714fa15</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.test.rest.ClientYamlTestSuiteIT test {yaml=snapshot.delete/10_basic/Delete a snapshot asynchronously} #122102</MESSAGE>
+      <SHA>8d2d7bafe4fdad26f408dc8acd9f3da0f059d913</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

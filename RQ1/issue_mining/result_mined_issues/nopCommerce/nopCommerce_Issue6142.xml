@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6142</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6142</ISSUEURL>
+  <TITLE>Down migrations are not called during plugin uninstallation</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.50 It seems like when uninstalling a plugin with a database table the table is not deleted (Down migrations are not called). You can easily test this with the Avalara plugin for example. After we uninstall the plugin the TaxTransactionLog table is still present. Source in [this post](https://www.nopcommerce.com/en/boards/topic/92668/nopcommerce-450-suggestions-bug-reports-and-improvements/page/5#293225), also see [this post](https://www.nopcommerce.com/en/boards/topic/92668/nopcommerce-450-suggestions-bug-reports-and-improvements/page/6#293241)</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6107 Correct saving of nullable app settings from the admin area (null by default, not 0)</MESSAGE>
+    <SHA>0457d6aacc22b2b0a01cda502c683d5b5dedc88a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6142 Fixed problem with running Down migrations during plugins uninstall process</MESSAGE>
+      <SHA>5a5788a9ac7283ad453865a5a32d7ba2e1bb8d1d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Data/Migrations/MigrationManager.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

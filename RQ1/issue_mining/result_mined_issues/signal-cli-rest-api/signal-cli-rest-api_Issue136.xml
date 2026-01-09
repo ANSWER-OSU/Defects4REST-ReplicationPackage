@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>136</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/136</ISSUEURL>
+  <TITLE>Set file names of attachments</TITLE>
+  <DESCRIPTION>### Feature Request &lt;!-- Fill in the relevant information below to help triage your issue. --&gt; `TMPFILE=&quot;$(base64 cat.jpg)&quot; &amp;&amp; echo '{&quot;message&quot;: &quot;Hello CAT!&quot;, &quot;base64_attachments&quot;: [&quot;'&quot;$TMPFILE&quot;'&quot;], &quot;number&quot;: &quot;+0000000000&quot;, &quot;recipients&quot;: [&quot;+0000000000&quot;]}' | curl -X POST -H &quot;Content-Type: application/json&quot; -d @- 'http://127.0.0.1:8080/v2/send'` Sending attachments works fine as long as &quot;github.com/h2non/filetype&quot; detects the file type. Unfortunately, some PDFs are not recognized. It would be an improvement if we could set the file name ourselves. e.g. `TMPFILE=&quot;$(base64 cute_cat.pdf)&quot; &amp;&amp; echo '{&quot;message&quot;: &quot;Hello CAT!&quot;, &quot;base64_attachments&quot;: [[&quot;'&quot;$TMPFILE&quot;'&quot;, &quot;cute_cat.pdf&quot;]], &quot;number&quot;: &quot;+0000000000&quot;, &quot;recipients&quot;: [&quot;+0000000000&quot;]}' | curl -X POST -H &quot;Content-Type: application/json&quot; -d @- 'http://127.0.0.1:8080/v2/send'`</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>224</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #132 from webzit/patch-1 Add architecture specific lib's for GraalVM</MESSAGE>
+    <SHA>6d39ac124fd199185e9f07282be480db718e9b1b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>replaced h2non/filedetect with gabriel-vasile/mimetype library * the mimetype library is faster and correctly detects text files as text/plain. (the filedetect library classified them as binary files) see #136</MESSAGE>
+      <SHA>d04beed5de89256a89a770790d77879a3478637f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/api/api.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>remove &quot;.&quot; when constructing the attachment filename * the mimetype library already adds the '.', so no need to add it manually see #136</MESSAGE>
+      <SHA>326e2988012f34359950a51f70ad36c8c8cf2d37</SHA>
+      <PATCHEDFILES>
+        <FILE>src/api/api.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>replaced h2non/filedetect with gabriel-vasile/mimetype library * the mimetype library is faster and correctly detects text files as text/plain. (the filedetect library classified them as binary files) see #136</MESSAGE>
+      <SHA>f6af35d68fdaf5303a8e6e27d56f9c778e47aedd</SHA>
+      <PATCHEDFILES>
+        <FILE>src/api/api.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>remove &quot;.&quot; when constructing the attachment filename * the mimetype library already adds the '.', so no need to add it manually see #136</MESSAGE>
+      <SHA>207f1ee919b03ff5925d51378371ddfd0b82e12e</SHA>
+      <PATCHEDFILES>
+        <FILE>src/api/api.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

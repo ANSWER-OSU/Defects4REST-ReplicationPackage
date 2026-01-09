@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126808</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126808</ISSUEURL>
+  <TITLE>[CI] DriverTests testProfileAndStatusFinishInOneRound failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7669 / almalinux-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/xu24vy4efso4i) - [elasticsearch-periodic #7598 / graalvm-ce17_checkpart3_java-matrix](https://gradle-enterprise.elastic.co/s/5hohwiagenbbe) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:compute:test&quot; --tests &quot;org.elasticsearch.compute.operator.DriverTests.testProfileAndStatusFinishInOneRound&quot; -Dtests.seed=E8DB241CEC4BBFB6 -Dtests.locale=id -Dtests.timezone=Atlantic/St_Helena -Druntime.java=24 ``` **Applicable branches:** 8.18 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.compute.operator.DriverTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testProfileAndStatusFinishInOneRound),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: &lt;80192L&gt; but: was &lt;681632L&gt; ``` **Issue Reasons:** - [8.18] 2 failures in test testProfileAndStatusFinishInOneRound (0.8% fail rate in 254 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update branches.json</MESSAGE>
+    <SHA>2e00fb81479809b25e2cd0b6652ece15700fbb13</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ESQL: Allow some error in test Without #123290 we're not going to get accurate status reports. They are indicative, but not accurate. Closes #126808</MESSAGE>
+      <SHA>486d0c12b49c38c952fd6217590c1af8d9ff1123</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/compute/src/test/java/org/elasticsearch/compute/operator/DriverTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: Allow some error in test (#126865) Without #123290 we're not going to get accurate status reports. They are indicative, but not accurate. Closes #126808</MESSAGE>
+      <SHA>c9e7e5a4ce82805458fce4ec26408d7d60fba48a</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/compute/src/test/java/org/elasticsearch/compute/operator/DriverTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

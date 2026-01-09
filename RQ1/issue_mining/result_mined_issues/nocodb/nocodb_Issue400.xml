@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>400</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/400</ISSUEURL>
+  <TITLE>Bug: Import not working</TITLE>
+  <DESCRIPTION>**Steps To Reproduce** Case 1: 1. create a project (sqlite) 2. create some tables 3. export to zip 4. import it back to the same project. it shows &quot;some internal error occurred&quot;. ``` Request URL: &lt;REDACTED&gt;/dashboard/?q=sqlOp_xcMetaTablesImportZipToLocalFsAndDb&amp;project_id=test_AcEi Request Method: POST Status Code: 400 Bad Request ``` Response ``` {&quot;msg&quot;:&quot;Project with id 'project_1_Qd9-' already exist&quot;} ``` Case 2: 1. create a project (sqlite) 2. create some tables 3. export to zip 4. Delete the project 5. import zip in My Projects. it shows &quot;some internal error occurred&quot;. ``` Request URL: &lt;REDACTED&lt;/dashboard/?q=sqlOp_xcMetaTablesImportZipToLocalFsAndDb Request Method: POST Status Code: 403 Forbidden ``` Response: ``` {&quot;msg&quot;:&quot;Not allowed&quot;} ``` **Expected behavior** Case 1: If it is not allowed to import to the same project. It may show some useful message instead of &quot;some internal error occurred&quot;. **Further discussion:** if it is not allowed to import to the existing project. Then there is no point to include this import function in Project Metadata page. If the project does not exist, basically it will create a new one so it is weird to create a new project inside another project. Case 2: metadata is expected to be loaded. Node: **v12.22.1** Arch: **x64** Platform: **linux** Docker: **true** Database: **pg** ProjectOnRootDB: **false** RootDB: **sqlite3** PackageVersion: **0.11.6**</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: comments only audits re #404 Signed-off-by: Pranav C &lt;61551451+pranavxc@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>bbaf1a3c48a65e3e94578df361ead36227bc4ceb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: project import issues Correction in error message and added import permission to user role re #400 Signed-off-by: Pranav C &lt;61551451+pranavxc@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>da94db14f8f73654ac25eb37b45bbe8be2d38218</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/components/project/settings/xcMeta.vue</FILE>
+        <FILE>packages/nc-gui/pages/projects/index.vue</FILE>
+        <FILE>packages/nocodb/src/lib/noco/meta/NcMetaMgr.ts</FILE>
+        <FILE>packages/nocodb/src/lib/utils/projectAcl.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: project import issues Correction in error message and added import permission to user role re #400 Signed-off-by: Pranav C &lt;61551451+pranavxc@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>98c2aaa9996f0aa47934c3b2b75f85ce421f9f9c</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/components/project/settings/xcMeta.vue</FILE>
+        <FILE>packages/nc-gui/pages/projects/index.vue</FILE>
+        <FILE>packages/nocodb/src/lib/noco/meta/NcMetaMgr.ts</FILE>
+        <FILE>packages/nocodb/src/lib/utils/projectAcl.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

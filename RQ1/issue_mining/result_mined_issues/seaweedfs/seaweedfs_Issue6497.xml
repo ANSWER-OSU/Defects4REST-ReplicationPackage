@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6497</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/6497</ISSUEURL>
+  <TITLE>Using PUT object with bucket of invalid name leads to unremovable bucket</TITLE>
+  <DESCRIPTION>``` root@Hepatitis:~# s3cmd put ab s3://aa/a upload: 'ab' -&gt; 's3://aa/a' [1 of 1] 0 of 0 0% in 0s 0.00 B/s done WARNING: Upload failed: /a (500 (InternalError): We encountered an internal error, please try again.) WARNING: Waiting 3 sec... upload: 'ab' -&gt; 's3://aa/a' [1 of 1] 0 of 0 0% in 0s 0.00 B/s done WARNING: Upload failed: /a (500 (InternalError): We encountered an internal error, please try again.) WARNING: Waiting 6 sec... ^CSee ya! root@Hepatitis:~# s3cmd put ab s3://aa ``` The created aa bucket can then not be removed even via ``weed shell`` due to the invalid bucket name of ``aa``</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ensure correct auto bucket creation fix https://github.com/seaweedfs/seaweedfs/issues/6497</MESSAGE>
+    <SHA>a75271dd43fcec0105ee1fda156622df45a8b2cd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>adjust fix fix https://github.com/seaweedfs/seaweedfs/issues/6497</MESSAGE>
+      <SHA>42efade0dc2ee2127a1f564ffb496e7c34b12321</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filer/filer.go</FILE>
+        <FILE>weed/s3api/s3bucket/s3api_bucket_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ensure correct auto bucket creation fix https://github.com/seaweedfs/seaweedfs/issues/6497</MESSAGE>
+      <SHA>a75271dd43fcec0105ee1fda156622df45a8b2cd</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filer/filer.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

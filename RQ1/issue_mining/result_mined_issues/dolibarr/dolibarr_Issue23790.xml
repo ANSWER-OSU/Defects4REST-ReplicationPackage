@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23790</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/23790</ISSUEURL>
+  <TITLE>Bug: REST API &quot;/mos/{id}/produceandconsume&quot; not possible to consume specific MoLines</TITLE>
+  <DESCRIPTION>### Bug The implementation does´t correspond the function in Dolibarr. i need feedback if i should revise the function. ### Environment Version 17 ### Environment OS _No response_ ### Environment Web server _No response_ ### Environment PHP _No response_ ### Environment Database _No response_ ### Environment URL(s) _No response_ ### Expected and actual behavior **Expected behavior:** Like the same behavior with the API as in the Dolibarr UI: ![image](https://user-images.githubusercontent.com/78662388/216821734-096cc624-f9c7-432a-958b-f3a52d58aba3.png) _REST Call:_ ``` { &quot;inventorylabel&quot;: &quot;Production of MO2301-0005&quot;, &quot;inventorycode&quot;: &quot;20230205140301&quot;, &quot;autoclose&quot;: 1, &quot;arraytoconsume&quot;: [{&quot;objectId&quot;: 253, &quot;qty&quot;: 2, &quot;fk_warehouse&quot;: 1}], &quot;arraytoproduce&quot;: [] } ``` **Actual behavior:** The REST Call returns a &quot;Internal Server Error&quot;. Problems: 1. Only if no value in arraytoconsume and arraytoproduce the API make a &quot;automatic&quot; consum and produce over all MoLines. It´s crashing if the Stockvalue is lower then the expected qty in the MoLine. 2. The &quot;objectId&quot; is linked to fk_product. This is wrong we need a link to the MoLine. 3. If you set a value in arraytoconsume or arraytoproduce then the API function try to generate a new MoLine. The current implementation of the API function make not &quot;produce and consume&quot;. ### Steps to reproduce the behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>375</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix #yogosha</MESSAGE>
+    <SHA>1e2e438103070d117b5c1fb48ffb050f4efc1e4a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #23790 refactor produceAndConsume</MESSAGE>
+      <SHA>94759a0ca684ce2fb08ff907fffc41c938dbb468</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/mrp/class/api_mos.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

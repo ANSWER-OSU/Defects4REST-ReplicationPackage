@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>293</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/293</ISSUEURL>
+  <TITLE>Error when deploying via Git using public key authentication (ssh_askpass)</TITLE>
+  <DESCRIPTION>When using the deploy via Git Push and using a default id_rsa key file (in the ~/.ssh/id_rsa of the Unix account used by the drone daemon within the Docker container), the logs come back with a ssh_askpass error as follows: ``` $ git remote add deploy root@my_ci_server.com:path_to_my_repo.git $ git push deploy $COMMIT:master Warning: Permanently added 'my_ci_server.com,192.168.1.5' (ECDSA) to the list of known hosts. ssh_askpass: exec(/usr/bin/ssh-askpass): No such file or directory Permission denied, please try again. ssh_askpass: exec(/usr/bin/ssh-askpass): No such file or directory Permission denied, please try again. ssh_askpass: exec(/usr/bin/ssh-askpass): No such file or directory Permission denied (publickey,password). fatal: The remote end hung up unexpectedly ``` I have confirmed that I can still perform this remote push via logging into that Docker container manually via the command-line and performing the push.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>165</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[Harness] Add support for calls from CIManager (#301)</MESSAGE>
+    <SHA>dbace5b1b2a82229074c14bd729725f61756e782</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Refactor cli app startup (#293)</MESSAGE>
+      <SHA>236e2ede9e05977e1c800071364beec230585f7b</SHA>
+      <PATCHEDFILES>
+        <FILE>cli/cli.go</FILE>
+        <FILE>cli/operations/account/login.go</FILE>
+        <FILE>cli/operations/account/logout.go</FILE>
+        <FILE>cli/operations/account/register.go</FILE>
+        <FILE>cli/operations/user/create_pat.go</FILE>
+        <FILE>cli/operations/user/self.go</FILE>
+        <FILE>cli/operations/user/users.go</FILE>
+        <FILE>cli/operations/users/create.go</FILE>
+        <FILE>cli/operations/users/delete.go</FILE>
+        <FILE>cli/operations/users/find.go</FILE>
+        <FILE>cli/operations/users/list.go</FILE>
+        <FILE>cli/operations/users/update.go</FILE>
+        <FILE>cli/operations/users/users.go</FILE>
+        <FILE>cli/provide/provider.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

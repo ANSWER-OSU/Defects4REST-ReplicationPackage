@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4485</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4485</ISSUEURL>
+  <TITLE>System.InvalidOperationException: 'Collection was modified; enumeration operation may not execute.'</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.30 beta I ran the upgrade script on an existing 4.2 database running on SQL Server Standard edition version 12.0.4237.0. No errors. I pointed the 4.3 source to this database and I getting the following run time error: System.InvalidOperationException: 'Collection was modified; enumeration operation may not execute.' Class: CategoryService Method: GetAppliedCategoryIds Line no: 387 ids.AddRange(ids.SelectMany(categoryId =&gt; GetChildCategoryIds(categoryId, _storeContext.CurrentStore.Id))); More info: https://www.nopcommerce.com/boards/topic/80144/find-bugs-in-nopcommerce-430-beta-and-earn-10/page/4#261422</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#4493 Added checking for empty orders list during saving PDF invoice or exporting items</MESSAGE>
+    <SHA>ccceebaedd736f19b91e3d56992b14434f817d77</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4485 Fixed problem with &quot;Collection was modified&quot; exception</MESSAGE>
+      <SHA>023587b17b5b8205035ed7e740203fdc3a5e3fb9</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Catalog/CategoryService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

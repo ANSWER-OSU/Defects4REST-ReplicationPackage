@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23468</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23468</ISSUEURL>
+  <TITLE>windows CI flake: Invalid Password</TITLE>
+  <DESCRIPTION>Looks like something is broken with how the password is generated ``` Location: C:\Users\Administrator\AppData\Local\cirrus-ci-build\repo Set-LocalUser : Unable to update the password. The value provided for the new password does not meet the length, complexity, or history requirements of the domain. At C:\Users\Administrator\AppData\Local\cirrus-ci-build\repo\contrib\cirrus\win-sess-launch.ps1:19 char:5 + Set-LocalUser -Name $username -Password $encPass + ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ + CategoryInfo : InvalidArgument: (:) [Set-LocalUser], InvalidPasswordException + FullyQualifiedErrorId : InvalidPassword,Microsoft.PowerShell.Commands.SetLocalUserCommand Exit code = '1' running command at ``` https://cirrus-ci.com/task/6173303390339072 https://api.cirrus-ci.com/v1/task/6173303390339072/logs/main.log</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23518 from Luap99/test-new-vms Update CI images</MESSAGE>
+    <SHA>128fde17345048383fdaa1774b384805521f3828</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add passwd validate and generate steps Add generate helper function. Also, add a troubleshooting try/catch block in case we get more flakes during Set-LocalUser step in Windows powershell. Resolves: https://github.com/containers/podman/issues/23468 Signed-off-by: Nicola Sella &lt;nsella@redhat.com&gt;</MESSAGE>
+      <SHA>f041d059b5cd6a51da2e95e47301d5a23be6db0a</SHA>
+      <PATCHEDFILES>
+        <FILE>contrib/cirrus/win-sess-launch.ps1</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

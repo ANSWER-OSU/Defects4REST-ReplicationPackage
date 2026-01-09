@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>635</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/635</ISSUEURL>
+  <TITLE>Volume Marked as Unwritable</TITLE>
+  <DESCRIPTION>Hi Chris, I have found a bug that can cause individual volumes to become unwritable over time -- requiring a restart of seaweedfs to get the volumes back in a writable state. We have seen this in production where you see errors like this in the log file: &quot;Failed to read file size /tmp/7.dat stat /tmp/7.dat: bad file descriptor&quot; &quot;failing to assign a file id .../dir/assign: 404 Not Found&quot; I believe this is caused by a rare case when the os.Stat() method in linux returns an error code because it can't read the size of a file on disk -- perhaps it is in use or something like that. When this happens, the [Size()](https://github.com/chrislusf/seaweedfs/blob/master/weed/storage/volume.go#L58) method in volume.go returns a -1 instead of the actual file size. This -1 is passed along to the master server, and it compares the -1 against the maximum volume size and sees that -1 is greater than the max: In [CollectDeadNodeAndFullVolumes](https://github.com/chrislusf/seaweedfs/blob/master/weed/topology/node.go#L246), the Size property gets converted from -1 to a uint64... if uint64(v.Size) &gt;= volumeSizeLimit ... and so the -1 then becomes the max value of a uint64, and it is always greater than volumeSizeLimit. The master server then considers the volume to be too large and it stops allowing writes to it. My naive thought for fixing this would simply be to return a 0 instead of a -1 [here](https://github.com/chrislusf/seaweedfs/blob/master/weed/storage/volume.go#L64). That would solve the integer overflow issue. I just want to make sure that this sounds like an appropriate fix to you, and ask if you can think of any unwanted side effects that this might cause. Thanks! Mike</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>41</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>cassandra use local quorum for better performance</MESSAGE>
+    <SHA>d49e91cd7815534dc11f0e8f58fdc0ef76923065</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix for issue #635 Fix for the following issue on master: https://github.com/chrislusf/seaweedfs/issues/635</MESSAGE>
+      <SHA>e4b1e5c3c80ce9faf3a5f13942300a03093fc319</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/storage/volume.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #637 from mtolman/master Fix for issue #635</MESSAGE>
+      <SHA>230258702f58a7fdc60d126ff4e3ed493cf9cd04</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/storage/volume.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix for issue #635 Fix for the following issue on master: https://github.com/chrislusf/seaweedfs/issues/635</MESSAGE>
+      <SHA>01a932ca0753413d8f44a30a333effaf0ff235a0</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/storage/volume.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

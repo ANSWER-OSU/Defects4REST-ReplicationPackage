@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>27622</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/27622</ISSUEURL>
+  <TITLE>NoMethodError (undefined method `title' for #&lt;CustomFilter...</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem 1. Upgrade to main version at [a918208](https://github.com/mastodon/mastodon/commit/a918208ec61836f911bd9775d2f2dd6db72ac1a5) 2. Run bundle install &amp;&amp; rm -rfv public/packs &amp;&amp; yarn install --frozen-lockfile &amp;&amp; RAILS_ENV=production bundle exec rails assets:precompile 3. Restart services ### Expected behaviour Mastodon should work without errors ### Actual behaviour Fatal error and &quot;500&quot; notification present ### Detailed description I noticed it takes time for Explore etc. tabs to populate, but after a while they appear. Got a fatal error couple of times (log below). I haven't seen this before in prior versions, even in 4.3.0-alpha.0. Is it a regression? What causes it? It's related to my muted words in the filter &quot;War, death and destruction&quot;. There are normal words there, why does it throw that? ### Mastodon instance mementomori.social ### Mastodon version v4.3.0-alpha.0 ### Browser name and version Google Chrome 118.0.5993.70 (Official Build) (64-bit) ### Operating system Pop!_OS Linux 22.04 LTS ### Technical details ``` Oct 30 18:11:49 mementomori bundle[786873]: F, [2023-10-30T18:11:49.098377 #786873] FATAL -- : [7d20891b-5303-4486-b404-2fddd2aa2882] Oct 30 18:11:49 mementomori bundle[786873]: [7d20891b-5303-4486-b404-2fddd2aa2882] NoMethodError (undefined method `title' for #&lt;CustomFilter id: 93, account_id: 109293050593156468, expires_at: nil, phrase: &quot;War, death and destruction&quot;, context: [&quot;home&quot;, &quot;notifications&quot;, &quot;public&quot;, &quot;thread&quot;, &quot;account&quot;], created_at: &quot;2023-10-19 16:04:59.040990000 +0000&quot;, updated_at: &quot;2023-10-19 16:08:48.866924000 +0000&quot;, action: &quot;hide&quot;&gt;): ```</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>60</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'mementomods-2023-10-30' into mementomods-2023-10-31</MESSAGE>
+    <SHA>fb6fddefe941c505085dcba1ffb6a6b11dc0761d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix NoMethodError, add patch from https://github.com/mastodon/mastodon/issues/27622#issuecomment-1786003305</MESSAGE>
+      <SHA>a2299980d012087909736d6911182b3e4df30af0</SHA>
+      <PATCHEDFILES>
+        <FILE>app/serializers/rest/filter_serializer.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add patch from https://github.com/mastodon/mastodon/issues/27622#issuecomment-1786003305</MESSAGE>
+      <SHA>7be998c1c172f60f81e2dad7e37855a25ded476b</SHA>
+      <PATCHEDFILES>
+        <FILE>app/serializers/rest/filter_serializer.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

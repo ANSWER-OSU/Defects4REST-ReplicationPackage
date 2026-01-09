@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2256</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2256</ISSUEURL>
+  <TITLE>request: add the dependency of lua-resty-hmac</TITLE>
+  <DESCRIPTION>Now Apache APISIX does not declare the dependency on lua-resty-hmac, but implicitly installs it through [lua-resty-jwt](https://luarocks.org/modules/cdbattags/lua-resty-jwt). There are two problems with this approach: 1. Lua-resty-hmac cannot be updated in time 2. Implicit installation will cause confusion to users Therefore, we should: 1. Update lua-resty-jwt to the latest version, and check whether other lua-resty-* is updated; 2. Add dependency on[ lua-resty-hmac](https://github.com/jkeys089/lua-resty-hmac) in the luarocks of Apache APISIX</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>80</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>doc: etcd grpc gateway faq (#2940)</MESSAGE>
+    <SHA>9e3c34a0103b88d340285017e34021cbc1f0fde8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: upgrade lua-resty-jwt &amp; install lua-resty-hmac-ffi Fix #2256</MESSAGE>
+      <SHA>4ea95beaa8919ea55b88696fe3ff898c271e4a4f</SHA>
+      <PATCHEDFILES>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat: install lua-resty-hmac-ffi Fix #2256</MESSAGE>
+      <SHA>ce84cb4ea21f1964c4ed087cc3c4b6e6cdfc6c8d</SHA>
+      <PATCHEDFILES>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat: install lua-resty-hmac-ffi (#2981) Fix #2256</MESSAGE>
+      <SHA>6cd780cb936d30bd81c771b3c3b51614a86ac565</SHA>
+      <PATCHEDFILES>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

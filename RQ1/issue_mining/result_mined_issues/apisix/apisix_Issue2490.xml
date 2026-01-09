@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2490</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2490</ISSUEURL>
+  <TITLE>discuss: In the request of the `hmac-auth` plugin, remove the request header related to the plugin</TITLE>
+  <DESCRIPTION>### Issue description In the process of using the hmac-auth plug-in, we do not want to send the http request header related to the plug-in to the upstream service. The reasons are as follows: 1. For security, please hide these headers. 2. Follow-up logic and upstream do not need these fields. The http request headers related to the `hmac-auth` plugin are (the default plugin): ``` X-HMAC-SIGNATURE, X-HMAC-ALGORITHM, X-HMAC-SIGNED-HEADERS ``` These http request header names have default values in the plugin and can also be customized in the `conf/config.yaml` file.</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: compare if the interceptors are injected by ourselves (#2484) fix #2482.</MESSAGE>
+    <SHA>0f15939a9cc5906cffc58e9963d6e703a576e3d4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: In the request of the `hmac-auth` plugin, remove the request header related to the plugin. fix #2490</MESSAGE>
+      <SHA>390de2e29f83b8b69b72afb904a95de723b8d822</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/hmac-auth.lua</FILE>
+        <FILE>doc/plugins/hmac-auth.md</FILE>
+        <FILE>doc/zh-cn/plugins/hmac-auth.md</FILE>
+        <FILE>t/plugin/hmac-auth.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

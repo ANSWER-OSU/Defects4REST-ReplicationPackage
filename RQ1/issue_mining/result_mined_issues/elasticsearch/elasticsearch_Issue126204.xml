@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126204</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126204</ISSUEURL>
+  <TITLE>[CI] SharedClusterSnapshotRestoreIT testDeletionOfFailingToRecoverIndexShouldStopRestore failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #21263 / part1](https://gradle-enterprise.elastic.co/s/af456slztu2nk) - [elasticsearch-pull-request #66140 / part-1](https://gradle-enterprise.elastic.co/s/ocy32bktwizdg) - [elasticsearch-intake #21259 / part1](https://gradle-enterprise.elastic.co/s/oiobnexiergym) - [elasticsearch-pull-request #66140 / part-1](https://gradle-enterprise.elastic.co/s/jtelbsupwtgsm) - [elasticsearch-pull-request #66126 / part-1](https://gradle-enterprise.elastic.co/s/2dhvmuvk7cxfs) - [elasticsearch-pull-request #66078 / part-1](https://gradle-enterprise.elastic.co/s/ihkxtyuaccin4) **Reproduction Line:** ``` ./gradlew &quot;:server:internalClusterTest&quot; --tests &quot;org.elasticsearch.snapshots.SharedClusterSnapshotRestoreIT.testDeletionOfFailingToRecoverIndexShouldStopRestore&quot; -Dtests.seed=127C6CFF1D1C565D -Dtests.locale=fr-BE -Dtests.timezone=Asia/Yakutsk -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.snapshots.SharedClusterSnapshotRestoreIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testDeletionOfFailingToRecoverIndexShouldStopRestore),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.snapshots.SnapshotRestoreException: [default:test-repo:test-snap/ys7WgC4oQfaufdfgx_fumg] cannot restore index [test-idx] because an open index with same name already exists in the cluster. Either close or delete the existing index or restore the index under a different name by providing a rename pattern and replacement name ``` **Issue Reasons:** - [main] 6 failures in test testDeletionOfFailingToRecoverIndexShouldStopRestore (3.3% fail rate in 180 executions) - [main] 2 failures in step part1 (9.5% fail rate in 21 executions) - [main] 4 failures in step part-1 (5.0% fail rate in 80 executions) - [main] 2 failures in pipeline elasticsearch-intake (9.5% fail rate in 21 executions) - [main] 3 failures in pipeline elasticsearch-pull-request (3.8% fail rate in 80 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix NPE for missing Content Type header in OIDC Authenticator (#126191) * Fix NPE for missing Content Type header in OIDC Authenticator * Update docs/changelog/126191.yaml</MESSAGE>
+    <SHA>f82193051843b96325f90064ab2c3183c6124098</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.snapshots.SharedClusterSnapshotRestoreIT testDeletionOfFailingToRecoverIndexShouldStopRestore #126204</MESSAGE>
+      <SHA>d5c0778f703c332e737c2d3831d00e97d0125b1d</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

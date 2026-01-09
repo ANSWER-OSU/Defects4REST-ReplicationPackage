@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15036</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15036</ISSUEURL>
+  <TITLE>Containers Created Through REST API Have Umask Of 0000</TITLE>
+  <DESCRIPTION>&lt;!-- --------------------------------------------------- BUG REPORT INFORMATION --------------------------------------------------- Use the commands below to provide key information from your environment: You do NOT have to include this information if this is a FEATURE REQUEST **NOTE** A large number of issues reported against Podman are often found to already be fixed in more current versions of the project. Before reporting an issue, please verify the version you are running with `podman version` and compare it to the latest release documented on the top of Podman's [README.md](../README.md). If they differ, please update your version of Podman to the latest possible and retry your command before creating an issue. Also, there is a running list of known issues in the [Podman Troubleshooting Guide](https://github.com/containers/podman/blob/main/troubleshooting.md), please reference that page before opening a new issue. If you are filing a bug against `podman build`, please instead file a bug against Buildah (https://github.com/containers/buildah/issues). Podman build executes Buildah to perform container builds, and as such the Buildah maintainers are best equipped to handle these bugs. --&gt; **Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind bug **Description** Containers.conf has no umask entry which should cause podman to fallback to the default umask (0022): ```bash $ podman system service --time 0 tcp:127.0.0.1:3000 $ curl 'http://127.0.0.1:3000/v4.0.0/libpod/containers/create' --json '{&quot;name&quot;:&quot;test&quot;,&quot;image&quot;:&quot;alpine&quot;}' $ podman inspect test | jq '.[].Config.Umask' &quot;0000&quot; ``` It instead sets umask to 0000. However containers created through the CLI seem to work correctly: ```bash $ podman run --name test alpine $ podman inspect test | jq '.[].Config.Umask' &quot;0022&quot; ``` ```bash $ podman --version podman version 4.1.1 ``` (Arch so everything should be up to date)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14972 from edsantiago/ubuntu_cgroups_v1 Bump VMs, to Ubuntu 2204 with cgroups v1</MESSAGE>
+    <SHA>99bf6f96cd93867813e72742c484ab0abf15cca4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>API: libpod/create use correct default umask Make sure containers created via API have the correct umask from containers.conf set. Fixes #15036 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>5a80770e8e4e0150a57a9870dd9cbf2c85dafb6e</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/libpod/containers_create.go</FILE>
+        <FILE>test/apiv2/20-containers.at</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>API: libpod/create use correct default umask Make sure containers created via API have the correct umask from containers.conf set. Fixes #15036 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>c4616510a2c7509be20120353e539804b161922d</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/libpod/containers_create.go</FILE>
+        <FILE>test/apiv2/20-containers.at</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

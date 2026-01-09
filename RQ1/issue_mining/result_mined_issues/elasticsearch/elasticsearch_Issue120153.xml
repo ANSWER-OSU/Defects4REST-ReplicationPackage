@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120153</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120153</ISSUEURL>
+  <TITLE>[CI] DatafeedJobsIT testLookbackOnlyRuntimeMapping failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5850 / graalvm-ce17_checkpart4_java-matrix](https://gradle-enterprise.elastic.co/s/ilag7kq7rdule) - [elasticsearch-pull-request #50450 / part-4](https://gradle-enterprise.elastic.co/s/5owzgo7w6gc66) - [elasticsearch-intake #15719 / part4](https://gradle-enterprise.elastic.co/s/ng5rhwdxuxcn2) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:ml:qa:native-multi-node-tests:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.ml.integration.DatafeedJobsIT.testRealtime_GivenProcessIsKilled&quot; -Dtests.seed=BB271292F409A602 -Dtests.locale=ru-KZ -Dtests.timezone=Asia/Karachi -Druntime.java=17 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.ml.integration.DatafeedJobsIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testLookbackOnlyRuntimeMapping),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.tasks.TaskCancelledException: task cancelled before starting [by user request] ``` **Issue Reasons:** - [8.x] 3 failures in test testLookbackOnlyRuntimeMapping (2.1% fail rate in 144 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Use approximation to advance matched queries (#120133) (#120145) This PR resolves a regression introduced in #94564 by ensuring that the approximation is used when advancing matched query clauses. Utilizing the two-phase iterator to validate matches guarantees that we do not attempt to find the next document fulfilling the two-phase criteria beyond the current document. This fix prevents scenarios where matching a document in the second phase significantly increases query complexity, especially in cases involving restrictive second-pass filters. Closes #120130</MESSAGE>
+    <SHA>9103d6e67d4581e3e1e5e9a275f2c0a6127afd64</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ml.integration.DatafeedJobsIT testLookbackOnlyRuntimeMapping #120153</MESSAGE>
+      <SHA>95791120dfdb55b66afbdcd30420a21b9e3cbe88</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

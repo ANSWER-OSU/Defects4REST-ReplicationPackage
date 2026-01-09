@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15698</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15698</ISSUEURL>
+  <TITLE>podman --storage-opt can make permanent destructive changes</TITLE>
+  <DESCRIPTION>Semi-related to #15488, but not exactly, because that one is still an unexplained flake; this one is 100% reproducible. Run this as root on a fresh VM (NOT ON YOUR LAPTOP, I'M WARNING YOU!) ```console # podman run quay.io/libpod/alpine true ...pull, etc... (because this is a fresh VM) # podman --storage-opt=mount_program=/bin/false info &gt;/dev/null (errors out, expected) # podman run quay.io/libpod/alpine true WARN[0000] Ignoring global metacopy option, not supported with booted kernel ``` Your system is now destroyed. This does not fix it: ```console # podman --storage-opt= info &gt;/dev/null # podman run quay.io/libpod/alpine true WARN[0000] Ignoring global metacopy option, not supported with booted kernel ``` It looks like `podman system reset -f` fixes things, but I'm not sure yet. Anyhow, this seems like kind of a bug? To have a temporary `--storage-opt` make permanent changes somewhere, that cannot be overridden?</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #15946 from rhatdan/kube Default missing hostPort to containerPort is defined in kube.yaml</MESSAGE>
+    <SHA>dca5ead2d7ad8ac3b14fed6736c102b571d8baf1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>System tests: stop deep-checking log-level I was testing --log-level by --storage-opt=mount_program=/bin/false Stop doing that. It's just constantly breaking everything (#15698 and #15977). I am violently of the opinion that a command-line option must not destroy a user's system (except for --set-something, --config, something that makes it very very clear that it is a lasting change). I seem to be in the minority on this opinion. So, I give up. Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>496d4c7533be0bd786508da50fc4468bef5b69be</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/001-basic.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

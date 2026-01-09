@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>852</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/852</ISSUEURL>
+  <TITLE>RFC - Embed Docker/Machine</TITLE>
+  <DESCRIPTION>I would like to create a new type of plugin for automatically adding servers (workers) to Drone via the user interface. We should use the [docker/machine](https://github.com/docker/machine) project as much as possible, since it already integrates with a bunch of providers, and handles installing and configuring Docker and generating SSL keys for secure communication over TCP. I'm not 100% what this would look like, but here are some thoughts: ``` toml [amazon] access_key = &quot;&quot; secret_key = &quot;&quot; session_token = &quot;&quot; ami = &quot;&quot; region = &quot;&quot; vpc_id = &quot;&quot; subnet_id = &quot;&quot; zone = &quot;&quot; security_group = &quot;&quot; instance_type = &quot;&quot; root_size = &quot;&quot; ``` The above toml description pretty much mirrors the flags defined for the amazon module in Docker machine. See the following: https://github.com/docker/machine/blob/master/drivers/amazonec2/amazonec2.go#L75 We could then create a plugin in Drone at `/plugin/hosting/amazon`, initialize the plugin similar to GitHub and others, and this plugin could import the `docker/machine/amazon` package directly to create, start and stop servers. The interface for a `Host` could look like this: ``` func Create() (Server, error) func Destroy(Server) error ``` We should register each server with the worker pool on creation, and unregister when destroyed. We should persist the list of servers in the Drone database. We should register all servers with the worker pool when Drone first starts (by fetching the list from the database). It would be great if we could start with a Digital Ocean implementation as a proof of concept to get things started.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>272</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [CI-10562]: Introduce embedded annotations in YAML for update of Pipeline Entities (#849)</MESSAGE>
+    <SHA>c2e4dda84b9dde02d866886e73b2bdfeeb41371e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Bug fix to allow YAML update when type of nodes are different in UI and YAML (#852)</MESSAGE>
+      <SHA>39d2f88f64b450d6362f4ddbb20252ad99d177da</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/pages/AddUpdatePipeline/AddUpdatePipeline.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

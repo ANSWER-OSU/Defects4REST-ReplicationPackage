@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2286</ISSUENO>
+  <ISSUEURL>https://github.com/MobSF/Mobile-Security-Framework-MobSF/issues/2286</ISSUEURL>
+  <TITLE>oscrypto / openSSL regex bug when running setup.sh</TITLE>
+  <DESCRIPTION>## ENVIRONMENT ``` OS and Version: Kali Linux Rolling Release 6.5.0-kali3-amd64 Python Version: 3.11.6 MobSF Version: 3.7.9 Beta ``` ## EXPLANATION OF THE ISSUE When trying to install MobSF with the provided setup.sh, you may run into the issue that the install fails because it is unable to detect the version of libcrypto. ![image](https://github.com/MobSF/Mobile-Security-Framework-MobSF/assets/37688484/adf1704c-3261-4c27-8be2-bcddf9b02a59) When working with versions that are higher or equal than 3.0.10 of OpenSSL, the Regex used to detect does not work. Currently it is ``` \b(\d\.\d\.\d[a-z]*)\b ``` Personally I monkeypatched /home/Sp00kyB00k/.cache/pypoetry/virtualenvs/mobsf-vfi9xHNf-py3.11/lib/python3.11/site-packages/oscrypto/_openssl/_libcrypto_cffi.py to which is far from perfect but good enough to get the install rolling. ``` \b(\d\.\d\.\d+[a-z]*)\b ``` Adding the extra + with the last digit should fix it. ## STEPS TO REPRODUCE THE ISSUE Install on Kali Linux by cloning the repository and running the setup.sh</DESCRIPTION>
+  <REPONAME>Mobile-Security-Framework-MobSF</REPONAME>
+  <TIMEDIFFERENCEDAYS>17</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Hotfix: Support viewing kotlin files #2283</MESSAGE>
+    <SHA>4685d8e73d5c23f8418767a24f3015160adbc6db</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Update pyproject.toml to fix issue #2286 Fixed a bug in oscrypto where the regex would fail to recognize the right version of SSL due to insufficient check on multiple digits. However the owner of the repo does not plan to make a new release soon due to time constraints. See -&gt; https://github.com/wbond/oscrypto/issues/78 This can be fixed by using a specific version from git pointing to the right commit. Hence this change in the pyproject.toml file.</MESSAGE>
+      <SHA>2a1ef787782b5b5b484bdae607d0a62f53a4a673</SHA>
+      <PATCHEDFILES>
+        <FILE>pyproject.toml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

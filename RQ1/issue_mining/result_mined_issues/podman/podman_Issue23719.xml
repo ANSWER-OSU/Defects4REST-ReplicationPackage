@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23719</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23719</ISSUEURL>
+  <TITLE>run --rmi : image not known</TITLE>
+  <DESCRIPTION>``` [+0064s] not ok 60 [030] podman run --rmi in 2092ms ... &lt;+065ms&gt; # # podman-remote --url unix:///tmp/CI_XMpA/podman_tmp_qXfw rm /c_t60-jg6dl4n1 &lt;+059ms&gt; # c_t60-jg6dl4n1 # &lt;+011ms&gt; # # podman-remote --url unix:///tmp/CI_XMpA/podman_tmp_qXfw run --rmi quay.io/libpod/testimage:00000004 /bin/true &lt;+411ms&gt; # time=&quot;2024-08-20T17:05:58-05:00&quot; level=warning msg=&quot;quay.io/libpod/testimage:00000004: image not known&quot; ``` * debian-13 : sys remote debian-13 root host sqlite [remote] * PR #23600 * [08-21 07:51](https://api.cirrus-ci.com/v1/artifact/task/5566060290637824/html/sys-remote-debian-13-root-host-sqlite.log.html#t--00060) in [sys] [030] podman run --rmi * rawhide : sys remote rawhide root host sqlite [remote] * PR #23688 * [08-20 18:22](https://api.cirrus-ci.com/v1/artifact/task/5941974685974528/html/sys-remote-rawhide-root-host-sqlite.log.html#t--00060) in [sys] [030] podman run --rmi | x | x | x | x | x | x | | ---: | ---: | ---: | ---: | ---: | ---: | | sys(2) | remote(2) | rawhide(1) | root(2) | host(2) | sqlite(2) | | | | debian-13(1) | | | |</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23749 from Luap99/netlink update github.com/vishvananda/netlink to v1.3.0</MESSAGE>
+    <SHA>9ad3e84cb3c031b78a7f07c7c592f19bc3385f2e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>podman run: ignore image rm error Since commit 458ba5a8af the cleanup process now removes the image as well, thus the removal is racy and it will cause an error here. The code tried to ignore the error with errors.Is() but this never works across the remote API. However the API already has a ignore option so juts use that and fix the error message so that we can easily find the root cause and I do not have to guess where the log was written. Fixes #23719 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>8e78028e2c8d67963dadc5def5619ca69f858034</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/containers/run.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[v5.2-rhel] podman run: ignore image rm error Since commit 458ba5a8af the cleanup process now removes the image as well, thus the removal is racy and it will cause an error here. The code tried to ignore the error with errors.Is() but this never works across the remote API. However the API already has a ignore option so juts use that and fix the error message so that we can easily find the root cause and I do not have to guess where the log was written. Fixes #23719 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt; (cherry picked from commit 8e78028e2c8d67963dadc5def5619ca69f858034) Signed-off-by: tomsweeneyredhat &lt;tsweeney@redhat.com&gt;</MESSAGE>
+      <SHA>694f2a492eb14eeb54efb5da430d74f832aed699</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/containers/run.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

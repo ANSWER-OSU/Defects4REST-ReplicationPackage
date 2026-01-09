@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5580</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5580</ISSUEURL>
+  <TITLE>Migration runner MigrateUp can execute unapplied older and skipped migrations</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40 https://github.com/nopSolutions/nopCommerce/blob/ecb1bb8eed4d07018d268060a7cbfaea880b2140/src/Libraries/Nop.Data/Migrations/MigrationManager.cs#L193 This line applies all found (and unapplied) migrations up to the given version. If I have any unapplied migration with a lower version, the &quot;Up&quot; method is going to be executed for that migration too. Even if it is marked with a skip attribute. So if I have unapplied lower version migration with the SkipMigrationOnUpdate attribute, the up method is being called on app start.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>170</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixed CS1998 warning</MESSAGE>
+    <SHA>f712bf4e883271fa0863daa1cc795e432fe034e4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5580 Fixed problem with executing of skipped and ignored migrations</MESSAGE>
+      <SHA>2ab4fc573b8253663db55e8fbf3f1291629f1966</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Data/Migrations/IMigrationManager.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/MigrationManager.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/MigrationProcessType.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/NopMigrationAttribute.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/SchemaMigration.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/SkipMigrationAttribute.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/SkipMigrationOnInstallAttribute.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/SkipMigrationOnUpdate.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/UpgradeTo440/DataMigration.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/UpgradeTo440/SpecificationAttributeGroupingMigration.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/UpgradeTo450/DataMigration.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Plugins/PluginService.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.MultiFactorAuth.GoogleAuthenticator/Migrations/GoogleAuthenticatorSchemaMigration.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.MultiFactorAuth.GoogleAuthenticator/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Pickup.PickupInStore/Data/SchemaMigration.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Pickup.PickupInStore/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.FixedByWeightByTotal/Data/SchemaMigration.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.FixedByWeightByTotal/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.Avalara/Data/CertificatesMigration.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.Avalara/Data/SchemaMigration.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.Avalara/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.FixedOrByCountryStateZip/Data/SchemaMigration.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.FixedOrByCountryStateZip/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.FacebookPixel/Data/FacebookPixelSchemaMigration.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.FacebookPixel/plugin.json</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ApplicationBuilderExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo440/LocalizationMigration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo440/SettingMigration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo450/LocalizationMigration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo450/SettingMigration.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/TestMigrationManager.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

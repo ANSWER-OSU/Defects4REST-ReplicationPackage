@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8987</ISSUENO>
+  <ISSUEURL>https://github.com/traefik/traefik/issues/8987</ISSUEURL>
+  <TITLE>Need a way to define or alter the traefik `service name` based on consul tags</TITLE>
+  <DESCRIPTION>### Welcome! - [X] Yes, I've searched similar issues on [GitHub](https://github.com/traefik/traefik/issues) and didn't find any. - [X] Yes, I've searched similar issues on the [Traefik community forum](https://community.traefik.io) and didn't find any. ### What did you expect to see? This is a new description of an older problem originally discussed here: https://github.com/traefik/traefik/issues/3882 That issue was originally opened in such a way that it appeared related to Traefik v1 -- however the issue affects Traefik v2 as well and @ddtmachado requested a new issue be created to describe the problem. ## Problem When using the nomad &lt;-&gt; consul &lt;-&gt; traefik integration, it is not possible to use the canary deployment workflow that is supported by nomad. An introduction to the nomad canary roll-out strategy can be found [here](https://learn.hashicorp.com/tutorials/nomad/job-blue-green-and-canary-deployments). The crux of the problem is that nomad will register the non-canary version of the service and the canary version of the service with the same consul service-name such that traefik routing policy cannot distinguish between the canary and non-canary instances of the service. Both service types are presented in traefik as one 'service' representing a pool of instances of both instance types. This means you can't use traefik routing policy to direct traffic to only one or the other instance type independently. ## Background Nomad supports a service deployment lifecycle that includes a canary deployment process. When a new version of a service that uses the canary deployment feature is deployed, nomad will spin up `n` instances of the canary service 'alongside' the existing service instances and allow the canary instances to be health-checked and verified as desired before they are 'promoted'. After promotion, the normal deployment process is followed and the running older instances are replaced with the new version. Nomad supports defining consul parameters specific for the canary instances via the [canary_tags](https://www.nomadproject.io/docs/job-specification/service#canary_tags) and [canary_meta](https://www.nomadproject.io/docs/job-specification/service#canary_meta) nomad parameters. These parameters parallel the [tags](https://www.nomadproject.io/docs/job-specification/service#tags) and [meta](https://www.nomadproject.io/docs/job-specification/service#meta) parameters that are used to populate consul for regular instances of the service. When nomad spins up canary instances it populates consul based on canary_tags/canary_meta and when nomad spins up regular instances it populates consul based on tags/meta. For both canary and non-canary instances, nomad registers the service with the same consul service-name. Nomad only allows canary/non-canary instances to differ in their presentation to consul via the canary_tags and canary_meta parameters. Traefik on the hand, considers all consul registrations with the same name to be the 'same service'. Its not currently possible to define a traefik routing policy that will route traffic to canary only or non-canary only nomad instances. As far as traefik is concerned the canary and non-canary instances are the same pool of instances and these instances can't be independently addressed.. If we could customize the presentation of the service in traefik via the nomad `canary_tags` or `canary_meta` properties in such a way as to persuade traefik to consider these instance types as two distinct services, then we would be able to take advantage of the full flexibility of traefik routing behaviors to decide how we would like to route to these now distinct-from-the-perspective-of-traefik services. ## Possible Solution I suggest allowing to define a consul parameter that allows deriving an alternate name by combining with a suffix with the base consul service name. For example -- suppose support is added for a consul tag named `traefik.consulnamesuffix` and suppose a nomad service declaration like this: ``` service { name = &quot;health-check-tool&quot; port = &quot;http&quot; tags = [ &quot;traefik.enable=true&quot;, &quot;traefik.http.middlewares.strip_canary_header.headers.customrequestheaders.Canary=&quot;, &quot;traefik.http.routers.deploy_automation_tester.rule=Host(`${var.domain}`)&quot;, &quot;traefik.http.routers.deploy_automation_tester.tls=true&quot;, &quot;traefik.http.routers.deploy_automation_tester.entrypoints=https&quot;, &quot;traefik.http.routers.deploy_automation_tester.middlewares=strip_canary_header@consulcatalog&quot; ] canary_tags = [ &quot;traefik.consulnamesuffix=`canary`&quot;, &quot;traefik.enable=true&quot;, &quot;traefik.http.routers.deploy_automation_tester_canary.rule=Host(`${var.domain}`) &amp;&amp; Headers(`canary`, `true`)&quot;, &quot;traefik.http.routers.deploy_automation_tester_canary.tls=true&quot;, &quot;traefik.http.routers.deploy_automation_tester_canary.entrypoints=https&quot;, ] connect { sidecar_service {} } check { name = &quot;alive&quot; type = &quot;http&quot; path = &quot;/ping&quot; interval = &quot;10s&quot; timeout = &quot;2s&quot; } } ``` While an active nomad deployment is in progress we would see two services in `traefik` -- a service named `health_check_tool` which would represent the 'old' version of the service and a service named `health_check_tool_canary` which would represent the 'new' desired version of the service that is being evaluated. In this example, there would also be two traefik routers -- one named `deploy_automation_tester` would route traffic for `${var.domain}` to `health_check_tool` and one named `deploy_automation_tester_canary` which would route traffic for `${var.domain}` that contains the `canary: true` header to the `health_check_tool_canary` service. A mechanism like this would integrate well with the nomad deployment lifecycle and would allow using the normal traefik routing policy mechanisms to send traffic to the canary/non-canary instances of the service in whatever manner is desired during deployment of a new service version.</DESCRIPTION>
+  <REPONAME>traefik</REPONAME>
+  <TIMEDIFFERENCEDAYS>88</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Deprecate caOptional option in client TLS configuration</MESSAGE>
+    <SHA>7d274e80889645e880df51193b43f267515c48b8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add support for deriving distinct traefik `Services` entries based on consul constraint/namespace https://github.com/traefik/traefik/issues/8987</MESSAGE>
+      <SHA>17ce936f492a46baf3fb002bbf4b3b27de7dac57</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/provider/consulcatalog/consul_catalog.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add support for deriving distinct traefik `Services` entries based on a consul tag https://github.com/traefik/traefik/issues/8987</MESSAGE>
+      <SHA>3ce52466c7464a5e1858bdfcb72b5283e421d9f2</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/provider/consulcatalog/config.go</FILE>
+        <FILE>pkg/provider/consulcatalog/config_test.go</FILE>
+        <FILE>pkg/provider/consulcatalog/connect_tls.go</FILE>
+        <FILE>pkg/provider/consulcatalog/label.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add support for deriving distinct traefik `Services` entries based on a consul tag https://github.com/traefik/traefik/issues/8987</MESSAGE>
+      <SHA>a4bfafd4389290bde6fbf9a94e039c992188ba17</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/provider/consulcatalog/config.go</FILE>
+        <FILE>pkg/provider/consulcatalog/config_test.go</FILE>
+        <FILE>pkg/provider/consulcatalog/connect_tls.go</FILE>
+        <FILE>pkg/provider/consulcatalog/label.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

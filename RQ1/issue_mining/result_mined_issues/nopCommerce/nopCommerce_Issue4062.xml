@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4062</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4062</ISSUEURL>
+  <TITLE>Datatable - Read doesn't work, if no form is present on the page</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.20 Description: When no form is present on a page the datatable is unable to send any ajax calls. Explanation: The JavaScript function addAntiForgeryToken: ``` function addAntiForgeryToken(data) { //if the object is undefined, create a new one. if (!data) { data = {}; } //add token var tokenInput = $('input[name=__RequestVerificationToken]'); if (tokenInput.length) { data.__RequestVerificationToken = tokenInput.val(); } return data; } ``` It will check for an input with name __RequestVerificationToken. I couldn't find the place where this input should be generated. Therefore I checked on other pages, where they were implemented. The forms, that are containing such an input field also don't have anything specified. So I tried to put an anti forgery token on my page next to the grid: ``` &lt;nop-antiforgery-token/&gt; ``` And it worked. I think the input field should also be generated within the Table.cshtml or just in general on every page, or even better, if it were within the global Javascript scope, where it could be accessed by the addAntiForgeryToken function.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>105</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue-4129-Microdata' into develop # Conflicts: # upgradescripts/4.20-4.30 (under development)/upgrade.sql</MESSAGE>
+    <SHA>d033cbe22706f2fcb56e10062822896eb628d2b0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4062 Added anti forgery token for all admin view</MESSAGE>
+      <SHA>3f01b71742db2da5865c6c69e47af958bd82860f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/ActivityLog/ActivityLogs.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Affiliate/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Blog/BlogComments.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Blog/BlogPosts.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Campaign/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Category/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Common/SeNames.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Country/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Discount/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/GiftCard/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Home/Index.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Language/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Manufacturer/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Measure/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/MessageTemplate/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/News/NewsComments.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/News/NewsItems.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/OnlineCustomer/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Order/AddProductToOrder.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Payment/MethodRestrictions.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Payment/Methods.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Plugin/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Plugin/OfficialFeed.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Poll/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Product/RequiredProductAddPopup.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/ProductAttribute/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/ProductReview/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/RecurringPayment/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Report/BestCustomersByNumberOfOrders.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Report/BestCustomersByOrderTotal.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Report/Bestsellers.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Report/CountrySales.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Report/NeverSold.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Report/RegisteredCustomers.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/ReturnRequest/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/ScheduleTask/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Setting/AllSettings.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Shared/_AdminLayout.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Shipping/DatesAndRanges.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Shipping/Methods.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Shipping/PickupPointProviders.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Shipping/Providers.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Shipping/Warehouses.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/ShoppingCart/CurrentCarts.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/SpecificationAttribute/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Store/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Tax/Categories.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Tax/Providers.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Template/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Topic/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Vendor/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Widget/List.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19545</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/19545</ISSUEURL>
+  <TITLE>podman logs --tail, with json-file, misses partial lines</TITLE>
+  <DESCRIPTION>[ Split off from #18501 ] Basically, podman does not correctly handle a log like this: ```console $ cat -vET ~/.local/share/containers/storage/overlay-containers/$cid/userdata/ctr.log 2023-08-07T19:56:34.223758260-06:00 stdout F podman^M$ 2023-08-07T19:56:34.223758260-06:00 stdout P podman$ 2023-08-07T19:56:34.223816701-06:00 stdout F ^M$ &lt;------ this actually goes with the prior line 2023-08-07T19:56:34.223816701-06:00 stdout F podman^M$ $ bin/podman logs --tail 2 $cid | cat -vET ^M$ podman^M$ ``` Causes flakes in e2e tests, because they use `podman run -dt`, which is IMHO a bug, except that it let us find this issues, so maybe it's not a bug. (I cleaned up `run -it` in #18343 but did not touch `-dt`) Reproducer: ```console $ nl=&quot; &lt;----- basically doublequote, enter, doublequote, enter &quot; $ cr=&quot;^M&quot; &lt;-------- control-V for quote-next-character, control-M for CR $ while :;do cid=$(bin/podman run --log-driver json-file -dt quay.io/libpod/testimage:20221018 sh -c &quot;echo podman;echo podman;echo podman&quot;);bin/podman wait $cid;logs=$(bin/podman logs --tail 2 $cid); test &quot;$logs&quot; = &quot;podman${cr}${nl}podman${cr}&quot; || break;bin/podman rm $cid;done ```</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19547 from containers/renovate/dawidd6-action-send-mail-3.x [skip-ci] Update dawidd6/action-send-mail action to v3.8.0</MESSAGE>
+    <SHA>7adc58ffb4782432d90eda06167121f67d0f0ccb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>file logger: fix podman logs --tail with partial lines There is a problem where our tail code does not handles correctly partial log lines. This makes podman logs --tail output possibly incorrect lines when k8s-file is used. This manifests as flake in CI because partial lines are only sometimes written, basically always when the output is flushed before writing a newline. For our code we must not count partial lines which was already done but the important thing we must keep reading backwards until the next full (F) line. This is because all partial (P) lines still must be added to the full line. See the added tests for details on how the log file looks like. While fixing this, I rework the tail logic a bit, there is absolutely no reason to read the lines in a separate goroutine just to pass the lines back via channel. We can do this in the same routine. The logic is very simple, read the lines backwards, append lines to result and then at the end invert the result slice as tail must return the lines in the correct order. This more efficient then having to allocate two different slices or to prepend the line as this would require a new allocation for each line. Lastly the readFromLogFile() function wrote the lines back to the log line channel in the same routine as the log lines we read, this was bad and causes a deadlock when the returned lines are bigger than the channel size. There is no reason to allocate a big channel size we can just write the log lines in a different goroutine, in this case the main routine were read the logs anyway. A new system test and unit tests have been added to check corner cases. Fixes #19545 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>a55c2636de42849c2801f475f67106c98610166e</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_log.go</FILE>
+        <FILE>libpod/logs/log.go</FILE>
+        <FILE>libpod/logs/log_test.go</FILE>
+        <FILE>libpod/logs/reversereader/reversereader.go</FILE>
+        <FILE>pkg/domain/infra/abi/containers.go</FILE>
+        <FILE>test/system/035-logs.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

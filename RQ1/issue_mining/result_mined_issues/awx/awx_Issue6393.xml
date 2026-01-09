@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6393</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6393</ISSUEURL>
+  <TITLE>Update to the latest pyyaml to address CVE-2017-18342</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY We need to upgrade to a newer pyyaml to address CVE-2017-18342 (though, to my knowledge, we're _already using_ `safe_load()` appropriately everywhere, so this upgrade is really just to tick a box). Unfortunately, the currently released version of `openshift` relies on a `kubernetes` version that pins to an older version of `pyyaml`: https://github.com/kubernetes-client/python/blob/v10.1.0/requirements.txt#L5 Once a new `openshift` library version is released, we should update our dependencies to pull in a newer `pyyaml`.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #6291 from AlanCoding/node_identifier Add Workflow Node Identifier Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>bd7c04811396e04db22a5e026f5ea03ce3256120</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>pin a minimum pyyaml version to address (CVE-2017-18342) see: https://github.com/ansible/awx/issues/6393</MESSAGE>
+      <SHA>65cafa37c7bb4f3468c6a63d05880b56d984c2e9</SHA>
+      <PATCHEDFILES>
+        <FILE>requirements/requirements.in</FILE>
+        <FILE>requirements/requirements.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

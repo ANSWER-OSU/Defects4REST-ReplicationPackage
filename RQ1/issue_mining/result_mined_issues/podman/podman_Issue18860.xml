@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18860</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18860</ISSUEURL>
+  <TITLE>pod create + run --pod: Waiting for container, getting exit code from DB, no such exit code</TITLE>
+  <DESCRIPTION>Weird new flake: ``` [It] podman pod create --sysctl test ... # podman [options] pod create --share pid --sysctl kernel.msgmax=65535 &lt;PODID&gt; # podman [options] run --pod &lt;PODID&gt; --rm quay.io/libpod/alpine:latest sysctl kernel.msgmax time=&quot;2023-06-12T12:59:50Z&quot; level=error msg=&quot;Waiting for container &lt;CID&gt;: getting exit code of container &lt;CID&gt; from DB: no such exit code (container in state running)&quot; time=&quot;2023-06-12T12:59:50Z&quot; level=error msg=&quot;Removing container &lt;CID&gt;: cannot remove container &lt;CID&gt; as it is running - running or paused containers cannot be removed without force: container state improper&quot; ``` Seen in [debian root](https://api.cirrus-ci.com/v1/artifact/task/5341261570244608/html/int-podman-debian-12-root-host-sqlite.log.html#t--Podman-pod-create-podman-pod-create-sysctl-test--1). Even though this looks a lot like many other &quot;container state improper&quot; flakes we've seen in the past, I think this one is different enough to merit a new issue.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>72</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18507 from mheon/fix_rm_depends Fix `podman rm -fa` with dependencies</MESSAGE>
+    <SHA>3cae574ab2858895dc124c1cd88abc15b4ab311e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>container wait: indicate timeout in error When waiting for a container, there may be a time window where conmon has already exited but the container hasn't been fully cleaned up. In that case, we give the container at most 20 seconds to be fully cleaned up. We cannot wait forever since conmon may have been killed or something else went wrong. After the timeout, we optimistically assume the container to be cleaned up and its exit code to present. If no exit code can be found, we return an error. Indicate in the error whether the timeout kicked in to help debug (transient) errors and flakes (e.g., #18860). [NO NEW TESTS NEEDED] Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>c0ab293131866f80ef410e1f7b5b5ec6f47c5c1a</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_api.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

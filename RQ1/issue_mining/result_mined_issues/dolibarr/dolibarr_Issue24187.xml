@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24187</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/24187</ISSUEURL>
+  <TITLE>Wrong annual total on Bank IOMonthlyReporting</TITLE>
+  <DESCRIPTION>### Bug Total of each year is only the last month total. on htdocs/compta/bank/annuel.php code is : ``` for ($mois = 1; $mois &lt; 13; $mois++) { print '&lt;tr class=&quot;oddeven&quot;&gt;'; print &quot;&lt;td&gt;&quot;.dol_print_date(dol_mktime(1, 1, 1, $mois, 1, 2000), &quot;%B&quot;).&quot;&lt;/td&gt;&quot;; for ($annee = $year_start; $annee &lt;= $year_end; $annee++) { $totsorties[$annee] = 0; $totentrees[$annee] = 0; ``` Seem to be better with : ``` for ($mois = 1; $mois &lt; 13; $mois++) { print '&lt;tr class=&quot;oddeven&quot;&gt;'; print &quot;&lt;td&gt;&quot;.dol_print_date(dol_mktime(1, 1, 1, $mois, 1, 2000), &quot;%B&quot;).&quot;&lt;/td&gt;&quot;; $totsorties[$annee] = 0; $totentrees[$annee] = 0; for ($annee = $year_start; $annee &lt;= $year_end; $annee++) { $case = sprintf(&quot;%04s-%02s&quot;, $annee, $mois); ``` ### Environment Version 17 dev ### Environment OS all ### Environment Web server _No response_ ### Environment PHP _No response_ ### Environment Database _No response_ ### Environment URL(s) _No response_ ### Expected and actual behavior _No response_ ### Steps to reproduce the behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>375</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix test</MESSAGE>
+    <SHA>f60fd09603c8fb5a56daa9e7864e2367f1ef5a27</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Update annuel.php #24187 correct annual total</MESSAGE>
+      <SHA>d669b898e37fd4ae64456c77345fb712bb4d9ba6</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/compta/bank/annuel.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #1 from nstremsd/nstremsd-patch-#24187 Update annuel.php #24187</MESSAGE>
+      <SHA>bdab6cf9772b92ec0ce15123f5193fb2ba56c4d2</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/compta/bank/annuel.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Update annuel.php Best correct #24187</MESSAGE>
+      <SHA>62b3bc93f4f32ee7ec94d668d5f56ccf79454b84</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/compta/bank/annuel.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

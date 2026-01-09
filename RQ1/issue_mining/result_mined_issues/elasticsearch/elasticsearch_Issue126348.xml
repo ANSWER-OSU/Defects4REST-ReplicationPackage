@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126348</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126348</ISSUEURL>
+  <TITLE>[CI] ClusterStateWaitThresholdBreachTests testWaitInShrunkShardsAllocatedExceedsThreshold failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7440 / openjdk21_checkpart2_java-fips-matrix](https://gradle-enterprise.elastic.co/s/hwlxklmxq2z2q) - [elasticsearch-pull-request #66374 / part-2](https://gradle-enterprise.elastic.co/s/5wy5yj4j6c2wy) - [elasticsearch-pull-request #66143 / part-2-fips](https://gradle-enterprise.elastic.co/s/hdyeathkp2lde) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:ilm:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.ilm.ClusterStateWaitThresholdBreachTests.testWaitInShrunkShardsAllocatedExceedsThreshold&quot; -Dtests.seed=2BDAD0719ABA2123 -Dtests.locale=shi-MA -Dtests.timezone=Israel -Druntime.java=21 -Dtests.fips.enabled=true ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.ilm.ClusterStateWaitThresholdBreachTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testWaitInShrunkShardsAllocatedExceedsThreshold),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.index.IndexNotFoundException: no such index [shrink-cncc-index-rfqmtvnuxfdjt] ``` **Issue Reasons:** - [main] 3 failures in test testWaitInShrunkShardsAllocatedExceedsThreshold (1.0% fail rate in 296 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (1.7% fail rate in 119 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Adjust method to transition split state (#126179) Make the method to transition to handoff be generic and support multiple states.</MESSAGE>
+    <SHA>68bc2b86008c2eb0817faa3c3c68d8c29eddbaa9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ilm.ClusterStateWaitThresholdBreachTests testWaitInShrunkShardsAllocatedExceedsThreshold #126348</MESSAGE>
+      <SHA>67fca830dfa8f4735fa0372d6be8921e734bd67b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Unmute #126348 (#126690) This was already fixed by #126501. Fixes #126348</MESSAGE>
+      <SHA>ac7eccc1e4c5b3680f4a8b15a61184aa8592a7a6</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

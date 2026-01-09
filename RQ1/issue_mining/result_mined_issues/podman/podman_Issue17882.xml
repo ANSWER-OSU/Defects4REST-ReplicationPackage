@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17882</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/17882</ISSUEURL>
+  <TITLE>play kube: sdnotify: got MAINPID=104055 (expected =0)</TITLE>
+  <DESCRIPTION>Here's one I've never seen before: ``` not ok 363 sdnotify : play kube - no policies ... $ podman container inspect test_pod-test 2dfde25de330-service --format {{.Config.SdNotifyMode}} ignore ignore socat log: MAINPID=104055 READY=1 #/vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv #| FAIL: sdnotify sent MAINPID and READY #| expected: 'MAINPID=0 READY=1' #| actual: 'MAINPID=104055' #| &gt; 'READY=1' #\^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ``` Only one instance, [f37 rootless](https://api.cirrus-ci.com/v1/artifact/task/6534350947221504/html/sys-podman-fedora-37-rootless-host-boltdb.log.html#t--00363) (boltdb obviously because we do not test sqlite in system tests yet).</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #17796 from vrothberg/au-errors auto update: return restart error</MESSAGE>
+    <SHA>78f1ebb80ba473f4f9bb016aec5d190645089cce</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>system tests: fix racey sdnotify test Race introduced in #16709, which changed 'top' to 'true', so there was only a narrow window in which '.State.ConmonPod' would be valid. Remove the race. Fixes: #17882 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>92e0efc5d022d1e92cb5b6826016771db77406bc</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/260-sdnotify.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

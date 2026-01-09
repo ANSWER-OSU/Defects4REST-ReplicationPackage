@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5243</ISSUENO>
+  <ISSUEURL>https://github.com/HumanSignal/label-studio/issues/5243</ISSUEURL>
+  <TITLE>Easy Export to YOLO format causes absurd memory usage</TITLE>
+  <DESCRIPTION>I have a project with 2000 annotated images. Following those steps: 1. Go to project 2. click on &quot;export&quot; 3. select &quot;yolo&quot; format (others might work aswell) and confirm export 4. wait for label-studio to create the zip, then use absurd amounts of memory 5. if you are lucky, you get the file, but most times the kernel will kill label-studio because OOM My system has 32GB RAM, 9GB is used by other applications. 22GB are available to label-studio it uses *all 22GB* to export the project, and 99% of the times it crashes **Expected behavior** reasonable memory usage while exporting a project **Environment:** - OS: Unraid, docker-compose - Label Studio Version: 1.10.0 **Additional context** I couldn't wait for this to be resolved, as it made me unable to export. So I started debugging this myself, what I discovered is this: [this line](https://github.com/HumanSignal/label-studio/blob/develop/label_studio/data_export/models.py#L173) starts creating a zip, my first thought was it's doing this in-memory, causing the absurd memory usage. But it isn't. ```py out = read_bytes_stream(os.path.abspath(tmp_dir + '.zip')) ``` Then I saw this. To me, it's reading a bytes stream. It has the word &quot;stream&quot; in it, so it probably reads in chunks? [Nevermind](https://github.com/HumanSignal/label-studio/blob/5df9ae3828b98652e9fa290a19f4deedf51ef6c8/label_studio/core/utils/io.py#L143) it’s reading the *entire* zip file into memory for absolutely no reason: ```py def read_bytes_stream(filepath): with open(filepath, mode='rb') as f: return io.BytesIO(f.read()) ``` With my zip files being 7GB, its enough to somehow fill 22GB of RAM. # Workaround the zip is still created, you can go to label-studios tmp dir and download the file yourself, without loading it all into memory</DESCRIPTION>
+  <REPONAME>label-studio</REPONAME>
+  <TIMEDIFFERENCEDAYS>112</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: LEAP-897: Fix incorrect usage of name attr in visual tags (#5745)</MESSAGE>
+    <SHA>fce3668bb9ec50c78a6c9982683dccc2e6deff0e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: LEAP-884: avoid reading entire files to memory in export api (#5612) Resolves #5243 High level idea is to avoid calling `f.read()` in the `ExportAPI`, using `shutil.copy2` instead where we can. Tested: - with CI, for single file exports. eg `pytest tests/sdk/test_tasks.py::test_export_tasks` - manually, for exporting an archive - using `label-studio export`, for the `tasks.functions` change - using `pytest tests/data_export.tavern.yml`, for the export mixin change.</MESSAGE>
+      <SHA>5e2e552d04b63e89fd661799a27b163257eafaf5</SHA>
+      <PATCHEDFILES>
+        <FILE>label_studio/core/utils/io.py</FILE>
+        <FILE>label_studio/data_export/api.py</FILE>
+        <FILE>label_studio/data_export/mixins.py</FILE>
+        <FILE>label_studio/data_export/models.py</FILE>
+        <FILE>label_studio/tasks/functions.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

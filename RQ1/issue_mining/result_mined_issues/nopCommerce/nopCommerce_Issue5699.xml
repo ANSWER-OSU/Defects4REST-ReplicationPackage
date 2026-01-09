@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5699</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5699</ISSUEURL>
+  <TITLE>Bundles do not take stock qty into consideration correctly</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40 &gt; Let's say we have simple product A and product B, 1 pc in stock of each. Then we produce a bundle with the two products using product attributes (as of tutorial in this video https://www.youtube.com/watch?v=sf9jP6KFcko). &gt; &gt; If we add the bundle to the shopping cart, and then again, it cannot be added the second time, because the products A and B are out of stock after having added the first bundle to the cart. This is correct behaviour. &gt; &gt; But we can still add product A and/or product B separately to the cart, despite the fact that the bundle in the cart has already used up the single products. &gt; &gt; The same problem in the other direction. If we add product A and/or product B to the cart, we can still add the bundle to the cart, but product A and/or B are already out of stock, so adding the bundle should not be allowed. Source: https://www.nopcommerce.com/boards/topic/90955/bundles-do-not-take-stock-qty-into-consideration-correctly</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>19</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5540 Fixed upload a blob to Azure Storage if there is already exists</MESSAGE>
+    <SHA>614450a9608bfd7402149245e63dfbaed9fcada0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5699 Fixed problem with accounting product qty in bundles on stock</MESSAGE>
+      <SHA>f96dd326d44a8441c4b224ad082048c23cb7fdab</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Orders/ShoppingCartService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#5699 Kept one method GetShoppingCartItemAttributeWarningsAsync with new signature</MESSAGE>
+      <SHA>13a30ace53c6b0476a61dfbbd6a8fb830ee0c63c</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Orders/IShoppingCartService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/ShoppingCartService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

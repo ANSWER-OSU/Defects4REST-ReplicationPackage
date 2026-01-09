@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>27883</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/27883</ISSUEURL>
+  <TITLE>getDolGlobalString and string &quot;0&quot; returns '' or default value</TITLE>
+  <DESCRIPTION>### Bug Hello i think there is a big fail on getDolGlobalString function in race condition where we store &quot;0&quot; string as value ... ``` return (string) (empty($conf-&gt;global-&gt;$key) ? $default : $conf-&gt;global-&gt;$key); ``` -&gt; empty(0) return true then the function return default value, not &quot;0&quot; just try that php code: ``` echo 'empty(&quot;0&quot;) returns ' . empty(&quot;0&quot;) . &quot;\n&quot;; echo 'empty(0) returns ' . empty(0) . &quot;\n&quot;; echo &quot;empty('0') returns &quot; . empty('0') . &quot;\n&quot;; ``` results: ``` empty(&quot;0&quot;) returns 1 empty(0) returns 1 empty('0') returns 1 ``` ### Environment Version _No response_ ### Environment OS _No response_ ### Environment Web server _No response_ ### Environment PHP _No response_ ### Environment Database _No response_ ### Environment URL(s) _No response_ ### Expected and actual behavior _No response_ ### Steps to reproduce the behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #27834 from Easya-Solutions/14.0_takepos_display_errors_on_payment_error Takepos : display errors on payment error</MESSAGE>
+    <SHA>2f18dc1b9cac21120a838cac27ff8fe340ea35a9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix #27883 : zero could be a value stored</MESSAGE>
+      <SHA>1f21e1a9456270a1e8ce94a35ecf1be39f6e25f7</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/functions.lib.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #27904 from rycks/14.0_fix_zero_could_be_a_value_into_conf_global_key fix #27883 : zero could be a value stored</MESSAGE>
+      <SHA>662ab450370a680f3c310c9bc4177a7623348df0</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/functions.lib.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121465</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121465</ISSUEURL>
+  <TITLE>[CI] HeapAttackIT testLookupExplosionBigStringManyMatches failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #17468 / part1](https://gradle-enterprise.elastic.co/s/terkg6hcnbvfe) - [elasticsearch-intake #17439 / part1](https://gradle-enterprise.elastic.co/s/e4ki6d433mnbo) - [elasticsearch-periodic-platform-support #6217 / rhel-7_platform-support-unix](https://gradle-enterprise.elastic.co/s/xfqq2w3cy7voq) - [elasticsearch-intake #17394 / part1](https://gradle-enterprise.elastic.co/s/3as3rwbdux2ui) - [elasticsearch-intake #17376 / part1](https://gradle-enterprise.elastic.co/s/65sawbbrentsq) - [elasticsearch-periodic-platform-support #6189 / sles-12_platform-support-unix](https://gradle-enterprise.elastic.co/s/vm6m3ztodtnio) - [elasticsearch-intake #17150 / part1](https://gradle-enterprise.elastic.co/s/hzqk7azo2d5om) - [elasticsearch-periodic #6172 / openjdk23_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/wmkzerzmvgoxw) - [elasticsearch-periodic-platform-support #6147 / amazonlinux-2_platform-support-aws](https://gradle-enterprise.elastic.co/s/2aafggjxifwpk) - [elasticsearch-periodic-platform-support #6133 / amazonlinux-2_platform-support-aws](https://gradle-enterprise.elastic.co/s/oqzjmxvq3durw) **Reproduction Line:** ``` ./gradlew &quot;:test:external-modules:test-esql-heap-attack:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.heap_attack.HeapAttackIT.testLookupExplosionBigStringManyMatches&quot; -Dtests.seed=D59D0CC178364FFA -Dtests.locale=gl-Latn-ES -Dtests.timezone=Greenwich -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.heap_attack.HeapAttackIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testLookupExplosionBigStringManyMatches),title:'Test',type:optionsListControl))))) **Failure Message:** ``` junit.framework.AssertionFailedError: Expected exception ResponseException but no exception was thrown ``` **Issue Reasons:** - [8.x] 12 failures in test testLookupExplosionBigStringManyMatches (1.9% fail rate in 642 executions) - [8.x] 5 failures in step part1 (6.2% fail rate in 81 executions) - [8.x] 2 failures in step amazonlinux-2_platform-support-aws (12.5% fail rate in 16 executions) - [8.x] 5 failures in pipeline elasticsearch-intake (6.2% fail rate in 81 executions) - [8.x] 6 failures in pipeline elasticsearch-periodic-platform-support (37.5% fail rate in 16 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.datastreams.TSDBPassthroughIndexingIT org.elasticsearch.datastreams.TSDBPassthroughIndexingIT #121464</MESSAGE>
+    <SHA>38052b25943e90bda912189327cb16316b9ef775</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.heap_attack.HeapAttackIT testLookupExplosionBigStringManyMatches #121465</MESSAGE>
+      <SHA>09e1426616b3d6d95b7c6b4378e67926acabfb42</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: Reenable heap attacks (#121565) Reenables some heap attack tests, bumping their memory requirements to try and force a failure on all CI machines. Previously some CI machines weren't failing, invalidating the test on those machines. Close #121481 Close #121465</MESSAGE>
+      <SHA>50d76c205f8e1b753167e6eb698f7f67af9ae102</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>test/external-modules/esql-heap-attack/src/javaRestTest/java/org/elasticsearch/xpack/esql/heap_attack/HeapAttackIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121433</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121433</ISSUEURL>
+  <TITLE>[CI] ClassificationIT testStopAndRestart failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #16964 / part4](https://gradle-enterprise.elastic.co/s/xkvrjlba4x5qg) - [elasticsearch-periodic #6093 / openjdk17_checkpart4_java-fips-matrix](https://gradle-enterprise.elastic.co/s/z6qkovmjzzx5y) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:ml:qa:native-multi-node-tests:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.ml.integration.ClassificationIT.testWithOnlyTrainingRowsAndTrainingPercentIsHundred&quot; -Dtests.seed=A2A9B3783A377B90 -Dtests.locale=ar-EH -Dtests.timezone=Africa/Bangui -Druntime.java=23 ``` **Applicable branches:** 8.18 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.ml.integration.ClassificationIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testStopAndRestart),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Stats were: {&quot;id&quot;:&quot;classification_only_training_data_and_training_percent_is_100&quot;,&quot;state&quot;:&quot;started&quot;,&quot;progress&quot;:[{&quot;phase&quot;:&quot;reindexing&quot;,&quot;progress_percent&quot;:100},{&quot;phase&quot;:&quot;loading_data&quot;,&quot;progress_percent&quot;:100},{&quot;phase&quot;:&quot;feature_selection&quot;,&quot;progress_percent&quot;:100},{&quot;phase&quot;:&quot;coarse_parameter_search&quot;,&quot;progress_percent&quot;:89},{&quot;phase&quot;:&quot;fine_tuning_parameters&quot;,&quot;progress_percent&quot;:0},{&quot;phase&quot;:&quot;final_training&quot;,&quot;progress_percent&quot;:0},{&quot;phase&quot;:&quot;writing_results&quot;,&quot;progress_percent&quot;:0},{&quot;phase&quot;:&quot;inference&quot;,&quot;progress_percent&quot;:0}],&quot;data_counts&quot;:{&quot;training_docs_count&quot;:300,&quot;test_docs_count&quot;:0,&quot;skipped_docs_count&quot;:0},&quot;memory_usage&quot;:{&quot;timestamp&quot;:1738336556982,&quot;peak_usage_bytes&quot;:32286,&quot;status&quot;:&quot;ok&quot;},&quot;node&quot;:{&quot;id&quot;:&quot;hVJN9h9eQBaTIy0WY8XhEA&quot;,&quot;name&quot;:&quot;javaRestTest-1&quot;,&quot;ephemeral_id&quot;:&quot;B-6n8PnfSIOKb3haCqKuPA&quot;,&quot;transport_address&quot;:&quot;127.0.0.1:37643&quot;,&quot;attributes&quot;:{&quot;ml.config_version&quot;:&quot;12.0.0&quot;,&quot;ml.machine_memory&quot;:&quot;126604193792&quot;,&quot;ml.allocated_processors_double&quot;:&quot;32.0&quot;,&quot;transform.config_version&quot;:&quot;10.0.0&quot; [truncated] ``` **Issue Reasons:** - [8.18] 2 failures in test testStopAndRestart (1.9% fail rate in 104 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[ML] Adding fields for Inference service configuration API (#121103) (#121402) * Adding fields and making some optional * Fixing tests</MESSAGE>
+    <SHA>937924c8be0ddfc998ab9113d7d61e0db43987ab</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ml.integration.ClassificationIT testStopAndRestart #121433</MESSAGE>
+      <SHA>e68edcdd6b1b9ee29de40f30b10bc4c0c2f64d57</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[ML] Unmute fixed Classification IT tests #122362 Unmute tests following #122268 Closes #120071 Closes #121680 Closes #121479 Closes #121458 Closes #121433 Closes #121368 Closes #121236 Closes #116234</MESSAGE>
+      <SHA>9968f3500e3c4cf585bfdda56d9c08bb271ad6c1</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

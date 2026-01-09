@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>513</ISSUENO>
+  <ISSUEURL>https://github.com/treasure-data/digdag/issues/513</ISSUEURL>
+  <TITLE>&quot;retry: false&quot; of &quot;http&gt;:&quot; operator is not working</TITLE>
+  <DESCRIPTION>When a url is wrong or temporarily down, the `http&gt;:` operator keeps retrying even if `retry: false` is specified. Digdag version is 0.9.6. A sample digdag workflow is as following. ``` +check: +call: _error: fail&gt;: &quot;Error!&quot; +call: http&gt;: http://wwwW.xxxx/v1/stats/qps retry: false store_content: true ``` And digdag server log is as follows. ``` 2017-03-15 18:18:54 +0900 [INFO] (0785@+test+check+call+call) io.digdag.core.agent.OperatorManager: http&gt;: http://wwww.xxxx/v1/stats/qps 2017-03-15 18:18:54 +0900 [INFO] (0785@+test+check+call+call) io.digdag.standards.operator.HttpOperatorFactory$HttpOperator: Sending HTTP request: GET http://wwww.xxxx/v1/stats/qps 2017-03-15 18:18:54 +0900 [WARN] (0785@+test+check+call+call) io.digdag.standards.operator.state.PollingRetryExecutor: HTTP request failed: retrying in 1 seconds java.lang.RuntimeException: java.net.UnknownHostException: wwww.xxxx: Name or service not known at com.google.api.client.repackaged.com.google.common.base.Throwables.propagate(Throwables.java:160) at io.digdag.standards.operator.HttpOperatorFactory$HttpOperator.send(HttpOperatorFactory.java:324) at io.digdag.standards.operator.HttpOperatorFactory$HttpOperator.execute(HttpOperatorFactory.java:250) at io.digdag.standards.operator.HttpOperatorFactory$HttpOperator.lambda$run$1(HttpOperatorFactory.java:195) at io.digdag.standards.operator.state.PollingRetryExecutor.run(PollingRetryExecutor.java:176) at io.digdag.standards.operator.HttpOperatorFactory$HttpOperator.run(HttpOperatorFactory.java:195) at io.digdag.standards.operator.HttpOperatorFactory$HttpOperator.runTask(HttpOperatorFactory.java:136) at io.digdag.util.BaseOperator.run(BaseOperator.java:35) at io.digdag.core.agent.OperatorManager.callExecutor(OperatorManager.java:314) at io.digdag.core.agent.OperatorManager.runWithWorkspace(OperatorManager.java:255) at io.digdag.core.agent.OperatorManager.lambda$runWithHeartbeat$2(OperatorManager.java:138) at io.digdag.core.agent.ExtractArchiveWorkspaceManager.withExtractedArchive(ExtractArchiveWorkspaceManager.java:36) at io.digdag.core.agent.OperatorManager.runWithHeartbeat(OperatorManager.java:136) at io.digdag.core.agent.OperatorManager.run(OperatorManager.java:120) at io.digdag.core.agent.MultiThreadAgent.lambda$run$0(MultiThreadAgent.java:121) at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) at java.util.concurrent.FutureTask.run(FutureTask.java:266) at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) at java.lang.Thread.run(Thread.java:745) Caused by: java.net.UnknownHostException: wwww.xxxx: Name or service not known at java.net.Inet4AddressImpl.lookupAllHostAddr(Native Method) at java.net.InetAddress$2.lookupAllHostAddr(InetAddress.java:928) at java.net.InetAddress.getAddressesFromNameService(InetAddress.java:1323) at java.net.InetAddress.getAllByName0(InetAddress.java:1276) at java.net.InetAddress.getAllByName(InetAddress.java:1192) at java.net.InetAddress.getAllByName(InetAddress.java:1126) at org.eclipse.jetty.util.SocketAddressResolver$Async.lambda$resolve$1(SocketAddressResolver.java:167) at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:671) at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:589) ... 1 common frames omitted 2017-03-15 18:18:56 +0900 [INFO] (0785@+test+check+call+call) io.digdag.core.agent.OperatorManager: http&gt;: http://wwww.xxxx/v1/stats/qps 2017-03-15 18:18:56 +0900 [INFO] (0785@+test+check+call+call) io.digdag.standards.operator.HttpOperatorFactory$HttpOperator: Sending HTTP request: GET http://wwww.xxxx/v1/stats/qps 2017-03-15 18:18:56 +0900 [WARN] (0785@+test+check+call+call) io.digdag.standards.operator.state.PollingRetryExecutor: HTTP request failed: retrying in 2 seconds java.lang.RuntimeException: java.net.UnknownHostException: wwww.xxxx at com.google.api.client.repackaged.com.google.common.base.Throwables.propagate(Throwables.java:160) at io.digdag.standards.operator.HttpOperatorFactory$HttpOperator.send(HttpOperatorFactory.java:324) at io.digdag.standards.operator.HttpOperatorFactory$HttpOperator.execute(HttpOperatorFactory.java:250) at io.digdag.standards.operator.HttpOperatorFactory$HttpOperator.lambda$run$1(HttpOperatorFactory.java:195) at io.digdag.standards.operator.state.PollingRetryExecutor.run(PollingRetryExecutor.java:176) at io.digdag.standards.operator.HttpOperatorFactory$HttpOperator.run(HttpOperatorFactory.java:195) at io.digdag.standards.operator.HttpOperatorFactory$HttpOperator.runTask(HttpOperatorFactory.java:136) at io.digdag.util.BaseOperator.run(BaseOperator.java:35) at io.digdag.core.agent.OperatorManager.callExecutor(OperatorManager.java:314) at io.digdag.core.agent.OperatorManager.runWithWorkspace(OperatorManager.java:255) at io.digdag.core.agent.OperatorManager.lambda$runWithHeartbeat$2(OperatorManager.java:138) at io.digdag.core.agent.ExtractArchiveWorkspaceManager.withExtractedArchive(ExtractArchiveWorkspaceManager.java:36) at io.digdag.core.agent.OperatorManager.runWithHeartbeat(OperatorManager.java:136) at io.digdag.core.agent.OperatorManager.run(OperatorManager.java:120) at io.digdag.core.agent.MultiThreadAgent.lambda$run$0(MultiThreadAgent.java:121) ... (repeating...) ```</DESCRIPTION>
+  <REPONAME>digdag</REPONAME>
+  <TIMEDIFFERENCEDAYS>162</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>'site' task might cause error in release task which should be validated beforehand</MESSAGE>
+    <SHA>87882b491e230f57093e0436bdf1a2f3088fa487</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #513. 'retry' parameter in http&gt;: operator.</MESSAGE>
+      <SHA>9b88bd2db903225eee1458bb16179941066d4618</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/operator/HttpOperatorFactory.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #513.</MESSAGE>
+      <SHA>84f2ec70da18ae34ca88fb18a4dffe4eb9c3cc2b</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/operator/HttpOperatorFactory.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #627 from yoyama/fix_retry_http_operator_#513 Fix retry in http operator #513</MESSAGE>
+      <SHA>9d86e0a7d888489bda061dd3822d4eb1efc455a6</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/operator/HttpOperatorFactory.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

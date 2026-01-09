@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8343</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/8343</ISSUEURL>
+  <TITLE>bug: log-rotate max_kept doesn't work if enable_compression: true</TITLE>
+  <DESCRIPTION>### Description ``` $ git clone https://github.com/apache/apisix-docker.git $ cd apisix-docker/example ``` Update the `example/apisix_conf/config.yaml` to: ``` plugins: - log-rotate plugin_attr: log-rotate: interval: 1 # rotate interval (unit: second) max_kept: 10 # max number of log files will be kept max_size: -1 # max size of log files will be kept enable_compression: true ``` And then start the docker-compose. ``` docker-compose -p docker-apisix -f docker-compose-arm64.yml up -d ``` The number of files (*.tar.gz) in the `example/apisix_log/` directory will grow without limit. I want to keep only the X most recent tar.gz files while enable_compression: true, but the current configuration cannot take effect.</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: proxy-rewrite support config add set and remove header (#8336) Co-authored-by: 罗泽轩 &lt;spacewanderlzx@gmail.com&gt; Fixes https://github.com/apache/apisix/issues/8239</MESSAGE>
+    <SHA>01b4b49eb2ba642b337f7a1fbe1894a77942910b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix(log-rotate): max_kept works on compression files (#8366) Fixes https://github.com/apache/apisix/issues/8343</MESSAGE>
+      <SHA>c49be6665f8e51dfb2ccba86ac85474104b91d35</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/log-rotate.lua</FILE>
+        <FILE>t/plugin/log-rotate2.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

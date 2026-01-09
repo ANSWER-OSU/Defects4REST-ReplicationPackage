@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127304</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/127304</ISSUEURL>
+  <TITLE>[CI] MultiClusterSpecIT test {fork.ForkWithDissect} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7819 / 9.1.0_bwc](https://gradle-enterprise.elastic.co/s/b2q5y6xpfbvns) - [elasticsearch-pull-request #69138 / 9.1.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/uqolndyecfrpk) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:multi-clusters:v9.1.0#newToOld&quot; -Dtests.class=&quot;org.elasticsearch.xpack.esql.ccq.MultiClusterSpecIT&quot; -Dtests.method=&quot;test {fork.ForkWithDissect}&quot; -Dtests.seed=BC62296BB7090E9F -Dtests.bwc=true -Dtests.locale=mai -Dtests.timezone=America/Santarem -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.ccq.MultiClusterSpecIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Bfork.ForkWithDissect%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected more data but no more entries found after [2] Data mismatch: Actual: _fork:keyword | emp_no:integer | x:keyword | y:keyword | z:keyword | w:keyword fork1 | 10048 | Florian | 10048 | Syrotiuk | null fork1 | 10081 | Zhongwei | 10081 | Rosen | null Expected: _fork:keyword | emp_no:integer | x:keyword | y:keyword | z:keyword | w:keyword fork1 | 10048 | Florian | 10048 | Syrotiuk | null fork1 | 10081 | Zhongwei | 10081 | Rosen | null fork2 | 10048 | Syrotiuk | 10048 | null | Florian fork2 | 10081 | Rosen | 10081 | null | Zhongwei ``` **Issue Reasons:** - [main] 2 failures in test test {fork.ForkWithDissect} (0.3% fail rate in 791 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix missing index exception handling (#126738) * Fix missing index handling for partial-enabled queries</MESSAGE>
+    <SHA>54ef16568a10f9bbe65a3bfd38048a6ba0b70a35</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.ccq.MultiClusterSpecIT test {fork.ForkWithDissect} #127304</MESSAGE>
+      <SHA>9b2c029ee1654d865005ee6e680852308c1605ad</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2795</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2795</ISSUEURL>
+  <TITLE>GitHub 'closed' webhook is ignored</TITLE>
+  <DESCRIPTION>I'm testing the functionality introduced in https://github.com/drone/drone/issues/2685, but it seems like the `closed` action is ignored. This can be also seen in the database, where there are just `create`, `sync`, `opened`, `synchronized` in the `build_action` column of the `builds` database. I would have expected all of the actions to be recorded based on: https://github.com/drone/drone/blob/bcdd4bf0245c82c060407b3b24b9b87301d15ac1/service/hook/parser/parse.go#L249 Upd: just noticed that everything apart of open and sync is ignored: https://github.com/drone/drone/blob/bcdd4bf0245c82c060407b3b24b9b87301d15ac1/service/hook/parser/parse.go#L234-L237 Would it be enough to simply change that to to include close, while adding the corresponding action? https://github.com/drone/drone/blob/e855881324dcdf912e70f94d6c7abc1d985cdbd3/core/hook.go#L22-L28 However, I do not understand where the `synchronized` action comes from which can be seen in the database.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [AH-518]: fix alignment issue of overview cards on version details page (#2828) * feat: [AH-518]: resolve PR comments * feat: [AH-518]: fix alignment issue of overview cards on version details page * feat: [AH-518]: disable security scan section and show aquatrivy selected by default * feat: [AH-518]: use normal search input instead of AI search input on global artifact list page * feat: [AH-518]: update text to total downloads instead of total weekly downloads * feat: [AH-518]: remove labels from UI * feat: [AH-518]: disable cleanup policy * feat: [AH-518]: set min width for name columns in all tables in HAR module</MESSAGE>
+    <SHA>465275b549677b6856b640b555e76481e471275c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: [CODE-2466]: support for codeowners usergroup (#2795) * feat: [CODE-2466]: support for codeowners usergroup</MESSAGE>
+      <SHA>ac8eb9ff3714ab23d9051c2849599dd15b0010a9</SHA>
+      <PATCHEDFILES>
+        <FILE>app/services/codeowners/service.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

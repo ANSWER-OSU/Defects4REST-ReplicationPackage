@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8125</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/8125</ISSUEURL>
+  <TITLE>Error! Failed to find deployment</TITLE>
+  <DESCRIPTION>Not sure if this on the vercel side or the github action ([amondnet/vercel-action](https://github.com/amondnet/vercel-action)) i am using. I had a successful build 4 hours ago, I then tried to redeploy with no changes to my github workflow but have now come across this error ``` Vercel CLI 27.0.1 Fetching deployment &quot;Vercel CLI 27.0.1 (beta) — https://vercel.com/feedback\nhttps://&lt;preview-url&gt;.vercel.app&quot; in mcclosa Fetching deployment &quot;Vercel CLI 27.0.1 (beta) — https://vercel.com/feedback\nhttps://&lt;preview-url&gt;.vercel.app&quot; in mcclosa Error! Failed to find deployment &quot;Vercel CLI 27.0.1 (beta) — https://vercel.com/feedback\nhttps://&lt;preview-url&gt;.vercel.app&quot; in mcclosa Error! Failed to find deployment &quot;Vercel CLI 27.0.1 (beta) — https://vercel.com/feedback\nhttps://&lt;preview-url&gt;.vercel.app&quot; in mcclosa Error: The process '/opt/hostedtoolcache/node/16.13.0/x64/bin/npx' failed with exit code 1 ``` The `https://&lt;preview-url&gt;.vercel.app` does exist and does seem to deploy according to the vercel website but this error exits the my workflow so any further steps do not run. This is my step to deploy to vercel. ``` - name: Deploy to Vercel uses: amondnet/vercel-action@v25 id: vercel-action with: github-token: ${{ secrets.GH_TOKEN }} vercel-token: ${{ secrets.VERCEL_TOKEN }} vercel-org-id: ${{ secrets.VERCEL_ORG_ID }} vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }} # if main branch go to --prod environment otherwise nothing for preview environment vercel-args: &quot;${{ github.ref == 'refs/heads/master' &amp;&amp; '--prod' || '' }}&quot; working-directory: ./web ```</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Publish Stable - vercel@27.0.1 - @vercel/remix@1.0.7</MESSAGE>
+    <SHA>ec9b55dc8196b650987a505ed24566818566f3cf</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[cli] Fix beta label (#8129) This PR is a follow up to #7991 which incorrectly used a the empty string instead of empty array - Maybe related to #8125</MESSAGE>
+      <SHA>cbdf9b4a88a91ba0a804b9db080f7ab1d43579ea</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/cli/src/index.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3446</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/3446</ISSUEURL>
+  <TITLE>Set the docker enpoint (TCP)</TITLE>
+  <DESCRIPTION>Best practices for docker encourage to avoid accessing the Docker API without any restriction (aka `/var/run/docker.sock`) Possible solutions are expose the Docker socket over TCP or SSH. For TCP exposing I use [the TecnativaDocker Socket Proxy](https://github.com/Tecnativa/docker-socket-proxy). This approach requires to connect the docker client to that socket exposed as e.g.`tcp://docker-socket-proxy:2375` E.g. - Traefik -&gt; set `providers.docker.endpoint=tcp://docker-socket-proxy:2375` - Portainer -&gt; `command: -H tcp://docker-socket-proxy:2375` in my `docker-compose.yml` file and removing `/var/run/docker.sock:/var/run/docker.sock` from the volumes How to achieve that with gitness? I tried: - set `command` as in portainer but gitness does not start at all - set `GITNESS_URL_CONTAINER=tcp://docker-socket-proxy:2375`. Executing a pipeline I get the following &gt; Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running? Any advice? Thanks</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat:[AH-945]: API to fetch storage details per account (#3373) * feat:[AH-945]: API to fetch storage details per account * feat:[AH-945]: API to fetch storage details per account</MESSAGE>
+    <SHA>e93f30a6a53a3a5d1fb3088d12c2a4469c54f9a3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: [AH-944]: remove gradle option from create registry form (#3446) * feat: [AH-944]: remove gradle option from create registry form</MESSAGE>
+      <SHA>c1b3e2dda04800965ca4992f1ea1bd80819c76d0</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/ar/hooks/useGetRepositoryTypes.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

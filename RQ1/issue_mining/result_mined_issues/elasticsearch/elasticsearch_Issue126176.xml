@@ -1,0 +1,76 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126176</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126176</ISSUEURL>
+  <TITLE>[CI] PolicyUtilsTests testFormatFilesEntitlement failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7440 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/dztsbsrgai7xk) - [elasticsearch-periodic-platform-support #7433 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/b2pllsupyhngo) - [elasticsearch-periodic-platform-support #7426 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/ocmsmajghjbo2) - [elasticsearch-periodic-platform-support #7419 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/a5kooa7et4ds4) **Reproduction Line:** ``` gradlew &quot;:libs:entitlement:test&quot; --tests &quot;org.elasticsearch.entitlement.runtime.policy.PolicyUtilsTests.testFormatFilesEntitlement&quot; -Dtests.seed=21501B919A8CD53B -Dtests.locale=saq-KE -Dtests.timezone=PST -Druntime.java=24 ``` **Applicable branches:** 9.0 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.entitlement.runtime.policy.PolicyUtilsTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testFormatFilesEntitlement),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: iterable with items [&quot;files [READ_WRITE] \\a\\b&quot;, &quot;files [READ] &lt;DATA&gt;/c/d&quot;, &quot;files [READ] &lt;DATA&gt;/&lt;setting&gt;&quot;] in any order but: not matched: &quot;files [READ_WRITE] C:\\a\\b&quot; ``` **Issue Reasons:** - [9.0] 4 consecutive failures in step windows-2022_checkpart1_platform-support-windows - [9.0] 4 failures in test testFormatFilesEntitlement (4.8% fail rate in 84 executions) - [9.0] 4 failures in step windows-2022_checkpart1_platform-support-windows (100.0% fail rate in 4 executions) - [9.0] 4 failures in pipeline elasticsearch-periodic-platform-support (100.0% fail rate in 4 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[ML] Refactor SSE Parsing (#125959) ServerSentEvent is now a record with `event` and `data`, rather than it being a record for value with a separate `ServerSentEventField`. - `value` was renamed to `data` - `hasValue` was renamed to `hasData` - Parsing was refactored to read more like its spec: writing to a buffer and flushing when we reach a blank newline - We now support multiline data payloads</MESSAGE>
+    <SHA>69180eafe1bd94112fbddbc2d133bb8b00c5896f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.entitlement.runtime.policy.PolicyUtilsTests testFormatFilesEntitlement #126176</MESSAGE>
+      <SHA>7807183972714d37584f716f5b6c92589a6d076b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Entitlements] Fix PolicyUtils and PolicyUtilsTests on Windows (#126185) This PR fixes 2 issues discovered around PolicyUtils (and PolicyUtilsTests) when running CI on Windows: - in tests, absolute paths like always are different, this fix updates the tests to account for the difference. - on Windows, Files.move was failing because we were parsing the Entitlement policy but not closing the stream in a timely manner. This causes plugin installation (and related CI tests) to fail 70% of the time. Fixed by closing the stream properly Fixes #126176</MESSAGE>
+      <SHA>3377943cdf9e1dbb6f684a18f72078578fd3d986</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/runtime/policy/PolicyUtils.java</FILE>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/runtime/policy/entitlements/FilesEntitlement.java</FILE>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/runtime/policy/PolicyUtilsTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Entitlements] Fix PolicyUtils and PolicyUtilsTests on Windows (#126185) This PR fixes 2 issues discovered around PolicyUtils (and PolicyUtilsTests) when running CI on Windows: - in tests, absolute paths like always are different, this fix updates the tests to account for the difference. - on Windows, Files.move was failing because we were parsing the Entitlement policy but not closing the stream in a timely manner. This causes plugin installation (and related CI tests) to fail 70% of the time. Fixed by closing the stream properly Fixes #126176</MESSAGE>
+      <SHA>8fafacd30d1dbb2e466c1e8ac1413c8bd31bed90</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/runtime/policy/PolicyUtils.java</FILE>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/runtime/policy/entitlements/FilesEntitlement.java</FILE>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/runtime/policy/PolicyUtilsTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Entitlements] Fix PolicyUtils and PolicyUtilsTests on Windows (#126185) This PR fixes 2 issues discovered around PolicyUtils (and PolicyUtilsTests) when running CI on Windows: - in tests, absolute paths like always are different, this fix updates the tests to account for the difference. - on Windows, Files.move was failing because we were parsing the Entitlement policy but not closing the stream in a timely manner. This causes plugin installation (and related CI tests) to fail 70% of the time. Fixed by closing the stream properly Fixes #126176</MESSAGE>
+      <SHA>e4ce993c168ee0fdf45c29e66398192cbb4e6a53</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/runtime/policy/PolicyUtils.java</FILE>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/runtime/policy/entitlements/FilesEntitlement.java</FILE>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/runtime/policy/PolicyUtilsTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Entitlements] Fix PolicyUtils and PolicyUtilsTests on Windows (#126185) This PR fixes 2 issues discovered around PolicyUtils (and PolicyUtilsTests) when running CI on Windows: - in tests, absolute paths like always are different, this fix updates the tests to account for the difference. - on Windows, Files.move was failing because we were parsing the Entitlement policy but not closing the stream in a timely manner. This causes plugin installation (and related CI tests) to fail 70% of the time. Fixed by closing the stream properly Fixes #126176</MESSAGE>
+      <SHA>10ad2b86bf114c3c733c36ebeccb043461b4deb0</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/runtime/policy/PolicyUtils.java</FILE>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/runtime/policy/entitlements/FilesEntitlement.java</FILE>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/runtime/policy/PolicyUtilsTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Entitlements] Fix PolicyUtils and PolicyUtilsTests on Windows (#126185) (#126234) This PR fixes 2 issues discovered around PolicyUtils (and PolicyUtilsTests) when running CI on Windows: - in tests, absolute paths like always are different, this fix updates the tests to account for the difference. - on Windows, Files.move was failing because we were parsing the Entitlement policy but not closing the stream in a timely manner. This causes plugin installation (and related CI tests) to fail 70% of the time. Fixed by closing the stream properly Fixes #126176</MESSAGE>
+      <SHA>7b7301ec77fc00279eb6e0aa14b7cfa9b53a9cf9</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/runtime/policy/PolicyUtils.java</FILE>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/runtime/policy/entitlements/FilesEntitlement.java</FILE>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/runtime/policy/PolicyUtilsTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Entitlements] Fix PolicyUtils and PolicyUtilsTests on Windows (#126185) (#126236) This PR fixes 2 issues discovered around PolicyUtils (and PolicyUtilsTests) when running CI on Windows: - in tests, absolute paths like always are different, this fix updates the tests to account for the difference. - on Windows, Files.move was failing because we were parsing the Entitlement policy but not closing the stream in a timely manner. This causes plugin installation (and related CI tests) to fail 70% of the time. Fixed by closing the stream properly Fixes #126176</MESSAGE>
+      <SHA>29cdb06a569dc267caadf2f17b4fc11c3e003e1e</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/runtime/policy/PolicyUtils.java</FILE>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/runtime/policy/entitlements/FilesEntitlement.java</FILE>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/runtime/policy/PolicyUtilsTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

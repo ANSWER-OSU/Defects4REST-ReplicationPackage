@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>162</ISSUENO>
+  <ISSUEURL>https://github.com/treasure-data/digdag/issues/162</ISSUEURL>
+  <TITLE>Long file error while archiving logs</TITLE>
+  <DESCRIPTION>I faced with the error when I tried to update my workflow using `digdag push default -r &quot;$(git show --pretty=format:'%T' | head -n 1)&quot;` The error is as below: ``` 2016-07-07 17:18:39 +0900: Digdag v0.8.3 Creating .digdag/tmp/archive-4904269853204965434.tar.gz... Archiving log/2016-07-06/0.1daily_batch@20160707T000000+0900_bd59fcda-cda6-4e6e-a6d8-dbeb840d9fdb/+daily_batch+vac uum_reindex_and_cache_update+vacuum_reindex+vacuum_reindex_end_notify@577debe02d1ee740.8483@xxxxxxx.log.gz error: file name 'log/2016-07-06/0.1daily_batch@20160707T000000+0900_bd59fcda-cda6-4e6e-a6d8-dbeb840d9fdb/+daily_bat ch+vacuum_reindex_and_cache_update+vacuum_reindex+vacuum_reindex_end_notify@577debe02d1ee740.8483@xxxxxxx.log.gz' is too long ( &gt; 100 bytes) ``` Finally, I shut down the digdag server and cleared build-in db files and log files, restarted server and re-tried pushing new workflow, fixed the problem. I wonder if anything wrong around TarArchiveOutputStream. Any comments would be appreciated. Thanks.</DESCRIPTION>
+  <REPONAME>digdag</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #171 from choplin/patch-1 Fix wrong link in the documentaion</MESSAGE>
+    <SHA>44660872b830d94d2d4f9589634fa07441495cb5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Archiver supports file names longer than 100 bytes [#162]</MESSAGE>
+      <SHA>9de34cca58db14064b23b6027df109d0b0d3da44</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-cli/src/main/java/io/digdag/cli/client/Archiver.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Archiver supports file names longer than 100 bytes [#162]</MESSAGE>
+      <SHA>fb83db585f2eef0d5dd99c879c97372f6ceff791</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-cli/src/main/java/io/digdag/cli/client/Archiver.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

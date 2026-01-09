@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>142</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/142</ISSUEURL>
+  <TITLE>Call to equals() with different types</TITLE>
+  <DESCRIPTION>In the `flowable-ui-task` module there is a class, `org.flowable.app.service.runtime.PermissionService`. The class has a method, `canDeleteProcessInstance()`: &lt;pre&gt; public boolean canDeleteProcessInstance(User currentUser, HistoricProcessInstance processInstance) { boolean canDelete = false; if (processInstance.getStartUserId() != null) { try { Long starterId = Long.parseLong(processInstance.getStartUserId()); canDelete = starterId.equals(currentUser.getId()); } catch (NumberFormatException nfe) { // Ignore illegal starter id value } } return canDelete; } &lt;/pre&gt; It appears that a `String` value of the `currentUser`'s `id` is being compared to a `Long` value that originally was a `String` value for the user that started the process. This just doesn't look right or am I missing something?</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'Perimeter' of https://github.com/dbmalkovsky/flowable-engine</MESSAGE>
+    <SHA>7815f6da1ecc4061a90dcea07811193b0798ad35</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix for #142 - wrong equals comparison</MESSAGE>
+      <SHA>6fb47d9d0a42b65cbeb8eef2cd0ac2d4e6156351</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-bpmn-layout/src/main/java/org/flowable/bpmn/BpmnAutoLayout.java</FILE>
+        <FILE>modules/flowable-bpmn-model/src/main/java/org/flowable/bpmn/model/Process.java</FILE>
+        <FILE>modules/flowable-ui-task/flowable-ui-task-logic/src/main/java/org/flowable/app/service/runtime/PermissionService.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

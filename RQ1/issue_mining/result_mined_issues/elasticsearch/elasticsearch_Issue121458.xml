@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121458</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121458</ISSUEURL>
+  <TITLE>[CI] ClassificationIT testDependentVariableIsNested failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #17317 / part4](https://gradle-enterprise.elastic.co/s/iwumcliowoc5w) - [elasticsearch-pull-request #54066 / part-4](https://gradle-enterprise.elastic.co/s/st3coups6d3gi) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:ml:qa:native-multi-node-tests:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.ml.integration.ClassificationIT.testDependentVariableIsNested&quot; -Dtests.seed=36AD92812B8A985C -Dtests.locale=rm-CH -Dtests.timezone=Poland -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.ml.integration.ClassificationIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testDependentVariableIsNested),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Stats were: {&quot;id&quot;:&quot;dependent_variable_is_nested&quot;,&quot;state&quot;:&quot;started&quot;,&quot;progress&quot;:[{&quot;phase&quot;:&quot;reindexing&quot;,&quot;progress_percent&quot;:100},{&quot;phase&quot;:&quot;loading_data&quot;,&quot;progress_percent&quot;:100},{&quot;phase&quot;:&quot;feature_selection&quot;,&quot;progress_percent&quot;:100},{&quot;phase&quot;:&quot;coarse_parameter_search&quot;,&quot;progress_percent&quot;:100},{&quot;phase&quot;:&quot;fine_tuning_parameters&quot;,&quot;progress_percent&quot;:37},{&quot;phase&quot;:&quot;final_training&quot;,&quot;progress_percent&quot;:0},{&quot;phase&quot;:&quot;writing_results&quot;,&quot;progress_percent&quot;:0},{&quot;phase&quot;:&quot;inference&quot;,&quot;progress_percent&quot;:0}],&quot;data_counts&quot;:{&quot;training_docs_count&quot;:100,&quot;test_docs_count&quot;:0,&quot;skipped_docs_count&quot;:0},&quot;memory_usage&quot;:{&quot;timestamp&quot;:1738769510070,&quot;peak_usage_bytes&quot;:52836,&quot;status&quot;:&quot;ok&quot;},&quot;analysis_stats&quot;:{&quot;classification_stats&quot;:{&quot;timestamp&quot;:1738769510070,&quot;iteration&quot;:6,&quot;hyperparameters&quot;:{&quot;class_assignment_objective&quot;:&quot;maximize_minimum_recall&quot;,&quot;alpha&quot;:19.85752161157305,&quot;downsample_factor&quot;:0.4253529339818778,&quot;eta&quot;:0.775495459781878,&quot;eta_growth_rate_per_tree&quot;:1.2720234564895039,&quot;feature_bag_fraction&quot;:0.14606548 [truncated] ``` **Issue Reasons:** - [8.x] 2 failures in test testDependentVariableIsNested (0.3% fail rate in 735 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Entitlement tests using reflection (#121436) (#121452) * Entitlement IT cases for reflection * EntitlementBootstrap selfTest using reflection * Remove errant logging setting * Lambdas instead of booleans * [CI] Auto commit changes from spotless * Refactor: Extract lambdas to method refs --------- Co-authored-by: elasticsearchmachine &lt;infra-root+elasticsearchmachine@elastic.co&gt;</MESSAGE>
+    <SHA>33c916443dad95ca60f7671639d028b5137ea6b4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ml.integration.ClassificationIT testDependentVariableIsNested #121458</MESSAGE>
+      <SHA>bbab7410811ca58566e7326491ce63b482d93ce3</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ml.integration.ClassificationIT testDependentVariableIsNested #121458</MESSAGE>
+      <SHA>dae2d0e684c06f7642b8653738b6c846f7a47ca8</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[ML] Unmute fixed Classification IT tests #122361 Unmute tests following #122268 Closes #120071 Closes #121928 Closes #121680 Closes #121492 Closes #121479 Closes #121473 Closes #121458 Closes #121236 Closes #116234</MESSAGE>
+      <SHA>3c74e7875647904bed5109395bea9023658f0e55</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[ML] Unmute fixed Classification IT tests #122362 Unmute tests following #122268 Closes #120071 Closes #121680 Closes #121479 Closes #121458 Closes #121433 Closes #121368 Closes #121236 Closes #116234</MESSAGE>
+      <SHA>9968f3500e3c4cf585bfdda56d9c08bb271ad6c1</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2992</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/2992</ISSUEURL>
+  <TITLE>volume.tier.upload progress starts negative</TITLE>
+  <DESCRIPTION>**Describe the bug** The progress report for volume.tier.upload starts at -30% which is very surprising and uninformative. It even shows negative transfer speed. ``` &gt; volume.tier.upload -dest=s3.aws -fullPercent=0.00001 -quietFor=10s collect volumes quiet for: 10 seconds tier upload volumes: [3 5 7 2 4 6 1] markVolumeReadonly 3 on 192.168.1.210:8081 ... copied -18.53%, -76955112 bytes, -73.39MB/s copied -17.86%, -74169832 bytes, 2.66MB/s ... copied -1.26%, -5225960 bytes, 2.69MB/s copied -0.57%, -2375144 bytes, 2.72MB/s copied 0.04%, 180760 bytes, 2.44MB/s copied 0.77%, 3195416 bytes, 2.88MB/s ... copied 98.80%, 410271208 bytes, 2.69MB/s copied 99.49%, 413122024 bytes, 2.72MB/s markVolumeReadonly 5 on 192.168.1.210:8081 ... ``` **System Setup** * SeaweedFS 3.00 on Ubuntu 20.04 * `version 30GB 3.00 b1dac20c704cf5322c6c516e5f064eb00701aec9 linux amd64` **Expected behavior** Progress goes from 0% to 100%, and sizes and speeds are all positive values.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'master' of https://github.com/chrislusf/seaweedfs</MESSAGE>
+    <SHA>ea8a7a5584d3f9868d0e79c9e7b76ab3355e0838</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>volume.tier.upload progress starts negative #2992 fix https://github.com/chrislusf/seaweedfs/issues/2992</MESSAGE>
+      <SHA>1aae7a3f1b87a5c4128c3dfc9f4a40307784b310</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/storage/backend/s3_backend/s3_upload.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

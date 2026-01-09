@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2826</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/2826</ISSUEURL>
+  <TITLE>POSTing item returns null as 'name'</TITLE>
+  <DESCRIPTION>When using the REST API and POSTing to `collections/{collectionId}/items` the field `name` of the Item is ignored. So the command: `curl -X POST https://demo.dspace.org/rest/collections/{collection id}/items -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{&quot;name&quot;: &quot;TEST&quot;}'` returns `{ &quot;uuid&quot;: &quot;someuuid&quot;, &quot;name&quot;: null, ... }` Please correct me if I am wrong but the code in `rest/CollectionsResource.java` suggests that only the metadata, but not the name, of an Item is considered. As [` if (item.getMetadata() != null) {`](https://github.com/DSpace/DSpace/blob/master/dspace-rest/src/main/java/org/dspace/rest/CollectionsResource.java#L356) is the only time when Item is accessed. Do I miss something?</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merged in task/dspace-cris-2023_02_x/DSC-1827 (pull request #2834) DSC-1827 Approved-by: Giuseppe Digilio</MESSAGE>
+    <SHA>978726f630eecdb4df3c6f75730b61ccd33f0f02</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merged in task/dspace-cris-2023_02_x/DSC-1949 (pull request #2826) DSC-1949 add support to update index for a specific indexable object type, deal with inprogress submission Approved-by: Vincenzo Mecca</MESSAGE>
+      <SHA>f21e6f5038dd31e7f2c6879d51db50f248aab345</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/discovery/IndexClient.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/discovery/IndexClientOptions.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18880</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18880</ISSUEURL>
+  <TITLE>The RQ worker should verify that a job exists in the database before attempting to start it</TITLE>
+  <DESCRIPTION>### NetBox version v4.2.5 ### Feature type New functionality ### Proposed functionality Extend the `handle()` method of the base JobRunner class to confirm that a Job exists in the database before attempting to call `start()`. If the Job does not exist yet, it should retry several times after an incrementally increasing backoff timer (e.g. 0.5 seconds, 1 second, 2 seconds). ### Use case When a background RQ task is enqueued, a serialized representation of a Job object is stored with it. When the task executes, it does so with the assumption that its associated Job already exists in the database. However, this may not hold true due to various race conditions, such as the one captured by netboxlabs/netbox-branching#193. (I've also seen this happen with data source syncing.) Implementing a short delay mitigates the race condition that occurs between enqueuing a background task in Redis and committing the PostgreSQL transaction within which its corresponding Job object was created. ### Database changes N/A ### External dependencies N/A</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixes #18845: restores sort behavior for DeviceTable.name column (#18861) * Fixes #18845: restores sort behavior for DeviceTable.name column * Remove accessor/order_by and modify DEVICE_LINK template Thanks to @alehaa for the suggestion. This also includes an additional `.select_related()` operation on `DeviceListView.queryset` to avoid extra queries. Thanks to @renatoalmeidaoliveira and @jeremystretch for pointing out the need for this.</MESSAGE>
+    <SHA>78332d44c716250de04f1c3e44739053bd00c562</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #18880: Delay enqueuing of background tasks until the DB transaction has been committed</MESSAGE>
+      <SHA>f4482486d4db20e1d2546dd8e6fb9a6ce17e30c9</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/core/models/jobs.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #18880: Delay enqueuing of background tasks until the DB transaction has been committed (#18899)</MESSAGE>
+      <SHA>ed135102bed0733c4dff90206f3d142494d900fb</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/core/models/jobs.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

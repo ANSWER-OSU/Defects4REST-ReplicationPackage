@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6137</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6137</ISSUEURL>
+  <TITLE>AWX Grafana notification is not working</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - AWX Grafana notification is not working ##### SUMMARY The system is not able to send a notification to Grafana. Every time I receiving &quot;Failed to start&quot;. Logs of awx_task container there are logs likes this: - test notification ``` 2020-03-03 08:57:05,279 ERROR awx.main.tasks Send Notification Failed 'started' Traceback (most recent call last): File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/main/tasks.py&quot;, line 324, in send_notifications sent = notification.notification_template.send(notification.subject, notification.body) File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/main/models/notifications.py&quot;, line 196, in send return backend_obj.send_messages([notification_obj]) File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/main/notifications/grafana_backend.py&quot;, line 46, in send_messages grafana_data['time'] = int((dp.parse(m.body['started']).replace(tzinfo=None) - epoch).total_seconds() * 1000) KeyError: 'started' ``` - notification from job ``` 2020-03-03 09:47:36,134 ERROR awx.main.tasks Send Notification Failed string indices must be integers Traceback (most recent call last): File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/main/tasks.py&quot;, line 324, in send_notifications sent = notification.notification_template.send(notification.subject, notification.body) File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/main/models/notifications.py&quot;, line 196, in send return backend_obj.send_messages([notification_obj]) File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/main/notifications/grafana_backend.py&quot;, line 46, in send_messages grafana_data['time'] = int((dp.parse(m.body['started']).replace(tzinfo=None) - epoch).total_seconds() * 1000) TypeError: string indices must be integers ``` ##### ENVIRONMENT * AWX version: 9.2.0 * AWX install method: docker on linux * Ansible version: 2.9.5 * Operating System: Centos 7.5 * Web Browser: Chrome 79 ##### STEPS TO REPRODUCE 1. Add notification type: Grafana 2. Add URL, API key ##### EXPECTED RESULTS Notification will be send to Grafana ##### ACTUAL RESULTS TEST Grafana: Notification failed. 'started' ##### ADDITIONAL INFORMATION as above</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #5972 from jainnikhil30/fix_smartinv_duplicate_hosts fix smart inventory duplicate hosts Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>c1bfcd73fb3551dc9b41c0ecc99ff3b4bb7fad9e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix broken grafana notifications since the custom notification template refactor, grafana notification support has been broken; this is largely because grafana functions more like the webhooks, and needs to send JSON in its notification body see: https://github.com/ansible/awx/issues/6137</MESSAGE>
+      <SHA>2e6af8999b59721dc3877937ce98aa3f785db1f8</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/notifications/grafana_backend.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix broken grafana notifications since the custom notification template refactor, grafana notification support has been broken; this is largely because grafana functions more like the webhooks, and needs to send JSON in its notification body see: https://github.com/ansible/awx/issues/6137</MESSAGE>
+      <SHA>6207dad226aff87e67df477d98df6f5040904b7d</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/views/__init__.py</FILE>
+        <FILE>awx/main/notifications/grafana_backend.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

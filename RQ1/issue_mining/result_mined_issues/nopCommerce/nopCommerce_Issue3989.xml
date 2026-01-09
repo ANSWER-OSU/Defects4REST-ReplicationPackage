@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3989</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3989</ISSUEURL>
+  <TITLE>Exception thrown deleting last item from cart (when AutoUpdateOrderTotalsOnEditingOrder is enabled)</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.2 Steps to reproduce the problem: Place an order with a single item visit the admin order management page for that order. Delete the single line item An exception is thrown in OrderTotalCalculationService.UpdateOrderTotals because the customer is null. This is because in the OrderProcessingService.UpdateOrderTotals method, the restored cart has no items in it, so there is no way to get a customer record</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue-3962-Email-Templates-Address-Line-2-missing' into develop</MESSAGE>
+    <SHA>33bfbe48c0264e4e1d45999f10c99f20f319897d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3989 Fixed deleting last item from order with AutoUpdateOrderTotalsOnEditingOrder = true</MESSAGE>
+      <SHA>0327b810bbc436ddfd5b49e9c92fc49e65eacb25</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderProcessingService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderTotalCalculationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/UpdateOrderParameters.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/OrderController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/CustomerController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

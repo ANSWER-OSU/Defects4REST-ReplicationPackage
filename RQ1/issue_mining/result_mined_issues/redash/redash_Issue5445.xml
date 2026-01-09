@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5445</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/5445</ISSUEURL>
+  <TITLE>Scheduled query not working in the latest preview Docker Image (redash/redash:preview)</TITLE>
+  <DESCRIPTION>### Issue Summary Scheduled query not working in the latest preview Docker Image (redash/redash:preview). ### Steps to Reproduce `redash_scheduled_worker_1` has error: ``` [2021-03-27 07:27:06,319][PID:520][ERROR][rq.worker] AttributeError: 'NoneType' object has no attribute 'id' Traceback (most recent call last): File &quot;/usr/local/lib/python3.7/site-packages/rq/worker.py&quot;, line 934, in perform_job rv = job.perform() File &quot;/usr/local/lib/python3.7/site-packages/rq/job.py&quot;, line 686, in perform self._result = self._execute() File &quot;/usr/local/lib/python3.7/site-packages/rq/job.py&quot;, line 692, in _execute return self.func(*self.args, **self.kwargs) File &quot;/app/redash/tasks/queries/execution.py&quot;, line 288, in execute_query scheduled_query_id is not None, File &quot;/app/redash/tasks/queries/execution.py&quot;, line 175, in __init__ models.scheduled_queries_executions.update(self.query_model.id) AttributeError: 'NoneType' object has no attribute 'id' Traceback (most recent call last): File &quot;/usr/local/lib/python3.7/site-packages/rq/worker.py&quot;, line 934, in perform_job rv = job.perform() File &quot;/usr/local/lib/python3.7/site-packages/rq/job.py&quot;, line 686, in perform self._result = self._execute() File &quot;/usr/local/lib/python3.7/site-packages/rq/job.py&quot;, line 692, in _execute return self.func(*self.args, **self.kwargs) File &quot;/app/redash/tasks/queries/execution.py&quot;, line 288, in execute_query scheduled_query_id is not None, File &quot;/app/redash/tasks/queries/execution.py&quot;, line 175, in __init__ models.scheduled_queries_executions.update(self.query_model.id) AttributeError: 'NoneType' object has no attribute 'id' ``` If I revert this commit (9fdf1f341d02d903f045ea65d130a3cc93884299), it works again. ### Technical details: * Redash Version: Version: 9.0.0-beta (44178d99) * Browser/OS: Chrome * How did you install Redash: Docker</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Embed &quot;external&quot; link type into `&lt;Link&gt;` component (#5432) * feature: add external link * refactor: split external link into own component * refactor: added link with icon * refactor: remove reduntant tab index * refactor: simplify props * refactor: fix types * refactor: bring types and components together * refactor: improve treatment of target</MESSAGE>
+    <SHA>a2c96c1e6ddb372eb3bf996b77e222c8024c4601</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes issue #5445: Scheduled query not working</MESSAGE>
+      <SHA>ea07cf1fd6cfbe52eb86d5123cabf55d6c1c50b4</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/tasks/queries/execution.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Revert &quot;Fixes issue #5445: Scheduled query not working&quot; This reverts commit ea07cf1fd6cfbe52eb86d5123cabf55d6c1c50b4.</MESSAGE>
+      <SHA>0e7b06d743c334a55c00493476d89c55c0af9f15</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/tasks/queries/execution.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes issue #5445: Scheduled query not working (#5448) * use 'query_id' everywhere instead of 'Query ID' * some black while we're at it Co-authored-by: Omer Lachish &lt;omer@rauchy.net&gt;</MESSAGE>
+      <SHA>67263e1b0fbc3f625e9ef9aacc13464edb1bd720</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/handlers/query_results.py</FILE>
+        <FILE>redash/tasks/queries/execution.py</FILE>
+        <FILE>redash/tasks/queries/maintenance.py</FILE>
+        <FILE>tests/tasks/test_queries.py</FILE>
+        <FILE>tests/tasks/test_refresh_queries.py</FILE>
+        <FILE>tests/tasks/test_worker.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

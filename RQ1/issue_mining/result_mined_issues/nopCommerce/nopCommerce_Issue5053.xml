@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5053</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5053</ISSUEURL>
+  <TITLE>Accessibility - Add aria-live attribute to notifications</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.3 ## Steps to reproduce the problem: 1. Visit the [Demo Store](https://demo.nopcommerce.com/) and add a product to your cart. ## Results At the top of the browser window, users are notified: &gt; The product has been added to your shopping cart This is from the following HTML: ```html &lt;div id=&quot;bar-notification&quot; class=&quot;bar-notification-container&quot; data-close=&quot;Close&quot; style=&quot;&quot;&gt; &lt;div class=&quot;bar-notification success&quot; style=&quot;display: block;&quot;&gt; &lt;p class=&quot;content&quot;&gt;The product has been added to your &lt;a href=&quot;/cart&quot;&gt;shopping cart&lt;/a&gt;&lt;/p&gt; &lt;span class=&quot;close&quot; title=&quot;Close&quot;&gt;&lt;/span&gt; &lt;/div&gt; &lt;/div&gt; ``` ## Expected Results Assistive technology users don't know an action has been completed due to the lack of the `aria-live` attribute. `aria-live` can be set on a container and lets AT users know something changed within that container. For example: * &quot;The product has been added to your shopping cart&quot; * &quot;The product has been removed from your shopping cart&quot; * &quot;There was an issue adding this item to your cart&quot; ## Documentation on aria-live MDN has a great resource about [aria-live](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions). ## Potential fix Add `aria-live` and potentially `aria-atomic` to all notifications: ```html &lt;div id=&quot;bar-notification&quot; class=&quot;bar-notification-container&quot; data-close=&quot;Close&quot; style=&quot;&quot; aria-live=&quot;polite&quot; aria-atomic=&quot;true&quot;&gt; &lt;div class=&quot;bar-notification success&quot; style=&quot;display: block;&quot;&gt; &lt;p class=&quot;content&quot;&gt;The product has been added to your &lt;a href=&quot;/cart&quot;&gt;shopping cart&lt;/a&gt;&lt;/p&gt; &lt;span class=&quot;close&quot; title=&quot;Close&quot;&gt;&lt;/span&gt; &lt;!-- Change me to a button! --&gt; &lt;/div&gt; &lt;/div&gt; ```</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>907</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue-5841-Plugin-ver' into develop # Conflicts: # src/Plugins/Nop.Plugin.DiscountRules.CustomerRoles/plugin.json # src/Plugins/Nop.Plugin.ExchangeRate.EcbExchange/plugin.json # src/Plugins/Nop.Plugin.ExternalAuth.Facebook/plugin.json # src/Plugins/Nop.Plugin.Misc.Sendinblue/plugin.json # src/Plugins/Nop.Plugin.Misc.WebApi.Frontend/plugin.json # src/Plugins/Nop.Plugin.Misc.Zettle/plugin.json # src/Plugins/Nop.Plugin.MultiFactorAuth.GoogleAuthenticator/plugin.json # src/Plugins/Nop.Plugin.Payments.CheckMoneyOrder/plugin.json # src/Plugins/Nop.Plugin.Payments.CyberSource/plugin.json # src/Plugins/Nop.Plugin.Payments.Manual/plugin.json # src/Plugins/Nop.Plugin.Payments.PayPalCommerce/plugin.json # src/Plugins/Nop.Plugin.Pickup.PickupInStore/plugin.json # src/Plugins/Nop.Plugin.Shipping.FixedByWeightByTotal/plugin.json # src/Plugins/Nop.Plugin.Shipping.UPS/plugin.json # src/Plugins/Nop.Plugin.Tax.Avalara/plugin.json # src/Plugins/Nop.Plugin.Tax.FixedOrByCountryStateZip/plugin.json # src/Plugins/Nop.Plugin.Widgets.AccessiBe/plugin.json # src/Plugins/Nop.Plugin.Widgets.FacebookPixel/plugin.json # src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/plugin.json # src/Plugins/Nop.Plugin.Widgets.NivoSlider/plugin.json # src/Plugins/Nop.Plugin.Widgets.What3words/plugin.json</MESSAGE>
+    <SHA>ebc0bcb9d9ce0abd73d792545fd4bcf5a2aa8bb1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Issue #5023 #5051 #5052 #5053 Accessibility</MESSAGE>
+      <SHA>55d2d9deb786c155f76bec59d29b4cf9521c0ae4</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo470/LocalizationMigration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Themes/DefaultClean/Content/css/styles.css</FILE>
+        <FILE>src/Presentation/Nop.Web/Themes/DefaultClean/Content/css/styles.rtl.css</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/Components/TopMenu/Default.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/_Header.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/_Notifications.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/_Root.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

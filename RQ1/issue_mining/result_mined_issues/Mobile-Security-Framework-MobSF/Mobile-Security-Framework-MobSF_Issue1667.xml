@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1667</ISSUENO>
+  <ISSUEURL>https://github.com/MobSF/Mobile-Security-Framework-MobSF/issues/1667</ISSUEURL>
+  <TITLE>httptools UI URL is hardcoded to localhost</TITLE>
+  <DESCRIPTION>## ENVIRONMENT ``` OS and Version: all Python Version: all MobSF Version: 3.3.0 Beta ``` ## EXPLANATION OF THE ISSUE ``` httptools UI URL is hardcoded to `http://localhost:1337`, which obviously doesn't work if MobSF is deployed on a server, behind nginx, etc. LB. https://github.com/MobSF/Mobile-Security-Framework-MobSF/blob/master/mobsf/DynamicAnalyzer/views/android/dynamic_analyzer.py#L192 Suggest to at least make hostname configurable. Alternatively support deployment with docker-compose, include a proxy (Envoy, etc.) in the config and route appropriately. ``` Relevant code: https://github.com/MobSF/Mobile-Security-Framework-MobSF/blob/master/mobsf/DynamicAnalyzer/views/android/dynamic_analyzer.py#L192 ## STEPS TO REPRODUCE THE ISSUE ``` 1. Open a dynamic analysis report 2. Click 'Start HTTPTools' 3. You get redirected to `http://localhost:1337/dashboard/&lt;package name&gt;` Should be accessible via the public hostname/IP address. ```</DESCRIPTION>
+  <REPONAME>Mobile-Security-Framework-MobSF</REPONAME>
+  <TIMEDIFFERENCEDAYS>492</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixes #1664</MESSAGE>
+    <SHA>fbbbfda2839b306e815254a2285c301e5998214c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fixes #1667</MESSAGE>
+      <SHA>7e0dcb4104b16880225be70df323894fb6161811</SHA>
+      <PATCHEDFILES>
+        <FILE>mobsf/DynamicAnalyzer/tools/webproxy.py</FILE>
+        <FILE>mobsf/DynamicAnalyzer/views/android/dynamic_analyzer.py</FILE>
+        <FILE>mobsf/DynamicAnalyzer/views/android/environment.py</FILE>
+        <FILE>mobsf/DynamicAnalyzer/views/android/tests_common.py</FILE>
+        <FILE>mobsf/MobSF/utils.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

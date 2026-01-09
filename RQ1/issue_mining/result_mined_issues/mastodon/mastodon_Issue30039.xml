@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>30039</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/30039</ISSUEURL>
+  <TITLE>Idempotency-Key ignored when scheduling a post</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem Make multiple requests to schedule a post to `POST /api/v1/statuses`, e.g. with this body `{&quot;status&quot;:&quot;Test&quot;,&quot;spoiler_text&quot;:&quot;&quot;,&quot;visibility&quot;:&quot;private&quot;,&quot;sensitive&quot;:false,&quot;media_ids&quot;:[],&quot;media_attributes&quot;:[],&quot;scheduled_at&quot;:&quot;2024-04-24T14:59:42.868Z&quot;,&quot;language&quot;:&quot;en&quot;}` and with the same `Idempotency-Key` header. ### Expected behaviour There is one scheduled status created because the Idempotency-Key was the same. ### Actual behaviour Multiple scheduled statuses were created ### Detailed description _No response_ ### Mastodon instance mastodon.social ### Mastodon version 4.3.0-nightly.2024-04-18 ### Technical details _No response_</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>New Crowdin Translations (automated) (#30077) Co-authored-by: GitHub Actions &lt;noreply@github.com&gt;</MESSAGE>
+    <SHA>5201882a2389bbd3477440509fe12b2019edb4e7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix Idempotency-Key ignored when scheduling a post Fixes #30039</MESSAGE>
+      <SHA>d1c045b3f7c07092feeaa7bf4a4f7a4d13e5c85c</SHA>
+      <PATCHEDFILES>
+        <FILE>app/services/post_status_service.rb</FILE>
+        <FILE>spec/services/post_status_service_spec.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

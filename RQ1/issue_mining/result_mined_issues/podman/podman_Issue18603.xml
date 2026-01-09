@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18603</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18603</ISSUEURL>
+  <TITLE>docs: podman-kube-play(1): tables are discombobulated</TITLE>
+  <DESCRIPTION>Totally weird formatting: field names getting moved into the right-hand column, empty rows, missing fields: ```console $ make docs ... $ man docs/build/man/podman-kube-play.1 ... Pod Fields ┌───────────────────────────────────┬───────────────────────────────┐ │Field │ Support │ ├───────────────────────────────────┼───────────────────────────────┤ │containers │ ✅ │ ├───────────────────────────────────┼───────────────────────────────┤ │initContainers │ ✅ │ ├───────────────────────────────────┼───────────────────────────────┤ │imagePullSecrets │ enableServiceLinks │ ├───────────────────────────────────┼───────────────────────────────┤ ^^^^^^^^^^^^^^^^^^ does not belong here ``` Problem seems to be related to blank values under `Support` (right-hand column), and seems to be a bug in `go-md2man`. Workaround: we need to do something to https://github.com/containers/podman/blob/main/docs/kubernetes_support.md to remove the empty right-hand columns. Maybe add an X? dash? That's not something I can decide.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18604 from edsantiago/fix_htmlspan [CI:DOCS] fix HTMLSpan warnings</MESSAGE>
+    <SHA>ac2d0db47d2000099770397a39f463b46dd0e122</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix discombobulated kubernetes support table - remove &quot;nolink&quot;, it was showing up in actual man page. Just use backslash-dot instead. - remove empty table cells, replace with the word &quot;no&quot; Fixes: #18603 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>458f2e8ed708662d706e5a3af2633749ef0031b6</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/kubernetes_support.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>119979</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/119979</ISSUEURL>
+  <TITLE>[CI] RollingUpgradeSearchableSnapshotIndexCompatibilityIT testSearchableSnapshotUpgrade {p0=[9.0.0, 9.0.0, 8.18.0]} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #15611 / part1](https://gradle-enterprise.elastic.co/s/nh424tqr7o4ag) - [elasticsearch-pull-request #49997 / part-1](https://gradle-enterprise.elastic.co/s/kotgh2asmendq) - [elasticsearch-pull-request #49993 / part-1](https://gradle-enterprise.elastic.co/s/naifqvixm7a4i) - [elasticsearch-pull-request #49990 / part-1](https://gradle-enterprise.elastic.co/s/dpndotte46uno) - [elasticsearch-intake #15605 / part1](https://gradle-enterprise.elastic.co/s/otdbmvry6wuri) - [elasticsearch-pull-request #49983 / part-1](https://gradle-enterprise.elastic.co/s/77wxi5o5cjdug) - [elasticsearch-pull-request #49975 / part-1](https://gradle-enterprise.elastic.co/s/dz533qie7gg3g) - [elasticsearch-pull-request #49948 / part-1](https://gradle-enterprise.elastic.co/s/t5gbcem2usdzw) - [elasticsearch-pull-request #49917 / part-1](https://gradle-enterprise.elastic.co/s/r6flt2yveoq5i) - [elasticsearch-periodic #5699 / release-tests](https://gradle-enterprise.elastic.co/s/l6zppbvcagzjm) **Reproduction Line:** ``` ./gradlew &quot;:qa:lucene-index-compatibility:javaRestTest&quot; --tests &quot;org.elasticsearch.lucene.RollingUpgradeSearchableSnapshotIndexCompatibilityIT&quot; -Dtests.method=&quot;testMountSearchableSnapshot {p0=[9.0.0, 8.18.0, 8.18.0]}&quot; -Dtests.seed=82B30E3DBCBE7C81 -Dtests.locale=es-GQ -Dtests.timezone=Asia/Dushanbe -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.lucene.RollingUpgradeSearchableSnapshotIndexCompatibilityIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testSearchableSnapshotUpgrade%20%7Bp0%3D%5B9.0.0%2C%209.0.0%2C%208.18.0%5D%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.RuntimeException: An error occurred while checking cluster 'test-cluster' status. ``` **Issue Reasons:** - [main] 6 consecutive failures in test testSearchableSnapshotUpgrade {p0=[9.0.0, 9.0.0, 8.18.0]} - [main] 2 consecutive failures in step part1 - [main] 5 consecutive failures in step part-1 - [main] 3 consecutive failures in step release-tests - [main] 2 consecutive failures in pipeline elasticsearch-intake - [main] 5 consecutive failures in pipeline elasticsearch-pull-request - [main] 12 failures in test testSearchableSnapshotUpgrade {p0=[9.0.0, 9.0.0, 8.18.0]} (2.0% fail rate in 609 executions) - [main] 2 failures in step part1 (1.9% fail rate in 107 executions) - [main] 7 failures in step part-1 (3.0% fail rate in 236 executions) - [main] 3 failures in step release-tests (100.0% fail rate in 3 executions) - [main] 2 failures in pipeline elasticsearch-intake (1.9% fail rate in 107 executions) - [main] 8 failures in pipeline elasticsearch-pull-request (3.4% fail rate in 235 executions) - [main] 2 failures in pipeline elasticsearch-periodic (18.2% fail rate in 11 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.lucene.RollingUpgradeSearchableSnapshotIndexCompatibilityIT testSearchableSnapshotUpgrade {p0=[9.0.0, 8.18.0, 8.18.0]} #119978</MESSAGE>
+    <SHA>3cfe624bb34ff9d462deadcec5cd951c14033b74</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.lucene.RollingUpgradeSearchableSnapshotIndexCompatibilityIT testSearchableSnapshotUpgrade {p0=[9.0.0, 9.0.0, 8.18.0]} #119979</MESSAGE>
+      <SHA>5df4136d8ce57bbe1a425aec32027d409d1ca091</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Unmute RollingUpgradeSearchableSnapshotIndexCompatibilityIT tests Mixed cluster tests failed because a serialization change wasn't backported during a couple of days (#119832). Now the change is backported, we can reenable those tests. Closes #119990 Closes #119989 Closes #119980 Closes #119979 Closes #119978</MESSAGE>
+      <SHA>d49c2df677f12cc91f7c93e5d62e52590053ad80</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Unmute RollingUpgradeSearchableSnapshotIndexCompatibilityIT tests (#120113) Mixed cluster tests failed because a serialization change wasn't backported during a couple of days (#119832). Now the change is backported, we can reenable those tests. Closes #119990 Closes #119989 Closes #119980 Closes #119979 Closes #119978</MESSAGE>
+      <SHA>e196138b3cf90d7b11c5ae2f6afc16761e5ab33c</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

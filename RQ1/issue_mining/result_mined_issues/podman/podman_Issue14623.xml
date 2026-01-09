@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14623</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14623</ISSUEURL>
+  <TITLE>Cirrus: rootless remote system test: &quot;I see everything thrice!&quot;</TITLE>
+  <DESCRIPTION>The `sys remote fedora-36 rootless host` task is running three times: ![sys-sys-sys](https://user-images.githubusercontent.com/265639/174135153-c0aa12d5-f92c-4f48-9a97-a91d7a58feaa.png) I suspect this has something to do with `matrix` or something like that. I can probably look into it next week, but I bet it's something very easy for @cevich to find and fix, and maybe it'll magically be solved by next week :)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14619 from Luap99/help fix &quot;podman -h&quot; help output</MESSAGE>
+    <SHA>5cba4dc2e490b5c652ba0821067b63d7b2e4cf8f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>CI: Eliminate triply-redundant rootless-remote jobs We someone ended up running 'sys remote fedora-36 rootless host' three times in each CI run. Flatten that task, by removing the matrix keyword. Fixes: #14623 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>e56e2b52dd6536d4ad1e977c47d378d25c6d9d54</SHA>
+      <PATCHEDFILES>
+        <FILE>.cirrus.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>CI: Eliminate triply-redundant rootless-remote jobs We somehow ended up running 'sys remote fedora-36 rootless host' three times in each CI run. Flatten that task, by removing a slight difference in the matrix field. Fixes: #14623 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>e9ce664add46fedac9f5d0ace674767da9c902bf</SHA>
+      <PATCHEDFILES>
+        <FILE>.cirrus.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

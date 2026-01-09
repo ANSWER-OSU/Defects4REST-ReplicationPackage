@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6105</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6105</ISSUEURL>
+  <TITLE>One page checkout not working when &quot;Order totals on payment info tab&quot; option is enabled</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.50 &gt; **Expected Behavior:** &gt; Checkout completes successfully when &quot;One Page Checkout&quot; is enabled, regardless of &quot;Order totals on payment info tab&quot; option being enabled. &gt; &gt; **Actual Behavior:** &gt; One page checkout does not work when the &quot;Order totals on payment info tab&quot; is enabled. The checkout process goes through till the &quot;Payment Information&quot; tab, then redirects to the cart page. &gt; &gt; **Steps:** &gt; 1. Admin Panel -&gt; Configuration -&gt; Settings -&gt; Order Settings -&gt; Advanced &gt; 2. Enable &quot;Use one page checkout&quot; &gt; 3. Enable &quot;Order totals on payment info tab&quot; under the &quot;Use one page checkout&quot; option &gt; 4. Public Store -&gt; Add item to cart &gt; 5. Cart page -&gt; Checkout &gt; 6. Select/Enter information on all tabs &gt; 7. On &quot;Payment Info&quot; tab, click &quot;Continue&quot; &gt; 8. Instead of going to the &quot;Confirm&quot; tab, the user is redirected to the &quot;Cart&quot; page &gt; &gt; **Workaround:** &gt; Checkout works successfully with the &quot;Order totals on payment info tab&quot; enabled, when either of these two are applied: &gt; 1. `asp-anti forgery=false` is added to the form _co-payment-info-form_ in _OnePageCheckout.cshtml_ &gt; 2. `[IgnoreAntiforgeryToken]` is added to the _OpcSavePaymentInfo_ method in the _CheckoutController.cs_ class. Source: https://www.nopcommerce.com/boards/topic/93066/one-page-checkout-not-working-when-order-totals-on-payment-info-tab-option-is-enabled-nop-version-45</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>EasyPost plugin. Change some text</MESSAGE>
+    <SHA>a7647277b22dae5a22e4201f0a403c489d2c7740</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6105 Fixed a bug on one-page checkout that made it impossible to place an order</MESSAGE>
+      <SHA>a4bd46b17b00301b648db1230cad82a15674080c</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Controllers/CheckoutController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6105 Fixed a bug on one-page checkout that made it impossible to place an order (cherry picked from commit a4bd46b17b00301b648db1230cad82a15674080c)</MESSAGE>
+      <SHA>453187e01294e2944bf40e3a244ca07cd208835c</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Controllers/CheckoutController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

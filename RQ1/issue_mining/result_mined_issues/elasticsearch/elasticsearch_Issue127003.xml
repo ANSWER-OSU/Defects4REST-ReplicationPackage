@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127003</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/127003</ISSUEURL>
+  <TITLE>Active Directory Authentication does not work with Entitlements</TITLE>
+  <DESCRIPTION>### Elasticsearch Version 8.18.0 ### Installed Plugins _No response_ ### Java Version _bundled_ ### OS Version any ### Problem Description The active directory authenticator in x-pack-core uses the unboundid ldap SDK; this (pretty obvious, if you think about it) does a `Socket.connect` which requires `outbound_network` permission. This is missing from the x-pack-core policy, causing a `NotEntitledException`: ``` [WARN ][o.e.e.r.p.P.x.u.ldapsdk ] [name] Not entitled: component [x-pack-core], module [unboundid.ldapsdk], class [class com.unboundid.ldap.sdk.ConnectThread], entitlement [outbound_network] org.elasticsearch.entitlement.runtime.api.NotEntitledException: component [x-pack-core], module [unboundid.ldapsdk], class [class com.unboundid.ldap.sdk.ConnectThread], entitlement [outbound_network] at org.elasticsearch.entitlement.runtime.policy.PolicyManager.notEntitled(PolicyManager.java:572) ~[elasticsearch-entitlement-8.18.0.jar:?] at org.elasticsearch.entitlement.runtime.policy.PolicyManager.checkFlagEntitlement(PolicyManager.java:514) ~[elasticsearch-entitlement-8.18.0.jar:?] at org.elasticsearch.entitlement.runtime.policy.PolicyManager.checkEntitlementPresent(PolicyManager.java:604) ~[elasticsearch-entitlement-8.18.0.jar:?] at org.elasticsearch.entitlement.runtime.policy.PolicyManager.checkOutboundNetworkAccess(PolicyManager.java:489) ~[elasticsearch-entitlement-8.18.0.jar:?] at org.elasticsearch.entitlement.runtime.api.ElasticsearchEntitlementChecker.check$java_net_Socket$connect(ElasticsearchEntitlementChecker.java:636) ~[elasticsearch-entitlement-8.18.0.jar:?] at java.net.Socket.connect(Socket.java) ~[?:?] at com.unboundid.ldap.sdk.ConnectThread.run(ConnectThread.java:165) ~[?:?] [2025-04-17T08:51:59,834][WARN ][o.e.x.s.a.RealmsAuthenticator] [name] Authentication to realm ad failed - authenticate failed (Caused by LDAPException(resultCode=91 (connect error) ```</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge patch/serverless-fix into main</MESSAGE>
+    <SHA>36af0464414aba3440e5336394c188c43511074e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[Entitlements] Add missing outbound_network entitlement to x-pack-core (#126992) Add missing outbound_network entitlement to x-pack-core Closes #127003</MESSAGE>
+      <SHA>b6c9584c28c057dbd0d1950c6f67ce1cc807b76b</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/126992.yaml</FILE>
+        <FILE>x-pack/plugin/core/src/main/plugin-metadata/entitlement-policy.yaml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

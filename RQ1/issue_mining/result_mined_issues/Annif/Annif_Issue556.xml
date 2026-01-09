@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>556</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/556</ISSUEURL>
+  <TITLE>vocabulary in SKOS (Turtle serialization) should be loaded even in case of lacking language tags</TITLE>
+  <DESCRIPTION>Hi! I've noticed some potentially inconsistent behaviour of the annif loadvoc command when loading voacabulary in ttl SKOS without language tags. We've currently switched in our project from simple tsv vocabulary format to SKOS. I assumed that since we do not provide any information about language in tsv file, we don't necessarily have to add appropriate language tags in SKOS either. But it turned out, that loading vocabulary in SKOS without language tags prevents annif from creating the subject index (though original ttl file is being copied and gzipped file is being dumped). It seems, that when annif converts tsv to SKOS, it adds language tags (they're based upon language configuration in projects.cfg), but when it loads vocabulary directly from SKOS format, it checks if language tag for a label is the same as language code in projects.cfg, and when it's not **or if there is no language tag at all** it skips the whole concept: ``` def get_concept_labels(self, concept, label_types, language): return [str(label) for label_type in label_types for label in self.graph.objects(concept, label_type) if label.language == language] ``` ``` @property def subjects(self): for concept in self.concepts: labels = self.get_concept_labels( concept, [SKOS.prefLabel, RDFS.label], self.language) notation = self.graph.value(concept, SKOS.notation, None, any=True) if not labels: continue label = labels[0] if notation is not None: notation = str(notation) yield Subject(uri=str(concept), label=label, notation=notation, text=None) ``` I think, that maybe it would be safer to assume, that when there is no explicit information about the language in SKOS file (there is a label without the language tag), its language corresponds with the language defined in projects.cfg and skip a concept (or label from the concept) only when the language tag truly exists and is not equal to the language from projects.cfg. If this change is not possible for some reasons, it would be nice to provide some information about this behaviour in annif wiki (it took me some time to find this &quot;bug&quot;). Maciej Sagata, National Library of Poland</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>192</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #594 from NatLibFi/upgrade-simplemma-0.7 Upgrade Simplemma to version 0.7</MESSAGE>
+    <SHA>aa50441e769a4c93866ca93ee07d3b9677c4d201</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Include labels without language tag and concepts without labels in vocabulary. Fixes #556</MESSAGE>
+      <SHA>d82fec74469ba8efdd337b0fdcc76c4e304428a8</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/corpus/skos.py</FILE>
+        <FILE>tests/test_vocab_skos.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Include labels without language tag and concepts without labels in vocabulary. Fixes #556</MESSAGE>
+      <SHA>4eca43740f02688f2a7aad222d7b4ac5f65bff2a</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/corpus/skos.py</FILE>
+        <FILE>tests/test_vocab_skos.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

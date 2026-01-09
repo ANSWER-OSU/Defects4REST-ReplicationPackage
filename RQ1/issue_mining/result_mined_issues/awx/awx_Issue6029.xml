@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6029</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6029</ISSUEURL>
+  <TITLE>If a Job is Relaunched, Add The Origin Job to /api/v2/jobs/&lt;JOB_ID&gt;/</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Feature Idea ##### SUMMARY &lt;!-- Briefly describe the problem or desired enhancement. --&gt; Seeing as `/api/v2/jobs/&lt;JOB_ID&gt;/relaunch/` relaunches the job by creating another job with the same _user_ prompts, I think it may be a good idea to add a `/api/v2/jobs/&lt;JOB_ID&gt;/parent/` endpoint. The `/api/v2/jobs/&lt;JOB_ID&gt;/parent/` endpoint would only be valid on jobs that were &quot;relaunched&quot; via the API or UI. This would be exceptionally useful, especially in cases where the user may question the environment that was relaunched and its origin (e.g. job auditing). **EXAMPLE:** ORIGIN JOB: ~~~ { &quot;id&quot;: 1, &quot;type&quot;: &quot;job&quot;, &quot;url&quot;: &quot;/api/v2/jobs/1/&quot;, &quot;related&quot;: { &quot;created_by&quot;: &quot;/api/v2/users/1/&quot;, &quot;labels&quot;: &quot;/api/v2/jobs/1/labels/&quot;, &quot;inventory&quot;: &quot;/api/v2/inventories/1/&quot;, &quot;project&quot;: &quot;/api/v2/projects/6/&quot;, &quot;extra_credentials&quot;: &quot;/api/v2/jobs/1/extra_credentials/&quot;, &quot;credentials&quot;: &quot;/api/v2/jobs/1/credentials/&quot;, &quot;unified_job_template&quot;: &quot;/api/v2/job_templates/7/&quot;, &quot;stdout&quot;: &quot;/api/v2/jobs/1/stdout/&quot;, &quot;job_events&quot;: &quot;/api/v2/jobs/1/job_events/&quot;, &quot;job_host_summaries&quot;: &quot;/api/v2/jobs/1/job_host_summaries/&quot;, &quot;activity_stream&quot;: &quot;/api/v2/jobs/1/activity_stream/&quot;, &quot;notifications&quot;: &quot;/api/v2/jobs/1/notifications/&quot;, &quot;create_schedule&quot;: &quot;/api/v2/jobs/1/create_schedule/&quot;, &quot;job_template&quot;: &quot;/api/v2/job_templates/7/&quot;, &quot;cancel&quot;: &quot;/api/v2/jobs/1/cancel/&quot;, &quot;relaunch&quot;: &quot;/api/v2/jobs/1/relaunch/&quot; } ~~~ RELAUNCH JOB: ~~~ { &quot;id&quot;: 92, &quot;type&quot;: &quot;job&quot;, &quot;url&quot;: &quot;/api/v2/jobs/92/&quot;, &quot;related&quot;: { &quot;created_by&quot;: &quot;/api/v2/users/1/&quot;, &quot;labels&quot;: &quot;/api/v2/jobs/92/labels/&quot;, &quot;inventory&quot;: &quot;/api/v2/inventories/1/&quot;, &quot;project&quot;: &quot;/api/v2/projects/36/&quot;, &quot;extra_credentials&quot;: &quot;/api/v2/jobs/92/extra_credentials/&quot;, &quot;credentials&quot;: &quot;/api/v2/jobs/92/credentials/&quot;, &quot;stdout&quot;: &quot;/api/v2/jobs/92/stdout/&quot;, &quot;job_events&quot;: &quot;/api/v2/jobs/92/job_events/&quot;, &quot;job_host_summaries&quot;: &quot;/api/v2/jobs/92/job_host_summaries/&quot;, &quot;activity_stream&quot;: &quot;/api/v2/jobs/92/activity_stream/&quot;, &quot;notifications&quot;: &quot;/api/v2/jobs/92/notifications/&quot;, &quot;create_schedule&quot;: &quot;/api/v2/jobs/92/create_schedule/&quot;, &quot;cancel&quot;: &quot;/api/v2/jobs/92/cancel/&quot;, &quot;parent&quot;: &quot;/api/v2/jobs/3/&quot;, &quot;relaunch&quot;: &quot;/api/v2/jobs/92/relaunch/&quot; } ~~~</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Vendor d3 scripts and remove CSP declaration. (#6023)</MESSAGE>
+    <SHA>309c7a9b6e2132ab6e7b997be0bfae23bf73c492</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Modifying SAML adapter to not auto-add default galaxy creds to orgs on login (#12504) (#6029) * Modifying SAML adapter to not auto-add default galaxy creds to orgs on login * Adding test, fixing old tests and moving add_default_galaxy_credential to pipeline Co-authored-by: John Westcott IV &lt;32551173+john-westcott-iv@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>587b7ef8791573fe02c0169e9f7ce1ea2a4c86ba</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/models/organization.py</FILE>
+        <FILE>awx/sso/pipeline.py</FILE>
+        <FILE>awx/sso/tests/functional/test_pipeline.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

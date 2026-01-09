@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2677</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2677</ISSUEURL>
+  <TITLE>Customer is unable to login if customer is created from Admin</TITLE>
+  <DESCRIPTION>We believe there is a bug introduced in v4.00. Customer is unable to login if customer is created from Admin when CustomerSetting.UsernameEnabled is set to false. Steps to Reproduce: 1. Set UsernamesEnabled as false in Settings -&gt; customer Settings. 2. Create new customer from Admin area. 3. Try to login from customer area with this new user's email. Actual Result: User is unable to login and the page ends up to exception. Reason: When customer is created from admin area, username field is left 'null' which in turn ends to null exception while creating claim in CookieAuthenticationService.SignIn(Customer customer, bool isPersistent) Solution: In '..\Presentation\Nop.Web\Areas\Admin\Controllers\CustomerController.cs' 'Create' Post action near Line 900 where Customer object is created the username should be set to model.Email if UsernameEnabled is false else it should be model.Username Username = _customerSettings.UsernamesEnabled ? model.Username : model.Email Hope this helps. Source: https://www.nopcommerce.com/boards/t/49121/find-bugs-in-nopcommerce-400-beta-and-earn-10.aspx?p=2#195092</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#2689 Fixed error with wrong path in PrintOrderToPdf method</MESSAGE>
+    <SHA>56677a22d426ab5bd0fe85f1c9b6f45b0b40db07</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2677 Fix exception on authentication SignIn method</MESSAGE>
+      <SHA>b04cc5df8179ed2f337fbe1bb48b49ee8bcb9775</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Authentication/CookieAuthenticationService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

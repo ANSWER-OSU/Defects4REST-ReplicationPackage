@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3822</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3822</ISSUEURL>
+  <TITLE>Images get a pink background after uploading</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.10 Steps to reproduce the problem: 1. Go to product details page in admin area and upload a picture containing just white (#ffffff) background 2. Use any color picker to see that it is now #fffcff instead of #ffffff More details at ticket 14874 (our premium support portal) Also see related https://github.com/SixLabors/ImageSharp/issues/355 and https://github.com/SixLabors/ImageSharp/issues/502</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#3730 Fixed rtl border view in tables</MESSAGE>
+    <SHA>f62717a880160e733f559c0efcf9cce6f9e41860</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3822 Images got a pink background after uploading (increased default image quality)</MESSAGE>
+      <SHA>8894eb28fd129dcd983fe384312df8d2c3e9c037</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Installation/CodeFirstInstallationService.cs</FILE>
+        <FILE>upgradescripts/4.10-4.20 (under development)/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3822 Reverted recent changes as it significantly increased file size</MESSAGE>
+      <SHA>7a9f3a673b3ec9784b0b1037de1cabb3dfbf2f11</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Installation/CodeFirstInstallationService.cs</FILE>
+        <FILE>upgradescripts/4.10-4.20 (under development)/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3822 Fix error with incorrect background color of uploaded images</MESSAGE>
+      <SHA>8cccef86cd88023d86b0b7a4fb95f35918de80f1</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Media/PictureService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Media/RoxyFileman/DatabaseRoxyFilemanService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Nop.Services.csproj</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

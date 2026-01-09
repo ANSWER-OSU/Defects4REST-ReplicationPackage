@@ -1,0 +1,90 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3134</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/3134</ISSUEURL>
+  <TITLE>I have some trouble on route match</TITLE>
+  <DESCRIPTION>### Issue description I set two routes like this: ##route1 {&quot;uris&quot;:[&quot;/test/v1/files/*&quot;],&quot;name&quot;:&quot;get_file1&quot;,&quot;desc&quot;:&quot;get_file1&quot;,&quot;methods&quot;:[&quot;GET&quot;],&quot;vars&quot;:[],&quot;plugins&quot;:{&quot;proxy-rewrite&quot;:{&quot;regex_uri&quot;:[&quot;^/test/v1/files/(.+)&quot;,&quot;/v1/files/$1&quot;]}},&quot;upstream_id&quot;:&quot;333773215308464216&quot;} ##route2 {&quot;uris&quot;:[&quot;/test/v1/files:listReputationHistories&quot;],&quot;name&quot;:&quot;list_reputation_history1&quot;,&quot;methods&quot;:[&quot;POST&quot;],&quot;vars&quot;:[],&quot;plugins&quot;:{&quot;proxy-rewrite&quot;:{&quot;uri&quot;:&quot;/v1/files:listReputationHistories&quot;}},&quot;upstream_id&quot;:&quot;333773215308464216&quot;} But run command: `curl &quot;http://127.0.0.1:9080/test/v1/files:xxxdsadsadxxx&quot; -XPOST -d {&quot;uri&quot;:&quot;xxx&quot;}` , It also can return results. APISIX sames to match '/test/v1/files:xxxdsadsadxxx' to '&quot;/test/v1/files:listReputationHistories'. I also try other cases: `curl &quot;http://127.0.0.1:9080/test/v1/files: {any string}&quot; -XPOST -d {&quot;uri&quot;:&quot;xxx&quot;}` , APISIX sames ignore string behind ':'. ### Environment * apisix version (cmd: `2.1`):</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ci: pass again (#3141) Previously CI is failed because of some policy change of Apache Foundation. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+    <SHA>45e909a0b122b8cda5a75e95adcfaf62378f7a30</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: match route with ':' Fix #3134. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>2fe0dcb84e561c0cf7aeda5c01e7e9f135466585</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/control/router.lua</FILE>
+        <FILE>apisix/http/router/radixtree_host_uri.lua</FILE>
+        <FILE>apisix/http/router/radixtree_uri.lua</FILE>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+        <FILE>t/router/radixtree-host-uri2.t</FILE>
+        <FILE>t/router/radixtree-uri-host.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>change: don't treat route segment with ':' as parameter by default Fix #3134. You can still get the original behavior by set enable_parameter_in_route to true. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>a140eae5a4d0ba69fbe8e00bbec2bc2e77b591cc</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/control/router.lua</FILE>
+        <FILE>apisix/http/router/radixtree_host_uri.lua</FILE>
+        <FILE>apisix/http/router/radixtree_uri.lua</FILE>
+        <FILE>apisix/router.lua</FILE>
+        <FILE>conf/config-default.yaml</FILE>
+        <FILE>doc/router-radixtree.md</FILE>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+        <FILE>t/node/route-parameter-uri.t</FILE>
+        <FILE>t/router/radixtree-host-uri2.t</FILE>
+        <FILE>t/router/radixtree-uri-host.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>change: don't treat route segment with ':' as parameter by default Fix #3134. You can still get the original behavior by using radixtree_uri_with_parameter router. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>adf3ff8fac988c11f220931cee4105f731355bfe</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/admin/init.lua</FILE>
+        <FILE>apisix/api_router.lua</FILE>
+        <FILE>apisix/control/router.lua</FILE>
+        <FILE>apisix/http/router/base.lua</FILE>
+        <FILE>apisix/http/router/radixtree_host_uri.lua</FILE>
+        <FILE>apisix/http/router/radixtree_uri.lua</FILE>
+        <FILE>apisix/http/router/radixtree_uri_with_parameter.lua</FILE>
+        <FILE>apisix/router.lua</FILE>
+        <FILE>apisix/ssl/router/radixtree_sni.lua</FILE>
+        <FILE>apisix/utils/router.lua</FILE>
+        <FILE>doc/architecture-design.md</FILE>
+        <FILE>doc/router-radixtree.md</FILE>
+        <FILE>doc/zh-cn/architecture-design.md</FILE>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+        <FILE>t/router/radixtree-host-uri2.t</FILE>
+        <FILE>t/router/radixtree-uri-host.t</FILE>
+        <FILE>t/router/radixtree-uri-with-parameter.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>change: don't treat route segment with ':' as parameter by default (#3154) Fix #3134</MESSAGE>
+      <SHA>81c1c7c0778b11bdef274be1d5c4e54e1429cc21</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/admin/init.lua</FILE>
+        <FILE>apisix/api_router.lua</FILE>
+        <FILE>apisix/control/router.lua</FILE>
+        <FILE>apisix/http/router/base.lua</FILE>
+        <FILE>apisix/http/router/radixtree_host_uri.lua</FILE>
+        <FILE>apisix/http/router/radixtree_uri.lua</FILE>
+        <FILE>apisix/http/router/radixtree_uri_with_parameter.lua</FILE>
+        <FILE>apisix/router.lua</FILE>
+        <FILE>apisix/ssl/router/radixtree_sni.lua</FILE>
+        <FILE>apisix/utils/router.lua</FILE>
+        <FILE>conf/config-default.yaml</FILE>
+        <FILE>doc/architecture-design.md</FILE>
+        <FILE>doc/router-radixtree.md</FILE>
+        <FILE>doc/zh-cn/architecture-design.md</FILE>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+        <FILE>t/router/radixtree-host-uri2.t</FILE>
+        <FILE>t/router/radixtree-uri-host.t</FILE>
+        <FILE>t/router/radixtree-uri-with-parameter.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5861</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/5861</ISSUEURL>
+  <TITLE>request help: split the full CI into two parts (running t/plugin and the other)</TITLE>
+  <DESCRIPTION>### Issue description Sometimes the full CI &quot;linux_openresty&quot; https://github.com/apache/apisix/blob/4423509680a0c2103ce23b30a0da71735ef73e8f/.github/workflows/build.yml#L27 takes 50 minutes to complete. Let's split it into multiple parts so the max single job time can be reduced. We can pass an environment variable as the test file range in https://github.com/apache/apisix/blob/4423509680a0c2103ce23b30a0da71735ef73e8f/ci/linux_openresty_common_runner.sh#L86 ### Environment - apisix version (cmd: `apisix version`): - OS (cmd: `uname -a`): - OpenResty / Nginx version (cmd: `nginx -V` or `openresty -V`): - etcd version, if have (cmd: run `curl http://127.0.0.1:9090/v1/server_info` to get the info from server-info API): - apisix-dashboard version, if have: - the plugin runner version, if the issue is about a plugin runner (cmd: depended on the kind of runner): - luarocks version, if the issue is about installation (cmd: `luarocks --version`):</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>69</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ci: support for generating flame graph (#6136)</MESSAGE>
+    <SHA>d8b9b709a8064ec1893df4b8acdc91f97962dc85</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ci(prove): support ignore specified test cases solve #5861 Signed-off-by: kwanhur &lt;huang_hua2012@163.com&gt;</MESSAGE>
+      <SHA>d60e9886be3b17606fbd57633d31a9a0661c0474</SHA>
+      <PATCHEDFILES>
+        <FILE>ci/centos7-ci.sh</FILE>
+        <FILE>ci/linux_openresty_common_runner.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ci: split the full CI into two parts (running t/plugin and the other) Closes #5861 Signed-off-by: tzssangglass &lt;tzssangglass@gmail.com&gt;</MESSAGE>
+      <SHA>12f1ac9fdda68d70da296d66793a9364dbc58885</SHA>
+      <PATCHEDFILES>
+        <FILE>.github/workflows/centos7-ci.yml</FILE>
+        <FILE>ci/centos7-ci.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

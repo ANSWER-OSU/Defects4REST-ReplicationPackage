@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>643</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/643</ISSUEURL>
+  <TITLE>Upgrade to requests 2.6.0 to support Ubuntu 15.10</TITLE>
+  <DESCRIPTION>I ran into some trouble running bootstrap.sh on a 64-bit Ubuntu 15.10 machine. This Python exception was thrown: psql (PostgreSQL) 9.4.5 redis-cli 2.8.17 (git:34ba5439-dirty) Traceback (most recent call last): File &quot;/opt/redash/redash.0.7.1.b1015/manage.py&quot;, line 9, in &lt;module&gt; from redash import settings, models, **version** File &quot;/opt/redash/redash.0.7.1.b1015/redash/**init**.py&quot;, line 8, in &lt;module&gt; from redash.query_runner import import_query_runners File &quot;/opt/redash/redash.0.7.1.b1015/redash/query_runner/**init**.py&quot;, line 4, in &lt;module&gt; import jsonschema File &quot;/usr/local/lib/python2.7/dist-packages/jsonschema/**init**.py&quot;, line 18, in &lt;module&gt; from jsonschema.validators import ( File &quot;/usr/local/lib/python2.7/dist-packages/jsonschema/validators.py&quot;, line 8, in &lt;module&gt; import requests File &quot;/usr/local/lib/python2.7/dist-packages/requests/**init**.py&quot;, line 53, in &lt;module&gt; from .packages.urllib3.contrib import pyopenssl File &quot;/usr/local/lib/python2.7/dist-packages/requests/packages/urllib3/contrib/pyopenssl.py&quot;, line 70, in &lt;module&gt; ssl.PROTOCOL_SSLv3: OpenSSL.SSL.SSLv3_METHOD, AttributeError: 'module' object has no attribute 'PROTOCOL_SSLv3' I was able to get past this by upgrading to requests 2.6.0 as described in this StackOverflow issue: http://stackoverflow.com/questions/28987891/patch-pyopenssl-for-sslv3-issue I don't know whether that is the best version of requests to use with redash, but updating it to 2.6.0 allowed me to get past that issue on latest Ubuntu and finish the bootstrap.sh process.</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>333</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix: Redis memory leak. We were appending new QueryTaskTracker ids to query_task_trackers sorted set but we were never removing them... Also removed the migration to create index on org_id as it created by default by Peewee for foreign keys.</MESSAGE>
+    <SHA>4d47583a94d54b4b7ca7bf3e0cf218e4c672cef5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Change: upgrade Requests to latest version. Closes #643. Related #1258.</MESSAGE>
+      <SHA>7cc22c71a1bf98f8cb471af4f2d940640db4362c</SHA>
+      <PATCHEDFILES>
+        <FILE>requirements.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Change: upgrade Requests to latest version. Closes #643. Related #1258.</MESSAGE>
+      <SHA>3a4754303d190b9de8341dcf66db23869046d32c</SHA>
+      <PATCHEDFILES>
+        <FILE>requirements.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

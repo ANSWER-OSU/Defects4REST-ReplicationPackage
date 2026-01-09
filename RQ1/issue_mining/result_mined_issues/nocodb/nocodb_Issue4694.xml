@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4694</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/4694</ISSUEURL>
+  <TITLE>Bug: Shared view link access (in incognito) redirects to sign-in page</TITLE>
+  <DESCRIPTION>### Please confirm if bug report does NOT exists already ? - [X] I confirm there is no existing issue for this ### Steps to reproduce ? Observed on `develop` branch; works fine in `master` - create shared view - access link in incognito mode - redirects to sign in page ``` authMiddleware :: Unauthorized [Error]: Unauthorized access at Function.unauthorized (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/meta/helpers/catchError.ts:44:11) at authMiddleware (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/meta/helpers/ncMetaAclMw.ts:38:17) at /Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/meta/helpers/catchError.ts:6:20 at Layer.handle [as handle_request] (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/express/lib/router/layer.js:95:5) at next (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/express/lib/router/route.js:144:13) at exports.default (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/meta/helpers/extractProjectIdAndAuthenticate.ts:144:5) ``` ### Desired Behavior access should work without redirection to sign-in page ### Project Details - In develop ### Attachements _No response_</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #4644 from nocodb/fix/formula-empty-result fix(nocodb): formula returns empty result when identifier is null</MESSAGE>
+    <SHA>2a33d8ff686fb71f554a580c8942c84b468a3a4a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix(gui): allow attachment upload if user have permission re #4694 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>0d9954af70dfb5ae8b028cb56a5f02905512abf9</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb-sdk/src/lib/enums.ts</FILE>
+        <FILE>packages/nocodb/src/lib/meta/api/attachmentApis.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(gui): replace api call which requires auth token in public page re #4694 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>4986a5892fb00bd5a6b2065ad8cfefbc36052dd7</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/composables/useSharedView.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

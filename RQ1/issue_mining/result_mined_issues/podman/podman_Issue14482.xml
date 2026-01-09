@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14482</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14482</ISSUEURL>
+  <TITLE>Podman 4.0.2 with docker-compose 2.6.0 does not update network MTU (rootful)</TITLE>
+  <DESCRIPTION>/kind bug **Description** The following network block does not update using docker-compose ``` networks: default: driver: bridge driver_opts: mtu: 9000 ``` **Steps to reproduce the issue:** 1. `vi docker-compose.yml` ``` version: '3.7' services: nginx: image: nginx:latest ports: - 80:80 networks: default: driver: bridge driver_opts: mtu: 9000 ``` 2. `docker-compose up -d` **Describe the results you received:** ``` [ ]# podman network inspect nginx_default [ { &quot;name&quot;: &quot;nginx_default&quot;, &quot;id&quot;: &quot;2e2c8c93df9add0ae49c0658c00bc0eee55ff28ba253677c6fa1272601f00c23&quot;, &quot;driver&quot;: &quot;bridge&quot;, &quot;network_interface&quot;: &quot;cni-podman1&quot;, &quot;created&quot;: &quot;2022-06-03T11:36:24.318423681-04:00&quot;, &quot;subnets&quot;: [ { &quot;subnet&quot;: &quot;10.89.0.0/24&quot;, &quot;gateway&quot;: &quot;10.89.0.1&quot; } ], &quot;ipv6_enabled&quot;: false, &quot;internal&quot;: false, &quot;dns_enabled&quot;: true, &quot;labels&quot;: { &quot;com.docker.compose.network&quot;: &quot;default&quot;, &quot;com.docker.compose.project&quot;: &quot;nginx&quot;, &quot;com.docker.compose.version&quot;: &quot;2.6.0&quot; }, &quot;ipam_options&quot;: { &quot;driver&quot;: &quot;host-local&quot; } } ] ``` ``` [ ]# ip a s dev cni-podman1 215: cni-podman1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP group default qlen 1000 ... ``` **Describe the results you expected:** ``` &quot;mtu&quot;: &quot;9000&quot; ``` ``` [ ]# ip a s dev cni-podman1 215: cni-podman1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 9000 qdisc noqueue state UP group default qlen 1000 ... ``` **Additional information you deem important (e.g. issue happens only occasionally):** Tested on multiple versions (up to 4.0.2) Tested on multiple systems (all 10Gbps capable) **Output of `podman version`:** ``` Client: Podman Engine Version: 4.0.2 API Version: 4.0.2 Go Version: go1.17.7 Built: Tue Apr 19 06:16:32 2022 OS/Arch: linux/amd64 ``` **Package info (e.g. output of `rpm -q podman` or `apt list podman`):** ``` podman-4.0.2-6.module+el8.6.0+14877+f643d2d6.x86_64 ``` **Have you tested with the latest version of Podman and have you checked the Podman Troubleshooting Guide? (https://github.com/containers/podman/blob/main/troubleshooting.md)** Yes (latest available version of podman for RHEL 8)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>31</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14499 from giuseppe/make-error-clearer runtime: make error clearer</MESSAGE>
+    <SHA>1ada01a038fceaa9e94beb2de6e4593df03be7fa</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>(rootful) docker-compose now updates network MTU Previously, the following network block did not update using docker-compose: ``` networks: default: driver: bridge driver_opts: mtu: 9000 ``` In the API, the network options were previously not being handled when the network was being created. I translated the docker options into podman options, and added the options to the network. When doing `podman network inspect &lt;network&gt;`, the results now contain `&quot;mtu&quot;: &quot;9000&quot;` Fixes: #14482 Signed-off-by: Jake Correnti &lt;jcorrenti13@gmail.com&gt;</MESSAGE>
+      <SHA>d74f1b4dd8a1f28b5b4dfe29975ac38175805036</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/compat/networks.go</FILE>
+        <FILE>test/compose/macvlan_driver_options/docker-compose.yml</FILE>
+        <FILE>test/compose/macvlan_driver_options/tests.sh</FILE>
+        <FILE>test/compose/update_network_mtu/docker-compose.yml</FILE>
+        <FILE>test/compose/update_network_mtu/tests.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>(rootful) docker-compose now updates network MTU Previously, the following network block did not update using docker-compose: ``` networks: default: driver: bridge driver_opts: mtu: 9000 ``` In the API, the network options were previously not being handled when the network was being created. I translated the docker options into podman options, and added the options to the network. When doing `podman network inspect &lt;network&gt;`, the results now contain `&quot;mtu&quot;: &quot;9000&quot;` Fixes: #14482 Signed-off-by: Jake Correnti &lt;jcorrenti13@gmail.com&gt;</MESSAGE>
+      <SHA>488eb3b74cd169e94de8364294586bce0925b710</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/compat/networks.go</FILE>
+        <FILE>test/compose/update_network_mtu/docker-compose.yml</FILE>
+        <FILE>test/compose/update_network_mtu/tests.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15008</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/15008</ISSUEURL>
+  <TITLE>Update UI/UX for deleting staff users</TITLE>
+  <DESCRIPTION>### Issue Summary In 5.0 we changed the behaviour of what happens when staff users are deleted in admin. Before: We downloaded a full site backup, then deleted the user and all their posts Now: We transfer the posts of the deleted staff user to the owner user However, there are still some left-over rough edges. ## 1. Messaging and copy is out of date &lt;img width=&quot;661&quot; alt=&quot;Screenshot 2022-07-07 at 17 15 59@2x&quot; src=&quot;https://user-images.githubusercontent.com/120485/177810061-7c274b90-6fd6-4797-92d1-e4733b44ea37.png&quot;&gt; The copy has not been updated to reflect what will happen. We need to tell people that the posts will be transferred to the owner user (and who that is) ## 2. We no longer need to download a site backup We should stop triggering a site export when a user is deleted. It was tenuously relevant before (because it was a nightmare to import again if you needed to), it's not at all relevant now. ## 3. We should tag all transferred posts, so they're easy to find/filter If you do accidentally delete a staff user, we should make it easy to find all old posts written by the deleted user - by adding a private/internal tag to all of the affected posts, based on the `slug` of the staff user who was deleted: &lt;img width=&quot;621&quot; alt=&quot;Screenshot 2022-07-07 at 17 22 22@2x&quot; src=&quot;https://user-images.githubusercontent.com/120485/177810992-a2fadaf2-a938-4f94-bdf5-df3cbf960f1b.png&quot;&gt; Todos to track progress: - [x] stop backup download https://github.com/TryGhost/Admin/pull/2423 - [ ] assign internal tag to transferred posts https://github.com/TryGhost/Ghost/pull/15019 - [x] copy update https://github.com/TryGhost/Admin/pull/2424</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Wired up user comment notifications toggle</MESSAGE>
+    <SHA>c573fdfcbd1f0256c4c69a320818f1ec004cb077</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Stopped downloading site backup when deleting a user refs https://github.com/TryGhost/Ghost/issues/15008 - Backup process had a slim benefit to keep around. Without it the removal process is much smoother. - The backup still happens on the server side if it's absolutely needed at some point in the future</MESSAGE>
+      <SHA>4bf3db1308ca6e00196ebd2aee9cc08d00f99fa3</SHA>
+      <PATCHEDFILES>
+        <FILE>app/components/modal-delete-user.hbs</FILE>
+        <FILE>app/controllers/settings/staff/user.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Updated copy for user deletion modal refs https://github.com/TryGhost/Ghost/issues/15008 - When the user is removed the new flow adds a special tag and reassignes all the user-owned posts to the owner user. Updated copy to inform about this behavior clearly</MESSAGE>
+      <SHA>404f17a3ff25ae67c719c5d121bce46013438e1d</SHA>
+      <PATCHEDFILES>
+        <FILE>app/components/modal-delete-user.hbs</FILE>
+        <FILE>app/components/modal-delete-user.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Added post tag assignment on user deletion closes https://github.com/TryGhost/Ghost/issues/15008 - To improve searchability of the posts written by a removed user we are adding an internal tag to all the posts the user was an author or a co-author of - This improvement should make managing and disovering deleted user's post way easier</MESSAGE>
+      <SHA>5e1179a902f94c74b6cdf1dffa84d99156f3e3ff</SHA>
+      <PATCHEDFILES>
+        <FILE>core/server/services/users.js</FILE>
+        <FILE>test/regression/api/admin/users.test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Added unit test coverage to the user service refs https://github.com/TryGhost/Ghost/issues/15008 - Added basic coverage for the reset all passwords frlow to pass the test coverage bar</MESSAGE>
+      <SHA>b5dc34053d51739d83266bcc73c84b1ce207d902</SHA>
+      <PATCHEDFILES>
+        <FILE>test/unit/server/services/users/users-service.test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Added unit test coverage to the user service refs https://github.com/TryGhost/Ghost/issues/15008 - Added basic coverage for the reset all passwords frlow to pass the test coverage bar</MESSAGE>
+      <SHA>0bc66558c3958cec270ae4d23eba4bd614b2743c</SHA>
+      <PATCHEDFILES>
+        <FILE>test/unit/server/services/users/users-service.test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

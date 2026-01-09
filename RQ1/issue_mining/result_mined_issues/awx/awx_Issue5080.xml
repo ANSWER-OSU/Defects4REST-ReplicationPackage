@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5080</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/5080</ISSUEURL>
+  <TITLE>Inventory Source for Openstack does not have a region field</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY When creating an Openstack Credential, no field is provided to specify the region of the cluster. This results in Openstack using the default cluster. Additionally, specifying a region_name in the source variables section of the inventory source page does not work. ##### ENVIRONMENT * AWX version: 8.0.0.0 (but tried with 7.0.0.0 too) * AWX install method: docker-compose using playbook * Ansible version: 2.8.2 * Operating System: Ubuntu 18.10 w/ 4.18.0-25-generic * Web Browser: Chrome 77 ##### STEPS TO REPRODUCE Part 1: Go to Credentials. Hit Green Plus. Select OpenStack as Credential Type Part 2: Go to Existing Inventory. Select Sources tab. Hit Green Plus. Fill in name, select Openstack as Source. In source Variables, include the following (I wanted to try everything): ``` clouds: devstack: region_name: ABC region: ABC auth: region_name: ABC region: ABC region_name: ABC region: ABC ``` ##### EXPECTED RESULTS Part 1: A Region field should be present. Part 2: The YML be added to the generated YML, and for data to be collected from the correct region, rather than the default ##### ACTUAL RESULTS Part 1: No region field is present Part 2: The Generated YML appears not to include the region_name key, but it does include any vars included under the `ansible:` key. ##### ADDITIONAL INFORMATION The example at https://github.com/ansible/ansible/blob/devel/contrib/inventory/openstack.yml does not include a region for Openstack, but the code at https://github.com/ansible/ansible/blob/devel/contrib/inventory/openstack_inventory.py does make references to a `region` variable.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>502</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9040 from kdelee/new_teardown_error When deleting a job sometimes we get this error Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>98b25f619e46ecafbb7800720b091d2d203aa42d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #8880 from vguillard/issue_5080_openstack_region_field_missing Related #5080 openstack region field missing Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+      <SHA>1dec79b62dbdbf3a4cc7d549b7da6b0efa6a12fc</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/locale/django.pot</FILE>
+        <FILE>awx/locale/en-us/LC_MESSAGES/django.po</FILE>
+        <FILE>awx/locale/fr/LC_MESSAGES/django.po</FILE>
+        <FILE>awx/main/models/credential/__init__.py</FILE>
+        <FILE>awx/main/models/credential/injectors.py</FILE>
+        <FILE>awx/main/tests/unit/test_tasks.py</FILE>
+        <FILE>awx/ui_next/src/screens/Credential/shared/data.credentialTypes.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

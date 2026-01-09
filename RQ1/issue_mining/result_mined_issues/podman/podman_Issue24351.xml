@@ -1,0 +1,105 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24351</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/24351</ISSUEURL>
+  <TITLE>health-startup-cmd leaks a failed systemd unit</TITLE>
+  <DESCRIPTION>Setup: first make sure you have an empty failed list: ```console $ systemctl --user list-units --failed UNIT LOAD ACTIVE SUB DESCRIPTION 0 loaded units listed. ``` If you've ever run bats tests on your laptop, you may see a long list. Kill it with `systemctl --user reset-failed`. To the best of my knowledge there's no harm in nuking these. I really don't know why these linger. Now: ```console $ run -d --name foo --health-cmd /home/podman/healthcheck --health-startup-cmd /home/podman/healthcheck quay.io/libpod/testimage:20241011 /home/podman/pause e506e3994ba7bd5df664c8f0b71da085609be70d122df002646aa58193aabb2c $ systemctl --user list-units --failed UNIT LOAD ACTIVE SUB DESCRIPTION &gt; ● e506e3994ba7bd5df664c8f0b71da085609be70d122df002646aa58193aabb2c-startup-61bf67e6fec5d89.service loaded failed failed /home/esm/src/.....&gt; Legend: LOAD → Reflects whether the unit definition was properly loaded. ACTIVE → The high-level unit activation state, i.e. generalization of SUB. SUB → The low-level unit activation state, values depend on unit type. 1 loaded units listed. ``` This failed unit will now linger until reboot or until `reset-failed`.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #24263 from edsantiago/packaging-doc Document packaging process</MESSAGE>
+    <SHA>70d581029b89a4085c3d106a07dcbe794513c6fb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>System tests: clean up unit file leaks Healthcheck and quadlet leak systemd unit files. Healthcheck is filed as #24351; quadlet has no bug filed. This is a workaround PR: it does explicit post-test cleanup such that systemctl list-units --failed reports the same output after Bats tests as it did before. Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>29abfe707d36f8012023dedef08398f0b09b519d</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/055-rm.bats</FILE>
+        <FILE>test/system/220-healthcheck.bats</FILE>
+        <FILE>test/system/250-systemd.bats</FILE>
+        <FILE>test/system/252-quadlet.bats</FILE>
+        <FILE>test/system/700-play.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>System tests: clean up unit file leaks Healthcheck and quadlet leak systemd unit files. Healthcheck is filed as #24351; quadlet has no bug filed. This is a workaround PR: it does explicit post-test cleanup such that systemctl list-units --failed reports the same output after Bats tests as it did before. Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>67191507f7e1e6f6ebbf1e3ef0cd0fb1d9f0256b</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/055-rm.bats</FILE>
+        <FILE>test/system/220-healthcheck.bats</FILE>
+        <FILE>test/system/250-systemd.bats</FILE>
+        <FILE>test/system/252-quadlet.bats</FILE>
+        <FILE>test/system/700-play.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>System tests: clean up unit file leaks Healthcheck and quadlet leak systemd unit files. Healthcheck is filed as #24351; quadlet has no bug filed. This is a workaround PR: it does explicit post-test cleanup such that systemctl list-units --failed reports the same output after Bats tests as it did before. Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>c242a0148e8564449dfcc6e1ccb5759f425511c5</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/055-rm.bats</FILE>
+        <FILE>test/system/220-healthcheck.bats</FILE>
+        <FILE>test/system/250-systemd.bats</FILE>
+        <FILE>test/system/252-quadlet.bats</FILE>
+        <FILE>test/system/700-play.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>System tests: clean up unit file leaks Healthcheck and quadlet leak systemd unit files. Healthcheck is filed as #24351; quadlet has no bug filed. This is a workaround PR: it does explicit post-test cleanup such that systemctl list-units --failed reports the same output after Bats tests as it did before. Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>e96b495fabf34203e7dfa1f18a4522808e73f5d6</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/055-rm.bats</FILE>
+        <FILE>test/system/220-healthcheck.bats</FILE>
+        <FILE>test/system/250-systemd.bats</FILE>
+        <FILE>test/system/252-quadlet.bats</FILE>
+        <FILE>test/system/700-play.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>healthcheck: do not leak statup service The startup service is special because we have to transition from startup to the normal unit. And in order to do so we kill oursleves (as we are run as part of the service). This means we always exited 1 which causes systemd to keep us failure and not remove the transitent unit unless &quot;reset-failed&quot; is called. As there is no process around to do that we cannot really do this, thus make us exit(0) which makes more sense. Of course we could try to reset-failed the unit later but the code for that seems more complicated than that. Fixes: 0bbef4b830 (&quot;libpod: rework shutdown handler flow&quot;) Fixes: #24351 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>8c2bfe0321003cd2f1529400806ec7eba79c67d9</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/healthcheck.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>healthcheck: do not leak statup service The startup service is special because we have to transition from startup to the normal unit. And in order to do so we kill ourselves (as we are run as part of the service). This means we always exited 1 which causes systemd to keep us failure and not remove the transient unit unless &quot;reset-failed&quot; is called. As there is no process around to do that we cannot really do this, thus make us exit(0) which makes more sense. Of course we could try to reset-failed the unit later but the code for that seems more complicated than that. Fixes: 0bbef4b830 (&quot;libpod: rework shutdown handler flow&quot;) Fixes: #24351 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>172314042c64cc53da013246d234015918adaef3</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/healthcheck.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>healthcheck: do not leak statup service The startup service is special because we have to transition from startup to the normal unit. And in order to do so we kill ourselves (as we are run as part of the service). This means we always exited 1 which causes systemd to keep us failure and not remove the transient unit unless &quot;reset-failed&quot; is called. As there is no process around to do that we cannot really do this, thus make us exit(0) which makes more sense. Of course we could try to reset-failed the unit later but the code for that seems more complicated than that. Add a new test from Ed that ensures we check for all healthcheck units not just the timer to avoid leaks. I slightly modified it to provide a better error on leaks. Fixes: 0bbef4b830 (&quot;libpod: rework shutdown handler flow&quot;) Fixes: #24351 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>f0c3bfa880b717ac92a7995d83daf1e01970a6a6</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/healthcheck.go</FILE>
+        <FILE>test/system/220-healthcheck.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>healthcheck: do not leak statup service The startup service is special because we have to transition from startup to the normal unit. And in order to do so we kill ourselves (as we are run as part of the service). This means we always exited 1 which causes systemd to keep us failure and not remove the transient unit unless &quot;reset-failed&quot; is called. As there is no process around to do that we cannot really do this, thus make us exit(0) which makes more sense. Of course we could try to reset-failed the unit later but the code for that seems more complicated than that. Add a new test from Ed that ensures we check for all healthcheck units not just the timer to avoid leaks. I slightly modified it to provide a better error on leaks. Fixes: 0bbef4b830 (&quot;libpod: rework shutdown handler flow&quot;) Fixes: #24351 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>6cf5bd1d1ab058b2bdd59b30eef404545cf9571b</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/healthcheck.go</FILE>
+        <FILE>test/system/220-healthcheck.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>healthcheck: do not leak statup service The startup service is special because we have to transition from startup to the normal unit. And in order to do so we kill ourselves (as we are run as part of the service). This means we always exited 1 which causes systemd to keep us failure and not remove the transient unit unless &quot;reset-failed&quot; is called. As there is no process around to do that we cannot really do this, thus make us exit(0) which makes more sense. Of course we could try to reset-failed the unit later but the code for that seems more complicated than that. Add a new test from Ed that ensures we check for all healthcheck units not just the timer to avoid leaks. I slightly modified it to provide a better error on leaks. Fixes: 0bbef4b830 (&quot;libpod: rework shutdown handler flow&quot;) Fixes: #24351 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>6069cdda00b27abcb1fd1f75672f9eb90424986f</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/healthcheck.go</FILE>
+        <FILE>test/system/220-healthcheck.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>healthcheck: do not leak statup service The startup service is special because we have to transition from startup to the normal unit. And in order to do so we kill ourselves (as we are run as part of the service). This means we always exited 1 which causes systemd to keep us failure and not remove the transient unit unless &quot;reset-failed&quot; is called. As there is no process around to do that we cannot really do this, thus make us exit(0) which makes more sense. Of course we could try to reset-failed the unit later but the code for that seems more complicated than that. Add a new test from Ed that ensures we check for all healthcheck units not just the timer to avoid leaks. I slightly modified it to provide a better error on leaks. Fixes: 0bbef4b830 (&quot;libpod: rework shutdown handler flow&quot;) Fixes: #24351 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>66029363647ce95f50debf49b21a78e45b91d56e</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/healthcheck.go</FILE>
+        <FILE>test/system/220-healthcheck.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6749</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6749</ISSUEURL>
+  <TITLE>Filter by store isn't working correctly in admin area</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.60 + Steps to reproduce the problem: 1. open the backend 2. go to the categories list page 3. try filtering by store It will not work, as `showHidden` is set to true, and the store filtering currently only applies when `showHidden` = false. This kinda makes the store filtering selector on the category page useless. See here for 4.60.x https://github.com/nopSolutions/nopCommerce/blob/5cc7475339a6c4fcad81ecc2b0dea8c06d15dc06/src/Libraries/Nop.Services/Catalog/CategoryService.cs#L246-L254 See here for 4.50.x https://github.com/nopSolutions/nopCommerce/blob/5496cc30549b562cd0d87785ea5d77ab6cfb5130/src/Libraries/Nop.Services/Catalog/CategoryService.cs#L250-L257</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6743 Correct culture detection on first request when AutomaticallyDetectLanguage disabled</MESSAGE>
+    <SHA>16a1b5417c722b54197934a16a09cf1e4b73d753</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6749 Fixed filtering by stores</MESSAGE>
+      <SHA>03a530d8b9c20218186896c76c7e9a610b2859a8</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Blogs/BlogService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/CategoryService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/ManufacturerService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/News/NewsService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Polls/PollService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Topics/TopicService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6749 Fixed some missing filters</MESSAGE>
+      <SHA>5a0e4ae06525709d4d9cdbf637e8961c74ba72a8</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Catalog/ProductService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/ProductTagService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

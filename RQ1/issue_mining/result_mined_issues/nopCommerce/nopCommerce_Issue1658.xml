@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1658</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/1658</ISSUEURL>
+  <TITLE>Add more null validation. Check if attributesXml is null before LoadXml in ParseValues functions</TITLE>
+  <DESCRIPTION>On line 122 of CheckoutAttributeParser.cs there is a call to xmlDoc.LoadXml(attributesXml); If attributesXml is null (which it is if no attributes are selected) it raises an exception which is caught and handled with a Debug.Write I'd suggest checking attributesXml for null before entering the try/catch block similar to what you already do in the ParseCheckoutAttributeIds function on line 30. This would should avoid the need to raise and handle the exception in this case. Source: http://www.nopcommerce.com/boards/t/43547/check-if-attributesxml-is-null-before-loadxml-in-parsevalues-function-of-checkoutattributeparsercs.aspx</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>30</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Increased a random number appended to the back file name to 10</MESSAGE>
+    <SHA>4bd7e7645ef59bf1fcb0d3d41d675342691b7474</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#1658 Added more null validation. Check if attributesXml is null before LoadXml in ParseValues functions</MESSAGE>
+      <SHA>1fed205eca833cb2cc0fc948630ba37468a3afe5</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Catalog/ProductAttributeParser.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Common/AddressAttributeParser.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/CustomerAttributeParser.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/CheckoutAttributeParser.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

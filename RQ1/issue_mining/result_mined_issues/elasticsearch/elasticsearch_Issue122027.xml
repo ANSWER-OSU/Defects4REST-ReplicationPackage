@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122027</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122027</ISSUEURL>
+  <TITLE>[CI] LogsdbTestSuiteIT test {yaml=/60_synthetic_source_recovery/synthetic recovery for time_series index} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6251 / release-tests](https://gradle-enterprise.elastic.co/s/wvjod7xof2wco) - [elasticsearch-pull-request #55646 / checkpart2_release-tests](https://gradle-enterprise.elastic.co/s/evph4gqozif76) - [elasticsearch-pull-request #55486 / checkpart2_release-tests](https://gradle-enterprise.elastic.co/s/signd4ayulahm) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:logsdb:yamlRestTest&quot; --tests &quot;org.elasticsearch.xpack.logsdb.LogsdbTestSuiteIT.test {yaml=/60_synthetic_source_recovery/synthetic recovery for synthetic source mode index}&quot; -Dtests.seed=8DFAA018DFA76A5 -Dbuild.snapshot=false -Dtests.jvm.argline=&quot;-Dbuild.snapshot=false&quot; -Dlicense.key=x-pack/license-tools/src/test/resources/public.key -Dtests.locale=gsw-Latn-CH -Dtests.timezone=America/Atikokan -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.logsdb.LogsdbTestSuiteIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Byaml%3D%2F60_synthetic_source_recovery%2Fsynthetic%20recovery%20for%20time_series%20index%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Failure at [/60_synthetic_source_recovery:21]: Expected: &quot;true&quot; but: was &quot;false&quot; ``` **Issue Reasons:** - [main] 2 consecutive failures in step checkpart2_release-tests - [main] 3 failures in test test {yaml=/60_synthetic_source_recovery/synthetic recovery for time_series index} (1.5% fail rate in 195 executions) - [main] 2 failures in step checkpart2_release-tests (100.0% fail rate in 2 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (2.4% fail rate in 82 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.logsdb.LogsdbTestSuiteIT test {yaml=/60_synthetic_source_recovery/synthetic recovery for synthetic source mode index} #122026</MESSAGE>
+    <SHA>c2f64b6ebd19ea71e1f2237bd042364cf404b5e7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.logsdb.LogsdbTestSuiteIT test {yaml=/60_synthetic_source_recovery/synthetic recovery for time_series index} #122027</MESSAGE>
+      <SHA>51a9c0de12a6a5ed7af31c6300a899fd6eb1a167</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Address synthetic recovery source release test failures. Report mapper.synthetic_recovery_source node feature if index_recovery_use_synthetic_source feature flag is enabled Closes #122028 Closes #122027 Closes #122026</MESSAGE>
+      <SHA>550a4850bcb146fa0f1085c19559dc011faddd68</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/mapper/MapperFeatures.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Address synthetic recovery source release test failures. Configure feature flag in the test clusters Closes #122028 Closes #122027 Closes #122026 Closes #121991 Closes #121992</MESSAGE>
+      <SHA>11793ec3afc8509f4c5c335f05aeda4807895bee</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>qa/smoke-test-multinode/src/yamlRestTest/java/org/elasticsearch/smoketest/SmokeTestMultiNodeClientYamlTestSuiteIT.java</FILE>
+        <FILE>rest-api-spec/src/yamlRestTest/java/org/elasticsearch/test/rest/ClientYamlTestSuiteIT.java</FILE>
+        <FILE>test/test-clusters/src/main/java/org/elasticsearch/test/cluster/FeatureFlag.java</FILE>
+        <FILE>x-pack/plugin/logsdb/src/yamlRestTest/java/org/elasticsearch/xpack/logsdb/LogsdbTestSuiteIT.java</FILE>
+        <FILE>x-pack/qa/core-rest-tests-with-security/src/yamlRestTest/java/org/elasticsearch/xpack/security/CoreWithSecurityClientYamlTestSuiteIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

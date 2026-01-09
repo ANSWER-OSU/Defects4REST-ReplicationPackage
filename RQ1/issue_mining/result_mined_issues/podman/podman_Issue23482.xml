@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23482</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23482</ISSUEURL>
+  <TITLE>pasta: IPv4 large transfer loopback: socat waitpid no child process</TITLE>
+  <DESCRIPTION>``` not ok 187 |505| UDP%2FIPv4 large transfer, loopback in 3178ms ... &lt;+371ms&gt; # $ podman run --rm --name=c-socat-t187-j170t3a5 --net=pasta -p [127.0.0.1]:5298:5298/udp quay.io/libpod/testimage:20240123 sh -c for port in $(seq 5298 5298); do socat -u UDP4-LISTEN:${port},bind=[127.0.0.1],null-eof EXEC:md5sum &amp; done; wait &lt;+2.11s&gt; # 70aef73d20b2fa83e5f3f6b04419c2c6 - # 2024/08/01 17:02:29 socat[3] W waitpid(0, 0x7ffc317a676c, 0): No child process # #/vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv # #| FAIL: Mismatch between data sent and received # #| expected: = 70aef73d20b2fa83e5f3f6b04419c2c6 - # #| actual: 70aef73d20b2fa83e5f3f6b04419c2c6 - # #| &gt; 2024/08/01 17:02:29 socat\[3\] W waitpid\(0\, 0x7ffc317a676c\, 0\): No child process # #\^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ``` Only in my parallel-systest PR * fedora-39 : sys podman fedora-39 rootless host boltdb * PR #23275 * [08-01 13:03](https://api.cirrus-ci.com/v1/artifact/task/5462253770637312/html/sys-podman-fedora-39-rootless-host-boltdb.log.html#t--00187p) in [sys] |505| UDP%2FIPv4 large transfer, loopback * fedora-40 : sys podman fedora-40 rootless host sqlite * PR #23275 * [07-29 10:31](https://api.cirrus-ci.com/v1/artifact/task/6300255979831296/html/sys-podman-fedora-40-rootless-host-sqlite.log.html#t--00187) in [sys] |505| UDP%2FIPv4 large transfer, loopback | x | x | x | x | x | x | | ---: | ---: | ---: | ---: | ---: | ---: | | sys(2) | podman(2) | fedora-39(1) | rootless(2) | host(2) | boltdb(1) | | | | fedora-40(1) | | | sqlite(1) |</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>217</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23765 from containers/renovate/github.com-containers-gvisor-tap-vsock-0.x Update module github.com/containers/gvisor-tap-vsock to v0.7.5</MESSAGE>
+    <SHA>e6621d61e4c1ce6e196a2cdae27cb5e68abf9731</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>CI: flake workaround: ignore socat waitpid warnings Workaround (NOT A FIX) for pasta issue #23482, wherein podman logs includes a waitpid: ESRCH warning. Consensus seems to be that this is a bug in socat. Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>678323efd8c2efd01b9206822ad3d83e09b7487b</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/505-networking-pasta.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

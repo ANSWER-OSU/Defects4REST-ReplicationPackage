@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>49</ISSUENO>
+  <ISSUEURL>https://github.com/snarfed/granary/issues/49</ISSUEURL>
+  <TITLE>handle quote tweets</TITLE>
+  <DESCRIPTION>granary currently renders [quote tweets](https://support.twitter.com/articles/20169873) with just the quoted tweet URL, which isn't great. e.g. [this tweet](): &lt;img width=&quot;575&quot; alt=&quot;screen shot 2015-10-26 at 10 16 06 am&quot; src=&quot;https://cloud.githubusercontent.com/assets/778068/10736510/9e6dbb38-7bca-11e5-8c22-f418504eb978.png&quot;&gt; is rendered as: &gt; Python everywhere! [twitter.com/obrizan/status…](https://twitter.com/obrizan/status/658583490468945920) i'm not sure how we should render them, but ideally we'd fully render the quoted tweet's text, mentions, links, etc. quote tweets can be [identified by the `quoted_status_id` field](https://dev.twitter.com/overview/api/tweets). very lightly related to snarfed/bridgy#504.</DESCRIPTION>
+  <REPONAME>granary</REPONAME>
+  <TIMEDIFFERENCEDAYS>82</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>use mf2util.find_first_entry now that we have mf2util yay! thanks @kylewm!</MESSAGE>
+    <SHA>723d4b2353609f194cbb58393b0ab2100bb6222e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>microformats2: test converting AS attachments to mf2 children. for #49</MESSAGE>
+      <SHA>f0d85aba93383dc972e3093ae882291058ce62e8</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/microformats2.py</FILE>
+        <FILE>granary/test/test_microformats2.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>don't render attachments in render_content since #49 made them children eg quote tweets. fixes #77</MESSAGE>
+      <SHA>7b1630f3ae24a87a6905daa2c3c1ed80d07b8e52</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/microformats2.py</FILE>
+        <FILE>granary/test/test_microformats2.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

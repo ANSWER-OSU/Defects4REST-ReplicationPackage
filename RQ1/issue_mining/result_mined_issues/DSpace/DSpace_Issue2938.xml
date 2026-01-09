@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2938</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/2938</ISSUEURL>
+  <TITLE>JWT Authentication Token(s) should not store IP address by default</TITLE>
+  <DESCRIPTION>**Describe the bug** This bug was encountered on the demo site (https://dspace7-demo.atmire.com/) backend and was the cause of two other bugs (#2920 and #2935) which only existed on the demo site. The problem is simply that, *by default* the JWT authentication token stores the user's IP address. While this works fine in simple DSpace setups, it is problematic if you are using a Proxy or ISP or hosting service where the IP address may change in the middle of a user session. When the IP changes, the user's session is invalidated and they need to login again. **Expected behavior** The JWT authentication token should NEVER store a user's IP address as that information is not guaranteed to be stable/consistent. As soon as the IP changes, the token can no longer be validated. Therefore, ideally, once we have reenabled CSRF protection (#2922), we should **completely remove the following settings**: * `jwt.login.token.include.ip` * `jwt.shortLived.token.include.ip` **Quick Fix** If any users encounter either previous bug (especially #2935 which is easy to test), they should disable the existing settings in their `local.cfg` by adding: ``` jwt.login.token.include.ip = false jwt.shortLived.token.include.ip = false ``` Once this bug is fixed, those settings can be removed as the IP will never be included in those authentication tokens. **Related Work** * Somewhat depends on #2922. Including the IP address in these tokens is a form of basic &quot;protection&quot; against attacks like CSRF. However, it's a flawed solution as described above. That said, the IP address in the token is completely unnecessary once #2922 is merged.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>222</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #3213 from tdonohue/fix_failing_test Refactor existing Metadata Schema &amp; Field pagination tests to determine pagination dynamically</MESSAGE>
+    <SHA>05b80bd941b3ee23f36efa09196efd90144816aa</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Remove options to add IP address in JWT auth token. Fixes #2938</MESSAGE>
+      <SHA>4efe92e23d9e422cc8a3e4f8b3381b64cbf94a90</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/security/jwt/JWTTokenHandler.java</FILE>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/security/jwt/LoginJWTTokenHandler.java</FILE>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/security/jwt/ShortLivedJWTTokenHandler.java</FILE>
+        <FILE>dspace-server-webapp/src/test/java/org/dspace/app/rest/AuthenticationRestControllerIT.java</FILE>
+        <FILE>dspace/config/modules/authentication.cfg</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

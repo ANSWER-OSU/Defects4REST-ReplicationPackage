@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20853</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/20853</ISSUEURL>
+  <TITLE>podman machine CI tests mostly fail on EC2 mac2.metal (baremetal) instances</TITLE>
+  <DESCRIPTION>### Issue Description Both attached storage and networking in the EC2 environment [utilized by CI](https://github.com/containers/podman/pull/20691) are slower than might be experienced on a local machine. Increasing allocated EC2 bandwidth to either comes at a hefty cost. But more importantly, one cannot predict the capabilities of a local machine (i.e. network hiccups, attached slow USB storage, etc.). So testing w/ a reasonable lowest-common-denominator is an overall net-benefit, if the tests can be made to pass. ## IMPORTANT When this issue is resolved, please revert the `Do not aggregate failing mac test status` commit added in PR #20691 --- ### Steps to reproduce the issue Steps to reproduce the issue 1. Unless/Until merged, clone PR #20691 2. Run `make podman-remote` 3. Run `make localmachine` ### Describe the results you received The basic tests all pass (in ~15 minutes). The [full suite mostly fails](https://cirrus-ci.com/task/4840418651668480) ### Describe the results you expected Both basic and full suite CI tests should all pass. ### podman info output ```yaml N/A ``` ### Podman in a container No ### Privileged Or Rootless Rootless ### Upstream Latest Release Yes ### Additional environment details Tests running as a regular non-admin user. Using: * `mac2.metal` EC2 instance * `gp3` volume w/ 300 MB/s allocated IOPS * EBS Optimization enabled * Default networking * MacOS AMI `14.1-20231110-071234-arm64` ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>208</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Implement bare-metal Mac M1 podman-machine testing Setup and execute podman machine testing on bare-metal M1 Macs using a pool of shared and semi-persistent hosts. Automated and manual processes outside this repository are responsible for providing and maintaining all hosts. Ref. https://github.com/containers/automation/tree/main/mac_pw_pool Update the `localmachine` make target to standardize execution across platforms. Update/simplify podman-machine e2e README to reflect current reality. Warning: This CI setup and supporting infrastructure was developed in favor of expediency vs reliability and stability. There are many possible failure-modes (known and unknown) which may lead to undefined test behaviors. Future work may address some of these as they are encountered or discovered. [NO NEW TESTS NEEDED] Signed-off-by: Chris Evich &lt;cevich@redhat.com&gt;</MESSAGE>
+    <SHA>2d46d0537361c44e349004634523cdc11b933b0f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Do not aggregate failing mac test status Issue Ref: #20853 Allow the tests to fail, but don't block merging PRs. This commit should be reverted when #20853 is resolved. Signed-off-by: Chris Evich &lt;cevich@redhat.com&gt;</MESSAGE>
+      <SHA>f1dc126bf6c3a33d72e3a49e81630fd1ce5c73f5</SHA>
+      <PATCHEDFILES>
+        <FILE>.cirrus.yml</FILE>
+        <FILE>contrib/cirrus/cirrus_yaml_test.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

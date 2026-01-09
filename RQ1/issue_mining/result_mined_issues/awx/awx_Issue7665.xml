@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7665</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/7665</ISSUEURL>
+  <TITLE>API should not accept modification of local_path for nom-manual projects</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY The API will accept a PATCH to edit `local_path` for a git project, but the change will not take effect. Some version of a 400 error would be preferable to this. This is a valid field to edit in the case of manual projects, so there's no valid justification that it's &quot;not a field&quot;. ##### ENVIRONMENT * AWX version: 13.0.0 * AWX install method: N/A * Ansible version: N/A ##### STEPS TO REPRODUCE PATCH `/api/v2/projects/6/` ```json { &quot;description&quot;: &quot;asdf&quot;, &quot;local_path&quot;: &quot;_6__demo_project_edited&quot; } ``` ##### EXPECTED RESULTS One of: - the local_path value changes to &quot;_6__demo_project_edited&quot; - get error ##### ACTUAL RESULTS No error description changes to &quot;asdf&quot; the `local_path` remains at prior value of &quot;_6__demo_project&quot;</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>148</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #8419 from keithjgrant/8331-number-survey-fields Fix integer/float errors in survey Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>a71261d5fd3a876d152b629cf5be9a49c1e865bf</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>related #7665 added 400 if user attempts an edit to local_path in a SCM project and test case</MESSAGE>
+      <SHA>dbc4b677f6c4c4b6f65530ae6aab4888aa4fb2cd</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/serializers.py</FILE>
+        <FILE>awx/main/tests/functional/api/test_project.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #8447 from thedoubl3j/local_path_mod related #7665 added 400 if user attempts an edit to local_path in a SCM project Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+      <SHA>5a67aa7fffd063b46cd94b166194413174a5f16c</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/serializers.py</FILE>
+        <FILE>awx/main/tests/functional/api/test_project.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

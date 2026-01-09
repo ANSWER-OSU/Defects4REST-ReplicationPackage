@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>577</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/577</ISSUEURL>
+  <TITLE>Allow query tasks in which a variable is not equal to a value OR the variable doesn't exist</TITLE>
+  <DESCRIPTION>T TaskInfoQuery#taskVariableValueNotEquals(String variableName, Object variableValue) only selects tasks which have a local task variable with the given name, but with a different value than the passed value. In this case I'd like to select tasks which don't have a local task variable with the given name too.</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>67</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix empty expression assignments #629</MESSAGE>
+    <SHA>5bd480c192250442fb8d9788fa443cccdcb1bd3b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add variable exists and not exists support #577</MESSAGE>
+      <SHA>c3d6bf4ea5f3ffccdbb4dded597b8278f24344b8</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/history/HistoricProcessInstanceQuery.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/ExecutionQueryImpl.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/HistoricProcessInstanceQueryImpl.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/ProcessInstanceQueryImpl.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/runtime/ExecutionQuery.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/runtime/ProcessInstanceQuery.java</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/mapping/entity/Execution.xml</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/mapping/entity/HistoricProcessInstance.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/api/history/HistoricProcessInstanceAndVariablesQueryTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/api/history/HistoricTaskAndVariablesQueryTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/api/runtime/ExecutionQueryTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/api/runtime/ProcessInstanceQueryTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/api/task/TaskAndVariablesQueryTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/api/task/TaskAndVariablesQueryTest.testVariableExistsQuery.bpmn20.xml</FILE>
+        <FILE>modules/flowable-task-service-api/src/main/java/org/flowable/task/api/TaskInfoQuery.java</FILE>
+        <FILE>modules/flowable-task-service/src/main/java/org/flowable/task/service/impl/HistoricTaskInstanceQueryImpl.java</FILE>
+        <FILE>modules/flowable-task-service/src/main/java/org/flowable/task/service/impl/TaskQueryImpl.java</FILE>
+        <FILE>modules/flowable-task-service/src/main/resources/org/flowable/task/service/db/mapping/entity/HistoricTaskInstance.xml</FILE>
+        <FILE>modules/flowable-task-service/src/main/resources/org/flowable/task/service/db/mapping/entity/Task.xml</FILE>
+        <FILE>modules/flowable-variable-service/src/main/java/org/flowable/variable/service/impl/AbstractVariableQueryImpl.java</FILE>
+        <FILE>modules/flowable-variable-service/src/main/java/org/flowable/variable/service/impl/QueryOperator.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

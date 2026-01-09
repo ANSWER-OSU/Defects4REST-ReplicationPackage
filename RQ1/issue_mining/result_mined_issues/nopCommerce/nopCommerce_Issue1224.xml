@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1224</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/1224</ISSUEURL>
+  <TITLE>Do not allow administrators to be impersonated as other administrators</TITLE>
+  <DESCRIPTION>We should display as warning &quot;Administrators cannot be impersonated as other administrators&quot; when such attempt is made. We should validate &quot;Administrators&quot; customer role. The question is whether we should validate &quot;access to admin area&quot; permission? I think, yes. But in this case a store owner won't be able to impersonate as vendor. Steps: 1)Login as administrator A 2)Impersonate B 3)Go to store frontend and there click Administration button to go back to the backend 4)Now user A has all permissions of B and all his activities will be registered in the log as activities of B also see http://www.nopcommerce.com/boards/t/26096/acl-redundant-permissions-and-administrator-role-not-protected-properly.aspx</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>64</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Source code refactoring. Replaced GetAllOrderItems method with GetDownloadableOrderItems one</MESSAGE>
+    <SHA>14e01269e2086e42db9fe4a25eaefad8a012d9b4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#1224 Added &quot;Started customer impersonation session&quot; and &quot;Finished customer impersonation session&quot; activity ;pg types</MESSAGE>
+      <SHA>d07979019e655ca9cc94fcb34eb6df61b3f26fe6</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Installation/CodeFirstInstallationService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Controllers/CustomerController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/CustomerController.cs</FILE>
+        <FILE>upgradescripts/3.70-the next version/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#1224 Further changes on &quot;Started customer impersonation session&quot; and &quot;Finished cutomer impersonation session&quot; activity log types</MESSAGE>
+      <SHA>9efad114af477a69df507279624dc9e6485b3d3e</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Logging/CustomerActivityService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Logging/ICustomerActivityService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Controllers/CustomerController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/CustomerController.cs</FILE>
+        <FILE>upgradescripts/3.70-the next version/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5343</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/5343</ISSUEURL>
+  <TITLE>request help: kafka logger supports logging request body</TITLE>
+  <DESCRIPTION>### Issue description Add a request_body switch to the schema, and each body can be used by expr to decide whether to log or not. Without this switch, the body is not logged. ``` &quot;kafka-logger&quot;: { &quot;broker_list&quot;:{ &quot;127.0.0.1&quot;:9092 }, &quot;kafka_topic&quot; : &quot;test2&quot;, &quot;request_body&quot;: { &quot;expr&quot;: [ [&quot;request_length&quot;, &quot;&lt;&quot;, &quot;1024&quot;], ] }, &quot;key&quot; : &quot;key1&quot;, &quot;batch_max_size&quot;: 1, &quot;name&quot;: &quot;kafka logger&quot; } ``` `expr` can be evaluated by lua-resty-expr. request body can be fetched by core.request.get_body. ### Environment - apisix version (cmd: `apisix version`): 2.10.1 - OS (cmd: `uname -a`): - OpenResty / Nginx version (cmd: `nginx -V` or `openresty -V`): - etcd version, if have (cmd: run `curl http://127.0.0.1:9090/v1/server_info` to get the info from server-info API): - apisix-dashboard version, if have: - the plugin runner version, if the issue is about a plugin runner (cmd: depended on the kind of runner): - luarocks version, if the issue is about installation (cmd: `luarocks --version`):</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>21</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>change(wolf-rbac): change default port number and add `authType` parameter to documentation (#5477)</MESSAGE>
+    <SHA>8206f475639d6de633ff4ea50a8e1c2ce9b36fac</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat(kafka-logger) kafka logger supports logging request body (#5343)</MESSAGE>
+      <SHA>613c19efdc1646de487b4f819fcea2b85c2a4a27</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/kafka-logger.lua</FILE>
+        <FILE>apisix/utils/log-util.lua</FILE>
+        <FILE>docs/en/latest/plugins/kafka-logger.md</FILE>
+        <FILE>docs/zh/latest/plugins/kafka-logger.md</FILE>
+        <FILE>t/plugin/kafka-logger.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

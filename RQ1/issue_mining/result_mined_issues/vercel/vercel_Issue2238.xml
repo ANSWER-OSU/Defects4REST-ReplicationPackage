@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2238</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/2238</ISSUEURL>
+  <TITLE>The casing for some header names do not match in 'now' vs. 'now dev'</TITLE>
+  <DESCRIPTION>now version:15.0.8 build: @now/bash I found some small difference in request header in 'now' and 'now dev'. ``` $ cat now.json { &quot;version&quot;: 2, &quot;builds&quot;: [{ &quot;src&quot;: &quot;*.sh&quot;, &quot;use&quot;: &quot;@now/bash&quot; }] } $ cat index.sh handler() { jq '.headers|keys|sort' $1 } ``` Result when calling what was actually deployed. ``` $ curl -Ss https://***.***.now.sh [ &quot;accept&quot;, &quot;host&quot;, &quot;user-agent&quot;, &quot;x-forwarded-for&quot;, &quot;x-forwarded-host&quot;, &quot;x-forwarded-proto&quot;, &quot;x-now-deployment-url&quot;, &quot;x-now-id&quot;, &quot;x-now-trace&quot;, &quot;x-real-ip&quot;, &quot;x-zeit-co-forwarded-for&quot; ] ``` The result of calling locally with 'now dev'. ``` $ curl -Ss http://localhost:3000/ [ &quot;Connection&quot;, &quot;X-Forwarded-For&quot;, &quot;X-Forwarded-Host&quot;, &quot;X-Forwarded-Proto&quot;, &quot;X-Real-IP&quot;, &quot;accept&quot;, &quot;host&quot;, &quot;user-agent&quot;, &quot;x-now-deployment-url&quot;, &quot;x-now-id&quot;, &quot;x-now-log-id&quot;, &quot;x-now-trace&quot;, &quot;x-zeit-co-forwarded-for&quot; ] ``` Some key names are mixed-case only with 'now dev'. This difference is not in `@now/node`.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>45</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now dev] Show a warning when `now.json` contains a syntax error (#2418) Rather then throwing which causes the process to exit. Better to give the developer a chance to fix the syntax error without having to restart the dev server afterwards.</MESSAGE>
+    <SHA>d740df9600365287fdf4ac440eb3bf1f99605cd1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Lowercase the `x-forwarded-*` and `x-real-ip` headers Fixes #2238.</MESSAGE>
+      <SHA>9a36c783394c365d8e2f8ec55682018b5f8a6ecf</SHA>
+      <PATCHEDFILES>
+        <FILE>src/commands/dev/lib/dev-server.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Lowercase the `x-forwarded-*` and `x-real-ip` headers (#2420) Fixes #2238.</MESSAGE>
+      <SHA>a5b4f0bd878e9921630a13da088fb121e8d7f542</SHA>
+      <PATCHEDFILES>
+        <FILE>src/commands/dev/lib/dev-server.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Lowercase the `x-forwarded-*` and `x-real-ip` headers (#2420) Fixes #2238.</MESSAGE>
+      <SHA>9827f1cb69dc57fd40ed12ad1e536917c4a3ab21</SHA>
+      <PATCHEDFILES>
+        <FILE>src/commands/dev/lib/dev-server.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

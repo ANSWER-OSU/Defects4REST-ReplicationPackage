@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>651</ISSUENO>
+  <ISSUEURL>https://github.com/treasure-data/digdag/issues/651</ISSUEURL>
+  <TITLE>digdag-ui can't show tasklog when giving hash parameter to for_each&gt;:</TITLE>
+  <DESCRIPTION>When giving hash parameter: ```yaml +step1: echo&gt;: start +step2: +repeat: for_each&gt;: param: - key: p1 - key: p2 - key: p3 _do: +substep: echo&gt;: ${param.key} +step3: echo&gt;: end ``` Tasks success but digdag-ui fails showing tasklog: ![image](https://user-images.githubusercontent.com/191684/30897780-09de0516-a393-11e7-9561-60f2feddb8fb.png)</DESCRIPTION>
+  <REPONAME>digdag</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #642 from treasure-data/background-after-false-message Fix wrong &quot;_background|_after is not used&quot; message</MESSAGE>
+    <SHA>19f338cdad497c01bd9c8c520d32de6162e55bc5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #651. use encode file_name parameter except '^'</MESSAGE>
+      <SHA>2ceb65be87dcdf019a3c8488544747a4b52d0d6b</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-server/src/main/java/io/digdag/server/rs/LogResource.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>URI encoding is missing at fetchLogFile Fixes #651.</MESSAGE>
+      <SHA>cce903ed9e28845f16b2989ab20992f3035edee4</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-ui/model.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

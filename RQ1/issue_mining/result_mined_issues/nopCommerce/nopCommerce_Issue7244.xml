@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7244</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7244</ISSUEURL>
+  <TITLE>Vendor reviews</TITLE>
+  <DESCRIPTION>Add support for vendor reviews (written about a vendor). Or it's ll better to have aggregated reviews, which will calculate the vendor review based on the reviews of its products. The list of reviews will be displayed on the vendor page, which will be created by aggregating the reviews from all the vendor products sorted by date. Also see https://www.nopcommerce.com/en/boards/topic/38639/vendor-reviews</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>155</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7275 Removed unused ILocalizedEnum interface (#7279)</MESSAGE>
+    <SHA>9651207d7884b701ccb8897f3c4801be3d5cfcd6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add support for vendor reviews Fixes #7244 Add support for vendor reviews, both written about a vendor and aggregated from product reviews. * **VendorReview Class**: Add `VendorReview` class in `src/Libraries/Nop.Core/Domain/Vendors/VendorReview.cs` to handle vendor reviews with properties for `VendorId`, `CustomerId`, `Rating`, `ReviewText`, `IsApproved`, and `CreatedOnUtc`. * **Vendor Class**: Update `Vendor` class in `src/Libraries/Nop.Core/Domain/Vendors/Vendor.cs` to include a list of `VendorReview` and a method to calculate the average rating from the reviews. * **VendorController**: Update `VendorController` in `src/Presentation/Nop.Web/Areas/Admin/Controllers/VendorController.cs` to handle vendor reviews. - Add actions to handle vendor reviews, such as `VendorReviewsSelect`, `VendorReviewAdd`, and `VendorReviewDelete`. - Update the `Edit` action to include vendor reviews in the model. * **Caching**: Add `VendorReviewCacheEventConsumer` class in `src/Libraries/Nop.Services/Catalog/Caching/VendorReviewCacheEventConsumer.cs` to handle caching for vendor reviews.</MESSAGE>
+      <SHA>2c69ef82f937a769bc0b9dbb78be35466674f512</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Vendors/Vendor.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Domain/Vendors/VendorReview.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/Caching/VendorReviewCacheEventConsumer.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/VendorController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#7244 Add reviews on vendor details page</MESSAGE>
+      <SHA>563e940560b3995247319366ceee49cd563741a6</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Catalog/CatalogSettings.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Installation/InstallationService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo480/LocalizationMigration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo480/SettingMigration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/CatalogController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/CatalogModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/ICatalogModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Infrastructure/Cache/ModelCacheEventConsumer.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Infrastructure/Cache/NopModelCacheDefaults.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Infrastructure/RouteProvider.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Models/Catalog/VendorModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Models/Catalog/VendorProductReviewModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Models/Catalog/VendorProductReviewsListModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Models/Catalog/VendorReviewsPagingFilteringModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Themes/DefaultClean/Content/css/styles.css</FILE>
+        <FILE>src/Presentation/Nop.Web/Themes/DefaultClean/Content/css/styles.rtl.css</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Catalog/Vendor.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Catalog/VendorReviews.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Catalog/_VendorProductReviews.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/_ProductReviewHelpfulness.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

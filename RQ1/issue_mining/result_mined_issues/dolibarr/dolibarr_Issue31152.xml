@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>31152</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/31152</ISSUEURL>
+  <TITLE>Add SERVICE new line on a BOM tiny DB error when not enabled Workstations module [EASY FIX PROPOSED]</TITLE>
+  <DESCRIPTION>### Bug **If you have not enabled STILL the Workstations module**, then there is database error when you access to BoM still in draft mode: ![imagen](https://github.com/user-attachments/assets/f818afcf-8518-46e4-99ce-954b0bc807e8) This is because in the `/bom/tpl/objectline_create.tpl.php` appear this: ``` print $formproduct-&gt;selectWorkstations('', 'idworkstations', 1); ``` before to check if the module Workstations is enabled. So it could be fixed adding this: ``` if (isModEnabled('workstation')) { $coldisplay++; print '&lt;td class=&quot;bordertop nobottom nowrap linecolworkstation&quot;&gt;'; print $formproduct-&gt;selectWorkstations('', 'idworkstations', 1); print '&lt;/td&gt;'; } ``` as it appears on `/product/card.php` , but if you ask me would be a better solution (to avoid similar error on the future) to modify the function `selectWorkstations()` to **return empty string** when the module workstations is not enabled: ``` public function selectWorkstations($selected = '', $htmlname = 'idworkstations', ...) { global $conf, $langs, $user, $hookmanager; if (!isModEnabled('workstation')) return ''; // &lt;------ my proposed solution to avoid this error in the future ... } ``` Note: this function is defined on `/product/class/html.formproduct.class.php`. ### Dolibarr Version 19, 20 ### Environment PHP _No response_ ### Environment Database _No response_ ### Steps to reproduce the behavior and expected behavior 1. create a BoM draft, without having enabled the module Workstations Note: if you have enabled ONCE the module Workstations, then the table workstatiosn_workstations has been created and then you will not get the error. So, **this error only happens when you have not enabled never this module**. ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '20.0' of git@github.com:Dolibarr/dolibarr.git into 20.0</MESSAGE>
+    <SHA>25c4f5bd493fdae05957cdaadae5123bf592778f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX #31152</MESSAGE>
+      <SHA>a7f3946d2ba4eeea16e9e749be9b8387a6b66cad</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/bom/tpl/objectline_create.tpl.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

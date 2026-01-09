@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5610</ISSUENO>
+  <ISSUEURL>https://github.com/HumanSignal/label-studio/issues/5610</ISSUEURL>
+  <TITLE>Error in fetching TimeSeries URL from sub-property in task `data` object</TITLE>
+  <DESCRIPTION>Time series editor fails when the `value` field is set to a sub-property of the task's `data` object. **To Reproduce** For example: 1. Create a labelling project 2. Add a label config with time series, e.g.: ```xml &lt;View&gt; &lt;TimeSeriesLabels name=&quot;event-label&quot; toName=&quot;ts&quot; maxUsages=&quot;1&quot;&gt; &lt;Label value=&quot;event&quot;/&gt; &lt;/TimeSeriesLabels&gt; &lt;TimeSeries name=&quot;ts&quot; valueType=&quot;url&quot; value=&quot;$files.csv&quot; timeColumn=&quot;A&quot;&gt; &lt;Channel column=&quot;B&quot;/&gt; &lt;/TimeSeries&gt; &lt;/View&gt; ``` 3. Upload CSV file to data source (e.g. local file). Sample that works with the above config: ```csv A,B 1,2 2,6 3,10 4,15 ``` 4. Add some tasks, e.g. ```json [ { &quot;data&quot;: { &quot;files&quot;: { &quot;csv&quot;: &quot;/data/local-files/?d=local-files/test.csv&quot; } } } ] ``` 5. Open task from project view. 6. Get error: &quot;Cannot find url in **files.csv** field of your task&quot; **Expected behavior** The time series is displayed without error. **Fix** Use lodash to parse the `value` field via the `parseValue` function in `web/libs/editor/src/utils/data.js` https://github.com/HumanSignal/label-studio/pull/5611</DESCRIPTION>
+  <REPONAME>label-studio</REPONAME>
+  <TIMEDIFFERENCEDAYS>55</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>chore: LEAP-770: Update some vulnerable deps (#5606) * chore: LEAP-700: update some vulnerable deps * actually leave django alone in pyproject.toml for now</MESSAGE>
+    <SHA>7ea067dc81d868612b8ef9c3c321dd00cd865dd7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: support loading TimeSeries URL from sub-property of data (#5610)</MESSAGE>
+      <SHA>0888ec72daf0b458e4661ba898feeeb341acb62b</SHA>
+      <PATCHEDFILES>
+        <FILE>web/libs/editor/src/tags/object/TimeSeries.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: support loading TimeSeries URL from sub-property of data (#5610)</MESSAGE>
+      <SHA>9cc3a03fddeff27ace684370bc0b6f680e4aa60b</SHA>
+      <PATCHEDFILES>
+        <FILE>web/libs/editor/src/tags/object/TimeSeries.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: LEAP-1049: support loading TimeSeries URL from sub-property of data (#5610)</MESSAGE>
+      <SHA>d8819c35df0430a6adf646faa99b73e6f5df3f4f</SHA>
+      <PATCHEDFILES>
+        <FILE>web/libs/editor/src/tags/object/TimeSeries.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: LEAP-1049: support loading TimeSeries URL from sub-property of data (#5610) (#5883) contributed by @harrymander in #5611 ### PR fulfills these requirements - [x] Commit message(s) and PR title follows the format `[fix|feat|ci|chore|doc]: TICKET-ID: Short description of change made` ex. `fix: DEV-XXXX: Removed inconsistent code usage causing intermittent errors` - [ ] Tests for the changes have been added/updated (for bug fixes/features) - [ ] Docs have been added/updated (for bug fixes/features) - [ ] Best efforts were made to ensure docs/code are concise and coherent (checked for spelling/grammatical errors, commented out code, debug logs etc.) - [x] Self-reviewed and ran all changes on a local instance (for bug fixes/features) #### Change has impacts in these area(s) _(check all that apply)_ - [ ] Product design - [ ] Backend (Database) - [ ] Backend (API) - [x] Frontend #### What does this fix? Fixes https://github.com/HumanSignal/label-studio/issues/5610 --------- Co-authored-by: robot-ci-heartex &lt;robot-ci-heartex@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>303282b20804c10def66fd52d216060c26a2d87e</SHA>
+      <PATCHEDFILES>
+        <FILE>web/dist/apps/labelstudio/version.json</FILE>
+        <FILE>web/dist/libs/datamanager/version.json</FILE>
+        <FILE>web/dist/libs/editor/main.js</FILE>
+        <FILE>web/dist/libs/editor/main.js.map</FILE>
+        <FILE>web/dist/libs/editor/version.json</FILE>
+        <FILE>web/libs/editor/src/tags/object/TimeSeries.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

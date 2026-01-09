@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>46</ISSUENO>
+  <ISSUEURL>https://github.com/treasure-data/digdag/issues/46</ISSUEURL>
+  <TITLE>plural REST API with ?name= parameter replaces singular REST API</TITLE>
+  <DESCRIPTION>There are 3 singular REST API: - `GET /api/project?name=&lt;name&gt;` - `GET /api/projects/{id}/workflow?name=name[&amp;revision=name]` - `GET /api/workflow?project=&lt;name&gt;&amp;name=&lt;name&gt;[&amp;revision=&lt;name&gt;]` Replace them by adding following REST API: - `GET /api/projects?name=&lt;name&gt;` - `GET /api/projects/{id}/workflows?name=&lt;name&gt;[&amp;revision=name]` - (no replacement for `/api/workflow`. Use `/api/projects?name=&lt;name` and `/api/projects/{id}/workflows` instead) If a resource exist, these new REST API return an array with one element in it. If a resource doesn't exist, it returns an empty array (not 404 Not Found). With this way, client can tell that a project doesn't exist when `GET /api/projects/{id}/workflows?name=&lt;name&gt;[&amp;revision=name]` returns 404 Not Found because it returns an empty array if a project exists but workflow doesn't exist.</DESCRIPTION>
+  <REPONAME>digdag</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>set version to 0.6.0-SNAPSHOT</MESSAGE>
+    <SHA>d02789e0d7dd0840e4a92d1849e30af07d99fb30</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Added plural REST API that looks up a resource by name [#46] Added: * GET /api/projects?name=&lt;name&gt; * GET /api/projects/{id}/workflows?name=&lt;name&gt;[&amp;revision=&lt;name&gt;] Deprecated (not removed yet): * GET /api/project?name=&lt;name&gt; * GET /api/projects/{id}/workflow?name=name[&amp;revision=name] * GET /api/workflow?project=&lt;name&gt;&amp;name=&lt;name&gt; * GET /api/workflow?project=&lt;name&gt;&amp;revision=&lt;name&gt;&amp;name=&lt;name&gt;</MESSAGE>
+      <SHA>6ac69683f217c6e4d6ae511b80c8b3a3fba420b5</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-cli/src/main/java/io/digdag/cli/client/ClientCommand.java</FILE>
+        <FILE>digdag-cli/src/main/java/io/digdag/cli/client/Start.java</FILE>
+        <FILE>digdag-client/src/main/java/io/digdag/client/DigdagClient.java</FILE>
+        <FILE>digdag-server/src/main/java/io/digdag/server/rs/AttemptResource.java</FILE>
+        <FILE>digdag-server/src/main/java/io/digdag/server/rs/LogResource.java</FILE>
+        <FILE>digdag-server/src/main/java/io/digdag/server/rs/ProjectResource.java</FILE>
+        <FILE>digdag-server/src/main/java/io/digdag/server/rs/ScheduleResource.java</FILE>
+        <FILE>digdag-server/src/main/java/io/digdag/server/rs/WorkflowResource.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #313 from treasure-data/disable-enable-schedule-rest-change Move /schedules?project_id=&amp;workflow= to /projects/id to be consistent with #46</MESSAGE>
+      <SHA>7abc9c49d7efcbb8e920682d17b583bb2fde0dfc</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-cli/src/main/java/io/digdag/cli/client/Backfill.java</FILE>
+        <FILE>digdag-cli/src/main/java/io/digdag/cli/client/ShowSchedule.java</FILE>
+        <FILE>digdag-client/src/main/java/io/digdag/client/DigdagClient.java</FILE>
+        <FILE>digdag-server/src/main/java/io/digdag/server/rs/ProjectResource.java</FILE>
+        <FILE>digdag-server/src/main/java/io/digdag/server/rs/ScheduleResource.java</FILE>
+        <FILE>digdag-tests/src/test/java/acceptance/ServerScheduleIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

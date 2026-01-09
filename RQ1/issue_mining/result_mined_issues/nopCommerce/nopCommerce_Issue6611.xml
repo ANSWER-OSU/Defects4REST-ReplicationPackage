@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6611</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6611</ISSUEURL>
+  <TITLE>Bug with the ManufacturersByCategoryCacheKey key</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.50+ The `GetManufacturersByCategoryIdAsync()` method cache the manyfacturers of the category. The cache key only has the category id as the parameter `var key = _staticCacheManager.PrepareKeyForDefaultCache(NopCatalogDefaults.ManufacturersByCategoryCacheKey, categoryId.ToString());` The problem occurs when the products has ACL constraints. Since the ACL constraint limits different products to different customer roles, the product list can be differnet for diifferent customer thus the manufacturers available for those products will be different. But because of the caching via category id, the first request is cached and the same list of manufacturers are served to all the customers . So the cache key should take the customer role/id into consideration incase the ACL constraint is applied. see[ this topic](https://www.nopcommerce.com/en/boards/topic/96342/bug-at-the-getmanufacturersbycategoryidasync-method-if-the-products-are-constrainted-to-acl) for more details</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '4.50-bug-fixes' into 4.60-bug-fixes</MESSAGE>
+    <SHA>00ec2c46a31c3302adabe142e553d588c76e3587</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6611 Fixed problem with the ManufacturersByCategoryCacheKey key</MESSAGE>
+      <SHA>20dafe27efb81199cbf58d89411b4651133b05db</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Catalog/Caching/ProductCategoryCacheEventConsumer.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/IManufacturerService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/ManufacturerService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/NopCatalogDefaults.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6611 Fixed problem with the ManufacturersByCategoryCacheKey key</MESSAGE>
+      <SHA>fd0c09835a18ec19562d47ff1d130da5dcf20b11</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Catalog/Caching/ProductCategoryCacheEventConsumer.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/IManufacturerService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/ManufacturerService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/NopCatalogDefaults.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

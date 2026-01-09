@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18688</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18688</ISSUEURL>
+  <TITLE>CI: remove docker-compose v1 tests</TITLE>
+  <DESCRIPTION>From https://docs.docker.com/compose/: &gt; Compose V1 no longer receives updates and will not be available in new releases of Docker Desktop after June 2023. Given that I think it doesn't make sense to test it any more and we can safe some CI resources. We will continue to test compose v2. cc @mheon @cevich @edsantiago</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>35</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18997 from containers/renovate/google.golang.org-protobuf-1.x Update module google.golang.org/protobuf to v1.31.0</MESSAGE>
+    <SHA>3794d067e091573f2c9dcba05e0402a09351fa8c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Cirrus: Remove docker-compose v1 testing Fixes #18688 Docker compose v1 has long since gone EOL and is no longer supported by upstream. Therefore the only things we're accomplishing by testing it with modern Podman are: Wasting time and inviting flakes. Remove it. Also assert the v2-only support in the test `README.md` and remove all v1-related conditionals. Signed-off-by: Chris Evich &lt;cevich@redhat.com&gt;</MESSAGE>
+      <SHA>2f2c8aa3e87287eac6b93e56cce758c001a71c9a</SHA>
+      <PATCHEDFILES>
+        <FILE>.cirrus.yml</FILE>
+        <FILE>contrib/cirrus/runner.sh</FILE>
+        <FILE>contrib/cirrus/setup_environment.sh</FILE>
+        <FILE>test/compose/README.md</FILE>
+        <FILE>test/compose/ipam_set_ip/tests.sh</FILE>
+        <FILE>test/compose/two_networks/tests.sh</FILE>
+        <FILE>test/compose/uptwice/tests.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

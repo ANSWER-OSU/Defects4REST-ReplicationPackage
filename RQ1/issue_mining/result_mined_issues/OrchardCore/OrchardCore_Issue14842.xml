@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14842</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/14842</ISSUEURL>
+  <TITLE>Provide a way to run a custom Elasticsearch query as the default search</TITLE>
+  <DESCRIPTION>### Is your feature request related to a problem? Please describe. In the search module, the only available option to conduct a search is using query-string or multi-match query by providing a list of default fields to search. What if I want to customize the query for example by using [fuzziness](https://www.elastic.co/guide/en/elasticsearch/reference/7.17/common-options.html#fuzziness) or other options? Currently, there is no simply way to configure the default search to use advance search options. ### Describe the solution you'd like I think we should add a way for the user to define the a custom query that we would use to perform the search. For example, I want to define this query to be used when the a user search the default index. ``` { &quot;query&quot;: { &quot;match&quot;: { &quot;Content.ContentItem.FullText&quot;: { &quot;query&quot;: &quot;{{ term }}&quot;, &quot;fuzziness&quot;: &quot;AUTO&quot;, &quot;analyzer&quot;: &quot;whitespace&quot; } } } } ```</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix email validation error message (#14832) Fix #14828</MESSAGE>
+    <SHA>a79e40f6e4567801e6066a3f473ce785a1747a55</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add a way to provide a custom Elasticsearch query Fix #14842</MESSAGE>
+      <SHA>55f241affec669dd9f0f1b45e994277feb5c2f08</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Search.Elasticsearch/Drivers/ElasticSettingsDisplayDriver.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Search.Elasticsearch/Services/ElasticSearchService.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Search.Elasticsearch/ViewModels/ElasticSettingsViewModel.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Search.Elasticsearch/Views/ElasticSettings.Edit.cshtml</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Abstractions/JsonHelpers.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Core/Models/ElasticSettings.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Core/Services/ElasticIndexManager.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Search.Elasticsearch.Core/Services/ElasticQueryService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

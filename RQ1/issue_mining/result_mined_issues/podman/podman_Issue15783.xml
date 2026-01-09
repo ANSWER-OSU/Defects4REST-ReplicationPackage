@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15783</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15783</ISSUEURL>
+  <TITLE>cannot remove container: ... running or paused containers cannot be removed without force: container state improper</TITLE>
+  <DESCRIPTION>New flake seen in [remote f36-aarch64 root](https://api.cirrus-ci.com/v1/artifact/task/6076189906305024/html/sys-remote-fedora-36-aarch64-root-host.log.html#t--00079): ``` # podman-remote --url unix:/tmp/podman_tmp_nLiX run -d --log-driver=k8s-file quay.io/libpod/testimage:20220615 sh -c echo test1; echo test2 SHA # podman-remote --url unix:/tmp/podman_tmp_nLiX logs --tail 1 SHA test2 # podman-remote --url unix:/tmp/podman_tmp_nLiX restart SHA SHA # podman-remote --url unix:/tmp/podman_tmp_nLiX logs --tail 1 SHA test2 # podman-remote --url unix:/tmp/podman_tmp_nLiX rm SHA Error: cannot remove container SHA as it is running - running or paused containers cannot be removed without force: container state improper [ rc=2 (** EXPECTED 0 **) ] ``` Not sure if this is a race in the test (missing `podman wait`?) or in podman-remote itself. Filing for later. My flake logs shwo three instances, all remote, all aarch64. ### [sys] 79 podman logs - tail test, k8s-file * fedora-36-aarch64 : sys remote fedora-36-aarch64 root host [remote] * PR #15665 * [09-07 16:18](https://api.cirrus-ci.com/v1/artifact/task/5633451834474496/html/sys-remote-fedora-36-aarch64-root-host.log.html#t--00079) * PR #15607 * [09-06 06:33](https://api.cirrus-ci.com/v1/artifact/task/6255462285836288/html/sys-remote-fedora-36-aarch64-root-host.log.html#t--00079) * PR #15571 * [08-31 15:28](https://api.cirrus-ci.com/v1/artifact/task/6065614195261440/html/sys-remote-fedora-36-aarch64-root-host.log.html#t--00079)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #15788 from kolyshkin/non-crypto-id all: stop using deprecated GenerateNonCryptoID</MESSAGE>
+    <SHA>017d81ddd0e8d228aadb949175c0aae1e4b9d925</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>System tests: fix three races Three tests were running 'container rm' on 'start'ed containers that might not yet have exited. Fix. Also, tighten up the tests themselves, to make even more sure that they test what they're supposed to test. Discovered, in CI, that 'podman-remote logs --timestamps' was unimplemented. Thanks to @Luap99 for the fix to that. Fixes: #15783 Fixes: #15795 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>d4a62ff9324b57f620a4cb03c8dcdae3a6540cb0</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/infra/tunnel/containers.go</FILE>
+        <FILE>test/system/035-logs.bats</FILE>
+        <FILE>test/system/045-start.bats</FILE>
+        <FILE>test/system/420-cgroups.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18872</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18872</ISSUEURL>
+  <TITLE>Treatment of `kind` field on JournalEntry is inconsistent</TITLE>
+  <DESCRIPTION>### Deployment Type NetBox Cloud ### NetBox Version v4.2.5 ### Python Version 3.10 ### Steps to Reproduce 1. View a site and click the &quot;Journal&quot; tab. 2. Add a journal entry without specifying a kind. ### Expected Behavior The `kind` field should always be required (AFAICT): ```python class JournalEntry(...): kind = models.CharField( verbose_name=_('kind'), max_length=30, choices=JournalEntryKindChoices, default=JournalEntryKindChoices.KIND_INFO ) ``` ### Observed Behavior The `kind` field is not required by either the model's form or its REST API serializer. ```python class JournalEntryForm(NetBoxModelForm): kind = forms.ChoiceField( label=_('Kind'), choices=add_blank_choice(JournalEntryKindChoices), required=False ) ``` ```python class JournalEntrySerializer(NetBoxModelSerializer): kind = ChoiceField( choices=JournalEntryKindChoices, required=False ) ```</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixes #18880: Delay enqueuing of background tasks until the DB transaction has been committed (#18899)</MESSAGE>
+    <SHA>ed135102bed0733c4dff90206f3d142494d900fb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #18872: JournalEntry kind is a required field</MESSAGE>
+      <SHA>994e7eb9f4583d5cbcb73dcbb0d6211c4ac05f0d</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/extras/forms/model_forms.py</FILE>
+        <FILE>netbox/extras/migrations/0123_journalentry_kind_default.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #18901 from netbox-community/18872-JournalEntry-kind-required Fixes #18872: JournalEntry `kind` is a required field</MESSAGE>
+      <SHA>79b0c0f5d6a1159c2e76a31bd9c9560204167bf0</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/extras/forms/model_forms.py</FILE>
+        <FILE>netbox/extras/migrations/0123_journalentry_kind_default.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

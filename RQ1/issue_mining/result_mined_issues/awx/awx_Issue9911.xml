@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9911</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/9911</ISSUEURL>
+  <TITLE>Credentials form not displaying error message on validate</TITLE>
+  <DESCRIPTION>&lt;!-- Issues are for **concrete, actionable bugs and feature requests** only - if you're just asking for debugging help or technical support, please use: - http://webchat.freenode.net/?channels=ansible-awx - https://groups.google.com/forum/#!forum/awx-project We have to limit this because of limited volunteer time to respond to issues! --&gt; ##### ISSUE TYPE - Bug Report ##### SUMMARY Error message not being displayed for empty fields, not that this is not happening for some types. We have broken tests due this change, may or may not be introduced by https://github.com/ansible/awx/pull/9869 ##### STEPS TO REPRODUCE 1. Select a Google Compute Engine credential type 2. hit save button with empty required fields ##### EXPECTED RESULTS Error message to be displayed ##### ACTUAL RESULTS &lt;!-- What actually happened? --&gt; ##### ADDITIONAL INFORMATION &lt;!-- Include any links to sosreport, database dumps, screenshots or other information. --&gt; ![image](https://user-images.githubusercontent.com/12464858/114786875-3f9d8180-9d55-11eb-9d50-b8303c92c738.png)</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9914 from dhoppe/fix_architecture Define variables in the correct Ansible role SUMMARY This pull request is related to #9913. ISSUE TYPE Bugfix Pull Request COMPONENT NAME Docker AWX VERSION awx: 19.0.0 ADDITIONAL INFORMATION This pull request ensures that tini is downloaded for the correct architecture. $ grep tini Dockerfil # Install tini RUN curl -L -o /usr/bin/tini https://github.com/krallin/tini/releases/download/v0.19.0/tini-arm64 &amp;&amp; \ chmod +x /usr/bin/tini Reviewed-by: Shane McDonald &lt;me@shanemcd.com&gt;</MESSAGE>
+    <SHA>d834519aae3fc2ed81b3afcebb127352bf033133</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>CredentialPluginField: Fixes bug to display invalid helper text for empty required field. Fixes #9911. Include the jsx element of displaying helper text which is similar to FormGroup.tsx's inValidHelperText implementation</MESSAGE>
+      <SHA>181b7d5467b2ac41b87066550a834e7cfce6f041</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/screens/Credential/shared/CredentialPlugins/CredentialPluginField.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>CredentialPluginField: Fixes bug to display invalid helper text for empty required field. Fixes #9911. Include the jsx element of displaying helper text which is similar to FormGroup.tsx's inValidHelperText implementation Signed-off-by: seiwailai &lt;laiseiwai@gmail.com&gt;</MESSAGE>
+      <SHA>850d04b5c0331cd80a7dda4c406ee7f5bd5763b6</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/screens/Credential/shared/CredentialPlugins/CredentialPluginField.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9940 from seiwailai/issue-9911-not-display-error-message CredentialPluginField: Fixes bug to display invalid helper text for empty required field. Fixes #9911. Include the HTML element of displaying helper text which is similar to FormGroup.tsx's inValidHelperText implementation Signed-off-by: seiwailai laiseiwai@gmail.com SUMMARY Under normal circumstances, we initiate input fields using FormGroup element. However, for credentials purpose, we customized the FormGroup by adding another children element called CredentialPluginInput which comprised of Input Group. Thus, events related to the input fields will happen within the InputGroup logic. However, the Input Group doesn't have the functionality of rendering error at the moment. Thus, we should explicitly render the error under FormGroup element if there is an error and needed to be displayed. ISSUE TYPE Bugfix Pull Request COMPONENT NAME UI: CredentialPluginField.jsx AWX VERSION awx=19.0.0 ADDITIONAL INFORMATION After Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+      <SHA>a857352e3012cc512bf0f492ca37337ea2eb1992</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/screens/Credential/shared/CredentialPlugins/CredentialPluginField.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

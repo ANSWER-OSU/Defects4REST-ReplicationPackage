@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1519</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/1519</ISSUEURL>
+  <TITLE>Elasticsearch query runner: mappings_data is not defined</TITLE>
+  <DESCRIPTION>### Issue Summary When executing an elasticsearch query, a message appears that &quot;mappings_data is not defined&quot;. ### Steps to Reproduce 1. Clone the latest version (master branch) from github and install the dev environment. 2. Add an elasticsearch instance and try to execute a query, e.g. `{&quot;query&quot;: {'&quot;match_all&quot;: {}}` 3. A message appears that the query was not successfull (mappings_data is not defined) The bug is quite obvious since https://github.com/getredash/redash/blob/3bc98fba5bd2b6b723ba0d0ce3007a651e8c2acb/redash/query_runner/elasticsearch.py#L126 refers to mappings_data, which is nowhere defined in the same file. Unfortunately I didn't find out what this mappings_data should contain. ### Technical details: * Redash Version: master branch * Browser/OS: Linux/Chrome</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix: View Query link was pointing to the wrong page</MESSAGE>
+    <SHA>57e25786cd05b5047008992cf0a9f4618443cf0a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[ElasticSearch] Fix: wrong variable name. Fixes #1519.</MESSAGE>
+      <SHA>3d0b90ff2af57a8799effeedbdc2a30427723c21</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/query_runner/elasticsearch.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[ElasticSearch] Fix: wrong variable name. Fixes #1519.</MESSAGE>
+      <SHA>d2631cd9afe3d7d15f5b5ed7a290e38938ffaaa9</SHA>
+      <PATCHEDFILES>
+        <FILE>query_runner/elasticsearch.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

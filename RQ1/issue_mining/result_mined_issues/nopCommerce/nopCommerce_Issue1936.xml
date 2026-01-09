@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1936</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/1936</ISSUEURL>
+  <TITLE>webHelper.GetStoreLocation(false) is hard-coded in GenericPathRoute</TITLE>
+  <DESCRIPTION>I'm working on nopCommerce 3.60, and I have a doubt regarding the redirecting done on the GetRouteData inside GenericPathRoute controller. In case you hit a product slug that is inactive, code will redirect you to the most up to the date version of the URL. Redirecting is done through this code: var response = httpContext.Response; response.Status = &quot;301 Moved Permanently&quot;; response.RedirectLocation = string.Format(&quot;{0}{1}&quot;, webHelper.GetStoreLocation(false), activeSlug); response.End(); In my case, the website is running on a SSL website, and the redirecting to HTTPS is done through the webconfig. When you hit webHelper.GetStoreLocation(false), even in secure environment, it will redirect me first to the HTTP version, and then to the HTTPS version, creating two redirects. Multiple redirects for one product is bad for SEO, so I want to fix this. This could be done easily by setting to true with a store setting the method GetStoreLocation. My doubt is: Do we have to make it so that the false is passed for a reason, or is it safe to do this change? It is a very simple mistake, and this sort of code usually makes me think twice before making a change. Source: http://www.nopcommerce.com/boards/t/45328/_webhelpergetstorelocationfalse-is-hard-coded-should-it-be.aspx</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#1818 Renamed &quot;Azure Web Sites&quot; to &quot;Azure Web Apps&quot;</MESSAGE>
+    <SHA>55caa93ac13c0f5a56f3c9c442110c42648388c1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#1936 webHelper.GetStoreLocation(false) was hard-coded (HTTP) in GenericPathRoute. It could cause issues when a site is forced to HTTPS</MESSAGE>
+      <SHA>6f011709f99d282baebf05cc471a405f61f5c6c8</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Seo/GenericPathRoute.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

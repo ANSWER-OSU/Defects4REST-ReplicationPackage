@@ -1,0 +1,76 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5242</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5242</ISSUEURL>
+  <TITLE>Culture does not change according to the chosen language</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40 develop Steps to reproduce the problem: ![image](https://user-images.githubusercontent.com/27218280/102992459-4a28d680-452c-11eb-89c6-63aa89c3631e.png) Start your investigation here to understand the problem: https://github.com/nopSolutions/nopCommerce/blob/c7d7193b4bf0c0150d2535ad21c35923e74290f8/src/Presentation/Nop.Web.Framework/Globalization/CultureMiddleware.cs#L56-L59</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5228 Set min allowed page size as 1</MESSAGE>
+    <SHA>fd0cb0a7bbffaf223b0067656ee925a6e6405451</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5242 Added a custom NopRequestCultureProvider that attempts to obtain culture from the working language and then sets it in the current culture thread, before returning the required ProviderCultureResult</MESSAGE>
+      <SHA>131dc26740cb05fc7e9030c2687fda8caa5b664a</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/IWorkContext.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Globalization/CultureMiddleware.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Globalization/NopRequestCultureProvider.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ApplicationBuilderExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/NopCommonStartup.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/WebWorkContext.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3701 #5242 Next changes to better identify the request language</MESSAGE>
+      <SHA>6f1854087ae93edb774f6f31d937829d726e42b4</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Customers/NopCustomerDefaults.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Globalization/NopHeaderRequestCultureProvider.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Globalization/NopRequestCultureProvider.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Globalization/NopSeoUrlCultureProvider.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ApplicationBuilderExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/ModelBinding/NopResourceDisplayNameAttribute.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Razor/NopRazorPage.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/WebWorkContext.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Shared/_AdminLayout.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Shared/_AdminPopupLayout.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/_ViewImports.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Extensions/HtmlExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Themes/DefaultClean/Views/Shared/Head.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Themes/DefaultClean/Views/_ViewImports.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/_Print.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/_Root.Head.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/_ViewImports.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3701 #5242 Some refactoring of previous changes</MESSAGE>
+      <SHA>0a19e1a0c54dc176805410fc303b920dd0ee1b38</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Http/NopCookieDefaults.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Globalization/NopHeaderRequestCultureProvider.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Globalization/NopSeoUrlCultureProvider.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ApplicationBuilderExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/NopCommonStartup.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Razor/NopRazorPage.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/TagHelpers/Shared/NopDatePickerTagHelper.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/WebWorkContext.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Customer/List.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Shared/Table.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Shared/_AdminLayout.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Shared/_AdminPopupLayout.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Shared/_Table.Definition.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Extensions/HtmlExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Themes/DefaultClean/Views/Shared/Head.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Checkout/_PickupPoints.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Product/_RentalInfo.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/_Print.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/_Root.Head.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/_ViewImports.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3289</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/3289</ISSUEURL>
+  <TITLE>drone-docker generate invalid Card URL for self-hosted docker registry</TITLE>
+  <DESCRIPTION>&lt;!-- PLEASE READ BEFORE DELETING Bugs or Issues? Please create a new topic in our Discourse forum. We are migrating all Drone repositories to Discourse for bug tracking. New GitHub issues may be automatically deleted. https://community.harness.io/ https://community.harness.io/c/bugs/17 https://community.harness.io/c/ideas/11 Failing Builds? Please do not use GitHub issues for generic support questions. Instead please use Stack Overflow: http://stackoverflow.com/questions/tagged/drone.io --&gt; Not sure if it is the correct place to ask, but since [drone-docker](https://github.com/drone-plugins/drone-docker) does not allow filing issues, I will post my issue here. https://github.com/drone-plugins/drone-docker/blob/7888a798b1b331bd9c5a2662e50494f907499f2c/card.go#L75-L88 The `mapRegistryToURL` function uses a simple heuristic to generate URLs for common public registries. But a self-hosted registry using [distribution](https://github.com/distribution/distribution) or [Gitea](https://github.com/gitea-go/gitea) will be mapped to invalid URLs. It's desirable to have a general config entry to allow custom mapping using regex substitution mechanism, e.g., with the following configuration ```bash DRONE_DOCKER_REGISTRY_MATCH=&lt;REGEXP&gt; # Match and capture DRONE_DOCKER_REGISTRY_REPLACEMENT=&lt;REPLACEMENT&gt; ``` similar to a simplified version of Prometheus' [relabeling](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config) config. Or a configuration entry based on template string (if general enough).</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>772</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat:[AH-630]: File manager support for HAR (#3251) * feat:[AH-630]: fix checks * feat:[AH-630]: fix checks * feat:[AH-630]: fix checks * Merge branch 'main' into AH-630 * feat:[AH-630]: review changes * feat:[AH-630]: File manager support for HAR</MESSAGE>
+    <SHA>3e17a7e7fc339cf728bb3b1a74f732cfffabe55e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: [CODE-3030]: fix name of include_git_stats param in openapi (#3289) * fix name of include_git_stats param in openapi</MESSAGE>
+      <SHA>d6ea2b8de667c42099efa18b38393ee0c20d7041</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/openapi/repo.go</FILE>
+        <FILE>app/api/request/pullreq.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

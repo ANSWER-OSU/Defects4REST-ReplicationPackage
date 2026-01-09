@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117568</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/117568</ISSUEURL>
+  <TITLE>[CI] CrossClustersCancellationIT testCancel failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #5110 / amazonlinux-2_platform-support-aws](https://gradle-enterprise.elastic.co/s/f4bgs5lzzntae) - [elasticsearch-pull-request #43999 / part-3](https://gradle-enterprise.elastic.co/s/qza6zeatapmww) - [elasticsearch-pull-request #43844 / part-3](https://gradle-enterprise.elastic.co/s/jwpv7gmqi6qi2) - [elasticsearch-pull-request #43708 / part-3](https://gradle-enterprise.elastic.co/s/zwm74whycizne) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.esql.action.CrossClustersCancellationIT.testCancel&quot; -Dtests.seed=77BD499E34EA2944 -Dtests.locale=oc -Dtests.timezone=Indian/Christmas -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.action.CrossClustersCancellationIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testCancel),title:'Test',type:optionsListControl))))) **Failure Message:** ``` junit.framework.AssertionFailedError: Expected exception Exception but no exception was thrown ``` **Issue Reasons:** - [main] 4 failures in test testCancel (1.1% fail rate in 364 executions) - [main] 3 failures in step part-3 (2.3% fail rate in 131 executions) - [main] 3 failures in pipeline elasticsearch-pull-request (2.3% fail rate in 131 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[Entitlements] Refactor InstrumenterImpl tests (#117688) Following up https://github.com/elastic/elasticsearch/pull/117332#discussion_r1856803255, I refactored `InstrumenterImpl` tests, splitting them into 2 suites: - `SyntheticInstrumenterImplTests`, which tests the mechanics of instrumentation using ad-hoc test cases. This should see little change now that we have our Instrumenter working as intended - `InstrumenterImplTests`, which is back to its original intent to make sure (1) the right arguments make it all the way to the check methods, and (2) if the check method throws, that exception correctly bubbles up through the instrumented method. The PR also includes a little change to `InstrumenterImpl` construction to clean it up a bit and make it more testable.</MESSAGE>
+    <SHA>c77f09e436563fa312db791a9ea4c8ac5d97a623</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.CrossClustersCancellationIT testCancel #117568</MESSAGE>
+      <SHA>deb838c027ecd83bc34fd487566571c61bfcd8be</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix CCS cancellation test (#117790) We should have checked that all drivers were canceled, not cancellable (which is always true), before unblocking the compute tasks. Closes #117568</MESSAGE>
+      <SHA>bda415b7fdf4a73091a198339e5f1660c1378029</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/esql/src/internalClusterTest/java/org/elasticsearch/xpack/esql/action/CrossClustersCancellationIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix CCS cancellation test (#117790) We should have checked that all drivers were canceled, not cancellable (which is always true), before unblocking the compute tasks. Closes #117568</MESSAGE>
+      <SHA>de4f0aaa90fe6e18c0bf47608dac8b7e88ffe3c0</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/esql/src/internalClusterTest/java/org/elasticsearch/xpack/esql/action/CrossClustersCancellationIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix CCS cancellation test (#117790) We should have checked that all drivers were canceled, not cancellable (which is always true), before unblocking the compute tasks. Closes #117568</MESSAGE>
+      <SHA>0eea83d7ec20c4ad023d938835bceba16750eef4</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/src/internalClusterTest/java/org/elasticsearch/xpack/esql/action/CrossClustersCancellationIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

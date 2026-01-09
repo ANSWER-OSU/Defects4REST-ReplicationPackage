@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19886</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/19886</ISSUEURL>
+  <TITLE>Is it possible to have execute permissions on /tmp for kube play created pods?</TITLE>
+  <DESCRIPTION>### Discussed in https://github.com/containers/podman/discussions/19859 &lt;div type='discussions-op-text'&gt; &lt;sup&gt;Originally posted by **frenetic00** September 5, 2023&lt;/sup&gt; Is it possible to give /tmp execute permissions when running as a pod under systemd? I've used Kubernetes yaml to build a pod of several containers to run Nextcloud. One of the Nextcloud apps is failing to run correctly because it relies on having execute permissions in /tmp My Kubernetes yaml is executed as a non-root user using a systemd service. ``` ExecStart=/usr/bin/podman kube play --network=ns:/var/run/netns/%U --replace --service-container=true %I ``` Inside the container, I can see that /tmp has been mounted with noexec ``` tmpfs /tmp tmpfs rw,nosuid,nodev,noexec,relatime,uid=1003,gid=1003,inode64 0 0 ``` I'm new to go and namespaces, but I'm trying to get an understanding of what's going on while trying to solve my issue. I can see in the [docs](https://github.com/containers/podman/blob/main/docs/source/markdown/options/systemd.md) that there is a systemd option for other podman commands that will mount several tmpfs file systems when systemd mode is enabled. Does the `--service-container` option ensure that that the container will be configured with systemd? I've seen some reference to it [here](https://github.com/containers/podman/blob/main/cmd/podman/kube/play.go#L191-L196). I can also see that permissions for /tmp are being set [here](https://github.com/containers/podman/blob/main/libpod/container_internal_linux.go#L221) and [here](https://github.com/containers/podman/blob/main/libpod/container_internal_linux.go#L234-L245) but I'm still not sure how /tmp gets configured with the noexec option. Can anyone point me in the right direction? Thanks &lt;/div&gt;</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19759 from rhatdan/docs [CI:DOCS] Some distros do not default to docker.io for shortname searches</MESSAGE>
+    <SHA>c11ac807f921690a3141e9dc7a2e469c5064f396</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Tmpfs should not be mounted noexec The logic here makes little sense, basically the /tmp and /var/tmp are always set noexec, while /run is not. I don't see a reason to set any of the three noexec by default. Fixes: https://github.com/containers/podman/issues/19886 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>2d7d8d1d108f5a363d4e0479c57c207839110a54</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/specgen/generate/storage.go</FILE>
+        <FILE>test/system/700-play.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

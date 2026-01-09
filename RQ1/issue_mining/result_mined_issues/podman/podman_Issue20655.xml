@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20655</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/20655</ISSUEURL>
+  <TITLE>e2e: push to local registry: dial tcp [::1]:5000: connect: connection refused</TITLE>
+  <DESCRIPTION>Always port 5000. This is what the code looks like: ```go lock := GetPortLock(&quot;5000&quot;) defer lock.Unlock() session := podmanTest.Podman([]string{&quot;run&quot;, &quot;-d&quot;, [registry on port 5000]}) .... ``` There are three of those in `e2e/push_test.go`, seven more in other tests. My hunch is that this is a race: `Unlock()` runs when `It()` falls out of scope, but the registry container isn't cleaned up until `AfterEach()`. Supporting evidence: look at [this log](https://api.cirrus-ci.com/v1/artifact/task/5055742575640576/html/int-podman-fedora-39%CE%B2-root-container-sqlite.log.html#t--Podman-push-podman-push-to-local-registry--1): ``` → Enter [It] podman push to local registry [...] @ 10/31/23 15:26:23.803 ... podman run registry... time=&quot;2023-10-31T15:26:26.28714805Z&quot; level=info msg=&quot;listening on [::]:5000&quot; go.version=go1.19.9 instance.id=7d37ba0d-27b3-4a12-b449-8a2bc3ce8e79 service=registry version=2.8.2 ``` ...then scroll up, skip the previous test , go up one more to `push test --force-compression` (because it uses port 5000) and look at its timestamps: ``` ← Exit [It] push test --force-compression [...] @ 10/31/23 15:26:25.629 (2.524s) → Enter [AfterEach] TOP-LEVEL [...] @ 10/31/23 15:26:25.63 [podman stop and rm] ← Exit [AfterEach] TOP-LEVEL [...] @ 10/31/23 15:26:26.704 (1.074s) ``` Those are tight timings. Possible solution: 1. use ports other than 5000; and/or 2. stop/rm the registry within each test; and/or 3. globalize the lock, and unlock in teardown *after* all containers have been cleaned up. Not hard, just not something I'm gonna do today. * fedora-39β : int podman fedora-39β root container sqlite * [10-31 11:29](https://api.cirrus-ci.com/v1/artifact/task/5055742575640576/html/int-podman-fedora-39β-root-container-sqlite.log.html#t--Podman-push-podman-push-to-local-registry--1) in Podman push podman push to local registry * [10-19 17:53](https://api.cirrus-ci.com/v1/artifact/task/6714693289508864/html/int-podman-fedora-39β-root-container-sqlite.log.html#t--Podman-push-podman-push-to-local-registry--1) in Podman push podman push to local registry * fedora-39β : int podman fedora-39β root host boltdb * [11-02 07:55](https://api.cirrus-ci.com/v1/artifact/task/4952281880199168/html/int-podman-fedora-39β-root-host-boltdb.log.html#t--Podman-push-podman-push-to-local-registry-with-authorization--1) in Podman push podman push to local registry with authorization * [10-19 17:51](https://api.cirrus-ci.com/v1/artifact/task/6011005847732224/html/int-podman-fedora-39β-root-host-boltdb.log.html#t--Podman-push-podman-push-to-local-registry--1) in Podman push podman push to local registry * fedora-39β : int remote fedora-39β root host boltdb [remote] * [10-05-2023 22:08](https://api.cirrus-ci.com/v1/artifact/task/6405999829975040/html/int-remote-fedora-39β-root-host-boltdb.log.html#t--Podman-push-podman-push-to-local-registry--1) in Podman push podman push to local registry Seen in: int podman+remote fedora-39β root container+host boltdb+sqlite Only seen in #17831, because on normal PRs the ginkgo retry succeeds.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>108</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #21826 from rhatdan/stop Fix podman stop -t -1 CID</MESSAGE>
+    <SHA>6dd8454a54da09250e95074dc47752b394877afc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>CI: e2e: use distinct ports, not just 5000 Too many tests use port 5000. Although there's a putative GetPortLock() it seems to be unreliable, and we often get what appear to be collisions between tests. A proper solution would be to pseudorandomly allocate ports, verify that they're not being reused, Sprintf() these everywhere that needs them, and sprinkle some powdered cinnamon on top. This is not that proper solution. Fixes: #20655 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>7d5a68c9cd87ed42bceda77894719270bb141b88</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/common_test.go</FILE>
+        <FILE>test/e2e/generate_kube_test.go</FILE>
+        <FILE>test/e2e/manifest_test.go</FILE>
+        <FILE>test/e2e/port_test.go</FILE>
+        <FILE>test/e2e/pull_test.go</FILE>
+        <FILE>test/e2e/push_test.go</FILE>
+        <FILE>test/e2e/run_test.go</FILE>
+        <FILE>test/e2e/save_test.go</FILE>
+        <FILE>test/e2e/testdata/sigstore-registries.d-fragment.yaml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

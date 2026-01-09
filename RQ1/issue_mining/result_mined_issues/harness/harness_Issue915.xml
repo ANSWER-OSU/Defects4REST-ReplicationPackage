@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>915</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/915</ISSUEURL>
+  <TITLE>Vagrant provisioning broken</TITLE>
+  <DESCRIPTION>The Vagrant file isn't bringing up the system as expected. Steps to repro: ``` bash git clone git@github.com:drone/drone.git cd drone vagrant up ``` Results: ``` ==&gt; ubuntu: make: ==&gt; ubuntu: *** [deps] Error 1 The SSH command responded with a non-zero exit status. Vagrant assumes that this means the command failed. The output for this command should be in the log above. Please read the output to determine what went wrong. ``` Drone doesn't appear to have installed. After connecting via `vagrant ssh`, there's no drone process running and upstart doesn't know about it: ``` bash sudo status drone status: Unknown job: drone ``` Not sure if this is related, but there appears to be something wrong with an earlier step: ``` bash ==&gt; ubuntu: Building Drone ==&gt; ubuntu: go get github.com/GeertJohan/go.rice/rice ==&gt; ubuntu: go get -t -v ./... ==&gt; ubuntu: code.google.com/p/goauth2 (download) ==&gt; ubuntu: github.com/andybons/hipchat (download) ==&gt; ubuntu: github.com/codegangsta/cli (download) ==&gt; ubuntu: github.com/docker/docker (download) ==&gt; ubuntu: github.com/Sirupsen/logrus (download) ==&gt; ubuntu: package code.google.com/p/goauth2/oauth ==&gt; ubuntu: imports github.com/andybons/hipchat ==&gt; ubuntu: imports github.com/codegangsta/cli ==&gt; ubuntu: imports github.com/docker/docker/pkg/archive ==&gt; ubuntu: imports github.com/Sirupsen/logrus ==&gt; ubuntu: imports github.com/docker/docker/pkg/parsers ==&gt; ubuntu: imports github.com/docker/docker/pkg/stdcopy ==&gt; ubuntu: imports github.com/docker/docker/pkg/term ==&gt; ubuntu: imports github.com/docker/docker/utils ==&gt; ubuntu: imports github.com/docker/docker/autogen/dockerversion ==&gt; ubuntu: imports github.com/docker/docker/autogen/dockerversion ==&gt; ubuntu: imports github.com/docker/docker/autogen/dockerversion: cannot find package &quot;github.com/docker/docker/autogen/dockerversion&quot; in any of: ==&gt; ubuntu: /usr/local/go/src/pkg/github.com/docker/docker/autogen/dockerversion (from $GOROOT) ==&gt; ubuntu: /opt/go/src/github.com/docker/docker/autogen/dockerversion (from $GOPATH) ``` Related to https://github.com/docker/docker/issues/10922 ?</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix linting error (#914)</MESSAGE>
+    <SHA>a5fd2ce3f89568a191c609eaa7ebab9026b06531</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>WIP [Permissions] Allow anyone with view permission to add reviewers (#915)</MESSAGE>
+      <SHA>9a4e4fa74d896443d70b447171cd28ce9e899702</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/controller/pullreq/reviewer_add.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

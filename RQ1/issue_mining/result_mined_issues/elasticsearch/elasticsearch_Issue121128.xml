@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121128</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121128</ISSUEURL>
+  <TITLE>[CI] CoreWithSecurityClientYamlTestSuiteIT test {yaml=cat.aliases/40_hidden/Test cat aliases output with a visible index with a hidden alias} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6135 / ubuntu-2204_platform-support-unix](https://gradle-enterprise.elastic.co/s/vdqvig6scxui2) - [elasticsearch-pull-request #53493 / part-4](https://gradle-enterprise.elastic.co/s/s3ekgm2kfegpw) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:qa:core-rest-tests-with-security:yamlRestTest&quot; --tests &quot;org.elasticsearch.xpack.security.CoreWithSecurityClientYamlTestSuiteIT&quot; -Dtests.method=&quot;test {yaml=cat.aliases/40_hidden/Test cat aliases output with a visible index with a hidden alias}&quot; -Dtests.seed=117A714B04E111B2 -Dtests.locale=es-CL -Dtests.timezone=Canada/Eastern -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.security.CoreWithSecurityClientYamlTestSuiteIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Byaml%3Dcat.aliases%2F40_hidden%2FTest%20cat%20aliases%20output%20with%20a%20visible%20index%20with%20a%20hidden%20alias%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Failure at [cat.aliases/40_hidden:124]: field [$body] was expected to match the provided regex but didn't Expected: ^ test_alias \s+ test \s+ - \s+ - \s+ - \s+ - \s+ $ but: was &quot;test_alias test - - - -\n.security .security-7 - - - -\n&quot; ``` **Issue Reasons:** - [main] 2 failures in test test {yaml=cat.aliases/40_hidden/Test cat aliases output with a visible index with a hidden alias} (0.2% fail rate in 846 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update monitoring mapping to add some new fields (#121062) (#121118) Co-authored-by: Valentin Crettaz &lt;valentin.crettaz@elastic.co&gt;</MESSAGE>
+    <SHA>a20e633ecd7ced2bf7ec6138befd920bad899a31</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.security.CoreWithSecurityClientYamlTestSuiteIT test {yaml=cat.aliases/40_hidden/Test cat aliases output with a visible index with a hidden alias} #121128</MESSAGE>
+      <SHA>4cd345f46fe670f58a9454961464a86ec04e77dd</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.security.CoreWithSecurityClientYamlTestSuiteIT test {yaml=cat.aliases/40_hidden/Test cat aliases output with a visible index with a hidden alias} #121128</MESSAGE>
+      <SHA>7743380509369f2afccca208201d21b7d872702e</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Disable queryable built-in roles feature for core and datastream YAML tests Resolves https://github.com/elastic/elasticsearch/issues/121536 Resolves https://github.com/elastic/elasticsearch/issues/121513 Resolves https://github.com/elastic/elasticsearch/issues/121484 Resolves https://github.com/elastic/elasticsearch/issues/121478 Resolves https://github.com/elastic/elasticsearch/issues/121290 Resolves https://github.com/elastic/elasticsearch/issues/121246 Resolves https://github.com/elastic/elasticsearch/issues/121242 Resolves https://github.com/elastic/elasticsearch/issues/121238 Resolves https://github.com/elastic/elasticsearch/issues/121186 Resolves https://github.com/elastic/elasticsearch/issues/121131 Resolves https://github.com/elastic/elasticsearch/issues/121130 Resolves https://github.com/elastic/elasticsearch/issues/121128 Resolves https://github.com/elastic/elasticsearch/issues/121014 Resolves https://github.com/elastic/elasticsearch/issues/120965 Resolves https://github.com/elastic/elasticsearch/issues/120920 Resolves https://github.com/elastic/elasticsearch/issues/120890</MESSAGE>
+      <SHA>0644dbf64e8ace7ba312e6c653ccfbc2e005f01d</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/data-streams/src/yamlRestTest/java/org/elasticsearch/datastreams/DataStreamsClientYamlTestSuiteIT.java</FILE>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/qa/core-rest-tests-with-security/src/yamlRestTest/java/org/elasticsearch/xpack/security/CoreWithSecurityClientYamlTestSuiteIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

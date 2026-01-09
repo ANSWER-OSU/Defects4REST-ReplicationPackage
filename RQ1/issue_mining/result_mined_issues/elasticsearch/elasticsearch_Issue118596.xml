@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118596</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118596</ISSUEURL>
+  <TITLE>Turn the _source.mode mapping attribute into a no-op.</TITLE>
+  <DESCRIPTION>The `index.mapping.source.mode` index setting already takes precedence and the _source.mode mapping attribute is already deprecated.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>42</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.security.authc.ldap.ActiveDirectoryRunAsIT org.elasticsearch.xpack.security.authc.ldap.ActiveDirectoryRunAsIT #115727</MESSAGE>
+    <SHA>93aee0f1c6ccec241a6dce229b96e40ff36c9358</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Turn _source meta fieldmapper's mode attribute into a noop. Closes #118596</MESSAGE>
+      <SHA>aff65ecf0f16fcd8d32f0b3f5b58442f59342f9c</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elasticsearch/index/IndexVersions.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/mapper/SourceFieldMapper.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/index/mapper/DynamicFieldsBuilderTests.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/index/query/SearchExecutionContextTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Turn _source meta fieldmapper's mode attribute into a no-op. (#119072) Closes #118596</MESSAGE>
+      <SHA>cd10b05162285a9ca4e546dceb431a6a7e500c6f</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/119072.yaml</FILE>
+        <FILE>qa/rolling-upgrade/src/javaRestTest/java/org/elasticsearch/upgrades/SourceModeRollingUpgradeIT.java</FILE>
+        <FILE>rest-api-spec/build.gradle</FILE>
+        <FILE>rest-api-spec/src/yamlRestTest/resources/rest-api-spec/test/index/91_metrics_no_subobjects.yml</FILE>
+        <FILE>rest-api-spec/src/yamlRestTest/resources/rest-api-spec/test/index/92_metrics_auto_subobjects.yml</FILE>
+        <FILE>rest-api-spec/src/yamlRestTest/resources/rest-api-spec/test/range/20_synthetic_source.yml</FILE>
+        <FILE>server/src/internalClusterTest/java/org/elasticsearch/search/aggregations/bucket/NestedIT.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/IndexVersions.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/mapper/SourceFieldMapper.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/index/mapper/DocumentParserContextTests.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/index/mapper/DynamicFieldsBuilderTests.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/index/mapper/SourceFieldMapperTests.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/index/query/SearchExecutionContextTests.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/index/shard/ShardGetServiceTests.java</FILE>
+        <FILE>test/framework/src/main/java/org/elasticsearch/test/rest/ESRestTestCase.java</FILE>
+        <FILE>test/yaml-rest-runner/src/main/java/org/elasticsearch/test/rest/yaml/section/DoSection.java</FILE>
+        <FILE>x-pack/plugin/esql/qa/server/src/main/java/org/elasticsearch/xpack/esql/qa/rest/FieldExtractorTestCase.java</FILE>
+        <FILE>x-pack/plugin/logsdb/qa/with-basic/src/javaRestTest/java/org/elasticsearch/xpack/logsdb/LogsdbWithBasicRestIT.java</FILE>
+        <FILE>x-pack/plugin/logsdb/src/javaRestTest/java/org/elasticsearch/xpack/logsdb/LogsIndexModeCustomSettingsIT.java</FILE>
+        <FILE>x-pack/plugin/logsdb/src/javaRestTest/java/org/elasticsearch/xpack/logsdb/LogsIndexModeRestTestIT.java</FILE>
+        <FILE>x-pack/plugin/logsdb/src/javaRestTest/java/org/elasticsearch/xpack/logsdb/LogsdbRestIT.java</FILE>
+        <FILE>x-pack/plugin/logsdb/src/test/java/org/elasticsearch/xpack/logsdb/LogsdbIndexModeSettingsProviderTests.java</FILE>
+        <FILE>x-pack/plugin/logsdb/src/yamlRestTest/resources/rest-api-spec/test/40_source_mode_setting.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

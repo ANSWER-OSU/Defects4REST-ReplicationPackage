@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/20</ISSUEURL>
+  <TITLE>Error running with nginx-proxy</TITLE>
+  <DESCRIPTION>Hello, @o1lab, I'm running xmysql from your container `markuman/xmysql` and want to use it with [nginx-proxy](https://github.com/jwilder/nginx-proxy) container together. ```bash docker run -d \ -e VIRTUAL_HOST=api.example.com \ -e VIRTUAL_PORT=3000 \ -e DATABASE_HOST=example-blog-db-mysql \ -e DATABASE_USER=root \ -e DATABASE_PASSWORD=fab14france \ -e DATABASE_NAME=wordpress \ --name xmysql --restart=always \ --network nginx-proxy \ markuman/xmysql ```` `docker logs xmysql ` said that xmysql started fine: ``` Generating REST APIs at the speed of your thought.. - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Database : wordpress Number of Tables : 12 REST APIs Generated : 228 Xmysql took : 1.1 seconds - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ``` But when I go to api.example.com I see `502 Bad Gateway` nginx error. nginx log of the request: ``` connect() failed (111: Connection refused) while connecting to upstream, client: 178.76.224.96, server: api.example.com, request: &quot;GET / HTTP/1.1&quot;, upstream: &quot;http://172.19.0.13:3000/&quot;, host: &quot;api.example.com&quot; ``` Strings from generated default.conf of nginx-proxy: ``` upstream api.example.com { server 172.19.0.13:3000; } ... server { server_name api.example.com; listen 80 ; access_log /var/log/nginx/access.log vhost; include /etc/nginx/vhost.d/default; location / { proxy_pass http://api.example.com } } ``` Please help me find out what could be the issue. IP address of xmysql docker container is correct. ``` # docker exec -it xmysql /bin/sh /usr/src/app # node -v v8.9.3 /usr/src/app # npm -v 5.5.1 /usr/src/app # mysql --version /bin/sh: mysql: not found /usr/src/app # xmysql --version /bin/sh: xmysql: not found ```</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix : Use process.memoryUsage() in /_health.</MESSAGE>
+    <SHA>7749cf8fde29d44de5f75dedaba777fe1aec5856</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #22 from markuman/master #20 add notes about using a reverse proxy (e.g. nginx)</MESSAGE>
+      <SHA>e502575f3d6c1b17f355c4ba4d586a531beb830c</SHA>
+      <PATCHEDFILES>
+        <FILE>README.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#20 change container port to 80 and make xmysql response on any request</MESSAGE>
+      <SHA>fff8704b73b2fa5c9a61be5b7689d4d3929ee72b</SHA>
+      <PATCHEDFILES>
+        <FILE>docker-entrypoint.sh</FILE>
+        <FILE>dockerfile</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#20 update documentation and add notes about debugging</MESSAGE>
+      <SHA>46fb497aac718c10e1697c7a2422727e3c446230</SHA>
+      <PATCHEDFILES>
+        <FILE>README.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#20 add notes about using a reverse proxy (e.g. nginx)</MESSAGE>
+      <SHA>484c7117cbee83940cd021ab065253f9cedba2f5</SHA>
+      <PATCHEDFILES>
+        <FILE>README.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #22 from markuman/master #20 add notes about using a reverse proxy (e.g. nginx)</MESSAGE>
+      <SHA>ee9b40e4423e452b6733499e8f5cb799b26547b3</SHA>
+      <PATCHEDFILES>
+        <FILE>README.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #20 from nocodb/feat/added-publishing Added publishing</MESSAGE>
+      <SHA>7b101cb18ab13a86f3f32b7d60e98090afcec61f</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/components/docs/Page.vue</FILE>
+        <FILE>packages/nc-gui/components/docs/SideBar.vue</FILE>
+        <FILE>packages/nc-gui/components/docs/View.vue</FILE>
+        <FILE>packages/nc-gui/composables/docs/useDocs.ts</FILE>
+        <FILE>packages/nc-gui/context/index.ts</FILE>
+        <FILE>packages/nc-gui/pages/[projectType]/doc/[projectId]/[...slugs].vue</FILE>
+        <FILE>packages/nc-gui/pages/[projectType]/doc/[projectId]/public/[...slugs].vue</FILE>
+        <FILE>packages/nocodb-sdk/src/lib/Api.ts</FILE>
+        <FILE>packages/nocodb/src/lib/meta/api/index.ts</FILE>
+        <FILE>packages/nocodb/src/lib/meta/api/publicApis/index.ts</FILE>
+        <FILE>packages/nocodb/src/lib/meta/api/publicApis/publicDocsBooksApis.ts</FILE>
+        <FILE>packages/nocodb/src/lib/meta/api/publicApis/publicDocsPagesApis.ts</FILE>
+        <FILE>packages/nocodb/src/lib/models/Book.ts</FILE>
+        <FILE>packages/nocodb/src/lib/models/Page.ts</FILE>
+        <FILE>packages/nocodb/tests/unit/factory/page.ts</FILE>
+        <FILE>packages/nocodb/tests/unit/rest/tests/docs.test.ts</FILE>
+        <FILE>scripts/sdk/swagger.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

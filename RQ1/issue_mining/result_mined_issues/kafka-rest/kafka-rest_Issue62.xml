@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>62</ISSUENO>
+  <ISSUEURL>https://github.com/confluentinc/kafka-rest/issues/62</ISSUEURL>
+  <TITLE>Reduce time required to run tests</TITLE>
+  <DESCRIPTION>The tests take a long time to run. Some of this overhead is unavoidable with the integration tests. However, there's probably some low-hanging fruit in ClusterTestHarness that might make a big difference: - Default number of brokers is 3. This is probably overkill for almost every test. - Might be able to pull up/tear down brokers in parallel, although it would be worth checking how long they take to start up/tear down before trying to make the parallel version work. - Schema registry only needs to be started if we're going to use Avro. Only a couple of the tests need Avro support.</DESCRIPTION>
+  <REPONAME>kafka-rest</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Trivial documentation fix.</MESSAGE>
+    <SHA>533faf6b99b7268fbbdc6b8e513cb5a617868996</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Reduce integration test time. Reduce integration test time by using fewer brokers, one most of the time, and only starting the schema registry when required. Fixes #62.</MESSAGE>
+      <SHA>6bcdfbd1074f81d615a152be020c6cedcafe21a3</SHA>
+      <PATCHEDFILES>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/AbstractConsumerTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/AvroProducerTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/ClusterTestHarness.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/ConsumerAvroTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/MetadataAPITest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/ProducerTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

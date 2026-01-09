@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4993</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/4993</ISSUEURL>
+  <TITLE>Add upper limits to memory and cpu for pods for Kubernetes deployments</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Presently, when following the documentation (https://github.com/ansible/awx/blob/devel/INSTALL.md#Kubernetes) to set up AWX in Kubernetes, there is a possibility of misconfiguration with respect to memory and cpu limits for the awx pods ##### SUMMARY - According to the documentation linked above (https://github.com/ansible/awx/blob/devel/INSTALL.md#Kubernetes), to set up AWX in Kubernetes, one can quickly clone the repo and run the ansible installer playbook. - However, looking at https://github.com/ansible/awx/blob/devel/installer/roles/kubernetes/defaults/main.yml, it appears that while there are default memory and cpu requests set for the individual pods, there aren't any limits set by default. This could lead to a potential problem where a user using a Kubernetes namespace with a LimitRange object(https://kubernetes.io/docs/concepts/policy/limit-range/) could see a 'Specified memory/cpu request greater than limit' error, because the LimitRange limit gets used for deployments with no explicit limit configuration. In this case, even if the limitrange default limit values happen to be lower than the awx configured default requests ( such as web_mem_request, web_cpu_request, etc) even if the actual max limit is higher. An example of a LimitRange spec is referenced below: ---- #### LimitRange apiVersion: v1 kind: LimitRange metadata: namespace: some-namespace name: default-limits-per-container spec: limits: - max: cpu: &quot;1.5&quot; memory: &quot;6Gi&quot; min: cpu: &quot;50m&quot; memory: &quot;20Mi&quot; default: cpu: &quot;250m&quot; memory: &quot;512Mi&quot; defaultRequest: cpu: &quot;50m&quot; memory: &quot;256Mi&quot; type: Container --- In the example above, if the values for awx containers (specified in https://github.com/ansible/awx/blob/devel/installer/roles/kubernetes/defaults/main.yml )happen to be the following. web_mem_request: 1 web_cpu_request: 500 task_mem_request: 2 task_cpu_request: 1500 rabbitmq_mem_request: 2 rabbitmq_cpu_request: 500 memcached_mem_request: 1 memcached_cpu_request: 500 Because there are no upper limits set, the LimitRange object will set the default upperlimits which happen to be lower than the explicit request values and can. While the user can mitigate this quickly by adding the variables such as web_mem_limit and web_cpu_limit , it would be helpful if these were included in the default/main.yml configuration.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>1272</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>store event_data in jsonb object - jsonb must be used in order to use '-' operator .. which we use to filter out artifact_data</MESSAGE>
+    <SHA>aa07beb78dee6aa44d583918e6b87178a29865ca</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Backport fix for slow event saving with large inventories (#4993)</MESSAGE>
+      <SHA>2cdfadf27a77dce093a22fbb510d2edf5fa53bd4</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/models/events.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

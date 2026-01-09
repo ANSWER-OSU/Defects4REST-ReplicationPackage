@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117137</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/117137</ISSUEURL>
+  <TITLE>[CI] IndexingIT testIndexing {upgradedNodes=2} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #13144 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/abp2pk2zyhzc4) - [elasticsearch-intake #13143 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/j36laaehxavcg) - [elasticsearch-pull-request #42183 / 8.17.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/ms7jzkb2hnqf2) - [elasticsearch-pull-request #42183 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/gi4ql576tlz76) - [elasticsearch-pull-request #42182 / 8.17.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/3carzkwfxataq) - [elasticsearch-pull-request #42182 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/4yijac43rjxxu) - [elasticsearch-pull-request #42180 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/ttohfmf2vnqyg) - [elasticsearch-pull-request #42178 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/ldd37kzqsa62a) - [elasticsearch-pull-request #42179 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/42eurv6k5wldq) - [elasticsearch-pull-request #42177 / 8.17.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/xufo4heubhkyc) **Reproduction Line:** ``` ./gradlew &quot;:qa:rolling-upgrade:v9.0.0#bwcTest&quot; -Dtests.class=&quot;org.elasticsearch.upgrades.IndexingIT&quot; -Dtests.method=&quot;testIndexing {upgradedNodes=2}&quot; -Dtests.seed=D14C1C7C17A270F5 -Dtests.bwc=true -Dtests.locale=nus -Dtests.timezone=Africa/Abidjan -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.upgrades.IndexingIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testIndexing%20%7BupgradedNodes%3D2%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.junit.ComparisonFailure: expected:&lt;{&quot;hits&quot;:{&quot;total&quot;:[10]}}&gt; but was:&lt;{&quot;hits&quot;:{&quot;total&quot;:[5]}}&gt; ``` **Issue Reasons:** - [main] 2 consecutive failures in test testIndexing {upgradedNodes=2} - [main] 2 consecutive failures in step 9.0.0_bwc-snapshots - [main] 7 consecutive failures in step 8.17.0_bwc-snapshots - [main] 4 consecutive failures in pipeline elasticsearch-intake - [main] 21 failures in test testIndexing {upgradedNodes=2} (3.0% fail rate in 708 executions) - [main] 11 failures in step 9.0.0_bwc-snapshots (3.3% fail rate in 337 executions) - [main] 9 failures in step 8.17.0_bwc-snapshots (3.2% fail rate in 284 executions) - [main] 5 failures in pipeline elasticsearch-intake (5.7% fail rate in 87 executions) - [main] 12 failures in pipeline elasticsearch-pull-request (4.3% fail rate in 279 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.upgrades.IndexingIT testTsdb {upgradedNodes=3} #117136</MESSAGE>
+    <SHA>96934b91fceae9ce45a7dbb88669ee7378c04086</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.upgrades.IndexingIT testIndexing {upgradedNodes=2} #117137</MESSAGE>
+      <SHA>4879d6a3d2e52b1a3725bce2b0988bdf5decb3da</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.upgrades.IndexingIT testIndexing {upgradedNodes=2} #117137</MESSAGE>
+      <SHA>8c993c0e5f031f49c76b6c48c0e7e9c8b36ce8c2</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.upgrades.IndexingIT testIndexing {upgradedNodes=2} #117137</MESSAGE>
+      <SHA>6aab3ef8fa2d1211d1b97bea1fa5fa8b1b656bbb</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

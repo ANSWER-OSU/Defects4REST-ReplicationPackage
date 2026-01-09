@@ -1,0 +1,130 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>133</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/133</ISSUEURL>
+  <TITLE>Inconsistent Handling of IdentityLinks for tasks</TITLE>
+  <DESCRIPTION>**Scenario** When a user is involved in a task an &quot;IdentityLink&quot; is created and it points to the TaskEntity Identity Links are not handled consistently dough: - &quot;candidate&quot; identity link types are persisted in &quot;ACT_RU_IDENTITYLINK&quot; and point to a task &quot;ACT_RU_TASK&quot; - &quot;assignee&quot; and &quot;owner&quot; identity link types - are persisted in &quot;ACT_RU_IDENTITYLINK&quot; but have **TASK_ID** null - have a &quot;PROC_INSTANCE_ID&quot; value - have the type &quot;participant&quot; (in fact they refer to a process participant rather than a task owner or assignee) - the actual link between a **TaskEntity** and a User/Group is kept in the &quot;ACT_RU_TASK&quot; table in column OWNER_, ASSIGNEE_ - the **TaskService.getIdentityLinksForTask(String)** method executes **GetIdentityLinksForTaskCmd** command which adds the two links manually and appends them two whatever it found in the DB **Problems** - the API is not consistent. **TaskService.getIdentityLinksForTask(String)** and **IdentityLinkEntityManager.findIdentityLinksByTaskId(String)** can return different results (depending if the task has an owner or assignee) - it affects #123 by making it difficult to keep track (count) of task identity links - the Historic Identity Links are incomplete. The updates regarding task assignee and task ownership are not present in ACT_HI_IDENTITYLINK. Only the entries regarding process participation are kept.</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>17</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix serialization of rest QueryVariable (#136)</MESSAGE>
+    <SHA>f501585611b0ea4b819fdf45913a0db7a71f3775</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#133 historic identity links are now saved in the DB. No need to create them manually</MESSAGE>
+      <SHA>7a64220b24334e76aa455ea88914f07c54ba0f52</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/cmd/GetHistoricIdentityLinksForTaskCmd.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#133 record task owner and task assignee as Identity Links</MESSAGE>
+      <SHA>2d55d050d41384835db1f799740d5563f71b9bc5</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/TaskEntityManagerImpl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#133 added unit test for assignee</MESSAGE>
+      <SHA>882de52c931ad5a3b358fd85ec65e3dabfebfb6c</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/history/HistoricTaskInstanceTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/history/HistoricTaskInstanceTest.testHistoricIdentityLinksOnTaskClaim.bpmn20.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#133 added tests for TaskOwner</MESSAGE>
+      <SHA>cea5756a6671d184483ed107b79faa6c055a7b3d</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/history/HistoricTaskInstanceTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/history/HistoricTaskInstanceTest.testHistoricIdentityLinksForTaskOwner.bpmn20.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#133 historic identity links are now saved in the DB. No need to create them manually</MESSAGE>
+      <SHA>fe164a9b8440ca86123808d4197e2325b7794cfd</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/cmd/GetHistoricIdentityLinksForTaskCmd.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#133 record task owner and task assignee as Identity Links</MESSAGE>
+      <SHA>c03f7b46a0ff61f8ca16ce8aae8f1c9c78c5f18c</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/TaskEntityManagerImpl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#133 added unit test for assignee</MESSAGE>
+      <SHA>bfa0ab239f59dd864e1ed5eae91df6f66a72a8b8</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/history/HistoricTaskInstanceTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/history/HistoricTaskInstanceTest.testHistoricIdentityLinksOnTaskClaim.bpmn20.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#133 added tests for TaskOwner</MESSAGE>
+      <SHA>8227c17a34e2b6446f1f86d8553cc771014011c1</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/history/HistoricTaskInstanceTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/history/HistoricTaskInstanceTest.testHistoricIdentityLinksForTaskOwner.bpmn20.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#133 added CRATE_TIME_ field</MESSAGE>
+      <SHA>e834a6cab053f9a89c9d2b2564aa38d1e455f220</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/history/HistoricIdentityLink.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/history/DefaultHistoryManager.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/HistoricIdentityLinkEntity.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/HistoricIdentityLinkEntityImpl.java</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/mapping/entity/HistoricIdentityLink.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#133 updated DB related scripts</MESSAGE>
+      <SHA>a188a977106b669d899eeac3bb3399320e490f1e</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/ProcessEngine.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/db/DbSqlSession.java</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.db2.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.db2.create.history.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.h2.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.h2.create.history.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.hsql.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.hsql.create.history.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.mssql.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.mssql.create.history.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.mysql.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.mysql.create.history.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.mysql55.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.mysql55.create.history.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.oracle.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.oracle.create.history.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.postgres.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.postgres.create.history.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/upgrade/flowable.db2.upgradestep.6005.to.6006.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/upgrade/flowable.h2.upgradestep.6005.to.6006.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/upgrade/flowable.hsql.upgradestep.6005.to.6006.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/upgrade/flowable.mssql.upgradestep.6005.to.6006.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/upgrade/flowable.mysql.upgradestep.6005.to.6006.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/upgrade/flowable.mysql55.upgradestep.6005.to.6006.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/upgrade/flowable.oracle.upgradestep.6005.to.6006.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/upgrade/flowable.postgres.upgradestep.6005.to.6006.engine.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#133 updated unit tests for HistoricLink.createTime</MESSAGE>
+      <SHA>63ac81595394fe43cf4672f555de410987cc8ce6</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/history/HistoricTaskInstanceTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#133 updated unit tests for HistoricLink.createTime</MESSAGE>
+      <SHA>a6da07b147a9d91a264570ff0547c32d48cd07ed</SHA>
+      <PATCHEDFILES/>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

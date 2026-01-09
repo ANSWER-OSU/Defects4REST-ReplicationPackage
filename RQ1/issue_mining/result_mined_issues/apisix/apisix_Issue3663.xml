@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3663</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/3663</ISSUEURL>
+  <TITLE>bug: script does not work</TITLE>
+  <DESCRIPTION>### Issue description I used the script, but the script did not execute, see the following test case ``` use t::APISIX 'no_plan'; repeat_each(1); log_level('info'); no_long_string(); no_root_location(); run_tests; __DATA__ === TEST 1: add services --- config location /t { content_by_lua_block { local t = require(&quot;lib.test_admin&quot;).test local code, body = t('/apisix/admin/services/1', ngx.HTTP_PUT, [[{ &quot;name&quot;: &quot;script_test&quot;, &quot;upstream&quot;: { &quot;nodes&quot;: { &quot;127.0.0.1:1980&quot;: 1 }, &quot;type&quot;: &quot;roundrobin&quot; } }]] ) if code &gt;= 300 then ngx.status = code end ngx.say(body) } } --- request GET /t --- response_body passed --- no_error_log [error] === TEST 2: route binding service and route has script --- config location /t { content_by_lua_block { local t = require(&quot;lib.test_admin&quot;).test local code, body = t('/apisix/admin/routes/1', ngx.HTTP_PUT, [[{ &quot;service_id&quot;: 1, &quot;script&quot;: &quot;local _M = {} \n function _M.access(api_ctx) \n ngx.log(ngx.INFO,\&quot;hit access phase\&quot;) \n end \nreturn _M&quot;, &quot;uri&quot;: &quot;/hello&quot; }]] ) if code &gt;= 300 then ngx.status = code end ngx.say(body) } } --- request GET /t --- response_body passed --- no_error_log [error] === TEST 3: hit route and trigger script --- request GET /hello --- response_body hello world --- error_log eval qr/loaded script_obj: \{&quot;access&quot;:&quot;function: 0x[\w]+&quot;\}/ ``` based on the documentation for the script, I think the script should be executed because it is bound to the route and neither the route nor the service has plugins configured bugs may appear in https://github.com/apache/apisix/blob/16f017dfedebf8bf85ff8be9d48c05d088d21d0e/apisix/plugin.lua#L385 maybe this function should be preceded by code like this before return ``` if route_conf.value.script then new_conf.value.script = route_conf.value.script end ``` ### Environment * apisix version (cmd: `apisix version`): greater than 2.2, less than 2.3 * OS (cmd: `uname -a`): Centos 7 * OpenResty / Nginx version (cmd: `nginx -V` or `openresty -V`): openresty/1.19.3.1 * etcd version, if have (cmd: run `curl http://127.0.0.1:9090/v1/server_info` to get the info from server-info API): {&quot;etcdserver&quot;:&quot;3.4.13&quot;,&quot;etcdcluster&quot;:&quot;3.4.0&quot;} * apisix-dashboard version, if have: ### Minimal test code / Steps to reproduce the issue 1. 2. 3. ### What's the actual result? (including assertion message &amp; call stack if applicable) ### What's the expected result?</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: the traffic-split plugin supports upstream_id (#3512)</MESSAGE>
+    <SHA>1d79ce57eb84113e44756618a39f2fd4e0dfc8ee</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: #3663</MESSAGE>
+      <SHA>9dc35e3096cd8d7bd811c7b075f53d873e9319ff</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugin.lua</FILE>
+        <FILE>t/admin/script.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: script does not work when the route is bound to a service. (#3678) fix #3663</MESSAGE>
+      <SHA>a6fbcce2c27f38fb93c94e149fd7fa423c3d5f9d</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugin.lua</FILE>
+        <FILE>t/script/script.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

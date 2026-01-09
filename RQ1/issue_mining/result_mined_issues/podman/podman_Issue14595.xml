@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14595</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14595</ISSUEURL>
+  <TITLE>support &quot;podman network ls --filter dangling=true&quot;</TITLE>
+  <DESCRIPTION>**Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind feature **Description** The docker.el module for Emacs (see https://github.com/Silex/docker.el) uses &quot;podman network ls --filter dangling=true&quot;). Unfortunately, Podman doesn't support this yet. **Steps to reproduce the issue:** Emacs runs first ``` $ podman network ls --format=&quot;[{{ json .ID }},{{ json .ID }},{{ json .Name }},{{ json .Driver }}]&quot; ``` to get all networks available and then it runs ``` $ podman network ls --filter dangling=true --format=&quot;[{{ json .ID }},{{ json .ID }},{{ json .Name }},{{ json .Driver }}]&quot; ``` to get only the dangling ones. It uses this information to mark the dangling ones for it's GUI display. This last call however returns an error: ``` $ podman network ls --filter dangling=true --format=&quot;[{{ json .ID }},{{ json .ID }},{{ json .Name }},{{ json .Driver }}]&quot; Error: invalid filter &quot;dangling&quot; ``` **Additional information you deem important (e.g. issue happens only occasionally):** **Output of `podman version`:** ``` $ podman version Client: Podman Engine Version: 4.2.0-dev API Version: 4.2.0-dev Go Version: go1.17.11 Git Commit: 9fac1b335f681400a029e9d8014f45fa5634ec40 Built: Tue Jun 14 13:53:13 2022 OS/Arch: linux/amd64 ``` **Have you tested with the latest version of Podman and have you checked the Podman Troubleshooting Guide? (https://github.com/containers/podman/blob/main/troubleshooting.md)** Sure **Commands that support dangling=true already** Emacs also uses * podman image ls --filter dangling=true * podman volume ls --filter dangling=true These commands support the dangling filter.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14580 from jakecorrenti/stats-on-non-running-container Non-running containers now report statistics via the `podman stats`</MESSAGE>
+    <SHA>78ecdad5f8f16dbb6146f2741a3d7ead1ce837bc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>allow filter networks by dangling status add the ability to filter networks by their dangling status via: `network ls --filter dangling=true/false` Fixes: #14595 Signed-off-by: Carlo Lobrano &lt;c.lobrano@gmail.com&gt;</MESSAGE>
+      <SHA>4a981c490be01547c17fb0b1fc4d1c3bfbf3551e</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-network-ls.1.md</FILE>
+        <FILE>pkg/domain/infra/abi/network.go</FILE>
+        <FILE>test/apiv2/35-networks.at</FILE>
+        <FILE>test/e2e/network_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>allow filter networks by dangling status add the ability to filter networks by their dangling status via: `network ls --filter dangling=true/false` Fixes: #14595 Signed-off-by: Carlo Lobrano &lt;c.lobrano@gmail.com&gt;</MESSAGE>
+      <SHA>11730aae23e279c02bd07dc20ee474dab249eed8</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/infra/abi/network.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1929</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/1929</ISSUEURL>
+  <TITLE>FUSE growing RAM footprint</TITLE>
+  <DESCRIPTION>**Describe the bug** Ever growing RAM footprint of FUSE mount. Here are the files [pprof.zip](https://github.com/chrislusf/seaweedfs/files/6181826/pprof.zip) **System Setup** - `version 8000GB 2.34 9672f9e linux amd64` **Expected behavior** A smaller, non-growing RAM footprint. Or at least something that does not explode.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>15</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>avoid possible nil fix https://github.com/chrislusf/seaweedfs/issues/1928 The nil was because of `dn.Parent().UnlinkChildNode(dn.Id())` in topo.UnRegisterDataNode() function, when the dn leaves the cluster.</MESSAGE>
+    <SHA>5d931eff2727be10ad01cd2920f8e47cf034e895</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>mount: release resources when Forget() is called address https://github.com/chrislusf/seaweedfs/issues/1929</MESSAGE>
+      <SHA>288369cfc78b2e8d9d2f64a6769c9ce3f5e8ecc9</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filesys/file.go</FILE>
+        <FILE>weed/filesys/filehandle.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

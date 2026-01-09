@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>22233</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/22233</ISSUEURL>
+  <TITLE>Manpage for podman-systemd.unit includes incomplete advice which can lead to unexpected behavior</TITLE>
+  <DESCRIPTION>The advice to use the `RemainAfterExit` option neglects to provide a full explanation as to the motivation which leads to the advice sometimes (often?) being incorrect. https://github.com/containers/podman/blob/45b809c0631fa1e3d92608345cd96b988537d7ce/docs/source/markdown/podman-systemd.unit.5.md?plain=1#L90-L91 If the generated container unit is meant to be a recurring oneshot job activated by a timer unit then setting ` RemainAfterExit` will result in the container/service being run only once and then left in the &quot;started&quot; state which will prevent subsequent timer events from triggering the unit again. It would perhaps be more useful to the user to refer to the systemd manpage for `systemd.service(5)` which provides a much more full explanation which. Similarly the note about `TimeoutStartSec`: https://github.com/containers/podman/blob/45b809c0631fa1e3d92608345cd96b988537d7ce/docs/source/markdown/podman-systemd.unit.5.md?plain=1#L68-L72 neglects to mention that the behavior of systemd is different when `type=oneshot`, again it would probably be useful to reference the systemd.service manpage, which details more completely the expected behavior and includes the critical notes about exceptional behaviors.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>83</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23032 from giuseppe/drop-make-accessible libpod: do not chmod bind mounts</MESSAGE>
+    <SHA>25bc426fb0832e20a9f7cc2662caf37e5a490204</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix #22233 Add information about Type=oneshot units as suggested in https://github.com/containers/podman/issues/22233 Signed-off-by: marinmo &lt;bugzilla@marinmo.org&gt;</MESSAGE>
+      <SHA>945226a84428ed038851800ee123a4bbb69773f8</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-systemd.unit.5.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #23072 from marinmo/update-systemd-unit.md [CI:DOCS] Add information about Type=oneshot units in podman-systemd.unit.5.md (fixes #22233)</MESSAGE>
+      <SHA>1128e5b410b90e72d3eb99e485058b99531255c6</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-systemd.unit.5.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

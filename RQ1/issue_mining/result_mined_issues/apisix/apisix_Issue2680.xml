@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2680</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2680</ISSUEURL>
+  <TITLE>bug:config_etcd did not handle the watcher be canceled</TITLE>
+  <DESCRIPTION>### Issue description Current version, the config_etcd watch different prefixes and maintain revisions separately, when some prefix be modified, the others can not perceive revision change. If etcd enable auto compacted, the watcher with old revision will be canceled because revision be compacted. hope the watcher can handle the canceled result, re-pull the latest revision and re-watch In current version(2.0), canceled response will case panic 2020/11/10 10:23:25 [error] 46#0: *16354 [lua] config_etcd.lua:448: failed to fetch data from etcd: &gt; /usr/local/apisix/apisix/core/etcd.lua:115: bad argument #1 to 'ipairs' (table expected, got nil) stack traceback: [C]: in function 'ipairs' /usr/local/apisix/apisix/core/etcd.lua:115: in function 'waitdir' /usr/local/apisix/apisix/core/config_etcd.lua:255: in function 'sync_data' /usr/local/apisix/apisix/core/config_etcd.lua:424: in function &lt;/usr/local/apisix/apisix/core/config_etcd.lua:414&gt; [C]: in function 'xpcall' /usr/local/apisix/apisix/core/config_etcd.lua:414: in function &lt;/usr/local/apisix/apisix/core/config_etcd.lua:405&gt;, etcd key: /apisix/plugin_metadata, context: ngx.timer ### Environment - apisix version (cmd: apisix version): 2.0 - OS:</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: disable example-plugin by default (#2673) Close #2659.</MESSAGE>
+    <SHA>3ba6629daab62a25a8a06c0e33c236599ff76347</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix(etcd): handle etcd compaction Close #2680.</MESSAGE>
+      <SHA>44a631eab991b985e2990c63571c4d49a6722b58</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/config_etcd.lua</FILE>
+        <FILE>apisix/core/etcd.lua</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(etcd): handle etcd compaction Close #2680.</MESSAGE>
+      <SHA>41f9345dca2273a59d9269c11920ebd2e8714363</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/config_etcd.lua</FILE>
+        <FILE>apisix/core/etcd.lua</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(etcd): handle etcd compaction (#2687) Close #2680</MESSAGE>
+      <SHA>f2655013b16d37c8f6086f517351aeba401072a6</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/config_etcd.lua</FILE>
+        <FILE>apisix/core/etcd.lua</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

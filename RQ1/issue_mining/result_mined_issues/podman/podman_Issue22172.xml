@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>22172</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/22172</ISSUEURL>
+  <TITLE>podman info does not show DefaultRootlessNetworkCmd</TITLE>
+  <DESCRIPTION>AFAICT it is impossible to determine the default. Solution is simple: ```diff diff --git a/libpod/define/info.go b/libpod/define/info.go index 564aad4b9..70e9922a0 100644 --- a/libpod/define/info.go +++ b/libpod/define/info.go @@ -48,6 +48,7 @@ type HostInfo struct { MemTotal int64 `json:&quot;memTotal&quot;` NetworkBackend string `json:&quot;networkBackend&quot;` NetworkBackendInfo types.NetworkInfo `json:&quot;networkBackendInfo&quot;` + NetworkRootless string `json:&quot;networkRootless&quot;` OCIRuntime *OCIRuntimeInfo `json:&quot;ociRuntime&quot;` OS string `json:&quot;os&quot;` // RemoteSocket returns the UNIX domain socket the Podman service is listening on diff --git a/libpod/info.go b/libpod/info.go index 140b535ef..6c6b510ae 100644 --- a/libpod/info.go +++ b/libpod/info.go @@ -125,6 +125,7 @@ func (r *Runtime) hostInfo() (*define.HostInfo, error) { MemTotal: mi.MemTotal, NetworkBackend: r.config.Network.NetworkBackend, NetworkBackendInfo: r.network.NetworkInfo(), + NetworkRootless: r.config.Network.DefaultRootlessNetworkCmd, OS: runtime.GOOS, SwapFree: mi.SwapFree, SwapTotal: mi.SwapTotal, ``` ...but needs a better name, which needs reindenting, and probably needs other tweaks.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #22120 from garthy/dont_stage_tarfile Dont save remote build context in temp file but stream and extract</MESSAGE>
+    <SHA>4f76c7a0c7f22d12b660c8409e981fa71d8f04c2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add rootless network command to `podman info` Useful to tell whether containers are being made with pasta or slirp4netns by default. Info is bloated enough already that I don't really have concerns about shoving more into it. Fixes #22172 Signed-off-by: Matt Heon &lt;mheon@redhat.com&gt;</MESSAGE>
+      <SHA>b56331cd2f4342ebee49b6e321a8d141df7ba002</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/define/info.go</FILE>
+        <FILE>libpod/info.go</FILE>
+        <FILE>test/system/005-info.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

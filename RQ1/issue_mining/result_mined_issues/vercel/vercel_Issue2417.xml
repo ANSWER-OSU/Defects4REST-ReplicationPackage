@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2417</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/2417</ISSUEURL>
+  <TITLE>[now dev] Routes don't work when there is only one static builder specified</TITLE>
+  <DESCRIPTION>`now dev` doesn't respect routing rules when there are no lambdas configured in `now.json`. When I visit `localhost:3000/`, I get directory listing view, not the html file configured in `now.json` ## Technical info **OS:** macOS 10.15 (Catalina) Beta (19A471t) **My `now.json`:** ```json { &quot;version&quot;: 2, &quot;builds&quot;: [ { &quot;src&quot;: &quot;public/**&quot;, &quot;use&quot;: &quot;@now/static&quot; } ], &quot;routes&quot;: [ { &quot;src&quot;: &quot;/&quot;, &quot;dest&quot;: &quot;/public/host.html&quot; }, { &quot;src&quot;: &quot;\/l\/(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)&quot;, &quot;dest&quot;: &quot;/public/guest.html&quot;} ] } ``` **Other useful info:** ``` $ now --version 15.4.0 $ node -v v11.13.0 $ tree . ├── LICENSE.md ├── README.md ├── docs │ └── logo.svg ├── now.json ├── package.json └── public ├── guest.html ├── guest.js ├── host.html ├── host.js ├── logo.svg └── main.css 2 directories, 11 files $ now dev -d &gt; [debug] [2019-06-10T13:50:50.256Z] Found config in file /Users/georgebougakov/dev/JoinMyCall/now.json &gt; [debug] [2019-06-10T13:50:50.270Z] Using Now CLI 15.4.0 &gt; [debug] [2019-06-10T13:50:50.275Z] user supplied known subcommand &gt; Now CLI 15.4.0 dev (beta) — https://zeit.co/feedback/dev &gt; [debug] [2019-06-10T13:50:50.490Z] The yarn executable is already cached, not re-downloading &gt; [debug] [2019-06-10T13:50:50.490Z] Reading `now.json` file &gt; [debug] [2019-06-10T13:50:50.504Z] Locating files /Users/georgebougakov/dev/JoinMyCall &gt; [debug] [2019-06-10T13:50:50.508Z] Ignoring /Users/georgebougakov/dev/JoinMyCall/.git &gt; [debug] [2019-06-10T13:50:50.520Z] Locating files /Users/georgebougakov/dev/JoinMyCall: 14.910ms &gt; [debug] [2019-06-10T13:50:50.560Z] Locating files /Users/georgebougakov/dev/JoinMyCall &gt; [debug] [2019-06-10T13:50:50.562Z] Locating files /Users/georgebougakov/dev/JoinMyCall: 1.667ms &gt; [debug] [2019-06-10T13:50:50.563Z] Adding build match for &quot;public/guest.html&quot; &gt; [debug] [2019-06-10T13:50:50.563Z] Adding build match for &quot;public/guest.js&quot; &gt; [debug] [2019-06-10T13:50:50.564Z] Adding build match for &quot;public/host.html&quot; &gt; [debug] [2019-06-10T13:50:50.564Z] Adding build match for &quot;public/host.js&quot; &gt; [debug] [2019-06-10T13:50:50.564Z] Adding build match for &quot;public/logo.svg&quot; &gt; [debug] [2019-06-10T13:50:50.564Z] Adding build match for &quot;public/main.css&quot; &gt; Ready! Available at http://localhost:3000 &gt; GET / ```</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>30</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now dev] Update @now/build-utils and handle warnings (#2523) * [now dev] Update @now/build-utils and handle warnings * Display warnings from response headers for deployment creation * Update src/util/dev/server.ts Co-Authored-By: Nathan Rajlich &lt;n@n8.io&gt; * Apply routes only when there are no builds * Updated the build utils</MESSAGE>
+    <SHA>954d433f6f9a0bb29914723854a980683c4e9d96</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now dev] Render directory listing for Now v2 projects Before directory listings only worked for &quot;all static&quot; deployments since `now dev` would shell out to `serve-handler` to do the rendering. Now the directory listing rendering logic is moved into `now dev` which allows projects with Lambdas to also serve the directory listing (previously they would just 404). This removes the special-casing of &quot;all static&quot; deployments so that there's only one code path. Fixes #2161. Fixes #2417.</MESSAGE>
+      <SHA>3c092846d069e7b46e8c23b505fff88fbfd1deff</SHA>
+      <PATCHEDFILES>
+        <FILE>@types/serve-handler/src/directory.d.ts</FILE>
+        <FILE>src/util/dev/server.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now dev] Render directory listing for Now v2 projects (#2528) * [now dev] Render directory listing for Now v2 projects Before directory listings only worked for &quot;all static&quot; deployments since `now dev` would shell out to `serve-handler` to do the rendering. Now the directory listing rendering logic is moved into `now dev` which allows projects with Lambdas to also serve the directory listing (previously they would just 404). This removes the special-casing of &quot;all static&quot; deployments so that there's only one code path. Fixes #2161. Fixes #2417. * Move `serve-handler/src/directory` types to root * Set `Content-Length` header for dir listing * Add unit tests for directory listing * Fix unit test</MESSAGE>
+      <SHA>5d329e0bc3ed640f18c8414e917f8468d04fb128</SHA>
+      <PATCHEDFILES>
+        <FILE>@types/serve-handler/index.d.ts</FILE>
+        <FILE>src/util/dev/server.ts</FILE>
+        <FILE>test/dev-server.unit.js</FILE>
+        <FILE>test/fixtures/unit/now-dev-directory-listing/file.txt</FILE>
+        <FILE>test/fixtures/unit/now-dev-directory-listing/lambda.js</FILE>
+        <FILE>test/fixtures/unit/now-dev-directory-listing/now.json</FILE>
+        <FILE>test/fixtures/unit/now-dev-static-routes/now.json</FILE>
+        <FILE>test/fixtures/unit/now-dev-static-routes/www/index.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now dev] Render directory listing for Now v2 projects (#2528) * [now dev] Render directory listing for Now v2 projects Before directory listings only worked for &quot;all static&quot; deployments since `now dev` would shell out to `serve-handler` to do the rendering. Now the directory listing rendering logic is moved into `now dev` which allows projects with Lambdas to also serve the directory listing (previously they would just 404). This removes the special-casing of &quot;all static&quot; deployments so that there's only one code path. Fixes #2161. Fixes #2417. * Move `serve-handler/src/directory` types to root * Set `Content-Length` header for dir listing * Add unit tests for directory listing * Fix unit test</MESSAGE>
+      <SHA>98d511b03c364faa1d77da25a8b43bada7346f92</SHA>
+      <PATCHEDFILES>
+        <FILE>@types/serve-handler/index.d.ts</FILE>
+        <FILE>src/util/dev/server.ts</FILE>
+        <FILE>test/dev-server.unit.js</FILE>
+        <FILE>test/fixtures/unit/now-dev-directory-listing/file.txt</FILE>
+        <FILE>test/fixtures/unit/now-dev-directory-listing/lambda.js</FILE>
+        <FILE>test/fixtures/unit/now-dev-directory-listing/now.json</FILE>
+        <FILE>test/fixtures/unit/now-dev-static-routes/now.json</FILE>
+        <FILE>test/fixtures/unit/now-dev-static-routes/www/index.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,60 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118320</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118320</ISSUEURL>
+  <TITLE>Change ConnectTransportException response code to 502</TITLE>
+  <DESCRIPTION>According to [RFC 9110 § 15.6.3](https://www.rfc-editor.org/rfc/rfc9110.html#section-15.6.3), the `502 Bad Gateway` response code is appropriate whenever: &gt; the server, while acting as a gateway or proxy, received an invalid response from an inbound server it accessed while attempting to fulfill the request. These days we consider the ES REST to be acting as a gateway to the cluster (or clusters) being accessed, so that seems like a more appropriate code to use when returning a `ConnectTransportException` than today’s 500. More practically, our clients generally retry on a 502, but not on a 500, and retrying on a `ConnectTransportException` seems like the right thing to do. Relates ES-10214</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Esql - fix some test failures due to results ordering (#118692) fix some failing multi-shard tests. The backport for the PR that added these tests hasn't landed yet, so I'm going to just cherry pick this into there rather than do two back ports with conflict resolution.</MESSAGE>
+    <SHA>4b90f01b49b820242608d54fae6b624fe950847d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ConnectTransportException returns retryable BAD_GATEWAY (#118681) ConnectTransportException and its subclasses previous translated to a INTERNAL_SERVER_ERROR HTTP 500 code. We are changing it to 502 BAD_GATEWAY so that users may choose to retry it on connectivity issues. Related ES-10214 Closes #118320</MESSAGE>
+      <SHA>517abe4ffdceb3c7ca771207fe20b0c813181810</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/118681.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/transport/ConnectTransportException.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/ExceptionSerializationTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ConnectTransportException returns retryable BAD_GATEWAY (#118681) ConnectTransportException and its subclasses previous translated to a INTERNAL_SERVER_ERROR HTTP 500 code. We are changing it to 502 BAD_GATEWAY so that users may choose to retry it on connectivity issues. Related ES-10214 Closes #118320</MESSAGE>
+      <SHA>cf2f8a0e7128b1e7ddbf74e53fdf05ea2fc7d7e9</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/118681.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/transport/ConnectTransportException.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/ExceptionSerializationTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ConnectTransportException returns retryable BAD_GATEWAY (#118681) ConnectTransportException and its subclasses previous translated to a INTERNAL_SERVER_ERROR HTTP 500 code. We are changing it to 502 BAD_GATEWAY so that users may choose to retry it on connectivity issues. Related ES-10214 Closes #118320 (cherry picked from commit 517abe4ffdceb3c7ca771207fe20b0c813181810)</MESSAGE>
+      <SHA>15f62173b27996d7c6ca59bf968870c69057ac98</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/118681.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/transport/ConnectTransportException.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/ExceptionSerializationTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ConnectTransportException returns retryable BAD_GATEWAY (#118681) (#119146) ConnectTransportException and its subclasses previous translated to a INTERNAL_SERVER_ERROR HTTP 500 code. We are changing it to 502 BAD_GATEWAY so that users may choose to retry it on connectivity issues. Related ES-10214 Closes #118320 (cherry picked from commit 517abe4ffdceb3c7ca771207fe20b0c813181810) Co-authored-by: Dianna Hohensee &lt;dianna.hohensee@elastic.co&gt;</MESSAGE>
+      <SHA>e777dbaa7c08c6b18ae97aade9fcaf42ec0d675c</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/118681.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/transport/ConnectTransportException.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/ExceptionSerializationTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ConnectTransportException returns retryable BAD_GATEWAY (#118681) ConnectTransportException and its subclasses previous translated to a INTERNAL_SERVER_ERROR HTTP 500 code. We are changing it to 502 BAD_GATEWAY so that users may choose to retry it on connectivity issues. Related ES-10214 Closes #118320</MESSAGE>
+      <SHA>c99c62f02a1f441220bc73b1d6c4ae8b3d49dc98</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/118681.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/transport/ConnectTransportException.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/ExceptionSerializationTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121480</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121480</ISSUEURL>
+  <TITLE>[CI] TransformCCSCanMatchIT testTransformLifecycle_RangeQueryThatMatchesNoShards failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #17347 / part2](https://gradle-enterprise.elastic.co/s/ygdvkfa5fuwcg) - [elasticsearch-intake #16846 / part2](https://gradle-enterprise.elastic.co/s/w77ntznvjunkk) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:transform:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.transform.checkpoint.TransformCCSCanMatchIT.testTransformLifecycle_RangeQueryThatMatchesNoShards&quot; -Dtests.seed=F38BD564DFD6F8D1 -Dtests.locale=ff-Latn-GN -Dtests.timezone=Chile/Continental -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.transform.checkpoint.TransformCCSCanMatchIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testTransformLifecycle_RangeQueryThatMatchesNoShards),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Shard [.transform-notifications-000002][0] is still locked after 5 sec waiting ``` **Issue Reasons:** - [8.x] 2 failures in test testTransformLifecycle_RangeQueryThatMatchesNoShards (0.3% fail rate in 756 executions) - [8.x] 2 failures in step part2 (2.7% fail rate in 75 executions) - [8.x] 2 failures in pipeline elasticsearch-intake (2.7% fail rate in 75 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.security.CoreWithSecurityClientYamlTestSuiteIT test {yaml=cat.aliases/10_basic/Empty cluster} #121484</MESSAGE>
+    <SHA>fc72c64738dedee5eef0b6921a0622fec140fc98</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.transform.checkpoint.TransformCCSCanMatchIT testTransformLifecycle_RangeQueryThatMatchesNoShards #121480</MESSAGE>
+      <SHA>06dab2d48c9cb62c5a42bdd76491dbe61f7aa9a8</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

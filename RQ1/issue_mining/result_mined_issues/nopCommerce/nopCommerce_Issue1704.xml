@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1704</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/1704</ISSUEURL>
+  <TITLE>ReCaptcha Version 1 will not work on a store with SSL</TITLE>
+  <DESCRIPTION>I decided to share an issue with ReCaptcha Version 1 and SSL in case anyone faces this issue. We had customers who had SSL on their stores and had enabled ReCaptcha. After the upgrade to 3.80 the ReCaptcha stopped working. I believe this is due to the fact that the script tag generated for ReCaptcha version 1 is with http only and a mixed content error is being thrown. So we had to change to ReCaptcha Version 2, which is better of course. I had a look at the Nop.Web.Framework.Security.Captcha.GRecaptchaControl class which defines the URL for Version 1 like this: private const string RECAPTCHA_API_URL_VERSION1 = &quot;http://www.google.com/recaptcha/api/challenge?k={0}&quot;; So it will not work on sites with https:// Changing to ReCaptcha Version 2 fixes the issue. Source: http://www.nopcommerce.com/boards/t/43888/recaptcha-version-1-will-not-work-on-a-store-with-ssl.aspx</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#1715 Dahboard graphs (reports) included data from the next months</MESSAGE>
+    <SHA>457e61d4b1bd45af92a9fc1d4b0dfb828ddd30c1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#1704 ReCaptcha Version 1 caused a warning on a store with SSL enabled</MESSAGE>
+      <SHA>813fe946e9ff1f2df10bdba0a51cd2d94feb644f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Security/Captcha/GRecaptchaControl.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

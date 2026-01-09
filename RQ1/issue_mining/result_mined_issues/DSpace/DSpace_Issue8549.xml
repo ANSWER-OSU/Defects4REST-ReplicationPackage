@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8549</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/8549</ISSUEURL>
+  <TITLE>ImageMagick produces a strange two-page thumbnail layout for certain PDFs</TITLE>
+  <DESCRIPTION>ImageMagick uses the PDF `MediaBox` by default when rasterizing PDFs. In certain PDFs this can lead to an unexpected layout in the resulting thumbnail, for example (open the following image in a new tab to see the blank white page): &lt;p align=&quot;center&quot;&gt; &lt;img width=&quot;400&quot; src=&quot;https://user-images.githubusercontent.com/191754/198264352-29be6a14-5387-4fb7-b94b-1355af98d3db.jpg&quot;&gt; &lt;/p&gt; This happens because certain PDFs have different sizes for their `MediaBox` (which is the parent container for all page content) and their `CropBox`. In many PDFs these two boxes are the same, but PDFs meant for print often set one content area size for print and one for displaying on screen. The source PDF for the thumbnail above has the following page boxes according to `pdfinfo` (from the poppler package): ```console $ pdfinfo -box 10568-116598.pdf ... MediaBox: 0.00 0.00 1190.55 841.89 CropBox: 594.38 0.00 1190.55 839.18 BleedBox: 594.38 0.00 1190.55 839.18 TrimBox: 594.38 0.00 1190.55 839.18 ArtBox: 594.38 0.00 1190.55 839.18 ``` Notice the `MediaBox` and `CropBox` are different sizes. We have hundreds (thousands?) of PDFs with this issue in our repository. **Related work** 1. See this [bug report and response from the Ghostscript developers](https://bugs.ghostscript.com/show_bug.cgi?id=705994) (ImageMagick uses Ghostscript for rasterization under the hood).</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>41</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>input-forms.xml: update name for TR Earlier this year TR officially requested the UN to change their name from &quot;Turkey&quot; to &quot;Türkiye&quot;. See: https://www.aa.com.tr/en/americas/un-registers-turkiye-as-new-country-name-to-replace-turkey/2603492</MESSAGE>
+    <SHA>1ebae5c687f0c71fb7af87e873e9ac96e9bce48a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>dspace-api: tell ImageMagick about the PDF CropBox ImageMagick uses the MediaBox by default when rasterizing PDFs be- cause the PDF specification says that all PDFs *must* contain one. This page box is the parent for all other boxes that a PDF *may* contain, for example a CropBox, ArtBox, etc. In many cases these are the same, but when they are not the CropBox is used to define the area displayed to a user when they open the PDF on screen (as opposed to when printing on paper). If a PDF has a CropBox that is different to its MediaBox then we should tell ImageMagick to use it. DSpace 6.x port of https://github.com/DSpace/DSpace/pull/8550 Fixes: https://github.com/DSpace/DSpace/issues/8549</MESSAGE>
+      <SHA>7f3f2b2ca89bb850e0c4c6a4f0964969a6ed8c71</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/app/mediafilter/ImageMagickThumbnailFilter.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>dspace-api: tell ImageMagick about the PDF CropBox ImageMagick uses the MediaBox by default when rasterizing PDFs be- cause the PDF specification says that all PDFs *must* contain one. This page box is the parent for all other boxes that a PDF *may* contain, for example a CropBox, ArtBox, etc. In many cases these are the same, but when they are not the CropBox is used to define the area displayed to a user when they open the PDF on screen (as opposed to when printing on paper). If a PDF has a CropBox that is different to its MediaBox then we should tell ImageMagick to use it. Fixes: https://github.com/DSpace/DSpace/issues/8549</MESSAGE>
+      <SHA>e6693f4232dc495aac8d692a396fd4d187a90f8c</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/app/mediafilter/ImageMagickThumbnailFilter.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

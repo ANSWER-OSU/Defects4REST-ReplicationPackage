@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>187</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/187</ISSUEURL>
+  <TITLE>v1/groups/{phone#] API endpoint returning Go struct error</TITLE>
+  <DESCRIPTION>### The problem Steps to reproduce: ``` curl -X GET -H &quot;Content-Type: application/json&quot; 'http://192.168.86.44:8080/v1/groups/+15853710007' &gt; out.json &amp;&amp; python -m json.tool out.json | less ``` And getting this response: ``` { &quot;error&quot;: &quot;json: cannot unmarshal object into Go struct field SignalCliGroupEntry.pendingMembers of type string&quot; } ``` I would expect to get the regular JSON output with the content of the groups. ### Are you using the latest released version? - [X] Yes ### Have you read the troubleshooting page? - [X] Yes ### What type of installation are you running? signal-cli-rest-api Docker Container ### In which mode are you using the docker container? Normal Mode ### What's the architecture of your host system? x86-64 ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>25</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'master' of github.com:bbernhard/signal-cli-rest-api</MESSAGE>
+    <SHA>c4f11672d89977b5cc1ac9cf9ff48aafb98f4175</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fixed bugs in list groups endpoint * pendingMembers and requestingMembers were incorrectly parsed from signal-cli's JSON output see #187</MESSAGE>
+      <SHA>8a2970cb2df65623748e4d923e2a8d12f8d9e3b8</SHA>
+      <PATCHEDFILES>
+        <FILE>src/client/client.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fixed bugs in list groups endpoint * pendingMembers and requestingMembers were incorrectly parsed from signal-cli's JSON output see #187</MESSAGE>
+      <SHA>72fe4f68643520ff1cda63087b607110f49205c8</SHA>
+      <PATCHEDFILES>
+        <FILE>src/client/client.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

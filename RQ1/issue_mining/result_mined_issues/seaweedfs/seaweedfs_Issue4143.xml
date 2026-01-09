@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4143</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/4143</ISSUEURL>
+  <TITLE>The bucket naming rules conflict when docking with minio</TITLE>
+  <DESCRIPTION>When uploading buckets through java minio, minio prompts me that the buckets to be transferred do not conform to the naming rules of S3 buckets My bucket name is 10000_ test However, it cannot be used in the S3 naming specification_ To name it. aws-cli passed the name, but the seaweedfs server did not verify the bucket name So I suggest checking the incoming bucket name on the seeweedfs server to ensure that the system has stronger compatibility</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>refactoring</MESSAGE>
+    <SHA>5de93fe4420b14ca63378cff0a5d2565920cb511</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>detect invalid bucket name fix https://github.com/seaweedfs/seaweedfs/issues/4143</MESSAGE>
+      <SHA>1c2364936ae9a2aac0b111626ac2b9a936756bac</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/s3api/s3api_bucket_handlers.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

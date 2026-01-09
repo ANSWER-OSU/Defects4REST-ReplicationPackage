@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3334</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/3334</ISSUEURL>
+  <TITLE>request help: 测试hmac-auth插件时提示Invalid signature</TITLE>
+  <DESCRIPTION>### Issue description 在测试 hmac-auth 插件时一直提示 Invalid signature ### Environment * apisix version：2.2 * OS: Linux apisix01 3.10.0-327.4.5.el7.x86_64 #1 SMP Mon Jan 25 22:07:14 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux * OpenResty / Nginx version: nginx version: openresty/1.19.3.1 具体操作步骤是参照：https://github.com/apache/apisix/blob/master/doc/zh-cn/plugins/hmac-auth.md 1、创建 consumer 对象，并设置插件 hmac-auth 的值 ``` curl http://127.0.0.1:9080/apisix/admin/consumers -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d ' { &quot;username&quot;: &quot;tgh&quot;, &quot;plugins&quot;: { &quot;hmac-auth&quot;: { &quot;access_key&quot;: &quot;test-key&quot;, &quot;secret_key&quot;: &quot;test-secret-key&quot;, &quot;clock_skew&quot;: 0, &quot;signed_headers&quot;: [&quot;x-custom-a&quot;] } } }' ``` 2、创建 Route 或 Service 对象，并开启 hmac-auth 插件。 ``` curl http://127.0.0.1:9080/apisix/admin/routes/1 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d ' { &quot;uri&quot;: &quot;/index.html&quot;, &quot;plugins&quot;: { &quot;hmac-auth&quot;: {} }, &quot;upstream&quot;: { &quot;type&quot;: &quot;roundrobin&quot;, &quot;nodes&quot;: { &quot;172.20.11.172:8080&quot;: 1 } } }' ``` 3、按照 文档【hmac-auth.md】中【签名生成公式】和【签名生成示例】生成签名 ``` secret_key=test-secret-key signing_string=&quot;GET / test-key Mon, 18 Jan 2021 09:35:39 GMT x-custom-a:test &quot; ``` shell 脚本生成 ``` #!/bin/bash SECRET=&quot;test-secret-key&quot; MESSAGE=&quot;GET /index.html test-key Mon, 18 Jan 2021 09:35:39 GMT x-custom-a:test &quot; # to lowercase hexits echo -n $MESSAGE | openssl dgst -sha256 -hmac $SECRET # to base64 echo -n $MESSAGE | openssl dgst -sha256 -hmac $SECRET -binary | base64 ``` 按shell代码生成的签名（base64）为：vycNuRE4In8s9DyREidj7hPUuhcKsZA3NsRSdboRZI8= 4、在shell终端使用curl请求 ``` ACCESS_KEY=test-key SIGNATURE=vycNuRE4In8s9DyREidj7hPUuhcKsZA3NsRSdboRZI8= ALGORITHM=hmac-sha256 DATE=&quot;Mon, 18 Jan 2021 09:35:39 GMT&quot; SIGNED_HEADERS=&quot;x-custom-a&quot; curl -i -vv http://172.20.11.161/index.html \ -H &quot;x-custom-a:test&quot; \ -H &quot;X-HMAC-SIGNATURE: $SIGNATURE&quot; \ -H &quot;X-HMAC-ALGORITHM: $ALGORITHM&quot; \ -H &quot;X-HMAC-ACCESS-KEY: $ACCESS_KEY&quot; \ -H &quot;X-HMAC-SIGNED-HEADERS: $SIGNED_HEADERS&quot; ``` 返回结果是：【HTTP/1.1 401 Unauthorized】【{&quot;message&quot;:&quot;Invalid signature&quot;}】 返回内容如下： ``` * About to connect() to 172.20.11.161 port 80 (#0) * Trying 172.20.11.161... * Connected to 172.20.11.161 (172.20.11.161) port 80 (#0) &gt; GET /index.html HTTP/1.1 &gt; User-Agent: curl/7.29.0 &gt; Host: 172.20.11.161 &gt; Accept: */* &gt; x-custom-a:test &gt; X-HMAC-SIGNATURE: vycNuRE4In8s9DyREidj7hPUuhcKsZA3NsRSdboRZI8= &gt; X-HMAC-ALGORITHM: hmac-sha256 &gt; Date: Mon, 18 Jan 2021 09:35:39 GMT &gt; X-HMAC-ACCESS-KEY: test-key &gt; X-HMAC-SIGNED-HEADERS: x-custom-a &gt; &lt; HTTP/1.1 401 Unauthorized HTTP/1.1 401 Unauthorized &lt; Date: Tue, 19 Jan 2021 00:51:51 GMT Date: Tue, 19 Jan 2021 00:51:51 GMT &lt; Content-Type: text/html; charset=utf-8 Content-Type: text/html; charset=utf-8 &lt; Transfer-Encoding: chunked Transfer-Encoding: chunked &lt; Connection: keep-alive Connection: keep-alive &lt; Server: APISIX/2.2 Server: APISIX/2.2 &lt; {&quot;message&quot;:&quot;Invalid signature&quot;} * Connection #0 to host 172.20.11.161 left intact * ``` 诉求：在文档描述生成签名那能否再详细一点，最好是提供一个可测试的用例，谢谢。</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>chore: fix missing HTTPS on link (#3327)</MESSAGE>
+    <SHA>38cc57a822b7ad8870ee8f85d39713be0c36d712</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>docs: improve the hamc-auth plugin documentation close #3334</MESSAGE>
+      <SHA>3e87c97ff18b3750c2c88d418abfcef5f28236db</SHA>
+      <PATCHEDFILES>
+        <FILE>doc/examples/plugins-hmac-auth-generate-signature.md</FILE>
+        <FILE>doc/plugins/hmac-auth.md</FILE>
+        <FILE>doc/zh-cn/plugins/hmac-auth.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>docs: improve the hamc-auth plugin documentation (#3346) close #3334</MESSAGE>
+      <SHA>801e56c2464b90e5a6d7b1fadea1c756737e8e31</SHA>
+      <PATCHEDFILES>
+        <FILE>doc/examples/plugins-hmac-auth-generate-signature.md</FILE>
+        <FILE>doc/plugins/hmac-auth.md</FILE>
+        <FILE>doc/zh-cn/plugins/hmac-auth.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

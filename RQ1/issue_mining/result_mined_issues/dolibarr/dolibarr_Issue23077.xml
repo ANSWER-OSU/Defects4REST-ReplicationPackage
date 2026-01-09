@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23077</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/23077</ISSUEURL>
+  <TITLE>Cannot update subscription note from subscription card</TITLE>
+  <DESCRIPTION>### Bug One the page /adherents/subscription/card.php we cannot any change made to the subscription label is ignored. ### Environment Version 15.0.2 to current developpement version ### Environment OS Debian 11 ### Environment Web server Apache2 2.4.54 ### Environment PHP php 7.4.30 ### Environment Database mardiab 15.1 ### Environment URL(s) /adherents/subscription/card.php ### Expected and actual behavior The field should be updated on change ### Steps to reproduce the behavior Create a subscription with a note, go to it's card and try to change it. ### Attached files This is due to a difference between `/adherents/subscription/card.php` and `/adherents/class/subscription.class.php` : in the first the label `$note` is stored in the object field `note` but in the second, the `update` function saves in note the object field `note_public`. The following patch fixes the issue: ``` diff --git a/htdocs/adherents/subscription/card.php b/htdocs/adherents/subscription/card.php index 5967d670856..37d0f2a9b5b 100644 --- a/htdocs/adherents/subscription/card.php +++ b/htdocs/adherents/subscription/card.php @@ -108,7 +108,7 @@ if ($user-&gt;rights-&gt;adherent-&gt;cotisation-&gt;creer &amp;&amp; $action == 'update' &amp;&amp; !$cance $object-&gt;dateh = dol_mktime($_POST['datesubhour'], $_POST['datesubmin'], 0, $_POST['datesubmonth'], $_POST['datesubday'], $_POST['datesubyear']); $object-&gt;datef = dol_mktime($_POST['datesubendhour'], $_POST['datesubendmin'], 0, $_POST['datesubendmonth'], $_POST['datesubendday'], $_POST['datesubendyear']); $object-&gt;fk_type = $typeid; - $object-&gt;note = $note; + $object-&gt;note_public = $note; $object-&gt;amount = $amount; //print 'datef='.$object-&gt;datef.' '.$_POST['datesubendday']; ```</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>25</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23223 from atm-gauthier/15.0_fix_cant_search_time_spent_by_all_users FIX : Can't see all time spent by all user</MESSAGE>
+    <SHA>617a8e1983a4c29e76c4f27e70049639913c26a6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #23077 - Cannot update subscription note</MESSAGE>
+      <SHA>6a658499e736432506d476ebb365bcbbbe4b536d</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/adherents/subscription/card.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #23250 from daraelmin/patch-7 Fix #23077 - Cannot update subscription note</MESSAGE>
+      <SHA>e12ef6735f1106fd9a0c1d0522502a21ce2dcf26</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/adherents/subscription/card.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

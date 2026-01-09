@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17291</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/17291</ISSUEURL>
+  <TITLE>Indexing PDFs broken when using Elasticsearch and Azure Media Storage features together</TITLE>
+  <DESCRIPTION>### Describe the bug Indexing PDFs using the `Elasticsearch` feature with the `Azure Media Storage` feature appears broken after upgrading to OrchardCore 2.x. We store our media library files in Azure blob storage, and index the contents of PDFs stored in the media library using the Elasticsearch integration. This worked perfectly fine in OrchardCore 1.x, but after upgrading to 2.x we now get this error: ``` 2024-12-20 16:03:34.3240|||0HN91A5D6FVBI:000000BB|OrchardCore.Contents.Indexing.ContentItemIndexCoordinator|ERR|IContentFieldIndexHandler thrown from OrchardCore.Media.Indexing.MediaFieldIndexHandler by ArgumentException System.ArgumentException: The provided stream did not support reading. at UglyToad.PdfPig.Core.StreamInputBytes..ctor(Stream stream, Boolean shouldDispose) at UglyToad.PdfPig.Parser.PdfDocumentFactory.Open(Stream stream, ParsingOptions options) at UglyToad.PdfPig.PdfDocument.Open(Stream stream, ParsingOptions options) at OrchardCore.Media.Indexing.PdfMediaFileTextProvider.GetTextAsync(String path, Stream fileStream) at OrchardCore.Media.Indexing.PdfMediaFileTextProvider.GetTextAsync(String path, Stream fileStream) at OrchardCore.Media.Indexing.MediaFieldIndexHandler.BuildIndexAsync(MediaField field, BuildFieldIndexContext context) at OrchardCore.Modules.InvokeExtensions.InvokeAsync[TEvents,T1,T2,T3,T4,T5](IEnumerable`1 events, Func`7 dispatch, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, ILogger logger) ``` This issue seems to be related to a change in `PdfMediaFileTextProvider.cs`, which now uses a `FileStream` instead of a `MemoryStream` to hand off the file data to `UglyToad.PdfPig` for processing. If I modify the OrchardCore source code to revert back to using a MemoryStream, everything works fine again. ### Orchard Core version 2.1.3 (using Nuget packages) ### To Reproduce 1. Enable the ElasticSearch and Azure Media Storage features, and configure appropriately. 2. Create a new content item from a content type with a Media field. 3. Use the media field to pick a PDF from the media library. 4. Publish the content item, which should trigger an indexing of the PDF content. ### Expected behavior Indexing should work fine, and text from the PDF should show up in the search index.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix Show/Hide Search deployment UI (#17289)</MESSAGE>
+    <SHA>0397597db1f9cf2ce5a7556cff760f06d221632a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix stream reading bug Fixes #17291 by specifying that both Read and Write access are needed on the FileStream used for reading PDF files. This bug was observed when indexing PDFs stored in Azure Blog Storage.</MESSAGE>
+      <SHA>69f3dbb9ce39b42d84455d980acde6aee5e26eaa</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Media.Indexing.Pdf/Services/PdfMediaFileTextProvider.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix stream reading bug (#17294) Fixes #17291 by specifying that both Read and Write access are needed on the FileStream used for reading PDF files. This bug was observed when indexing PDFs stored in Azure Blog Storage.</MESSAGE>
+      <SHA>c0d252c69736a4ad761583ad2177a843698c323c</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Media.Indexing.Pdf/Services/PdfMediaFileTextProvider.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix stream reading bug Fixes #17291 by specifying that both Read and Write access are needed on the FileStream used for reading PDF files. This bug was observed when indexing PDFs stored in Azure Blog Storage.</MESSAGE>
+      <SHA>c7a77280ee5759944c3ca1b19670d38856f67e74</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Media.Indexing.Pdf/Services/PdfMediaFileTextProvider.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15171</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15171</ISSUEURL>
+  <TITLE>--timestamp does nothing if only instruction is from</TITLE>
+  <DESCRIPTION>**Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind bug **Description** When you have a Containerfile that has only `from` instruction, the --timestamp option for `podman build` does nothing. **Steps to reproduce the issue:** echo 'from docker.io/library/alpine:3.16' &gt;Containerfile &amp;&amp; podman build --iidfile id --timestamp 0 . &amp;&amp; podman inspect $(cat id) | jq -r .[].Created **Describe the results you received:** [..] 2022-07-18T21:00:15.928720935Z **Describe the results you expected:** [..] 1970-01-01T00:00:00Z **Additional information you deem important (e.g. issue happens only occasionally):** N/A **Output of `podman version`:** ``` Client: Podman Engine Version: 4.1.0 API Version: 4.1.0 Go Version: go1.18.4 Git Commit: 112d29a88c7813a70b55004ec305f48630b43e12 Built: Thu Jul 21 20:43:18 2022 OS/Arch: linux/amd64 ``` **Output of `podman info --debug`:** ``` host: arch: amd64 buildahVersion: 1.26.1 cgroupControllers: - cpuset - cpu - io - memory - hugetlb - pids cgroupManager: cgroupfs cgroupVersion: v2 conmon: package: conmon-2.1.2-r0 path: /usr/bin/conmon version: 'conmon version 2.1.2, commit: f25214cda836296fe8695c2e582ca79d2246053a' cpuUtilization: idlePercent: 84.46 systemPercent: 3.16 userPercent: 12.38 cpus: 16 distribution: distribution: alpine version: 3.16.1 eventLogger: file hostname: HOSTNAME idMappings: gidmap: - container_id: 0 host_id: 1234 size: 1 - container_id: 1 host_id: 100000 size: 65536 uidmap: - container_id: 0 host_id: 1234 size: 1 - container_id: 1 host_id: 100000 size: 65536 kernel: 5.15.57-0-lts linkmode: dynamic logDriver: k8s-file memFree: 4304928768 memTotal: 29255086080 networkBackend: cni ociRuntime: name: crun package: crun-1.4.5-r0 path: /usr/bin/crun version: |- crun version 1.4.5 commit: c381048530aa750495cf502ddb7181f2ded5b400 spec: 1.0.0 +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +YAJL os: linux remoteSocket: path: /var/run/1234-rdir/podman/podman.sock security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: true seccompEnabled: true seccompProfilePath: /etc/containers/seccomp.json selinuxEnabled: false serviceIsRemote: false slirp4netns: executable: /usr/bin/slirp4netns package: slirp4netns-1.2.0-r0 version: |- slirp4netns version 1.2.0 commit: 656041d45cfca7a4176f6b7eed9e4fe6c11e8383 libslirp: 4.7.0 SLIRP_CONFIG_VERSION_MAX: 4 libseccomp: 2.5.2 swapFree: 34356596736 swapTotal: 34359734272 uptime: 33h 25m 58.8s (Approximately 1.38 days) plugins: log: - k8s-file - none - passthrough network: - bridge - macvlan - ipvlan volume: - local registries: search: - docker.io store: configFile: /home/user/.config/containers/storage.conf containerStore: number: 4 paused: 0 running: 0 stopped: 4 graphDriverName: btrfs graphOptions: {} graphRoot: /home/user/.local/share/containers/storage graphRootAllocated: 989776052224 graphRootUsed: 67633455104 graphStatus: Build Version: Btrfs v5.17 Library Version: &quot;102&quot; imageCopyTmpDir: /var/tmp imageStore: number: 94 runRoot: /var/run/1234-rdir/containers volumePath: /home/user/.local/share/containers/storage/volumes version: APIVersion: 4.1.0 Built: 1658428998 BuiltTime: Thu Jul 21 20:43:18 2022 GitCommit: 112d29a88c7813a70b55004ec305f48630b43e12 GoVersion: go1.18.4 Os: linux OsArch: linux/amd64 Version: 4.1.0 ``` **Package info (e.g. output of `rpm -q podman` or `apt list podman`):** ``` podman-4.1.0-r2 description: Simple management tool for pods, containers and images podman-4.1.0-r2 webpage: https://podman.io/ podman-4.1.0-r2 installed size: 33 MiB podman-4.1.0-r3 description: Simple management tool for pods, containers and images podman-4.1.0-r3 webpage: https://podman.io/ podman-4.1.0-r3 installed size: 33 MiB ``` **Have you tested with the latest version of Podman and have you checked the Podman Troubleshooting Guide? (https://github.com/containers/podman/blob/main/troubleshooting.md)** No **Additional environment details (AWS, VirtualBox, physical, etc.):** N/A</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #12865 from rhatdan/crun I believe that these tests will now run with crun.</MESSAGE>
+    <SHA>89ab5c9fab81aaa1800f0da67ae6a10cac7afaa7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Document behavior of --timestamp when only FROM is used Fixes: #15171 Signed-off-by: Tomas Volf &lt;tomas.volf@showmax.com&gt;</MESSAGE>
+      <SHA>245be9b3945dd530cc4e43c7144d02235269bc11</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-build.1.md.in</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Document behavior of --timestamp when only FROM is used Fixes: #15171 Signed-off-by: Tomas Volf &lt;tomas.volf@showmax.com&gt;</MESSAGE>
+      <SHA>4900394c8f1802891542fe6075cedffeff7cad5d</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-build.1.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

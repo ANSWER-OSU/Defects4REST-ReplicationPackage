@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18690</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/18690</ISSUEURL>
+  <TITLE>Published post actions wrap over &quot;add feature image&quot;</TITLE>
+  <DESCRIPTION>### Issue Summary I experienced this issue on an old Android phone - so kind of an edge case - and I was able to reproduce it easily in the device view of the Chrome dev tools. The problem is: when editing a published post on mobile, if there is not enough space in the header, the 2 Update/Unpublish action buttons at the top wrap to a second line, due to the `flex-wrap` attribute of their parent, and cover the &quot;Add feature image&quot; button, making it unusable: ![Peek 2023-10-18 15-31](https://github.com/TryGhost/Ghost/assets/56583786/64eac872-7ee8-43a4-b99d-8d11fa235c30) I guess this might also be the reason why, for a draft post, `display: none` is applied to the &quot;Preview&quot; button when screen width is less than or equal to 500px. I don't know if a similar solution would be good in this case, though, as they might both be important, so we might not want to hide either of them. However, being able to add the feature image to a published post is important too, so hopefully a reasonable solution can be found - or maybe none at all, if it's indeed too much of an edge case. ### Steps to Reproduce 1. Open Chrome dev tools, toggle device mode. 2. Select &quot;Dimensions: Responsive&quot; to dynamically resize the device width. 3. Lower the width until you see the problem: the 2 action buttons wrap to a second line and cover the upper part of the editor, where the &quot;Add feature image&quot; button is placed. ### Ghost Version 5.69.3 ### Node.js Version v18.18.2 ### How did you install Ghost? From source (Ubuntu) ### Database type MySQL 5.7 ### Browser &amp; OS version Google Chrome 118.0.5993.70, Ubuntu ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>173</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merged v5.74.1 into main</MESSAGE>
+    <SHA>6941ef0148cd5c86f0c4f62f7b1ffefc4d68fcc0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Improved headers layout in post editor and post settings side panel fixes 18690 This change makes the headers for post editor main section and post settings side panel use sticky position instead of absolute/fixed respectively. This allows to solve the following 2 problems: 1. The published post actions wrapping over the &quot;Add feature image&quot; button (issue #18690). 2. The header of the post settings section having incorrect width, and causing the underlying content to be visible on the right edge.</MESSAGE>
+      <SHA>a8dfa3ea3f63fda77c685a29756d954ab7b0d5d3</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/app/styles/components/koenig.css</FILE>
+        <FILE>ghost/admin/app/styles/components/settings-menu.css</FILE>
+        <FILE>ghost/admin/app/styles/layouts/editor.css</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Updated editor layout to be more mobile friendly (#19327) Refs https://github.com/TryGhost/Ghost/issues/18690</MESSAGE>
+      <SHA>98ff45647c498f13d039b021f97fe46f01c184c5</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/app/components/gh-editor-feature-image.hbs</FILE>
+        <FILE>ghost/admin/app/components/gh-koenig-editor-lexical.hbs</FILE>
+        <FILE>ghost/admin/app/styles/components/koenig.css</FILE>
+        <FILE>ghost/admin/app/styles/components/publishmenu.css</FILE>
+        <FILE>ghost/admin/app/styles/components/settings-menu.css</FILE>
+        <FILE>ghost/admin/app/styles/layouts/content.css</FILE>
+        <FILE>ghost/admin/app/styles/layouts/editor.css</FILE>
+        <FILE>ghost/admin/app/templates/lexical-editor.hbs</FILE>
+        <FILE>ghost/core/test/e2e-browser/admin/publishing.spec.js</FILE>
+        <FILE>ghost/core/test/e2e-browser/admin/site-settings.spec.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

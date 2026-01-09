@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>295</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/295</ISSUEURL>
+  <TITLE>Error response from daemon: network brddepl not found</TITLE>
+  <DESCRIPTION>I deployed a Dockerfile project and got the following error https://mantra-accounts-test-skfrjivapf.now.sh/ ``` Successfully built 9263a3c93c2c Storing image Deploying image Container started Error response from daemon: network brddepl not found ``` Redeploying without any changes was successful, not sure why it failed first time. https://mantra-accounts-test-fntitbpsdt.now.sh/</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix `packAndDeploy()` for usage with `@now/node` (#293) * Fix `packAndDeploy()` for usage with `@now/node` Since the prepublish script for `@now/node` writes other stuff to stdout, so relying on `npm pack` outputting the tarball name is not reliable. Instead, just `glob()` for a `*.tgz` file and expect that to be the output package tarball. Fixes error: ``` Error: ENOENT: no such file or directory, open '/home/circleci/repo/packages/now-node/&gt; @now/node@0.5.2-canary.2 prepublish /home/circleci/repo/packages/now-node &gt; npm run build &gt; @now/node@0.5.2-canary.2 build /home/circleci/repo/packages/now-node &gt; ./build.sh '/home/circleci/repo/packages/now-node-bridge/bridge.d.ts' -&gt; 'src/bridge.d.ts' now-node-0.5.2-canary.2.tgz' ``` * Make the `tgzPath` be absolute * 'ignore' -&gt; 'inherit'</MESSAGE>
+    <SHA>616bad8a3dd4dcb6c40714022f9d67cfba7a8259</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-python] Run `pip` from within the installation directory (#295) Otherwise the `setup.cfg` file is not respected (see #292).</MESSAGE>
+      <SHA>bfb67d10ec158c166d7d459b95168d0f18ae629c</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-python/index.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

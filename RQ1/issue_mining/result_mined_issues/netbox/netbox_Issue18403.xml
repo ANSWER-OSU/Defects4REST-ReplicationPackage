@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18403</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18403</ISSUEURL>
+  <TITLE>Improve performance of Job queries</TITLE>
+  <DESCRIPTION>### NetBox version v4.2.1 ### Feature type Change to existing functionality ### Triage priority I volunteer to perform this work (if approved) ### Proposed functionality If the output of a script(s) is relatively large (see MOP below) and the script has been run multiple times (see MOP below) the UI struggles to retrieve the completed script-related jobs efficiently (or sometimes at all) and out-of-memory exceptions are prevalent. The proposed FR here is to optimize the queries for Jobs by not retrieving the `data` field unless it is needed. The `data` field cannot be displayed in the list table and is not needed for the delete form or even the housekeeping task. So omitting the `data` field will improve performance while retaining existing functionality. Here is a MOP and illustration to replicate the underlying issue: 1. Create a fresh install of NetBox with no database objects. 2. Add a script that is capable of generating a large `output`, such as: ``` from extras.scripts import Script, IntegerVar class GenerateTestString(Script): class Meta: name = 'Generate test string' description = 'A test script used to generate a string output of the given length' scheduling_enabled = True # Fields length = IntegerVar( label = 'Text Length', description = 'Enter the length of the string generated.', min_value = 1, max_value = 1000000000, ) def run(self, data, commit): return '0' * data['length'] ``` 3. Run the script roughly 60 times (either manually or by scheduling it) with the `length` field set to 100,000,000 which will generate an output string of 100m characters. 4. Test the performance of the Job list view and attempt to bulk delete the Jobs. Here's an illustration using the above MOP and the results: ![netbox_job_performance](https://github.com/user-attachments/assets/dd1c01a5-e56c-4a17-9238-d3b45aadac37) The fix would likely be using the `defer()` method as `Job.objects.defer('data')` rather than the `only()` method listing the included fields shown in the illustration. I also believe these large jobs can hinder the completion of the housekeeping task that purges the jobs, allowing the job count to grow without limit. ### Use case Our environment uses a few scheduled scripts to provide data output to API integrations that combine models (such as Devices and Virtual Machines) and that traverse relationships (such as Prefixes and their associated IP Ranges and IP Addresses and their associated Interfaces and MAC Addresses). The output of these scripts is inherently larger than typical script use cases. Granted the GraphQL API exists to solve for this use case to some extent, the script output provides a very customizable output and there are other open issues related to the functionality and performance of the GraphQL API. By optimizing the Job queries these completed script jobs could be interacted with more efficiently. ### Database changes No changes to the database design ### External dependencies None</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>40</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Closes #18024: Add URL pattern for scripts to reference them by module.name (#18723) * Add URL pattern for scripts to reference them by module.name * Change _get_script function name and syntax * Fix formatting issue</MESSAGE>
+    <SHA>48b825c64a8dd1387de59f5063084ad0b857e41c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #18721 from atownson/issue_18403 Closes #18403: Do not retrieve the data field from Job objects unless needed</MESSAGE>
+      <SHA>4a4596d5e89d3a3ec01800a7393418579b91c767</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/core/views.py</FILE>
+        <FILE>netbox/netbox/views/generic/feature_views.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

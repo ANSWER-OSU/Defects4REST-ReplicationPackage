@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>12653</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/12653</ISSUEURL>
+  <TITLE>After upgrade getting error : The certificate chain was issued by an authority that is not trusted</TITLE>
+  <DESCRIPTION>After recent upgrade with YesSQL v 3.2.0 (with schema support) I am getting the following error when loading an existing project : ![image](https://user-images.githubusercontent.com/1516981/196028920-8c8d83db-466c-4888-aded-be1ef4e96b4d.png) The fix is to append to the connectionstring the setting : ``` ;TrustServerCertificate=True ``` but I am wondering if this could be related to yessql upgrade ?</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update src/docs/releases/1.5.0.md Co-authored-by: Hisham Bin Ateya &lt;hishamco_2007@yahoo.com&gt;</MESSAGE>
+    <SHA>12fffb2821d9837062b1b86512fb88d84c8e8163</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge branch 'main' into skrypt/#12653</MESSAGE>
+      <SHA>123a22554b6a11460548e29af4cc2290827b1bf6</SHA>
+      <PATCHEDFILES>
+        <FILE>src/docs/requirements.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add guidance when connecting to a SQL Server using untrusted cetrificate Fix #15201 Fix #13031 Fix #13257 Fix #12679 Fix #12653</MESSAGE>
+      <SHA>c8e20db43c33ef8a2e75d071dd9217a9bef92107</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Tenants/Services/TenantValidator.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Data.Abstractions/DbConnectionValidatorResult.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Data.YesSql/DbConnectionValidator.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Setup.Core/SetupService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

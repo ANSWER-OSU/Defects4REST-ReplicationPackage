@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7544</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7544</ISSUEURL>
+  <TITLE>Avalara Tax Response Messages Being Interpreted as Errors</TITLE>
+  <DESCRIPTION>Beginning at 2025-01-31 @ 10:00AM GMT we started receiving this exception when creating an Avalara transaction. `Tax.Avalara error. AddressLocationType: ShipTo` ``` Nop.Core.NopException: AddressLocationType: ShipTo at Nop.Plugin.Tax.Avalara.Services.AvalaraTaxManager.CreateTransaction(CreateTransactionModel model) at Nop.Plugin.Tax.Avalara.Services.AvalaraTaxManager.&lt;&gt;c__DisplayClass70_0.&lt;&lt;CreateTaxTotalTransactionAsync&gt;b__0&gt;d.MoveNext() --- End of stack trace from previous location --- at Nop.Plugin.Tax.Avalara.Services.AvalaraTaxManager.HandleFunctionAsync[TResult](Func`1 function) ``` The code throwing the exception is: https://github.com/nopSolutions/nopCommerce/blob/249fed2a2d3c31ddfbe30902a6012e6f15c3d9a4/src/Plugins/Nop.Plugin.Tax.Avalara/Services/AvalaraTaxManager.cs#L272 ```csharp //whether there are any errors if (transaction.messages?.Any() ?? false) { var message = transaction.messages.Aggregate(string.Empty, (error, message) =&gt; $&quot;{error}{message.summary}{Environment.NewLine}&quot;); throw new NopException(message); } ``` It appears that our Avalara responses all now have success messages in this `messages` property. The message being returned is: ```json &quot;messages&quot;: [ { &quot;summary&quot;: &quot;AddressLocationType: ShipTo&quot;, &quot;details&quot;: &quot;\n Address: ###REDACTED###\n Type: Validated address (minimum level)\n City: \n State: #\n County: #\n Country: US\n BoundaryLevel: 0\n BoundarySource: BoundaryOh0\n BoundaryId: 3583652\n TaxRegionId: 52694\n FIPSCode: 3901700000\n CitySignature: \n GEOCode: \n Jurisdictions: \n STA: JurisdictionId=\&quot;39\&quot; JurisdictionCode=\&quot;39\&quot; JurisdictionTypeId=\&quot;STA\&quot; LongName=\&quot;OHIO\&quot; StateFips=\&quot;39\&quot; State=\&quot;OH\&quot; StateAssignedCode=\&quot;\&quot; SerCode=\&quot;\&quot; SignatureCode=\&quot;BHTU\&quot; TaxAuthorityTypeId=\&quot;63\&quot; IsLocalAdmin=\&quot;False\&quot; EffDate=\&quot;1900-01-01\&quot; EndDate=\&quot;9999-12-31\&quot;\n CTY: JurisdictionId=\&quot;39017\&quot; JurisdictionCode=\&quot;017\&quot; JurisdictionTypeId=\&quot;CTY\&quot; LongName=\&quot;#\&quot; StateFips=\&quot;39\&quot; State=\&quot;OH\&quot; StateAssignedCode=\&quot;09\&quot; SerCode=\&quot;\&quot; SignatureCode=\&quot;BHYS\&quot; TaxAuthorityTypeId=\&quot;63\&quot; IsLocalAdmin=\&quot;False\&quot; EffDate=\&quot;1900-01-01\&quot; EndDate=\&quot;9999-12-31\&quot;\n&quot;, &quot;refersTo&quot;: &quot;Addresses[1];Line[\&quot;1\&quot;]&quot;, &quot;severity&quot;: &quot;Success&quot;, &quot;source&quot;: &quot;Avalara.AvaTax.TaxEngine&quot; } ] ``` I have pushed a hot fix to our code that filters these messages to `severity=Error`, but I am wondering if we are the only one experiencing this. UPDATE: Also see a topic with the fix - https://www.nopcommerce.com/en/boards/topic/101795/avalara-tax-plugin</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7520 Fixed test</MESSAGE>
+    <SHA>259d4cc3760087895da3122a345b5a9fd1bb1992</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7544 Avalara Tax Response Messages Being Interpreted as Errors</MESSAGE>
+      <SHA>184f39f1818fea58cf7d19efb0ae35b731da0985</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Tax.Avalara/Services/AvalaraTaxManager.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.Avalara/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

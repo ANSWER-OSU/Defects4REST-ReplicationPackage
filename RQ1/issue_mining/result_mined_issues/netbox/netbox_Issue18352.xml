@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18352</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18352</ISSUEURL>
+  <TITLE>Power outlet status</TITLE>
+  <DESCRIPTION>### NetBox version v4.2.1 ### Feature type New functionality ### Triage priority N/A ### Proposed functionality Add a field for power outlet status ### Use case It would be useful for switched PDUs or for three phase PDUs when opening the breaker, disabling a bank of outlets ### Database changes _No response_ ### External dependencies _No response_</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>54</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixes: #15924 - Prevent API payload from allowing tagged_vlans while interface mode is set to tagged-all (#17211)</MESSAGE>
+    <SHA>b9b42cd3b44a6857b2c86f8f566100288abe2573</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>For #18352, adds choices, model field, migration Adds: - dcim.choices.PowerOutletStatusChoices - dcim.models.device_components.PowerOutlet.status field with `choices` set to PowerOutletStatusChoices - adds migration for PowerOutlet.status field - updates breaking view tests</MESSAGE>
+      <SHA>dbac09349bc752a214ab92e3500a0a32fff68a8d</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/dcim/choices.py</FILE>
+        <FILE>netbox/dcim/migrations/0201_add_power_outlet_status.py</FILE>
+        <FILE>netbox/dcim/models/device_components.py</FILE>
+        <FILE>netbox/dcim/tests/test_views.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>For #18352, adds PowerOutlet.status field to forms and filtersets</MESSAGE>
+      <SHA>d9d7955c19ea8b40c2f7121b5ccb23ad3cd8420c</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/dcim/filtersets.py</FILE>
+        <FILE>netbox/dcim/forms/bulk_edit.py</FILE>
+        <FILE>netbox/dcim/forms/filtersets.py</FILE>
+        <FILE>netbox/dcim/forms/model_forms.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #18748 from netbox-community/18352-add-poweroutlet-status Closes #18352: Adds PowerOutlet.status field</MESSAGE>
+      <SHA>7c52698c08673873ac1c673b5d378ada10d5a4ed</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/models/dcim/poweroutlet.md</FILE>
+        <FILE>netbox/dcim/api/serializers_/device_components.py</FILE>
+        <FILE>netbox/dcim/choices.py</FILE>
+        <FILE>netbox/dcim/filtersets.py</FILE>
+        <FILE>netbox/dcim/forms/bulk_edit.py</FILE>
+        <FILE>netbox/dcim/forms/filtersets.py</FILE>
+        <FILE>netbox/dcim/forms/model_forms.py</FILE>
+        <FILE>netbox/dcim/migrations/0201_add_power_outlet_status.py</FILE>
+        <FILE>netbox/dcim/models/device_components.py</FILE>
+        <FILE>netbox/dcim/search.py</FILE>
+        <FILE>netbox/dcim/tables/devices.py</FILE>
+        <FILE>netbox/dcim/tests/test_filtersets.py</FILE>
+        <FILE>netbox/dcim/tests/test_forms.py</FILE>
+        <FILE>netbox/dcim/tests/test_models.py</FILE>
+        <FILE>netbox/dcim/tests/test_views.py</FILE>
+        <FILE>netbox/templates/dcim/poweroutlet.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

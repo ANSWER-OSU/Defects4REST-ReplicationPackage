@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>230</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/230</ISSUEURL>
+  <TITLE>Latest entrypoint.sh changes: export HOST_IP causing issues.</TITLE>
+  <DESCRIPTION>### The problem https://github.com/bbernhard/signal-cli-rest-api/blob/master/entrypoint.sh#L32 is failing under certain IP configurations. `hostname -i` can return more than one IP, e.g. if IPv6 is configured too. And the man page says it should not be used anymore. See https://stackoverflow.com/questions/13322485/how-to-get-the-primary-ip-address-of-the-local-machine-on-linux-and-os-x In may case the container is not starting anymore with following error: ``` + export HOST_IP=fd61:a8b9:a1ec:9e8e:8222:ec95:d130:f814 172.16.248.31 /entrypoint.sh: 32: export: 172.16.248.31: bad variable name ``` ### Are you using the latest released version? - [X] Yes ### Have you read the troubleshooting page? - [X] Yes ### What type of installation are you running? signal-cli-rest-api Docker Container ### In which mode are you using the docker container? JSON-RPC Mode ### What's the architecture of your host system? x86-64 ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>1017</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>added &quot;update contacts&quot; endpoint see #228</MESSAGE>
+    <SHA>8a0ce92936e46119532d0b572afd667b9f19be67</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fixed bug in entrypoint.sh * use &quot;hostname -I&quot; instead of &quot;hostname -i&quot;, as no DNS resolution is required * &quot;hostname -I&quot; might return multiple IPs (as space delimited string). Use the first one (&quot;best effort&quot;) per default. In case a different IP should be used for the swagger UI API resource, the &quot;SWAGGER_IP&quot; env variable must be set in the docker-compose.yml. see #230</MESSAGE>
+      <SHA>f3f67ce20456e6632c432d3903d9d0f4d790f477</SHA>
+      <PATCHEDFILES>
+        <FILE>entrypoint.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fixed bug in entrypoint.sh * use &quot;hostname -I&quot; instead of &quot;hostname -i&quot;, as no DNS resolution is required * &quot;hostname -I&quot; might return multiple IPs (as space delimited string). Use the first one (&quot;best effort&quot;) per default. In case a different IP should be used for the swagger UI API resource, the &quot;SWAGGER_IP&quot; env variable must be set in the docker-compose.yml. see #230</MESSAGE>
+      <SHA>924a01e20d4eedbd0e1ab0c572a8bc22dab723cc</SHA>
+      <PATCHEDFILES>
+        <FILE>entrypoint.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

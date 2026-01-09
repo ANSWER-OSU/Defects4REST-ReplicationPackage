@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17967</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/17967</ISSUEURL>
+  <TITLE>Epic: ginkgo: remove -flakeAttempts 3</TITLE>
+  <DESCRIPTION>It's hurting us. We need to make a concerted effort to remove it. Best I can tell, there are three kinds of e2e flakes: 1. network or registry (or other resource) flakes 2. real podman bugs 3. bugs in the tests themselves I believe the vast majority of the test failures I'm seeing are **3, test bugs**. Ginkgo runs tests in parallel, and I don't think we're doing enough locking around (e.g.) `podman system reset` or `network` or `gpg` tests. There are also simple race conditions. I suspect, but cannot be certain, that these are test bugs: containers/podman#17940, containers/podman#17946, containers/podman#17957, containers/podman#17958, containers/podman#17966. Unfortunately, by hiding flakes we also hide **number 2, real podman bugs**. You all know the nightmares we're having right now with sqlite: those were in the test logs all along, we could've caught them earlier if we hadn't been retrying flakes. I hope that's a strong enough argument for my position, because we truly have no idea how many other such bugs are hiding in plain sight. And, sigh, *network/registry flakes*. This is a valid use case for retrying; I just don't know how to do it. It might be necessary to go test-by-test, looking for `search` or `pull`, and wrap those in a retry mechanism. Thoughts welcome. Reminder: my flake logger only catches **triple failures**, the ones that force you to press Rerun. When e2e tests single-fail, I have no way of knowing about it. So I'm pretty sure these single-fails are happening every day, on every run, and we're just not seeing them. And, don't panic: we can't remove `-flakeAttempts` any time soon. We have way way way way way too many test-bug flakes, so many that it takes 4-10 retries, and many hours, just to get CI passing on a single PR. We first need to fix the bug-test flakes, which means we need to identify them, which means I need to find a better way of tracking them. Although Evil-Twin Ed thinks that disabling retries right now would make everyone highly motivated to fix the test-bug flakes...</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>509</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18804 from edsantiago/logformatter_handle_levels logformatter: better recognition of test names</MESSAGE>
+    <SHA>82caa100b12dbffb68c9567a96a580c493ce1eb5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>e2e: add ginkgo decorators to address flakes - trust_test: adding 'Ordered' seems to resolve a very common flake. I've tested this for dozens of CI runs, and haven't seen the flake recur (normally it fails every few runs). - exec and search tests: add FlakeAttempts(3). This is a NOP under our current CI setup, in which we run ginkgo with a global --flake-attempts=3. I am submitting this as an optimistic step toward a no-flake-attempts world (#17967) Fixes: #18358 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>b65ba90df31ce09136eef675abbc3388bb58fb58</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/exec_test.go</FILE>
+        <FILE>test/e2e/search_test.go</FILE>
+        <FILE>test/e2e/trust_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>CI: disable ginkgo flake retries As discussed in Aug 13 Cabal, we are almost at a point where e2e tests are reliably passing on the first try. Let's try to keep things that way, and not hide future flakes. Closes: #17967 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>145c7511aa8d96db6d641aad3dc7603ca54d588c</SHA>
+      <PATCHEDFILES>
+        <FILE>Makefile</FILE>
+        <FILE>test/README.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

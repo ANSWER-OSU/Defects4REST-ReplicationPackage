@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>628</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/628</ISSUEURL>
+  <TITLE>Allow selecting label language in suggest operations</TITLE>
+  <DESCRIPTION>The suggest operation (both CLI and REST) always returns the subject labels in the configured vocabulary language, even though the vocabulary could include labels in other languages. For example, YSO is trilingual (fi, sv, en) and thus the subject labels could be given in any of these languages. We could make it possible to select the subject label language in suggest operations. In the CLI, it could be a parameter `-L` / `--language`: annif suggest -L en yso-mllm-fi &lt;document.txt # return English language subject labels annif suggest --language en yso-mllm-fi &lt;document.txt # same but with long option In the REST API, it could be a parameter `lang` or `language` that works similarly to the current `limit` and `threshold` parameters. Currently the Finto AI user interface has similar functionality, but it relies on the Finto REST API to fetch labels in non-default languages. Having this available in the Annif API would simplify the implementation.</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #627 from NatLibFi/upgrade-joblib-1.2 Upgrade to joblib 1.2.x</MESSAGE>
+    <SHA>597e67e5a0e631b448729124908f2139020dd004</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Allow overriding subject label language in CLI and REST suggest operations. Fixes #628</MESSAGE>
+      <SHA>b9a79d7016b4c52315ea9d446bc2377fcd5a8445</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/cli.py</FILE>
+        <FILE>annif/rest.py</FILE>
+        <FILE>annif/swagger/annif.yaml</FILE>
+        <FILE>tests/test_cli.py</FILE>
+        <FILE>tests/test_rest.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

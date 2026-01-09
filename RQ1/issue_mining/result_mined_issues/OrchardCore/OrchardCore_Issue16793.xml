@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16793</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/16793</ISSUEURL>
+  <TITLE>docker build error</TITLE>
+  <DESCRIPTION>### Discussed in https://github.com/OrchardCMS/OrchardCore/discussions/16366 &lt;div type='discussions-op-text'&gt; &lt;sup&gt;Originally posted by **tcobbfis** June 24, 2024&lt;/sup&gt; In order to meet security requirements (45 day password expire), I need to change the users module (login function). When trying to edit and build with source code I get the error below. Also, is editing the source the right way to make this change? I tried creating an altered users module over the weekend, but had trouble when trying to replace the built in users module with it. PS C:\Repos\Orchard&gt; docker compose up --build 2024/06/24 11:32:47 http2: server: error reading preface from client //./pipe/dockerDesktopLinuxEngine: file has already been closed [+] Building 15.2s (9/9) FINISHED docker:desktop-linux =&gt; [fisorchard internal] load build definition from Dockerfile 0.0s =&gt; =&gt; transferring dockerfile: 371B 0.0s =&gt; [fisorchard internal] load metadata for mcr.microsoft.com/dotnet/sdk:8.0 0.9s =&gt; [fisorchard internal] load .dockerignore 0.1s =&gt; =&gt; transferring context: 291B 0.0s =&gt; [fisorchard build-env 1/5] FROM mcr.microsoft.com/dotnet/sdk:8.0@sha256:3189e564f19e016a43838a46609fc81349f07322fdf6bc3299bd13f0dca9e647 0.0s =&gt; [fisorchard internal] load build context 1.8s =&gt; =&gt; transferring context: 1.12MB 1.7s =&gt; CACHED [fisorchard build-env 2/5] WORKDIR /app 0.0s =&gt; CACHED [fisorchard build-env 3/5] COPY ./src /app 0.0s =&gt; CACHED [fisorchard build-env 4/5] COPY Directory.Build.props / 0.0s =&gt; ERROR [fisorchard build-env 5/5] RUN dotnet publish /app/OrchardCore.Cms.Web -c Release -o ./build/release --framework net8.0 /p:RunAnalyzers=false 12.3s ------ &gt; [fisorchard build-env 5/5] RUN dotnet publish /app/OrchardCore.Cms.Web -c Release -o ./build/release --framework net8.0 /p:RunAnalyzers=false: 1.384 Determining projects to restore... 11.73 /usr/share/dotnet/sdk/8.0.302/Sdks/Microsoft.NET.Sdk/targets/Microsoft.NET.TargetFrameworkInference.targets(96,5): error NETSDK1013: The TargetFramework value '' was not recognized. It may be misspelled. If not, then the TargetFrameworkIdentifier and/or TargetFrameworkVersion properties must be specified explicitly. [/app/OrchardCore.Cms.Web/OrchardCore.Cms.Web.csproj] ------ failed to solve: process &quot;/bin/sh -c dotnet publish /app/OrchardCore.Cms.Web -c Release -o ./build/release --framework net8.0 /p:RunAnalyzers=false&quot; did not complete successfully: exit code: 1 &lt;/div&gt;</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix First-time Contributor Welcome workflow randomly hitting rate limits (#16797)</MESSAGE>
+    <SHA>d0bce2b354ac1a08c2f749d4b6c08b0c2f757e58</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix dockerfile Fixes #16793</MESSAGE>
+      <SHA>2552ea54bab5e51fb65ef26bd8b41a0d6719b53c</SHA>
+      <PATCHEDFILES>
+        <FILE>.dockerignore</FILE>
+        <FILE>Dockerfile</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix dockerfile (#16821) Fixes #16793</MESSAGE>
+      <SHA>d7a36af18acf10f4da28f1665df94562331b0129</SHA>
+      <PATCHEDFILES>
+        <FILE>.dockerignore</FILE>
+        <FILE>Dockerfile</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

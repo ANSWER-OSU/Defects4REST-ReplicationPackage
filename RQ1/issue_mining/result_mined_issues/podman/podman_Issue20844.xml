@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20844</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/20844</ISSUEURL>
+  <TITLE>Support preserve-fds with non-continuous fd numbers</TITLE>
+  <DESCRIPTION>### Feature request description Currently the preserve-fds allows for a single number that specifies how many additional file descriptors to preserve above fd 2. This means the additional file descriptors have to start at 3 and be contiguous. I have a situation where the file descriptor I need to pass is some high number. I have a work around that duplicates the fd of interest as 3 and then can pass --preserve-fds 1. But it would be much better if we could pass a list of FDs. ### Suggest potential solution I would like to be able to pass a list of fds to preserve. Since it needs to preserve backwards compatibility maybe there could be some way to indicate it is a list even if it is just one number. So something like podman run --preserve-fds 4,5 .... or if there was just one something like podman run --preserve-fds 5, .... ### Have you considered any alternatives? As mentioned I have a workaround but it is a bit of a hack. ### Additional context Add any other context or screenshots about the feature request here.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #20837 from dfr/freebsd-vnet libpod: Allow using just one jail per container on FreeBSD</MESSAGE>
+    <SHA>6b9221d852ed57dfae7e52135b99a451ce275084</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>podman: new option --preserve-fd add a new option --preserve-fd that allows to specify a list of FDs to pass down to the container. It is similar to --preserve-fds but it allows to specify a list of FDs instead of the maximum FD number to preserve. --preserve-fd and --preserve-fds are mutually exclusive. It requires crun since runc would complain if any fd below --preserve-fds is not preserved. Closes: https://github.com/containers/podman/issues/20844 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>01d397a658f2f6834b9550a129dce15af489883c</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/containers/exec.go</FILE>
+        <FILE>cmd/podman/containers/run.go</FILE>
+        <FILE>docs/source/markdown/options/preserve-fd.md</FILE>
+        <FILE>docs/source/markdown/podman-exec.1.md.in</FILE>
+        <FILE>docs/source/markdown/podman-run.1.md.in</FILE>
+        <FILE>libpod/container_config.go</FILE>
+        <FILE>libpod/container_exec.go</FILE>
+        <FILE>libpod/oci.go</FILE>
+        <FILE>libpod/oci_conmon_common.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>libpod/options.go</FILE>
+        <FILE>pkg/domain/entities/containers.go</FILE>
+        <FILE>pkg/domain/entities/pods.go</FILE>
+        <FILE>pkg/domain/infra/abi/containers.go</FILE>
+        <FILE>pkg/specgen/generate/container_create.go</FILE>
+        <FILE>pkg/specgen/specgen.go</FILE>
+        <FILE>pkg/specgenutil/specgen.go</FILE>
+        <FILE>test/system/030-run.bats</FILE>
+        <FILE>test/system/075-exec.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

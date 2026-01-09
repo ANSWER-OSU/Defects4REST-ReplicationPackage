@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>11533</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/11533</ISSUEURL>
+  <TITLE>Function runtime error: Cannot find module</TITLE>
+  <DESCRIPTION>Here's the minimal repro: https://github.com/dglazkov/vercel-test 1. Create a Vercel project 2. Deploy the github project above in it 3. Go to `&lt;deployment url&gt;/api/hello`. It gets a consistent &quot;This Serverless Function has crashed.&quot; error. When I look into the runtime logs, I see that the the problem is described as follows: ``` Error: Cannot find module '/var/task/node_modules/@google-labs/breadboard/dist/src/remote.js' imported from /var/task/node_modules/@google-labs/breadboard/dist/src/runner.js at finalizeResolution (node:internal/modules/esm/resolve:269:11) at moduleResolve (node:internal/modules/esm/resolve:937:10) at moduleResolveWithNodePath (node:internal/modules/esm/resolve:1161:14) at defaultResolve (node:internal/modules/esm/resolve:1204:79) at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:390:12) at ModuleLoader.resolve (node:internal/modules/esm/loader:359:25) at ModuleLoader.getModuleJob (node:internal/modules/esm/loader:234:38) at ModuleWrap.&lt;anonymous&gt; (node:internal/modules/esm/module_job:87:39) at link (node:internal/modules/esm/module_job:86:36) { code: 'ERR_MODULE_NOT_FOUND', url: 'file:///var/task/node_modules/@google-labs/breadboard/dist/src/remote.js' } Node.js process exited with exit status: 1. The logs above can help with debugging the issue. INIT_REPORT Init Duration: 241.97 ms Phase: invoke Status: error Error Type: Runtime.ExitError Unknown application error occurred ```` When I look at the `node_modules` in the project, the `remote.js` file is present: ```bash $ find node_modules | grep remote.js node_modules/@google-labs/breadboard/dist/src/remote.js node_modules/@google-labs/breadboard/dist/src/remote.js.map $ ``` However, when I do a local `vercel build`, I can see that this file is not present in the `node_modules` of the function: ```bash $ find .vercel/output/functions/api/hello.func/node_modules | grep &quot;remote.js&quot; $ ``` It looks like it's getting dropped somehow? Not sure where. I gave the `@vercel/node` a quick spelunk and couldn't find anything that jumped out at me.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ci: add Node.js v18 tests (#11575) Some tests are skipped because CI tests are running against v16. I added a new GitHub CI job just inlcuding the tests that are skipped for now.</MESSAGE>
+    <SHA>bc95d764b44b8960ee68e29b227f89e06a8cc363</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[node][next][redwood][remix] bump `@vercel/nft@0.27.0` (#11580) [@vercel/nft@0.27.0](https://github.com/vercel/nft/releases/tag/0.27.0) is necessary for parsing import assertions. Import assertions are causing [this issue](https://github.com/vercel/vercel/issues/11533).</MESSAGE>
+      <SHA>e87d4c14d0e718281f9ba91c9ec1cc6e142d383d</SHA>
+      <PATCHEDFILES>
+        <FILE>.changeset/five-cows-mix.md</FILE>
+        <FILE>packages/next/package.json</FILE>
+        <FILE>packages/node/package.json</FILE>
+        <FILE>packages/redwood/package.json</FILE>
+        <FILE>packages/remix/package.json</FILE>
+        <FILE>pnpm-lock.yaml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

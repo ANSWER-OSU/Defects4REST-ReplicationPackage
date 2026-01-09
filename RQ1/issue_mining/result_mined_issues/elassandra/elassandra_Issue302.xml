@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>302</ISSUENO>
+  <ISSUEURL>https://github.com/strapdata/elassandra/issues/302</ISSUEURL>
+  <TITLE>Remove cassandra column with zero down time</TITLE>
+  <DESCRIPTION>I need to remove an existing column in zero downtime. I think there is no possibility to remove column in zero downtime. We can remove mapping from elasticsearch but we can not use &quot;ALTER TABLE **table_name** DROP **column**&quot; because that column has dependent on secondary index. Is there any way to do it?</DESCRIPTION>
+  <REPONAME>elassandra</REPONAME>
+  <TIMEDIFFERENCEDAYS>29</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>release 6.2.3.18</MESSAGE>
+    <SHA>39c7427e414f74641d115e43d3a3139833d7dddb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix drop column on a deleted index #302</MESSAGE>
+      <SHA>2707b390351dded00b3ab87cc849f41b1c7faa21</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elassandra/index/ElasticSecondaryIndex.java</FILE>
+        <FILE>server/src/test/java/org/elassandra/TableOptionsTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

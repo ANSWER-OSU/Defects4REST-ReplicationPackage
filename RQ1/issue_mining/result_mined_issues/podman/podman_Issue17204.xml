@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17204</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/17204</ISSUEURL>
+  <TITLE>APIv2 tests: python something != something-podman</TITLE>
+  <DESCRIPTION>Seeing this occasionally since Dec 30: ``` ________________________ ContainerTestCase.test_attach _________________________ self = &lt;python.rest_api.test_v2_0_0_container.ContainerTestCase testMethod=test_attach&gt; def test_attach(self): r = requests.post( self.podman_url + &quot;/v1.40/containers/create?name=topcontainer&quot;, json={&quot;Cmd&quot;: [&quot;sh&quot;, &quot;-c&quot;, &quot;echo podman; sleep 100&quot;], &quot;Image&quot;: &quot;alpine:latest&quot;}, ) self.assertEqual(r.status_code, 201, r.text) payload = r.json() r = requests.post( self.podman_url + f&quot;/v1.40/containers/{payload['Id']}/start&quot; ) self.assertEqual(r.status_code, 204, r.text) r = requests.post( self.podman_url + f&quot;/v1.40/containers/{payload['Id']}/attach?logs=true&amp;stream=false&quot; ) self.assertIn(r.status_code, (101, 200), r.text) # see the attach format docs, stdout = 1, length = 7, message = podman\n &gt; self.assertEqual(r.content, b&quot;\x01\x00\x00\x00\x00\x00\x00\x07podman\n&quot;, r.text) E AssertionError: b'' != b'\x01\x00\x00\x00\x00\x00\x00\x07podman\n' : test/apiv2/python/rest_api/test_v2_0_0_container.py:155: AssertionError =========================== short test summary info ============================ FAILED test/apiv2/python/rest_api/test_v2_0_0_container.py::ContainerTestCase::test_attach =================== 1 failed, 43 passed in 78.37s (0:01:18) ==================== ``` If I read the URL correctly, this has something to do with `logs`, and ISTR other flakes in podman-remote logs but can't find the issue number. * fedora-37 : APIv2 test on fedora-37 (root) * PR #17165 * [01-19 06:53](https://api.cirrus-ci.com/v1/task/5030036521091072/logs/main.log) * PR #16997 * [01-05 03:10](https://api.cirrus-ci.com/v1/task/4694463075844096/logs/main.log) * PR #16978 * [01-04 03:14](https://api.cirrus-ci.com/v1/task/4749243169112064/logs/main.log) * PR #16810 * [12-30 10:43](https://api.cirrus-ci.com/v1/task/5556295575535616/logs/main.log) * [12-30 10:30](https://api.cirrus-ci.com/v1/task/5214991905718272/logs/main.log)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #17206 from TrevorBenson/bug/ISSUE-17205-volume-import-example [CI:DOCS] Example in volume import usage is backwards</MESSAGE>
+    <SHA>c35e74f4ccde619cd21b2215a5a4e9a0177cb418</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix APIv2 python attach test flake The test was added in commit 1424f0958f6f, it can flake because the attach test needs the message in the log. On slow CI systems this can take longer. Add a retry logic which checks the container log every second for up to 5 seconds. That should be plenty of time. Fixes #17204 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>9904fbed33a5daf6ba7cb2b2b90c8e5e3472e8f5</SHA>
+      <PATCHEDFILES>
+        <FILE>test/apiv2/python/rest_api/test_v2_0_0_container.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

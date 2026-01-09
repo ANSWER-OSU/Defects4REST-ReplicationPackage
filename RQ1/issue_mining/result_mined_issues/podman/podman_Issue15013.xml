@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15013</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15013</ISSUEURL>
+  <TITLE>test fails under runc: podman pod create --share-parent</TITLE>
+  <DESCRIPTION>Test is [failing under cgroupsv1 with runc](https://api.cirrus-ci.com/v1/artifact/task/6491108266999808/html/int-podman-ubuntu-2204-root-host.log.html#t--podman-pod-create-share-parent-test--1): ``` podman pod create --share-parent test ... # podman [options] inspect cgroupCtr # podman [options] inspect 87b3ef9bac3dbfeab1d65b3d5dd856571e0de66a0cdbea6080dd2c9ab5f8724d Expected &lt;string&gt;: host to contain substring &lt;string&gt;: 1e6d7d50e0d46c60c9906a5518d06969235bf521ea7e71db6dc153131e977e6c ``` The string in question is something to do with cgroups. Context: we have not been testing with runc. The above test was introduced during this period. #14972 brings back runc.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>140</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14876 from cdoern/cgroup resource limits for pods</MESSAGE>
+    <SHA>ee937c518e7efb9c47d21a4e1050b966ca02d005</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Bump VMs, to Ubuntu 2204 with cgroups v1 ...and enable the at-test-time confirmation, the one that double-checks that if CI requests runc we actually use runc. This exposed a nasty surprise in our setup: there are steps to define $OCI_RUNTIME, but that's actually a total fakeout! OCI_RUNTIME is used only in e2e tests, it has no effect whatsoever on actual podman itself as invoked via command line such as in system tests. Solution: use containers.conf Given how fragile all this runtime stuff is, I've also added new tests (e2e and system) that will check $CI_DESIRED_RUNTIME. Image source: https://github.com/containers/automation_images/pull/146 Since we haven't actually been testing with runc, we need to fix a few tests: - handle an error-message change (make it work in both crun and runc) - skip one system test, &quot;survive service stop&quot;, that doesn't work with runc and I don't think we care. ...and skip a bunch, filing issues for each: - #15013 pod create --share-parent - #15014 timeout in dd - #15015 checkpoint tests time out under $CONTAINER - #15017 networking timeout with registry - #15018 restore --pod gripes about missing --pod - #15025 run --uidmap broken - #15027 pod inspect cgrouppath broken - ...and a bunch more (&quot;podman pause&quot;) that probably don't even merit filing an issue. Also, use /dev/urandom in one test (was: /dev/random) because the test is timing out and /dev/urandom does not block. (But the test is still timing out anyway, even with this change) Also, as part of the VM switch we are now using go 1.18 (up from 1.17) and this broke the gitlab tests. Thanks to @Luap99 for a quick fix. Also, slight tweak to #15021: include the timeout value, and reword message so command string is at end. Also, fixed a misspelling in a test name. Fixes: #14833 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>0a160fed77c753d1d5683ad40285bb41f1c895d5</SHA>
+      <PATCHEDFILES>
+        <FILE>.cirrus.yml</FILE>
+        <FILE>contrib/cirrus/runner.sh</FILE>
+        <FILE>contrib/cirrus/setup_environment.sh</FILE>
+        <FILE>test/e2e/build_test.go</FILE>
+        <FILE>test/e2e/checkpoint_image_test.go</FILE>
+        <FILE>test/e2e/checkpoint_test.go</FILE>
+        <FILE>test/e2e/info_test.go</FILE>
+        <FILE>test/e2e/kill_test.go</FILE>
+        <FILE>test/e2e/manifest_test.go</FILE>
+        <FILE>test/e2e/network_connect_disconnect_test.go</FILE>
+        <FILE>test/e2e/pod_create_test.go</FILE>
+        <FILE>test/e2e/run_test.go</FILE>
+        <FILE>test/system/005-info.bats</FILE>
+        <FILE>test/system/030-run.bats</FILE>
+        <FILE>test/system/160-volumes.bats</FILE>
+        <FILE>test/system/170-run-userns.bats</FILE>
+        <FILE>test/system/200-pod.bats</FILE>
+        <FILE>test/system/251-system-service.bats</FILE>
+        <FILE>test/system/400-unprivileged-access.bats</FILE>
+        <FILE>test/system/500-networking.bats</FILE>
+        <FILE>test/utils/utils.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

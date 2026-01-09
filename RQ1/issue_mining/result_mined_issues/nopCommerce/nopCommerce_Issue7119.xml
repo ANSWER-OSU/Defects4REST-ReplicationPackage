@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7119</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7119</ISSUEURL>
+  <TITLE>UPS plugin failing to retrieve rates</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.60.6 Official nop UPS plugin is failing to retrieve rates. I believe this just started in the last day. Here's the error log. ``` Shipping (UPS (United Parcel Service)). Error while getting UPS rates Could not deserialize the response body stream as Nop.Plugin.Shipping.UPS.API.Rates.RATEResponseWrapper. Status: 200 Response: ``` I'm guessing that the problem is occurring in `/API/Rates/RateClient.cs` in the method `protected virtual async System.Threading.Tasks.Task&lt;ObjectResponseResult&lt;T&gt;&gt; ReadObjectResponseAsync&lt;T&gt;(...)` line 200 Not sure how much more i can debug on my own as this appears to be generated code ``` //---------------------- // &lt;auto-generated&gt; // Generated using the NSwag toolchain v13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v11.0.0.0)) (http://NSwag.org) // &lt;/auto-generated&gt; //---------------------- ```</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>32</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7067 Replaced Brevo affiliate link</MESSAGE>
+    <SHA>6754749621e22a2adc66dbea9260fb60d6e57311</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7119 UPS plugin. Fixed possible problems with dual fields type in response</MESSAGE>
+      <SHA>efb0c55299ca40dcaef563f99f87194597bc044e</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/API/Rates/NopRateClient.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/API/Rates/RateClient.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/API/Rates/RateResponse_RatedShipment.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/API/Rates/RateResponse_Response.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#7119 Updated UPS plugin to use the latest API version (v2403)</MESSAGE>
+      <SHA>1e9f2bb56838a432b5977b423daac8eb826d2516</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/API/Rates/NopRateClient.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/API/Rates/RateClient.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/API/Rates/RateResponse_RatedShipment.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/API/Rates/RateResponse_Response.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/Services/UPSService.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

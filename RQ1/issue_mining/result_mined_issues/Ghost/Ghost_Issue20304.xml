@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20304</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/20304</ISSUEURL>
+  <TITLE>Discord/Slack Webhook Integration</TITLE>
+  <DESCRIPTION>### Issue Summary When using the native Slack integration with a Discord channel with no excerpt defined, the paywall feature is ignored in the snippet posted. This potentially leaks information that may be meant to keep from being public. Additionally, the post's Author is not listed properly and is attributed to the blog itself. ![image](https://github.com/TryGhost/Ghost/assets/5253894/0d0214f7-3db8-4894-8709-3f498bb84458) ![image](https://github.com/TryGhost/Ghost/assets/5253894/f56c9b8a-52e6-4f20-a206-589d63d96fa6) ### Steps to Reproduce 1. Write a post with a paywall but without an excerpt. 2. Add the Slack integration to Discord by appending `/slack` to the end of the url and adding to Discord. 3. Publish the post. ### Ghost Version 5.82.8 ### Node.js Version 18.19.1 ### How did you install Ghost? Digital Ocean droplet Ubuntu 24.04 ### Database type SQLite3 ### Browser &amp; OS version _No response_ ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Added custom excerpt to post revisions (#20323) closes https://linear.app/tryghost/issue/MOM-170 When the subtitle field is included in the editor it creates a disconnect with post revisions if the underlying custom excerpt data is not included so we'd like to both preview and restore the subtitle when the in-editor subtitle field is enabled. - added `post_revisions.custom_excerpt` column to schema - added migration to add `post_revisions.custom_excerpt` to existing databases - added migration to populate `post_revisions.custom_excerpt` with the current `post.custom_excerpt` value from the associated record - ensures no data is inadvertently lost when restoring an old version - using current data matches what would have happened previously where custom_excerpt was never overwritten when restoring an old version - updated post revisions handling to accept the `custom_excerpt` field - updated Admin's revision preview and restoration to display and set the `custom_excerpt` field</MESSAGE>
+    <SHA>b447a268328184494b542f48602af559e18d3b5d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed Slack integration using member content in excerpt (#20328) - refs [ONC-63](https://linear.app/tryghost/issue/ONC-63/discordslack-webhook-integration) - fixes [#20304](https://github.com/TryGhost/Ghost/issues/20304) When a post is published and sent to Slack via webhook, the excerpt generated could contain member content. This change ensures that the excerpt does not contain member content. This change also ensures that the author for the post is correctly shown in Slack</MESSAGE>
+      <SHA>0f283da8eb26324593f34068dad165c101fac474</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/server/services/slack.js</FILE>
+        <FILE>ghost/core/test/unit/server/services/slack.test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

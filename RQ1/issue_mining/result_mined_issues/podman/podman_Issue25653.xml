@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>25653</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/25653</ISSUEURL>
+  <TITLE>BUG: Incorrect behavior of `podman container logs` with `-f` and `--follow` flags</TITLE>
+  <DESCRIPTION>### Issue Description I encountered an issue with the `podman container logs` command where the flags are misinterpreted as container-names. ### Steps to reproduce the issue Steps to reproduce the issue 1. run a container in podman 2. try to access the container logs using `podman container logs &lt;container_name&gt; -f` 3. You will see the below error ``` Error: no container with name or ID &quot;-f&quot; found: no such container ``` ### Describe the results you received The below cmd works fine. ``` ❯ podman container logs -f &lt;container_name&gt; ``` However, using the `-f` flag after the container name results in the following error: ``` ❯ podman container logs &lt;container_name&gt; -f Error: no container with name or ID &quot;-f&quot; found: no such container ``` Similarly, using `--follow=true` produces the error: ``` ❯ podman container logs &lt;container_name&gt; --follow=true Error: no container with name or ID &quot;--follow=true&quot; found: no such container ``` ### Describe the results you expected ``` ❯ podman container logs &lt;container_name&gt; -f ``` Expected the above command to work fine ### podman info output ```yaml host: arch: amd64 buildahVersion: 1.39.0 cgroupControllers: - cpu - memory - pids cgroupManager: systemd cgroupVersion: v2 conmon: package: conmon-1:2.1.13-1 path: /usr/bin/conmon version: 'conmon version 2.1.13, commit: 82de887596ed8ee6d9b2ee85e4f167f307bb569b' cpuUtilization: idlePercent: 96.61 systemPercent: 0.73 userPercent: 2.66 cpus: 12 databaseBackend: sqlite distribution: distribution: arch version: unknown eventLogger: journald freeLocks: 1950 hostname: ARCHBTW idMappings: gidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 100000 size: 65536 uidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 100000 size: 65536 kernel: 6.12.17-1-lts linkmode: dynamic logDriver: journald memFree: 3233013760 memTotal: 16644427776 networkBackend: netavark networkBackendInfo: backend: netavark dns: package: aardvark-dns-1.14.0-1 path: /usr/lib/podman/aardvark-dns version: aardvark-dns 1.14.0 package: netavark-1.14.0-1 path: /usr/lib/podman/netavark version: netavark 1.14.0 ociRuntime: name: runc package: runc-1.2.5-1 path: /usr/bin/runc version: |- runc version 1.2.5 spec: 1.2.0 go: go1.24.0 libseccomp: 2.5.5 os: linux pasta: executable: /usr/bin/pasta package: passt-2025_02_17.a1e48a0-1 version: &quot;&quot; remoteSocket: exists: true path: /run/user/1000/podman/podman.sock rootlessNetworkCmd: pasta security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: true seccompEnabled: true seccompProfilePath: /etc/containers/seccomp.json selinuxEnabled: false serviceIsRemote: false slirp4netns: executable: &quot;&quot; package: &quot;&quot; version: &quot;&quot; swapFree: 17176719360 swapTotal: 17179865088 uptime: 2h 39m 49.00s (Approximately 0.08 days) variant: &quot;&quot; plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan - ipvlan volume: - local registries: search: - docker.io store: configFile: /home/bupd/.config/containers/storage.conf containerStore: number: 11 paused: 0 running: 8 stopped: 3 graphDriverName: overlay graphOptions: {} graphRoot: /home/bupd/.local/share/containers/storage graphRootAllocated: 273631555584 graphRootUsed: 145692721152 graphStatus: Backing Filesystem: extfs Native Overlay Diff: &quot;true&quot; Supports d_type: &quot;true&quot; Supports shifting: &quot;false&quot; Supports volatile: &quot;true&quot; Using metacopy: &quot;false&quot; imageCopyTmpDir: /var/tmp imageStore: number: 94 runRoot: /run/user/1000/containers transientStore: false volumePath: /home/bupd/.local/share/containers/storage/volumes version: APIVersion: 5.4.0 Built: 1739309709 BuiltTime: Wed Feb 12 03:05:09 2025 GitCommit: f9f7d48b24b1ca4403f189caaeab1cb8ff4a9aa2 GoVersion: go1.24.0 Os: linux OsArch: linux/amd64 Version: 5.4.0 ``` ### Podman in a container No ### Privileged Or Rootless Rootless ### Upstream Latest Release Yes ### Additional information I am happy to help fix this issue. Thanks</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #25702 from Sianao/main fix remove unnecessary err check</MESSAGE>
+    <SHA>3e42d5d0d6bc5aa6ad096e8b6a856f05054b12f1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>podman logs: allow options after argument Do not use the interspersed option for logs, it is not needed and just restricts valid use cases. Fixes #25653 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>4510c4beb13629c5d88821099636fc1b2d8076d7</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/containers/logs.go</FILE>
+        <FILE>cmd/podman/pods/logs.go</FILE>
+        <FILE>test/e2e/logs_test.go</FILE>
+        <FILE>test/system/035-logs.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>podman logs: allow options after argument Do not use the interspersed option for logs, it is not needed and just restricts valid use cases. Fixes #25653 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>4bea200b26941171c0b427dabf04193ef6973258</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/containers/logs.go</FILE>
+        <FILE>cmd/podman/pods/logs.go</FILE>
+        <FILE>test/e2e/logs_test.go</FILE>
+        <FILE>test/system/035-logs.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

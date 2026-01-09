@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>911</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/911</ISSUEURL>
+  <TITLE>now gcp login with no local Window manager generates error</TITLE>
+  <DESCRIPTION>Using Now CLI 8.3.9 I use a Linux VM via SSH for all development, operations, etc use. I'd like to move our now default deployment to GCP (where the rest of our resources are), but because my Linux VM is connected via SSH without an installed Window manager, when I run 'now gcp login' I get this error: ``` host$ now gcp login &gt; Error! An unexpected error occurred! Error: spawn /snapshot/now-cli/node_modules/opn/xdg-open ENOENT at exports._errnoException (util.js:1050:11) at Process.ChildProcess._handle.onexit (internal/child_process.js:193:32) at onErrorNT (internal/child_process.js:367:16) at _combinedTickCallback (internal/process/next_tick.js:80:11) at process._tickCallback (internal/process/next_tick.js:104:9) at Module.runMain (pkg/prelude/bootstrap.js:1282:13) at run (bootstrap_node.js:469:7) at startup (bootstrap_node.js:193:9) at bootstrap_node.js:584:3 Error: spawn /snapshot/now-cli/node_modules/opn/xdg-open ENOENT at exports._errnoException (util.js:1050:11) at Process.ChildProcess._handle.onexit (internal/child_process.js:193:32) at onErrorNT (internal/child_process.js:367:16) at _combinedTickCallback (internal/process/next_tick.js:80:11) at process._tickCallback (internal/process/next_tick.js:104:9) at Module.runMain (pkg/prelude/bootstrap.js:1282:13) at run (bootstrap_node.js:469:7) at startup (bootstrap_node.js:193:9) at bootstrap_node.js:584:3 ``` With the Google Cloud SDK, logging into GCP detects you have no local Window manager and just outputs the URL for you to paste into your browser to login with, get the authorization code, and paste back into the SSH session. Can we do the same with Now?</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>35</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>9.0.0-canary.5</MESSAGE>
+    <SHA>9fc096d2d578b4dbc485cae67acdd9a70017e7f3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>instead of opening url with xdg-open (which is causing #911), print the URL for the user to open or click, as diff versions of xdg-open may be needed on various linux distros and opn has some issues within pkg.</MESSAGE>
+      <SHA>5bf095269650251bb688fa64503da563d63168d6</SHA>
+      <PATCHEDFILES>
+        <FILE>src/providers/gcp/login.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Get `now gcp login` working on various linux distros again (#944) * Fix `now alias` for domains without DNS records (#898) * 8.3.9 * Ensure that `now logout` revokes the token (#920) * 8.3.10 * instead of opening url with xdg-open (which is causing #911), print the URL for the user to open or click, as diff versions of xdg-open may be needed on various linux distros and opn has some issues within pkg. * adds check for the platform, uses opn on windows/mac and just prints out URL for linux</MESSAGE>
+      <SHA>d30dcf4db719c2c11410496adbbd9d1adad573d5</SHA>
+      <PATCHEDFILES>
+        <FILE>src/providers/gcp/login.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes runtime issues with a type and some missing require statements (#946) * Fix `now alias` for domains without DNS records (#898) * 8.3.9 * Ensure that `now logout` revokes the token (#920) * 8.3.10 * instead of opening url with xdg-open (which is causing #911), print the URL for the user to open or click, as diff versions of xdg-open may be needed on various linux distros and opn has some issues within pkg. * adds check for the platform, uses opn on windows/mac and just prints out URL for linux * fixed runtime issues</MESSAGE>
+      <SHA>82112c79d6dd16f2c199a84967b8ff70a3b10752</SHA>
+      <PATCHEDFILES>
+        <FILE>src/providers/gcp/login.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Get `now gcp login` working on various linux distros again (#944) * Fix `now alias` for domains without DNS records (#898) * 8.3.9 * Ensure that `now logout` revokes the token (#920) * 8.3.10 * instead of opening url with xdg-open (which is causing #911), print the URL for the user to open or click, as diff versions of xdg-open may be needed on various linux distros and opn has some issues within pkg. * adds check for the platform, uses opn on windows/mac and just prints out URL for linux</MESSAGE>
+      <SHA>128b2b7faabe8b1c85c26b30e4ec0c782ad7644c</SHA>
+      <PATCHEDFILES>
+        <FILE>src/providers/gcp/login.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes runtime issues with a type and some missing require statements (#946) * Fix `now alias` for domains without DNS records (#898) * 8.3.9 * Ensure that `now logout` revokes the token (#920) * 8.3.10 * instead of opening url with xdg-open (which is causing #911), print the URL for the user to open or click, as diff versions of xdg-open may be needed on various linux distros and opn has some issues within pkg. * adds check for the platform, uses opn on windows/mac and just prints out URL for linux * fixed runtime issues</MESSAGE>
+      <SHA>1dbbbbb085df75f8a17fea8d5ea2fd7b8a140973</SHA>
+      <PATCHEDFILES>
+        <FILE>src/providers/gcp/login.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

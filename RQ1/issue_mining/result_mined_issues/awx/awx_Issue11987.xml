@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>11987</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/11987</ISSUEURL>
+  <TITLE>Project status in jobs it's wrong</TITLE>
+  <DESCRIPTION>### Please confirm the following - [X] I agree to follow this project's [code of conduct](https://docs.ansible.com/ansible/latest/community/code_of_conduct.html). - [X] I have checked the [current issues](https://github.com/ansible/awx/issues) for duplicates. - [X] I understand that AWX is open source software provided for free and that I might not receive a timely response. ### Summary Hello when job fail with project update error , the status of sync project is wrong in UI In output job ``` Traceback (most recent call last): File &quot;/var/lib/awx/venv/awx/lib64/python3.9/site-packages/awx/main/tasks/jobs.py&quot;, line 449, in run self.pre_run_hook(self.instance, private_data_dir) File &quot;/var/lib/awx/venv/awx/lib64/python3.9/site-packages/awx/main/tasks/jobs.py&quot;, line 955, in pre_run_hook sync_task.run(local_project_sync.id) File &quot;/var/lib/awx/venv/awx/lib64/python3.9/site-packages/awx/main/tasks/jobs.py&quot;, line 92, in _wrapped return f(self, *args, **kwargs) File &quot;/var/lib/awx/venv/awx/lib64/python3.9/site-packages/awx/main/tasks/jobs.py&quot;, line 604, in run raise AwxTaskError.TaskError(self.instance, rc) Exception: project_update 443522 (failed) encountered an error (rc=None), please see task stdout for details. ``` In job details ui &lt;img width=&quot;211&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/27526373/161085818-6ecc265c-7ac8-4df4-8ab6-3b708d7dc688.png&quot;&gt; in project ui &lt;img width=&quot;307&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/27526373/161085668-e85bd62d-009e-4276-984c-34305b835a68.png&quot;&gt; ### AWX version 20.0.0 ### Select the relevant components - [X] UI - [x] API - [ ] Docs ### Installation method kubernetes ### Modifications no ### Ansible version 2.9.9 ### Operating system redhat ### Web browser Chrome ### Steps to reproduce launch job with sync project or override branch scm ### Expected results good status in job details ### Actual results wrong status ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>76</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #12328 from ansible/dependabot/npm_and_yarn/awx/ui/async-2.6.4 Bump async from 2.6.3 to 2.6.4 in /awx/ui</MESSAGE>
+    <SHA>e94e15977cf46318ec99c6fd43b19d85a850f11a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Update project status to reflect project sync related to job template Update project status to reflect project sync related to job template. We were displaying status of project sync itself, not from the project update job as expected. Also, rename `Project Status` to be `Project Update Status` to discern from the Project status iself. See: https://github.com/ansible/awx/issues/11987</MESSAGE>
+      <SHA>ed079da28ff36b480b367bb382b9d7057dde7c09</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui/src/screens/Job/Job.helptext.js</FILE>
+        <FILE>awx/ui/src/screens/Job/JobDetail/JobDetail.js</FILE>
+        <FILE>awx/ui/src/screens/Job/JobDetail/JobDetail.test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Update project status to reflect project sync related to job template Update project status to reflect project update sync related to job template that was launched with branch override. We were displaying status of project sync itself, not from the project update job as expected. Also, rename `Project Status` to be `Project Update Status`. See: https://github.com/ansible/awx/issues/11987</MESSAGE>
+      <SHA>7818d6cf74754dbfed03ad02e0a271f7b55105ce</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui/src/screens/Job/Job.helptext.js</FILE>
+        <FILE>awx/ui/src/screens/Job/JobDetail/JobDetail.js</FILE>
+        <FILE>awx/ui/src/screens/Job/JobDetail/JobDetail.test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

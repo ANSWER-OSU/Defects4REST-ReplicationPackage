@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5112</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5112</ISSUEURL>
+  <TITLE>Update/Insert/Delete Customer clears entire customers related cache</TITLE>
+  <DESCRIPTION>When Update/Insert/Delete Customer the `CacheEventConsumer` https://github.com/nopSolutions/nopCommerce/blob/develop/src/Libraries/Nop.Services/Caching/CacheEventConsumer.cs#L63 calls ``` protected override void ClearCache(Customer entity) { RemoveByPrefix(NopCustomerServicesDefaults.CustomerCustomerRolesPrefix); RemoveByPrefix(NopCustomerServicesDefaults.CustomerAddressesPrefix); RemoveByPrefix(NopEntityCacheDefaults&lt;ShoppingCartItem&gt;.AllPrefix); if (string.IsNullOrEmpty(entity.SystemName)) return; Remove(NopCustomerServicesDefaults.CustomerBySystemNameCacheKey, entity.SystemName); } ``` https://github.com/nopSolutions/nopCommerce/blob/develop/src/Libraries/Nop.Services/Customers/Caching/CustomerCacheEventConsumer.cs#L29 which would clear entire customers related cache and because there is almost all the time one of the CRUDs executed for Customer, example is guest visits the site we Insert the guest customer and the cache will be cleared, so there is never anything cached for Customers. Probably is a good idea to narrow the clearing the cache to the current customer?</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>86</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5056 Moved .UseRouting() to own startup file (#5063)</MESSAGE>
+    <SHA>dd6f7c239a2695af5404205b462fac2c25922a0f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5112 Performance. Clear cache for specific customer</MESSAGE>
+      <SHA>aabdf7d82b264df6598c3f510e766d49b3a66a5d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Customers/Caching/CustomerCacheEventConsumer.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/NopCustomerServiceDefaults.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/NopOrderDefaults.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9019</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/9019</ISSUEURL>
+  <TITLE>Observability and metrics - Surface metrics prometheus friendly</TITLE>
+  <DESCRIPTION>Websockets contain an [example](https://github.com/ansible/awx/blob/devel/awx/main/analytics/broadcast_websocket.py#L121) of Prometheus data structures serialized, deserialized &amp; [exposed via a Prometheus endpoint](https://github.com/chrismeyersfsu/awx/commit/b58c71bb74bd5f5c836f88daa3d7806ff68cea47#diff-497de0f3f551df8d0333aa7a3d2cae353a08d4e2b500ca122195bafda82f6d3b). We want to do the same for our generalized metrics. Note that websockets didn't have the potential performance needs that this metrics tracking system will need. I'm unsure of the performance of storing the metrics in Prometheus objects and _then_ serializing them. Also, the websockets stats objects persist in memory for a long time. There are some metrics workloads where the metric object will be short lived in memory. So there will be many deserialize, modify, serialize operations. For this reason, we may have our own minimal data structure that we operate on (i.e. serialize, increment, deserialize) and only convert it to a Prometheus style data-structure when rendering in the API. &quot;Normal&quot; prometheus usage is to have a `/metrics` endpoint per-node that you are monitoring. We are deviating from the norm and centralizing information about multiple nodes. It would be nice to have a filter so that you get the best of both worlds, centralized metrics and the ability to use existing tooling. To this end, a filter that supports filtering by-node would be useful i.e. `/metrics?node=node1.awx.mydomain.com` We also have to consider performance. This new set of metrics should render very quickly. Our existing metrics can be slow since they require database queries. We should use filtering or a different endpoint to allow users to avoid the pre-existing DB query metrics.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>99</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update minikube.md</MESSAGE>
+    <SHA>f8a698d12727692eb96b8fc59d4dfa3f13fc86f5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9461 from fosterseth/feat_metrics_via_redis Add subsystem metrics that propagate through Redis SUMMARY #9019 -- list of metrics and their purpose / description #9012 #9056 #8629 Use Redis to store metrics pertaining to the performance and health of subsystems such as the callback receiver and task manager. It is thread / multiprocess safe and should be fast enough to handle a high volume of data. This data shows up at the /api/v2/metrics endpoint You can filter down nodes using /api/v2/metrics/?subsystemonly=1&amp;node=awx-1 You can also filter down to a specific metric, /api/v2/metrics/?subsystemonly=1&amp;metrics=callback_receiver_events_insert_db_seconds&amp;node=awx-1 ISSUE TYPE Feature Pull Request COMPONENT NAME API AWX VERSION awx: 17.0.1 Reviewed-by: Ryan Petrello &lt;None&gt; Reviewed-by: Chris Meyers &lt;None&gt; Reviewed-by: Seth Foster &lt;None&gt; Reviewed-by: Elijah DeLee &lt;kdelee@redhat.com&gt;</MESSAGE>
+      <SHA>6087d5cb9cac81fa657ada62f8545dc252f0ae19</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/renderers.py</FILE>
+        <FILE>awx/api/templates/api/metrics_view.md</FILE>
+        <FILE>awx/api/views/metrics.py</FILE>
+        <FILE>awx/main/analytics/analytics_tasks.py</FILE>
+        <FILE>awx/main/analytics/subsystem_metrics.py</FILE>
+        <FILE>awx/main/consumers.py</FILE>
+        <FILE>awx/main/dispatch/worker/callback.py</FILE>
+        <FILE>awx/main/queue.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/main/tests/functional/analytics/test_metrics.py</FILE>
+        <FILE>awx/main/wsbroadcast.py</FILE>
+        <FILE>awx/settings/defaults.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

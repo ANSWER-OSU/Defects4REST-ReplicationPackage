@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>112</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/112</ISSUEURL>
+  <TITLE>Simplify project/backend setup</TITLE>
+  <DESCRIPTION>Currently there are projects (instances of AnnifProject, configured in projects.cfg) and backends (instances of subclasses of AnnifBackend, configured in backends.cfg) with a one-to-many mapping between projects and backends. This makes it cumbersome to set up a basic project with a 1:1 correspondence to a backend, as both have to be configured separately. Instead the model could be flattened like this: * A backend is the class that implements a specific kind of algorithm (implemented as a subclass of AnnifBackend, as currently) * A project is an instance of a backend with a specific configuration With this approach we only need one configuration file (projects.cfg) that could look like this: ``` [fasttext-fi] name=fastText Finnish type=fasttext language=fi analyzer=snowball(finnish) dim=500 lr=0.25 epoch=30 loss=hs limit=100 chunksize=24 ``` Note that some parameters are backend-specific (here dim, lr, epoch, loss, chunksize) whereas others are common to all projects. Then we need a special backend for combining the results of two projects. I will make a separate issue of it.</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>add clarification that you have to run pipenv shell first</MESSAGE>
+    <SHA>eb718282ef7f0741d1512c4d24663d90f15f0141</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Simplify project/backend setup by getting rid of backend configuration file. Fixes #112</MESSAGE>
+      <SHA>d4394d3cf318ea7683243bf097959aeb597608b7</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/__init__.py</FILE>
+        <FILE>annif/backend/__init__.py</FILE>
+        <FILE>annif/project.py</FILE>
+        <FILE>backends.cfg</FILE>
+        <FILE>projects.cfg</FILE>
+        <FILE>tests/backends.cfg</FILE>
+        <FILE>tests/projects.cfg</FILE>
+        <FILE>tests/test_backend.py</FILE>
+        <FILE>tests/test_backend_fasttext.py</FILE>
+        <FILE>tests/test_backend_http.py</FILE>
+        <FILE>tests/test_backend_tfidf.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #123 from NatLibFi/issue112-simplify-project-backend Simplify project/backend setup. Fixes #112</MESSAGE>
+      <SHA>49a40327db843370da02d9c9d7a634bb5557c52d</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/__init__.py</FILE>
+        <FILE>annif/backend/__init__.py</FILE>
+        <FILE>annif/backend/backend.py</FILE>
+        <FILE>annif/backend/fasttext.py</FILE>
+        <FILE>annif/backend/tfidf.py</FILE>
+        <FILE>annif/project.py</FILE>
+        <FILE>backends.cfg</FILE>
+        <FILE>projects.cfg</FILE>
+        <FILE>tests/backends.cfg</FILE>
+        <FILE>tests/projects.cfg</FILE>
+        <FILE>tests/test_backend.py</FILE>
+        <FILE>tests/test_backend_fasttext.py</FILE>
+        <FILE>tests/test_backend_http.py</FILE>
+        <FILE>tests/test_backend_tfidf.py</FILE>
+        <FILE>tests/test_cli.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

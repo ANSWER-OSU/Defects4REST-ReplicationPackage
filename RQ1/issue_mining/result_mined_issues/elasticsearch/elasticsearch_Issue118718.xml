@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118718</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118718</ISSUEURL>
+  <TITLE>[CI] SearchStatesIT testCanMatch failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5755 / 8.2.3_bwc](https://gradle-enterprise.elastic.co/s/a7d4g3is4rwqq) - [elasticsearch-periodic #5755 / 8.1.3_bwc](https://gradle-enterprise.elastic.co/s/ovelx2boqm4ba) - [elasticsearch-periodic #5755 / 8.5.3_bwc](https://gradle-enterprise.elastic.co/s/27mvo7hovprjo) - [elasticsearch-pull-request #49316 / 8.8.2_bwc](https://gradle-enterprise.elastic.co/s/2qnhit62azwe2) - [elasticsearch-pull-request #49316 / 8.2.3_bwc](https://gradle-enterprise.elastic.co/s/vdpnrttieltsa) - [elasticsearch-periodic #5750 / 8.15.5_bwc](https://gradle-enterprise.elastic.co/s/tw3ukt6apt5iu) - [elasticsearch-periodic #5745 / 8.4.3_bwc](https://gradle-enterprise.elastic.co/s/kk7u7umb3yoas) **Reproduction Line:** ``` ./gradlew &quot;:qa:ccs-rolling-upgrade-remote-cluster:v8.2.3#oneThirdUpgraded&quot; -Dtests.class=&quot;org.elasticsearch.upgrades.SearchStatesIT&quot; -Dtests.method=&quot;testCanMatch&quot; -Dtests.seed=2D13B0A4E68E7C82 -Dtests.bwc=true -Dtests.locale=ksf -Dtests.timezone=America/Toronto -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.upgrades.SearchStatesIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testCanMatch),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: a collection with size &lt;3&gt; but: collection size was &lt;2&gt; ``` **Issue Reasons:** - [8.x] 7 failures in test testCanMatch (0.7% fail rate in 1000 executions) - [8.x] 2 failures in step 8.2.3_bwc (50.0% fail rate in 4 executions) - [8.x] 3 failures in pipeline elasticsearch-periodic (100.0% fail rate in 3 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>34</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.restart.FullClusterRestartIT testSingleDoc {cluster=UPGRADED} #119434</MESSAGE>
+    <SHA>b2ca3f51397785c789e37e191893ce8911bcc845</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.upgrades.SearchStatesIT testCanMatch #118718</MESSAGE>
+      <SHA>fc3d4ecaf213aa7840db91d853d7fb0991145900</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix SearchStatesIT.testCanMatch We need to override the proxy handler here so that the old type free request gets translated to a scroll free request the same way this works out in local cluster execution. closes #118718 Signed-off-by: Armin Braun &lt;me@obrown.io&gt;</MESSAGE>
+      <SHA>d90d0833bc393a73f02d345467599d14bb4ab6a7</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/search/SearchTransportService.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/transport/TransportActionProxy.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix SearchStatesIT.testCanMatch (#120046) Adding back the old style free request to fix CCS BwC situations where we need to proxy requests exactly as is and can't drop the technically redundant original indices. closes #118718</MESSAGE>
+      <SHA>5644551a15164f63703fd4320c35103a89bff94a</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/action/search/SearchTransportService.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

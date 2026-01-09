@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>93</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/93</ISSUEURL>
+  <TITLE>Scores above 1.0 when combining backends</TITLE>
+  <DESCRIPTION>This shouldn't happen: ``` $ echo &quot;kissa&quot; | annif analyze fasttext-tfidf-fi 1.0553042152709962 &lt;http://www.yso.fi/onto/yso/p19378&gt; kissa 0.6740380641807556 &lt;http://www.yso.fi/onto/yso/p864&gt; kissaeläimet 0.23148740828037262 &lt;http://www.yso.fi/onto/yso/p12160&gt; koreankielinen kirjallisuus 0.23045319318771362 &lt;http://www.yso.fi/onto/yso/p17532&gt; jaguaari 0.22833362221717834 &lt;http://www.yso.fi/onto/yso/p21153&gt; kissankello 0.21811979768543244 &lt;http://www.yso.fi/onto/yso/p15329&gt; eläinrunot 0.2107375519641876 &lt;http://www.yso.fi/onto/yso/p675&gt; lemmikkieläimet 0.20556555688381195 &lt;http://www.yso.fi/onto/yso/p16549&gt; vatsakalvontulehdus 0.20084334909915924 &lt;http://www.yso.fi/onto/yso/p24992&gt; kulkukissat 0.1995008951379776 &lt;http://www.yso.fi/onto/yso/p8324&gt; uskonnolliset ohjelmat ```</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #95 from NatLibFi/analyzedir-command Analyzedir command</MESSAGE>
+    <SHA>ec91638ed6d0de9b784220d84e58f3e6e2eea7ed</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix invalid scores when merging results from multiple backends. Fixes #93</MESSAGE>
+      <SHA>049be703a92066fdad42352f205c0cfd6a4cf0e3</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/project.py</FILE>
+        <FILE>tests/projects.cfg</FILE>
+        <FILE>tests/test_project.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Divide hit weights by sum of backend weights. Fixes #93</MESSAGE>
+      <SHA>8fefe41f7514fb4288aea9614929276800d5c69a</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/project.py</FILE>
+        <FILE>tests/projects.cfg</FILE>
+        <FILE>tests/test_cli.py</FILE>
+        <FILE>tests/test_project.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #99 from NatLibFi/issue93-merge-hits-take2 Divide hit weights by sum of backend weights. Fixes #93</MESSAGE>
+      <SHA>b39079775056254c86760e59e6a69f9219720ec5</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/project.py</FILE>
+        <FILE>tests/projects.cfg</FILE>
+        <FILE>tests/test_cli.py</FILE>
+        <FILE>tests/test_project.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

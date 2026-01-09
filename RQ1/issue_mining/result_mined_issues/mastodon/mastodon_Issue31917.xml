@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>31917</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/31917</ISSUEURL>
+  <TITLE>[Accessibility] The main scrollbar is too thin and is difficult to grab.</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem 1. Go on Mastodon web interface on your desktop and look at the scrollbars sizes, mainly the main scrollbar totally on the right. 2. Some people, including me, can't grab it with the mouse because it's too thin. ### Expected behaviour I can grab the scrollbar with the mouse to scroll because it's normal size. ### Actual behaviour I can't grab the scrollbar with the mouse to scroll because it's too thin. ### Detailed description The main scrollbar (on the `html` element) is too thin and it's very difficult to grab it to scroll with the mouse. On the screenshot below, this is the scrollbar on the right. The other for the navigation is normal size. ![Screenshot of Mastodon interface with the thin main scrollbar and a normal size one for the navigation](https://github.com/user-attachments/assets/7f7f2f10-3297-4461-8e30-18932e88901f) I've found this code in the CSS which is the problem: ```css @supports not selector(::-webkit-scrollbar) { html { scrollbar-color: #606085 var(--background-border-color); scrollbar-width: thin; } } ``` There is an [&quot;Accessibility&quot; section on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-width#accessibility) to explain why the CSS property `scrollbar-width` is a problem when you fix the `thin` value. Is it possible to remove this property from the CSS? Or to add an option so that users can choose if they want the normal size for scrollbar or a thin size? Thanks ### Mastodon instance eldritch.cafe ### Mastodon version v4.3.0 ### Browser name and version Firefox 130 ### Operating system Windows 11 ### Technical details _No response_</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Keep the status action buttons at their position regardless of the counter size (#32084) Co-authored-by: Claire &lt;claire.github-309c@sitedethib.com&gt;</MESSAGE>
+    <SHA>739ad0eed2f537bc49f53fb556beab52fd6e66da</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix scrollbar width Fixes #31917</MESSAGE>
+      <SHA>935f2480b0da51bb2f81902d843f671719c8adf8</SHA>
+      <PATCHEDFILES>
+        <FILE>app/javascript/styles/mastodon/reset.scss</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

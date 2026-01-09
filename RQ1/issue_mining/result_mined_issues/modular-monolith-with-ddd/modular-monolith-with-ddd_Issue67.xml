@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>67</ISSUENO>
+  <ISSUEURL>https://github.com/kgrzybek/modular-monolith-with-ddd/issues/67</ISSUEURL>
+  <TITLE>OutboxMessage in BuildingBlocks has an unused Parameter in its Constructor</TITLE>
+  <DESCRIPTION>The `DomainEventsDispatcher.cs` creates an `OutboxMessage` object (line 73) and passes in the `domainEventNotification.Id` which is not used because the Id in `OutboxMessage.cs` is assigned `Guid.NewGuid();`.</DESCRIPTION>
+  <REPONAME>modular-monolith-with-ddd</REPONAME>
+  <TIMEDIFFERENCEDAYS>24</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Resolve Serialized messages contains BackingField with duplicated data #47</MESSAGE>
+    <SHA>9a9f4a2e062d4c75a4df9e8d747ad45b94186d20</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Resolve #67. Match OutboxMessage Id to InboxMessage Id.</MESSAGE>
+      <SHA>ffa547ca5cc069424446f00ca5f948ed53eff853</SHA>
+      <PATCHEDFILES>
+        <FILE>src/BuildingBlocks/Application/Events/DomainNotificationBase.cs</FILE>
+        <FILE>src/BuildingBlocks/Application/Outbox/OutboxMessage.cs</FILE>
+        <FILE>src/BuildingBlocks/Infrastructure/DomainEventsDispatching/DomainEventsDispatcher.cs</FILE>
+        <FILE>src/Modules/Administration/Application/MeetingGroupProposals/AcceptMeetingGroupProposal/MeetingGroupProposalAcceptedNotification.cs</FILE>
+        <FILE>src/Modules/Meetings/Application/MeetingGroupProposals/AcceptMeetingGroupProposal/MeetingGroupProposalAcceptedNotification.cs</FILE>
+        <FILE>src/Modules/Meetings/Application/MeetingGroupProposals/MeetingGroupProposedNotification.cs</FILE>
+        <FILE>src/Modules/Meetings/Application/MeetingGroups/MeetingGroupCreatedNotification.cs</FILE>
+        <FILE>src/Modules/Meetings/Application/Meetings/SendMeetingAttendeeAddedEmail/MeetingAttendeeAddedNotification.cs</FILE>
+        <FILE>src/Modules/Meetings/Application/Members/CreateMember/MemberCreatedNotification.cs</FILE>
+        <FILE>src/Modules/Payments/Application/MeetingGroupPaymentRegisters/RegisterPayment/PaymentRegisteredNotification.cs</FILE>
+        <FILE>src/Modules/Payments/Tests/IntegrationTests/MeetingGroupPayments/CreatePaymentRegisterTests.cs</FILE>
+        <FILE>src/Modules/UserAccess/Application/UserRegistrations/RegisterNewUser/NewUserRegisteredNotification.cs</FILE>
+        <FILE>src/Modules/UserAccess/Application/Users/CreateUser/UserRegistrationConfirmedNotification.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

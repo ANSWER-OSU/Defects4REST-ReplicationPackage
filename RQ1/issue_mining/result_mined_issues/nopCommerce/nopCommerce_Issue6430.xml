@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6430</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6430</ISSUEURL>
+  <TITLE>DataTables drawCallback</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.50.4 This is a feature suggestion. Add to the DataTablesModel ``` /// &lt;summary&gt; /// Gets or sets custom render draw function name(js) /// See also https://datatables.net/reference/option/drawCallback /// &lt;/summary&gt; public string DrawCallback { get; set; } ``` and implement it in _Table.Definition ``` @if (!string.IsNullOrEmpty(Model.DrawCallback)) { &lt;text&gt; drawCallback: function (tfoot, data, start, end, display) { return @(Model.DrawCallback)(tfoot, data, start, end, display); }, &lt;/text&gt; } ``` so that a js function may be called on table redraw. perhaps for 4.6 - but implementation was very is easy for me to apply to 4.5.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>69</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Added more suitable local string We should use more suitable locale for warning about saving product before upload multimedia files</MESSAGE>
+    <SHA>b66829b19b4b3b338ffb5fc991b761bbe3397a88</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6430 Added DataTables drawCallback</MESSAGE>
+      <SHA>0dc4c8659cf59701fbd135b8f9a91a225d10f9a8</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Models/DataTables/DataTablesModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Shared/_Table.Definition.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

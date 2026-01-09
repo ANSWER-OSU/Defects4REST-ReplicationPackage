@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16916</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16916</ISSUEURL>
+  <TITLE>system test flake -- tcp connection test</TITLE>
+  <DESCRIPTION>&lt;!-- --------------------------------------------------- BUG REPORT INFORMATION --------------------------------------------------- Use the commands below to provide key information from your environment: You do NOT have to include this information if this is a FEATURE REQUEST **NOTE** A large number of issues reported against Podman are often found to already be fixed in more current versions of the project. Before reporting an issue, please verify the version you are running with `podman version` and compare it to the latest release documented on the top of Podman's [README.md](../README.md). If they differ, please update your version of Podman to the latest possible and retry your command before creating an issue. Also, there is a running list of known issues in the [Podman Troubleshooting Guide](https://github.com/containers/podman/blob/main/troubleshooting.md), please reference that page before opening a new issue. If you are filing a bug against `podman build`, please instead file a bug against Buildah (https://github.com/containers/buildah/issues). Podman build executes Buildah to perform container builds, and as such the Buildah maintainers are best equipped to handle these bugs. --&gt; **Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind bug **Description** I thought this test was failing on my SSH PR due to my changes but now I am seeing it in 2 PRs of very different styles. The podman system connection tcp test flakes: https://github.com/containers/podman/pull/16601/checks?check_run_id=10234988773 https://cirrus-ci.com/task/4577298783928320 the output is `Cannot connect to Podman. Please verify your connection to the Linux system using podman system connection list, or try podman machine init and podman machine start to manage a new Linux VM Error: unable to connect to Podman socket: Get &quot;http://d/v4.4.0/libpod/_ping&quot;: dial tcp [::1]:63371: connect: connection refused` or something like this with different ports. Could be something that changed recently in system connection add. I have only seen it in aarch system tests and fedora 37 root system tests.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #16942 from baude/rmqcow2 Remove references to qcow2</MESSAGE>
+    <SHA>3fbf62e968d2904d70d174e943cb942e5fa35da3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix `podman system connection - tcp` flake The test was only waiting for the port to be ready but that doesn't imply the server being ready to serve requests. Hence, add a loop waiting for the `info` call to succeed. Fixes: #16916 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>a741299efcc8982ce3e40e5de58c3d3e0f5309d5</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/272-system-connection.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

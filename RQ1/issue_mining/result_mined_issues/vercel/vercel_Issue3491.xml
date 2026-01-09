@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3491</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/3491</ISSUEURL>
+  <TITLE>Custom 404 page - &quot;cannot mix legacy routes with new keys&quot;</TITLE>
+  <DESCRIPTION>Trying to set a custom 404 page as shown [here ](https://khrome.dev/blog/custom-404-pages-on-zeit-now-v2-platform) and [here](https://spectrum.chat/zeit/now/custom-404-page~1f921045-60d9-477b-b23c-1626c9fa1565), getting this: &gt; Deployment failed with the following error: &gt; ``` &gt; Cannot mix legacy routes with new keys: &gt; ``` I'm using Hugo static generator, and here's the 404 routing part in my `now.json` ``` &quot;routes&quot;: [{ &quot;src&quot;: &quot;/.*&quot;, &quot;dest&quot;: &quot;/$1&quot; }, { &quot;handle&quot;: &quot;filesystem&quot; }, { &quot;src&quot;: &quot;/.*&quot;, &quot;status&quot;: 404, &quot;dest&quot;: &quot;/404&quot; } ``` I also tried: ``` }, { &quot;src&quot;: &quot;/(.*)&quot;, ... ``` I've looked around for other examples, maybe missing a difference between now v1/2? Thanks in advance</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>131</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[cli] Update zeit.ink to vercel.link shortener (#4531) - Update `zeit.ink` to `vercel.link` shortener - Support for `output.error()` action parameter</MESSAGE>
+    <SHA>66458fe3e075088c170c88211050c7f6d8791075</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[routing-utils] Improve error messages (#4498) This PR improves the way we handle routing errors in a few ways: - The error response is a single error (the first) instead of an array of errors when mixing routing properties - The error message says which route index has the error - The error includes `link` and `action` properties to match our API - The error message for mixed routes with new routing properties has been updated per [ch341](https://app.clubhouse.io/vercel/story/341) Related to #3491</MESSAGE>
+      <SHA>5608a4c42cc9257f10ca2287466c6849eb79853b</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-cli/src/util/dev/server.ts</FILE>
+        <FILE>packages/now-cli/test/dev/integration.js</FILE>
+        <FILE>packages/now-routing-utils/src/index.ts</FILE>
+        <FILE>packages/now-routing-utils/src/types.ts</FILE>
+        <FILE>packages/now-routing-utils/test/index.spec.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

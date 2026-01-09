@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5135</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/5135</ISSUEURL>
+  <TITLE>Slow Assign with a large number of volumes</TITLE>
+  <DESCRIPTION>Sponsors SeaweedFS via Patreon https://www.patreon.com/seaweedfs **Describe the bug** [GetActiveVolumeCount](https://github.com/seaweedfs/seaweedfs/blob/3.59/weed/topology/volume_layout.go#L347) function has high complexity when dc/rack/node topology is enabled. Master-leader makes this complex calculation every time `Assign` called, thus every write has O(2*n^3) difficulty just to count active volumes. https://github.com/seaweedfs/seaweedfs/blob/7eafa3420b8e5ae83c8873cddd03ded90a0fc921/weed/topology/volume_layout.go#L347-L372 With a large number of volumes (~50000) it takes up to 1000ms to pick needed volume and [a lot of CPU resources](https://github.com/seaweedfs/seaweedfs/issues/3886#issuecomment-1846849439). **Expected behavior** Seems, that master can keep active/crowded volumes in memory since all needed information already exist in topology. We need some mapping, so the needed info about active/crowded volumes could be taken faster.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>24</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix missing VersionConfiguration node in get-bucket-versioning response (#5162) * fix: s3 response for get bucket version https://github.com/seaweedfs/seaweedfs/issues/5155 * fix: s3 response for get bucket version https://github.com/seaweedfs/seaweedfs/issues/5155</MESSAGE>
+    <SHA>4f6172f3699cc47107dea3fe4f3664f283296cdb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>decrease complex: writables slice to map https://github.com/seaweedfs/seaweedfs/issues/5135</MESSAGE>
+      <SHA>3c952f87c7562ae3fbce4d5519dbb126210fa0f5</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/topology/volume_layout.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

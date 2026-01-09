@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117086</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/117086</ISSUEURL>
+  <TITLE>[CI] FullClusterRestartDownsampleIT testRollupIndex {cluster=UPGRADED} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #13103 / 8.17.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/hr64xosggl35c) - [elasticsearch-intake #13103 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/abtfruzbcoum4) - [elasticsearch-intake #13103 / 8.16.1_bwc-snapshots](https://gradle-enterprise.elastic.co/s/4y2lpoobet3ve) - [elasticsearch-periodic #4944 / 8.4.3_bwc](https://gradle-enterprise.elastic.co/s/ryfwn5h62kgle) - [elasticsearch-periodic #4944 / 8.2.3_bwc](https://gradle-enterprise.elastic.co/s/c7ms3st6tvd4i) - [elasticsearch-periodic #4944 / 8.0.1_bwc](https://gradle-enterprise.elastic.co/s/2flf62ewrzvx6) - [elasticsearch-periodic #4944 / 8.3.3_bwc](https://gradle-enterprise.elastic.co/s/46ptz3rpquffw) - [elasticsearch-periodic #4944 / 8.1.3_bwc](https://gradle-enterprise.elastic.co/s/tcn67aswlx2gg) - [elasticsearch-pull-request #42094 / 8.3.3_bwc](https://gradle-enterprise.elastic.co/s/rn7etmptef6tg) - [elasticsearch-pull-request #42094 / 8.0.1_bwc](https://gradle-enterprise.elastic.co/s/4dsscw4p7a3m6) **Reproduction Line:** ``` ./gradlew &quot;:qa:full-cluster-restart:v8.17.0#bwcTest&quot; -Dtests.class=&quot;org.elasticsearch.upgrades.FullClusterRestartDownsampleIT&quot; -Dtests.method=&quot;testRollupIndex {cluster=UPGRADED}&quot; -Dtests.seed=70A78454199DBA31 -Dtests.bwc=true -Dtests.locale=tk -Dtests.timezone=America/Kralendijk -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.upgrades.FullClusterRestartDownsampleIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testRollupIndex%20%7Bcluster%3DUPGRADED%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.NullPointerException: Cannot invoke &quot;String.isEmpty()&quot; because &quot;rollup&quot; is null ``` **Issue Reasons:** - [main] 3 consecutive failures in step 8.4.3_bwc - [main] 3 consecutive failures in step 8.2.3_bwc - [main] 3 consecutive failures in step 8.0.1_bwc - [main] 3 consecutive failures in step 8.3.3_bwc - [main] 3 consecutive failures in step 8.1.3_bwc - [main] 21 failures in test testRollupIndex {cluster=UPGRADED} (2.3% fail rate in 901 executions) - [main] 2 failures in step 8.17.0_bwc-snapshots (0.9% fail rate in 228 executions) - [main] 2 failures in step 9.0.0_bwc-snapshots (0.9% fail rate in 212 executions) - [main] 2 failures in step 8.16.1_bwc-snapshots (0.8% fail rate in 238 executions) - [main] 3 failures in step 8.4.3_bwc (100.0% fail rate in 3 executions) - [main] 3 failures in step 8.2.3_bwc (100.0% fail rate in 3 executions) - [main] 3 failures in step 8.0.1_bwc (100.0% fail rate in 3 executions) - [main] 3 failures in step 8.3.3_bwc (100.0% fail rate in 3 executions) - [main] 3 failures in step 8.1.3_bwc (100.0% fail rate in 3 executions) - [main] 3 failures in pipeline elasticsearch-pull-request (1.4% fail rate in 216 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.upgrades.FullClusterRestartDownsampleIT testRollupIndex {cluster=OLD} #117084</MESSAGE>
+    <SHA>ad13a7ffc815c9d994d3dd8b9eba2d8d145963f7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.upgrades.FullClusterRestartDownsampleIT testRollupIndex {cluster=UPGRADED} #117086</MESSAGE>
+      <SHA>de219fc91a84ad0f47b1d30f6807b0b6c6890757</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.upgrades.FullClusterRestartDownsampleIT testRollupIndex {cluster=UPGRADED} #117086</MESSAGE>
+      <SHA>c4344ad2b6ec7d4be0c1a2510cf2311c265267c9</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.upgrades.FullClusterRestartDownsampleIT testRollupIndex {cluster=UPGRADED} #117086</MESSAGE>
+      <SHA>b8c904ba645c240d904f18fd247aa58c6b6a9c2b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

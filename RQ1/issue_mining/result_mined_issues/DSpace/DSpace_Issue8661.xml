@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8661</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/8661</ISSUEURL>
+  <TITLE>Warning xsl:stylesheet when doing OAI import -c</TITLE>
+  <DESCRIPTION>**Describe the bug** When performing a `oai import -c` action, an warning is shown. I had the same issue when reviewing this PR: https://github.com/DSpace/DSpace/pull/2756#issuecomment-852967636 and the same still occurs today with DS 7.5-snapshot with a migrated repository. ``` OAI 2.0 manager action started Clearing index Index cleared Using full import. Full import Warning at xsl:stylesheet on line 14 column 35 Unrecognized version 1.1: treated as 1.0 Total: 984 items Total: 1 items Purging cached OAI responses. OAI 2.0 manager action ended. It took 75 seconds. ``` **To Reproduce** Steps to reproduce the behavior: 1. I just did a `[dspace]/bin/dspace oai import -c` with migrated content. 2. I've also tried docker `docker-compose -f cli.yml run --rm dspace-cli oai import -c` According to https://github.com/DSpace/DSpace/pull/2756#issuecomment-852967636 this issue started occurring with this PR. **Expected behavior** No warning shown. **Related work** This issue has been around: https://github.com/DSpace/DSpace/pull/2756#issuecomment-852967636 https://github.com/DSpace/DSpace/pull/2856#issuecomment-933701753</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>18</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #8423 from the-library-code/TLC-249_identifiers_submission_7x Show Identifier Step, pre-register identifiers</MESSAGE>
+    <SHA>1a4e203a965d5eeccdd02b35a4bd1f6f70576c72</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Downgrade stylesheet version Due to an warning message reported in: #8661</MESSAGE>
+      <SHA>69d124603b256e2ddb0de93892a88f41c17d4e9d</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/resources/org/dspace/license/LicenseCleanup.xsl</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Downgrade stylesheet version Due to an warning message reported in: #8661</MESSAGE>
+      <SHA>e4fcfdada6cc1f8e0950785d0feaab54b3869afe</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/resources/org/dspace/license/CreativeCommons.xsl</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

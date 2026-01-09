@@ -1,0 +1,108 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>25871</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/25871</ISSUEURL>
+  <TITLE>Docker compat api image removal with force stops running containers</TITLE>
+  <DESCRIPTION>### Issue Description Using the docker compatibility api if an image is in use by a running container and is removed with the force option specified the container is stopped and removed. Whereas in docker, images with running containers results in an error. In docker, force only results in the removal of stopped containers. See: https://docs.docker.com/reference/api/engine/version/v1.48/#tag/Image/operation/ImageDelete Tested against the mac desktop 1.17.2 and podman 5.4.2 built on ubuntu ### Steps to reproduce the issue Steps to reproduce the issue 1. Pull an image and get it's ID 2. Start a container from that image e.g. `docker run -d [the id] sleep 300` 3. Run `docker rmi --force [the image ID]` 4. See the container is gone The same can be achieved using the docker go client e.g. ``` cli, _ := client.NewClientWithOpts(client.FromEnv) _, err = cli.ImageRemove(ctx, &quot;the image id&quot;, image.RemoveOptions{ Force: true, PruneChildren: true, }) ``` ### Describe the results you received The running container is stopped and removed ### Describe the results you expected An error to occur e.g. `Error response from daemon: conflict: unable to delete aded1e1a5b37 (cannot be forced) - image is being used by running container fe300816e647` ### podman info output ```yaml Client: APIVersion: 5.4.2 BuildOrigin: brew Built: 1743601389 BuiltTime: Wed Apr 2 14:43:09 2025 GitCommit: &quot;&quot; GoVersion: go1.24.2 Os: darwin OsArch: darwin/arm64 Version: 5.4.2 host: arch: arm64 buildahVersion: 1.38.0 cgroupControllers: - cpuset - cpu - io - memory - pids - rdma - misc cgroupManager: systemd cgroupVersion: v2 conmon: package: conmon-2.1.12-2.fc40.aarch64 path: /usr/bin/conmon version: 'conmon version 2.1.12, commit: ' cpuUtilization: idlePercent: 98.28 systemPercent: 0.97 userPercent: 0.75 cpus: 6 databaseBackend: sqlite distribution: distribution: fedora variant: coreos version: &quot;40&quot; eventLogger: journald freeLocks: 2006 hostname: localhost.localdomain idMappings: gidmap: null uidmap: null kernel: 6.11.3-200.fc40.aarch64 linkmode: dynamic logDriver: journald memFree: 3115659264 memTotal: 3792564224 networkBackend: netavark networkBackendInfo: backend: netavark dns: package: aardvark-dns-1.12.2-2.fc40.aarch64 path: /usr/libexec/podman/aardvark-dns version: aardvark-dns 1.12.2 package: netavark-1.12.2-1.fc40.aarch64 path: /usr/libexec/podman/netavark version: netavark 1.12.2 ociRuntime: name: crun package: crun-1.17-1.fc40.aarch64 path: /usr/bin/crun version: |- crun version 1.17 commit: 000fa0d4eeed8938301f3bcf8206405315bc1017 rundir: /run/crun spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +CRIU +LIBKRUN +WASM:wasmedge +YAJL os: linux pasta: executable: /usr/bin/pasta package: passt-0^20240906.g6b38f07-1.fc40.aarch64 version: | pasta 0^20240906.g6b38f07-1.fc40.aarch64-pasta Copyright Red Hat GNU General Public License, version 2 or later &lt;https://www.gnu.org/licenses/old-licenses/gpl-2.0.html&gt; This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. remoteSocket: exists: true path: unix:///run/podman/podman.sock rootlessNetworkCmd: pasta security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: false seccompEnabled: true seccompProfilePath: /usr/share/containers/seccomp.json selinuxEnabled: true serviceIsRemote: true slirp4netns: executable: /usr/bin/slirp4netns package: slirp4netns-1.2.2-2.fc40.aarch64 version: |- slirp4netns version 1.2.2 commit: 0ee2d87523e906518d34a6b423271e4826f71faf libslirp: 4.7.0 SLIRP_CONFIG_VERSION_MAX: 4 libseccomp: 2.5.5 swapFree: 0 swapTotal: 0 uptime: 0h 1m 44.00s variant: v8 plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan - ipvlan volume: - local registries: search: - docker.io store: configFile: /usr/share/containers/storage.conf containerStore: number: 19 paused: 0 running: 0 stopped: 19 graphDriverName: overlay graphOptions: overlay.imagestore: /usr/lib/containers/storage overlay.mountopt: nodev,metacopy=on graphRoot: /var/lib/containers/storage graphRootAllocated: 99252940800 graphRootUsed: 54138920960 graphStatus: Backing Filesystem: xfs Native Overlay Diff: &quot;false&quot; Supports d_type: &quot;true&quot; Supports shifting: &quot;true&quot; Supports volatile: &quot;true&quot; Using metacopy: &quot;true&quot; imageCopyTmpDir: /var/tmp imageStore: number: 70 runRoot: /run/containers/storage transientStore: false volumePath: /var/lib/containers/storage/volumes version: APIVersion: 5.3.1 Built: 1732147200 BuiltTime: Thu Nov 21 00:00:00 2024 GitCommit: &quot;&quot; GoVersion: go1.22.7 Os: linux OsArch: linux/arm64 Version: 5.3.1 ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details N/A ### Additional information It is important that the image ID is used for the removal of the image, and not its tag</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #25944 from containers/renovate/github.com-docker-docker-28.x fix(deps): update module github.com/docker/docker to v28.1.1+incompatible</MESSAGE>
+    <SHA>a75cba011eb4634c6a71104063dc78b0760ba77c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>bug: Correct Docker compat REST API image delete endpoint The docker `-XDELETE image/$name?force=true` endpoint only remove containers using an image if they are in a stopped state. In Podman, when forcefully removing images we also delete running containers. This patch changes the Docker image force delete to be behaviour like the Docker API while maintaining commands like `podman rmi -f $imagename` Fixes: https://github.com/containers/podman/issues/25871 Signed-off-by: Lewis Roy &lt;lewis@redhat.com&gt;</MESSAGE>
+      <SHA>22f768341213cc59f42de9dcf5d100f136609ed2</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/reset.go</FILE>
+        <FILE>libpod/runtime_img.go</FILE>
+        <FILE>pkg/api/handlers/compat/images_remove.go</FILE>
+        <FILE>pkg/api/server/register_images.go</FILE>
+        <FILE>pkg/domain/entities/images.go</FILE>
+        <FILE>pkg/domain/infra/abi/images.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>bug: Correct Docker compat REST API image delete endpoint The Docker `-XDELETE image/$name?force=true` endpoint only removes containers using an image if they are in a non running state. In Podman, when forcefully removing images we also forcefully delete containers using the image including running containers. This patch changes the Docker image force delete compat API to act like the Docker API while maintaining commands like `podman rmi -f $imagename` Fixes: https://github.com/containers/podman/issues/25871 Signed-off-by: Lewis Roy &lt;lewis@redhat.com&gt;</MESSAGE>
+      <SHA>bddf15d8bd7af24fafd6074fa44472b3d1168f9d</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/reset.go</FILE>
+        <FILE>libpod/runtime_img.go</FILE>
+        <FILE>pkg/api/handlers/compat/images_remove.go</FILE>
+        <FILE>pkg/api/server/register_images.go</FILE>
+        <FILE>pkg/domain/entities/images.go</FILE>
+        <FILE>pkg/domain/infra/abi/images.go</FILE>
+        <FILE>test/apiv2/10-images.at</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>bug: Correct Docker compat REST API image delete endpoint The Docker `-XDELETE image/$name?force=true` endpoint only removes containers using an image if they are in a non running state. In Podman, when forcefully removing images we also forcefully delete containers using the image including running containers. This patch changes the Docker image force delete compat API to act like the Docker API while maintaining commands like `podman rmi -f $imagename` Fixes: https://github.com/containers/podman/issues/25871 Signed-off-by: Lewis Roy &lt;lewis@redhat.com&gt;</MESSAGE>
+      <SHA>84d22adb318986481975a05f052f90cf12befa2a</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/reset.go</FILE>
+        <FILE>libpod/runtime_img.go</FILE>
+        <FILE>pkg/api/handlers/compat/images_remove.go</FILE>
+        <FILE>pkg/api/server/register_images.go</FILE>
+        <FILE>pkg/domain/entities/images.go</FILE>
+        <FILE>pkg/domain/infra/abi/images.go</FILE>
+        <FILE>test/apiv2/10-images.at</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>bug: Correct Docker compat REST API image delete endpoint The Docker `-XDELETE image/$name?force=true` endpoint only removes containers using an image if they are in a non running state. In Podman, when forcefully removing images we also forcefully delete containers using the image including running containers. This patch changes the Docker image force delete compat API to act like the Docker API while maintaining commands like `podman rmi -f $imagename` Fixes: https://github.com/containers/podman/issues/25871 Signed-off-by: Lewis Roy &lt;lewis@redhat.com&gt;</MESSAGE>
+      <SHA>c2218b2fc7a5b2cad99a7ab8a38414124171ffa0</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/reset.go</FILE>
+        <FILE>libpod/runtime_img.go</FILE>
+        <FILE>pkg/api/handlers/compat/images_remove.go</FILE>
+        <FILE>pkg/api/server/register_images.go</FILE>
+        <FILE>pkg/domain/entities/images.go</FILE>
+        <FILE>pkg/domain/infra/abi/images.go</FILE>
+        <FILE>test/apiv2/10-images.at</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>bug: Correct Docker compat REST API image delete endpoint The Docker `-XDELETE image/$name?force=true` endpoint only removes containers using an image if they are in a non running state. In Podman, when forcefully removing images we also forcefully delete containers using the image including running containers. This patch changes the Docker image force delete compat API to act like the Docker API while maintaining commands like `podman rmi -f $imagename` It also corrects the API return code returned when an image is requested to be deleted with running containers using it. Fixes: https://github.com/containers/podman/issues/25871 Signed-off-by: Lewis Roy &lt;lewis@redhat.com&gt;</MESSAGE>
+      <SHA>5cbb3cb096f0c312c44278dfc18225b52fb1aca6</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/reset.go</FILE>
+        <FILE>libpod/runtime_img.go</FILE>
+        <FILE>pkg/api/handlers/compat/images_remove.go</FILE>
+        <FILE>pkg/api/server/register_images.go</FILE>
+        <FILE>pkg/domain/entities/images.go</FILE>
+        <FILE>pkg/domain/infra/abi/images.go</FILE>
+        <FILE>test/apiv2/10-images.at</FILE>
+        <FILE>test/apiv2/python/rest_api/test_v2_0_0_image.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>bug: Correct Docker compat REST API image delete endpoint The Docker `-XDELETE image/$name?force=true` endpoint only removes containers using an image if they are in a non running state. In Podman, when forcefully removing images we also forcefully delete containers using the image including running containers. This patch changes the Docker image force delete compat API to act like the Docker API while maintaining commands like `podman rmi -f $imagename` It also corrects the API return code returned when an image is requested to be deleted with running containers using it. Fixes: https://github.com/containers/podman/issues/25871 Signed-off-by: Lewis Roy &lt;lewis@redhat.com&gt;</MESSAGE>
+      <SHA>a7f34385fce070bf24e4530a7a0a5b35e4d0fdda</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/reset.go</FILE>
+        <FILE>libpod/runtime_img.go</FILE>
+        <FILE>pkg/api/handlers/compat/images_remove.go</FILE>
+        <FILE>pkg/api/server/register_images.go</FILE>
+        <FILE>pkg/domain/entities/images.go</FILE>
+        <FILE>pkg/domain/infra/abi/images.go</FILE>
+        <FILE>test/apiv2/10-images.at</FILE>
+        <FILE>test/apiv2/python/rest_api/test_v2_0_0_image.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>bug: Correct Docker compat REST API image delete endpoint The Docker `-XDELETE image/$name?force=true` endpoint only removes containers using an image if they are in a non running state. In Podman, when forcefully removing images we also forcefully delete containers using the image including running containers. This patch changes the Docker image force delete compat API to act like the Docker API while maintaining commands like `podman rmi -f $imagename` It also corrects the API return code returned when an image is requested to be deleted with running containers using it. Fixes: https://github.com/containers/podman/issues/25871 Signed-off-by: Lewis Roy &lt;lewis@redhat.com&gt;</MESSAGE>
+      <SHA>6e7de438cc0b8f707050d0866a785f201c7aa87d</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/reset.go</FILE>
+        <FILE>libpod/runtime_img.go</FILE>
+        <FILE>pkg/api/handlers/compat/images_remove.go</FILE>
+        <FILE>pkg/api/server/register_images.go</FILE>
+        <FILE>pkg/domain/entities/images.go</FILE>
+        <FILE>pkg/domain/infra/abi/images.go</FILE>
+        <FILE>test/apiv2/10-images.at</FILE>
+        <FILE>test/apiv2/python/rest_api/test_v2_0_0_image.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

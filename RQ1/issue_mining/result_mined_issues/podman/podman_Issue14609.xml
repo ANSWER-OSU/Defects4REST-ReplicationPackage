@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14609</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14609</ISSUEURL>
+  <TITLE>Unable to set shm-size for /dev/shm shared by a pod</TITLE>
+  <DESCRIPTION>**Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind feature **Description** I am trying to increase the size of the shared /dev/shm attached to the containers in a pod. There is no --shm-size option to podman pod create and the --shm-size option for podman run is rejected when the container is being added to a pod with `--share ipc` enabled (as is the default). &lt;!-- Briefly describe the problem you are having in a few paragraphs. --&gt; **Steps to reproduce the issue:** 1. `podman pod create --name shm-pod --shm-size 256M` 2. `podman pod create --name shm-pod` 3. `podman run --shm-size 256M --rm -t --pod shm-pod alpine mount | grep shm` 4. `podman run --rm -t --pod shm-pod alpine mount | grep shm` **Describe the results you received:** 1. podman pod create with `--shm-size` ``` Error: unknown flag: --shm-size See 'podman pod create --help' ``` 2. podman pod create ``` b2bcda49a5f182b1d9694e1577a6ffe1ce3dffb8bdce3c7e6d5b16004ae67440 ``` 3. podman run with `--shm-size` ``` Error: invalid config provided: cannot set shmsize when running in the host IPC Namespace ``` 4. podman run ``` shm on /dev/shm type tmpfs (rw,context=&quot;system_u:object_r:container_file_t:s0:c825,c880&quot;,nosuid,nodev,noexec,relatime,size=64000k,uid=1001,gid=1001,inode64) ``` **Describe the results you expected:** I would like some way to specify `--shm-size` for a pod with `--share ipc`. **Additional information you deem important (e.g. issue happens only occasionally):** Using pod create `--share` to un-share the ipc namespace (which is awkward, as it requires listing the default shared namespaces excluding ipc) does allow specifying `--shm-size` on the `podman run` command, but then /dev/shm is not shared. **Output of `podman version`:** ``` Client: Podman Engine Version: 4.0.2 API Version: 4.0.2 Go Version: go1.17.7 Built: Thu May 19 19:18:11 2022 OS/Arch: linux/amd64 ```</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14637 from edigaryev/fix-matrix-expansion .cirrus.yml: fix matrix expansion by properly merging YAML mappings</MESSAGE>
+    <SHA>ff06c791ad7fb32b6a055e0d005f7354df43a5d1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>podman pod create --shm-size expose the --shm-size flag to podman pod create and add proper handling and inheritance for the option. resolves #14609 Signed-off-by: Charlie Doern &lt;cdoern@redhat.com&gt;</MESSAGE>
+      <SHA>f451b68dfa71d3690d49bc0cf3536b77cd6572d0</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/common/create.go</FILE>
+        <FILE>cmd/podman/containers/create.go</FILE>
+        <FILE>cmd/podman/pods/clone.go</FILE>
+        <FILE>docs/source/markdown/podman-pod-clone.1.md</FILE>
+        <FILE>docs/source/markdown/podman-pod-create.1.md</FILE>
+        <FILE>libpod/container_config.go</FILE>
+        <FILE>pkg/specgen/generate/container.go</FILE>
+        <FILE>pkg/specgen/generate/container_create.go</FILE>
+        <FILE>pkg/specgen/podspecgen.go</FILE>
+        <FILE>test/e2e/pod_clone_test.go</FILE>
+        <FILE>test/e2e/pod_create_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

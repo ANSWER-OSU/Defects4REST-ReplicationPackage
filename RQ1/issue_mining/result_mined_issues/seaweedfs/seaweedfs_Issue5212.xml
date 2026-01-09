@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5212</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/5212</ISSUEURL>
+  <TITLE>[filer] loop of connecting and disconnecting filers</TITLE>
+  <DESCRIPTION>**Describe the bug** Endless loop of connecting and disconnecting filers ``` I0117 15:25:20.181356 filer_grpc_server_sub_meta.go:117 + filer:192.168.1.17:8889@192.168.1.17:39492 local subscribe / from 2024-01-17 15:25:14.079534422 +0000 UTC clientId:-190561764 I0117 15:25:20.193843 filer_grpc_server_sub_meta.go:149 read in memory filer:192.168.1.17:8889@192.168.1.17:39492 local subscribe / from 2024-01-17 15:25:14.079534422 +0000 UTC I0117 15:25:20.181337 filer_grpc_server_sub_meta.go:296 + local listener filer:192.168.1.17:8889@192.168.1.17:39492 clientId -190561764 clientEpoch 190395 I0117 15:25:20.181364 filer_grpc_server_sub_meta.go:130 read on disk filer:192.168.1.17:8889@192.168.1.17:39492 local subscribe / from 2024-01-17 15:25:14.079534422 +0000 UTC I0117 15:25:21.924645 filer_grpc_server_sub_meta.go:112 disconnect filer:192.168.1.17:8889@192.168.1.17:39492 local subscriber / clientId:-190561764 I0117 15:25:21.924654 filer_grpc_server_sub_meta.go:312 - local listener filer:192.168.1.17:8889@192.168.1.17:39492 clientId -190561764 clientEpoch 190395 ``` **System Setup** ``` 3.62 ``` **Expected behavior** Break loop</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>71</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>chore: filer healthz handler check filer store (#5208)</MESSAGE>
+    <SHA>4e9ea1e628a4d2105a758d12673efdeebe43ebaa</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: added debug logging for loop exit to SubscribeLocalMetadata https://github.com/seaweedfs/seaweedfs/issues/5212</MESSAGE>
+      <SHA>5fe86cb8fd8eedf56aab0c6d1c9d12c477b6f998</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/filer_grpc_server_sub_meta.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

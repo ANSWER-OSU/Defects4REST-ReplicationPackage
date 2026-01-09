@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2955</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2955</ISSUEURL>
+  <TITLE>Illegal instruction (core dumped) in Docker drone server images (armv7)</TITLE>
+  <DESCRIPTION>Env: Raspberry pi running Docker (see version output below) Latest image that works for me is `1.6.5` ``` pi@pi2:~ $ docker run -it --rm --entrypoint=sh drone/drone:latest / # drone-server Illegal instruction (core dumped) / # pi@pi2:docker run -it --rm --entrypoint=sh drone/drone:1.7.0 / # drone-server Segmentation fault (core dumped) / # pi@pi2:~ $ docker run -it --rm --entrypoint=sh drone/drone:1.7 Unable to find image 'drone/drone:1.7' locally 1.7: Pulling from drone/drone Digest: sha256:78af08dc38ec1dc3dad7047be799d2cde14e1888ed1e29316695d7cb53bfca07 Status: Downloaded newer image for drone/drone:1.7 / # drone-server Segmentation fault (core dumped) / # pi@pi2:docker run -it --rm --entrypoint=sh drone/drone:1.7.0-linux-arm Unable to find image 'drone/drone:1.7.0-linux-arm' locally 1.7.0-linux-arm: Pulling from drone/drone Digest: sha256:2b6437bcadb4615c6ae8b19dffc2b8a58ab1ea9253907fd5f396c52d0f9e5327 Status: Downloaded newer image for drone/drone:1.7.0-linux-arm / # drone-server Segmentation fault (core dumped) / # pi@pi2:~ $ docker run -it --rm --entrypoint=sh drone/drone:1.6.5 Unable to find image 'drone/drone:1.6.5' locally 1.6.5: Pulling from drone/drone 832e07764099: Pull complete 9bb17fa08116: Pull complete 40b659b65992: Pull complete e9521b7a1e0e: Pull complete Digest: sha256:f15247fb65d404491fa85b99dbc6e41ee6ee7eb37916b0e32c73a750bccc8579 Status: Downloaded newer image for drone/drone:1.6.5 / # drone-server {&quot;level&quot;:&quot;fatal&quot;,&quot;msg&quot;:&quot;main: source code management system not configured&quot;,&quot;time&quot;:&quot;2020-04-23T11:55:19Z&quot;} ``` ``` pi@pi2:~ $ docker version Client: Docker Engine - Community Version: 19.03.8 API version: 1.40 Go version: go1.12.17 Git commit: afacb8b Built: Wed Mar 11 01:35:24 2020 OS/Arch: linux/arm Experimental: false Server: Docker Engine - Community Engine: Version: 19.03.8 API version: 1.40 (minimum version 1.12) Go version: go1.12.17 Git commit: afacb8b Built: Wed Mar 11 01:29:22 2020 OS/Arch: linux/arm Experimental: false containerd: Version: 1.2.13 GitCommit: 7ad184331fa3e55e52b890ea95e65ba581ae3429 runc: Version: 1.0.0-rc10 GitCommit: dc9208a3303feef5b3839f4323d9beb36df0a9dd docker-init: Version: 0.18.0 GitCommit: fec3683 ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>46</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: [CODE-2710]: block numeric identifier for root spaces (#2952)</MESSAGE>
+    <SHA>2f54f4003aec301cdee08920162f43d7dbf3dd45</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: [CDE-468]: Added a check to differentiate between CDE Gitspace and Gitness (#2955) * Re-trigger Build * Bug Fix</MESSAGE>
+      <SHA>e3f56f5a3d3d0fe70c1a19030a622394d93994ab</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/cde-gitness/pages/GitspaceCreate/CDECreateGitspace.tsx</FILE>
+        <FILE>web/src/cde-gitness/pages/GitspaceCreate/GitspaceCreate.utils.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

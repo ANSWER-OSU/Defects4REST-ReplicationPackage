@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2036</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2036</ISSUEURL>
+  <TITLE>Revisit Repository Syncing</TITLE>
+  <DESCRIPTION>Early versions of Drone would sync the user repositories and permissions with the database. This was slow and was problematic for certain providers (Bitbucket) which had certain API restrictions. I therefore decided in 0.5 to remove the sync and fetch the repository list and permissions and cache in ram. Most Drone users probably think this works quite well, however, there have been some unforseen issues with individuals that have access to thousands of repositories: 1. Drone is required to make many (20+) api calls for 1000+ repositories, which can be slow 2. In addition to being slow it can cause users to max out their API limits 3. The implementation requires the IN clause which is limited to the number of input parameters There have also been some technology improvements that can simplify syncing. Namely the fact that Postgres (as well as other vendors) now all support the `INSERT IGNORE` syntax. Bitbucket and Bitbucket server are still a problem. I believe we can solve this by storing a TTL for the individual repository permissions. When the TTL expires we make an API call. This prevents us from having to update thousands of rows of permissions on sync. This should also address some UX issues like https://github.com/drone/drone-ui/issues/79</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>66</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [CODE-1908]: Worked on ADO import functionality review comments (#2044)</MESSAGE>
+    <SHA>ca0148816a68e3cb657ae83e55b57610a39a35d6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: [CODE-1858]: fix reading too long lines in diff hunk headers (#2036)</MESSAGE>
+      <SHA>fdd401c989629772e235331568b79ccf6f5daaf3</SHA>
+      <PATCHEDFILES>
+        <FILE>git/parser/diff_headers.go</FILE>
+        <FILE>git/parser/diff_headers_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

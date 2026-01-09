@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19003</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/19003</ISSUEURL>
+  <TITLE>Add support for `VolumeName` and `NetworkName` options in Quadlet</TITLE>
+  <DESCRIPTION>### Feature request description Currently, Podman volumes and networks created by Quadlet/`podman-systemd` units are automatically named based on the unit name, with a `systemd-$NAME` convention, similar to container units. However, unlike container units (which allow for overriding this name via the `ContainerName` directive), volume and network units do not allow for this sort of name override. Having such directives (e.g. `VolumeName` and `NetworkName` for `.volume` and `.network` units, respectively) would help with transitioning existing systems to Quadlet without wrangling with naming conventions, an especially tricky issue with volumes (which cannot be used and migrated between simultaneously in any reasonable manner). ### Suggest potential solution Quadlet should be extended with support for `VolumeName` directives for `.volume` units. and `NetworkName` for `.network` units, which will set the `name` parameter for the underlying `podman volume/network create ...` (or internal API equivalent) calls. ### Have you considered any alternatives? The only reasonable alternative is preparing production environments for migrating between volumes and networks with different names, which may not be feasible in larger deployments, and impedes clean migration to Quadlet. ### Additional context _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>15</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19170 from dfr/freebsd-mtab libpod: don't make a broken symlink for /etc/mtab on FreeBSD</MESSAGE>
+    <SHA>d31b9eb9e74641d4e9df0bfc326939ef51fa78c5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Allow setting volume and network names in Quadlet This commit extends `Volume` and `Network` unit definitions with two additional parameters, `VolumeName` and `NetworkName`, which will, respectively, set a user-defined name for the corresponding volume and network. This is similar to how the `ContainerName` directive currently works, and should allow for smoother transitions to Quadlet-managed resources. Closes: #19003 Signed-off-by: Alex Palaistras &lt;alex@deuill.org&gt;</MESSAGE>
+      <SHA>932fae4028d2c5f3b632353a0036467b6b02d09f</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/quadlet/main.go</FILE>
+        <FILE>docs/source/markdown/podman-systemd.unit.5.md</FILE>
+        <FILE>pkg/systemd/quadlet/quadlet.go</FILE>
+        <FILE>test/e2e/quadlet/name.network</FILE>
+        <FILE>test/e2e/quadlet/name.volume</FILE>
+        <FILE>test/e2e/quadlet_test.go</FILE>
+        <FILE>test/system/252-quadlet.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Allow setting volume and network names in Quadlet This commit extends `Volume` and `Network` unit definitions with two additional parameters, `VolumeName` and `NetworkName`, which will, respectively, set a user-defined name for the corresponding volume and network. This is similar to how the `ContainerName` directive currently works, and should allow for smoother transitions to Quadlet-managed resources. Closes: #19003 Signed-off-by: Alex Palaistras &lt;alex@deuill.org&gt; (cherry picked from commit 932fae4028d2c5f3b632353a0036467b6b02d09f) Signed-off-by: Lokesh Mandvekar &lt;lsm5@fedoraproject.org&gt;</MESSAGE>
+      <SHA>383617be026aa3c7d361a6ff7e2c5659c5257eb1</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/quadlet/main.go</FILE>
+        <FILE>docs/source/markdown/podman-systemd.unit.5.md</FILE>
+        <FILE>pkg/systemd/quadlet/quadlet.go</FILE>
+        <FILE>test/e2e/quadlet/name.network</FILE>
+        <FILE>test/e2e/quadlet/name.volume</FILE>
+        <FILE>test/e2e/quadlet_test.go</FILE>
+        <FILE>test/system/252-quadlet.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

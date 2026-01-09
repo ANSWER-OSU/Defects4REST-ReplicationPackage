@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5103</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/5103</ISSUEURL>
+  <TITLE>Bug: Wrong baseId is used in QuickImport, when a secondary database is only active. So the Table is created in the hidden DB.</TITLE>
+  <DESCRIPTION>### Please confirm if bug report does NOT exists already ? - [X] I confirm there is no existing issue for this ### Steps to reproduce ? 1. Setup secondary catabase connection ![image](https://user-images.githubusercontent.com/42977205/218985622-98fc3fc8-d57f-4430-9616-014c59108592.png) 2. Deactivate base connection ![image](https://user-images.githubusercontent.com/42977205/218985808-fac9c778-64b3-47ca-a109-3953e3989145.png) 3. Import a Table from csv, excel, json with the Drag / Load Dialog ![image](https://user-images.githubusercontent.com/42977205/218985866-5c945f27-5153-429b-9427-b1d07f5aa7f6.png) ![image](https://user-images.githubusercontent.com/42977205/218985927-db5dd272-1252-42e1-9367-6f86e087ed8d.png) ### Desired Behavior The Table will be created in the enabled Database not the hidden once. ### Project Details ``` Docker used: false NocoDB Version: develop NC_DB: NC_DB=&quot;mysql2://&lt;ip&gt;:3306?u=&lt;user&gt;&amp;p=&lt;password&gt;&amp;d=nocodb&quot; ``` ### Attachments Possible Fix: 1. File: https://github.com/nocodb/nocodb/blob/develop/packages/nc-gui/composables/useProject.ts Change: ![image](https://user-images.githubusercontent.com/42977205/218988734-771d6b74-4533-4373-a52a-bef198e259fe.png) 2. File: https://github.com/nocodb/nocodb/blob/develop/packages/nc-gui/pages/[projectType]/[projectId]/index/index/index.vue Change: ![image](https://user-images.githubusercontent.com/42977205/218989535-22ddda09-38c7-4975-b941-53af8f4e9cb6.png) &gt; :info: **Hurray!**: For me it will fix also this issue (that was still an issue): https://github.com/nocodb/nocodb/pull/4633</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #5123 from nocodb/l10n_develop_2 New Crowdin updates</MESSAGE>
+    <SHA>3181a5778e7765bb9007ef5a885d3e85c716fd41</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>PR´s for: - https://github.com/nocodb/nocodb/issues/5105 - https://github.com/nocodb/nocodb/issues/5103</MESSAGE>
+      <SHA>98f70eca97bb45be9681bd06442a5b58b7ac0cda</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/composables/useProject.ts</FILE>
+        <FILE>packages/nc-gui/pages/[projectType]/[projectId]/index/index/index.vue</FILE>
+        <FILE>packages/nocodb/src/lib/meta/api/tableApis.ts</FILE>
+        <FILE>packages/nocodb/src/lib/models/Model.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

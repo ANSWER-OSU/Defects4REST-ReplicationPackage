@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5228</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5228</ISSUEURL>
+  <TITLE>Ensure page size is greater 0 when creating PagedList</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.30 &gt; Running 4.3 I am still getting this same error : &gt; DivideByZeroException: Attempted to divide by zero. &gt; Nop.Core.PagedList&lt;T&gt;..ctor(IEnumerable&lt;T&gt; source, int pageIndex, int pageSize, int totalCount) in PagedList.cs, line 66 We already added this check for 3.80, but then removed it in [this commit](https://github.com/nopSolutions/nopCommerce/commit/9ae006ce#diff-aa955c1214e5bbbc43341c86561caa3108bbc51ffb930467405771de9b8adc2bL48). Perhaps we should force use 1 as the page size in such cases, or still throw exception? Source: https://www.nopcommerce.com/boards/topic/40451/pagedlistcs-division-by-zero#278669</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5252 Don't use SlugRouteTransformer on install</MESSAGE>
+    <SHA>73567858b3e3ef281d1433d7ac79295ebed47ee6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5228 Set min allowed page size as 1</MESSAGE>
+      <SHA>fd0cb0a7bbffaf223b0067656ee925a6e6405451</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/PagedList.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Extensions/AsyncIQueryableExtensions.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

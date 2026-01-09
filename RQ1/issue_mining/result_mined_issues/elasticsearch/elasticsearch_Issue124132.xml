@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>124132</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/124132</ISSUEURL>
+  <TITLE>[CI] MatchOperatorIT testScoring_Zero_OutsideQuery failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #19553 / part3](https://gradle-enterprise.elastic.co/s/j2krw3ld5gkqy) - [elasticsearch-pull-request #61029 / part-3](https://gradle-enterprise.elastic.co/s/mnqzdgxl6kudu) - [elasticsearch-pull-request #61024 / part-3](https://gradle-enterprise.elastic.co/s/ppqwwhuvwvfjs) - [elasticsearch-pull-request #61005 / part-3](https://gradle-enterprise.elastic.co/s/lxuedvy56hpa2) - [elasticsearch-intake #19528 / part3](https://gradle-enterprise.elastic.co/s/n4w4mc5zus7x2) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.esql.plugin.MatchOperatorIT.testScoring_Zero_OutsideQuery&quot; -Dtests.seed=CA11CE97FDB6CD62 -Dtests.locale=ar-YE -Dtests.timezone=Asia/Yerevan -Druntime.java=24 ``` **Applicable branches:** 8.18 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.plugin.MatchOperatorIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testScoring_Zero_OutsideQuery),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: &lt;[[This is a brown fox, 0.0], [The quick brown fox jumps over the lazy dog, 0.0]]&gt; but: was &lt;[[The quick brown fox jumps over the lazy dog, 0.0], [This is a brown fox, 0.0]]&gt; ``` **Issue Reasons:** - [8.18] 3 consecutive failures in test testScoring_Zero_OutsideQuery - [8.18] 2 consecutive failures in step part3 - [8.18] 2 consecutive failures in step part-3 - [8.18] 2 consecutive failures in pipeline elasticsearch-intake - [8.18] 2 consecutive failures in pipeline elasticsearch-pull-request - [8.18] 5 failures in test testScoring_Zero_OutsideQuery (55.6% fail rate in 9 executions) - [8.18] 2 failures in step part3 (100.0% fail rate in 2 executions) - [8.18] 3 failures in step part-3 (42.9% fail rate in 7 executions) - [8.18] 2 failures in pipeline elasticsearch-intake (100.0% fail rate in 2 executions) - [8.18] 3 failures in pipeline elasticsearch-pull-request (50.0% fail rate in 6 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Generate compatible versions artifact in distributions dir (#124119)</MESSAGE>
+    <SHA>98f80057049bd598a983a0033e069ff38631368f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.plugin.MatchOperatorIT testScoring_Zero_OutsideQuery #124132</MESSAGE>
+      <SHA>64c08550af9c34460e36cbb87ffc2ca15482b5c2</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes https://github.com/elastic/elasticsearch/issues/124132</MESSAGE>
+      <SHA>5936292c1473b8e37a69ea80751b10453fc6e887</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/src/internalClusterTest/java/org/elasticsearch/xpack/esql/plugin/MatchOperatorIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes https://github.com/elastic/elasticsearch/issues/124132 (#124205) Fixes https://github.com/elastic/elasticsearch/issues/124132. Same as https://github.com/elastic/elasticsearch/pull/124204</MESSAGE>
+      <SHA>0e797203107ce1667e01c667671bf812cf872331</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/src/internalClusterTest/java/org/elasticsearch/xpack/esql/plugin/MatchOperatorIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes https://github.com/elastic/elasticsearch/issues/124132 (#124205) Fixes https://github.com/elastic/elasticsearch/issues/124132. Same as https://github.com/elastic/elasticsearch/pull/124204</MESSAGE>
+      <SHA>1cecd13074898784c06650731e22d1132817650c</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/src/internalClusterTest/java/org/elasticsearch/xpack/esql/plugin/MatchOperatorIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

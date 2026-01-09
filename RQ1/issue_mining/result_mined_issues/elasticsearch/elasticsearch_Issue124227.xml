@@ -1,0 +1,60 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>124227</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/124227</ISSUEURL>
+  <TITLE>[CI] FieldCapabilitiesIT testRelocation failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #19533 / part1](https://gradle-enterprise.elastic.co/s/uibwlmb3cdrpi) - [elasticsearch-intake #19148 / part1](https://gradle-enterprise.elastic.co/s/yb35dho5p73aw) **Reproduction Line:** ``` ./gradlew &quot;:server:internalClusterTest&quot; --tests &quot;org.elasticsearch.search.fieldcaps.FieldCapabilitiesIT.testRelocation&quot; -Dtests.seed=BAB28790226049BF -Dtests.locale=bas -Dtests.timezone=Africa/Kigali -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.search.fieldcaps.FieldCapabilitiesIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testRelocation),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: safeGet: listener was not completed within the timeout ``` **Issue Reasons:** - [main] 2 failures in test testRelocation (0.2% fail rate in 915 executions) - [main] 2 failures in step part1 (1.9% fail rate in 107 executions) - [main] 2 failures in pipeline elasticsearch-intake (1.9% fail rate in 107 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[DOCS] Clarify support for doc_values (#124047) * Update doc-values.md * Make the note more visible * fix link</MESSAGE>
+    <SHA>bea3af2467df3413fd5ce90791a13a8a74c8ef58</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.search.fieldcaps.FieldCapabilitiesIT testRelocation #124227</MESSAGE>
+      <SHA>81c23ca3900eeead42ce821fcb0fd497903c204e</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.search.fieldcaps.FieldCapabilitiesIT testRelocation #124227</MESSAGE>
+      <SHA>436320a1d30efd172845b16e4edc990ae6272891</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.search.fieldcaps.FieldCapabilitiesIT testRelocation #124227</MESSAGE>
+      <SHA>1adf2e951946972a614df22e3f27a9a7ed190097</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix FieldCapabilitiesIT#testRelocation (#125233) We should not try to relocate initializing shards. This change disables rebalancing and ensures all shards to be relocated are ready. Closes #124227</MESSAGE>
+      <SHA>b85b32a04090f184f67e6ced90b34fab1d54a617</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/internalClusterTest/java/org/elasticsearch/search/fieldcaps/FieldCapabilitiesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix FieldCapabilitiesIT#testRelocation (#125233) We should not try to relocate initializing shards. This change disables rebalancing and ensures all shards to be relocated are ready. Closes #124227</MESSAGE>
+      <SHA>1631394cd88c0c2114bc0b515c7ea42d2acfbf69</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/internalClusterTest/java/org/elasticsearch/search/fieldcaps/FieldCapabilitiesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix FieldCapabilitiesIT#testRelocation (#125233) We should not try to relocate initializing shards. This change disables rebalancing and ensures all shards to be relocated are ready. Closes #124227</MESSAGE>
+      <SHA>92a664f28c0090caa5da1ef1032f783a2d732210</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/internalClusterTest/java/org/elasticsearch/search/fieldcaps/FieldCapabilitiesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

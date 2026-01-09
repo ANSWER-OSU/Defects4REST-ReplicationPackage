@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>843</ISSUENO>
+  <ISSUEURL>https://github.com/shopizer-ecommerce/shopizer/issues/843</ISSUEURL>
+  <TITLE>Incompatible Jackson version in default configuration</TITLE>
+  <DESCRIPTION>On a clean `git clone` and `./mvnw clean install`, install fails with exceptions related to a Jackson class missing: ``` Caused by: java.lang.NoClassDefFoundError: com/fasterxml/jackson/core/util/JacksonFeature Caused by: java.lang.ClassNotFoundException: com.fasterxml.jackson.core.util.JacksonFeature ``` This appears to be due to an outdated Jackson version. Upgrading to `2.14.2` fixes the issue for me: ``` - &lt;jackson-version&gt;2.10.2&lt;/jackson-version&gt; + &lt;jackson-version&gt;2.14.0&lt;/jackson-version&gt; ```</DESCRIPTION>
+  <REPONAME>shopizer</REPONAME>
+  <TIMEDIFFERENCEDAYS>60</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #813 from Sharmila-qt1/SPRINT_1_REL Sprint 1 rel</MESSAGE>
+    <SHA>9a1602a664ab882b5420ff4339db45af44a48423</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Upgrade Jackson version used. Apparently 2.10.2 does not include com.fasterxml.jackson.core.util.JacksonFeature, which is required by jackson-databind. This change upgrades jackson to the latest version (2.14.2). Fixes #843.</MESSAGE>
+      <SHA>a6ce2de0d4fc9133e8858d0d85dad427e7426062</SHA>
+      <PATCHEDFILES>
+        <FILE>pom.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

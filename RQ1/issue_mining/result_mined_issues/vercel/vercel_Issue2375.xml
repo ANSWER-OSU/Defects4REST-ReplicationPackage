@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2375</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/2375</ISSUEURL>
+  <TITLE>PCRE passing undefined</TITLE>
+  <DESCRIPTION>PCRE group is passing `undefined` as string to the query string rather than not passing it at all. Maybe this is a misconfiguration on my end. ``` { &quot;version&quot;: 2, &quot;builds&quot;: [ { &quot;src&quot;: &quot;./api/functions/**/*.js&quot;, &quot;use&quot;: &quot;@now/node&quot; }, ], &quot;routes&quot;: [ { &quot;src&quot;: &quot;/api/hello(/(?&lt;name&gt;[^/]+))?&quot;, &quot;methods&quot;: [&quot;GET&quot;], &quot;dest&quot;: &quot;/api/functions/hello/index.js?name=$name&quot; } ] } ``` If I just call `/api/hello`, it passes `&quot;undefined&quot;` as the `name`.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mimic browser user agent (#2372)</MESSAGE>
+    <SHA>16b99a6f72747aad2abe2c3168d5f8078780179f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now dev] Use empty string for missing matches Rather than `undefined`. This matches the behavior in production. Fixes #2375.</MESSAGE>
+      <SHA>9fa3ac2ff03d23b9145fe8d3196a8b095adec83f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/commands/dev/lib/dev-router.ts</FILE>
+        <FILE>test/dev-router.unit.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now dev] Use empty string for missing matches (#2376) Rather than `undefined`. This matches the behavior in production. Fixes #2375.</MESSAGE>
+      <SHA>ca17c6da361902eaad0ba2d55207b1fb0b5d548c</SHA>
+      <PATCHEDFILES>
+        <FILE>src/commands/dev/lib/dev-router.ts</FILE>
+        <FILE>test/dev-router.unit.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now dev] Use empty string for missing matches (#2376) Rather than `undefined`. This matches the behavior in production. Fixes #2375.</MESSAGE>
+      <SHA>a31c29fc13289576e434e63c8dc0e223dea5c556</SHA>
+      <PATCHEDFILES>
+        <FILE>src/commands/dev/lib/dev-router.ts</FILE>
+        <FILE>test/dev-router.unit.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

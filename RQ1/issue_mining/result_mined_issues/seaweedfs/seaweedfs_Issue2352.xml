@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2352</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/2352</ISSUEURL>
+  <TITLE>&quot;weed server&quot; peer check thinks it's a master when master has been disabled.</TITLE>
+  <DESCRIPTION>**Describe the bug** I'm getting `Only odd number of masters are supported: [node1:9333 node3:9333 node4:9333 node2:9333]` on `weed server -options=/etc/xdg/seaweedfs/server.conf -ip=node2` when there is a master=false flag in the config file. Node2 shouldn't be counted as a master. I suspect it's the `if *isStartingMasterServer {` here removed that's causing the bug https://github.com/chrislusf/seaweedfs/commit/e5fc35ed0c970fea060a5b3b7a3f5efb5af425d6#diff-25bae991aa8050efe57406452575e53bb89eb91244dcfa772587872b05f862aeL170 **Relevant logs** `weed server -options=/etc/xdg/seaweedfs/server.conf -ip=node2` log ``` Oct 03 20:17:22 node2 systemd[1]: Started Seaweed Master. Oct 03 20:17:22 node2 weed[1015247]: I1003 20:17:22 15247 master.go:170] current: node2:9333 peers:node1:9333,node3:9333,node4:9333 Oct 03 20:17:22 node2 weed[1015247]: F1003 20:17:22 15247 master.go:186] Only odd number of masters are supported: [node1:9333 node3:9333 node4:9333 node2:9333] Oct 03 20:17:22 node2 weed[1015247]: goroutine 1 [running]: Oct 03 20:17:22 node2 weed[1015247]: github.com/chrislusf/seaweedfs/weed/glog.stacks(0x0) Oct 03 20:17:22 node2 weed[1015247]: github.com/chrislusf/seaweedfs/weed/glog/glog.go:767 +0xc5 Oct 03 20:17:22 node2 weed[1015247]: github.com/chrislusf/seaweedfs/weed/glog.(*loggingT).output(0x5581706f8620, 0x3, 0xc000262310, {0x55816f9531f3, 0x9}, 0xba, 0x0) Oct 03 20:17:22 node2 weed[1015247]: github.com/chrislusf/seaweedfs/weed/glog/glog.go:718 +0x465 Oct 03 20:17:22 node2 weed[1015247]: github.com/chrislusf/seaweedfs/weed/glog.(*loggingT).printf(0x5581706f8620, 0x3, {0x55816eaf1622, 0x2d}, {0xc000be38a8, 0x1, 0x1}) Oct 03 20:17:22 node2 weed[1015247]: github.com/chrislusf/seaweedfs/weed/glog/glog.go:656 +0x1bb Oct 03 20:17:22 node2 weed[1015247]: github.com/chrislusf/seaweedfs/weed/glog.Fatalf({0x55816eaf1622, 0x2d}, {0xc000be38a8, 0x1, 0x1}) Oct 03 20:17:22 node2 weed[1015247]: github.com/chrislusf/seaweedfs/weed/glog/glog.go:1149 +0x57 Oct 03 20:17:22 node2 weed[1015247]: github.com/chrislusf/seaweedfs/weed/command.checkPeers({0x7ffd910c4f15, 0x5}, 0x2475, 0x0, {0xc00013436d, 0x20}) Oct 03 20:17:22 node2 weed[1015247]: github.com/chrislusf/seaweedfs/weed/command/master.go:186 +0x42c Oct 03 20:17:22 node2 weed[1015247]: github.com/chrislusf/seaweedfs/weed/command.runServer(0x5581706165a0, {0xc00004e0b0, 0x0, 0x0}) Oct 03 20:17:22 node2 weed[1015247]: github.com/chrislusf/seaweedfs/weed/command/server.go:174 +0x388 Oct 03 20:17:22 node2 weed[1015247]: main.main() Oct 03 20:17:22 node2 weed[1015247]: github.com/chrislusf/seaweedfs/weed/weed.go:78 +0x5b3 Oct 03 20:17:22 node2 systemd[1]: seaweedfs.service: Main process exited, code=exited, status=255/EXCEPTION Oct 03 20:17:22 node2 systemd[1]: seaweedfs.service: Failed with result 'exit-code'. Oct 03 20:17:22 node2 systemd[1]: seaweedfs.service: Scheduled restart job, restart counter is at 5. Oct 03 20:17:22 node2 systemd[1]: Stopped Seaweed Master. ``` **System Setup** - Arch linux - version 30GB 2.70 linux amd64 - server.conf: ``` master=false master.defaultReplication=001 volume.dir.idx=index dir=/brick/0 filer=true filer.peers=node1:8888,node2:8888,node3:8888,node4:8888 master.volumePreallocate=true master.peers=node1:9333,node3:9333,node4:9333 rack=rack1 dataCenter=dc1 volume.max=100 volume.concurrentUploadLimitMB=999999 filer.concurrentUploadLimitMB=999999 metrics.address=node3:9091 ``` **Expected behavior** The server should not be counted as a master on `master=false` during peer checking.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>add back logic to check master peers fix https://github.com/chrislusf/seaweedfs/issues/2352</MESSAGE>
+    <SHA>62c2732fd1e043132cfc4f9bdea6b58654445c2a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>server: remove peer check if not starting master more fix https://github.com/chrislusf/seaweedfs/issues/2352</MESSAGE>
+      <SHA>6a030547a2efa3efe38491aa8fc06f3b7d3acc75</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

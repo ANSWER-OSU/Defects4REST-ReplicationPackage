@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>119918</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/119918</ISSUEURL>
+  <TITLE>[CI] CsvTests class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5777 / release-tests](https://gradle-enterprise.elastic.co/s/xb34ke6g2zcwa) - [elasticsearch-pull-request #49786 / part-3](https://gradle-enterprise.elastic.co/s/yldp66cabacqc) - [elasticsearch-pull-request #49634 / part-3](https://gradle-enterprise.elastic.co/s/7ucmnhhpqvv2i) - [elasticsearch-pull-request #49509 / part-3](https://gradle-enterprise.elastic.co/s/mbmlnbdbtt2bs) - [elasticsearch-pull-request #49478 / part-3](https://gradle-enterprise.elastic.co/s/wc4ipmughixq6) - [elasticsearch-pull-request #49305 / part-3](https://gradle-enterprise.elastic.co/s/zshzuxlnwuusk) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:test&quot; --tests &quot;org.elasticsearch.xpack.esql.CsvTests&quot; -Dtests.method=&quot;test {semantic_text.MvSlice}&quot; -Dtests.seed=5DD196A391F3DAF6 -Dbuild.snapshot=false -Dtests.jvm.argline=&quot;-Dbuild.snapshot=false&quot; -Dlicense.key=x-pack/license-tools/src/test/resources/public.key -Dtests.locale=de-LI -Dtests.timezone=Navajo -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.CsvTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.xpack.esql.CsvTests),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.xpack.esql.VerificationException: Found 1 problem line 2:26: Cannot use field [st_multi_value] with unsupported type [semantic_text] ``` **Issue Reasons:** - [main] 6 failures in class org.elasticsearch.xpack.esql.CsvTests (1.3% fail rate in 475 executions) - [main] 5 failures in step part-3 (2.1% fail rate in 235 executions) - [main] 5 failures in pipeline elasticsearch-pull-request (2.1% fail rate in 234 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Run `TransportGetIndexTemplatesAction` on local node (#119837) This action solely needs the cluster state, it can run on any node. Additionally, it needs to be cancellable to avoid doing unnecessary work after a client failure or timeout. As a drive-by, this removes another usage of the trappy default master node timeout.</MESSAGE>
+    <SHA>80e8017bb605db5a7296668485cefb33c49cbae8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.CsvTests org.elasticsearch.xpack.esql.CsvTests #119918</MESSAGE>
+      <SHA>20edf4c61b0bbe9c24e4a820c747329d78e7e42b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

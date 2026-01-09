@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8907</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/8907</ISSUEURL>
+  <TITLE>Malformed yaml can crash the launch/workflow node prompt wizard</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY This should actually be addressed by https://github.com/ansible/awx/issues/8906. If we had validation on the extra variables field then the user would address this there. This bug won't make it's way into devel until https://github.com/ansible/awx/pull/8399 merges. ##### STEPS TO REPRODUCE 1. Create a JT that prompts for extra variables 2. Launch the JT 3. Enter the following text in the extra variables field: ``` --- foo: bar foobar ``` 4. Go to the preview step ##### EXPECTED RESULTS Error was shown before going to preview step ##### ACTUAL RESULTS Page crashes when we attempt to transform the extra vars.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>149</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9814 from nixocio/ui_issue_9176 Do not validate optional survey Do not validate optional survey. See: #9176 Reviewed-by: Marliana Lara &lt;marliana.lara@gmail.com&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+    <SHA>6e46183ba6ab3f063262aecd9e3ff9d5ee7b12d5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9586 from keithjgrant/8906-code-editor-validation-2 Add VariablesField YAML/JSON validation SUMMARY Validates YAML or JSON syntax in the variables field on blur. Prevents formik from submitting the form while this error is present. addresses #8906, #8907 ISSUE TYPE Feature Pull Request COMPONENT NAME UI ADDITIONAL INFORMATION Reviewed-by: Kersom &lt;None&gt; Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt;</MESSAGE>
+      <SHA>a0780aa2873c2d4f3e4c5b716eb7bcfc2a18801b</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/components/CodeEditor/CodeEditor.jsx</FILE>
+        <FILE>awx/ui_next/src/components/CodeEditor/VariablesField.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #10148 from keithjgrant/8907-launch-prompt-vars-validation Add Variables field validation in launch prompt SUMMARY Adds validation for the Variables field during launch prompts. Prevents unexpected expanding of YAML expressions in the default value (similar to #7506) — this was caused by the default value being parsed into a JavaScript object and then re-translated back to YAML when mounting the &quot;Other Prompts&quot; step addresses #8907 ISSUE TYPE Bugfix Pull Request COMPONENT NAME UI Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+      <SHA>2191ab1c6c039da75c7f58840e573014381f97d4</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/components/CodeEditor/VariablesField.jsx</FILE>
+        <FILE>awx/ui_next/src/components/LaunchPrompt/LaunchPrompt.jsx</FILE>
+        <FILE>awx/ui_next/src/components/LaunchPrompt/steps/OtherPromptsStep.jsx</FILE>
+        <FILE>awx/ui_next/src/components/LaunchPrompt/steps/OtherPromptsStep.test.jsx</FILE>
+        <FILE>awx/ui_next/src/components/LaunchPrompt/steps/PreviewStep.jsx</FILE>
+        <FILE>awx/ui_next/src/components/LaunchPrompt/steps/useInventoryStep.jsx</FILE>
+        <FILE>awx/ui_next/src/components/LaunchPrompt/steps/useOtherPromptsStep.jsx</FILE>
+        <FILE>awx/ui_next/src/components/LaunchPrompt/useLaunchSteps.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

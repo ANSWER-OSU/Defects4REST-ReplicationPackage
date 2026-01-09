@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5852</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5852</ISSUEURL>
+  <TITLE>CLDR files are not loaded in virtual directories</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40 &gt; We are currently setting up NopCommerce in IIS Virtual directories. i.e. domain.com/US/ or domain.com/IN/. When looking at the browser console we see the following errors: &gt; &gt; ``` &gt; Failed to load resource: the server responded with a status of 404 () &gt; /lib_npm/cldr-data/main/en/timeZoneNames.json:1 Failed to load resource: the server responded with a status of 404 () &gt; /lib_npm/cldr-data/main/en/ca-gregorian.json:1 Failed to load resource: the server responded with a status of 404 () &gt; /lib_npm/cldr-data/supplemental/numberingSystems.json:1 Failed to load resource: the server responded with a status of 404 () &gt; /lib_npm/cldr-data/supplemental/weekData.json:1 Failed to load resource: the server responded with a status of 404 () &gt; /lib_npm/cldr-data/main/en/numbers.json:1 Failed to load resource: the server responded with a status of 404 () &gt; /lib_npm/cldr-data/supplemental/timeData.json:1 Failed to load resource: the server responded with a status of 404 () &gt; /lib_npm/cldr-data/main/en/currencies.json:1 &gt; ``` &gt; &gt; It appears that the virtual path is not being applied when an IIS virtual directory is used. &gt; i.e. &gt; `/lib_npm/cldr-data/main/en/currencies.json` &gt; should be: &gt; `/US/lib_npm/cldr-data/main/en/currencies.json` &gt; for a virtual directory /US Source: https://www.nopcommerce.com/boards/topic/91905/iis-virtual-directory</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'develop' of https://github.com/nopSolutions/nopCommerce into develop</MESSAGE>
+    <SHA>2369c33cffdfe3152930d02cfdcdf950dd94008f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5852 Added support for virtual dedirectories in case of requests to CLDR resources</MESSAGE>
+      <SHA>6984fc9d2334a25d369463300cd1aee792da76fb</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Shared/_AdminLayout.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Shared/_AdminPopupLayout.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#5852 Added support for virtual dedirectories in case of requests to CLDR resources</MESSAGE>
+      <SHA>bb16d56639d0f0d7afc739ba03a30f8abeb76ad4</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Shared/_AdminLayout.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Shared/_AdminPopupLayout.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

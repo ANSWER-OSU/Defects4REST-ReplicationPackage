@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120587</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120587</ISSUEURL>
+  <TITLE>[CI] HeapAttackIT testEnrichExplosionManyMatches failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #16154 / part1](https://gradle-enterprise.elastic.co/s/igkvx4rcji5yq) - [elasticsearch-intake #16153 / part1](https://gradle-enterprise.elastic.co/s/fepnyyq4yr3xo) - [elasticsearch-pull-request #51753 / part-1](https://gradle-enterprise.elastic.co/s/pbhr2g55imdua) - [elasticsearch-pull-request #51632 / part-1](https://gradle-enterprise.elastic.co/s/t5bct6zmvfvze) **Reproduction Line:** ``` ./gradlew &quot;:test:external-modules:test-esql-heap-attack:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.heap_attack.HeapAttackIT.testEnrichExplosionManyMatches&quot; -Dtests.seed=A1117DABE6247D8A -Dtests.locale=ko-Kore-KR -Dtests.timezone=America/El_Salvador -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.heap_attack.HeapAttackIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testEnrichExplosionManyMatches),title:'Test',type:optionsListControl))))) **Failure Message:** ``` junit.framework.AssertionFailedError: Expected exception ResponseException but no exception was thrown ``` **Issue Reasons:** - [main] 4 failures in test testEnrichExplosionManyMatches (2.8% fail rate in 141 executions) - [main] 2 failures in step part1 (8.3% fail rate in 24 executions) - [main] 2 failures in step part-1 (3.2% fail rate in 62 executions) - [main] 2 failures in pipeline elasticsearch-intake (8.3% fail rate in 24 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (3.2% fail rate in 62 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Rely on default shard count (#120521) Previously it is possible the the error happened due to the conflict with LogsdbIndexModeSettingsProvider. It has changed a lot lately. I would like to update test to rely on default shard count again to see if the issue is still present.</MESSAGE>
+    <SHA>fb748a1758a0633faf44dcad77289a646aea7e98</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.heap_attack.HeapAttackIT testEnrichExplosionManyMatches #120587</MESSAGE>
+      <SHA>22c0264d7d1155420a1265d244cd0107f9c5f0c7</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: Bump memory usage on heap attack test This particular test expects circuit breaker to trigger when an operation uses too much memory. But it isn't using too much memory in a few builds. This bumps it to use more memory so it will fail as expected. Closes #120587</MESSAGE>
+      <SHA>266558ccdd82ffa77898a7ce5e05e7721921fb9f</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>test/external-modules/esql-heap-attack/src/javaRestTest/java/org/elasticsearch/xpack/esql/heap_attack/HeapAttackIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: Bump memory usage on heap attack test (#120620) This particular test expects circuit breaker to trigger when an operation uses too much memory. But it isn't using too much memory in a few builds. This bumps it to use more memory so it will fail as expected. Closes #120587</MESSAGE>
+      <SHA>8ab75b35af7f66aa7695acd9db64ea774952ec4d</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>test/external-modules/esql-heap-attack/src/javaRestTest/java/org/elasticsearch/xpack/esql/heap_attack/HeapAttackIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: Bump memory usage on heap attack test (#120620) This particular test expects circuit breaker to trigger when an operation uses too much memory. But it isn't using too much memory in a few builds. This bumps it to use more memory so it will fail as expected. Closes #120587</MESSAGE>
+      <SHA>f233d480f8e1b0d20a4ef59b5eb1d5f4e798513c</SHA>
+      <PATCHEDFILES>
+        <FILE>test/external-modules/esql-heap-attack/src/javaRestTest/java/org/elasticsearch/xpack/esql/heap_attack/HeapAttackIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

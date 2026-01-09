@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3</ISSUENO>
+  <ISSUEURL>https://github.com/HTTP-APIs/hydrus/issues/3</ISSUEURL>
+  <TITLE>A Starting Design for the Endpoints</TITLE>
+  <DESCRIPTION>This is a more general overlook about the API's endpoints. The implementation described here is the application of the use-case no.2 described [here](https://github.com/HTTP-APIs/hydrus/issues/2#issue-206778515) in issue #2 . For the use-case no.2, the demo API we are going to develop is about Commercial Off The Shelves (COTS) spare parts for pico- and nano-satellites. Has been a recent trend in commercial space industry to develop super-light and super-compact satellites for the sake of research, prototyping, Earth observation and product testing. The kind of parts we are talking about are basically microcontrollers and processors that allows the spacecraft to operate. Each of these &quot;boards&quot; is meant to provide a function; there are 8-9 different functions (subsystems) to be carried on for the spacecraft to accomplish its mission. Some of them are critical, some other are supporting functions but likely almost every spacecraft needs almost all of them to work properly. This is a comprehensive list as they are written in the &quot;subsystems&quot; vocabulary: * propulsion * primary power * backup power * thermal active * thermal passive * structure * command and data handling * communication * attitude and navigation (AODCS) active or passive This API will serve objects related to this kind of hardware. The simple starting endpoints can be: * `/api/cots/`: from which the single hardware parts are store and retrieved. In particular: * `GET /api/cots/&lt;id&gt;` to fetch a particular object, * `PUT /api/cots/&lt;id&gt;` to store a new object with some characteristics * `PATCH /api/cots/&lt;id&gt;`: only for some properties * `DELETE /api/cots/&lt;id&gt;` Mandatory fields for every category of subsystem are specified in the vocabulary itself. An example of COTS spare part is represented by this JSON, this is a backup power subsystem: ``` { &quot;id&quot;: 1, &quot;object&quot;: { &quot;category&quot;: &quot;backup power&quot;, &quot;maxWorkingTemp&quot;: 61, &quot;volume&quot;: 126, &quot;minWorkingTemp&quot;: -21, &quot;mass&quot;: 252, &quot;power&quot;: 638, &quot;cost&quot;: 10208 }, &quot;name&quot;: &quot;2KV backup power&quot;, &quot;year&quot;: &quot;2015&quot;, &quot;manufacturer&quot;: &quot;Invented Corp.&quot; } ``` This JSON is ported into a JSON-LD using this two vocabularies: one for the [spacecraft](http://ontology.projectchronos.eu/documentation/spacecraft), one for [different subsystems](http://ontology.projectchronos.eu/documentation/subsystems) : ``` { &quot;@context&quot;: { &quot;spacecraft&quot; : &quot;http://ontology.projectchronos.eu/spacecraft/&quot;, &quot;subsystems&quot; : &quot;http://ontology.projectchronos.eu/subsystems/&quot; }, &quot;@id&quot;: &quot;/api/cots/1&quot;, &quot;@type&quot;: &quot;spacecraft:Subsystem_Spacecraft&quot;, &quot;subsystems:subSystemType&quot;: &quot;subsystems:Spacecraft_BackupPower&quot;, &quot;subsystems:function&quot;: &quot;Backup and restore energy if Power no. 1 goes down&quot;, &quot;subsystems:isStandard&quot;: &quot;Cubesat&quot;, &quot;subsystems:maxWorkingTemp&quot;: 61, &quot;subsystems:volume&quot;: 126, &quot;subsystems:minWorkingTemp&quot;: -21, &quot;subsystems:mass&quot;: 252, &quot;subsystems:power&quot;: 638, &quot;subsystems:cost&quot;: 10208, &quot;subsystems:manufacturer&quot;: &quot;Invented Corp.&quot; }, &quot;skos:name&quot;: &quot;2KV backup power&quot;, &quot;subsystems:year&quot;: &quot;2015&quot; } ``` * `/api/spacecraft/&lt;id&gt;`: an assembled group of COTS that can be used to make up an actual satellite. Each COTS object is categorized into a group that represents its function. For this endpoint: * `GET /api/spacecraft/&lt;id&gt;`: retrieve a blueprint * `PUT /api/spacecraft/&lt;id&gt;`: create a new blueprint * `PATCH /api/spacecraft/&lt;id&gt;`: emend some component of the blueprint * `DELETE /api/spacecraft/&lt;id&gt;`: remove ablueprint As for the subsytem objects above a JSON and a JSON-LD desctiption will be provided. These are the endpoints that need to be served by the server with the proper description provided using the HYDRA framework.</DESCRIPTION>
+  <REPONAME>hydrus</REPONAME>
+  <TIMEDIFFERENCEDAYS>377</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Automatic data insertion for cots done, directory restructure, minor bug fixes</MESSAGE>
+    <SHA>b383c6f17b903efb71af1a5a0d401f9b6130cc38</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #3 from chrizandr/models Models merge from chris</MESSAGE>
+      <SHA>263fad977fad9b55d382346d719cf06a77de577d</SHA>
+      <PATCHEDFILES>
+        <FILE>hydrus/metadata/crud.py</FILE>
+        <FILE>hydrus/metadata/parser.py</FILE>
+        <FILE>hydrus/metadata/space_craft.api</FILE>
+        <FILE>hydrus/metadata/spacecraft_jsonld.py</FILE>
+        <FILE>hydrus/metadata/subsystem.api</FILE>
+        <FILE>hydrus/metadata/subsystem_jsonld.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #3 from IamRaviTejaG/reddy Added Hydradoc Functionality To CLI</MESSAGE>
+      <SHA>b0a54b2469e39738a32665e950901689da70bb1d</SHA>
+      <PATCHEDFILES>
+        <FILE>cli.py</FILE>
+        <FILE>doc.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #3 from HTTP-APIs/master Sync with develop</MESSAGE>
+      <SHA>c53c2308ef027b671d3f32c51d59b1a9af4fa41f</SHA>
+      <PATCHEDFILES>
+        <FILE>examples/drones/doc.py</FILE>
+        <FILE>main.py</FILE>
+        <FILE>requirements.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2692</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2692</ISSUEURL>
+  <TITLE>How to add ssh key to drone plugin</TITLE>
+  <DESCRIPTION>I need to use the ssh key clone library in the drone plugin.For example php project, I need to use the composer command to clone a private warehouse. My current solution is to use a script to parse the parameters passed in the env parameter and generate the ssh_key file. 我需要在插件中添加 ssh key 来下载一些私有类库，比如php项目中，我需要在镜像中添加一个ssh key 才能下载项目中的私有仓库类库代码，我目前的方案是使用通过docker 的env 来把ssh key 传入镜像，并通过脚本来生成ssh key。 ``` FROM composer:latest ENV PHPREDIS_VERSION 4.2.0 #RUN ... ADD ./drone-php /bin/ ENTRYPOINT [&quot;/bin/drone-php&quot;] ``` drone-php: ```go ``` .drone.yml: ``` - name: add key image: bbking/composer:latest settings: private_key: from_secret: ssh_key public_key: from_secret: pub_ssh_key commands: - ls -lah /root/.ssh ``` But I did not see the expected results: 但是这个方案好像在drone中并不起作用。 ``` + ls -lah /root/.ssh -- 2 | total 8 3 | drwxr-xr-x 2 root root 4.0K May 2 14:10 . 4 | drwx------ 1 root root 4.0K May 3 05:20 .. ``` My understanding of docker is not good enough. I want to know how I should safely put the ssh key into the image. 我对docker的了解不够好，我想知道类似于这样的需求我应该怎么样安全的把ssh key 打入镜像? When I tested it locally, it was the normal generation of ssh key. 我本地测试的时候，它是正常生成ssh key 的。</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix method in openapi for rebase api (#2689) * fix method in openapi for rebase api</MESSAGE>
+    <SHA>934b3e8e5aeea3fd9a7767c7ea66fdb450ae2276</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>deprecate PR edited field (#2692) * deprecate PR edited field</MESSAGE>
+      <SHA>1e644163d348242b3802b798291ad2f8a20043e6</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/controller/pullreq/label_assign.go</FILE>
+        <FILE>app/api/controller/pullreq/label_unassign.go</FILE>
+        <FILE>app/api/controller/pullreq/merge.go</FILE>
+        <FILE>app/api/controller/pullreq/pr_state.go</FILE>
+        <FILE>app/api/controller/pullreq/pr_update.go</FILE>
+        <FILE>app/api/openapi/common.go</FILE>
+        <FILE>app/api/openapi/pullreq.go</FILE>
+        <FILE>app/api/openapi/space.go</FILE>
+        <FILE>app/api/request/common.go</FILE>
+        <FILE>app/api/request/pullreq.go</FILE>
+        <FILE>app/services/migrate/pullreq.go</FILE>
+        <FILE>app/services/pullreq/handlers_branch.go</FILE>
+        <FILE>app/services/pullreq/service_list.go</FILE>
+        <FILE>app/store/database/pullreq.go</FILE>
+        <FILE>types/list_filters.go</FILE>
+        <FILE>types/pullreq.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

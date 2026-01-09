@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>32206</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/32206</ISSUEURL>
+  <TITLE>Bug: Incorrect Discounts or Credit is applied in a multicurrency Invoice</TITLE>
+  <DESCRIPTION>### Bug If an invoice is created in a currency other than Dolibarr installation's default currency and then when we apply the available discount or credit in this invoice then the discount line is inserted in this invoice without converting the discount/credit to the invoice currency ### Dolibarr Version 20.0 ### Environment PHP 8.2 ### Environment Database _No response_ ### Steps to reproduce the behavior and expected behavior 1. Dolibarr default currency is USD 2. Create a customer with currency GBP 3. Add Absolute discount to this customer created in step 2. Absolute discount is created in USD as that is the only option in Dolibarr (e.g., 100 USD) 4. Create invoice for this customer in GBP (127 GBP). Conversion between USD to GBP is defined as 1.27 in the system. 5. Apply the discount in the invoice. Invoice will still show the unpaid amount ### Attached files ![image](https://github.com/user-attachments/assets/16903c3e-47a1-4e4d-95a7-64dfcc2596ee)</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>66</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>In Multi currency Supplier Order Multi currency buying price is coming as NaN #32207</MESSAGE>
+    <SHA>e6d9045fef2850e014c1aed974f79ba5cf2d0a7d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Incorrect Discounts or Credit is applied in a multicurrency Invoice #32206</MESSAGE>
+      <SHA>de78828e0358904085aa0a237c73040a7757f00c</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/compta/facture/class/facture.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Bug Fix: #32206</MESSAGE>
+      <SHA>72604763977f4c32d22feed2b834d4bb508740ec</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/class/discount.class.php</FILE>
+        <FILE>htdocs/societe/class/societe.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #32872 from pratushraj/20.0-discount Bug Fix: #32206</MESSAGE>
+      <SHA>ef38d94eeab15c6f6929582fa3f16accaa924c90</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/class/discount.class.php</FILE>
+        <FILE>htdocs/societe/class/societe.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

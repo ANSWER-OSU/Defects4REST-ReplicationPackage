@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>119660</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/119660</ISSUEURL>
+  <TITLE>[CI] MlJobIT testCreateJobInCustomSharedIndexUpdatesMapping failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #15456 / part4](https://gradle-enterprise.elastic.co/s/i3daia6hlgh5u) - [elasticsearch-periodic #5740 / openjdk17_checkpart4_java-matrix](https://gradle-enterprise.elastic.co/s/xexkyq26xwcny) - [elasticsearch-periodic-platform-support #5681 / sles-15_platform-support-unix](https://gradle-enterprise.elastic.co/s/tub7tky53lcuq) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:ml:qa:native-multi-node-tests:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.ml.integration.MlJobIT.testCreateJobInCustomSharedIndexUpdatesMapping&quot; -Dtests.seed=113923F420A01E5B -Dtests.locale=is-Latn-IS -Dtests.timezone=Pacific/Galapagos -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.ml.integration.MlJobIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testCreateJobInCustomSharedIndexUpdatesMapping),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: 2 active tasks found: cluster:admin/xpack/ml/job/close h9FHZyaBT7-hC_DmcKlNtA:24956 - transport 1736382279250 00:24:39 4.6m 127.0.0.1 javaRestTest-2 cluster:admin/xpack/ml/job/close[n] h9FHZyaBT7-hC_DmcKlNtA:24962 h9FHZyaBT7-hC_DmcKlNtA:24956 transport 1736382279261 00:24:39 4.6m 127.0.0.1 javaRestTest-2 expected:&lt;0&gt; but was:&lt;2&gt; ``` **Issue Reasons:** - [8.x] 3 failures in test testCreateJobInCustomSharedIndexUpdatesMapping (0.6% fail rate in 507 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.search.profile.dfs.DfsProfilerIT testProfileDfs #119711</MESSAGE>
+    <SHA>17e0072e04602d64a5727950745a573b265331f7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ml.integration.MlJobIT testCreateJobInCustomSharedIndexUpdatesMapping #119660</MESSAGE>
+      <SHA>9b224b5e5d3d6c3595b36d4a3cd33a95477f018c</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

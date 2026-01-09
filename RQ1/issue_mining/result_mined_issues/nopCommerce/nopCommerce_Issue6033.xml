@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6033</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6033</ISSUEURL>
+  <TITLE>Reset password does not work when an email contains a +</TITLE>
+  <DESCRIPTION>nopCommerce version: Latest Steps to reproduce the problem: - Create an account with an email like &quot;test+test@gmail.com&quot; - Send the password reset link - The URL in the email will contain &quot;email=test+test@gmail.com&quot; which model binds in MVC to email=&quot;test test@gmail.com&quot;. - Clicking the reset link sends you to the homepage and does not allow you to reset your password The URL parameters should be escaped as &quot;email=test%2Btest@gmail.com&quot;. In a URL, the + acts as a space. It appears this is caused in MessageTokenProvider.cs. ![image](https://user-images.githubusercontent.com/214307/146073863-d955273f-67b0-4019-b362-0557a4609845.png) `urlHelper.RouteUrl(routeName, routeValues))` results in a properly escaped URL. But when you pass this into the PathString constructor, it escapes everything. You then UrlDecode it later resulting in an unecoded + in the email value. Microsoft's documentation specifically says not to use PathString with an encoded URL. I don't have time to issue a pull request now but we fixed it by doing this: ![image](https://user-images.githubusercontent.com/214307/146074406-95ef1780-b03d-48df-9644-91511893969e.png)</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>58</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '4.50-bug-fixes' into develop</MESSAGE>
+    <SHA>838e350e3ba8df5ac4a1a8185912c4287e5c2b7b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6036 Fix URL encoding in RouteUrlAsync (#6033) Co-authored-by: Justin Stark &lt;jstark@arborday.org&gt;</MESSAGE>
+      <SHA>21cc48b8283f23688e89f4f89167ff2e80ee11b3</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Messages/MessageTokenProvider.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>
