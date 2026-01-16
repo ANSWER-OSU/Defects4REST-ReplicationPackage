@@ -359,9 +359,9 @@ As shown in Table 8 of the paper, tools detect only 10% (3/30) of real-world def
 
 | Sub Defect Type | Defect | Tool(s) That Detected It |
 |---------|--------|--------------------------|
-| Container and Resource Quota Handling Errors (ST1) | `seaweedfs#913` | **AutoRestTest** |
-| Job Execution and Workflow Configuration Defects (ST2) | `flowable-engine#2584` | **Schemathesis**, **RESTler** |
-| Runtime and Dependency Error (ST10) | `nocodb#2776` | **EvoMaster** |
+| Container and Resource Quota Handling Errors (ST1) | [`seaweedfs#913`](https://github.com/seaweedfs/seaweedfs/issues/913) | **AutoRestTest** |
+| Job Execution and Workflow Configuration Defects (ST2) | [`flowable-engine#2584`](https://github.com/flowable/flowable-engine/issues/2584) | **Schemathesis**, **RESTler** |
+| Runtime and Dependency Error (ST10) | [`nocodb#2776`](https://github.com/nocodb/nocodb/issues/2776) | **EvoMaster** |
 
 Below, we explain what each defect is and how the tools detected them.
 
