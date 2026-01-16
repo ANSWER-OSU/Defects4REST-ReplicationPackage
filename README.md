@@ -71,7 +71,7 @@ If you are asked for a password to login to the virtual machine (e.g., if the VM
 
 When the machine boots up successfully you will see the screen as shown below.
 
-![VBImage Screenshot](\Defects4REST-ReplicationPackage\images\VBImage.png)
+![VBImage Screenshot](/Defects4REST-ReplicationPackage/images/VBImage.png)
 
 
 ## Usage
