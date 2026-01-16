@@ -29,7 +29,7 @@ We are applying for the **Artifacts Available** and **Artifacts Reusable** badge
 
 ## Provenance
 
-The virtual machine image (created using VirtualBox) to replicate the results is available at: [Defects4REST.ova](https://drive.google.com/file/d/1MsRTPUinaBchELZSNn_XETgyy8Yf4AWk/view
+The virtual machine image (created using VirtualBox) to replicate the results is available at: [Defects4REST.ova](https://drive.google.com/file/d/1MsRTPUinaBchELZSNn_XETgyy8Yf4AWk/view)
 
 
 ## Data
