@@ -59,7 +59,7 @@ Note: The virtual machine was created and tested using VirtualBox version 7.2.4 
 
 Once the virtual machine is imported, it will appear in your VirtualBox Manager as  `Defects4REST`  as shown below.
 
-![VBManager Screenshot](\Defects4REST-ReplicationPackage\images\VBManager.png)
+![VBManager Screenshot](/Defects4REST-ReplicationPackage/images/VBManager.png)
 
 
 You can now start the virtual machine by clicking the green  `Start`  arrow at the top of the VirtualBox Manager (see screenshot above).
