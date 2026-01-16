@@ -146,7 +146,7 @@ While not need, the following are the steps to execute the issue classification 
 
 **Step 2.2.** Navigate to the working folder `cd /home/d/Defects4REST-Artifact/RQ1/issue_classification`
 
-**Step 2.3.** Open the `classify_issues.py` file and hardcode your generated OpenAPI Key. Replace the YOUR_API_KEY with your generated key from **Step 2.1**
+**Step 2.3.** Open the `classify_issues.py` file and hardcode your generated OpenAPI Key. Replace the `YOUR_API_KEY` with your generated key from **Step 2.1**
 
 ![API_Key Screenshot](/images/OpenAPI.png)
 
