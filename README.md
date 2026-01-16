@@ -29,17 +29,12 @@ We are applying for the **Artifacts Available** and **Artifacts Reusable** badge
 
 ## Provenance
 
-* **Artifact and VM image available at**: https://doi.org/10.5281/zenodo.17607138
+The virtual machine image (created using VirtualBox) to replicate the results is available at: 
 
 
 ## Data
 
-* **Contents**: 
-* **Data provenance**: 
-* **Ethics & legal**: 
-* **Storage requirements**: 
-  * Dataset ~ 42 GB (uncompressed) 
-  * VM ~ 30 GB; 
+The artifact consists of code, data, and execution logs. The total size of artifact is ~42 GB (uncompressed) and the VM requires ~30 GB; 
 
 
 ## Setup[]()
