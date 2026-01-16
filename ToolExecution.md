@@ -39,7 +39,7 @@ source /home/d/Defects4REST/defect4rest_env/bin/activate
 defects4rest checkout -p seaweedfs -i 913 --buggy --start
 ```
 
-![SeaweedFS checkout buggy](/artifact_documentation/images/rq3_seaweedfs_checkout_buggy.png)
+![SeaweedFS checkout buggy](/images/rq3_seaweedfs_checkout_buggy.png)
 
 
 **Step 3.** Confirm Containers Are Running
@@ -50,7 +50,7 @@ docker ps
 
 You should see the SeaweedFS container running on a specific port (note this port for the next step).
 
-![SeaweedFS docker ps](/artifact_documentation/images/rq3_seaweedfs_docker_ps.png)
+![SeaweedFS docker ps](/images/rq3_seaweedfs_docker_ps.png)
 
 
 **Step 4.** Configure AutoRestTest with OpenAI API Key
@@ -98,7 +98,7 @@ Now run AutoRestTest using Poetry. This will use the specification file in the `
 poetry run autoresttest
 ```
 
-![SeaweedFS AutoRestTest run](/artifact_documentation/images/rq3_seaweedfs_autorest_run.png)
+![SeaweedFS AutoRestTest run](/images/rq3_seaweedfs_autorest_run.png)
 
 After the run completes, AutoRestTest logs will be available at `/home/d/Defects4REST-Artifact/RQ3/script/logs/seaweedfs913/AutoRestTest/`
 
@@ -110,7 +110,7 @@ Stop and remove containers, volumes, and networks:
 defects4rest checkout -p seaweedfs -i 913 --clean
 ```
 
-![SeaweedFS stop clean](/artifact_documentation/images/rq3_seaweedfs_stop_clean.png)
+![SeaweedFS stop clean](/images/rq3_seaweedfs_stop_clean.png)
 
 ---
 
@@ -131,7 +131,7 @@ source /home/d/Defects4REST/defect4rest_env/bin/activate
 defects4rest checkout -p flowable-engine -i 2584 --buggy --start
 ```
 
-![Flowable checkout buggy](/artifact_documentation/images/rq3_flowable_checkout_buggy.png)
+![Flowable checkout buggy](/images/rq3_flowable_checkout_buggy.png)
 
 **Step 3.** Confirm Containers Are Running
 
@@ -141,7 +141,7 @@ docker ps
 
 You should see the Flowable Engine container running on port 8080.
 
-![Flowable docker ps](/artifact_documentation/images/rq3_flowable_docker_ps.png)
+![Flowable docker ps](/images/rq3_flowable_docker_ps.png)
 
 **Step 4a.** Run Schemathesis
 
@@ -156,7 +156,7 @@ python3 run_all.py \
 ```
 
 
-![Flowable Schemathesis](/artifact_documentation/images/rq3_flowable_schemathesis.png)
+![Flowable Schemathesis](/images/rq3_flowable_schemathesis.png)
 
 After the run completes, Schemathesis logs will be available at `/home/d/Defects4REST-Artifact/RQ3/script/logs/flowable-engine_#2584/schemathesis/`
 
@@ -174,7 +174,7 @@ python3 run_all.py \
 ```
 
 
-![Flowable RESTler](/artifact_documentation/images/rq3_flowable_restler.png)
+![Flowable RESTler](/images/rq3_flowable_restler.png)
 
 After the run completes, RESTler logs will be available at `/home/d/Defects4REST-Artifact/RQ3/script/logs/flowable-engine_#2584/restler/`
 
@@ -186,7 +186,7 @@ Stop and remove containers, volumes, and networks:
 defects4rest checkout -p flowable-engine -i 2584 --clean
 ```
 
-![Flowable stop clean](/artifact_documentation/images/rq3_flowable_stop_clean.png)
+![Flowable stop clean](/images/rq3_flowable_stop_clean.png)
 
 ---
 
@@ -208,7 +208,7 @@ source /home/d/Defects4REST/defect4rest_env/bin/activate
 defects4rest checkout -p nocodb -i 2776 --buggy --start
 ```
 
-![NocoDB checkout buggy](/artifact_documentation/images/rq3_nocodb_checkout_buggy.png)
+![NocoDB checkout buggy](/images/rq3_nocodb_checkout_buggy.png)
 
 **Step 3.** Confirm Containers Are Running
 
@@ -218,7 +218,7 @@ docker ps
 
 You should see the NocoDB container running on port 8080.
 
-![NocoDB docker ps](/artifact_documentation/images/rq3_nocodb_docker_ps.png)
+![NocoDB docker ps](/images/rq3_nocodb_docker_ps.png)
 
 **Step 4.** Generate API Token (`xc-token`) from NocoDB UI
 
@@ -229,11 +229,11 @@ An authentication header is required to access NocoDB APIs. Follow these steps t
 Navigate to:
 - `http://localhost:8080`
 
-![NocoDB landing](/artifact_documentation/images/rq3_nocodb_landing.png)
+![NocoDB landing](/images/rq3_nocodb_landing.png)
 
 **Step 4b.** Go to "My Projects"
 
-![NocoDB my projects](/artifact_documentation/images/rq3_nocodb_my_projects.png)
+![NocoDB my projects](/images/rq3_nocodb_my_projects.png)
 
 **Step 4c.** Create a New Project
 
@@ -242,7 +242,7 @@ From **My Projects**:
 2. Enter a project name (e.g., `admin`)
 3. Click Create**
 
-![NocoDB create project](/artifact_documentation/images/rq3_nocodb_create_project.png)
+![NocoDB create project](/images/rq3_nocodb_create_project.png)
 
 **Step 4d.** Open Team & Settings → API Tokens
 
@@ -252,15 +252,15 @@ Inside the project:
 3. Open API Tokens Management
 4. Click Add New Token
 
-![NocoDB team and settings](/artifact_documentation/images/rq3_nocodb_team_and_settings.png)
+![NocoDB team and settings](/images/rq3_nocodb_team_and_settings.png)
 
-![NocoDB API tokens management empty](/artifact_documentation/images/rq3_nocodb_api_tokens_empty.png)
+![NocoDB API tokens management empty](/images/rq3_nocodb_api_tokens_empty.png)
 
 **Step 4e.** Copy the Generated Token
 
 After creating the token, click the copy icon to copy it to your clipboard. Save this token for the next step.
 
-![NocoDB API token created](/artifact_documentation/images/rq3_nocodb_api_token_created.png)
+![NocoDB API token created](/images/rq3_nocodb_api_token_created.png)
 
 **Step 5.** Run EvoMaster (1 Hour per Seed)
 
@@ -292,7 +292,7 @@ python3 run_all.py \
   --header 'xc-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.YXNkZnM0Nzc2ZXhhbXBsZQ'
 ```
 
-![NocoDB EvoMaster](/artifact_documentation/images/rq3_nocodb_evomaster.png)
+![NocoDB EvoMaster](/images/rq3_nocodb_evomaster.png)
 
 After the run completes, EvoMaster logs will be available at `/home/d/Defects4REST-Artifact/RQ3/script/logs/nocodb#2776/evomaster/`
 
@@ -304,4 +304,4 @@ Stop and remove containers, volumes, and networks:
 defects4rest checkout -p nocodb -i 2776 --clean
 ```
 
-![NocoDB stop clean](/artifact_documentation/images/rq3_nocodb_stop_clean.png)
+![NocoDB stop clean](/images/rq3_nocodb_stop_clean.png)
