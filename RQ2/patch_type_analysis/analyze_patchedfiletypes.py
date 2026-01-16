@@ -14,7 +14,7 @@ for _, row in defects_df.iterrows():
     repo = row['repo']
     defect_type = row['defect type']
 
-    patch_csv_path = f"../../ClassifyPatches/rest_api_issues_with_patchtyes_{repo}.csv"
+    patch_csv_path = f"ClassifyPatches/rest_api_issues_with_patchtyes_{repo}.csv"
     if not os.path.isfile(patch_csv_path):
         continue
 
