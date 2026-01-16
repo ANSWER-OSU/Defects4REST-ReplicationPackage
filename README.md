@@ -127,7 +127,7 @@ To mined issues for one or more of the remaining 50 repositories,uncomment the r
 ![Restcountries issue_mine Screenshot](/images/mined_apis.png)
 
 
-This will take a approximately 2 hours, so for all the 51 repositories issue mined in this paper, we attached the precomputed result in `/home/d/Defects4REST-Artifact/RQ1/issue_mining//result_mined_issues/issues_xml`
+This will take approximately 2 hours, so for all the 51 repositories issue mined in this paper, we attached the precomputed result in `/home/d/Defects4REST-Artifact/RQ1/issue_mining//result_mined_issues/issues_xml`
 
 ![51 issue_mine Screenshot](/images/51_mined_issues.png)
 
