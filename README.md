@@ -45,7 +45,7 @@ Note: The virtual machine was created and tested using VirtualBox version 7.2.4 
 
 **Step 1.**  Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 
-**Step 2.**  Download virtual machine image  [Defects4REST.ova](Zenodo). Please note this is a large file (~30 GB) and may take some time (~20 min, depending on your Internet) to download.
+**Step 2.**  Download virtual machine image  [Defects4REST.ova](https://drive.google.com/file/d/1MsRTPUinaBchELZSNn_XETgyy8Yf4AWk/view). Please note this is a large file (~30 GB) and may take some time (~20 min, depending on your Internet) to download.
 
 **Step 3.**  Open VirtualBox.
 
