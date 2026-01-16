@@ -59,12 +59,8 @@ Note: The virtual machine was created and tested using VirtualBox version 7.2.4 
 
 Once the virtual machine is imported, it will appear in your VirtualBox Manager as  `Defects4REST`  as shown below.
 
-<<<<<<< HEAD
-![VBManager Screenshot](/images/VBManager.png)
-=======
-![VBManager Screenshot](/Defects4REST-ReplicationPackage/images/VBManager.png)
->>>>>>> ea966eaabc5b3bdf815d8e4dbf5a7fa6a679f86e
 
+![VBManager Screenshot](/images/VBManager.png)
 
 You can now start the virtual machine by clicking the green  `Start`  arrow at the top of the VirtualBox Manager (see screenshot above).
 
@@ -108,7 +104,7 @@ ls
 
 **Note:** We have provided our GitHub token for ease of review, so **Step 1.1** is not needed. This will be removed after the artifact is published.
 
-**Step 1.1.** Generate a valid Github Token (Step to generate can be found [here](https://github.com/ANSWER-OSU/defects4rest-evaluation/blob/main/artifact_documentation/GitHubToken.md). )
+**Step 1.1.** Generate a valid Github Token (Step to generate can be found at [GitHubToken.md](https://github.com/ANSWER-OSU/Defects4REST-ReplicationPackage/blob/main/GitHubToken.md). )
 
 **Step 1.2.** To mine closed issues from  51 repositories, we provide the script `launch_minebugs.sh` that lists the URL from 51 repositories. For illustration, we will execute the script for restCountries API. Please run the following commands in your terminal: 
 
@@ -146,7 +142,7 @@ Note: This step requires OpenAI key and takes longer to execute because it uses 
 
 While not need, the following are the steps to execute the issue classification step.
 
-**Step 2.1.** Navigate to [OpenAI website](https://platform.openai.com/) and generate a valid OpenAPI Key (Steps to generate can be found [here](https://github.com/ANSWER-OSU/defects4rest-evaluation/blob/main/artifact_documentation/OpenAPIToken.md))
+**Step 2.1.** Navigate to [OpenAI website](https://platform.openai.com/) and generate a valid OpenAPI Key (Steps to generate can be found at [OpenAPIToken.md](https://github.com/ANSWER-OSU/defects4rest-evaluation/blob/main/artifact_documentation/OpenAPIToken.md](https://github.com/ANSWER-OSU/Defects4REST-ReplicationPackage/blob/main/OpenAPIToken.md))
 
 **Step 2.2.** Navigate to the working folder `cd /home/d/Defects4REST-Artifact/RQ1/issue_classification`
 
@@ -434,7 +430,7 @@ As shown in the screenshot below, EvoMaster generated test case triggering  `PAT
 
 ![NocoDB precomputed verification](/images/rq3_nocodb_precomputed_verification.png)
 
-To run individual tools on the three defects, please refer to the instructions at: 
+To run individual tools on the three defects, please refer to the instructions at: [ToolExecution.md](https://github.com/ANSWER-OSU/Defects4REST-ReplicationPackage/blob/main/ToolExecution.md)
 
 ### Tool Issues and Bug Reports
 
