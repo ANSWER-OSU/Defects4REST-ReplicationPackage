@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5656</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5656</ISSUEURL>
+  <TITLE>Scheduled Tasks are failing on startup on Linux</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40.3 Steps to reproduce the problem: &gt; The problem is that if I have enabled scheduled task (any), then nopCommerce won't start at all on my Debian 10 server. If I run manually, they work. I connected windows machine to the same DB and it started successfully. Below is stack trace from Linux machine ```csharp Unhandled exception. System.NullReferenceException: Object reference not set to an instance of an object. at Nop.Services.Tasks.TaskThread.TimerHandler(Object state) at System.Threading.TimerQueueTimer.&lt;&gt;c.&lt;.cctor&gt;b__23_0(Object state) at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state) --- End of stack trace from previous location --- at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state) at System.Threading.TimerQueueTimer.CallCallback(Boolean isThreadPool) at System.Threading.TimerQueueTimer.Fire(Boolean isThreadPool) at System.Threading.TimerQueue.FireNextTimers() at System.Threading.TimerQueue.AppDomainTimerCallback(Int32 id) ``` Source: https://www.nopcommerce.com/en/boards/topic/90870/scheduled-tasks-are-failing-on-startup-on-linux</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6105 Fixed a bug on one-page checkout that made it impossible to place an order (cherry picked from commit a4bd46b17b00301b648db1230cad82a15674080c)</MESSAGE>
+    <SHA>453187e01294e2944bf40e3a244ca07cd208835c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5656 Fixed problem with failing scheduled tasks on startup on Linux</MESSAGE>
+      <SHA>b5db6a7da875a07435d36c3f410b9f03382bb4ca</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/ScheduleTasks/TaskScheduler.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

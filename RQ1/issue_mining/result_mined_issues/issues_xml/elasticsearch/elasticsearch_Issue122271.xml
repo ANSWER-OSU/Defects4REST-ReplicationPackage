@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122271</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122271</ISSUEURL>
+  <TITLE>[CI] EnrichIT testSumDurationByArtist failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6340 / concurrent-search-tests](https://gradle-enterprise.elastic.co/s/vfuxzi5ppf4qm) - [elasticsearch-periodic #6277 / openjdk17_checkpart3_java-fips-matrix](https://gradle-enterprise.elastic.co/s/7lnjv6y2gmojg) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.esql.action.EnrichIT.testSumDurationByArtist&quot; -Dtests.seed=1C2A645843890AF9 -Dtests.jvm.argline=&quot;-Des.concurrent_search=true&quot; -Dtests.locale=xog -Dtests.timezone=HST -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.action.EnrichIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testSumDurationByArtist),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: an empty collection but: &lt;[LEAK: resource was not cleaned up before it was garbage-collected. Recent access records: Created at: in [elasticsearch[node_s1][search][T#4]][testForPushDownEnrichRule] org.elasticsearch.compute.operator.exchange.ExchangeSourceHandler.lambda$new$3(ExchangeSourceHandler.java:64) org.elasticsearch.action.ActionListener$1.onResponse(ActionListener.java:217) org.elasticsearch.action.support.SubscribableListener$SuccessResult.complete(SubscribableListener.java:387) org.elasticsearch.action.support.SubscribableListener.tryComplete(SubscribableListener.java:307) org.elasticsearch.action.support.SubscribableListener.setResult(SubscribableListener.java:336) org.elasticsearch.action.support.SubscribableListener.onResponse(SubscribableListener.java:250) org.elasticsearch.compute.operator.exchange.ExchangeBuffer.pollPage(ExchangeBuffer.java:70) org.elasticsearch.compute.operator.exchange.ExchangeBuffer.discardPages(Exc [truncated] ``` **Issue Reasons:** - [8.x] 2 failures in test testSumDurationByArtist (0.6% fail rate in 349 executions) - [8.x] 2 failures in pipeline elasticsearch-periodic (20.0% fail rate in 10 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Use FallbackSyntheticSourceBlockLoader for number fields (#122280) (#122452)</MESSAGE>
+    <SHA>d9e59af69074299f0b2395d7d35a5114cd0ba3de</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix listener leak in exchange service (#122417) If we hit the circuit breaker exception before fetching pages, we fail to notify the listener. Closes #122271</MESSAGE>
+      <SHA>68b671cc30f79c74f2c646b8c9d1a75735baa45b</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/122417.yaml</FILE>
+        <FILE>x-pack/plugin/esql/compute/src/main/java/org/elasticsearch/compute/EsqlRefCountingListener.java</FILE>
+        <FILE>x-pack/plugin/esql/compute/src/main/java/org/elasticsearch/compute/operator/exchange/ExchangeService.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/plugin/ComputeListener.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix listener leak in exchange service (#122417) If we hit the circuit breaker exception before fetching pages, we fail to notify the listener. Closes #122271</MESSAGE>
+      <SHA>933709c4fd1c6233848d107bd33c3d2c3ede8a25</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/122417.yaml</FILE>
+        <FILE>x-pack/plugin/esql/compute/src/main/java/org/elasticsearch/compute/EsqlRefCountingListener.java</FILE>
+        <FILE>x-pack/plugin/esql/compute/src/main/java/org/elasticsearch/compute/operator/exchange/ExchangeService.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/plugin/ComputeListener.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix listener leak in exchange service (#122417) If we hit the circuit breaker exception before fetching pages, we fail to notify the listener. Closes #122271</MESSAGE>
+      <SHA>8c4797fb8401174bcb3afdc85c5d512911b3567c</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/122417.yaml</FILE>
+        <FILE>x-pack/plugin/esql/compute/src/main/java/org/elasticsearch/compute/EsqlRefCountingListener.java</FILE>
+        <FILE>x-pack/plugin/esql/compute/src/main/java/org/elasticsearch/compute/operator/exchange/ExchangeService.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/plugin/ComputeListener.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix listener leak in exchange service (#122417) If we hit the circuit breaker exception before fetching pages, we fail to notify the listener. Closes #122271</MESSAGE>
+      <SHA>8e2322c2efd872905551605bfa7d4fb840c90bd9</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/122417.yaml</FILE>
+        <FILE>x-pack/plugin/esql/compute/src/main/java/org/elasticsearch/compute/EsqlRefCountingListener.java</FILE>
+        <FILE>x-pack/plugin/esql/compute/src/main/java/org/elasticsearch/compute/operator/exchange/ExchangeService.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/plugin/ComputeListener.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

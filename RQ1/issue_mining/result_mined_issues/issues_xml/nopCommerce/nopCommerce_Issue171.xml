@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>171</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/171</ISSUEURL>
+  <TITLE>TaskScheduler race condition (includes repro unit test)</TITLE>
+  <DESCRIPTION>Let's invitigate [race_condition_repro.patch.txt](https://github.com/nopSolutions/nopCommerce/files/91815/race_condition_repro.patch.txt) Hello all, I looked through the source of the new 3.70 release (very excited about the new Azure scaling support!). I believe there is a race condition in the implementation of the Task.cs Execute() method. Specifically, there is no lock preventing the LeasedUntilUtc value from being modified in between the time it is read and written back to the redis cache. Therefore, if multiple machines read an empty lease value, they will all simultaneously enter the lock and execute the scheduled task simultaneously. Redis specifically has the &quot;NX option&quot; which sets a lock value ONLY if the value is presently empty to handle this situation (see http://redis.io/topics/distlock), so I believe that is the proper solution instead of a transaction lock. I have attached a patch to the raw 3.70 source with a new WebFarmTaskRaceCondition unit test which will reproduce this behavior. This test explicitly forces Tasks running on two different threads to enter the lock simultaneously. You can see both of them run concurrently and print Executing TaskRace on Thread 10.... Executing TaskRace on Thread 11.... in the output. Patch at https://gist.github.com/anonymous/f783a4793f039f46ef3b/raw/489779eeb07d0d1efd88a57de80ed72f9af593e8/race_condition_repro.patch To apply the patch 1. From the downloaded 3.70 source: ~/Downloads/nopcommerce370/nopCommerce_3.70_Source$ patch -p2 -l &lt; race-condition-repro.patch 2. From git: git checkout f6b7de7 # checkout the 3.70 release git checkout -b race-condition-repro git apply &lt; race-condition-repro.patch Thanks, Matt Source: http://www.nopcommerce.com/boards/t/39997/taskscheduler-race-condition-in-370-includes-repro-unit-test.aspx</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>374</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue-1877-News-blog-comments.-Add-searching' into develop # Conflicts: # upgradescripts/3.80-the next version/upgrade.sql</MESSAGE>
+    <SHA>cf11d04f34cec8f4f59c13b868861b3dd79b73a6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#171 Using distributed locks with Redis for exclude TaskScheduler race condition</MESSAGE>
+      <SHA>000767eabff1a3ed5aa1b1a73f7a12034ad4e6e5</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Caching/IRedisConnectionWrapper.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Caching/RedisCacheManager.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Caching/RedisConnectionWrapper.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Nop.Core.csproj</FILE>
+        <FILE>src/Libraries/Nop.Core/packages.config</FILE>
+        <FILE>src/Libraries/Nop.Services/Tasks/Task.cs</FILE>
+        <FILE>src/packages/RedLock.net.StrongName.1.7.4/RedLock.net.StrongName.1.7.4.nupkg</FILE>
+        <FILE>src/packages/RedLock.net.StrongName.1.7.4/lib/net40/RedLock.StrongName.dll</FILE>
+        <FILE>src/packages/RedLock.net.StrongName.1.7.4/lib/net45/RedLock.StrongName.dll</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8145</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/8145</ISSUEURL>
+  <TITLE>Database deadlock when running Facts job</TITLE>
+  <DESCRIPTION>&lt;!-- Issues are for **concrete, actionable bugs and feature requests** only - if you're just asking for debugging help or technical support, please use: - http://webchat.freenode.net/?channels=ansible-awx - https://groups.google.com/forum/#!forum/awx-project We have to limit this because of limited volunteer time to respond to issues! --&gt; ##### ISSUE TYPE - Bug Report ##### SUMMARY An AWX database deadlock occurs when facts jobs (package facts and gather facts) are running in slices with 4,000 targets. ##### ENVIRONMENT * AWX version: 13.0 * AWX install method: developed Ansible playbook * Ansible version: 2.9.11 * Operating System: RHEL 7 * Web Browser: Chromium Edge ##### STEPS TO REPRODUCE The issue happens every time we run a playbook with this specific set of tasks: ``` --- - name: Collect Package Facts package_facts: manager: &quot;auto&quot; tags: - gather-facts - name: Collect All Facts setup: gather_subset: all tags: - gather-facts ``` More details will be added to this case as they are gathered ##### EXPECTED RESULTS - No deadlock when running facts job - Successfully receive EOF event. ##### ACTUAL RESULTS - Deadlock occurs when running facts job - No EOF event received. Example query used: ``` UPDATE &quot;main_host&quot; SET &quot;last_job_id&quot; = (CASE WHEN (&quot;main_host&quot;.&quot;id&quot; = 8750) THEN 252213 WHEN (&quot;main_host&quot;.&quot;id&quot; = 8543) THEN 252212 WHEN (&quot;main_host&quot;.&quot;id&quot; = 2245) THEN 252211 WHEN (&quot;main_host&quot;.&quot;id&quot; = 2246) THEN 252210 WHEN (&quot;main_host&quot;.&quot;id&quot; = 3554) THEN 252268 WHEN (&quot;main_host&quot;.&quot;id&quot; = 3553) THEN 252208 WHEN (&quot;main_host&quot;.&quot;id&quot; = 3541) THEN 252207 WHEN (&quot;main_host&quot;.&quot;id&quot; = 3542) THEN 252269 WHEN (&quot;main_host&quot;.&quot;id&quot; = 428) THEN 252205 WHEN (&quot;main_host&quot;.&quot;id&quot; = 651) THEN 252204 WHEN (&quot;main_host&quot;.&quot;id&quot; = 10030) THEN 252203 WHEN (&quot;main_host&quot;.&quot;id&quot; = 511) THEN 252202 WHEN (&quot;main_host &quot;.&quot;id&quot; = 429) THEN 252213 WHEN (&quot;main_host&quot;.&quot;id&quot; = 512) THEN 252212 WHEN (&quot;main_host&quot;.&quot;id&quot; = 294) THEN 252211 WHEN (&quot;main_host&quot;.&quot;id&quot; = 295) THEN 252210 WHEN (&quot;main_host&quot;.&quot;id&quot; = 296) THEN 252268 WHEN (&quot;main_host&quot;.&quot;id&quot; = 335) THEN 252208 WHEN (&quot;main_host&quot;.&quot;id&quot; = 430) THEN 252207 WHEN (&quot;main_host&quot;.&quot;id&quot; = 539) THEN 252269 WHEN (&quot;main_host&quot;.&quot;id&quot; = 297) THEN 252205 WHEN (&quot;main_host&quot;.&quot;id&quot; = 720) THEN 252204 WHEN (&quot;main_host&quot;.&quot;id&quot; = 710) THEN 252203 WH | 29194 | UPDATE &quot;main_host&quot; SET &quot;last_job_id&quot; = (CASE WHEN (&quot;main_host&quot;.&quot;id&quot; = 8750) THEN 252213 WHEN (&quot;main_host&quot;.&quot;id&quot; = 8543) THEN 25221 2 WHEN (&quot;main_host&quot;.&quot;id&quot; = 2245) THEN 252211 WHEN (&quot;main_host&quot;.&quot;id&quot; = 2246) THEN 252210 WHEN (&quot;main_host&quot;.&quot;id&quot; = 3554) THEN 252268 WHEN (&quot;main_host&quot;.&quot;id&quot; = 3553) THEN 252208 WHEN (&quot;main_host&quot;.&quot;id&quot; = 3541) THEN 252207 WHEN (&quot;main_host&quot;.&quot;id&quot; = 3542) THEN 248644 WHEN (&quot;main_host&quot;.&quot;id&quot; = 428) THEN 252205 WHEN (&quot;main_host&quot;.&quot;id&quot; = 651) THEN 252204 WHEN (&quot;main_host&quot;.&quot;id&quot; = 10030) THEN 252203 WHEN (&quot;m ain_host&quot;.&quot;id&quot; = 511) THEN 252202 WHEN (&quot;main_host&quot;.&quot;id&quot; = 429) THEN 252213 ``` ##### ADDITIONAL INFORMATION &lt;!-- Include any links to sosreport, database dumps, screenshots or other information. --&gt; Screenshot showing job status of Successful, but also showing JOB IS STILL RUNNING ![image](https://user-images.githubusercontent.com/49697233/93223653-4bcd4c00-f73e-11ea-8731-b7e054ba7615.png) django dump: ``` django.db.utils.OperationalError: deadlock detected DETAIL: Process 1412 waits for ShareLock on transaction 612485542; blocked by process 26582. Process 26582 waits for ShareLock on transaction 612803038; blocked by process 1412. HINT: See server log for query details. CONTEXT: while deleting tuple (4244,46) in relation &quot;main_host&quot; During handling of the above exception, another exception occurred: ```</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>22</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #8204 from marshmalien/words-matter-pt2 Replace google oauth2 setting with more inclusive language Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>3184bccb33abb650d9fab0a367cdd447c38b9774</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>change host -&gt; last_job_id bulk update query to avoid locking issues see: https://github.com/ansible/awx/issues/8145</MESSAGE>
+      <SHA>2fbb6312d2ff5f3b3f14894e083807ff33819257</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/models/events.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>change host -&gt; last_job_id bulk update query to avoid locking issues see: https://github.com/ansible/awx/issues/8145</MESSAGE>
+      <SHA>89ff8e1f3e2d165a6ab17322f1a438298faa690b</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/models/events.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

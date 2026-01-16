@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9532</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/9532</ISSUEURL>
+  <TITLE>loosen collection version check</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY https://github.com/ansible/awx/blob/devel/awx_collection/plugins/module_utils/tower_api.py ``` if self._COLLECTION_TYPE not in self.collection_to_version or self.collection_to_version[self._COLLECTION_TYPE] != tower_type: self.warn(&quot;You are using the {0} version of this collection but connecting to {1}&quot;.format( self._COLLECTION_TYPE, tower_type )) elif self._COLLECTION_VERSION != tower_version: self.warn(&quot;You are running collection version {0} but connecting to tower version {1}&quot;.format( self._COLLECTION_VERSION, tower_version )) self.version_checked = True ``` This is too strict - we should not warn when using 17.0 to connect to 17.1, or in other places where there are sub-minor version updates that do not change the API. ##### ENVIRONMENT * AWX version: current</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>17</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9671 from fosterseth/fix_4602_pending_jobs_incorrect_metrics Fix api/v2/metrics data displaying incorrect value SUMMARY How to reproduce bug Disable all instances Queue up 5 jobs, (if using same JT, enable concurrent jobs) Enable instance so jobs will start running Refresh /api/v2/metrics endpoint. You should see a metric that says awx_status_total{status=&quot;pending&quot;} 5.0. Once you see this, don't refresh again. Wait for all jobs to finish. Now start refreshing the api/v2/metrics endpoint. Every once in a while you will see this pending jobs metric show (awx_status_total{status=&quot;pending&quot;} 5.0) even though there are no jobs in pending state Fix Use a locally defined prometheus registry instead of a global registry. Each time the endpoint is refreshed, a new, local registry is set up with prometheus objects (Gauge, Info). Since we aren't actually incrementing these metrics across api calls, we should be safe. That is to say, we just lookup the values from the database and set the prometheus values explicitly. ISSUE TYPE Bugfix Pull Request COMPONENT NAME API AWX VERSION awx: 18.0.0 Reviewed-by: Ryan Petrello &lt;None&gt;</MESSAGE>
+    <SHA>690045c8e021c3b3265aaec2dcb760195ea90319</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9551 from beeankha/loosen_collection_ver_check Loosen Collections vs Tower Version Check SUMMARY Connecting issue #9532 This change will make it so that if the major version numbers of Collections + Tower matches, a warning will not get activated. ISSUE TYPE Bugfix Pull Request COMPONENT NAME Collections AWX VERSION awx: 17.0.1 Reviewed-by: Ryan Petrello &lt;None&gt; Reviewed-by: Jeff Bradberry &lt;None&gt; Reviewed-by: John Westcott IV &lt;None&gt;</MESSAGE>
+      <SHA>b5c3857a63fe042fd27b17e43f41112c7be5ebce</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/plugins/module_utils/tower_api.py</FILE>
+        <FILE>awx_collection/test/awx/test_module_utils.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

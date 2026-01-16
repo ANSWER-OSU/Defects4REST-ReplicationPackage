@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122550</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122550</ISSUEURL>
+  <TITLE>[CI] SemanticInferenceMetadataFieldsRecoveryTests testSnapshotRecovery {p0=true p1=false} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6373 / rhel-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/wh5xbmvzutusc) - [elasticsearch-pull-request #56661 / part-2](https://gradle-enterprise.elastic.co/s/gv3j6ptwrfbgq) - [elasticsearch-pull-request #56657 / part-2](https://gradle-enterprise.elastic.co/s/5mx4mxosc37k4) - [elasticsearch-pull-request #56636 / part-2](https://gradle-enterprise.elastic.co/s/j2kl4ofbcrq7e) - [elasticsearch-pull-request #56612 / part-2](https://gradle-enterprise.elastic.co/s/xd357lrtiojns) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:inference:test&quot; --tests &quot;org.elasticsearch.xpack.inference.mapper.SemanticInferenceMetadataFieldsRecoveryTests.testSnapshotRecovery {p0=false p1=false}&quot; -Dtests.seed=A41944E9901A0B06 -Dtests.locale=ha-NE -Dtests.timezone=America/Sitka -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.inference.mapper.SemanticInferenceMetadataFieldsRecoveryTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testSnapshotRecovery%20%7Bp0%3Dtrue%20p1%3Dfalse%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.index.mapper.DocumentParsingException: [1:697] failed to parse field [_inference_fields] of type [_inference_fields] in document with id '30'. Preview of field's value: 'null' ``` **Issue Reasons:** - [main] 5 failures in test testSnapshotRecovery {p0=true p1=false} (1.5% fail rate in 326 executions) - [main] 4 failures in step part-2 (2.5% fail rate in 158 executions) - [main] 4 failures in pipeline elasticsearch-pull-request (2.5% fail rate in 160 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>18</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.inference.mapper.SemanticInferenceMetadataFieldsRecoveryTests testSnapshotRecovery {p0=false p1=false} #122549</MESSAGE>
+    <SHA>61c8fb299efe6d8950bdacf58e6508f0fe796ead</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.inference.mapper.SemanticInferenceMetadataFieldsRecoveryTests testSnapshotRecovery {p0=true p1=false} #122550</MESSAGE>
+      <SHA>45167d5a381f3708526015902b15060c4cc76c48</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9635</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/9635</ISSUEURL>
+  <TITLE>[Meta issue] Credentials bugs</TITLE>
+  <DESCRIPTION>&lt;!-- Issues are for **concrete, actionable bugs and feature requests** only - if you're just asking for debugging help or technical support, please use: - http://webchat.freenode.net/?channels=ansible-awx - https://groups.google.com/forum/#!forum/awx-project We have to limit this because of limited volunteer time to respond to issues! --&gt; ##### ISSUE TYPE - Bug Report ##### SUMMARY While verifying https://github.com/ansible/awx/pull/9368 I've found a couple of things happening on devel: - [x] 1. Using external secret management system display the component Ace editor wrong ![image](https://user-images.githubusercontent.com/12464858/111816196-50c0b300-88bb-11eb-9097-a3d90d22903c.png) **Steps to reproduce:** 1. Create a credential `CyberArk Conjur Secret Lookup` 2. Create a credential for AWS using the CyberArk on **Secret Key** as an external secret management system - [x] 2. Trying to edit the credential replacing the external secret for a pain text and saving: ![chrome-capture (2)](https://user-images.githubusercontent.com/12464858/111816825-0ee43c80-88bc-11eb-9623-5e8e952e60e9.gif) **Steps to reproduce:** See the gif. - [x] 3. ~All types with `Verify SSL` option is being displayed as enabled on the form and details~ ![chrome-capture (3)](https://user-images.githubusercontent.com/12464858/111817668-0b9d8080-88bd-11eb-93ac-2649e2a76b8a.gif) **Types:** - Tower - CyberArk AIM Central Credential Provider Lookup - OpenShift or Kubernetes API Bearer Token - OpenStack</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>59</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #10066 from tiagodread/ouia-ids Add testability for e2e tests Resolves #9511 Resolves #9503 Resolves #9512 Reviewed-by: Kersom &lt;None&gt;</MESSAGE>
+    <SHA>2d81143c98d9ca4f1e5a930866043e14d1bfaa48</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #10019 from mabashian/9635-cred-bugs Fixes for a couple of credential form bugs SUMMARY link #9635 This addresses the first and second bullet points in the linked issue. The third is actually covered by a separate PR. The ace editor fix was to simply wrap it in a div and apply the previous styling to that div instead of the editor. The secret key/details page crashing was caused by a race condition when would redirect back to the details view after editing. The details view was rendering with some stale data and a key that was expected to be there was not. To fix this I wrapped the request to fetch the credential detail in a useRequest hook and show the loading spinner while this request is outstanding. Only after the request resolves do we try to render the details view so that it always has the up to date object. ISSUE TYPE Bugfix Pull Request COMPONENT NAME UI Reviewed-by: Kersom &lt;None&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+      <SHA>ddb1d12a79e8f717e7553ae1a0e0b71a88f3a272</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/screens/Credential/Credential.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Credential/CredentialDetail/CredentialDetail.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

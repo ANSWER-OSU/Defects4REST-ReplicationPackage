@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>13876</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/13876</ISSUEURL>
+  <TITLE>Get metrics on a running podman machine</TITLE>
+  <DESCRIPTION>**Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind feature **Description** As a user, I want to know if the podman machine has enough CPU/memory allocated to run my containers. I would have the ability to monitor CPU/memory and then if limit is reached quite often, I would raised the number of CPUs of memory Also I need to know how much space is occupied on the allocated disk. When creating a VM I can specify the amount of disk space but then I never know if I've a lot of free space or if I would have to delete some images to cleanup some space. **Steps to reproduce the issue:** Run a podman machine and then expect to have a command to get cpu/memory/disk consumption **Describe the results you received:** N/A **Describe the results you expected:** Command to grab these metrics when machine is running. **Additional information you deem important (e.g. issue happens only occasionally):** **Output of `podman version`:** ``` (paste your output here) ``` **Output of `podman info --debug`:** ``` (paste your output here) ``` **Package info (e.g. output of `rpm -q podman` or `apt list podman`):** ``` (paste your output here) ``` **Have you tested with the latest version of Podman and have you checked the Podman Troubleshooting Guide? (https://github.com/containers/podman/blob/main/troubleshooting.md)** Yes/No **Additional environment details (AWS, VirtualBox, physical, etc.):**</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>19</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14081 from edsantiago/treadmill_revamp Treadmill script: revamp</MESSAGE>
+    <SHA>3ac5cec086e1ee1f11fabfd8a8f0aa8cf9f371f5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Additional stats for podman info In support of podman machine and its counterpart desktop, we have added new stats to podman info. For storage, we have added GraphRootAllocated and GraphRootUsed in bytes. For CPUs, we have added user, system, and idle percents based on /proc/stat. Fixes: #13876 Signed-off-by: Brent Baude &lt;bbaude@redhat.com&gt;</MESSAGE>
+      <SHA>0bb48493775810b702c1b06fe010afc588764da4</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-info.1.md</FILE>
+        <FILE>libpod/define/info.go</FILE>
+        <FILE>libpod/info.go</FILE>
+        <FILE>libpod/info_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Additional stats for podman info In support of podman machine and its counterpart desktop, we have added new stats to podman info. For storage, we have added GraphRootAllocated and GraphRootUsed in bytes. For CPUs, we have added user, system, and idle percents based on /proc/stat. Fixes: #13876 Signed-off-by: Brent Baude &lt;bbaude@redhat.com&gt;</MESSAGE>
+      <SHA>8842e9b7abde1135b2b4a7b876aa8897a624b397</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-info.1.md</FILE>
+        <FILE>libpod/define/info.go</FILE>
+        <FILE>libpod/info.go</FILE>
+        <FILE>libpod/info_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

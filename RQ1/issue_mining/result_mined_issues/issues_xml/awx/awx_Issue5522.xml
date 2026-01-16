@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5522</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/5522</ISSUEURL>
+  <TITLE>No warning or notification displayed while changing the only admin user privilege from admin to normal.</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY No warning or notification displayed while changing the only admin user privilege from admin to normal. ##### ENVIRONMENT AWX version: 9.0.1 AWX install method: doocker Operating System: rhel7.4 Web Browser: Chrome 78.0.3904.108 ##### STEPS TO REPRODUCE 1. Login to AWX dashboard with admin user. 2. Now click on users panel and make sure there is only one user with admin privileges. 3. Now edit the admin user details and change admin user privileges to normal user. 4. Click on save button. ##### EXPECTED RESULTS Warning or notification should be displayed while trying to change the privileges to last remaining admin user in AWX. ##### ACTUAL RESULTS No warning or notification gets displayed while trying to change the only admin user privileges to normal user.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>442</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #6001 from mabashian/4967-jt-prompt-on-launch Adds prompt on launch support to the rest of the relevant jt fields Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>e096ad18cbc7a60b4fbb3ba21f2917b274bf2b59</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>No warning or notification displayed while changing the only admin user privilege from admin to normal. #5522 We can successfully change the permissions of default admin user from Administrator to any other type which will cause into that there will be no Administrator user present to access the AWX. This could lead to account hijacking considering the fact that any user with administrator role can modify the default admin user. That is why we have freeze the default user’s permission which have user id ‘1’, so that no user can change the default user’s permissions.</MESSAGE>
+      <SHA>0ed968944a89130a9c670b73e86140fd7b2c1975</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui/client/src/users/users.form.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>users-edit.controller.js edited #5522</MESSAGE>
+      <SHA>f39cbffc65afd3c655c528d9101634ac95a675bc</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui/client/src/users/edit/users-edit.controller.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3660</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3660</ISSUEURL>
+  <TITLE>Support custom validation logic during plugin installation/uninstallation</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.20 BETA We really like the new feature to be able to install/uninstall several plugins at once. But the way it works now does not allow us to prevent certain plugins to be uninstalled. Let me give you an example. We have a Core plugin that contain common libraries shared by all our plugins. In other words, we don't allow this plugin to be Uninstalled if there are any other SevenSpikes plugins already installed. Unfortunately with the new functionality we have no way to prevent our customers of uninstalling the Core plugin by mistake and thus their website will not be able to be even started as there will be missing assemblies from the Core plugin. We also have other plugins that are dependent on each other i.e Ajax Filters Pro require the Ajax Filters to be installed first as otherwise they will not work etc. So it would be great if we could tell nopCommerce if certain plugins could not be installed/unistalled and return some message i.e &quot;You could not uninstall Core plugin as it is used by other plugins&quot; or &quot;You could not install Ajax Filters Pro plugin as it required the Ajax Filters plugin to be installed first&quot; etc. Source: https://www.nopcommerce.com/boards/t/61916/nopcommerce-420-feedback-and-improvements.aspx#227022 --------------------------------- To add to my previous post how we handled this in the previous version of nopCommerce. In the Install method of all our plugins we had an additional check ShouldInstallPlugin which checks that if the Core plugin is not installed then it simply does not call the Install method of the BasePlugin (we always inherit the BasePlugin). This way, even without showing any messages to the clients, at least we didn't allow them to install a plugin that will potentially break the site. In the Uninstall method of all our plugins we had an additional check ShouldUnInstallPlugin. If we should not uninstall a plugin we simply don't call the Uninstall method of the BasePlugin and thus it was never really uninstalled. Now in nopCommerce 4.20 the logic of the actual installation/uninstallation of the plugin is not in the plugin (as it used to be in the BasePlugin) itself and we have no control over it. The bottom line is that we need a way to prevent certain plugins to be added in the list of plugins that are to be Uninstalled as once they go there and the application is restarted we could do nothing. Source: https://www.nopcommerce.com/boards/t/61916/nopcommerce-420-feedback-and-improvements.aspx#227023</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>49</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#3781 Design issue fixed on the &quot;GDPR settings&quot; page</MESSAGE>
+    <SHA>acf8d02b7a38f41b4fd80e67554aaf05e5dc861f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3660 Added &quot;depends on&quot; logic to plugin system</MESSAGE>
+      <SHA>90b96adc854f03867a380fcf50aa54c5bcae33a4</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Plugins/IPluginService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Plugins/PluginDescriptor.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Plugins/PluginService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/InstallController.cs</FILE>
+        <FILE>upgradescripts/4.10-4.20 (under development)/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

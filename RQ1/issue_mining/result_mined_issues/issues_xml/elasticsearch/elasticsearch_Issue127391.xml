@@ -1,0 +1,107 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127391</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/127391</ISSUEURL>
+  <TITLE>[CI] Netty4IncrementalRequestHandlingIT testHttpClientStats failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7865 / rocky-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/boy7w6oiulwpi) - [elasticsearch-intake #22338 / part1](https://gradle-enterprise.elastic.co/s/tfzakqodod2ay) - [elasticsearch-pull-request #69407 / part-1](https://gradle-enterprise.elastic.co/s/pll6hktam2rhk) **Reproduction Line:** ``` ./gradlew &quot;:modules:transport-netty4:internalClusterTest&quot; --tests &quot;org.elasticsearch.http.netty4.Netty4IncrementalRequestHandlingIT.testHttpClientStats&quot; -Dtests.seed=EC4F5BCF4947D322 -Dtests.locale=ff-Latn-GN -Dtests.timezone=Asia/Chongqing -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.http.netty4.Netty4IncrementalRequestHandlingIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testHttpClientStats),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: java.nio.channels.ClosedChannelException ``` **Issue Reasons:** - [main] 3 failures in test testHttpClientStats (1.1% fail rate in 282 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix QueryPhaseTimeoutTests testBulkScorerTimeout (#127389) After CancellableBulkScorer#INITIAL_INTERVAL was increased from 2028 to 4096 in #127034 this test needs updating to the new value. Closes #127156</MESSAGE>
+    <SHA>c373c79c49f09cd0ae99aa80db3c49161de35371</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.http.netty4.Netty4IncrementalRequestHandlingIT testHttpClientStats #127391</MESSAGE>
+      <SHA>901de8cd84ac715cc284504b23c3d3f21d453769</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Revert &quot;Replace auto-read with proper flow-control in HTTP pipeline (#127259)&quot; This reverts commit 3cf70614b83245b5a5a31bd22953f156fbcf3feb and unmutes the associated tests Closes #127391 Closes #127392</MESSAGE>
+      <SHA>e08916b83993b2ec96d87a04801158963e43e9d3</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/127259.yaml</FILE>
+        <FILE>modules/transport-netty4/src/internalClusterTest/java/org/elasticsearch/http/netty4/Netty4IncrementalRequestHandlingIT.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/MissingReadDetector.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpAggregator.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpContentSizeHandler.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpHeaderValidator.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpPipeliningHandler.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpRequestBodyStream.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpServerTransport.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/Netty4HttpContentSizeHandlerTests.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/Netty4HttpHeaderThreadContextTests.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/Netty4HttpHeaderValidatorTests.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/Netty4HttpRequestBodyStreamTests.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/ReadSniffer.java</FILE>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/security/src/test/java/org/elasticsearch/xpack/security/transport/netty4/SecurityNetty4HttpServerTransportCloseNotifyTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Revert &quot;Replace auto-read with proper flow-control in HTTP pipeline (#127259)&quot; (#127403) This reverts commit 3cf70614b83245b5a5a31bd22953f156fbcf3feb and unmutes the associated tests Closes #127391 Closes #127392</MESSAGE>
+      <SHA>6f622e813cd6ef626c35ebf23715e933bac03e27</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/127259.yaml</FILE>
+        <FILE>modules/transport-netty4/src/internalClusterTest/java/org/elasticsearch/http/netty4/Netty4IncrementalRequestHandlingIT.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/MissingReadDetector.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpAggregator.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpContentSizeHandler.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpHeaderValidator.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpPipeliningHandler.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpRequestBodyStream.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpServerTransport.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/Netty4HttpContentSizeHandlerTests.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/Netty4HttpHeaderThreadContextTests.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/Netty4HttpHeaderValidatorTests.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/Netty4HttpRequestBodyStreamTests.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/ReadSniffer.java</FILE>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/security/src/test/java/org/elasticsearch/xpack/security/transport/netty4/SecurityNetty4HttpServerTransportCloseNotifyTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Replace auto-read with proper flow-control in HTTP pipeline Re-applying #126441 (cf. #127259) with: - the extra `FlowControlHandler` needed to ensure one-chunk-per-read semantics (also present in #127259). - no extra `read()` after exhausting a `Netty4HttpRequestBodyStream` (the bug behind #127391 and #127391). See #127111 for related tests.</MESSAGE>
+      <SHA>e64fe8b0b990a3f9dda48215089a36a64aee6b49</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/transport-netty4/src/internalClusterTest/java/org/elasticsearch/http/netty4/Netty4IncrementalRequestHandlingIT.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/MissingReadDetector.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpAggregator.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpContentSizeHandler.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpHeaderValidator.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpPipeliningHandler.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpRequestBodyStream.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpServerTransport.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/Netty4HttpContentSizeHandlerTests.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/Netty4HttpHeaderThreadContextTests.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/Netty4HttpHeaderValidatorTests.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/Netty4HttpRequestBodyStreamTests.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/ReadSniffer.java</FILE>
+        <FILE>x-pack/plugin/security/src/test/java/org/elasticsearch/xpack/security/transport/netty4/SecurityNetty4HttpServerTransportCloseNotifyTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Replace auto-read with proper flow-control in HTTP pipeline (#127817) Re-applying #126441 (cf. #127259) with: - the extra `FlowControlHandler` needed to ensure one-chunk-per-read semantics (also present in #127259). - no extra `read()` after exhausting a `Netty4HttpRequestBodyStream` (the bug behind #127391 and #127391). See #127111 for related tests.</MESSAGE>
+      <SHA>85d9990d70e7dd56479d9bc2d0ba0f670e9b9db1</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/127817.yaml</FILE>
+        <FILE>modules/transport-netty4/src/internalClusterTest/java/org/elasticsearch/http/netty4/Netty4IncrementalRequestHandlingIT.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/MissingReadDetector.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpAggregator.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpContentSizeHandler.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpHeaderValidator.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpPipeliningHandler.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpRequestBodyStream.java</FILE>
+        <FILE>modules/transport-netty4/src/main/java/org/elasticsearch/http/netty4/Netty4HttpServerTransport.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/Netty4HttpContentSizeHandlerTests.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/Netty4HttpHeaderThreadContextTests.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/Netty4HttpHeaderValidatorTests.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/Netty4HttpRequestBodyStreamTests.java</FILE>
+        <FILE>modules/transport-netty4/src/test/java/org/elasticsearch/http/netty4/ReadSniffer.java</FILE>
+        <FILE>x-pack/plugin/security/src/test/java/org/elasticsearch/xpack/security/transport/netty4/SecurityNetty4HttpServerTransportCloseNotifyTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

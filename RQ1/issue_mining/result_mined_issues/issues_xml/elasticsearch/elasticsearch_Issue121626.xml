@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121626</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121626</ISSUEURL>
+  <TITLE>[CI] CrossClustersCancellationIT testTasks failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6175 / rhel-7_platform-support-unix](https://gradle-enterprise.elastic.co/s/6x7usgm25ogi6) - [elasticsearch-periodic #6186 / graalvm-ce17_checkpart3_java-matrix](https://gradle-enterprise.elastic.co/s/2wxnpie5y7zci) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.esql.action.CrossClustersCancellationIT.testCloseSkipUnavailable&quot; -Dtests.seed=972247CF7B1331D7 -Dtests.locale=ml-IN -Dtests.timezone=CST -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.action.CrossClustersCancellationIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testTasks),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Node didn't close within 10 seconds. ``` **Issue Reasons:** - [8.x] 2 failures in test testTasks (1.4% fail rate in 148 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix relocation targets in FieldCapabilitiesIT (#121606) The test failed because we tried to move a shard to a node that already has a copy. This change prevents that from happening. Closes #119280 Closes #120772</MESSAGE>
+    <SHA>6685736408331667c35cb29f72f990d47a6fd1e3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.CrossClustersCancellationIT testTasks #121626</MESSAGE>
+      <SHA>1758598edbdeefac6e61acef0bc9c53239c0e0a8</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.CrossClustersCancellationIT testTasks #121626</MESSAGE>
+      <SHA>1571ff21789965f5f849c7b993980295905bebbe</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

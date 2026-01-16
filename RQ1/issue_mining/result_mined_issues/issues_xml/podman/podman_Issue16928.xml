@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16928</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16928</ISSUEURL>
+  <TITLE>podman machine init help command on Windows</TITLE>
+  <DESCRIPTION>&lt;!-- --------------------------------------------------- BUG REPORT INFORMATION --------------------------------------------------- Use the commands below to provide key information from your environment: You do NOT have to include this information if this is a FEATURE REQUEST **NOTE** A large number of issues reported against Podman are often found to already be fixed in more current versions of the project. Before reporting an issue, please verify the version you are running with `podman version` and compare it to the latest release documented on the top of Podman's [README.md](../README.md). If they differ, please update your version of Podman to the latest possible and retry your command before creating an issue. Also, there is a running list of known issues in the [Podman Troubleshooting Guide](https://github.com/containers/podman/blob/main/troubleshooting.md), please reference that page before opening a new issue. If you are filing a bug against `podman build`, please instead file a bug against Buildah (https://github.com/containers/buildah/issues). Podman build executes Buildah to perform container builds, and as such the Buildah maintainers are best equipped to handle these bugs. --&gt; **Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind bug **Description** On Windows, when typing `podman machine init` I can see ``` Options: --image-path string Path to qcow image (default &quot;35&quot;) ``` **Steps to reproduce the issue:** 1. podman machine init **Describe the results you received:** Path to qcow image (default &quot;35&quot;) **Describe the results you expected:** 1. first error: AFAIK WSL is not using qcow format 2. and the version that we get is Fedora 36. Here it's saying default 35 Also I tried `--image-path 36` or `--image-path 37` it doesn't change anything For example on macOS I can use `--image-path next` or `--image-path stable` and default is testing **Additional information you deem important (e.g. issue happens only occasionally):** **Output of `podman version`:** ``` (paste your output here) ``` **Output of `podman info`:** ``` (paste your output here) ``` **Package info (e.g. output of `rpm -q podman` or `apt list podman` or `brew info podman`):** ``` (paste your output here) ``` **Have you tested with the latest version of Podman and have you checked [the Podman Troubleshooting Guide](https://github.com/containers/podman/blob/main/troubleshooting.md)?** Yes/No **Additional environment details (AWS, VirtualBox, physical, etc.):**</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #16545 from rhatdan/read-only Add containers.conf read-only flag support</MESSAGE>
+    <SHA>4a57cfb9265b40a2c050affe18fb7e3cd3d967ba</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Remove references to qcow2 Issue #16928 rightly points out that qcow2 images are not used on all podman architectures. Fixes: #16928 Signed-off-by: Brent Baude &lt;bbaude@redhat.com&gt;</MESSAGE>
+      <SHA>0c68058805280fc21e342b53c18c7ed31c2a5d1e</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/machine/init.go</FILE>
+        <FILE>pkg/machine/e2e/config_init_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

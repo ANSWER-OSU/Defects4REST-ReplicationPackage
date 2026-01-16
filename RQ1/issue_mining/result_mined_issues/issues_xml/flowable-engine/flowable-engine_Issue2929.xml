@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2929</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/2929</ISSUEURL>
+  <TITLE>Exception raised when attaching a file</TITLE>
+  <DESCRIPTION>**Describe the bug** When trying to attach a file to a task, I get a java exception **Expected behavior** File attachment **Reproduction** Following https://blog.flowable.org/2020/10/07/flowable-6-instant-gratification/ $ docker run -p8080:8080 flowable/flowable-ui # image id 5eb35bf8d8dc Then at http://localhost:8080/flowable-ui/: * login as admin/test * click Task App * click Create Task * Name=&quot;My First Task&quot; * Click Create * Click Add a document and share the knowledge * Click Select a file * Select a file This exception is then raised: ``` 2021-05-17 00:04:48.977 ERROR 1 --- [nio-8080-exec-3] o.a.c.c.C.[.[.[.[dispatcherServlet] : Servlet.service() for servlet [dispatcherServlet] in context with path [/flowable-ui] threw exception [Request processing failed; nested exception is org.flowable.content.api.ContentStorageException: Could not write content to /data/task-content/5ca71419-b6a3-11eb-8ec7-0242ac110002/7ee47d6d-b6a3-11eb-8ec7-0242ac110002] with root cause java.io.FileNotFoundException: data/task-content/5ca71419-b6a3-11eb-8ec7-0242ac110002/7ee47d6d-b6a3-11eb-8ec7-0242ac110002 (No such file or directory) at java.base/java.io.FileOutputStream.open0(Native Method) ~[na:na] at java.base/java.io.FileOutputStream.open(Unknown Source) ~[na:na] at java.base/java.io.FileOutputStream.&lt;init&gt;(Unknown Source) ~[na:na] at org.flowable.content.engine.impl.fs.SimpleFileSystemContentStorage.createContentObject(SimpleFileSystemContentStorage.java:106) ~[flowable-content-engine-6.6.0.jar:6.6.0] ⋮ at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) ~[na:na] at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) ~[na:na] at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.38.jar:9.0.38] at java.base/java.lang.Thread.run(Unknown Source) ~[na:na] ``` I've tried several file sizes and types</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Support event registry event out parameters for event registry sub processes</MESSAGE>
+    <SHA>c78e21045123616f75f98b2ce95eb670e9609b48</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2929 add the default storage folder to Flowable base Docker image</MESSAGE>
+      <SHA>d5d7f47539c3b100d51a18f36c8c68318e1a465c</SHA>
+      <PATCHEDFILES>
+        <FILE>docker/base-image/Dockerfile</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#2929 add the default storage folder to Flowable base Docker image</MESSAGE>
+      <SHA>b4374878d77427a2e9fcbe0a2903ddcd3826dd26</SHA>
+      <PATCHEDFILES>
+        <FILE>docker/base-image/Dockerfile</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

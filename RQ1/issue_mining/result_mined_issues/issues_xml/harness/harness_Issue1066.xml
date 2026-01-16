@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1066</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/1066</ISSUEURL>
+  <TITLE>Update data model to support matrix builds, build numbers</TITLE>
+  <DESCRIPTION>This is a design document to finalize the data model in `0.4`. Having a solid data model is extremely important with the introduction of plugins, which require data stability. When plugins are introduced, structural changes the data model will be difficult and infrequent, since it could impact hundreds of plugin repositories. Each data structure below will map directly to a database table. Some data structures have nested objects (one-to-one relationships, such as Build.Commit.Author) which we can also include in the same table (no need for joins). Nested data does not include one-to-many data structures, which are instead broken out into separate structs and tables. The map data structures, however, will be serialized as JSON and stored in a single column. Hoping to finalize this over the weekend. **Please note** that the below code is pseudo-code. The final implementation will not use embedded anonymous structures. **User** Represents the user object ``` Go type User struct { ID int64 Login string Token string // access token Secret string // refresh token (optional) Email string Avatar string Active bool Admin bool } ``` **Repos** Represents a repository ``` Go type Repo struct { ID int64 UserID int64 // foreign key. associate the repo with creator's github access token Owner string Name string FullName string Link string // link to repo in remote system (ie github.com/drone/drone) Remote string // clone url Branch string // default branch Private bool Trusted bool Timeout int64 Keys struct { Public string Private string } Hooks struct { PullRequest bool // enable or disable pull request hooks Push bool // enable or disable push hooks Tags bool } Params map[string]string // private params not stored in yaml } ``` **Builds** Represents a build. Includes commit data and optional pull request data. The optional pull request data includes the base of the working branch, to which the pull request is being merged. This is important for testing pull requests in non-github systems ``` Go type Build struct { ID int64 RepoID int64 Number int Status string Started int64 Finished int64 // Head commit. This would be used to clone pushes Commit struct { Sha string Ref string Branch string Message string Timestamp string Remote string Author struct { Login string Email string } } // optional, nil if not pull request PullRequest struct { Title string Number int // Base commit (ie target of pull request). We would clone the Base commit // first, then merge the Head commit, and then run our tests. This would be // used with Bitbucket and GitLab, since they don't provide a ref for pull requests Base struct { Sha string Ref string Branch string Message string Timestamp string Remote string Author struct { Login string Email string } } } } ``` **Jobs (Sub-build)** Every build has at least 1 job. A matrix build will have multiple jobs. ``` Go type Job struct { ID int64 BuildID int64 Number int Status string ExitCode int Started int64 Finished int64 Environment map[string]string # matrix parameters } ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>60</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>updated repo struct</MESSAGE>
+    <SHA>2b269d0e54a1307f3d3a8e112d904d05e20d5c84</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>migration to discussed data model in #1066</MESSAGE>
+      <SHA>e6cb22f190401b3575779af230be8a1c7d32cb16</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/drone-agent/main.go</FILE>
+        <FILE>cmd/drone-agent/updater.go</FILE>
+        <FILE>pkg/ccmenu/ccmenu.go</FILE>
+        <FILE>pkg/queue/worker.go</FILE>
+        <FILE>pkg/remote/builtin/github/github.go</FILE>
+        <FILE>pkg/remote/remote.go</FILE>
+        <FILE>pkg/runner/builtin/runner.go</FILE>
+        <FILE>pkg/runner/builtin/updater.go</FILE>
+        <FILE>pkg/runner/builtin/worker.go</FILE>
+        <FILE>pkg/runner/runner.go</FILE>
+        <FILE>pkg/server/badge.go</FILE>
+        <FILE>pkg/server/commits.go</FILE>
+        <FILE>pkg/server/hooks.go</FILE>
+        <FILE>pkg/server/queue.go</FILE>
+        <FILE>pkg/server/ws.go</FILE>
+        <FILE>pkg/store/builtin/agent.go</FILE>
+        <FILE>pkg/store/builtin/agent_sql.go</FILE>
+        <FILE>pkg/store/builtin/build.go</FILE>
+        <FILE>pkg/store/builtin/build_sql.go</FILE>
+        <FILE>pkg/store/builtin/build_test.go</FILE>
+        <FILE>pkg/store/builtin/commit.go</FILE>
+        <FILE>pkg/store/builtin/commit_sql.go</FILE>
+        <FILE>pkg/store/builtin/commit_test.go</FILE>
+        <FILE>pkg/store/builtin/job.go</FILE>
+        <FILE>pkg/store/builtin/job_sql.go</FILE>
+        <FILE>pkg/store/builtin/job_test.go</FILE>
+        <FILE>pkg/store/builtin/migrate/migrate.go</FILE>
+        <FILE>pkg/store/builtin/store.go</FILE>
+        <FILE>pkg/store/builtin/user.go</FILE>
+        <FILE>pkg/store/builtin/users_test.go</FILE>
+        <FILE>pkg/store/store.go</FILE>
+        <FILE>pkg/types/build.go</FILE>
+        <FILE>pkg/types/commit.go</FILE>
+        <FILE>pkg/types/hook.go</FILE>
+        <FILE>pkg/types/job.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

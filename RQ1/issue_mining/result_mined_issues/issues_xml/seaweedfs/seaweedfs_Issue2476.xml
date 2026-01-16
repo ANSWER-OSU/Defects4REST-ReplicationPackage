@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2476</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/2476</ISSUEURL>
+  <TITLE>Unable to add filer</TITLE>
+  <DESCRIPTION>**Describe the bug** When trying to add a new filer ```I1129 04:33:38 16088 meta_aggregator.go:190] subscribing remote IP1:8888 meta change: rpc error: code = Unknown desc = reading from persisted logs: reading /topics/.system/log/2021-11-22/09-56.8ff86979: volume 6 not found``` **System Setup** - List the command line to start &quot;weed master&quot;, &quot;weed volume&quot;, &quot;weed filer&quot;, &quot;weed s3&quot;, &quot;weed mount&quot;. S1 ```/opt/weed -logdir=/var/log/weed filer -ip=IP1 -s3 -defaultReplicaPlacement=000 -dataCenter=DC1``` S2 ```/opt/weed -logdir=/var/log/weed filer -ip=IP2 -s3 -defaultReplicaPlacement=000 -dataCenter=DC1``` - output of `weed version` ```version 8000GB 2.79 f3c789d662eeab2dcc07804cbb665752b3870d65 linux amd64``` - if using filer, show the content of `filer.toml` ``` [leveldb3] # similar to leveldb2. # each bucket has its own meta store. enabled = true dir = &quot;/srv/filer_leveldb3&quot; # directory to store level db files ``` Everything else is &quot;false&quot; In &quot;volume.list&quot; I also don't see any volume with this id and I do not see missing servers in volume.list. I even checked the presence/consistency of data in other buckets, just in case, and found no problems. So, maybe you have some idea what to do about it?</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #2498 from kmlebedev/s3_audit_log</MESSAGE>
+    <SHA>2ba08afed1547038193d9bee80fb62753f5cf4e5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>sleep between the gap of each execution related to https://github.com/chrislusf/seaweedfs/issues/2476</MESSAGE>
+      <SHA>40ee9b4d7bb67aea22bd0998b4efe633db221b9b</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/master_server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>409</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/409</ISSUEURL>
+  <TITLE>seaweedfs should support 0-size file uploading and downloading</TITLE>
+  <DESCRIPTION>Now, 0-size text file can be uploaded and download successfully. But, 0-size jpg file(or other not isGzippable()) can not be uploaded, report `{&quot;name&quot;:&quot;empty.doc&quot;,&quot;error&quot;:&quot;Failed to write to local disk&quot;}`. I suggest seaweedfs should support 0-size all format file unploading and downloading, or return `400 bad request` when being uploaded. 0-size text file uploaded successfully: ``` # curl -F file=@empty.txt 192.168.4.18:28083/45,6c8916e496119e -v * Hostname was NOT found in DNS cache * Trying 192.168.4.18... * Connected to 192.168.4.18 (192.168.4.18) port 28083 (#0) &gt; POST /45,6c8916e496119e HTTP/1.1 &gt; User-Agent: curl/7.35.0 &gt; Host: 192.168.4.18:28083 &gt; Accept: */* &gt; Content-Length: 187 &gt; Expect: 100-continue &gt; Content-Type: multipart/form-data; boundary=------------------------bcba47b57757d366 &gt; &lt; HTTP/1.1 100 Continue &lt; HTTP/1.1 201 Created &lt; Content-Type: application/json &lt; Date: Tue, 06 Dec 2016 07:34:49 GMT &lt; Content-Length: 30 &lt; * Connection #0 to host 192.168.4.18 left intact {&quot;name&quot;:&quot;empty.txt&quot;,&quot;size&quot;:23} ``` 0-size doc file uploaded unsuccessfully: ``` # curl -F file=@empty.doc 192.168.4.18:28083/45,6c8916e496119e -v * Hostname was NOT found in DNS cache * Trying 192.168.4.18... * Connected to 192.168.4.18 (192.168.4.18) port 28083 (#0) &gt; POST /45,6c8916e496119e HTTP/1.1 &gt; User-Agent: curl/7.35.0 &gt; Host: 192.168.4.18:28083 &gt; Accept: */* &gt; Content-Length: 201 &gt; Expect: 100-continue &gt; Content-Type: multipart/form-data; boundary=------------------------8228c550c48374e5 &gt; &lt; HTTP/1.1 100 Continue &lt; HTTP/1.1 500 Internal Server Error &lt; Content-Type: application/json &lt; Date: Tue, 06 Dec 2016 07:30:34 GMT &lt; Content-Length: 60 * HTTP error before end of send, stop sending &lt; * Closing connection 0 {&quot;name&quot;:&quot;empty.doc&quot;,&quot;error&quot;:&quot;Failed to write to local disk&quot;} ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>553</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>simplifying the leader election by raft fixing https://github.com/chrislusf/seaweedfs/issues/629</MESSAGE>
+    <SHA>80bcf75579f86201fd204411d3adb665c9829ec4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>treat 0 sized file as normal fix https://github.com/chrislusf/seaweedfs/issues/409</MESSAGE>
+      <SHA>9005425c1e7f7ef1a2d4bc9033a6dd7060fe20af</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/topology/store_replicate.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

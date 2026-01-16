@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23946</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/23946</ISSUEURL>
+  <TITLE>Create warehouse from new product blank screen</TITLE>
+  <DESCRIPTION>### Bug When you click on + to create a new warehouse when creating a new product, after warehouse creation (wich is ok) when you return on product, the screen is blank Cause : the return link (backtopage) passed in product page is something like /product/card.php?id=&amp;action=edit and the id is empty (normal 'cause it's a new product) Solution : disable the [+] link to create a new warehouse when creating a new product. Arround line #1471 of /htdocs/product/card.php add a test. replace ``` print ' &lt;a href=&quot;'.DOL_URL_ROOT.'/product/stock/card.php?action=create&amp;token='.newToken().'&amp;backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.$object-&gt;id.'&amp;action=edit&amp;token='.newToken()).'&quot;&gt;'; print '&lt;span class=&quot;fa fa-plus-circle valignmiddle paddingleft&quot; title=&quot;'.$langs-&gt;trans(&quot;AddWarehouse&quot;).'&quot;&gt;&lt;/span&gt;'; print '&lt;/a&gt;'; ``` by ``` if ($object-&gt;id&gt;0) { print ' &lt;a href=&quot;'.DOL_URL_ROOT.'/product/stock/card.php?action=create&amp;token='.newToken().'&amp;backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.$object-&gt;id.'&amp;action=edit&amp;token='.newToken()).'&quot;&gt;'; print '&lt;span class=&quot;fa fa-plus-circle valignmiddle paddingleft&quot; title=&quot;'.$langs-&gt;trans(&quot;AddWarehouse&quot;).'&quot;&gt;&lt;/span&gt;'; print '&lt;/a&gt;'; } ``` ### Environment Version all ### Environment OS _No response_ ### Environment Web server _No response_ ### Environment PHP _No response_ ### Environment Database _No response_ ### Environment URL(s) _No response_ ### Expected and actual behavior _No response_ ### Steps to reproduce the behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>118</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #25016 from inovea-conseil/FIX_#24695 FIX #24695</MESSAGE>
+    <SHA>fb63861ad3e4370680d0cd2ba8c4f50cd81588ce</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #23946 : wrong backtopage from warehouse to product</MESSAGE>
+      <SHA>ab49f3d13b2429870c253837ee00fed7685e291f</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/product/card.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #25053 from atm-maxime/fix_warehouse_backtopage Fix #23946 : wrong backtopage from warehouse to product</MESSAGE>
+      <SHA>d1bc7a59f0f2d00de127a5c61c1c0bea2354301f</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/product/card.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

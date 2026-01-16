@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5719</ISSUENO>
+  <ISSUEURL>https://github.com/nightscout/cgm-remote-monitor/issues/5719</ISSUEURL>
+  <TITLE>MMConnect actively blocks CareLink users with service changes (28.06.2020)</TITLE>
+  <DESCRIPTION>Hi! There was a major upgrade in EU CareLink services (28.06.2020) and since then MMConnect module is not working anymore in EU. **Login changed** `https://carelink.minimed.eu/patient/j_security_check?j_username=&amp;j_password=` throws HTTP 400 EU CareLink seems to using now the following service for logins: `https://mdtlogin.medtronic.com/mmcl/auth/oauth/v2/authorize/login` **Dataservice changed** `https://carelink.minimed.eu/patient/connect/ConnectViewerServlet?cpSerialNumber=NONE&amp;msgType=last24hours&amp;requestTime=` throws HTTP 404 EU CareLink connect webapplication seems to be using the following service to fetch SGV values: `https://carelink.minimed.eu/patient/connect/data?cpSerialNumber=NONE&amp;msgType=last24hours&amp;requestTime=` **The returned SGV data seems to be the very same JSON as earlier** lastSensorTSAsString bgunits lastSensorTS ... lastSGTrend lastSG{} lastAlarm{} activeInsulin{} sgs[] limits[] markers[] Could you please change the MMConnect module to support the new EU CareLink Connect services? Thank you!</DESCRIPTION>
+  <REPONAME>cgm-remote-monitor</REPONAME>
+  <TIMEDIFFERENCEDAYS>230</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixes #4991 - Now selects basal profile based day by day (#5572) * Test profile settings * NPM Version change * Use console log * Use console log for client * Use console log for client.sbx * Use console log for client.ddata * Use console log for client again * revert * Added multi-profile reporting capabilities Co-authored-by: VIS TFS Admin &lt;liveid@visualsolution.co.uk&gt;</MESSAGE>
+    <SHA>802d98684f0efa2cab23494e62f0bc34c2ef3119</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>prepare hotfix for MMConnect/EU - 2020-06-28 Prepare to handle issue #5719. This patch adjusts dependencies to target a community edition fork of minimed-connect-to-nightscout. The new dependency targets information provided to begin addressing changes to Medtronic Carelink services starting late June 2020.</MESSAGE>
+      <SHA>0ae64316480549b84c55249042c501ca7b7ed2df</SHA>
+      <PATCHEDFILES>
+        <FILE>npm-shrinkwrap.json</FILE>
+        <FILE>package.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>prepare hotfix for MMConnect/EU - 2020-06-28 Prepare to handle issue #5719. This patch adjusts dependencies to target a community edition fork of minimed-connect-to-nightscout. The new dependency targets information provided to begin addressing changes to Medtronic Carelink services starting late June 2020.</MESSAGE>
+      <SHA>1062a0d66a7645d6550d492d847aba49bc93c850</SHA>
+      <PATCHEDFILES>
+        <FILE>npm-shrinkwrap.json</FILE>
+        <FILE>package.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

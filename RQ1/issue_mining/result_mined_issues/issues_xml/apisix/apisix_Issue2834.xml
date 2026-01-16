@@ -1,0 +1,87 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2834</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2834</ISSUEURL>
+  <TITLE>bug: missing JSONSchema validation for plugin attributes</TITLE>
+  <DESCRIPTION>### Issue description Currently, only Route/Service self is checked. The bound Plugins were not be checked now. That is wrong. https://github.com/apache/apisix/blob/master/apisix/http/router/radixtree_uri.lua#L118 In this way, when the data plane is running the plug-in, it exits abnormally due to illegal plug-in parameters. 1. use JSON schema to check the plugin, confirm the input parameters are valid. 2. set the default value of the plug-in through the JSON schema check.</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: distinguish different routes which has the same service (#2840) Fix #2828. The bug is introduced in #2121. Can't be reproduced in over 1 millions requests after applying this patch.</MESSAGE>
+    <SHA>67eb787c383c8c2ac4b42896edc9372e63b6c75c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: validate plugin configuration in the DP Fix #2834</MESSAGE>
+      <SHA>9f24c92ccee6e76b1d2af2f0c26201313f33c09d</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/admin/plugins.lua</FILE>
+        <FILE>apisix/core/config_etcd.lua</FILE>
+        <FILE>apisix/core/config_yaml.lua</FILE>
+        <FILE>apisix/http/router/radixtree_host_uri.lua</FILE>
+        <FILE>apisix/http/router/radixtree_uri.lua</FILE>
+        <FILE>apisix/http/service.lua</FILE>
+        <FILE>apisix/plugin.lua</FILE>
+        <FILE>apisix/plugins/openid-connect.lua</FILE>
+        <FILE>apisix/router.lua</FILE>
+        <FILE>apisix/stream/router/ip_port.lua</FILE>
+        <FILE>t/config-center-yaml/global-rule.t</FILE>
+        <FILE>t/config-center-yaml/route-service.t</FILE>
+        <FILE>t/config-center-yaml/route.t</FILE>
+        <FILE>t/config-center-yaml/stream-route.t</FILE>
+        <FILE>t/core/etcd-sync.t</FILE>
+        <FILE>t/plugin/openid-connect.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: validate plugin configuration in the DP Fix #2834</MESSAGE>
+      <SHA>2308af8390dd56146ec24461458da98a8bb3b96d</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/admin/plugins.lua</FILE>
+        <FILE>apisix/core/config_etcd.lua</FILE>
+        <FILE>apisix/core/config_yaml.lua</FILE>
+        <FILE>apisix/http/router/radixtree_host_uri.lua</FILE>
+        <FILE>apisix/http/router/radixtree_uri.lua</FILE>
+        <FILE>apisix/http/service.lua</FILE>
+        <FILE>apisix/plugin.lua</FILE>
+        <FILE>apisix/plugins/openid-connect.lua</FILE>
+        <FILE>apisix/router.lua</FILE>
+        <FILE>apisix/stream/router/ip_port.lua</FILE>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+        <FILE>t/config-center-yaml/global-rule.t</FILE>
+        <FILE>t/config-center-yaml/route-service.t</FILE>
+        <FILE>t/config-center-yaml/route.t</FILE>
+        <FILE>t/config-center-yaml/stream-route.t</FILE>
+        <FILE>t/core/etcd-sync.t</FILE>
+        <FILE>t/plugin/openid-connect.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: validate plugin configuration in the DP (#2856) Fix #2834</MESSAGE>
+      <SHA>1c211ff7b1f8dd3cb98e74da4a714596d7327e47</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/admin/plugins.lua</FILE>
+        <FILE>apisix/core/config_etcd.lua</FILE>
+        <FILE>apisix/core/config_yaml.lua</FILE>
+        <FILE>apisix/http/router/radixtree_host_uri.lua</FILE>
+        <FILE>apisix/http/router/radixtree_uri.lua</FILE>
+        <FILE>apisix/http/service.lua</FILE>
+        <FILE>apisix/plugin.lua</FILE>
+        <FILE>apisix/plugins/openid-connect.lua</FILE>
+        <FILE>apisix/router.lua</FILE>
+        <FILE>apisix/stream/router/ip_port.lua</FILE>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+        <FILE>t/admin/health-check.t</FILE>
+        <FILE>t/config-center-yaml/global-rule.t</FILE>
+        <FILE>t/config-center-yaml/route-service.t</FILE>
+        <FILE>t/config-center-yaml/route.t</FILE>
+        <FILE>t/config-center-yaml/stream-route.t</FILE>
+        <FILE>t/core/etcd-sync.t</FILE>
+        <FILE>t/plugin/api-breaker.t</FILE>
+        <FILE>t/plugin/basic-auth.t</FILE>
+        <FILE>t/plugin/hmac-auth.t</FILE>
+        <FILE>t/plugin/openid-connect.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

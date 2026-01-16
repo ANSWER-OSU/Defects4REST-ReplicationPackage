@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122273</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122273</ISSUEURL>
+  <TITLE>[CI] MixedClusterEsqlSpecIT test {date_nanos.Bucket Date nanos by 10 minutes SYNC} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #17770 / 8.18.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/m4irkl23fz25o) - [elasticsearch-periodic #6284 / openjdk22_8.18.0_java-matrix-bwc](https://gradle-enterprise.elastic.co/s/tuxjbg5ef5h6u) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:mixed-cluster:v8.18.0#javaRestTest&quot; -Dtests.class=&quot;org.elasticsearch.xpack.esql.qa.mixed.MixedClusterEsqlSpecIT&quot; -Dtests.method=&quot;test {date_nanos.Bucket Date nanos by 10 minutes SYNC}&quot; -Dtests.seed=8E9E567D0AC9A0A7 -Dtests.bwc=true -Dtests.locale=so-SO -Dtests.timezone=America/Cordoba -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.mixed.MixedClusterEsqlSpecIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Bdate_nanos.Bucket%20Date%20nanos%20by%2010%20minutes%20SYNC%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Data mismatch: row 0 column 0:a list containing row 0 column 0:0: expected &quot;4&quot; but was &quot;2&quot; row 0 column 1:a list containing row 0 column 1:0: expected &quot;2023-10-23T13:50:00.000Z&quot; but was &quot;2023-10-23T12:10:00.000Z&quot; row 1 column 0:a list containing row 1 column 0:0: expected &quot;1&quot; but was &quot;4&quot; row 1 column 1:a list containing row 1 column 1:0: expected &quot;2023-10-23T13:30:00.000Z&quot; but was &quot;2023-10-23T13:50:00.000Z&quot; row 2 column 1:a list containing row 2 column 1:0: expected &quot;2023-10-23T12:20:00.000Z&quot; but was &quot;2023-10-23T13:30:00.000Z&quot; row 3 column 0:a list containing row 3 column 0:0: expected &quot;2&quot; but was &quot;1&quot; row 3 column 1:a list containing row 3 column 1:0: expected &quot;2023-10-23T12:10:00.000Z&quot; but was &quot;2023-10-23T12:20:00.000Z&quot; Actual: ct:long | mn:date_nanos 2 | 2023-10-23T12:10:00.000Z 4 | 2023-10-23T13:50:00.000Z 1 | 2023-10-23T13:30:00.000Z 1 | 2023-10-23T12:20:00.000Z Expected: ct:long | mn:date_nanos 4 | 202 [truncated] ``` **Issue Reasons:** - [8.x] 2 failures in test test {date_nanos.Bucket Date nanos by 10 minutes SYNC} (2.1% fail rate in 97 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>51</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Remove GroupShardsIterator and replace it with plain List (#116891) (#122253) There is no point in having `GroupShardsIterator`, it's mostly an unnecessary layer of indirection as it has no state and a single field only. It's only value could be seen in it hiding the ability to mutate the list it wraps, but that hardly justifies the overhead on the search path and extra code complexity. Moreover, the list it references is not copied/immutable in any way, so the value of hiding is limited also.</MESSAGE>
+    <SHA>697f6a1e1fc402fcde7fe1401b2a08a922240347</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.mixed.MixedClusterEsqlSpecIT test {date_nanos.Bucket Date nanos by 10 minutes SYNC} #122273</MESSAGE>
+      <SHA>ecb31e7fa849c73191107bfaa8a2be97e0171029</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

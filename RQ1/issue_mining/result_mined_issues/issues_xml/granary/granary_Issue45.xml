@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>45</ISSUENO>
+  <ISSUEURL>https://github.com/snarfed/granary/issues/45</ISSUEURL>
+  <TITLE>Reduce reliance on h-as-* types when converting mf2 to AS</TITLE>
+  <DESCRIPTION>`h-as-*` types are unofficial vocab and should not be required for most cases. we should be able to determine the type from the parent property (e.g. comment:) rather than expecting h-as-comment type on the embedded object.</DESCRIPTION>
+  <REPONAME>granary</REPONAME>
+  <TIMEDIFFERENCEDAYS>32</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>bugfix: fix embeds for twitter publish preview The Twitter widgets JS uses the last &lt;a&gt; element to determine the tweet ID to embed. Previously we were wrapping the entire tweet content with an &lt;a&gt; link, which did not work (especially if the content itself contained links). Moved the &lt;a&gt; after the content.</MESSAGE>
+    <SHA>0b5e739bff3685ead870affb4922a0c2a97732b3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>use mf2util's post type discovery implementation mostly this is useful for better determination of article vs. note. h-as-* explicit class types can override the discovered post type but in general this change makes them less important/necessary</MESSAGE>
+      <SHA>fe6addf62bef09980b762eea0494a82de488d6dd</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/microformats2.py</FILE>
+        <FILE>granary/test/test_microformats2.py</FILE>
+        <FILE>granary/test/testdata/in_reply_to_with_h_cite.mf2.html</FILE>
+        <FILE>granary/test/testdata/in_reply_to_with_h_cite.mf2.json</FILE>
+        <FILE>granary/test/testdata/note_with_composite_photo.as.json</FILE>
+        <FILE>granary/test/testdata/note_with_composite_photo.mf2.html</FILE>
+        <FILE>granary/test/testdata/repost_of_with_h_cite.mf2.json</FILE>
+        <FILE>granary/twitter.py</FILE>
+        <FILE>requirements.txt</FILE>
+        <FILE>setup.py</FILE>
+        <FILE>test_app.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

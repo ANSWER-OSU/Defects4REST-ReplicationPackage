@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3117</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/3117</ISSUEURL>
+  <TITLE>The proxy-rewrite plugin does not support pass nginx's variable within header</TITLE>
+  <DESCRIPTION>## Issue description I want to pass the nginx's [Embedded Variables](http://nginx.org/en/docs/http/ngx_http_core_module.html#variables) for upstream applications, below is my proxy-rewrite plugin's config: ```json { &quot;headers&quot;: { &quot;X-AUTH-UID&quot;: &quot;$arg_uid&quot; }, &quot;regex_uri&quot;: [ &quot;^/monitor/(.*)&quot;, &quot;/$1&quot; ] } ``` The test url： ``` curl http://gw.dev/monitor/hello?uid=10001 ``` The upstream application got the raw req info below: ``` GET /hello?uid=10001 HTTP/1.1 Host: gw.dev X-Real-IP: 172.19.0.1 X-Forwarded-For: 172.19.0.1 X-Forwarded-Proto: http X-Forwarded-Host: gw.dev X-Forwarded-Port: 9080 User-Agent: curl/7.64.1 Accept: */* X-AUTH-UID: $arg_uid ...... ``` ## Environment * apisix version : 1.5 * OS: MacOS * OpenRestyx / Nginx version: nginx/1.17.3</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ci: pass again (#3141) Previously CI is failed because of some policy change of Apache Foundation. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+    <SHA>45e909a0b122b8cda5a75e95adcfaf62378f7a30</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: the proxy-rewrite plugin does not support pass nginx variable within header. close #3117</MESSAGE>
+      <SHA>31732bf59c3867f24484842b439eb630e85d6bf1</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/proxy-rewrite.lua</FILE>
+        <FILE>doc/plugins/proxy-rewrite.md</FILE>
+        <FILE>doc/zh-cn/plugins/proxy-rewrite.md</FILE>
+        <FILE>t/plugin/proxy-rewrite.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat: the proxy-rewrite plugin support pass nginx variable within header (#3144) related #3117</MESSAGE>
+      <SHA>c4180ccbf9769c5877916616dba3bdfbf8caf8fb</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/proxy-rewrite.lua</FILE>
+        <FILE>doc/plugins/proxy-rewrite.md</FILE>
+        <FILE>doc/zh-cn/plugins/proxy-rewrite.md</FILE>
+        <FILE>t/plugin/proxy-rewrite.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

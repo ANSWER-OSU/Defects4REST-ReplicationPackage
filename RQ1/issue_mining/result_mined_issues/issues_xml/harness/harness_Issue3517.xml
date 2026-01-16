@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3517</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/3517</ISSUEURL>
+  <TITLE>Project and repo deletion actually do not delete the db spaces + repos, and do not free disk space</TITLE>
+  <DESCRIPTION>Using gitness 3.0.0 beta 7 ![image](https://github.com/harness/gitness/assets/4543570/60fe45b0-e9bd-434b-a145-a6354fa8f41d) It looks like deleting projects (spaces on db) and repos actually do not delete them from the db neither the disk. This is problematic, as the projects are still on the project selector and the disk space is not being recovered ![image](https://github.com/harness/gitness/assets/4543570/5a82f3a8-28a8-46af-aa0c-6b4692fe204d) ![image](https://github.com/harness/gitness/assets/4543570/7236ce00-d516-4dc7-b0cc-8151e2cddd90) **Table and available folder** Check the id and the available folder repo_id | repo_version | repo_parent_id | repo_uid | repo_description | repo_is_public | repo_created_by | repo_created | repo_updated | repo_git_uid | repo_default_branch | repo_fork_id | repo_pullreq_seq | repo_num_forks | repo_num_pulls | repo_num_closed_pulls | repo_num_open_pulls | repo_num_merged_pulls | repo_importing | repo_size | repo_size_updated | repo_deleted | repo_is_empty -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- 5 | 2 | 3 | Docker-Maldito-NUC | containers | 0 | 3 | 1699458420147 | 1716205945386 | 5kkugp099ch5p5zzrth398p3oaszx766c50mublqm9 | main | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12959 | 1715299202539 | 1716205945384 | 0 ![image](https://github.com/harness/gitness/assets/4543570/85d5f0de-030e-434d-b27f-3cd993072634)</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: [CODE-3307]: remove invalid file from repo if copy from sharedrepo fails (#3515) * remove invalid file from repo if copy from sharedrepo fails</MESSAGE>
+    <SHA>b347c0f347b9fc73f183b57281941abea7b7f25e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: [CODE-3309]: move shared repo root dir to the same parent dir as the repos (#3517) * removed the not-exist error check for MkdirAll * move shared repo root dir to the same parent dir as the repos</MESSAGE>
+      <SHA>164fa4153d8710ed99534cc3bc2e06d65e9d1790</SHA>
+      <PATCHEDFILES>
+        <FILE>git/merge.go</FILE>
+        <FILE>git/operations.go</FILE>
+        <FILE>git/scan_secrets.go</FILE>
+        <FILE>git/service.go</FILE>
+        <FILE>git/tag.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

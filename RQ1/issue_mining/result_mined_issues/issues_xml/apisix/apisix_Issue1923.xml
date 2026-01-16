@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1923</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/1923</ISSUEURL>
+  <TITLE>feature: Divide config.yaml into two files config-custom.yaml &amp; config-default.yaml</TITLE>
+  <DESCRIPTION>### Issue description 1. When I deploy APISIX, only a small amount of configuration needs to be modified in conf.yaml. 2. When the APISIX version is upgraded, some configuration items may be added, and these configuration items may be ignored by the user and cause errors. proposal 1.Divide config.yaml into two files config-custom.yaml &amp; config-default.yaml. 2.`config-default.yaml` is the most complete configuration. 3.`config-custom.yaml` define the user customized configuration. 4. merge the two config file, get final config. demo config-custom.yaml ```YAML apisix: node_listen: 80 allow_admin: - 10.0.0.0/24 admin_key: -name: &quot;admin&quot; key: asdfji213k335f136f87ad84b625c8df etcd: host: - &quot;http://10.10.10.2:2379&quot; - &quot;http://10.10.10.3:2379&quot; - &quot;http://10.10.12.3:2379&quot; ``` config-default.yaml keep the same with APISIX version generate the final configuration using `config-custom.yaml` to cover `config-default.yaml`. ### Environment * apisix version 1.4 * OS:</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>update radixtree to version 2.2 . (#2061) fix #2058 * fixed test</MESSAGE>
+    <SHA>c2a7359b2773a946b80e66c48c6d24697273e6f5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feature: divide config.yaml into two files config-custom.yaml &amp; confi… (#2023) * feature: divide config.yaml into two files config-custom.yaml &amp; config-default.yaml . fix #1923</MESSAGE>
+      <SHA>cf882bda1e36abf00f57cbaeb9a77ddaa7edf8a7</SHA>
+      <PATCHEDFILES>
+        <FILE>.travis/apisix_cli_test.sh</FILE>
+        <FILE>.travis/linux_apisix_master_luarocks_runner.sh</FILE>
+        <FILE>.travis/linux_openresty_mtls_runner.sh</FILE>
+        <FILE>Makefile</FILE>
+        <FILE>apisix/core.lua</FILE>
+        <FILE>apisix/core/config_local.lua</FILE>
+        <FILE>bin/apisix</FILE>
+        <FILE>conf/config-default.yaml</FILE>
+        <FILE>conf/config.yaml</FILE>
+        <FILE>doc/architecture-design.md</FILE>
+        <FILE>doc/plugin-develop.md</FILE>
+        <FILE>doc/zh-cn/architecture-design.md</FILE>
+        <FILE>doc/zh-cn/plugin-develop.md</FILE>
+        <FILE>t/APISIX.pm</FILE>
+        <FILE>t/admin/stream-routes-disable.t</FILE>
+        <FILE>t/admin/token.t</FILE>
+        <FILE>t/config-center-yaml/route-service.t</FILE>
+        <FILE>t/config-center-yaml/route-upstream.t</FILE>
+        <FILE>t/config-center-yaml/route.t</FILE>
+        <FILE>t/core/config-default.t</FILE>
+        <FILE>t/core/config.t</FILE>
+        <FILE>t/core/profile.t</FILE>
+        <FILE>t/debug/debug-mode.t</FILE>
+        <FILE>t/discovery/eureka.t</FILE>
+        <FILE>t/node/rr-balance.t</FILE>
+        <FILE>t/node/upstream-node-dns.t</FILE>
+        <FILE>t/plugin/example.t</FILE>
+        <FILE>t/router/radixtree-host-uri.t</FILE>
+        <FILE>t/router/radixtree-host-uri2.t</FILE>
+        <FILE>t/router/radixtree-uri-host.t</FILE>
+        <FILE>t/router/radixtree-uri-keep-end-slash.t</FILE>
+        <FILE>t/router/radixtree-uri-multiple.t</FILE>
+        <FILE>t/router/radixtree-uri-priority.t</FILE>
+        <FILE>t/router/radixtree-uri-sanity.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

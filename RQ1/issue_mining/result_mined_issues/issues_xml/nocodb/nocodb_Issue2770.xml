@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2770</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/2770</ISSUEURL>
+  <TITLE>Select v2: Data type change from multi-select to single select</TITLE>
+  <DESCRIPTION>Node: **v16.14.0** Arch: **arm64** Platform: **darwin** Docker: **false** Database: **mysql2** ProjectOnRootDB: **true** RootDB: **mysql2** PackageVersion: **0.92.4** - create multi-select column - add multiple options in a cell - change datatype to single-select ### Expect - toggle from multi-select to single select. retain only first option in a cell with multiple options ### Backend error ``` ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗ ║ ║ ║ EXCEPTION OCCURED!! in MysqlClient @ tableUpdate ║ ║ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ║ ║ MESSAGE: ║ ║ ALTER TABLE `nc_eg4d__Sheet1` ║ ║ CHANGE ║ ║ COLUMN `title5` `title5` enum('c','a','bc','ab') NULL; - Data truncated for column 'title5' at row 2 ║ ║ ║ ║ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ║ ║ CODE: ║ ║ ER_WARN_DATA_TRUNCATED ║ ║ ║ ║ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ║ ║ STACK: ║ ║ Error: ALTER TABLE `nc_eg4d__Sheet1` ║ ║ CHANGE ║ ║ COLUMN `title5` `title5` enum('c','a','bc','ab') NULL; - Data truncated for column 'title5' at row 2 ║ ║ at Packet.asError (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/packets/packet.js:728:17) ║ ║ at Query.execute (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/commands/command.js:29:26) ║ ║ at Connection.handlePacket (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/connection.js:456:32) ║ ║ at PacketParser.onPacket (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/connection.js:85:12) ║ ║ at PacketParser.executeStart (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/packet_parser.js:75:16) ║ ║ at Socket.&lt;anonymous&gt; (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/connection.js:92:25) ║ ║ at Socket.emit (node:events:520:28) ║ ║ at Socket.emit (node:domain:475:12) ║ ║ at addChunk (node:internal/streams/readable:315:12) ║ ║ at readableAddChunk (node:internal/streams/readable:289:9) ║ ║ ║ ║ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ║ ║ ║ ║ ║ ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝ Error: ALTER TABLE `nc_eg4d__Sheet1` CHANGE COLUMN `title5` `title5` enum('c','a','bc','ab') NULL; - Data truncated for column 'title5' at row 2 at Packet.asError (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/packets/packet.js:728:17) at Query.execute (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/commands/command.js:29:26) at Connection.handlePacket (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/connection.js:456:32) at PacketParser.onPacket (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/connection.js:85:12) at PacketParser.executeStart (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/packet_parser.js:75:16) at Socket.&lt;anonymous&gt; (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/connection.js:92:25) at Socket.emit (node:events:520:28) at Socket.emit (node:domain:475:12) at addChunk (node:internal/streams/readable:315:12) at readableAddChunk (node:internal/streams/readable:289:9) { code: 'ER_WARN_DATA_TRUNCATED', errno: 1265, sqlState: '01000', sqlMessage: &quot;Data truncated for column 'title5' at row 2&quot;, sql: 'ALTER TABLE `nc_eg4d__Sheet1` \n' + ' CHANGE\n' + &quot; COLUMN `title5` `title5` enum('c','a','bc','ab') NULL;&quot; } columnUpdate :: Error: ALTER TABLE `nc_eg4d__Sheet1` CHANGE COLUMN `title5` `title5` enum('c','a','bc','ab') NULL; - Data truncated for column 'title5' at row 2 at Packet.asError (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/packets/packet.js:728:17) at Query.execute (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/commands/command.js:29:26) at Connection.handlePacket (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/connection.js:456:32) at PacketParser.onPacket (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/connection.js:85:12) at PacketParser.executeStart (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/packet_parser.js:75:16) at Socket.&lt;anonymous&gt; (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/connection.js:92:25) at Socket.emit (node:events:520:28) at Socket.emit (node:domain:475:12) at addChunk (node:internal/streams/readable:315:12) at readableAddChunk (node:internal/streams/readable:289:9) { code: 'ER_WARN_DATA_TRUNCATED', errno: 1265, sqlState: '01000', sqlMessage: &quot;Data truncated for column 'title5' at row 2&quot;, sql: 'ALTER TABLE `nc_eg4d__Sheet1` \n' + ' CHANGE\n' + &quot; COLUMN `title5` `title5` enum('c','a','bc','ab') NULL;&quot; } PATCH /api/v1/db/meta/columns/cl_wgr5vz7dsroqzw 400 158 - 46.019 ms ```</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>27</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: handle interchange of options Re #2774 Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+    <SHA>866d10ab18fd04420e07cd6ceb8dfce11e611c4f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: handle multiselect to singleselect Re #2770 Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+      <SHA>283d8637fbdcee801b5dcc1fadb800c4a85fc052</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/meta/api/columnApis.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: handle multiselect to singleselect Re #2770 Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+      <SHA>ea4130882cb0d307f092f87fcbff710b7c49ddcb</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/meta/api/columnApis.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: handle multiselect to singleselect Re #2770 Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+      <SHA>d369130314336fad36a324201ce853c35ae69dce</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/meta/api/columnApis.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

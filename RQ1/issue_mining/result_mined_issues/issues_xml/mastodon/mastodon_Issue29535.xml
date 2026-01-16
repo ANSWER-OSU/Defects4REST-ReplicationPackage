@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>29535</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/29535</ISSUEURL>
+  <TITLE>hashtags_recent_count needs plural forms</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem I have to translate &quot;`%{people}` people in the past `%{days}` days&quot; as &quot;People in the past `%{days}` day(s): `%{people}`&quot; to avoid grammar errors, which is really bad UX. c.f. [Issue on Crowdin](https://crowdin.com/editor/mastodon/54/en-gd?view=comfortable#28120). ### Expected behaviour Plural form syntax used ### Actual behaviour Plural form syntax not used ### Detailed description This actually needs splitting into 2 separate strings, because there are 2 plural-controlling placeholders in there. Key: `user_mailer.welcome.hashtags_recent_count root -&gt; user_mailer -&gt; welcome -&gt; hashtags_recent_count` File: [en.yml](https://crowdin.com/editor/mastodon/54/en-gd) ### Mastodon instance mastodon.social ### Mastodon version v4.3.0.x ### Browser name and version Any ### Operating system Any ### Technical details _No response_</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix haml-lint `LineLength` cops in app/views/admin (#28680)</MESSAGE>
+    <SHA>f445d33fd6aa492df319f4cc4efbd255d7a84f0e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix `user_mailer.welcome.hashtags_recent_count` not having plural form Fixes #29535</MESSAGE>
+      <SHA>90507d0b06c0e75fe3f3d50771670256476554d0</SHA>
+      <PATCHEDFILES>
+        <FILE>app/views/application/mailer/_hashtag.html.haml</FILE>
+        <FILE>app/views/user_mailer/welcome.text.erb</FILE>
+        <FILE>config/locales/en.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

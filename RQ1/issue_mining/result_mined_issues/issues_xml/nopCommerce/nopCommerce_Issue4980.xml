@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4980</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4980</ISSUEURL>
+  <TITLE>Performance optimization for many products tags</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.30 When you have a lot of products tags (e.g. 23K records), then the category details page could load up to 5 seconds and the product details page around 3 seconds. If you disable product tags (e.g. do not invoke the &quot;ProductTagCountLoadAll&quot;), then everything works fast Tested with catalog of around 3K products and 23K product tags Also see: https://github.com/nopSolutions/nopCommerce/issues/5117 (possible solution), https://github.com/nopSolutions/nopCommerce/issues/4753 (then test with a lot of specification attributes, but I don't think it really matters)</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>172</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5056 Moved .UseRouting() to own startup file (#5063)</MESSAGE>
+    <SHA>dd6f7c239a2695af5404205b462fac2c25922a0f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4980 Code refactoring to improve performance of getting product tags</MESSAGE>
+      <SHA>d06710dc094ef49b669d42bc103882ad77bb26c7</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Catalog/IProductTagService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/ProductTagService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/ProductModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Components/PopularProductTags.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/CatalogController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/CatalogModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/ICatalogModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/ProductModelFactory.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Web.Tests/Public/Factories/CatalogModelFactoryBaseTests.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Web.Tests/Public/Factories/CatalogModelFactorySpecialTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#4980 #5133 Improved performance when too many hidden entries</MESSAGE>
+      <SHA>25494c28ad65a38159c9be8084046b7aa97b8486</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Catalog/IProductTagService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/ProductTagService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Security/AclService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Stores/StoreMappingService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

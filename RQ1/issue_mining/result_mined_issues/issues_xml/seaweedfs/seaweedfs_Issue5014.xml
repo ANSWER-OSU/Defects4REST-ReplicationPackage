@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5014</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/5014</ISSUEURL>
+  <TITLE>[filer.backup] avoid backup truncated files</TITLE>
+  <DESCRIPTION>**Describe the bug** Files from a month ago were synchronized, some of which had already been deleted. **System Setup** `weed filer.backup -filerPath &quot;/&quot;` `3.57` replication.toml: ``` [sink.s3] enabled = true aws_access_key_id = &quot;xxxx&quot; aws_secret_access_key = &quot;yyyy&quot; region = &quot;us-east-2&quot; bucket = &quot;backups&quot; directory = &quot;/docs&quot; endpoint = &quot;https://storage&quot; is_incremental = true ``` **Expected behavior** Skip backup there is a delete_chunks:true flag **Additional context** ``` E1110 20:37:02.241428 filer_pb_tail.go:89 process directory:&quot;/documents/8/7/2&quot; event_notification:{ new_entry:{name:&quot;87279e8754b8d728c696c47445ebaf10-thumb-bak&quot; chunks:{file_id:&quot;8,679a6278ced870&quot; size:14490 modified_ts_ns:1692373608704630899 e_tag:&quot;zT9IpGyOtAT5/jgfmOD+eg==&quot; fid:{volume_id:8 file_key:6789730 cookie:2026821744}} attributes:{file_size:14490 mtime:1678822702 file_mode:4 20 uid:990 gid:990 crtime:1692373608 mime:&quot;image/jpeg&quot; inode:9740092430445530816}} delete_chunks:true new_parent_path:&quot;/documents/8/7/2&quot; signatures:1520837357 signatures:-1416986718} ts_ns:169237360870954990 1: create entry1 : RequestError: send request failed caused by: Put &quot;https://storage/backups/docs/2023-03-14/documents/8/7/2/87279e8754b8d728c696c47445ebaf10-thumb-bak&quot;: http://192.168.0.1:8080/8,679a6278ced870?readDeleted=true: 404 Not Found ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>adjust logs</MESSAGE>
+    <SHA>17710e1ecbd36409fa5b14861c025aacf943b6fd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: avoid backup deleted files https://github.com/seaweedfs/seaweedfs/issues/5014</MESSAGE>
+      <SHA>f97cd2bc103cf29be18376c71cb59ed32700afe3</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/filer_sync.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

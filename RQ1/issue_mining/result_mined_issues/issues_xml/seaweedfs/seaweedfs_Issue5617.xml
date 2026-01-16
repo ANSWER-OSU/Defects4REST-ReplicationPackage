@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5617</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/5617</ISSUEURL>
+  <TITLE>Weed shell incorretly resolves volume grpc port</TITLE>
+  <DESCRIPTION>**Describe the bug** I'm using dynamic port allocation in the Nomad. When I try to remove orphaned data from volume servers, the weed shell requests `&lt;http port&gt; + 10000` instead of the grpc port that is specified when starting volume servers. **System Setup** ##### Command line `options.dat` is empty on both servers. ###### Master: ```hcl [ &quot;master&quot;, &quot;-ip.bind=0.0.0.0&quot;, &quot;-ip=100.70.149.82&quot;, &quot;-port=29274&quot;, &quot;-port.grpc=27089&quot;, &quot;-options=/local/config/options.dat&quot; ] ``` ###### Volume: ```json [ &quot;volume&quot;, &quot;-ip.bind=0.0.0.0&quot;, &quot;-ip=100.108.234.121&quot;, &quot;-port=30607&quot;, &quot;-port.grpc=24973&quot;, &quot;-dir=/local/data&quot;, &quot;-rack=vixie&quot;, &quot;-dataCenter=muttias&quot;, &quot;-options=/local/config/options.dat&quot;, &quot;-mserver=100.70.149.82:29274.27089&quot; ] ``` All servers are running version 3.67 inside docker containers on Debian 12 nodes. **Expected behavior** The weed shell uses the correct port provided by the volume server and successfully deletes the orphaned data. **Screenshots** ![image](https://github.com/seaweedfs/seaweedfs/assets/64592097/7ecc9a7f-7a17-4858-8460-b1e6b16671fb)</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>chore(deps): bump github.com/aws/aws-sdk-go-v2/credentials from 1.17.11 to 1.17.16 (#5623) chore(deps): bump github.com/aws/aws-sdk-go-v2/credentials Bumps [github.com/aws/aws-sdk-go-v2/credentials](https://github.com/aws/aws-sdk-go-v2) from 1.17.11 to 1.17.16. - [Release notes](https://github.com/aws/aws-sdk-go-v2/releases) - [Commits](https://github.com/aws/aws-sdk-go-v2/compare/config/v1.17.11...credentials/v1.17.16) --- updated-dependencies: - dependency-name: github.com/aws/aws-sdk-go-v2/credentials dependency-type: direct:production update-type: version-update:semver-patch ... Signed-off-by: dependabot[bot] &lt;support@github.com&gt; Co-authored-by: dependabot[bot] &lt;49699333+dependabot[bot]@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>edeea739ed069703732ccc13fbca9a43c44120d9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>pass along volume server grpc port fix https://github.com/seaweedfs/seaweedfs/issues/5617</MESSAGE>
+      <SHA>3e7a92061b726ef68dba9267ca02ab179381ea0e</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/master_grpc_server.go</FILE>
+        <FILE>weed/topology/topology_info.go</FILE>
+        <FILE>weed/topology/volume_growth.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

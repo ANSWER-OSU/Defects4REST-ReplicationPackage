@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>510</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/510</ISSUEURL>
+  <TITLE>Content REST API in flowable-task does not have a MultipartResolver bean defined</TITLE>
+  <DESCRIPTION>I was trying to use the content API to upload a file to the content-engine in the flowable-task app - using `POST /content-service/content-items`. I sent a valid multipart/form-data HTTP request from the browser, however on the server it was not converted to a MultipartResolver in the controller in `org.flowable.rest.content.service.api.content.ContentItemCollectionResource#createContentItem(HttpServletRequest request, HttpServletResponse response)`. Instead the body is treated as JSON and the parsing of it fails. This means I cannot upload a file using this resource. The problem is that the content API does not have a `MultipartResolver` bean defined in the flowable-task Spring context. In the flowable-ui-task-conf the `MultipartResolver` is defined in `BaseDispatcherServletConfiguration` but the `ContentDispatcherServletConfiguration` does not inherit from this. Only the process API `ProcessDispatcherServletConfiguration` does. The Form and DMN APIs also have the same configuration - in `DmnDispatcherServletConfiguration` and `FormDispatcherServletConfiguration` - so can potentially have a similar problem. I have not tested this. A workaround is to add a `MultipartResolver` bean to the Content APIs Spring context in my own code. (by adding on the Component scanned path). I am using flowable-6.1.0.</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>28</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>added missing id and label to DMN XML converter (#543)</MESSAGE>
+    <SHA>6bfadc02465f0b5e95aa61390b10f6fbe4759e7c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fixes #510 form / content / dmn dispatchers did not inherit BaseDispatcherServletConfiguration</MESSAGE>
+      <SHA>d1c561e136df4c7e95f8da342d13b0f5954c877f</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-ui-task/flowable-ui-task-conf/src/main/java/org/flowable/app/servlet/ContentDispatcherServletConfiguration.java</FILE>
+        <FILE>modules/flowable-ui-task/flowable-ui-task-conf/src/main/java/org/flowable/app/servlet/DmnDispatcherServletConfiguration.java</FILE>
+        <FILE>modules/flowable-ui-task/flowable-ui-task-conf/src/main/java/org/flowable/app/servlet/FormDispatcherServletConfiguration.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

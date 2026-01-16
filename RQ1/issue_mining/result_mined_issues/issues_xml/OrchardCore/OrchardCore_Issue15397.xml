@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15397</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/15397</ISSUEURL>
+  <TITLE>&quot;ContentDefinition.PopulateSettings&quot; inconsistent documentation</TITLE>
+  <DESCRIPTION>### Describe the bug The documentation comment of [`ContentDefinition.Settings`](https://github.com/OrchardCMS/OrchardCore/blob/bbbc79ab90e88bac4a13efeef1fcb5ee32932cef/src/OrchardCore/OrchardCore.ContentManagement.Abstractions/Metadata/Models/ContentDefinition.cs#L14) says &gt; Do not access this property directly. Migrate to use GetSettings and **PopulateSettings**. But `PopulateSettings` has been removed in #14572. This makes the property documentation confusing, and also makes migration to 1.9.0 harder. I see that in the PR usages of the method have been [expanded into direct access](https://github.com/OrchardCMS/OrchardCore/pull/14572/files#diff-fa1e2ac156a7991674caa1250f26d5ef3e38211e2844cd58f806d874cc071359L13) of `ContentDefinition.Settings`. ### Discussion Based on the above linked change in #14572, is the &quot;Do not access this property directly.&quot; instruction no longer applicable? Also, is it safe to access the settings like `partFieldDefinition.Settings.ToObject&lt;BooleanFieldSettings&gt;()` instead of of `partFieldDefinition.GetSettings&lt;BooleanFieldSettings&gt;()`? ### Suggestion To avoid confusion, I think we should: - Update the linked documentation comment. - Restore `PopulateSettings`, even just as a stub method that has `[Obsolete]` and throws `NotSupportedException` to aid migration. - Mention the removal of `PopulateSettings` in [1.9.0.md](https://github.com/OrchardCMS/OrchardCore/blob/main/src/docs/releases/1.9.0.md). - Replace `definition.Settings.ToObject&lt;T&gt;()` with `definition.GetSettings&lt;T&gt;()`? If you have no objections, I will do the above and submit a PR in the coming days.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>32</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Rename Method in MinimalAPI (#15594)</MESSAGE>
+    <SHA>1e3874dd56eaf0b6f0df68b248f4aa0255878582</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Document the removal of PopulateSettings in 1.9 release notes Fix #15397</MESSAGE>
+      <SHA>50729e637df574eb63c876dc152427774ad4b193</SHA>
+      <PATCHEDFILES>
+        <FILE>src/docs/releases/1.9.0.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

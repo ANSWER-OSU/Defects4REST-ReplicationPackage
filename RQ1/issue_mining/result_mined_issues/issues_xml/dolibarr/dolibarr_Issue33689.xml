@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>33689</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/33689</ISSUEURL>
+  <TITLE>API &gt; supplierorders &gt; post lines not working</TITLE>
+  <DESCRIPTION>### Bug @mdeweerd : in commit 035ede5 the function post() in api_supplier_order.class.php has been modified at the beginning `// Check mandatory fields` `$request_data = $this-&gt;_validate($request_data);` where we previously we had `$result = $this-&gt;_validate($request_data);` this breaks the function to import lines order for me ### Dolibarr Version develop ### Environment PHP _No response_ ### Environment Database _No response_ ### Steps to reproduce the behavior and expected behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>NEW : Rounding unit price - line discount before applying quantity - option MAIN_APPLY_DISCOUNT_ON_UNIT_PRICE_THEN_ROUND_BEFORE_MULTIPLICATION_BY_QTY (#33690) * Rounding unit price - line discount before applying quantity On some systems, the line total price is calculated based on the discount applied on the unit price first, giving a new rounded unit price, and then multiplied by the quantity. Whereas the current way Dolibarr acts is to apply the discount on the subtotal (unit price * quantity). Using an extra OTHER SETUP constant 'MAIN_ROUND_UNIT_PRICE_BEFORE_QTY', we can choose between the two ways. * Update price.lib.php * Update price.lib.php --------- Co-authored-by: Laurent Destailleur &lt;eldy@destailleur.fr&gt;</MESSAGE>
+    <SHA>73eb4e606a4335215d732ec03bd84cce62b87fbd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #33689 - missing rename # Fix #33689 - missing rename Assignment to $result in code before fixing phan notice seem be an error, but in fact the assignment is useless and the code only expects a potential exception.</MESSAGE>
+      <SHA>a69271d989489c62fcd2392cb600ece9fa8e8b3f</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/compta/facture/class/api_invoices.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #33689 - missing rename # Fix #33689 - missing rename Assignment to $result in code before fixing phan notice seem be an error, but in fact the assignment is useless and the code only expects a potential exception.</MESSAGE>
+      <SHA>54448173858fd0c4c762ce3e657f273ab2e9ff93</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/compta/facture/class/api_invoices.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #33689 - missing rename # Fix #33689 - missing rename Assignment to $result in code before fixing phan notice seem be an error, but in fact the assignment is useless and the code only expects a potential exception.</MESSAGE>
+      <SHA>5146abbda801982458080d2afd347254050d5e59</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/compta/facture/class/api_invoices.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Propagate fix #33689 to other objects</MESSAGE>
+      <SHA>5e616669b6bf2d13baab4753866510d821298419</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/fourn/class/api_supplier_invoices.class.php</FILE>
+        <FILE>htdocs/fourn/class/api_supplier_orders.class.php</FILE>
+        <FILE>htdocs/webhook/class/api_webhook.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #33689 - missing rename (#33693) # Fix #33689 - missing rename Assignment to $result in code before fixing phan notice seem be an error, but in fact the assignment is useless and the code only expects a potential exception.</MESSAGE>
+      <SHA>5cc0bd0a3fc72727993d2a76d65c73c7429b1aa6</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/compta/facture/class/api_invoices.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

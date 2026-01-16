@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1884</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/1884</ISSUEURL>
+  <TITLE>S3 upload failed for filenames including '%' character</TITLE>
+  <DESCRIPTION>**Describe the bug** S3 filer API can't handle files with '%' sign despite it being the valid name (and valid object for s3 and minio, I found plenty of those inside Photo library on Mac): ``` touch %%test.file.txt touch %%test.file.txt aws --endpoint-url http://rpi4node3:8333/ s3 cp %test.file.txt s3://testbucket/ upload failed: ./%test.file.txt to s3://testbucket/%test.file.txt An error occurred (InternalError) when calling the PutObject operation (reached max retries: 2): We encountered an internal error, please try again. ``` Upload via weed upload works: ``` &gt; weed upload -master=&quot;rpi4node3:9333&quot; %%test.file.txt [{&quot;fileName&quot;:&quot;%%test.file.txt&quot;,&quot;url&quot;:&quot;rpi4node3:8088/13,022beaf4f28a09&quot;,&quot;fid&quot;:&quot;13,022beaf4f28a09&quot;}] &gt; weed upload -master=&quot;rpi4node3:9333&quot; %test.file.txt [{&quot;fileName&quot;:&quot;%test.file.txt&quot;,&quot;url&quot;:&quot;rpi4node3:8088/6,022beb5bdfd3a2&quot;,&quot;fid&quot;:&quot;6,022beb5bdfd3a2&quot;}] ``` **System Setup** Master started with: ``` ~/go/bin/weed server -filer -s3 -ip=rpi4node3 -volume.max=0,0 -master.volumeSizeLimitMB=1024 -volume.port=8088 -dir=/mnt/usbslow/weed,/mnt/usbfast/weed/ -master.dir=/mnt/usbfast/weed/master ``` Filer config: ``` [redis_cluster2] enabled = true addresses = [ &quot;rpi4node1:6379&quot;, &quot;rpi4node2:6379&quot;, &quot;rpi4node3:6379&quot; ] password = &quot;&quot; # allows reads from slave servers or the master, but all writes still go to the master readOnly = false # automatically use the closest Redis server for reads routeByLatency = false # This changes the data layout. Only add new directories. Removing/Updating will cause data loss. superLargeDirectories = [] ``` Volumes: ``` /usr/local/bin/weed volume -mserver=&quot;rpi4node3:9333&quot; -max=1000,1000 -port=8088 -disk=hdd,ssd -dir=/mnt/usbslow/weed,/mnt/usbfast/weed/ &amp; ``` Master weed version: ``` ~/go/bin/weed version version 30GB 2.29 400de380 linux arm64 ``` Complied from: ``` commit 400de380f48c44c7700fdf7e8f247bf856662c10 (HEAD -&gt; master, origin/master, origin/HEAD) Author: Chris Lu &lt;chris.lu@gmail.com&gt; Date: Fri Mar 5 02:29:38 2021 -0800 volume server: support tcp direct put/get/delete ``` **Expected behavior** Successful upload of files via S3. **Additional context** You guessed seaweed fs runs on RPI4 cluster. I found it's a really amazing project and very easy to setup. ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #1886 from wuh-fnst/listMultipartEmptyIsLast s3: &quot;isLast&quot; returns true when the file does not exist</MESSAGE>
+    <SHA>2e197604422214abd1034ee93ab38ab588e110e5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>escape special characters fix https://github.com/chrislusf/seaweedfs/issues/1884</MESSAGE>
+      <SHA>79280e151396d3b4aab13d8f78b944d6038a21e3</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/s3api/s3api_object_handlers.go</FILE>
+        <FILE>weed/s3api/s3api_object_handlers_postpolicy.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

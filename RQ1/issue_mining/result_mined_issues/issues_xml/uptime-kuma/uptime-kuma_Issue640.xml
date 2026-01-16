@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>640</ISSUENO>
+  <ISSUEURL>https://github.com/louislam/uptime-kuma/issues/640</ISSUEURL>
+  <TITLE>Harden 2FA/TOTP implementation according to rfc6238</TITLE>
+  <DESCRIPTION>**Is your feature request related to a problem? Please describe.** No, this is about following the RFC's recommendations **Describe the solution you'd like** Harden security for the [TOTP solution](https://github.com/louislam/uptime-kuma/pull/363) by: 1. creating TOTP secrets using a cryptographically strong pseudorandom generator 2. making tokens actually one-time only (currently: token can be used multiple times within time windows) 3. avoiding the TOTP library's default values for window and time in `totp.verify` ([notp](https://www.npmjs.com/package/notp)) **Additional context** The TOTP standard as described in [rfc6238](https://datatracker.ietf.org/doc/html/rfc6238) defines some important recommendations for secure implementation of TOTP. #### 1. TOTP secret generation (see [rfc6238 section 5.1](https://datatracker.ietf.org/doc/html/rfc6238#section-5.1)) &gt; As indicated in the algorithm requirement section, keys SHOULD be chosen at random or using a cryptographically strong pseudorandom generator properly seeded with a random value. The secret is currently generated using the standard `math.random` function (see [code](https://github.com/Ponkhy/uptime-kuma/blob/c4f78d776e166e7372ecd13c47c9d36c9b7667a7/server/util-server.js#L280)). This is explicitely **not** a cryptographically strong random number generator (see note [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)). Using [Web Crypto API](https://nodejs.org/docs/latest/api/webcrypto.html#webcrypto_crypto_getrandomvalues_typedarray) instead should respect the standard and produce less predictable secrets. #### 2. Invalidating used tokens (see [rfc6238 section 5.2](https://datatracker.ietf.org/doc/html/rfc6238#section-5.2)) &gt; Note that a prover may send the same OTP inside a given time-step window multiple times to a verifier. The verifier MUST NOT accept the second attempt of the OTP after the successful validation has been issued for the first OTP, which ensures one-time only use of an OTP. Currently tokens can be used multiple times. The last used token should be stored (incl. timestamp) to check for re-use within the same window. Note that in this case the rfc standard phrases this as a **MUST** not just as a recommendation. With the current implementation a MitM could login without being noticed (as an intercepted token can be re-used). #### 3. Avoiding notp default values for token verification (see [rfc6238 section 5.2](https://datatracker.ietf.org/doc/html/rfc6238#section-5.2)) &gt; The validation system should compare OTPs not only with the receiving timestamp but also the past timestamps that are within the transmission delay. A larger acceptable delay window would expose a larger window for attacks. We RECOMMEND that at most one time step is allowed as the network delay. &gt; We RECOMMEND a default time-step size of 30 seconds. This default value of 30 seconds is selected as a balance between security and usability. Currently `totp.verifyToken` is called with 2 parameters only (token + key) leading notp to use default values for the number of lookahead windows and the window size (see [code](https://github.com/Ponkhy/uptime-kuma/blob/c4f78d776e166e7372ecd13c47c9d36c9b7667a7/server/server.js#L242)). Provide those options in the [3rd parameter](https://www.npmjs.com/package/notp#totpverifytoken-key-opt) to explicitely define settings recommended in the rfc. While the windows size is by default 30 seconds (and thus the recommended rfc value), the allowable margin is `6` resulting in tokens being valid for +/- 6*30 seconds = 3 minutes. Google Authenticator uses an allowable margin of `1` so I'd suggest using this as it's IMHO the most used TOTP implementation globally. For reference see their [libpam module's code](https://github.com/google/google-authenticator-libpam/blob/0b02aadc28ac261b6c7f5785d2f7f36b3e199d97/src/pam_google_authenticator.c#L1190). It states the number `3` but they interpret this differently than notp does. notp checks `allowable_margin` windows in the past and `allowable_margin` windows in the future while Google checks `allowable_margin` windows total (so for `3` it is: the current window + 1 window in the past + 1 window in the future). Hence Google's `3` is a `1` in notp's interpretation.</DESCRIPTION>
+  <REPONAME>uptime-kuma</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #633 from dhfhfk/master Update ko-KR</MESSAGE>
+    <SHA>ad0cde6554dbc10dcbac88225c9a8a1ec650ccb0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>cryptographically strong secret generation generate TOTP secret using WebCrypto API (see https://github.com/louislam/uptime-kuma/issues/640)</MESSAGE>
+      <SHA>13cf6891acf99e55fdb10bb769f651df5c19eb44</SHA>
+      <PATCHEDFILES>
+        <FILE>src/util.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>avoid default values for token verification override default values: window=1, window size=30 (see https://github.com/louislam/uptime-kuma/issues/640)</MESSAGE>
+      <SHA>b5b391c73b1757b3cc6580b679196921328835ea</SHA>
+      <PATCHEDFILES>
+        <FILE>server/server.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9772</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/9772</ISSUEURL>
+  <TITLE>Job output paginator can make requests to page 0 of job_events endpoint, resulting in unhandled 404</TITLE>
+  <DESCRIPTION>It's possible for the job output paginator to produce a request to page 0, which returns an unhandled 404: ![Screenshot from 2021-03-31 11-48-29](https://user-images.githubusercontent.com/9753817/113173073-0b837600-9217-11eb-9962-eccdd4e1785f.png)</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9708 from beeankha/bump_ipython_version Bump Up Version of iPython to be Compatible with Python 3.8.5 SUMMARY Problem: With Python version being upgraded, iPython now throws errors like this in the AWX shell: bash-4.4$ echo &quot;from datetime import timedelta; job = Job.objects.get(id=3); job.job_events.update(created=F('created') - timedelta(weeks=5))&quot; | awx-manage shell_plus ~~snip~~ In [1]: --------------------------------------------------------------------------- TypeError Traceback (most recent call last) /usr/lib64/python3.8/codeop.py in __call__(self, source, filename, symbol) 134 135 def __call__(self, source, filename, symbol): --&gt; 136 codeob = compile(source, filename, symbol, self.flags, 1) 137 for feature in _features: 138 if codeob.co_flags &amp; feature.compiler_flag: TypeError: required field &quot;type_ignores&quot; missing from Module TypeError: required field &quot;type_ignores&quot; missing from Module is mentioned in this iPython issue: ipython/ipython#12558 Solution: Upgrade iPython to latest version, which is 7.21.0. After doing this, the same command run in the shell works: bash-4.4$ echo &quot;from datetime import timedelta; job = Job.objects.get(id=3); job.job_events.update(created=F('created') - timedelta(weeks=5))&quot; | awx-manage shell_plus ~~snip~~ In [1]: Out[1]: 16 In [2]: Do you really want to exit ([y]/n)? ISSUE TYPE Bugfix Pull Request COMPONENT NAME API AWX VERSION awx: 18.0.0 Reviewed-by: Seth Foster &lt;None&gt; Reviewed-by: Jeff Bradberry &lt;None&gt;</MESSAGE>
+    <SHA>7f176b988f1448c2269657681ef1e7019f442f35</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9773 from jakemcdermott/fix-9772 Fix rounding error in output pagination controls for #9772 Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt; Reviewed-by: Kersom &lt;None&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+      <SHA>5eae035f60d7421ce5642ad2935db4d944f6c3e2</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/screens/Job/JobOutput/shared/jobOutputUtils.js</FILE>
+        <FILE>awx/ui_next/src/screens/Job/JobOutput/shared/jobOutputUtils.test.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

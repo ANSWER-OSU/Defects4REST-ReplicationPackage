@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19119</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/19119</ISSUEURL>
+  <TITLE>`podman container prune --filter until=` | All stopped containers removed regardless the time value they lastly were created within</TITLE>
+  <DESCRIPTION>### Issue Description ### For reference Manual _podman-container-prune(1)_ ``` Remove all stopped containers from local storage created within last 10 minutes. $ podman container prune --filter until=&quot;10m&quot; ``` ### Description Hello. The `until` filter removes all stopped containers from local storage regardless the time value they lastly were created within. ``` $ podman ps -a CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES 0efb80fe2e82 docker.io/library/httpd:latest httpd-foreground 22 seconds ago Exited (0) 5 seconds ago 0.0.0.0:8080-&gt;80/tcp elastic_swanson $ podman run -dt -p 8080:80/tcp docker.io/library/httpd:latest 0efb80fe2e829bce07cbb19bd61da807f6fce2da3ac43d59901c394667d9acfc ``` ### Steps to reproduce the issue Shortest time value chosen, _one second_, so that no container is expected to be eligible for selection for removal as **no container was lastly created within that value**: ``` $ podman container prune --filter until=&quot;1s&quot; WARNING! This will remove all non running containers. Are you sure you want to continue? [y/N] y 0efb80fe2e829bce07cbb19bd61da807f6fce2da3ac43d59901c394667d9acfc ``` ### Describe the results you received All non running containers that were non eligible for removal were removed from local storage. ### Describe the results you expected Output's presented in this order 1. **Exhaustive description** of the future operation; model: `[Warming] This will remove all non running containers created within the last 1 second(s) from local storage.` 2. Previous statement followed by the selection of the eligible containers. 3. The presentation of choice: &quot;`Are you sure you want to continue? [No/yes]`&quot;. Since no non running container was created within the **last second**, there should have been no container eligible for removal. ### podman info output ```yaml host: arch: amd64 buildahVersion: 1.31.0 cgroupControllers: - cpu - io - memory - pids cgroupManager: systemd cgroupVersion: v2 conmon: package: conmon-2.1.7-2.fc38.x86_64 path: /usr/bin/conmon version: 'conmon version 2.1.7, commit: ' cpuUtilization: idlePercent: 68.94 systemPercent: 5.7 userPercent: 25.36 cpus: 4 databaseBackend: boltdb distribution: distribution: fedora variant: workstation version: &quot;38&quot; eventLogger: journald freeLocks: 2048 hostname: fedora idMappings: gidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 524288 size: 65536 uidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 524288 size: 65536 kernel: 6.3.11-200.fc38.x86_64 linkmode: dynamic logDriver: journald memFree: 3325014016 memTotal: 8190038016 networkBackend: netavark networkBackendInfo: backend: netavark dns: package: aardvark-dns-1.7.0-1.fc38.x86_64 path: /usr/libexec/podman/aardvark-dns version: aardvark-dns 1.7.0 package: netavark-1.7.0-1.fc38.x86_64 path: /usr/libexec/podman/netavark version: netavark 1.7.0 ociRuntime: name: crun package: crun-1.8.5-1.fc38.x86_64 path: /usr/bin/crun version: |- crun version 1.8.5 commit: b6f80f766c9a89eb7b1440c0a70ab287434b17ed rundir: /run/user/1000/crun spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +CRIU +LIBKRUN +WASM:wasmedge +YAJL os: linux pasta: executable: /usr/bin/pasta package: passt-0^20230625.g32660ce-1.fc38.x86_64 version: | pasta 0^20230625.g32660ce-1.fc38.x86_64 Copyright Red Hat GNU Affero GPL version 3 or later &lt;https://www.gnu.org/licenses/agpl-3.0.html&gt; This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. remoteSocket: path: /run/user/1000/podman/podman.sock security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: true seccompEnabled: true seccompProfilePath: /usr/share/containers/seccomp.json selinuxEnabled: true serviceIsRemote: false slirp4netns: executable: /usr/bin/slirp4netns package: slirp4netns-1.2.0-12.fc38.x86_64 version: |- slirp4netns version 1.2.0 commit: 656041d45cfca7a4176f6b7eed9e4fe6c11e8383 libslirp: 4.7.0 SLIRP_CONFIG_VERSION_MAX: 4 libseccomp: 2.5.3 swapFree: 8189374464 swapTotal: 8189374464 uptime: 0h 21m 19.00s plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan - ipvlan volume: - local registries: search: - registry.fedoraproject.org - registry.access.redhat.com - docker.io - quay.io store: configFile: /home/yk/.config/containers/storage.conf containerStore: number: 0 paused: 0 running: 0 stopped: 0 graphDriverName: overlay graphOptions: {} graphRoot: /home/yk/.local/share/containers/storage graphRootAllocated: 160498188288 graphRootUsed: 22981140480 graphStatus: Backing Filesystem: btrfs Native Overlay Diff: &quot;true&quot; Supports d_type: &quot;true&quot; Using metacopy: &quot;false&quot; imageCopyTmpDir: /var/tmp imageStore: number: 5 runRoot: /run/user/1000/containers transientStore: false volumePath: /home/yk/.local/share/containers/storage/volumes version: APIVersion: 4.6.0-rc1 Built: 1688395307 BuiltTime: Mon Jul 3 17:41:47 2023 GitCommit: &quot;&quot; GoVersion: go1.20.5 Os: linux OsArch: linux/amd64 Version: 4.6.0-rc1 ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details _No response_ ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19214 from lsm5/package-rpm-rename Makefile: `package` -&gt; `rpm`</MESSAGE>
+    <SHA>285665f6f8cedf2bbe5d36a79872b9139a69837e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix `podman container prune` docs for `--filter` Fixes an error in the `podman container prune` docs that provides an example of how to use the `--filter until=` flag/filter in an incorrect way. Fixes: #19119 Signed-off-by: Jake Correnti &lt;jakecorrenti+github@proton.me&gt;</MESSAGE>
+      <SHA>0997cf012ab7d941142eb90bc8da2ac0f93beb5a</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-container-prune.1.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add `since` as valid filter option for `volume` subcommands Adds support for `since` as a valid filter option for `podman volume ls` and `podman volume prune`. Implements: #19228 Initially suggested from: #19119 Signed-off-by: Jake Correnti &lt;jakecorrenti+github@proton.me&gt;</MESSAGE>
+      <SHA>e55e128fcd26c673e67768313a8b79ca62842e6d</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-volume-ls.1.md.in</FILE>
+        <FILE>docs/source/markdown/podman-volume-prune.1.md</FILE>
+        <FILE>pkg/api/handlers/compat/volumes.go</FILE>
+        <FILE>pkg/api/handlers/libpod/volumes.go</FILE>
+        <FILE>pkg/domain/filters/volumes.go</FILE>
+        <FILE>pkg/domain/infra/abi/volumes.go</FILE>
+        <FILE>test/e2e/volume_ls_test.go</FILE>
+        <FILE>test/e2e/volume_prune_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix `podman container prune` docs for `--filter` Fixes an error in the `podman container prune` docs that provides an example of how to use the `--filter until=` flag/filter in an incorrect way. Fixes: #19119 Signed-off-by: Jake Correnti &lt;jakecorrenti+github@proton.me&gt;</MESSAGE>
+      <SHA>39b7ac99dccd732989866a2c88976fc825b23c17</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-container-prune.1.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

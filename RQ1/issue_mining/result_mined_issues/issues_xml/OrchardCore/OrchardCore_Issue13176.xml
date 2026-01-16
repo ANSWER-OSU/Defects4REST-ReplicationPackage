@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>13176</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/13176</ISSUEURL>
+  <TITLE>Add deployment step for removing and merging roles</TITLE>
+  <DESCRIPTION>### Is your feature request related to a problem? Please describe. Currently, we have `RoleStep` that would allow the user to create new roles. This step always removes all existing claims and loads only the claims you provide. This is a good step for introducing new roles. However, in OC 1.6, the startup recipe will define which roles to user. Then the user want to update the existing role permissions, they have to list all the roles manually. ### Describe the solution you'd like It would be nice to add a property to the `RoleStep` to control the behavior of permission handling. For example, add a property called &quot;PermissionBehavior&quot;, when the value is `Replace` &quot;default&quot;, we would replace permission as we do today. However, if a user set it to `Merge` then we could just combine the permissions instead of removing existing. Additionally, add a new step `RemoveRoleStep` that would allow us to remove existing roles.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>687</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update dependency Serilog.AspNetCore to v9 (#17190) Co-authored-by: Zoltán Lehóczky &lt;zoltan.lehoczky@lombiq.com&gt;</MESSAGE>
+    <SHA>4ab7c345f3c1f57e8fe4f7bcf173e86ad41aa5d8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add Recipe Roles permission behavior Fix #13176</MESSAGE>
+      <SHA>1dae6a425358e79af8a22814e89c8c5e0bd92e75</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Roles/Permissions.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Roles/Recipes/RolesStep.cs</FILE>
+        <FILE>src/docs/reference/modules/Roles/README.md</FILE>
+        <FILE>src/docs/releases/3.0.0.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

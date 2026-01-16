@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>31997</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/31997</ISSUEURL>
+  <TITLE>FROM field becomes empty upon saving email template [EASY FIX PROPOSED AND TESTED]</TITLE>
+  <DESCRIPTION>### Bug When modifying an email template (on Admin Tools) the &quot;email_from&quot; field is being saved as empty value. It worked fine on version 20.0.0 but on 20.0.1 &amp; 20.0.2 it fails. The problem and solutions is very easy @eldy , i think that it was a simple missing fault, just on file ```bash /htdocs/admin/mail_templates.php (line #477) ``` now appears this: ```PHP if ($field == 'topic') { $_POST['topic'] = GETPOST('topic-'.$rowid); } if ($field == 'joinfiles') { $_POST['joinfiles'] = GETPOST('joinfiles-'.$rowid); } if ($field == 'content') { $_POST['content'] = GETPOST('content-'.$rowid, 'restricthtml'); } if ($field == 'content_lines') { $_POST['content_lines'] = GETPOST('content_lines-'.$rowid, 'restricthtml'); } ``` And it's missing another IF for `email_from` field: ```PHP if ($field == 'email_from') { $_POST['email_from'] = GETPOST('email_from-'.$rowid); } ``` Perhaps you also would like to add somekind of &quot;well-formed email address&quot; check before to save the email... i don't know. But in any case, this simple patch solve the problem saving this field of the email template. ### Dolibarr Version 20.0.1 &amp; 20.0.2 ### Environment PHP _No response_ ### Environment Database _No response_ ### Steps to reproduce the behavior and expected behavior 1. try to modify an existing email template 2. set a &quot;From&quot; email address and save changes 3. modify again the same template and you will see that &quot;From&quot; box is empty Note: the saving works fine when CREATING a template, but not when MODIFYING it. ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '19.0' of git@github.com:Dolibarr/dolibarr.git into 20.0</MESSAGE>
+    <SHA>427e1ec26dd32a816d55235b3a7117850b3456ef</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX #31997</MESSAGE>
+      <SHA>023856cf7373fb316c12034a60b0fb4b2f007476</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/admin/mails_templates.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

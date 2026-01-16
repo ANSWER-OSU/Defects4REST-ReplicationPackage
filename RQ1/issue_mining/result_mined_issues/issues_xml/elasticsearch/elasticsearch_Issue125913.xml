@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>125913</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/125913</ISSUEURL>
+  <TITLE>[CI] HeapAttackIT testLookupExplosionNoFetch failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7657 / ubuntu-2404-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/sucvtjod4xf4g) - [elasticsearch-periodic-platform-support #7622 / amazonlinux-2023_platform-support-aws](https://gradle-enterprise.elastic.co/s/sg7r66y6qdze4) **Reproduction Line:** ``` ./gradlew &quot;:test:external-modules:test-esql-heap-attack:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.heap_attack.HeapAttackIT.testLookupExplosionNoFetch&quot; -Dtests.seed=FC387C8F4E103DFA -Dtests.locale=rn-Latn-BI -Dtests.timezone=America/Bahia -Druntime.java=24 ``` **Applicable branches:** 9.0 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.heap_attack.HeapAttackIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testLookupExplosionNoFetch),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.client.ResponseException: method [POST], host [http://[::1]:33219], URI [/_query?error_trace=], status line [HTTP/1.1 429 Too Many Requests] Warnings: [No limit defined, adding default limit of [1000]] {&quot;error&quot;:{&quot;root_cause&quot;:[{&quot;type&quot;:&quot;circuit_breaking_exception&quot;,&quot;reason&quot;:&quot;[request] Data too large, data for [serialize lookup join response] would be [601527584/573.6mb], which is larger than the limit of [322122547/307.1mb]; for more information, see https://www.elastic.co/docs/troubleshoot/elasticsearch/circuit-breaker-errors?version=master&quot;,&quot;bytes_wanted&quot;:601527584,&quot;bytes_limit&quot;:322122547,&quot;durability&quot;:&quot;TRANSIENT&quot;,&quot;stack_trace&quot;:&quot;org.elasticsearch.common.breaker.CircuitBreakingException: [request] Data too large, data for [serialize lookup join response] would be [601527584/573.6mb], which is larger than the limit of [322122547/307.1mb]; for more information, see https://www.elastic.co/docs/troubleshoot/elasticsearch/circuit-breaker-errors?version=master\n\tat org.elasti [truncated] ``` **Issue Reasons:** - [9.0] 2 failures in test testLookupExplosionNoFetch (1.6% fail rate in 124 executions) - [9.0] 2 failures in pipeline elasticsearch-periodic-platform-support (33.3% fail rate in 6 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>15</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Workaround max name limit imposed by Jackson 2.17 (#126806) In Jackson 2.15 a maximum string length of 50k characters was introduced. We worked around that by override the length to max int on all parsers created by xcontent. Jackson 2.17 introduced a similar limit on field names. This commit mimics the workaround for string length by overriding the max name length to be unlimited. relates #58952</MESSAGE>
+    <SHA>6174acdc39997de73c90e668edf7f0bdbcab578e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ESQL: Create fewer documents in lookup tests This lowers the number of documents used to test lookup because we have a few failures over the last few months. These are all cases that we expect to *pass* so fewer documents should make them even more likely to pass. Closes #125913 Closes #125779</MESSAGE>
+      <SHA>4be44934ed38b69e706bc3b3f5e1cd5d41916993</SHA>
+      <PATCHEDFILES>
+        <FILE>test/external-modules/esql-heap-attack/src/javaRestTest/java/org/elasticsearch/xpack/esql/heap_attack/HeapAttackIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: Create fewer documents in lookup tests (#126874) This lowers the number of documents used to test lookup because we have a few failures over the last few months. These are all cases that we expect to *pass* so fewer documents should make them even more likely to pass. Closes #125913 Closes #125779</MESSAGE>
+      <SHA>fe3e8df67c26b01cb7a24db5b28af673bb6c1a9b</SHA>
+      <PATCHEDFILES>
+        <FILE>test/external-modules/esql-heap-attack/src/javaRestTest/java/org/elasticsearch/xpack/esql/heap_attack/HeapAttackIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

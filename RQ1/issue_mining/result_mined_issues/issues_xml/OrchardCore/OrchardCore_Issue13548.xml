@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>13548</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/13548</ISSUEURL>
+  <TITLE>When a user has &quot;AccessAdminPanel&quot; but not to &quot;AccessAdminDashboard&quot;, render AdminDashboard shape</TITLE>
+  <DESCRIPTION>### Is your feature request related to a problem? Please describe. Currently, when AdminDashboard feature is enabled, the `/admin` route is handled by `Index` action in `DashboardController` controller. This works great when the user has permission to `AccessAdminDashboard`. However when they don't, they get the generic fobid error message. In some case, we don't want to give the user access to the admin widgets, but want them to still access the admin dashboard. In this case they will not be able to see the dashboard unless they type the exact path they want to access in the browser. Also, add `ViewContent` check to be able to allow some user to not view all widgets. ### Describe the solution you'd like In the `DashboardController/Index` method, instead of returning `Forbid()` when `AccessAdminDashboard` is not granted, return `View(&quot;~/OrchardCore.Admin/Views/Admin/Index.cshtml&quot;)` which will simply render `AdminDashboard` shape. ### Describe alternatives you've considered A clear and concise description of any alternative solutions or features you've considered.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>22</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>pymdown-extensions 9.11.0</MESSAGE>
+    <SHA>6ff2fb426c950997b78ae8cd46747a51c6266621</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Show AdminDashboard shape when &quot;AccessAdminDashboard&quot; is not granted. Fix #13548</MESSAGE>
+      <SHA>f60ff613efa02bef288febc84a1db277c4affac4</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.AdminDashboard/Controllers/DashboardController.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.AdminDashboard/ViewModels/AdminDashboardViewModel.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.AdminDashboard/Views/Dashboard/Index.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Show AdminDashboard shape when &quot;AccessAdminDashboard&quot; is not granted. Fix #13548 (#13549)</MESSAGE>
+      <SHA>74fbeea745d2c5443d11b992d0c5ea69eaa0c211</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.AdminDashboard/Controllers/DashboardController.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.AdminDashboard/ViewModels/AdminDashboardViewModel.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.AdminDashboard/Views/Dashboard/Index.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

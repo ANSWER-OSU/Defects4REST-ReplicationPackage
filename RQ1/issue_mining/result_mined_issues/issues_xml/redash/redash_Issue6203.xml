@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6203</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/6203</ISSUEURL>
+  <TITLE>Shared public dashboard: widgets don't reload when changing parameters</TITLE>
+  <DESCRIPTION>### Issue Summary When I publish a dashboard, changing parameters (drop down or free values) does not refresh the table, even after confirming &quot;Apply changes&quot;. It works okay with parameters that I recently ran but not with a new set of parameters. It works okay when I use the query or the dashboard from within Redash itself instead of sharing/publishing it. When I change parameters, 99% of time I'm stuck with a page that seems to be reloading the widgets, but it never reloads. Manual refresh of the page fixes the issue most of the time. ### Steps to Reproduce 1. Create a large random table in postgresql: `create table redash_test as select s, md5(random()::text) from generate_Series(1,2000) s` 2. Create a query with some parameters: `select * from redash_test where s &gt; {{ a }} and s &lt; {{ b }}` ![image](https://github.com/getredash/redash/assets/54349959/fcfd6a9f-57ff-4baf-b3c4-84a7348ccaac) 4. Publish the query 3. Create a dashboard called &quot;Test&quot;, add this query as a widget (table) 5. Publish and share this dashboard. 6. Open the &quot;Secret address&quot; in a new browser window 7. Enter some parameters A and B, confirm the &quot;Apply changes&quot;. Nothing happens. ![chrome-capture-2023-6-20](https://github.com/getredash/redash/assets/54349959/8449f885-cd24-4232-89fc-c189ec25ef24) If we wait a bit (5 seconds) and **then refresh the page manually**, it reloads with correct parameters. However, the correct data will never appear on their own. Any other info e.g. Why do you consider this to be a bug? What did you expect to happen instead? The shared/public dashboard should refresh after changing the parameters. It should behave the same way as when I use it from Redash itself ### Technical details: * Redash Version: 10.1.0.b50633 * Browser/OS: Linux, Chromium 114.0.5735.198 * How did you install Redash: Docker</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>use CryptContext.hash instead of CryptContext.encrypt (#6211) Signed-off-by: Ye Sijun &lt;junnplus@gmail.com&gt;</MESSAGE>
+    <SHA>f41eab70540cae1f050b3752bbbf7b5e1b9a08f2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix public dashboard query result #6203 fix update dashboard parameter not update query result error</MESSAGE>
+      <SHA>0ffbef4e1d8b9c7c496fe2bc117fe857cdb9fefd</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/handlers/query_results.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix pubic dashboard not update result #6203</MESSAGE>
+      <SHA>cd236724a9b22549117c098998f0c56305808409</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/handlers/query_results.py</FILE>
+        <FILE>tests/handlers/test_query_results.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix pubic dashboard not update result #6203 (#6214)</MESSAGE>
+      <SHA>be306e92849624076db9473a046be9949cb99b07</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/handlers/query_results.py</FILE>
+        <FILE>tests/handlers/test_query_results.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix pubic dashboard not update result #6203 (#6214)</MESSAGE>
+      <SHA>17bc24d061f00094330abe2332bd7365e1965aea</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/handlers/query_results.py</FILE>
+        <FILE>tests/handlers/test_query_results.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix pubic dashboard not update result #6203 (#6214)</MESSAGE>
+      <SHA>5de34f13e06f57dc61570d06e99ce36451a27cfa</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/handlers/query_results.py</FILE>
+        <FILE>tests/handlers/test_query_results.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

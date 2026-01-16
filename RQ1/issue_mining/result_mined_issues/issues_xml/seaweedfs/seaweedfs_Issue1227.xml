@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1227</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/1227</ISSUEURL>
+  <TITLE>database option is ignored when Postgres filer store is used</TITLE>
+  <DESCRIPTION>Sponsors SeaweedFS via Patreon https://www.patreon.com/seaweedfs seaweed with simple setup [docker/seaweedfs-compose.yml](https://github.com/chrislusf/seaweedfs/blob/master/docker/seaweedfs-compose.yml) example, new CockroachDB cluster with 3 nodes and default params in docker ``` roach1: container_name: roach1 image: cockroachdb/cockroach:v19.2.4 command: start --insecure --join=roach1,roach2,roach3 ports: - 26257:26257 - 18080:8080 volumes: - /mnt/var_f/cocroachdb/cockroach-data/roach1:/cockroach/cockroach-data networks: test: ipv4_address: 172.18.0.90 aliases: - roach1 roach2: container_name: roach2 image: cockroachdb/cockroach:v19.2.4 command: start --insecure --join=roach1,roach2,roach3 volumes: - /mnt/var_f/cocroachdb/cockroach-data/roach2:/cockroach/cockroach-data depends_on: - roach1 networks: test: ipv4_address: 172.18.0.91 aliases: - roach2 roach3: container_name: roach3 image: cockroachdb/cockroach:v19.2.4 command: start --insecure --join=roach1,roach2,roach3 volumes: - /mnt/var_f/cocroachdb/cockroach-data/roach3:/cockroach/cockroach-data depends_on: - roach1 networks: test: ipv4_address: 172.18.0.92 aliases: - roach3 ``` **Describe the bug** Database option is ignored when Postgres filer store is used. Always get in filers logs `filer_server_handlers_read_dir.go:38] listDirectory / 100: list / : pq: relation &quot;filemeta&quot; does not exist` when try to access web-ui or copy files to filer and table &quot;filemeta&quot; didn't exists in default database &quot;defaultdb&quot;. When table &quot;filemeta&quot; is created in defaultdb then all works **System Setup** - The default docker-compose setup from here: [docker/seaweedfs-compose.yml](https://github.com/chrislusf/seaweedfs/blob/master/docker/seaweedfs-compose.yml) - OS version Linux Mint 19.3 - output of `weed version` version 30GB 1.61 linux amd64 - CockroachDB CCL v19.2.4 (x86_64-unknown-linux-gnu, built 2020/02/06 21:55:19, go1.12.12) (same version as client) ``` cat /etc/seaweedfs/filer.toml [leveldb2] enabled = false dir = &quot;/data/filerldb2&quot; [postgres] # or cockroachdb enabled = true hostname = &quot;172.18.0.90&quot; port = 26257 username = &quot;weed&quot; password = &quot;&quot; database = &quot;weedfs&quot; # create or use an existing database sslmode = &quot;disable&quot; connection_max_idle = 100 connection_max_open = 100 ``` **Expected behavior** database option should be honored</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #1228 from HongyanShen/master fix #1226</MESSAGE>
+    <SHA>f59fcba265ff6f24ab525e37e32eaebf88286ad7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>filer store postgres: skip empty parameters better fix https://github.com/chrislusf/seaweedfs/issues/1227</MESSAGE>
+      <SHA>ebc739afb5b312557ab9e349ea18cae591aaab9f</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filer2/postgres/postgres_store.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

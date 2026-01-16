@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>941</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/941</ISSUEURL>
+  <TITLE>bug: key-auth使用报错</TITLE>
+  <DESCRIPTION>### key-auth使用报错 ### Environment * apisix version (0.9-rc1): * OS: CentOS Linux release 7.5.1804 (Core) ### Minimal test code / Steps to reproduce the issue 1.后端写一个web程序 app.py部署至两台内网主机 10.0.10.225:1080 10.0.10.226:1081 程序代码 ``` from flask import Flask app = Flask(__name__) @app.route('/hello') def hello_world(): return 'Hello, World!--from &lt;ip&gt;' if __name__ == '__main__': app.run(host='0.0.0.0', port=1080) ``` 2.apisix配置如下 ``` 路由: { &quot;node&quot;: { &quot;value&quot;: { &quot;methods&quot;: [ &quot;GET&quot; ], &quot;uris&quot;: [ &quot;/hello&quot; ], &quot;upstream_id&quot;: &quot;00000000000000000020&quot;, &quot;desc&quot;: &quot;flask hello&quot;, &quot;plugins&quot;: { &quot;key-auth&quot;: { &quot;key&quot;: &quot;123456&quot; } } }, &quot;createdIndex&quot;: 49, &quot;key&quot;: &quot;/apisix/routes/00000000000000000019&quot;, &quot;modifiedIndex&quot;: 49 }, &quot;action&quot;: &quot;get&quot; } ----------------------------- consumers { &quot;node&quot;: { &quot;nodes&quot;: [ { &quot;value&quot;: { &quot;plugins&quot;: { &quot;key-auth&quot;: { &quot;key&quot;: &quot;123456&quot; } }, &quot;desc&quot;: &quot;jack&quot;, &quot;username&quot;: &quot;jack&quot; }, &quot;createdIndex&quot;: 40, &quot;key&quot;: &quot;/apisix/consumers/jack&quot;, &quot;modifiedIndex&quot;: 40 } ], &quot;modifiedIndex&quot;: 8, &quot;createdIndex&quot;: 8, &quot;key&quot;: &quot;/apisix/consumers&quot;, &quot;dir&quot;: true }, &quot;action&quot;: &quot;get&quot; } ------------------------------------------------------- upstreams { &quot;node&quot;: { &quot;nodes&quot;: [ { &quot;value&quot;: { &quot;nodes&quot;: { &quot;10.0.10.225:1081&quot;: 1, &quot;10.0.10.226:1080&quot;: 2 }, &quot;desc&quot;: &quot;flask&quot;, &quot;type&quot;: &quot;roundrobin&quot; }, &quot;createdIndex&quot;: 23, &quot;key&quot;: &quot;/apisix/upstreams/00000000000000000020&quot;, &quot;modifiedIndex&quot;: 23 } ], &quot;modifiedIndex&quot;: 5, &quot;createdIndex&quot;: 5, &quot;key&quot;: &quot;/apisix/upstreams&quot;, &quot;dir&quot;: true }, &quot;action&quot;: &quot;get&quot; } ``` 3. 调用方法 ``` curl http://10.0.10.226:9080/hello -H 'apikey: 123456' -i ``` 4. 报错内容 ``` HTTP/1.1 500 Internal Server Error Date: Fri, 06 Dec 2019 08:46:04 GMT Content-Type: text/html Content-Length: 174 Connection: close Server: APISIX web server &lt;html&gt; &lt;head&gt;&lt;title&gt;500 Internal Server Error&lt;/title&gt;&lt;/head&gt; &lt;body&gt; &lt;center&gt;&lt;h1&gt;500 Internal Server Error&lt;/h1&gt;&lt;/center&gt; &lt;hr&gt;&lt;center&gt;openresty&lt;/center&gt; &lt;/body&gt; &lt;/html&gt; ``` 5. 场景是key-auth绑定至路由中 6.key-auth绑定至service中然后把service和route关联也一样报上述的错</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>16</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>luarocks: install apisix 0.9 by luarocks. (#934)</MESSAGE>
+    <SHA>a3a591e3a5d58db2bd28da77656579f5b07aa0a0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Update key-auth-cn.md https://github.com/apache/incubator-apisix/issues/941#issuecomment-562819006</MESSAGE>
+      <SHA>979fca4dfb88d95177e7f398250583d16c366d57</SHA>
+      <PATCHEDFILES>
+        <FILE>doc/plugins/key-auth-cn.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

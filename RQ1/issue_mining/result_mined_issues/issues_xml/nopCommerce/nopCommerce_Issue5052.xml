@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5052</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5052</ISSUEURL>
+  <TITLE>Accessibility - Make mobile menu toggle a &lt;button&gt; element</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.3 ## Steps to reproduce the problem: 1. Visit the [demo store](https://demo.nopcommerce.com/). 1. Shrink your browser to a mobile/tablet size. 1. Try to use your keyboard to expand the &quot;Categories&quot; main navigation ## Results Keyboard users cannot access the &quot;Categories&quot; main navigation because it uses the following HTML: ```html &lt;div class=&quot;menu-toggle&quot;&gt;Categories&lt;/div&gt; ``` ## Expected results Keyboard users should be able to interact with the main navigation of a store. ## Fix Use a button element (which natively will recieve focus): ```html &lt;button type=&quot;button&quot; class=&quot;menu-toggle&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;aria-categories-mobile-ul&quot;&gt;Categories&lt;/button&gt; ``` Note: some JavaScript will be required to change the `aria-expanded` value on click from false to true and vice versa. Also, you'll want to add an `id` to the unordered list this shows/hides and add that `id` as the `aria-controls` attribute value. Here's some vanilla JS to control the `aria-expanded` state: ```js // &quot;Categories&quot; menu aria-expanded state: var getMenuToggle = document.querySelector('.menu-toggle'); var expandedState = false; getMenuToggle.addEventListener('click', function (event) { expandedState = !expandedState; getMenuToggle.setAttribute('aria-expanded', expandedState); }); ``` Related to #5022.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>907</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue-5841-Plugin-ver' into develop # Conflicts: # src/Plugins/Nop.Plugin.DiscountRules.CustomerRoles/plugin.json # src/Plugins/Nop.Plugin.ExchangeRate.EcbExchange/plugin.json # src/Plugins/Nop.Plugin.ExternalAuth.Facebook/plugin.json # src/Plugins/Nop.Plugin.Misc.Sendinblue/plugin.json # src/Plugins/Nop.Plugin.Misc.WebApi.Frontend/plugin.json # src/Plugins/Nop.Plugin.Misc.Zettle/plugin.json # src/Plugins/Nop.Plugin.MultiFactorAuth.GoogleAuthenticator/plugin.json # src/Plugins/Nop.Plugin.Payments.CheckMoneyOrder/plugin.json # src/Plugins/Nop.Plugin.Payments.CyberSource/plugin.json # src/Plugins/Nop.Plugin.Payments.Manual/plugin.json # src/Plugins/Nop.Plugin.Payments.PayPalCommerce/plugin.json # src/Plugins/Nop.Plugin.Pickup.PickupInStore/plugin.json # src/Plugins/Nop.Plugin.Shipping.FixedByWeightByTotal/plugin.json # src/Plugins/Nop.Plugin.Shipping.UPS/plugin.json # src/Plugins/Nop.Plugin.Tax.Avalara/plugin.json # src/Plugins/Nop.Plugin.Tax.FixedOrByCountryStateZip/plugin.json # src/Plugins/Nop.Plugin.Widgets.AccessiBe/plugin.json # src/Plugins/Nop.Plugin.Widgets.FacebookPixel/plugin.json # src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/plugin.json # src/Plugins/Nop.Plugin.Widgets.NivoSlider/plugin.json # src/Plugins/Nop.Plugin.Widgets.What3words/plugin.json</MESSAGE>
+    <SHA>ebc0bcb9d9ce0abd73d792545fd4bcf5a2aa8bb1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Issue #5023 #5051 #5052 #5053 Accessibility</MESSAGE>
+      <SHA>55d2d9deb786c155f76bec59d29b4cf9521c0ae4</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo470/LocalizationMigration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Themes/DefaultClean/Content/css/styles.css</FILE>
+        <FILE>src/Presentation/Nop.Web/Themes/DefaultClean/Content/css/styles.rtl.css</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/Components/TopMenu/Default.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/_Header.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/_Notifications.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/_Root.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

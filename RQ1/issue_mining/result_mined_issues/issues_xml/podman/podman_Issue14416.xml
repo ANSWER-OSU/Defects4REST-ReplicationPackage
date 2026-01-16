@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14416</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14416</ISSUEURL>
+  <TITLE>Podman 4.1 machine init fails when run in C:\Windows\System32</TITLE>
+  <DESCRIPTION>/kind bug **Description** Simple setup and machine initialization results in error and some warnings. **Steps to reproduce the issue:** 1. Download podman 4.1.0 MSI for Window. 2. Execute &quot;podman machine init&quot; in command shell. **Describe the results you received:** &gt; Error: could not create ssh keys: exec: &quot;C:\\Users\\stani\\.ssh\\wsl.exe&quot;: file does not exist Looks like error is fatal, because none of other podman command are working with message &quot;Cannot connect to Podman...&quot;. **Describe the results you expected:** Running podman machine. **Output of `podman version`:** ``` Cannot connect to Podman. Please verify your connection to the Linux system using `podman system connection list`, or try `podman machine init` and `podman machine start` to manage a new Linux VM Error: unable to connect to Podman. failed to create sshClient: failed to parse identity &quot;C:\\Users\\stani\\.ssh\\podman-machine-default&quot;: open C:\Users\stani\.ssh\podman-machine-default: The system cannot find the file specified. ``` **Output of `podman info --debug`:** ``` Cannot connect to Podman. Please verify your connection to the Linux system using `podman system connection list`, or try `podman machine init` and `podman machine start` to manage a new Linux VM Error: unable to connect to Podman. failed to create sshClient: failed to parse identity &quot;C:\\Users\\stani\\.ssh\\podman-machine-default&quot;: open C:\Users\stani\.ssh\podman-machine-default: The system cannot find the file specified. ``` **Package info (e.g. output of `rpm -q podman` or `apt list podman`):** ``` PS C:\Windows\System32&gt; Get-CimInstance -ClassName Win32_Product -Filter &quot;name like 'Podman%'&quot; Name Caption Vendor Version IdentifyingNumber ---- ------- ------ ------- ----------------- Podman 4.1.0 Podman 4.1.0 Red Hat Inc. 4.1.0 {F0C12B5B-290B-4C15-A0D… ``` **Have you tested with the latest version of Podman and have you checked the Podman Troubleshooting Guide? (https://github.com/containers/podman/blob/main/troubleshooting.md)** Yes</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>16</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14537 from m4z/patch-2 [CI:DOCS] Update remote_client.md</MESSAGE>
+    <SHA>b078aeb87c4ef0fdc17a69992d33404efb0ccc40</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #14416: Use absolute path to WSL binary to create ssh keys for `machine init` Signed-off-by: Clivar &lt;16317699+Clivar@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>43e12c135b0de65a9000842539bc4afad82874d5</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/machine/keys.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #14570 from Clivar/fix-windows-ssh-key-creation Fix: Use absolute path to WSL binary to create ssh keys for `machine init` on Windows (Issue #14416)</MESSAGE>
+      <SHA>a6226540e256895a0e3b6486a36fed0674a25169</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/machine/keys.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #14416: Use absolute path to WSL binary to create ssh keys for `machine init` Signed-off-by: Clivar &lt;16317699+Clivar@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>13976331d8b327e718328085410732d0b27e69c2</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/machine/keys.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

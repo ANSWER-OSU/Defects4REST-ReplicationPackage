@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>224</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/224</ISSUEURL>
+  <TITLE>Newline required before user abort error</TITLE>
+  <DESCRIPTION>If you're not logged in, the package will ask for your email. If you hit `ctrl` + `c`, it will abort but the error message will be printed in the same line. Should be a new line! &gt; Enter your email: &gt; Error! Authentication error – User abort</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add `publish.sh` script for CircleCI (#228) * Add `publish.sh` script for CircleCI Centralize the publishing logic for CircleCI to use. There was a bug in the previous &quot;Potentially publish stable release&quot; branch, such that it would be executed for non-tagged commits. The new publish script checks if there are indeed any tags for the commit, and bails if there are none. As an additional bonus, there's now only one publish step in the CircleCI config, because the publish script determines stable vs. canary based on the tag name. * Remove `echo`</MESSAGE>
+    <SHA>a09d5fb355dcb8eb2acbd00b2ced3890cb4c68ca</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-node-bridge] Refactor API to be `http.Server` focused (#224) * [now-node-bridge] Refactor API to be `http.Server` focused This commit refactors the `@now/node-bridge` helper module to work with `http.Server` instances directly, instead of expecting the `port` to be set. The `Bridge` instance calls the `listen()` function on the server instance which binds to an ephemeral port. This is especially important for `now dev`, where using a hard-coded port will cause port conflicts for multiple lambdas using the same builder. Also converts to TypeScript and adds some basic unit tests. Example usage: ```js const server = new Server(() =&gt; {}); const bridge = new Bridge(server); bridge.listen(); const info = await bridge.listening; assert.equal(info.address, '127.0.0.1'); assert.equal(typeof info.port, 'number'); ``` * Update `yarn.lock` * Add `pretest` script * Enable TypeScript `strict` mode * Throw if a string is returned from `server.address()` Defensive programming ftw Co-Authored-By: TooTallNate &lt;n@n8.io&gt; * Prettier * Prettier * Fixes * Attempt to fix CI * Add `files` array to package.json * Check for the `Action` property to avoid type casting Co-Authored-By: TooTallNate &lt;n@n8.io&gt; * Split the normalizing functions into separate ones Also adds additional unit tests. * export the `NowProxyRequest` and `NowProxyResponse` * Remove last `as` casting * Move some up * Debug CircleCI tests :/ * Fix &quot;Invoke&quot; check * Attempt to fix CircleCI again * Fix bad * Convert tests to use `jest`</MESSAGE>
+      <SHA>aeafeb54412cb8a1b467972e435ca596f2dd6069</SHA>
+      <PATCHEDFILES>
+        <FILE>package.json</FILE>
+        <FILE>packages/now-node-bridge/.eslintrc</FILE>
+        <FILE>packages/now-node-bridge/.gitignore</FILE>
+        <FILE>packages/now-node-bridge/bridge.js</FILE>
+        <FILE>packages/now-node-bridge/package.json</FILE>
+        <FILE>packages/now-node-bridge/src/bridge.ts</FILE>
+        <FILE>packages/now-node-bridge/test/bridge.test.js</FILE>
+        <FILE>packages/now-node-bridge/tsconfig.json</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now-python] Bind HTTP server to an ephemeral port (#296) * [now-python] Bind HTTP server to an ephemeral port Similar to #224, but for Python. * Bind to port 0</MESSAGE>
+      <SHA>97cbe0b894013162ed15b6ea60c009184f3dbc63</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-python/now_handler.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

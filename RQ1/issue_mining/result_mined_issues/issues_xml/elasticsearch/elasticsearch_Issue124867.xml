@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>124867</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/124867</ISSUEURL>
+  <TITLE>Extend reproduction for starvation bug of scaling EsExecutors to work if max pool size &gt; 1</TITLE>
+  <DESCRIPTION>The reproduction of the [EsExecutors starvation bug](https://github.com/elastic/elasticsearch/issues/124667) fixed in [PR](https://github.com/elastic/elasticsearch/pull/124732) should be improved to also reliably test the cases where max pool size &gt; 1. Currently the reproduction only works if pool size doesn't exceed 1.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>45</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add manage_threads entitlement for reactor.core (#125037) This adds the manage_threads entitlement for reactor.core as part of the azure-repository module. It looks like this is a requirement for offloading azure blob store work.</MESSAGE>
+    <SHA>053938a3d42068e9343cf1f6fdc205a03402f8a7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Improve reproduction of scaling EsExecutors bug #124667 to work with max pool size &gt; 0. Relates to #124867, ES-10640</MESSAGE>
+      <SHA>5c08f6f9c5e4b30d5261b480900cc8da23ea3655</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/test/java/org/elasticsearch/common/util/concurrent/EsExecutorsTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Improved reproduction of scaling EsExecutors bug #124667 to work with max pool size &gt; 1. (#125045) Relates to #124867, ES-10640</MESSAGE>
+      <SHA>0360db2cd08f0e585b560ca51d6c5164919a5507</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/test/java/org/elasticsearch/common/util/concurrent/EsExecutorsTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

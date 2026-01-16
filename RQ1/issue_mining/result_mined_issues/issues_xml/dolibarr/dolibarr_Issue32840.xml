@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>32840</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/32840</ISSUEURL>
+  <TITLE>BUG: Unknown column 't.ref' in 'field list' object link to category for a project</TITLE>
+  <DESCRIPTION>### Bug I added a complementary attribute to my projects, an link to an object with this definition: `Categorie:categories/class/categorie.class.php` ![Image](https://github.com/user-attachments/assets/ba200df4-17d9-4505-a1eb-fddb0460d66a) And I got this error in the GUI when I tried to modify a project, even before trying to modify this new complementary attribute. ![Image](https://github.com/user-attachments/assets/913854e4-0ee6-4ec8-b144-7d53a494443f) In dolibarr.log I got this error: ``` 2025-01-28 22:24:11 WARNING 10.0.2.100 9354 33 functions::dol_include_once Tried to load unexisting file: /categorie/class/categorie.class.php 2025-01-28 22:24:11 ERR 10.0.2.100 9354 33 DoliDBMysqli::query Exception in query instead of returning an error: Unknown column 't.ref' in 'field list' 2025-01-28 22:24:11 ERR 10.0.2.100 9354 33 DoliDBMysqli::query SQL Error query: SELECT t.rowid, t.ref FROM llx_categorie as t WHERE 1=1 ORDER BY t.ref ASC 2025-01-28 22:24:11 ERR 10.0.2.100 9354 33 DoliDBMysqli::query SQL Error message: DB_ERROR_NOSUCHFIELD Unknown column 't.ref' in 'field list' From /var/www/html/core/class/html.form.class.php:8547. 2025-01-28 22:24:11 ERR 10.0.2.100 9354 33 Error url=/projet/card.php?action=edit&amp;amp;token=****&amp;amp;id=21, query_string=action=edit&amp;amp;token=****&amp;amp;id=21, ```` but after doing this command `ln -s categories/ categorie` the WARNING disappeared. But the error message is still there, The text of the GUI error message is ``` This website or feature is currently temporarily not available or failed after a technical error. This may be due to a maintenance operation. Current status of operation (2025-01-28T23:26:18Z) are on next line... Dolibarr has detected a technical error. You can read log file or set option $dolibarr_main_prod to '0' in your config file to get more information. ``` ### Dolibarr Version v.20.0.2 docker image ### Environment PHP v.20.0.2 docker image ### Environment Database MariaDB 11.5.2-MariaDB-ubu2404 ### Steps to reproduce the behavior and expected behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix escaping var</MESSAGE>
+    <SHA>995e0792e5872d075059b2aa3f5979512878ba42</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX #32840</MESSAGE>
+      <SHA>510da33c338f3f6be53cb9ec90626bcb404aeab7</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/categories/class/categorie.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #32846 from hregis/fix_20_add_fields_category FIX #32840</MESSAGE>
+      <SHA>ed57e6436f1482b31d4f4e502358916832275e06</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/categories/class/categorie.class.php</FILE>
+        <FILE>htdocs/core/tpl/extrafields_view.tpl.php</FILE>
+        <FILE>htdocs/projet/card.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121928</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121928</ISSUEURL>
+  <TITLE>[CI] ClassificationIT testSetUpgradeMode_ExistingTaskGetsUnassigned failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6352 / openjdk22_checkpart4_java-matrix](https://gradle-enterprise.elastic.co/s/dl4xs2y5ijs54) - [elasticsearch-periodic #6268 / openjdk17_checkpart4_java-matrix](https://gradle-enterprise.elastic.co/s/q64egmgg5wq2e) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:ml:qa:native-multi-node-tests:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.ml.integration.ClassificationIT.testSetUpgradeMode_ExistingTaskGetsUnassigned&quot; -Dtests.seed=A35A8A9733CAE959 -Dtests.locale=ca-Latn-ES -Dtests.timezone=SystemV/AST4ADT -Druntime.java=22 ``` **Applicable branches:** 8.18 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.ml.integration.ClassificationIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testSetUpgradeMode_ExistingTaskGetsUnassigned),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Stats were: {&quot;id&quot;:&quot;classification_set_upgrade_mode&quot;,&quot;state&quot;:&quot;started&quot;,&quot;progress&quot;:[{&quot;phase&quot;:&quot;reindexing&quot;,&quot;progress_percent&quot;:100},{&quot;phase&quot;:&quot;loading_data&quot;,&quot;progress_percent&quot;:100},{&quot;phase&quot;:&quot;feature_selection&quot;,&quot;progress_percent&quot;:100},{&quot;phase&quot;:&quot;coarse_parameter_search&quot;,&quot;progress_percent&quot;:100},{&quot;phase&quot;:&quot;fine_tuning_parameters&quot;,&quot;progress_percent&quot;:71},{&quot;phase&quot;:&quot;final_training&quot;,&quot;progress_percent&quot;:0},{&quot;phase&quot;:&quot;writing_results&quot;,&quot;progress_percent&quot;:0},{&quot;phase&quot;:&quot;inference&quot;,&quot;progress_percent&quot;:0}],&quot;data_counts&quot;:{&quot;training_docs_count&quot;:300,&quot;test_docs_count&quot;:0,&quot;skipped_docs_count&quot;:0},&quot;memory_usage&quot;:{&quot;timestamp&quot;:1739340156643,&quot;peak_usage_bytes&quot;:71978,&quot;status&quot;:&quot;ok&quot;},&quot;analysis_stats&quot;:{&quot;classification_stats&quot;:{&quot;timestamp&quot;:1739340156643,&quot;iteration&quot;:12,&quot;hyperparameters&quot;:{&quot;class_assignment_objective&quot;:&quot;maximize_minimum_recall&quot;,&quot;alpha&quot;:5.518953485432152,&quot;downsample_factor&quot;:0.32708277408902786,&quot;eta&quot;:0.6213224928739096,&quot;eta_growth_rate_per_tree&quot;:1.2805202848210226,&quot;feature_bag_fraction&quot;:0.39 [truncated] ``` **Issue Reasons:** - [8.18] 2 failures in test testSetUpgradeMode_ExistingTaskGetsUnassigned (0.5% fail rate in 443 executions) - [8.18] 2 failures in pipeline elasticsearch-periodic (15.4% fail rate in 13 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Configurable limit on concurrent shard closing (#121267) (#121444) Today we limit the number of shards concurrently closed by the `IndicesClusterStateService`, but this limit is currently a function of the CPU count of the node. On nodes with plentiful CPU but poor IO performance we may want to restrict this limit further. This commit exposes the throttling limit as a setting.</MESSAGE>
+    <SHA>3053ed2adb0cd0c9aa9ece31cd958fc151b058fb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ml.integration.ClassificationIT testSetUpgradeMode_ExistingTaskGetsUnassigned #121928</MESSAGE>
+      <SHA>63d33aa58ea733e42f8073a74198e1f3dc92bcb5</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[ML] Unmute fixed Classification IT tests #122361 Unmute tests following #122268 Closes #120071 Closes #121928 Closes #121680 Closes #121492 Closes #121479 Closes #121473 Closes #121458 Closes #121236 Closes #116234</MESSAGE>
+      <SHA>3c74e7875647904bed5109395bea9023658f0e55</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

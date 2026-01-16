@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5031</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/5031</ISSUEURL>
+  <TITLE>Counter visualization is enormous on the query screen</TITLE>
+  <DESCRIPTION>&lt;!-- We use GitHub only for bug reports Anything else should be posted to https://discuss.redash.io For support, help &amp; questions use https://discuss.redash.io/c/support For feature requests &amp; ideas use https://discuss.redash.io/c/feature-requests **Found a security vulnerability?** Please email security@redash.io to report any security vulnerabilities. We will acknowledge receipt of your vulnerability and strive to send you regular updates about our progress. If you're curious about the status of your disclosure please feel free to email us again. If you want to encrypt your disclosure email, you can use this PGP key. --&gt; ### Issue Summary Counter visualizations have no max-width or max-height limit. So they grow to fill all available space on the query screen. ![Screen Shot 2020-07-06 at 10 32 16](https://user-images.githubusercontent.com/17067911/86611227-fd4c4600-bf73-11ea-920d-ebd4de28cbd1.png) ### Steps to Reproduce I recreated on the preview instance [here](https://redash-preview.netlify.app/queries/394#681). 1. Write a simple query: `select 80085 &quot;foo&quot;` 2. Make a counter visualization 3. Click **Show Data Only** and observe how large the counter appears ### Technical details: * Redash Version: V9 Beta * Browser/OS: FF / Chrome / Safari * How did you install Redash: SaaS</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Visualizations Library: Enhance docs (#4946)</MESSAGE>
+    <SHA>328f0f3f0c349d5df69a84c1dfd871d31367fb23</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>getredash/redash#5031 Counter is too large on Query View/Source pages</MESSAGE>
+      <SHA>fe57f55284dbc607b51fc4d3947c0c9d95bb6913</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/components/dashboards/dashboard-grid.less</FILE>
+        <FILE>viz-lib/src/visualizations/counter/render.less</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>getredash/redash#5031 Counter is too large on Query View/Source pages (#5044)</MESSAGE>
+      <SHA>6f9e79c64134d253d2ba264282bfb11fdd650db6</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/components/dashboards/dashboard-grid.less</FILE>
+        <FILE>viz-lib/src/visualizations/counter/render.less</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>getredash/redash#5031 Counter is too large on Query View/Source pages (#5044)</MESSAGE>
+      <SHA>5304f5587aea8754eabb848c42cc4521ffd064e0</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/components/dashboards/dashboard-grid.less</FILE>
+        <FILE>viz-lib/src/visualizations/counter/render.less</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

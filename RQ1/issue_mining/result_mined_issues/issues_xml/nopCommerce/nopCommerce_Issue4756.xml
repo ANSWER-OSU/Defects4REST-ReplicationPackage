@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4756</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4756</ISSUEURL>
+  <TITLE>Bug of weight format in non US language with Nop.Plugin.Shipping.UPS</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.30 (last version of develop branch) Steps to reproduce the problem: Hi! I found a bug with UPS plugin when I proceed to checkout: I use two languages in my NopCommerce installation =&gt; English and French When I use english language everything works great with UPS plugin. When I use french language, I get this error: **Error while getting UPS rates One or more errors occurred. (An exception has been raised as a result of client data. Hard error: Missing or invalid package weight for package 1.)** What happened? I debug the code and I found the unique difference in datas between the two languages. In the object &quot;UPSRate.RateRequest&quot; =&gt; Shipment =&gt; Packages =&gt; One of them [0] =&gt; PackageWeight.Weight the value is different and I think that the UPS API does not support commas. Here is the format of my weight in english: - 64.285714285714285714285714286 And here is the format of my weight in french: - 64,285714285714285714285714286</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#4752 Fixed header CSS-styles for RTL version</MESSAGE>
+    <SHA>e7e64e2c165f9ab6fd79724d99a59c64299c517d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4756 UPS shipping plugin. Fix incorrect decimal formatting.</MESSAGE>
+      <SHA>da88bf1635c4dbdec689500fb58ba28a9ffdef05</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/Services/UPSService.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

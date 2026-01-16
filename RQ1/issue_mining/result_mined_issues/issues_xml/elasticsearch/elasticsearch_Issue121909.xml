@@ -1,0 +1,109 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121909</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121909</ISSUEURL>
+  <TITLE>[Transform] Deleting notifications index silences messages</TITLE>
+  <DESCRIPTION>### Elasticsearch Version 8.18 ### Installed Plugins _No response_ ### Java Version _bundled_ ### OS Version 22.04.1-Ubuntu ### Problem Description If the user deletes the notification index `.transform-notifications-*`, the auditor fails with `no such index [.transform-notifications-write] and [require_alias] request flag is [true] and [.transform-notifications-write] is not an alias` ### Steps to Reproduce - Create and start transform - Delete notification index: `es.indices.delete(index=&quot;.transform-notifications-000002&quot;)` - Index more documents The auditor will begin failing to write new transform messages ### Logs (if relevant) _No response_</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Validate transport handshake from known version (#121747) With parallel releases on multiple branches it's possible that an older branch sees a transport version update that is not known to a numerically newer but chronologically older version. In that case the two nodes cannot intercommunicate, so with this commit we reject such connection attempts at the version negotiation stage.</MESSAGE>
+    <SHA>5302589639ca231222383ca49eeaf21691c1183d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[Transform] Recreate Notifications Index If the notification index and alias gets deleted, recreate the index. Fix #121909</MESSAGE>
+      <SHA>0950e555107b80bda8ac8db4fbd0e517eda50a8b</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/core/src/main/java/org/elasticsearch/xpack/core/common/notifications/AbstractAuditor.java</FILE>
+        <FILE>x-pack/plugin/core/src/test/java/org/elasticsearch/xpack/core/common/notifications/AbstractAuditorTests.java</FILE>
+        <FILE>x-pack/plugin/ml/src/main/java/org/elasticsearch/xpack/ml/notifications/AbstractMlAuditor.java</FILE>
+        <FILE>x-pack/plugin/transform/src/main/java/org/elasticsearch/xpack/transform/notifications/TransformAuditor.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Transform] Recreate Notifications Index (#121912) If the notification index and alias gets deleted, recreate the index. Fix #121909</MESSAGE>
+      <SHA>d6a62c68775ced37871c4183f6c7f6f86f4f340e</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/core/src/main/java/org/elasticsearch/xpack/core/common/notifications/AbstractAuditor.java</FILE>
+        <FILE>x-pack/plugin/core/src/test/java/org/elasticsearch/xpack/core/common/notifications/AbstractAuditorTests.java</FILE>
+        <FILE>x-pack/plugin/ml/src/main/java/org/elasticsearch/xpack/ml/notifications/AbstractMlAuditor.java</FILE>
+        <FILE>x-pack/plugin/transform/src/main/java/org/elasticsearch/xpack/transform/notifications/TransformAuditor.java</FILE>
+        <FILE>x-pack/plugin/transform/src/test/java/org/elasticsearch/xpack/transform/action/TransformUpdaterTests.java</FILE>
+        <FILE>x-pack/plugin/transform/src/test/java/org/elasticsearch/xpack/transform/notifications/MockTransformAuditor.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Transform] Recreate Notifications Index (#121912) If the notification index and alias gets deleted, recreate the index. Fix #121909</MESSAGE>
+      <SHA>9a39a3c95c50610e918a5ce7c8eb4dbb940c5e7b</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/core/src/main/java/org/elasticsearch/xpack/core/common/notifications/AbstractAuditor.java</FILE>
+        <FILE>x-pack/plugin/core/src/test/java/org/elasticsearch/xpack/core/common/notifications/AbstractAuditorTests.java</FILE>
+        <FILE>x-pack/plugin/ml/src/main/java/org/elasticsearch/xpack/ml/notifications/AbstractMlAuditor.java</FILE>
+        <FILE>x-pack/plugin/transform/src/main/java/org/elasticsearch/xpack/transform/notifications/TransformAuditor.java</FILE>
+        <FILE>x-pack/plugin/transform/src/test/java/org/elasticsearch/xpack/transform/action/TransformUpdaterTests.java</FILE>
+        <FILE>x-pack/plugin/transform/src/test/java/org/elasticsearch/xpack/transform/notifications/MockTransformAuditor.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Transform] Recreate Notifications Index (#121912) If the notification index and alias gets deleted, recreate the index. Fix #121909</MESSAGE>
+      <SHA>47c0183af3083a87b186a7815044312cb31ac5a4</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/core/src/main/java/org/elasticsearch/xpack/core/common/notifications/AbstractAuditor.java</FILE>
+        <FILE>x-pack/plugin/core/src/test/java/org/elasticsearch/xpack/core/common/notifications/AbstractAuditorTests.java</FILE>
+        <FILE>x-pack/plugin/ml/src/main/java/org/elasticsearch/xpack/ml/notifications/AbstractMlAuditor.java</FILE>
+        <FILE>x-pack/plugin/transform/src/main/java/org/elasticsearch/xpack/transform/notifications/TransformAuditor.java</FILE>
+        <FILE>x-pack/plugin/transform/src/test/java/org/elasticsearch/xpack/transform/action/TransformUpdaterTests.java</FILE>
+        <FILE>x-pack/plugin/transform/src/test/java/org/elasticsearch/xpack/transform/notifications/MockTransformAuditor.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Transform] Recreate Notifications Index (#121912) If the notification index and alias gets deleted, recreate the index. Fix #121909</MESSAGE>
+      <SHA>5d5741d8743fb3bcb78d412b8f703357a01007c6</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/core/src/main/java/org/elasticsearch/xpack/core/common/notifications/AbstractAuditor.java</FILE>
+        <FILE>x-pack/plugin/core/src/test/java/org/elasticsearch/xpack/core/common/notifications/AbstractAuditorTests.java</FILE>
+        <FILE>x-pack/plugin/ml/src/main/java/org/elasticsearch/xpack/ml/notifications/AbstractMlAuditor.java</FILE>
+        <FILE>x-pack/plugin/transform/src/main/java/org/elasticsearch/xpack/transform/notifications/TransformAuditor.java</FILE>
+        <FILE>x-pack/plugin/transform/src/test/java/org/elasticsearch/xpack/transform/action/TransformUpdaterTests.java</FILE>
+        <FILE>x-pack/plugin/transform/src/test/java/org/elasticsearch/xpack/transform/notifications/MockTransformAuditor.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Transform] Recreate Notifications Index (#121912) (#121945) If the notification index and alias gets deleted, recreate the index. Fix #121909</MESSAGE>
+      <SHA>65b4577a356e4d208545f35aa8d62cdf4b527f2a</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/core/src/main/java/org/elasticsearch/xpack/core/common/notifications/AbstractAuditor.java</FILE>
+        <FILE>x-pack/plugin/core/src/test/java/org/elasticsearch/xpack/core/common/notifications/AbstractAuditorTests.java</FILE>
+        <FILE>x-pack/plugin/ml/src/main/java/org/elasticsearch/xpack/ml/notifications/AbstractMlAuditor.java</FILE>
+        <FILE>x-pack/plugin/transform/src/main/java/org/elasticsearch/xpack/transform/notifications/TransformAuditor.java</FILE>
+        <FILE>x-pack/plugin/transform/src/test/java/org/elasticsearch/xpack/transform/action/TransformUpdaterTests.java</FILE>
+        <FILE>x-pack/plugin/transform/src/test/java/org/elasticsearch/xpack/transform/notifications/MockTransformAuditor.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Transform] Recreate Notifications Index (#121912) (#121943) If the notification index and alias gets deleted, recreate the index. Fix #121909</MESSAGE>
+      <SHA>8611b74c03599c9f5d449973714216afb2e7d8b3</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/core/src/main/java/org/elasticsearch/xpack/core/common/notifications/AbstractAuditor.java</FILE>
+        <FILE>x-pack/plugin/core/src/test/java/org/elasticsearch/xpack/core/common/notifications/AbstractAuditorTests.java</FILE>
+        <FILE>x-pack/plugin/ml/src/main/java/org/elasticsearch/xpack/ml/notifications/AbstractMlAuditor.java</FILE>
+        <FILE>x-pack/plugin/transform/src/main/java/org/elasticsearch/xpack/transform/notifications/TransformAuditor.java</FILE>
+        <FILE>x-pack/plugin/transform/src/test/java/org/elasticsearch/xpack/transform/action/TransformUpdaterTests.java</FILE>
+        <FILE>x-pack/plugin/transform/src/test/java/org/elasticsearch/xpack/transform/notifications/MockTransformAuditor.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Transform] Recreate Notifications Index (#121912) (#121944) If the notification index and alias gets deleted, recreate the index. Fix #121909</MESSAGE>
+      <SHA>9eb33a64659e7bd0553625bc50bc903be441af8d</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/core/src/main/java/org/elasticsearch/xpack/core/common/notifications/AbstractAuditor.java</FILE>
+        <FILE>x-pack/plugin/core/src/test/java/org/elasticsearch/xpack/core/common/notifications/AbstractAuditorTests.java</FILE>
+        <FILE>x-pack/plugin/ml/src/main/java/org/elasticsearch/xpack/ml/notifications/AbstractMlAuditor.java</FILE>
+        <FILE>x-pack/plugin/transform/src/main/java/org/elasticsearch/xpack/transform/notifications/TransformAuditor.java</FILE>
+        <FILE>x-pack/plugin/transform/src/test/java/org/elasticsearch/xpack/transform/action/TransformUpdaterTests.java</FILE>
+        <FILE>x-pack/plugin/transform/src/test/java/org/elasticsearch/xpack/transform/notifications/MockTransformAuditor.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

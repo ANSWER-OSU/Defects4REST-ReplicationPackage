@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1817</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/1817</ISSUEURL>
+  <TITLE>bug: In the case of multiple ssl certificates, some certificates are not available</TITLE>
+  <DESCRIPTION>### Issue description In the case of multiple ssl certificates, some certificates are not available. ### Environment * apisix version (cmd: `apisix version`): 1.4 * OS: centos 7 ### Minimal test code / Steps to reproduce the issue 1. post some ssl cert by api admin 2. use https to access the api ### What's the actual result? (including assertion message &amp; call stack if applicable) respond good ### What's the expected result? respond error</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>optimize: increase ssl_session_cache size to 20m. (#1797)</MESSAGE>
+    <SHA>a4e31b2f3dfde1ddad614c1fee8600cc258e6ffd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>bugfix: wrong counter was used, resulting in only one certificate working fine. (#1818) Fix #1817</MESSAGE>
+      <SHA>e598e6fa6aa71fcdfab99aff8eb24acce37d257a</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/http/router/radixtree_sni.lua</FILE>
+        <FILE>t/node/invalid-service.t</FILE>
+        <FILE>t/node/invalid-upstream.t</FILE>
+        <FILE>t/router/multi-ssl-certs.t</FILE>
+        <FILE>t/router/radixtree-sni.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>bugfix: wrong counter was used, resulting in only one certificate working fine. (#1818) Fix #1817</MESSAGE>
+      <SHA>4cb658188144cc2dc5095a0d21f386261f80cd93</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/http/router/radixtree_sni.lua</FILE>
+        <FILE>t/node/invalid-service.t</FILE>
+        <FILE>t/node/invalid-upstream.t</FILE>
+        <FILE>t/router/multi-ssl-certs.t</FILE>
+        <FILE>t/router/radixtree-sni.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

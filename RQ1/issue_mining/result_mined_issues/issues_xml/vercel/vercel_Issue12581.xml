@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>12581</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/12581</ISSUEURL>
+  <TITLE>Vite and SvelteKit projects timeout After 300 seconds when using `vercel dev`</TITLE>
+  <DESCRIPTION>If you're still encountering this today it's a different root cause than the [issue from 2022](https://github.com/vercel/vercel/issues/8121). Vite does not respect setting the port with an environment variable (https://github.com/vitejs/vite/issues/5280). While not quite _a_ standard it's essentially what every other framework is doing and how `vercel dev` does proxying from its development sever to the framework's development server. `sveltekit` started to experience this when it switched over to using `vite` under the hood. We have an automatic fix for this on our roadmap but until then you can resolve this by adding ``` server: { port: process.env.PORT }, ``` to your `vite.config.js` file. I'll link this issue to our internal card so we can report back when it's done.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[tests] skip ember-v5 tests. It's started failing unrelated to our tests (#12702) Failing for platform reasons. Will dig in.</MESSAGE>
+    <SHA>a93b323df691db556f5d241214c53f3799c737f5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[frameworks] pass `$PORT` to dev command for newer svelte apps (#12696) I thought this would be more complicated but we already have a pattern for it. Closes https://github.com/vercel/vercel/issues/12581</MESSAGE>
+      <SHA>759c0028e01dafa7df83e0dd4b3f3560757910b8</SHA>
+      <PATCHEDFILES>
+        <FILE>.changeset/brown-humans-thank.md</FILE>
+        <FILE>packages/frameworks/src/frameworks.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

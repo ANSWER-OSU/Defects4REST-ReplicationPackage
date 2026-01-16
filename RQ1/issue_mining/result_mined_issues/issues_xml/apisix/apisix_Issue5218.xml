@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5218</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/5218</ISSUEURL>
+  <TITLE>bug: When using service.hosts, the route timeout is invalid</TITLE>
+  <DESCRIPTION>### Issue description When using the `route to inherit hosts from service` feat, the timeout attribute in the route configuration will be invalid. https://github.com/apache/apisix/pull/4977#issuecomment-927269933 ### Environment - apisix version (cmd: `apisix version`): 2.10.0 - OS (cmd: `uname -a`): centos7 - OpenResty / Nginx version (cmd: `nginx -V` or `openresty -V`): 1.19.3.1 - etcd version, if have (cmd: run `curl http://127.0.0.1:9090/v1/server_info` to get the info from server-info API): 3.5 ### Steps to reproduce 1: create service: `{ &quot;desc&quot;:&quot;service-test&quot;, &quot;hosts&quot;: [&quot;a.xx.com&quot;, &quot;b.xx.com&quot;] }` 2: create upstream &amp; create route `{ &quot;uri&quot;: &quot;/ping&quot;, &quot;upstream_id&quot;: &quot;${upstream_id}&quot;, &quot;service_id&quot;: &quot;${step1_resp_service_id}&quot;, &quot;timeout&quot;: { &quot;connect&quot;: 5, &quot;send&quot;: 5, &quot;read&quot;: 5 } }` 3: curl -H &quot;Host: a.xx.com&quot; http://apisix-server:port/ping The route 5s timeout will be invalid. ### Actual result Will use nginx proxy_(connect/read/send)_timeout as value. such as: 60s. ### Error log none ### Expected result curl 5s timeout. response 504 code.</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: support specify custom sni in etcd conf (#5206)</MESSAGE>
+    <SHA>2b239077432a8af1812c5f95fc5f01b748abaabf</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: inherit hosts from service, timeout configuration is invalid. #5218</MESSAGE>
+      <SHA>f51c4bc9c9c2806a741c9cc2aee75a4a1b7efc46</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugin.lua</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

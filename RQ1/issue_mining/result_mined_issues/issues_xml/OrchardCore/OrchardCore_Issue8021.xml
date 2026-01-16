@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8021</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/8021</ISSUEURL>
+  <TITLE>Unable to build liquid Form_Wrapper</TITLE>
+  <DESCRIPTION>It seems it's not possible to override `Form_Wrapper` with Liquid. The default Razor template is : ```razor ... &lt;form id=&quot;@formId&quot; action=&quot;@formPart.Action&quot; method=&quot;@formPart.Method&quot; enctype=&quot;@encType&quot; class=&quot;form-content @formContentTypeClassName&quot;&gt; @if (formPart.EnableAntiForgeryToken) { @Html.AntiForgeryToken() } @await DisplayAsync(Model.Metadata.ChildContent) &lt;/form&gt; ``` So, the Liquid equivalent should be : ```liquid ... &lt;form action=&quot;{{ formPart.Action }}&quot; method=&quot;{{ formPart.Method }}&quot; enctype=&quot;{{ encType }}&quot; class=&quot;form-content {{ formContentTypeClassName }}&quot;&gt; {% if formPart.EnableAntiForgeryToken %} {% antiforgerytoken %} {% endif %} {{ Model.Metadata.ChildContent | shape_render }} &lt;/form&gt; ``` But `Model.Metadata.ChildContent` doesn't evalutes in Liquid, and it's not `IShape` but `IHtmlContent`.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add JQuery-ui dependency on AdminMenu node list (#8014)</MESSAGE>
+    <SHA>d8571fedf3c657e02f72d52352c67a98455451e2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #8021 : Allow ShapeMetadata access in liquid and allow to render IHtmlContent with shape_render filter</MESSAGE>
+      <SHA>19095c3a23618d23cc1ddf1fd22c941db9a7106d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Filters/LiquidViewFilters.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/LiquidViewTemplate.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #8021 : Allow ShapeMetadata access in liquid (#8024) and allow to render IHtmlContent with shape_render filter</MESSAGE>
+      <SHA>aa102c48d0ae4f1adf3b292578e36c3a8b2299ee</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Filters/LiquidViewFilters.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/LiquidViewTemplate.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Map Shape's Metadata property and render IHtmlContent from ShapeRenderFilter See #8021 and #8024</MESSAGE>
+      <SHA>37b0e78e33f282c8f80ce25a39ee1f070276ab8e</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Filters/ShapeRenderFilter.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/LiquidViewTemplate.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

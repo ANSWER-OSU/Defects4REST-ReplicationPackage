@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15931</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/15931</ISSUEURL>
+  <TITLE>`latest` tag on NPM is not updated for @tryghost/portal</TITLE>
+  <DESCRIPTION>https://unpkg.com/@tryghost/portal@latest/umd/portal.min.js still points to an outdated version – 2.13.2 – but it should to 2.21.0. The problem is that the `latest` tag has not been updated after a few last releases – NPM also shows outdated version: &lt;img width=&quot;389&quot; alt=&quot;Screenshot 2022-12-13 at 13 10 57&quot; src=&quot;https://user-images.githubusercontent.com/1338731/207314549-62ea365e-1718-408c-a1d7-d1363ae95473.png&quot;&gt; &lt;img width=&quot;775&quot; alt=&quot;Screenshot 2022-12-13 at 13 11 21&quot; src=&quot;https://user-images.githubusercontent.com/1338731/207314620-f1bb1612-9837-49d2-a34d-e41c339106d2.png&quot;&gt; &lt;details&gt; &lt;summary&gt;Original (incorrect) issue&lt;/summary&gt; ## `url` in Stripe `members/api/create-stripe-checkout-session/` is not handled – `publicKey` is expected ### Issue Summary When a request to `members/api/create-stripe-checkout-session/` is made, the response is an object with a single field: `{url: &quot;…&quot;}`. Yet, some functions do not handled that well. For example, it's correctly handled here: https://github.com/TryGhost/Ghost/blob/74d0fee1259476cd29962ecae2181c7e13b3932b/ghost/portal/src/utils/api.js#L385-L387 but not here: https://github.com/TryGhost/Ghost/blob/74d0fee1259476cd29962ecae2181c7e13b3932b/ghost/portal/src/utils/api.js#L432 ### Steps to Reproduce 1. Go to https://news.typeofweb.com 2. Scroll down a bit 3. Click on the blue floating &quot;Subskrybuj&quot; button in the bottom right corner. 4. Continue with a paid subscription PLN 5/month 5. See error in the console. 6. Inspect network tab and notice that the endpoint returned `{url}` instead of `{publicKey}` ### Ghost Version 74d0fee1259476cd29962ecae2181c7e13b3932b ### Node.js Version irrelevant ### How did you install Ghost? irrelevant ### Database type MySQL 5.7 ### Browser &amp; OS version _No response_ ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository &lt;/details&gt;</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>140</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Refactored Tiers logic into separate package refs https://github.com/TryGhost/Team/issues/2078 This pulls the current Tiers logic into its own package, the persistence part of the work has not been done yet, that will be handled in core, so all bookshelf model specific stuff is kept together.</MESSAGE>
+    <SHA>fbc23a624e4461af17fcf9606473e61c99dd15e2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Supported payment URL in Portal refs https://github.com/TryGhost/Team/issues/2078 As part of decoupling Stripe from the members feature, we are going to be using payment URLs rather than Stripe sepcific session ids and publick keys. This prepares Portal to work with the new system, whilst retainign the existing functionality</MESSAGE>
+      <SHA>4f54cbc37a5328d80ddd4a7c88b3a2ac1aa6c8ee</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/portal/src/utils/api.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

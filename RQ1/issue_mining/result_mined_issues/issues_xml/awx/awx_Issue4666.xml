@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4666</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/4666</ISSUEURL>
+  <TITLE>Failing to install a role doesn't fail the update job</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY When running a project update for a playbook which depends on roles defined in requirements.yml, the task job finishes successfully even if the roles are not successfully installed ##### ENVIRONMENT * AWX version: Tower 3.5.1 * AWX install method: openshift * Ansible version: 2.8.2 * Operating System: Fedora 30 * Web Browser: Firefox 68 ##### STEPS TO REPRODUCE 1. Add a project containing a playbook and a requirements.yml file 1.1 The role in the requirements.yml file is incorrect - e.g. missing meta/main.yml 2. Run a project update ##### EXPECTED RESULTS The project update job fails ##### ACTUAL RESULTS The project update job succeeds due to an --ignore-errors flag in the ansible-galaxy command (I assume). Upon inspecting the TASK [fetch galaxy roles from requirements.yml] [tower_fail.log](https://github.com/ansible/awx/files/3578651/tower_fail.log) output, one can see: &quot;stderr_lines&quot;: [ &quot;\u001b[1;35m [WARNING]: - comet was NOT installed successfully: this role does not appear\u001b[0m&quot;, &quot;\u001b[1;35mto have a meta/main.yml file.\u001b[0m&quot;, &quot;\u001b[1;35m\u001b[0m&quot; ##### ADDITIONAL INFORMATION - added the whole task log to attachment</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #4670 from wenottingham/pendoh-no Put everyone in the 'anonymous' pendo bucket regardless of setting</MESSAGE>
+    <SHA>e9f1f8c6fe3f5b0efbdefbc722fb36789174d16c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #4666 from ryanpetrello/dont-test-me update a janky old test</MESSAGE>
+      <SHA>b8f1fa1a139a76975bdb0aa05fec637099ae1599</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tests/functional/api/test_rbac_displays.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

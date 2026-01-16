@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1111</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/1111</ISSUEURL>
+  <TITLE>ec.balance not working</TITLE>
+  <DESCRIPTION>**Describe the bug** After recompiling the weed binary with the actual snapshot the binary fixes the last issues (problem with redirect, problem with some ec encoded files) but now i could see some of the ec.shards are not distributed in the right way (5 volume servers). for example volume 59: ``` bm6: 59 3146776576 Bytes [0 1 2 3] 06 Nov 19 11:08 +0100 bm8: 59 3146776576 Bytes [0 1 2 3 4 5 6 7 8 9 10] 06 Nov 19 11:06 +0100 bm9: 59 3146776576 Bytes [4] 06 Nov 19 11:08 +0100 bm2: 59 3146776576 Bytes [11 12 13] 06 Nov 19 10:29 +0100 bm7: 59 3146776576 Bytes [5 6 7] 06 Nov 19 11:08 +0100 ``` i dont know why those shards had been created this way (when doing ec.encode all volume servers had been up and those should be distributed equally) but i wanted to fix it with weed shell - ec.balance -force but ec.balance -force only says: ``` balanceEcVolumes collections 1 balanceEcVolumes collection balanceEcVolumes bm7:8280 has 1 overlimit, moving ec shard 15.4 bm7:8280 has 1 overlimit, moving ec shard 60.6 bm2:8280 has 2 overlimit, moving ec shard 56.0 bm2:8280 has 1 overlimit, moving ec shard 56.1 bm6:8280 has 1 overlimit, moving ec shard 59.0 ``` and seems to be doing nothing. weed master is also configured to do: ``` [master.maintenance] # periodically run these scripts are the same as running them from 'weed shell' scripts = &quot;&quot;&quot; ec.encode -fullPercent=95 -quietFor=1h ec.rebuild -force ec.balance -force volume.balance -force &quot;&quot;&quot; sleep_minutes = 17 # sleep minutes between each script execution ``` is balancing maybe running currently in the background ? how to check this ? i did not see anything in the logfiles ... **System Setup** weed version: version 30GB 1.44 linux amd64 but as stated recompiled with the latest git snapshot OS Version - mixed Ubuntu Server 14.04 and 18.04 **Expected behavior** - doing a rebalance - some sort of status message if something is running in the background - either in `weed shell` or in the web status screen - or in both ;) additionally ec.rebuild says: error: disk space is not enough but on all (weed) disks there is plenty of storage free - or is here another path used - for example /tmp ?</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>use constant</MESSAGE>
+    <SHA>e6ab75972f4327a12bf5ce517cde8926247f384f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix rack_not_found case fix rack_not_found in https://github.com/chrislusf/seaweedfs/issues/1111</MESSAGE>
+      <SHA>9c2f3b1b0f2b7e4617975edde4f4872ff6418641</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/shell/command_ec_balance.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>avoid double counting ec slot addressing issue found in https://github.com/chrislusf/seaweedfs/issues/1111 The ec slots are already counted on the server side.</MESSAGE>
+      <SHA>717ec47fa2bac87d5dfd5137531f60bdf57b7007</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/shell/command_ec_common.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>add sortEcNodesByFreeslotsDecending and sortEcNodesByFreeslotsAscending addressing https://github.com/chrislusf/seaweedfs/issues/1111</MESSAGE>
+      <SHA>40514c53622fded6681f91d1c7d54045a5ef44c8</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/shell/command_ec_balance.go</FILE>
+        <FILE>weed/shell/command_ec_common.go</FILE>
+        <FILE>weed/shell/command_ec_rebuild.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>passing in averageShardsPerEcNode instead of expectedTotalEcShards addressing https://github.com/chrislusf/seaweedfs/issues/1111</MESSAGE>
+      <SHA>66acc2c84f2cee21b8a99c2753ec23d782e42a6f</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/shell/command_ec_balance.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

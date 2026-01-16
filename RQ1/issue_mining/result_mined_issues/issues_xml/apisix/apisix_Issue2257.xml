@@ -1,0 +1,115 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2257</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2257</ISSUEURL>
+  <TITLE>bug: http_to_https ret_code 307 not working</TITLE>
+  <DESCRIPTION>### Issue description ### Environment * apisix version (cmd: `apisix version`):1.5 * OS:ubuntu16.04 i use plugin http_to_https and set ret_code 307, like below. ``` { &quot;priority&quot;: 0, &quot;plugins&quot;: { &quot;redirect&quot;: { &quot;ret_code&quot;: 307, &quot;http_to_https&quot;: true } }, &quot;uris&quot;: [ &quot;/*&quot; ], &quot;id&quot;: &quot;1a5f4337d&quot;, &quot;hosts&quot;: [ &quot;demo-apisix.xxxxxxx.com&quot; ], &quot;upstream&quot;: { &quot;nodes&quot;: { &quot;172.16.3.2:80&quot;: 100 }, &quot;hash_on&quot;: &quot;vars&quot;, &quot;type&quot;: &quot;roundrobin&quot; } } ``` when client sends **POST** reqeust with **http**.it's not working, apisix should return 307 and client sends a new request with https again, in fact, apisix return 301 and client sends a new request with **https** and the method is **GET** ![image](https://user-images.githubusercontent.com/32395903/93565351-cce64680-f9bd-11ea-9349-80aaaacda6f3.png) ![image](https://user-images.githubusercontent.com/32395903/93565479-074fe380-f9be-11ea-953d-c884d6647f9b.png)</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix(echo): modify response body correctly (#2561) Fix #2427, #2554</MESSAGE>
+    <SHA>960077f2458ab4a3eba3691b9b71620f2fccb3bd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>improve: move try_read_attr function into table.lua (#2257)</MESSAGE>
+      <SHA>9ebcfdf660a007f6e610b368df82456702f4a730</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/table.lua</FILE>
+        <FILE>apisix/plugins/skywalking.lua</FILE>
+        <FILE>t/core/table.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>chore: move try_read_attr function into table.lua (#2257)</MESSAGE>
+      <SHA>db27ac19f1dc7f2f50519c007f60c1df96d3bddb</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/table.lua</FILE>
+        <FILE>apisix/plugins/skywalking.lua</FILE>
+        <FILE>t/core/table.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>chore: move try_read_attr function into table.lua (#2257)</MESSAGE>
+      <SHA>2694d52fa97d733a340cc12a680e9941a8ddd903</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/table.lua</FILE>
+        <FILE>apisix/plugins/skywalking.lua</FILE>
+        <FILE>t/core/table.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>chore: move try_read_attr function into table.lua (#2257)</MESSAGE>
+      <SHA>ec1d199cecfe0062485321406ff367fa6fee8e92</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/table.lua</FILE>
+        <FILE>apisix/plugins/skywalking.lua</FILE>
+        <FILE>t/core/table.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>chore: move try_read_attr function into table.lua (#2257)</MESSAGE>
+      <SHA>49e289cc700fb07a405e9ca9c87f53cc29f6a24b</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/table.lua</FILE>
+        <FILE>apisix/plugins/skywalking.lua</FILE>
+        <FILE>t/core/table.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>chore: move try_read_attr function into table.lua (#2257)</MESSAGE>
+      <SHA>a67a3fd793cb5d4d643dcd72b481412c8041e295</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/table.lua</FILE>
+        <FILE>apisix/plugins/hmac-auth.lua</FILE>
+        <FILE>apisix/plugins/log-rotate.lua</FILE>
+        <FILE>apisix/plugins/skywalking.lua</FILE>
+        <FILE>t/core/table.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>chore: move try_read_attr function into table.lua (#2257)</MESSAGE>
+      <SHA>7650c65b6f037be51b46e8fefb4634719123add1</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/table.lua</FILE>
+        <FILE>apisix/plugins/hmac-auth.lua</FILE>
+        <FILE>apisix/plugins/log-rotate.lua</FILE>
+        <FILE>apisix/plugins/skywalking.lua</FILE>
+        <FILE>t/core/table.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>chore: move try_read_attr function into table.lua (#2257)</MESSAGE>
+      <SHA>21ea491f0273eb326ef2a3de14414afccc5fd00a</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/table.lua</FILE>
+        <FILE>apisix/plugins/hmac-auth.lua</FILE>
+        <FILE>apisix/plugins/log-rotate.lua</FILE>
+        <FILE>apisix/plugins/skywalking.lua</FILE>
+        <FILE>t/core/table.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>chore: move try_read_attr function into table.lua (#2257)</MESSAGE>
+      <SHA>1a01898893074cf477e516ac55b02d493207e759</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/table.lua</FILE>
+        <FILE>apisix/plugins/hmac-auth.lua</FILE>
+        <FILE>apisix/plugins/log-rotate.lua</FILE>
+        <FILE>apisix/plugins/skywalking.lua</FILE>
+        <FILE>t/core/table.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>chore: move try_read_attr function into table.lua (#2257) (#2566) Co-authored-by: YuanSheng Wang &lt;membphis@gmail.com&gt;</MESSAGE>
+      <SHA>68cf301ed447a8d1ab112f1adb7a7ba1304da3db</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/table.lua</FILE>
+        <FILE>apisix/plugins/hmac-auth.lua</FILE>
+        <FILE>apisix/plugins/log-rotate.lua</FILE>
+        <FILE>apisix/plugins/skywalking.lua</FILE>
+        <FILE>t/core/table.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

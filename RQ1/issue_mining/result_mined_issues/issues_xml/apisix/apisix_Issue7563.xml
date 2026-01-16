@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7563</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/7563</ISSUEURL>
+  <TITLE>bug: APISIX 2.10.5 (LTS) can't support IPv6 Upstream host IP</TITLE>
+  <DESCRIPTION>### Current Behavior etcd data: ``` { &quot;scheme&quot;:&quot;http&quot;, &quot;name&quot;:&quot;safebox-esp-web_web-console-cns2waf_5009&quot;, &quot;desc&quot;:&quot;Created by apisix-ingress-controller, DO NOT modify it manually&quot;, &quot;id&quot;:&quot;a48bc649&quot;, &quot;update_time&quot;:1659003639, &quot;create_time&quot;:1659003457, &quot;nodes&quot;:[ { &quot;weight&quot;:100, &quot;priority&quot;:0, &quot;host&quot;:&quot;2409:XXXX:XXXX:2000:0:1:afd:7d20&quot;, &quot;port&quot;:4009 }, { &quot;weight&quot;:100, &quot;priority&quot;:0, &quot;host&quot;:&quot;2409:XXXX:XXXX:2000:0:1:afd:7d68&quot;, &quot;port&quot;:4009 } ], &quot;type&quot;:&quot;roundrobin&quot;, &quot;labels&quot;:{ &quot;managed-by&quot;:&quot;apisix-ingress-controller&quot; }, &quot;hash_on&quot;:&quot;vars&quot;, &quot;pass_host&quot;:&quot;pass&quot; } ``` ### Expected Behavior _No response_ ### Error Logs _No response_ ### Steps to Reproduce I had modify **/usr/local/apisix/apisix/schema_def.lua LINE 40** ``` -- local host_def_pat = &quot;^\\*?[0-9a-zA-Z-._]+$&quot; local host_def_pat = &quot;^\\*?[0-9a-zA-Z-._\\[\\]:]+$&quot; ``` AND **/usr/local/apisix/apisix/balancer.lua LINE 294** ``` local has_ipv6 = string.find(server.host, &quot;:&quot;, 1, true) if (has_ipv6 ~= nil) then local is_ipv6_plus = string.find(server.host, &quot;[&quot;, 1, true) if (is_ipv6_plus == nil) then server.host = &quot;[&quot;..server.host..&quot;]&quot; end end local ok, err = balancer.set_current_peer(server.host, server.port, pool_opt) ``` When upstream hosts count =1，its working; But upstream hosts number &gt;=2 ，error log: ``` 2022/07/28 10:07:09 [error] 51#51: *13796 [lua] balancer.lua:370: run(): failed to set server peer [[2409:XXXX:XXXX:2000:0:1:afd:7d65:4009]:nil] err: invalid IPv6 address while connecting to upstream, client: 10.253.91.92, server: _, request: &quot;GET /web-console-cnswaf/ HTTP/1.1&quot;, host: &quot;xxx.xxx.com&quot; ``` server.host = 2409:XXXX:XXXX:2000:0:1:afd:7d65:4009 (4009 is port) server.port = nil ### Environment - APISIX version: 2.10.5uanme - Operating system: CentOS 7 , Linux 4.19 - OpenResty version: 1.19.9.1 - etcd version, if relevant: 3.4.0</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ci: make sure the correct version of click is installed (#7589) Address broken fuzzing CI like https://github.com/apache/apisix/runs/7625185369?check_suite_focus=true https://github.com/apache/apisix/runs/7625351307?check_suite_focus=true Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+    <SHA>5cbcf246021b9f5a97ce98e999a7ed65a1cbc117</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix(balancer): quote ipv6 address fix #7563</MESSAGE>
+      <SHA>1a4daa9d81d8cabdcce41fdcca216ac6903f13ee</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/balancer.lua</FILE>
+        <FILE>docs/en/latest/admin-api.md</FILE>
+        <FILE>docs/zh/latest/admin-api.md</FILE>
+        <FILE>t/node/upstream-ipv6.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(balancer): quote ipv6 address Fixes #7563</MESSAGE>
+      <SHA>1275995918f6ef2e20110d51965cfabe5b6691e7</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/balancer.lua</FILE>
+        <FILE>docs/en/latest/admin-api.md</FILE>
+        <FILE>docs/zh/latest/admin-api.md</FILE>
+        <FILE>t/node/upstream-ipv6.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(balancer): quote ipv6 address (#7594) Fixes #7563</MESSAGE>
+      <SHA>23117685b001e5f8f9504455372eeb96004623e9</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/balancer.lua</FILE>
+        <FILE>docs/en/latest/admin-api.md</FILE>
+        <FILE>docs/zh/latest/admin-api.md</FILE>
+        <FILE>t/node/upstream-ipv6.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(balancer): quote ipv6 address (#7594) Fixes #7563</MESSAGE>
+      <SHA>50fe8381546044f9c7da38ed6df338ff1e373c62</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/balancer.lua</FILE>
+        <FILE>docs/en/latest/admin-api.md</FILE>
+        <FILE>docs/zh/latest/admin-api.md</FILE>
+        <FILE>t/node/upstream-ipv6.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(balancer): quote ipv6 address (#7594) Fixes #7563</MESSAGE>
+      <SHA>aa4c15659b53c298516a44ea95ea787c979b4acd</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/balancer.lua</FILE>
+        <FILE>docs/en/latest/admin-api.md</FILE>
+        <FILE>docs/zh/latest/admin-api.md</FILE>
+        <FILE>t/node/upstream-ipv6.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(balancer): quote ipv6 address (#7594) Fixes #7563</MESSAGE>
+      <SHA>5d991fd1fa2bc544898ee9dd2a616068191b03f0</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/balancer.lua</FILE>
+        <FILE>docs/en/latest/admin-api.md</FILE>
+        <FILE>docs/zh/latest/admin-api.md</FILE>
+        <FILE>t/node/upstream-ipv6.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6258</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6258</ISSUEURL>
+  <TITLE>update notifications whitelist</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Feature Idea ##### SUMMARY One of the main deployment information is the tag and/or branch version, or the scm_branch parameter is not available through the job dictionary and so notifications cannot include that common field. Could you please add it to the JOB_FIELDS_WHITELIST in notifications.yml? thank you.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>SAML enhancements (#13316) (#6298) * Moving reconcile_users_org_team_mappings into common library * Renaming pipeline to social_pipeline * Breaking out SAML and generic Social Auth * Optimizing SMAL login process * Moving extraction of org in teams from backends into sso/common.create_orgs_and_teams * Altering saml_pipeline from testing Prefixing all internal functions with _ Modified subfunctions to not return values but instead manipulate multable objects Modified all functions to not add duplicate orgs to the orgs_to_create list * Updating the common function to respect a teams organization name * Added can_create flag to create_org_and_teams This made testing easier and allows for any adapter with a flag the ability to simply pass it into a function * Multiple changes to SAML pipeline Removed orgs_to_create from being passed into user_team functions, common create orgs code will add any team orgs to list of orgs automatically Passed SAML_AUTO_CREATE_OBJECTS flag into create_org_and_teams Fix bug where we were looking at values instead of keys Added loading of all teams if remove flag is set in update_user_teams_by_saml_attr * Moving common items between SAML and Social into a 'base' * Updating and adding testing * Renamed get_or_create_with_default_galaxy_cred to get_or_create_org_...</MESSAGE>
+    <SHA>e500092989f716c8d4b1700656d37ad3078ed4e2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #6258 from AlanCoding/bad_character_43 [4.3] Workaround for events with NUL char, touch up error loop</MESSAGE>
+      <SHA>4d95abc0c401e480ede78d57661a489e8b24027f</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/dispatch/worker/callback.py</FILE>
+        <FILE>awx/main/tests/functional/commands/test_callback_receiver.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

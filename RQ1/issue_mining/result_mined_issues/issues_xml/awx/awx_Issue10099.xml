@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>10099</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/10099</ISSUEURL>
+  <TITLE>Demo Job Template run fails; source control update error: 'overlay' is not supported over overlayfs</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY Demo Job Template run fails; source control update error: 'overlay' is not supported over overlayfs ##### ENVIRONMENT * AWX version: 19.1.0 * AWX install method: docker on linux * Ansible version: 2.9.14 * Operating System: Debian 10.9 * Web Browser: Brave version 1.23.75 Chromium: 90.0.4430.93 (Official Build) (x86_64) ##### STEPS TO REPRODUCE * git clone repo * apply fix #9552 (nginx user missing) * make docker-compose-build * control + c * start Docker containers * make docker-compose * docker exec tools_awx_1 make clean-ui ui-devel * GUI: login: admin user * GUI: resources &gt; templates &gt; Demo Job Template &gt; launch * GUI: views &gt; jobs &gt; 3 — Demo Project ##### EXPECTED RESULTS successful job ##### ACTUAL RESULTS job status failed ``` WARN[0000] Found deprecated file /etc/containers/libpod.conf, please remove. Use /etc/containers/containers.conf to override defaults. WARN[0000] Found deprecated file /etc/containers/libpod.conf, please remove. Use /etc/containers/containers.conf to override defaults. Error: 'overlay' is not supported over overlayfs, a mount_program is required: backing file system is unsupported for this graph driver ``` ##### ADDITIONAL INFORMATION</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>177</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update release date in changelog for 19.2.1</MESSAGE>
+    <SHA>6ba053d4eea1b364923e3111655a3f7352a3514e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #10463 from mayasd/patch-1 Update Dockerfile.j2 SUMMARY Jobs unable to start because podman trying to use systemd cgroup manager. See error below : WARN[0000] Failed to add conmon to systemd sandbox cgroup: dial unix /run/systemd/private: connect: no such file or directory Error: OCI runtime error: systemd cgroup flag passed, but systemd support for managing cgroups is not available related #10099 ISSUE TYPE Bugfix Pull Request COMPONENT NAME API AWX VERSION awx: 19.0.0 ADDITIONAL INFORMATION According to this PR containers/podman#7009, podman switch references from libpod.conf to containers.conf. According to containers.conf man (https://github.com/containers/common/blob/main/docs/containers.conf.5.md), configuration file is a TOML file but engine section declaration is missing. thanks to @Siorde too Reviewed-by: Chris Meyers &lt;None&gt; Reviewed-by: Shane McDonald &lt;me@shanemcd.com&gt;</MESSAGE>
+      <SHA>0c120782d40cdac4dd1a1a45493fcdd0342c8ed3</SHA>
+      <PATCHEDFILES>
+        <FILE>tools/ansible/roles/dockerfile/templates/Dockerfile.j2</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix dev build (docker-compose) problems Prevent deletion of nginx user by entrypoint.sh - Fixes: https://github.com/ansible/awx/issues/9552 Enable fuse-overlayfs in all images - native overlay not supported until kernel 5.13+ - Fixes: https://github.com/ansible/awx/issues/10099 Refs: https://www.redhat.com/sysadmin/podman-rootless-overlay https://www.redhat.com/en/blog/working-container-storage-library-and-tools-red-hat-enterprise-linux</MESSAGE>
+      <SHA>3a636c29ab77b27f70b4a1ee01dcf090efcd228d</SHA>
+      <PATCHEDFILES>
+        <FILE>tools/ansible/roles/dockerfile/templates/Dockerfile.j2</FILE>
+        <FILE>tools/docker-compose/entrypoint.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix dev build (docker-compose) problems Prevent deletion of nginx user by entrypoint.sh - Fixes: https://github.com/ansible/awx/issues/9552 Enable fuse-overlayfs in all images - native overlay not supported until kernel 5.13+ - Fixes: https://github.com/ansible/awx/issues/10099 Refs: https://www.redhat.com/sysadmin/podman-rootless-overlay https://www.redhat.com/en/blog/working-container-storage-library-and-tools-red-hat-enterprise-linux</MESSAGE>
+      <SHA>7a7c5e3645bf2cb05efa4e89c9c23739fc8c24c0</SHA>
+      <PATCHEDFILES>
+        <FILE>tools/ansible/roles/dockerfile/templates/Dockerfile.j2</FILE>
+        <FILE>tools/docker-compose/entrypoint.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix dev build (docker-compose) problems Prevent deletion of nginx user by entrypoint.sh - Fixes: https://github.com/ansible/awx/issues/9552 Enable fuse-overlayfs in all images - native overlay not supported until kernel 5.13+ - Fixes: https://github.com/ansible/awx/issues/10099 Refs: https://www.redhat.com/sysadmin/podman-rootless-overlay https://www.redhat.com/en/blog/working-container-storage-library-and-tools-red-hat-enterprise-linux</MESSAGE>
+      <SHA>aeddf8665d00cf15ba3f4301529a2f85b20f6fdd</SHA>
+      <PATCHEDFILES>
+        <FILE>tools/ansible/roles/dockerfile/templates/Dockerfile.j2</FILE>
+        <FILE>tools/docker-compose/entrypoint.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix dev build (docker-compose) problems Prevent deletion of nginx user by entrypoint.sh - Fixes: https://github.com/ansible/awx/issues/9552 Enable fuse-overlayfs in all images - native overlay not supported until kernel 5.13+ - Fixes: https://github.com/ansible/awx/issues/10099 Refs: https://www.redhat.com/sysadmin/podman-rootless-overlay https://www.redhat.com/en/blog/working-container-storage-library-and-tools-red-hat-enterprise-linux</MESSAGE>
+      <SHA>99f6f561d167e4426b18c67be8e2e52ac4b32be8</SHA>
+      <PATCHEDFILES>
+        <FILE>tools/ansible/roles/dockerfile/templates/Dockerfile.j2</FILE>
+        <FILE>tools/docker-compose/entrypoint.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix dev build (docker-compose) problems Prevent deletion of nginx user by entrypoint.sh - Fixes: https://github.com/ansible/awx/issues/9552 Enable fuse-overlayfs in all images - native overlay not supported until kernel 5.13+ - Fixes: https://github.com/ansible/awx/issues/10099 Refs: https://www.redhat.com/sysadmin/podman-rootless-overlay https://www.redhat.com/en/blog/working-container-storage-library-and-tools-red-hat-enterprise-linux</MESSAGE>
+      <SHA>12a264870ecab9c249ac66c753b9dbc1022ff75e</SHA>
+      <PATCHEDFILES>
+        <FILE>tools/ansible/roles/dockerfile/templates/Dockerfile.j2</FILE>
+        <FILE>tools/docker-compose/entrypoint.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix dev build (docker-compose) problems Prevent deletion of nginx user by entrypoint.sh - Fixes: https://github.com/ansible/awx/issues/9552 Enable fuse-overlayfs in all images - native overlay not supported until kernel 5.13+ - Fixes: https://github.com/ansible/awx/issues/10099 Refs: https://www.redhat.com/sysadmin/podman-rootless-overlay https://www.redhat.com/en/blog/working-container-storage-library-and-tools-red-hat-enterprise-linux</MESSAGE>
+      <SHA>e252a99dab99cb42e4eaf4234bef4fd8098b5bb7</SHA>
+      <PATCHEDFILES>
+        <FILE>tools/ansible/roles/dockerfile/templates/Dockerfile.j2</FILE>
+        <FILE>tools/docker-compose/entrypoint.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

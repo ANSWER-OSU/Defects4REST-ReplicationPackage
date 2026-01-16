@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>596</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/596</ISSUEURL>
+  <TITLE>`files` setting doesn't work as expected</TITLE>
+  <DESCRIPTION>Consider this project: ``` $ ls -la .gitignore src/ foo.db Dockerfile now.json ``` with this .gitignore: ``` $ cat .gitignore *.db ``` I want to start a deployment with foo.db uploaded, so I put this into my now.json: ``` $ cat now.json { &quot;files&quot;: [&quot;foo.db&quot;] } ``` If I deploy that, this is what I see in the deployment source: ``` Dockerfile now.json ``` I.e. nothing is uploaded except for Dockerfile and now.json. If I add the current dir in now.json explicitly: ``` $ cat now.json { &quot;files&quot;: [&quot;.&quot;, &quot;foo.db&quot;] } ``` this is what I get in the deployment source: ``` src/ Dockerfile now.json ```</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>25</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixed missing token handling (#690) * handle API errors when fetching user * handle API errors in some of the core Now methods * add ability for `handleError` to report full stack trace in debug mode * make `responseError` utility reusable * handle top-level promise errors in entry functions of all commands * allow for logging in when user has a bad token * fix CI * Fix reference error * Improve message * Fix typo * Prettify</MESSAGE>
+    <SHA>301166831afceff07f5bb1f2f164651d0fda59b0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>whitelist now.json files over .gitignores (fixes #596)</MESSAGE>
+      <SHA>d089bda0fc486e53374b051810c86a584a843490</SHA>
+      <PATCHEDFILES>
+        <FILE>lib/get-files.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

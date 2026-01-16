@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>364</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/364</ISSUEURL>
+  <TITLE>Problem with cancelling boundary events</TITLE>
+  <DESCRIPTION>In our application we have a sub process with a signal boundary event using cancelActivity=&quot;true&quot;. Within this sub process we create a sub process instance using a service task with a Java delegate (`entityManager.createSubprocessInstance`). During execution of this sub process the signal for the signal boundary event is thrown. This leads to a database error because the sub process with the signal boundary event is deleted in method _deleteChildExecutions_ of class _BoundaryEventActivityBehavior_ but not the created sub process that references the deleted one as super execution. If the statement `if (parentExecution.getCurrentFlowElement() instanceof CallActivity)` would be ommited in method _deleteChildExecutions_ all would be fine, because then the created sub process (that was not created by a call activity) would be deleted too. Thanx in advance Ralf</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add missing foreign key constraint drop</MESSAGE>
+    <SHA>96f451a5a8d8ec81c6d1ad579b8480de4893677f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Remove call activity check, because a sub process instance could be there in other cases as well #364</MESSAGE>
+      <SHA>6dbac58a0e5921815b94d7fd671c15141009931d</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/BoundaryEventActivityBehavior.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

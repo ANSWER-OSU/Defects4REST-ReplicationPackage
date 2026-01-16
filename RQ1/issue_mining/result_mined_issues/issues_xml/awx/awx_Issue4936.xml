@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4936</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/4936</ISSUEURL>
+  <TITLE>Project update fails with SVN and repo containing UTF-8 characters</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY The ansible subversion module does not handle repo containing UTF8 properly. This is because no matter what your system locale environments are, the module will override them[1][2] and not honor them. ``` -bash-4.2$ LANG=C /usr/bin/svn --non-interactive --trust-server-cert --no-auth-cache checkout -r HEAD https://github.com/ansible/test-playbooks /var/lib/awx/projects/foo svn: E000022: Error converting entry in directory '/var/lib/awx/projects/toto2/trunk' to UTF-8 svn: E000022: Can't convert string from native encoding to 'UTF-8': svn: E000022: utf-8-?\228?\137?\170?\225?\137?\146?\236?\185?\184?\226?\177?\183?\234?\175?\148?\229?\153?\130?\237?\143?\132?\232?\148?\134?\227?\170?\151?\232?\188?\165.yml ``` [1] https://github.com/ansible/ansible/blob/devel/lib/ansible/modules/source_control/subversion.py#L264 [2] https://github.com/ansible/ansible/blob/devel/lib/ansible/module_utils/basic.py#L2526-L2528 ##### ENVIRONMENT - N/A ##### STEPS TO REPRODUCE * Create a project with the above mention link and try to do a project update ##### EXPECTED RESULTS * Project sync to finish successfully ##### ACTUAL RESULTS * Project sync fails ##### ADDITIONAL INFORMATION * N/A</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #4915 from jakemcdermott/fix-template-load-error Gracefully handle missing template summary fields Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>ba9758ccc74673a7e76ba9fa2a71063738520c9c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>project_update: Make subversion module honor locale Currently the subversion module does not honor system configured locale as the module itself overrides them to `C`. This commit enforces the module to honor the `LANG` locale for deployment. Allowing project update with repo that contains UTF-8 characters. Closes: https://github.com/ansible/awx/issues/4936 Signed-off-by: Yanis Guenane &lt;yguenane@redhat.com&gt;</MESSAGE>
+      <SHA>12149c983b7d8e99d5617dce751155780612d055</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/playbooks/project_update.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>project_update: Make subversion module honor locale Currently the subversion module does not honor system configured locale as the module itself overrides them to `C`. This commit enforces the module to honor the `LANG` locale for deployment. Allowing project update with repo that contains UTF-8 characters. Closes: https://github.com/ansible/awx/issues/4936 Signed-off-by: Yanis Guenane &lt;yguenane@redhat.com&gt;</MESSAGE>
+      <SHA>166635ac79714158b3f7162d51888349395df0e6</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/playbooks/project_update.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #4936 from ryanpetrello/383-notification-status-count fix a bug in host status counts for notifications</MESSAGE>
+      <SHA>1e5ce6cb7c0eac200cb0d3900e52b89705c47cdb</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/models/notifications.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

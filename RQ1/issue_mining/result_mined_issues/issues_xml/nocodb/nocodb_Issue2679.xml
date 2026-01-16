@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2679</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/2679</ISSUEURL>
+  <TITLE>Group filter- incorrect operation</TITLE>
+  <DESCRIPTION>Node: **v16.14.0** Arch: **arm64** Platform: **darwin** Docker: **false** Database: **mysql2** ProjectOnRootDB: **false** RootDB: **sqlite3** PackageVersion: **0.92.3** ![Screenshot 2022-07-14 at 1 53 48 PM](https://user-images.githubusercontent.com/86527202/178937156-4938319d-18f0-4f5a-bf50-71116e6f31c0.png) - create filter group as in above image - expect Title column to contain only `1` as its outer `and` filter Query generated : ``` select `Sheet2`.`id` as `Id`, `Sheet2`.`title` as `Title`, `Sheet2`.`created_at` as `CreatedAt`, `Sheet2`.`updated_at` as `UpdatedAt`, `Sheet2`.`title5` as `title5`, `Sheet2`.`title6` as `title6`, `Sheet2`.`title7` as `title7`, `Sheet2`.`title8` as `title8` from `Sheet2` where ((((`title` like '%%%1%%%') and (((`title5` like '%%%1%%%') or (`title5` like '%%%1%%%'))) and (`title5` like '%%%1%%%') or (`title5` like '%%%1%%%')))) order by `id` asc limit 25 ```</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>enhancement: avoid nested scrollbar in filter menu Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+    <SHA>5badbc81cf7c895e501762bd84077ffc10b3b9a5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: exclude nested children from root level filters re #2679 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>7eec08d9e697e4448e211fc501ee296fa218d795</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/models/Filter.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

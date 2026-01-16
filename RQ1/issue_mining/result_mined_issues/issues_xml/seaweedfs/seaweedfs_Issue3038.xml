@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3038</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3038</ISSUEURL>
+  <TITLE>volume.tier.upload rpc error</TITLE>
+  <DESCRIPTION>**Describe the bug** When I use the `volume.tier.upload` command, I get an error `rpc error: code = Unavailable desc = error reading from server: EOF` **System Setup** - List the command line to start &quot;weed master&quot;, &quot;weed volume&quot;, &quot;weed filer&quot;, &quot;weed s3&quot;, &quot;weed mount&quot;. - After the configuration is complete, restart all weed related services. - The firewall of the volume server is fully open - OS version: Linux x64 ubuntu 20.04 - output of `weed version` : version 30GB 3.02 a4ca3ed1f0c2bcde1d36bb48f81dedc3e1924679 linux amd64 - filer.toml ``` [postgres2] enabled = true createTable = &quot;&quot;&quot; CREATE TABLE IF NOT EXISTS &quot;%s&quot; ( dirhash BIGINT, name VARCHAR(65535), directory VARCHAR(65535), meta bytea, PRIMARY KEY (dirhash, name) ); &quot;&quot;&quot; hostname = &quot;192.168.50.123&quot; port = 5432 username = &quot;seaweedfs&quot; password = &quot;seaweedfs&quot; database = &quot;seaweedfs&quot; # create or use an existing database schema = &quot;&quot; sslmode = &quot;disable&quot; connection_max_idle = 100 connection_max_open = 100 connection_max_lifetime_seconds = 0 # if insert/upsert failing, you can disable upsert or update query syntax to match your RDBMS syntax: enableUpsert = true upsertQuery = &quot;&quot;&quot;INSERT INTO &quot;%[1]s&quot; (dirhash,name,directory,meta) VALUES($1,$2,$3,$4) ON CONFLICT (dirhash,name) DO UPDATE SET meta = EXCLUDED.meta WHERE &quot;%[1]s&quot;.meta != EXCLUDED.meta&quot;&quot;&quot; ``` - security.toml ``` [jwt.signing] key = &quot;seaweedfs&quot; expires_after_seconds = 30 [jwt.signing.read] key = &quot;&quot; expires_after_seconds = 30 [jwt.filer_signing] key = &quot;seaweedfs&quot; expires_after_seconds = 30 [jwt.filer_signing.read] key = &quot;seaweedfs&quot; expires_after_seconds = 30 [grpc] ca = &quot;/etc/seaweedfs/out/seaweedfs_CA.crt&quot; [grpc.volume] cert = &quot;/etc/seaweedfs/out/volume01.crt&quot; key = &quot;/etc/seaweedfs/out/volume01.key&quot; [grpc.master] cert = &quot;/etc/seaweedfs/out/master01.crt&quot; key = &quot;/etc/seaweedfs/out/master01.key&quot; [grpc.filer] cert = &quot;/etc/seaweedfs/out/filer01.crt&quot; key = &quot;/etc/seaweedfs/out/filer01.key&quot; [grpc.client] cert = &quot;/etc/seaweedfs/out/client01.crt&quot; key = &quot;/etc/seaweedfs/out/client01.key&quot; ``` - master.toml *s3 is accessible* ``` [storage.backend] [storage.backend.s3.default] enabled = true aws_access_key_id = &quot;&quot; # if empty, loads from the shared credentials file (~/.aws/credentials). aws_secret_access_key = &quot;&quot; # if empty, loads from the shared credentials file (~/.aws/credentials). region = &quot;ap-beijing&quot; bucket = &quot;test&quot; # an existing bucket endpoint = &quot;xxx.xxx.com&quot; ``` **Expected behavior** **Screenshots** **Additional context** *volumeId exists* *collection exists* ``` &gt; lock &gt; volume.tier.upload -dest=s3 -volumeId=22 -collection=ttt markVolumeReadonly 22 on 192.168.50.5:9005 ... error: copy dat file for volume 22 on 192.168.50.5:9005 to s3: rpc error: code = Unavailable desc = error reading from server: EOF ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>remove deprecated function</MESSAGE>
+    <SHA>a85720f0f679ab670ae1f6fb6041e4a56c691642</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix atomic add int64 fix https://github.com/chrislusf/seaweedfs/issues/3038#issuecomment-1123269831</MESSAGE>
+      <SHA>3e20336bdeacb10f4316126b3c54683c47f5c935</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/storage/backend/s3_backend/s3_download.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

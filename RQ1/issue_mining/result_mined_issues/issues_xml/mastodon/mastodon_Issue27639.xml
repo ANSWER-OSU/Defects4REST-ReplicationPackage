@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>27639</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/27639</ISSUEURL>
+  <TITLE>document_parsing_exception errors from a status with an invalid date</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem 1. Unclear how we acquired this status, but [this post](https://mk.itzti.li/notes/9la79fmeadxw63t4) arrived in our instance with an invalid timestamp: ``` created_at: Thu, 07 Nov 11968 17:22:13.599000000 UTC +00:00, updated_at: Sat, 28 Oct 2023 15:09:01.341614000 UTC +00:00, ``` 2. since then, a sidekiq job fails once per minute trying to deal with this status: ``` Oct 31 15:05:09 - bundle[3249279]: `{&quot;type&quot;=&gt;&quot;document_parsing_exception&quot;, &quot;reason&quot;=&gt;&quot;[1:62] failed to parse field [last_status_at] of type [date] in document with id '47476'. Preview of field's value: '11968-11-07T17:22:13.599Z'&quot;, &quot;caused_by&quot;=&gt;{&quot;type&quot;=&gt;&quot;illegal_argument_exception&quot;, &quot;reason&quot;=&gt;&quot;failed to parse date field [11968-11-07T17:22:13.599Z] with format [strict_date_optional_time||epoch_millis]&quot;, &quot;caused_by&quot;=&gt;{&quot;type&quot;=&gt;&quot;date_time_parse_exception&quot;, &quot;reason&quot;=&gt;&quot;Failed to parse with all enclosed parsers&quot;}}}` ``` ### Expected behaviour Sidekiq should be able to deal with whatever statuses it might encounter ### Actual behaviour Sidekiq dies dealing with this status once per minute ### Detailed description _No response_ ### Mastodon instance cosocial.ca ### Mastodon version v4.2.0 ### Technical details If this is happening on your own Mastodon server, please fill out those: - Ruby version: ruby 3.2.2 (2023-03-30 revision e51014f9c0) [x86_64-linux] - Node.js version: v16.20.2</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mark version 4.0 as no longer supported (#27627)</MESSAGE>
+    <SHA>2aa28e06d128bdfd02179e731c13c3a74bd227e2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix incoming status creation date not being restricted to standard ISO8601 range Fixes #27639</MESSAGE>
+      <SHA>17cbc4ee0a520f78ea599b0df73218c02dadb84b</SHA>
+      <PATCHEDFILES>
+        <FILE>app/lib/activitypub/parser/status_parser.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix incoming status creation date not being restricted to standard ISO8601 range Fixes #27639</MESSAGE>
+      <SHA>c70d0a5cf0e27e14cc6af344cc96a91b02d1a5e1</SHA>
+      <PATCHEDFILES>
+        <FILE>app/lib/activitypub/parser/status_parser.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix incoming status creation date not being restricted to standard ISO8601 range Fixes #27639</MESSAGE>
+      <SHA>cbe7530562f90e351a42dd8e5a4f49ff2ff28dfc</SHA>
+      <PATCHEDFILES>
+        <FILE>app/lib/activitypub/parser/status_parser.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

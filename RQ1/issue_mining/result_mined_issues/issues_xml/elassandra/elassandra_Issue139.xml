@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>139</ISSUENO>
+  <ISSUEURL>https://github.com/strapdata/elassandra/issues/139</ISSUEURL>
+  <TITLE>Feature request: Mappings for BigDecimal and BigInteger</TITLE>
+  <DESCRIPTION>As an elassandra user i want next mappings(at least without index) should be possible. * **BigDecimal** -&gt; **Keyword** * **BigInteger** -&gt; **Keyword** For example, we have next table: ``` CREATE TABLE IF NOT EXISTS city_budgets ( ...., state text, city text, budget decimal, ..... ) ``` I want to search this table by **city** or **state** fields and result entity should contains **budget** field too.</DESCRIPTION>
+  <REPONAME>elassandra</REPONAME>
+  <TIMEDIFFERENCEDAYS>575</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>switch to cassandra-3.11.4.2</MESSAGE>
+    <SHA>a28a6a7cbec12544b5bc5fa936c2b11274c30f4e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add support for Cassandra decimal as Elasticsearch #139</MESSAGE>
+      <SHA>a9296860b5fea5fdf79222f967db291a9b3c9161</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/elassandra/source/mapping.rst</FILE>
+        <FILE>server/src/main/java/org/elassandra/cluster/ColumnDescriptor.java</FILE>
+        <FILE>server/src/main/java/org/elassandra/cluster/QueryManager.java</FILE>
+        <FILE>server/src/main/java/org/elassandra/cluster/SchemaManager.java</FILE>
+        <FILE>server/src/main/java/org/elassandra/index/ElasticSecondaryIndex.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/mapper/KeywordFieldMapper.java</FILE>
+        <FILE>server/src/test/java/org/elassandra/CqlTypesTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3785</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/3785</ISSUEURL>
+  <TITLE>z-Index of ant-modal-mask needs to increase</TITLE>
+  <DESCRIPTION>&lt;!-- We use GitHub only for bug reports Anything else should be posted to https://discuss.redash.io For support, help &amp; questions use https://discuss.redash.io/c/support For feature requests &amp; ideas use https://discuss.redash.io/c/feature-requests **Found a security vulnerability?** Please email security@redash.io to report any security vulnerabilities. We will acknowledge receipt of your vulnerability and strive to send you regular updates about our progress. If you're curious about the status of your disclosure please feel free to email us again. If you want to encrypt your disclosure email, you can use this PGP key. --&gt; ### Issue Summary In some cases, plotly modebar appears in Choropleth and other visualization editors because of z-Index misalignment. ### Steps to Reproduce 1. Have plotly visualization shown in query editor. 2. Click New Visualization and select Map (Choropleth). 3. You can make the plotly modebar of the underlying visualization to appear over choropleth map when you hover over where the plotly modebar exsists. Plotly `modebar` class has fixed z-Index of `1001`. Our `ant-modal-mask` and `ant-modal-wrap` both has z-Index of `1000`. Maybe we need to increase these to 1002 or more?</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>resize-event: take into account transformations and transitions (#3794)</MESSAGE>
+    <SHA>c74d4691819a922e3ae433fe1928c84f923b9522</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>getredash/redash#3785 Plotly modebar appears above modals - fixed z-indexes</MESSAGE>
+      <SHA>6f91dde643f082e46e8d47e0a779679d08f796b1</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/assets/less/ant.less</FILE>
+        <FILE>client/app/components/dashboards/AddWidgetDialog.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

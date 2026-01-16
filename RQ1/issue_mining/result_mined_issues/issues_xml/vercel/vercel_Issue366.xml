@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>366</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/366</ISSUEURL>
+  <TITLE>Improve UX/DX of `now alias`</TITLE>
+  <DESCRIPTION>After discussing on slack I had the following idea: Right now we do a client side DNS check only. Because DNS is not propagated right away it usually shows a message saying something like: records not verified, please try again later. What we want to do is this: 1. We check local DNS (same as we do at the moment) 2. We check the records on a specific nameserver And then show a message is they are out of sync, We should still fail it, just show why it fails. And if it was configured correctly on ZEIT.world or not, say, failed propagation because of dns caching would be transparent to the user this way. cc @jamo @OlliV</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>331</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now-rust] Make @now-rust's includeFiles match @now/node-server (#362) This updates the `includeFiles` implementation to match how `now-node-server` does it, which is an array of globs rather than a single glob. To avoid making a new major version, this is done in a backwards compatible way to support existing projects using the current single glob API. Added extra files to ensure that all would be included/processed even though the test just tests for one of them. cc/ @styfle</MESSAGE>
+    <SHA>685821976d6bd7eccdbb2233cc022acdaaf8456b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix version check (#366)</MESSAGE>
+      <SHA>207d895c0c7958a083b1ed33203fdb798f8463fe</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-next/index.js</FILE>
+        <FILE>packages/now-next/package.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

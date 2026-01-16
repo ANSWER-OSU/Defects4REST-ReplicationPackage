@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>412</ISSUENO>
+  <ISSUEURL>https://github.com/MobSF/Mobile-Security-Framework-MobSF/issues/412</ISSUEURL>
+  <TITLE>Android x86 Found elf built without Stack Protection Question</TITLE>
+  <DESCRIPTION>Accroding the Hint Built with option -fstack-protector, but no effect with x86 platform. so i find the source code ,which i get: ```python if section_header['sh_entsize'] &gt; 0: for i in range(section_header['sh_size'] // section_header['sh_entsize']): entry = elffile.decode_sym( section_header['sh_offset'] + i * section_header['sh_entsize']) name = elffile.decode_string( strtab_section + entry['st_name']) if name == '__stack_chk_guard': has_sp = True ``` but i when i print “name ” on x86 platform, i find &quot;__stack_chk_fail&quot; like &quot;__stack_chk_guard&quot;, if i use flag += -fno-stack-protector, i also find &quot;__stack_chk_fail&quot; in x86's &quot;name&quot;. Is there something wrong with the judgement, or just my mistake? how can i fix this problem? thanks.</DESCRIPTION>
+  <REPONAME>Mobile-Security-Framework-MobSF</REPONAME>
+  <TIMEDIFFERENCEDAYS>98</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update shared_func.py</MESSAGE>
+    <SHA>a9ef88429aae5d0547d9fbc34e7fbeadf1af4375</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix for Issue #412</MESSAGE>
+      <SHA>993e3a033dd182b6c8eba7b3c9d4380b06d82c6a</SHA>
+      <PATCHEDFILES>
+        <FILE>StaticAnalyzer/views/android/binary_analysis.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix for Issue #412 (#470)</MESSAGE>
+      <SHA>5daabfe2d9d9fdce2243750deacdf1f6972bbc5a</SHA>
+      <PATCHEDFILES>
+        <FILE>StaticAnalyzer/views/android/binary_analysis.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

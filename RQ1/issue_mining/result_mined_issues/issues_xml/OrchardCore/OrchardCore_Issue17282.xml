@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17282</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/17282</ISSUEURL>
+  <TITLE>GraphQL failed to retrieve more than one type in single request</TITLE>
+  <DESCRIPTION>### Describe the bug When request more than one GraphQL command that require DB aceess they execute in parellel and result wih error. ``` GraphQL.Execution.UnhandledError: Error trying to resolve field 'typeA'. ---&gt; Npgsql.NpgsqlOperationInProgressException (0x80004005): A command is already in progress: SELECT \&quot;Document\&quot;.* FROM \&quot;Document\&quot; INNER JOIN (SELECT \&quot;Document\&quot;.\&quot;Id\&quot;, MAX(\&quot;ContentItemIndex_a1\&quot;.\&quot;CreatedUtc\&quot;) AS \&quot;order_1\&quot; FROM \&quot;Document\&quot; INNER JOIN \&quot;ContentItemIndex\&quot; AS \&quot;ContentItemIndex_a1\&quot; ON \&quot;ContentItemIndex_a1\&quot;.\&quot;DocumentId\&quot; = \&quot;Document\&quot;.\&quot;Id\&quot; WHERE \&quot;Document\&quot;.\&quot;Type\&quot; = @Type AND ((\&quot;ContentItemIndex_a1\&quot;.\&quot;Published\&quot; = @p1) AND (\&quot;ContentItemIndex_a1\&quot;.\&quot;ContentType\&quot; = @p2)) GROUP BY \&quot;Document\&quot;.\&quot;Id\&quot; ORDER BY \&quot;order_1\&quot; DESC limit 100) AS \&quot;IndexQuery\&quot; ON \&quot;IndexQuery\&quot;.\&quot;Id\&quot; = \&quot;Document\&quot;.\&quot;Id\&quot; ORDER BY \&quot;order_1\&quot; DESC at Npgsql.ThrowHelper.ThrowNpgsqlOperationInProgressException(NpgsqlCommand command) at Npgsql.Internal.NpgsqlConnector.&lt;StartUserAction&gt;g__DoStartUserAction|279_0(ConnectorState newState, NpgsqlCommand command, CancellationToken cancellationToken, Boolean attemptPgCancellation) at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken) at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken) at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken) at Dapper.SqlMapper.QueryAsync[T](IDbConnection cnn, Type effectiveType, CommandDefinition command) in /_/Dapper/SqlMapper.Async.cs:line 434 at YesSql.Store.&lt;&gt;c__DisplayClass44_0`2.&lt;&lt;ProduceAwaitedAsync&gt;b__0&gt;d.MoveNext() --- End of stack trace from previous location --- at YesSql.Data.WorkDispatcher`2.ScheduleAsync[TState](TKey key, TState state, Func`3 valueFactory) at YesSql.Store.ProduceAwaitedAsync[T,TState](WorkerQueryKey key, Func`3 work, TState state) at YesSql.Services.DefaultQuery.Query`1.ListImpl() at YesSql.Services.DefaultQuery.Query`1.ListImpl() at OrchardCore.ContentManagement.GraphQL.Queries.ContentItemsFieldType.ResolveAsync(IResolveFieldContext context) in C:\\Repo\\GitHub\\OrchardCore\\src\\OrchardCore\\OrchardCore.ContentManagement.GraphQL\\Queries\\ContentItemsFieldType.cs:line 116 at GraphQL.Resolvers.FuncFieldResolver`1.&lt;&gt;c__DisplayClass2_0.&lt;&lt;-ctor&gt;b__0&gt;d.MoveNext() in /_/src/GraphQL/Resolvers/FuncFieldResolver.cs:line 36 --- End of stack trace from previous location --- at GraphQL.Execution.ExecutionStrategy.ExecuteNodeAsync(ExecutionContext context, ExecutionNode node) in /_/src/GraphQL/Execution/ExecutionStrategy.cs:line 516 --- End of inner exception stack trace --- ``` ### Orchard Core version 2.1.0 ### To Reproduce 1. Instantiate new Orchard Site using PostgreSQL 2. Enable Content Types and GraphQL features 3. Create two types (TypeA and TypeB for example) 4. Go to GraphQL and execute request ``` query MyQuery { typeB { displayText } typeA { displayText } } ``` ### Logs and screenshots Seems like during migration on GrapgQL v7 LockedAsyncFieldResolver was incorrectly refactored. Method LockedAsyncFieldResolver was marked as 'new' and does not execute. https://github.com/OrchardCMS/OrchardCore/blob/d8168f2cf03b7c986e757aaaa8b060a255eb8c5b/src/OrchardCore/OrchardCore.Apis.GraphQL.Abstractions/Resolvers/LockedAsyncFieldResolver.cs#L13C42-L13C43</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>18</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix unread notification counter and make it visible (#17325)</MESSAGE>
+    <SHA>a2f45e54f6e413c32dd0797e4be2e4daa652d05f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix parallel access to session from GQL fields Fixes #17282</MESSAGE>
+      <SHA>06f2e86c030abd564d989f464f0fe7df303a2a10</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.Apis.GraphQL.Abstractions/Resolvers/LockedAsyncFieldResolver.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix parallel access to session from GQL fields (#17332) Fixes #17282</MESSAGE>
+      <SHA>852eeb1dd0fe87431717409a856fd605236776d2</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.Apis.GraphQL.Abstractions/Resolvers/LockedAsyncFieldResolver.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix parallel access to session from GQL fields Fixes #17282</MESSAGE>
+      <SHA>3b1571d60e0b8cb0974034109dbbd0886ac59a55</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.Apis.GraphQL.Abstractions/Resolvers/LockedAsyncFieldResolver.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

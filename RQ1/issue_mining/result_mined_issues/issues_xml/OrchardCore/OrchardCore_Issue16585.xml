@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16585</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/16585</ISSUEURL>
+  <TITLE>Breaking shape name resolution regarding menu shape</TITLE>
+  <DESCRIPTION>### Describe the bug I found this undocumented breaking change regarding the &quot;menu&quot; shape (potentially all non PascalCase shapes). ### Orchard Core version Latest `main`. ### To Reproduce 1. Set up an OC 2.0 site with any recipe that creates a `main-menu` content item (e.g. Blog). 2. Create a content type with a Liquid part. 3. Create a content item with the Liquid content `{% shape &quot;menu&quot;, alias: &quot;alias:main-menu&quot; %}` 4. Go to Admin &gt; Design &gt; Templates. 5. Create a template called &quot;Menu&quot; with any content. 6. Display the content item, observe that the shape is not overridden. 7. Delete the &quot;Menu&quot; template and create a &quot;menu&quot; template instead. 8. Display the content item again, observe that the shape is successfully overridden. 9. Now do the same again in OC 1.8, observe that in 1.8 the menu shape is overridden by the &quot;menu&quot; template but not the &quot;Menu&quot; template, in other words it's the opposite. | override works | menu | Menu | |--------|------|------| | OC 1.8 | ❌ | ✅ | | OC 2.0 | ✅ | ❌ | Additional note: btw you can't create `menu` and `Menu` templates at the same time in Admin &gt; Design &gt; Templates. You have to delete one first to create the other. Is this intentional? Seems like the template creation is checked case-insensitively, but the template evaluation is case-sensitive. ### Expected behavior Either &quot;Menu&quot; template override should keep working. It would be even better if both &quot;Menu&quot; and &quot;menu&quot; worked. Maybe it should first try the shape type case sensitively and if it's not found then case insensitively? (that's what I do with media library themes in Lombiq.Hosting.MediaTheme [here](https://github.com/Lombiq/Hosting-Media-Theme/blob/7fb210ebb07516a61fbf4d4f3b110b33436ed6a6/Lombiq.Hosting.MediaTheme.Bridge/Services/MediaThemeManager.cs#L84-L95)) If that's not possible, then please document the breaking change in the [2.0.0.md](https://github.com/OrchardCMS/OrchardCore/blob/3fe9612adb08b03114177a485ecc02e52091030c/src/docs/releases/2.0.0.md?plain=1) release notes.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix formatting (#16627)</MESSAGE>
+    <SHA>e23ab9e101b392cc6fd313c9da94fd74de7d5bb1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Populate existing collections by default when deserializing JSON Fixes #16585</MESSAGE>
+      <SHA>92f7240277f43038efd435295914a2261c76c849</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.Abstractions/Extensions/DocumentJsonSerializerOptionsConfiguration.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

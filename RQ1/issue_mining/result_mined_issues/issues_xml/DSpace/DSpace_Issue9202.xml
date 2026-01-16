@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9202</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/9202</ISSUEURL>
+  <TITLE>Crossref import: empty ImportRecords for failing searches</TITLE>
+  <DESCRIPTION>**Describe the bug** On the current `main` branch, attempting to import a nonexistent DOI (or a DataCite DOI) via Crossref results in a spurious phantom item without a title or metadata. **To Reproduce** Steps to reproduce the behavior: 1. Install DSpace from the git repos (I used docker to setup an empty DB) 2. Add an administrator, community and collection 3. Attempt to import DOI 10.34785/j014.2022.357 (a DataCite DOI) using the Crossref importer. ![image](https://github.com/DSpace/DSpace/assets/42467687/8f30e980-bfc1-4987-93ae-8a4923dd58be) **Expected behavior** A &quot;No Search Results&quot; message, like this: ![image](https://github.com/DSpace/DSpace/assets/42467687/ea27aa79-8f02-4bf4-baf1-bcf1bb16ea0a) **Related work** This is related to #9132 : without fixing this issue, there will be extra results produced by the multiple importer. I have a fix here for this issue and will submit a PR.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9162 from alexandrevryghem/theme-fixes_contribute-main Fix match theme by handle with cannonical prefix https://hdl.handle.net/ not working</MESSAGE>
+    <SHA>500fbe70a39e8873ff13967408ec83d1fa850a20</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>CrossRefImport: ignore empty responses rather than generating empty phantom ImportRecords Fixes https://github.com/DSpace/DSpace/issues/9202 .</MESSAGE>
+      <SHA>9f3f5175a3093181dbce4b9533ba5570ea051010</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/importer/external/crossref/CrossRefImportMetadataSourceServiceImpl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>CrossRefImport: ignore empty responses rather than generating empty phantom ImportRecords Fixes https://github.com/DSpace/DSpace/issues/9202 .</MESSAGE>
+      <SHA>722ad0275757b1859b1ebeb95d41b4c2792652ce</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/importer/external/crossref/CrossRefImportMetadataSourceServiceImpl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

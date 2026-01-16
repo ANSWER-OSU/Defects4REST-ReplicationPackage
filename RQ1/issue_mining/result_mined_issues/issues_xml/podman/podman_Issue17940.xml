@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17940</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/17940</ISSUEURL>
+  <TITLE>ci: stop podman.service test: connection refused</TITLE>
+  <DESCRIPTION>``` stop podman.service ... Execing /usr/bin/systemd-socket-activate [...] --listen 127.0.0.1:43255 [...]/bin/podman system service --time=0 Execing bin/podman-remote --url tcp://127.0.0.1:43255 create [...] Cannot connect to Podman. Please verify your connection to the Linux system using `podman system connection list`, or try `podman machine init` and `podman machine start` to manage a new Linux VM Error: unable to connect to Podman socket: Get &quot;http://d/v4.5.0/libpod/_ping&quot;: dial tcp 127.0.0.1:43255: connect: connection refused ``` Happens more often in `container` tasks, but also seen in regular tests. [Example](https://api.cirrus-ci.com/v1/artifact/task/6463903585009664/html/int-podman-fedora-36-root-container-boltdb.log.html#t--stop-podman-service--1) Probably just needs a check for status=0.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>43</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18520 from ygalblum/quadlet-test-notify Quadlet system tests - fix socket notification</MESSAGE>
+    <SHA>287a4193e70301a63908ca8529eb10c39265ee24</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>e2e: stop podman.service test: wait for server Another low-hanging fruit: test flake because podman-remote trying to contact a server that hadn't come up. Fixes: #17940 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>ff37615bfda5e21d95a4294b427101ba661aa2d3</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/systemd_activate_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

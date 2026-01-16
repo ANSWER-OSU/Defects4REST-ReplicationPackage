@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121185</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121185</ISSUEURL>
+  <TITLE>[CI] LogicalPlanOptimizerTests class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6088 / release-tests](https://gradle-enterprise.elastic.co/s/ckvpwf3ma4peu) - [elasticsearch-periodic #6083 / release-tests](https://gradle-enterprise.elastic.co/s/euw4aqydxerxa) - [elasticsearch-periodic #6076 / release-tests](https://gradle-enterprise.elastic.co/s/otb5cfmcpddm4) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:test&quot; --tests &quot;org.elasticsearch.xpack.esql.optimizer.LogicalPlanOptimizerTests.testCopyDefaultLimitPastLookupJoin&quot; -Dtests.seed=818EC091DBFFCEAF -Dbuild.snapshot=false -Dtests.jvm.argline=&quot;-Dbuild.snapshot=false&quot; -Dlicense.key=x-pack/license-tools/src/test/resources/public.key -Dtests.locale=af-Latn-ZA -Dtests.timezone=EST -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.optimizer.LogicalPlanOptimizerTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.xpack.esql.optimizer.LogicalPlanOptimizerTests),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.xpack.esql.parser.ParsingException: line 4:3: mismatched input 'lookup' expecting {'dissect', 'drop', 'enrich', 'eval', 'grok', 'keep', 'limit', 'mv_expand', 'rename', 'sort', 'stats', 'where'} ``` **Issue Reasons:** - [8.x] 3 consecutive failures in step release-tests - [8.x] 3 failures in class org.elasticsearch.xpack.esql.optimizer.LogicalPlanOptimizerTests (1.7% fail rate in 176 executions) - [8.x] 3 failures in step release-tests (100.0% fail rate in 3 executions) - [8.x] 3 failures in pipeline elasticsearch-periodic (75.0% fail rate in 4 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[Transform] add support for extended_stats (#120340) Building off of `stats` and multi-value aggregations, including the limitation: - all values of extended_stats will be mapped to `double` if mapping deduction is used Relates #51925</MESSAGE>
+    <SHA>9009606a47f3ed7fca8ac2fbd6a402e12a6c1fae</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.optimizer.LogicalPlanOptimizerTests org.elasticsearch.xpack.esql.optimizer.LogicalPlanOptimizerTests #121185</MESSAGE>
+      <SHA>7e24308062aaa3100fdfa2ba79f21eddfa5f9a11</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

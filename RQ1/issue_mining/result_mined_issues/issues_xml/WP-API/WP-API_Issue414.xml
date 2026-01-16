@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>414</ISSUENO>
+  <ISSUEURL>https://github.com/WP-API/WP-API/issues/414</ISSUEURL>
+  <TITLE>Getting Parent Post / Comment but not doing anything with it</TITLE>
+  <DESCRIPTION>It seems like there was an intention to populate the `parent` field of a comment with the actual parent object (post for top-level comments and comment for child comments), however the `$fields['parent']` value gets overwritten at the end with the `$comment-&gt;comment_parent`... which I think is the logical thing to put in the `parent` field anyways. Can we have all the parent object info go into a `parent_object` field... or some other name that's not `parent`... or do we rip this code out altogether? [lib/class-wp-json-response.php:1570-1589](/WP-API/WP-API/blob/master/lib/class-wp-json-posts.php#L1570-1589) ``` php // Post if ( 'single' === $context ) { $parent = get_post( $post['post_parent'], ARRAY_A ); $fields['parent'] = $this-&gt;prepare_post( $parent, 'single-parent' ); } // Parent if ( ( 'single' === $context || 'single-parent' === $context ) &amp;&amp; (int) $comment-&gt;comment_parent ) { $parent_fields = array( 'meta' ); if ( $context === 'single' ) { $parent_fields[] = 'comment'; } $parent = get_comment( $post['post_parent'] ); $fields['parent'] = $this-&gt;prepare_comment( $parent, $parent_fields, 'single-parent' ); } // Parent $fields['parent'] = (int) $comment-&gt;comment_parent; ```</DESCRIPTION>
+  <REPONAME>WP-API</REPONAME>
+  <TIMEDIFFERENCEDAYS>27</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Minor wrapping and grammar fix.</MESSAGE>
+    <SHA>a5e651ed41d9c49ce101ed72ede4c8e70f25802a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Issue #414. Changed the 'parent' field to 'parent_object' because 'parent' was getting overwritten ... and code seemed to show an intention to have the parent object returned</MESSAGE>
+      <SHA>a8eb3e51374b26bda1deb9d4c3f1911e7c66f6d4</SHA>
+      <PATCHEDFILES>
+        <FILE>lib/class-wp-json-posts.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

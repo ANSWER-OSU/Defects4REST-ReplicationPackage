@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3046</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3046</ISSUEURL>
+  <TITLE>CalculateTaxRequest in ITaxProvider.GetTaxRate() should contain StoreId</TITLE>
+  <DESCRIPTION>When using ITaxProvider.GetTaxRate() in an way where WebStoreContext is not representing the relevant Store, the TaxRate can be calculated wrong. E.g. When exporting an Order to an external system that was created in 'Store 2' and you want to recalculate the Taxes, the schedule task instance of WebStoreContext is giving you 'Store 1'. This can results in wrong tax calculation. I suggest adding StoreId into the CalculateTaxRequest and at least move storeContext.CurrentStore.Id into the TaxService.GetProductPrice() method. `var storeId = _storeContext.CurrentStore.Id;` https://github.com/nopSolutions/nopCommerce/blob/develop/src/Plugins/Nop.Plugin.Tax.FixedOrByCountryStateZip/FixedOrByCountryStateZipTaxProvider.cs#L94</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Made &quot;Activity log type&quot; locales consistent with other admin menu items</MESSAGE>
+    <SHA>dda8f5b95bdf64405abc3d8a628ef153d2777f49</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3046 Added field &quot;CurrentStoreId&quot; in CalculateTaxRequest</MESSAGE>
+      <SHA>9c7c4c10b3b103331a7514b48217c322e2794da9</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Tax/CalculateTaxRequest.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Tax/TaxService.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.FixedOrByCountryStateZip/FixedOrByCountryStateZipTaxProvider.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

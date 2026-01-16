@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>971</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/971</ISSUEURL>
+  <TITLE>Support personal API tokens</TITLE>
+  <DESCRIPTION>We could improve user tokens. Today the user has a single token and no way to revoke or refresh. The database structure now supports a way for the user to store multiple tokens. The user could, for example, create a different token for each service they provide access to and even choose an expiration date. This can be similar to GitHub's user account tokens. You have the ability to choose which scopes are assigned to the token. This could be further improved, however, by also giving the ability to grant access to specific repositories for a given token. Proposed data structure: https://github.com/drone/drone/blob/bolt/common/token.go ``` type Token struct { Label string `json:&quot;label&quot;` Login string `json:&quot;-&quot;` Repos []string `json:&quot;repos,omitempty&quot;` Scopes []string `json:&quot;scopes,omitempty&quot;` Expiry int64 `json:&quot;expiry,omitempty&quot;` } ``` - `Expiry` could be an optional expiration date (unix seconds) for the token. If 0, no expiration - `Repos` could be a list of repositories to which the token is granted access. If `len == 0` the token is granted access to all repositories - `Scopes` similar to oauth scopes. This needs more definition - `Label` is used by the UI to identify the type of token. Useful for user management - `Login` is used to associate the token with the user account. Primarily required for database lookups I think for the initial implementation we could get away with just the `Label` field, and add all other functionality (expiry, scopes, etc) in a follow-up release to `0.4`. Getting `0.4` out quickly is more important than implementing all these features today. ## Generating a Token The proposal is to generate a `jwt` token, similar to the way we generate our auth tokens. This logic is found in the `server/login.go` file and the `server/session` package: ``` token := &amp;common.Token{ Login: user.Login, Expiry: time.Now().UTC().Add(72*time.Hour), } tokenstr, err := session.GenerateToken(c.Request, token) ``` This means we can have a single approach to authorization. The con is that the `jwt` token is singed by a secret value that is optional. If not specified in the `drone.toml` configuration file, a random value is used. This means session tokens are invalidated when the application restarts, which is fine for session tokens, but bad for persistent user tokens. ## Generating When the user requests to create a new token we will generate the `jwt` string and return back to the browser (or whatever invokes the rest endpoint). The `jwt` value itself is never persisted in the database. The user needs to immediately copy the `jwt` string since it will never be shown again. I think that creating a user token should fail (with a specific error message) if the `drone.toml` has not been configured with a session secret. The error message could read something like &gt; Could not generate a user token. This feature is currently disabled. Please contact your system administrator ## Persisting We want to allow the user to manage existing tokens and revoke them. This means that we will need to lookup and verify a token in the datastore. Note that we don't want to lookup session tokens, which have expirations and should not be persisted anyway. I'm proposing we store the user token in the `tokens` bucket. The key could be comprised of the user's login and token label (`token.Login + token.Label`). We could persist the token value, but this would of course be readonly, since we would have already generated the JWT string</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: [code-1317]: suppress error message (#967)</MESSAGE>
+    <SHA>7f54bd2f50d8e962685f0680e4d60938aff36a97</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add support of git url redirect for custom git domain (#971)</MESSAGE>
+      <SHA>5ad3f8567ab8c5163d1920562a1b9ee136c7fd2b</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/handler/repo/find_redirect.go</FILE>
+        <FILE>app/router/git.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

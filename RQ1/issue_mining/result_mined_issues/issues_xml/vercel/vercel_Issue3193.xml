@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3193</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/3193</ISSUEURL>
+  <TITLE>[now-cli] Error: ENOENT: no such file or directory, uv_cwd</TITLE>
+  <DESCRIPTION>Sentry Issue: [NOW-CLI-5EE](https://sentry.io/organizations/zeithq/issues/1282230049/?referrer=github_integration) ``` Error: ENOENT: no such file or directory, uv_cwd File &quot;/snapshot/repo/dist/index.js&quot;, line 1, in process.cwd '{snip} LATFORM||process.platform;process.cwd=function(){if(!o)o=i.call(process);return o};try{process.cwd()}catch(e){}var s=process.chdir;process.c {snip} File &quot;/snapshot/repo/dist/index.js&quot;, line 1, in getConfig '{snip} 7283));let u;async function getConfig(e,t){const n=process.cwd();if(u){return u}if(t){const r=i.default.resolve(n,t);e.debug(`Found config i {snip} File &quot;/snapshot/repo/dist/index.js&quot;, line 1, in ge '{snip} );me=a.debug;const c=r[&quot;--local-config&quot;];const u=await te()(a,c);if(c&amp;&amp;u instanceof ne[&quot;CantFindConfig&quot;]){a.error(`Couldn't find a project c {snip} File &quot;/snapshot/repo/dist/index.js&quot;, line 1, in Module.4165 '{snip} unhandledRejection&quot;,ye);process.on(&quot;uncaughtException&quot;,be);ge(process.argv).then(e=&gt;{process.emit(&quot;nowExit&quot;);process.on(&quot;beforeExit&quot;,()=&gt;{pr {snip} File &quot;/snapshot/repo/dist/index.js&quot;, line 1, in __webpack_require__ '{snip} turn n[t].exports}var r=n[t]={i:t,l:false,exports:{}};e[t].call(r.exports,r,r.exports,__webpack_require__);r.l=true;return r.exports}__webpa {snip} ... (5 additional frame(s) were not displayed) Error: ENOENT: no such file or directory, uv_cwd ```</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now-next] Cache All Next.js Directories (#3190) Next.js now uses the `css` and `media` folders for its build-in CSS support. These files should be cached forever.</MESSAGE>
+    <SHA>07ba180ede692a2ec7d590010b869d46f7c85509</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-cli] Gracefully exit when the `cwd` does not exist There have been Sentry errors where `process.cwd()` fails and throws an error. This patch handles that scenario gracefully by printing a more clear error message to the user and avoids sending a report to Sentry. Fixes #3193.</MESSAGE>
+      <SHA>3ced8e137909e30f9585c6f7b8667a9064c1fcef</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-cli/src/util/errors-ts.ts</FILE>
+        <FILE>packages/now-cli/src/util/get-config.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now-cli] Gracefully exit when the `cwd` does not exist (#3194) There have been Sentry errors where `process.cwd()` fails and throws an error. This patch handles that scenario gracefully by printing a more clear error message to the user and avoids sending a report to Sentry. Fixes #3193.</MESSAGE>
+      <SHA>0996640798de776c122b5abc11332c907bf72ae9</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-cli/src/util/errors-ts.ts</FILE>
+        <FILE>packages/now-cli/src/util/get-config.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now-cli] Gracefully exit when the `cwd` does not exist (#3194) There have been Sentry errors where `process.cwd()` fails and throws an error. This patch handles that scenario gracefully by printing a more clear error message to the user and avoids sending a report to Sentry. Fixes #3193.</MESSAGE>
+      <SHA>cac9f807ccc8e29c31619fa0e4481d400f62478a</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-cli/src/util/errors-ts.ts</FILE>
+        <FILE>packages/now-cli/src/util/get-config.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

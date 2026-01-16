@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7257</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7257</ISSUEURL>
+  <TITLE>Store Specific Website not Switching Language based on Unique SEO Code</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.60.6 Steps to reproduce the problem: Create a website with two stores: Store1 and Store2. Create languages like this: 1) Name: Store 1 English, Language Culture: en-US, Unique SEO Code: e1, Limited to Stores: Store1 2) Name: Store 1 Spanish, Language Culture: es-US, Unique SEO Code: s1, Limited to Stores: Store1 3) Name: Store 2 English, Language Culture: en-US, Unique SEO Code: e2, Limited to Stores: Store2 4) Name: Store 2 Spanish, Language Culture: es-US, Unique SEO Code: s2, Limited to Stores: Store2 Try to access the website with the following links: 1) store1.com/e1 - works fine 2) store1.com/s1 - works fine 3) store1.com/e1 - works fine 3) store2.com/e2 - works fine 4) store2.com/s2 - works fine 5) store2.com/e2 - (website gets stuck in the language of s2, doesn't switch back to English) Expected Behavior: We have several stores using the same language culture but with unique SEO codes. When two or more stores have an entry in the Language table with the same language culture but with different unique SEO codes, the store website should be able to switch language. Actual Behavior: The second store website is not able to switch language and gets stuck in the current language. Problem: It seems like the website gets stuck because GetLanguageFromRequestAsync() is only getting the first language that matches the language culture, not taking into account if the store has access to that language. Fix: We fixed the issue in our system by only returning languages that the store has access to: //try to get language by culture name var store = await _storeContext.GetCurrentStoreAsync(); var requestLanguage = (await _languageService.GetAllLanguagesAsync(false, store?.Id ?? 0)).FirstOrDefault(language =&gt; language.LanguageCulture.Equals(requestCultureFeature.RequestCulture.Culture.Name, StringComparison.InvariantCultureIgnoreCase));</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Increased minor version number</MESSAGE>
+    <SHA>f76878ea556f77102659ecb74ba46fe1c4a9c136</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7257 Added store limitation to getting language from the request</MESSAGE>
+      <SHA>7fb77828d739422fae58cc99c09824bfcf1e3ab1</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/WebWorkContext.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

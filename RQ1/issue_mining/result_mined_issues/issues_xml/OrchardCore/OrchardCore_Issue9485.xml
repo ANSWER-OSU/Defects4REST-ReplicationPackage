@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9485</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/9485</ISSUEURL>
+  <TITLE>TheBlogTheme is rendering jQuery twice since latest theme update</TITLE>
+  <DESCRIPTION>`TheBlogTheme` is rendering jquery twice (just a cut and paste looks like) The manifest lists ``` _manifest .DefineScript(&quot;TheBlogTheme-jQuery&quot;) .SetCdn(&quot;https://code.jquery.com/jquery-3.5.1.min.js&quot;, &quot;https://code.jquery.com/jquery-3.5.1.js&quot;) .SetCdnIntegrity(&quot;sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2&quot;, &quot;sha384-/LjQZzcpTzaYn7qWqRIWYC5l8FWEZ2bIHIz0D73Uzba4pShEcdLdZyZkI4Kv676E&quot;) .SetVersion(&quot;3.5.1&quot;); &lt;--- this one _manifest .DefineScript(&quot;TheBlogTheme-bootstrap-bundle&quot;) .SetDependencies(&quot;TheBlogTheme-jQuery&quot;) .SetCdn(&quot;https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js&quot;, &quot;https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.js&quot;) .SetCdnIntegrity(&quot;sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns&quot;, &quot;sha384-ZEiV3j24mJ99uunGq2LXkicfbHO18KBrDHpdTjD1NUT07kWB6B8u6U5t6UBimJ7w&quot;) .SetVersion(&quot;4.6.0&quot;); _manifest .DefineStyle(&quot;TheBlogTheme-bootstrap-oc&quot;) .SetUrl(&quot;~/TheBlogTheme/css/bootstrap-oc.min.css&quot;, &quot;~/TheBlogTheme/css/bootstrap-oc.css&quot;) .SetVersion(&quot;1.0.0&quot;); _manifest .DefineScript(&quot;TheBlogTheme&quot;) .SetDependencies(&quot;jQuery&quot;) &lt;-- but it also depend on this one .SetUrl(&quot;~/TheBlogTheme/js/scripts.min.js&quot;, &quot;~/TheBlogTheme/js/scripts.js&quot;) .SetVersion(&quot;5.1.0&quot;); &lt;-- probably wrong version number ``` /cc @agriffard</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>mkdocs-material 7.1.5</MESSAGE>
+    <SHA>d2b8562a5c7dfe15b738e9044079984748b2e22e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>TheBlogTheme jQuery dependency Fixes #9485</MESSAGE>
+      <SHA>3088b0a830fadb95e218c865d7124f57527f47c8</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Themes/TheBlogTheme/ResourceManifestOptionsConfiguration.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>TheBlogTheme jQuery dependency (#9486) Fixes #9485</MESSAGE>
+      <SHA>9e3bf47b062b51ed26727db2868c22c07cf1a574</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Themes/TheBlogTheme/ResourceManifestOptionsConfiguration.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

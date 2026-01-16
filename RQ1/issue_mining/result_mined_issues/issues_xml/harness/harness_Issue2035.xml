@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2035</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2035</ISSUEURL>
+  <TITLE>Restart will create new build number</TITLE>
+  <DESCRIPTION>Restart has gotten much more complex over time. Previously when a build was restarted we just had to reset a few columns and re-run the build. But with 0.6 we now have to update multiple rows across multiple tables (matrix rows, step rows, step log rows, build row) This complexity has caused me to re-evaluate the current implementation. I believe going forward builds should be immutable. Once a build is complete the results can never be changed. Restarting a build will therefore create a new build number, and will re-direct the user to a new build results screen.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>122</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>bump version 0.7.1</MESSAGE>
+    <SHA>ef6658ba20bc689ee3337d8c2220f57bdf9cf269</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>create new build on restart (issue #2035)</MESSAGE>
+      <SHA>58d54219527759a7625483311e058850d8d6c661</SHA>
+      <PATCHEDFILES>
+        <FILE>server/build.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>create new build on restart (issue #2035)</MESSAGE>
+      <SHA>590537bf989a1a478f7aef116c54750fd30d8059</SHA>
+      <PATCHEDFILES>
+        <FILE>server/build.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[MISC] Fix routing for gitXXX and apiXXX space names (#2035)</MESSAGE>
+      <SHA>ea49937a1e098893d4da00db21a8659680619761</SHA>
+      <PATCHEDFILES>
+        <FILE>app/router/router.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

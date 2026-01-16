@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>10188</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/10188</ISSUEURL>
+  <TITLE>usage of MockSolrSearchCore in IT</TITLE>
+  <DESCRIPTION>## Describe the bug The `VersioningWithRelationshipsIT` uses the solrSearchCore and not the MockSolrSearchCore. https://github.com/DSpace/DSpace/blob/c39822a2e8f68af09b386d4d3d1b945add9efe84/dspace-api/src/test/java/org/dspace/content/VersioningWithRelationshipsIT.java#L82 https://github.com/DSpace/DSpace/blob/c39822a2e8f68af09b386d4d3d1b945add9efe84/dspace-api/src/test/java/org/dspace/content/VersioningWithRelationshipsIT.java#L83 ## To Reproduce Steps to reproduce the behavior: quite hard to reproduce: 1. add another test case which uses the solr core, e.g. in DiscoveryIT. 2. Other tests might fail as noticed in https://github.com/DSpace/DSpace/pull/9690#discussion_r1907942056 . There the `BulkAccessControlIT` was failing because in DiscoveryIT i falsly used the SolrSearchcore directly. 3. After the run of the test the SolrSearchCore did not reset or destroy the core for the next test. This is only performed by the MockSolrSearchCore. ## Expected behavior We would like all tests to use the `MockSolrSearchCore`. The `VersioningWithRelationshipsIT` and all upfollowing tests should still run and succeed if we switch to the `MockSolrSearchCore`. ## Related work</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #10185 from tdonohue/fix_flakey_tests Fix for flakey IdentifierProvider Integration Tests</MESSAGE>
+    <SHA>c39822a2e8f68af09b386d4d3d1b945add9efe84</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>switch IT search core to MockSolrSearchCore https://github.com/DSpace/DSpace/issues/10188</MESSAGE>
+      <SHA>6d781e8f83a912863af8d998d982e030db64a2ce</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/test/java/org/dspace/content/VersioningWithRelationshipsIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>switch IT search core to MockSolrSearchCore https://github.com/DSpace/DSpace/issues/10188 (cherry picked from commit 6d781e8f83a912863af8d998d982e030db64a2ce)</MESSAGE>
+      <SHA>97a5439e3aa23bfde4f9741282d48c10a873b387</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/test/java/org/dspace/content/VersioningWithRelationshipsIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>switch IT search core to MockSolrSearchCore https://github.com/DSpace/DSpace/issues/10188 (cherry picked from commit 6d781e8f83a912863af8d998d982e030db64a2ce)</MESSAGE>
+      <SHA>fb47b27a2b55f59b3cf3c3cf77401ec9ef0ea594</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/test/java/org/dspace/content/VersioningWithRelationshipsIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

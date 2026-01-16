@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19659</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/19659</ISSUEURL>
+  <TITLE>tmpfs noswap support</TITLE>
+  <DESCRIPTION>### Feature request description Would like the ability to create noswap tmpfs mounts through `--mount` so that I can ensure sensitive variable runtime data is never written to disk. (Also this might be a potentially useful tweak/option to add to the secret feature in podman, but I haven't dug into that as much since that appears to be for static secrets. I still wanted to mention that here since [I read something](https://www.redhat.com/sysadmin/new-podman-secrets-command) that indicated those are also stored on tmpfs volumes and didn't see matches for `noswap` in any of the repos here.) ### Suggest potential solution Support a tmpfs-noswap flag that would be similar to passing `-o noswap` to mount for a tmpfs. ### Have you considered any alternatives? I have considered doing something like: ``` $ podman run -it --rm --cap-add=sys_admin registry.redhat.io/ubi8:latest mkdir foo &amp;&amp; mount -t ramfs -o size=10M ramfs ./foo ``` But id rather not add extra caps in. I also considered doing a noswap tmpfs on the host and mounting that into the container. ### Additional context This isn't urgent at all, and I figured I'd call this and the potential use case out in the `secret` feature here in case it's useful for other folks as well. Thanks for all the great work folks! ^\_^</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19677 from n1hility/detect-old-wsl Validate current generation of WSL2 with user-mode-networking</MESSAGE>
+    <SHA>84447c0855f7206b38592ae1836310c702e3e896</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add support for ramfs as well as tmpfs in volume mounts Users want to mount a tmpfs file system with secrets, and make sure the secret is never saved into swap. They can do this either by using a ramfs tmpfs mount or by passing `noswap` option to a tmpfs mount. Fixes: https://github.com/containers/podman/issues/19659 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>45ce4834af1ab7a9cb871dc5877c5177fd07b1e1</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/options/mount.md</FILE>
+        <FILE>libpod/define/mount.go</FILE>
+        <FILE>pkg/specgenutil/volumes.go</FILE>
+        <FILE>pkg/util/mountOpts.go</FILE>
+        <FILE>test/system/060-mount.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

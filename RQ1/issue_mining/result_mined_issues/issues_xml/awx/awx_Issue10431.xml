@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>10431</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/10431</ISSUEURL>
+  <TITLE>Validate Execution Environment `image` field</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY AWX should validate the image name (could have a tag) given for an Execution Environment. ##### STEPS TO REPRODUCE Create an Execution Environment, and give it for the image ![Screenshot from 2021-06-11 13-50-57](https://user-images.githubusercontent.com/1385596/121729115-1894cf00-cabc-11eb-876b-6c7d1091623a.png) Launch the Demo Job Template ##### EXPECTED RESULTS Demo Job Template runs ##### ACTUAL RESULTS job fails with &gt; Error: invalid reference format ##### ADDITIONAL INFORMATION https://docs.docker.com/engine/reference/commandline/tag/#:~:text=A%20tag%20name%20must%20be,a%20maximum%20of%20128%20characters. &gt; A tag name must be valid ASCII and may contain lowercase and uppercase letters, digits, underscores, periods and dashes. A tag name may not start with a period or a dash and may contain a maximum of 128 characters.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #10425 from sarabrajsingh/bugfix/preflight-check-postgres-version-4940 introduced a pre-flight check for postgres 12 SUMMARY Introduced a pre-flight check to check the version of Postgres 12 before the application starts - ansible/tower#4940 ISSUE TYPE Bugfix Pull Request COMPONENT NAME API AWX VERSION awx: 19.2.0 Reviewed-by: Alan Rominger &lt;arominge@redhat.com&gt; Reviewed-by: Sarabraj Singh &lt;singh.sarabraj@gmail.com&gt; Reviewed-by: Christian Adams &lt;rooftopcellist@gmail.com&gt; Reviewed-by: Shane McDonald &lt;me@shanemcd.com&gt;</MESSAGE>
+    <SHA>395af1b5e429a84f8e20a70a5589dee8bfcb02a4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #10446 from fosterseth/fix_a10431_validate_ee_image_field Add validation for EE image field name related #10431 SUMMARY Adds validation for the EE image name ISSUE TYPE Bugfix Pull Request COMPONENT NAME API AWX VERSION awx: 19.2.1 Reviewed-by: Seth Foster &lt;None&gt; Reviewed-by: Alan Rominger &lt;arominge@redhat.com&gt; Reviewed-by: Bianca Henderson &lt;beeankha@gmail.com&gt; Reviewed-by: Rebeccah Hunter &lt;rhunter@redhat.com&gt; Reviewed-by: Jeff Bradberry &lt;None&gt;</MESSAGE>
+      <SHA>b92c5076a25589c9195fb201100b6daccc141872</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0147_validate_ee_image_field.py</FILE>
+        <FILE>awx/main/models/execution_environments.py</FILE>
+        <FILE>awx/main/tests/unit/test_validators.py</FILE>
+        <FILE>awx/main/validators.py</FILE>
+        <FILE>awxkit/awxkit/api/pages/execution_environments.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

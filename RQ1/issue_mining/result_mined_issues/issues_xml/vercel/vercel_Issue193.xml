@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>193</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/193</ISSUEURL>
+  <TITLE>What's best way to use Now with babel?</TITLE>
+  <DESCRIPTION>My app's code lives in `/src`. I use `Flow` type annotations &amp; `async`/`await`, so I either run it via `babel-node` or strip/tranpsile it with `babel`. So my NPM scripts look like this: ``` &quot;dev&quot;: &quot;babel-node src/index.js&quot;, &quot;babelify&quot;: &quot;babel src -d ./dist&quot;, &quot;start&quot;: &quot;node index.js&quot; // this file is in project root, but imports from `./dist` ``` I run `npm run babelify`, then `now`, but this throws the following error: ``` &gt; Installed to /home/nowuser/src/node_modules/3507677b72fdc3fde6c22daf0c5b8ca8465b37d2/vendor/linux-x64-51/binding.node &gt; ▲ npm start &gt; at Function.Module._load (module.js:441:3) &gt; module.js:474 &gt; throw err; &gt; ^ &gt; Error: Cannot find module './dist/app.js' &gt; at Function.Module._resolveFilename (module.js:472:15) &gt; at Function.Module._load (module.js:420:25) &gt; at Module.require (module.js:500:17) &gt; at require (internal/module.js:20:19) &gt; at Object.&lt;anonymous&gt; (/home/nowuser/src/index.js:1:157) &gt; at Module._compile (module.js:573:32) &gt; at Object.Module._extensions..js (module.js:582:10) &gt; at Module.load (module.js:490:32) &gt; at tryModuleLoad (module.js:449:12) &gt; start exited with status 0 ``` I tried changing `npm start` to `npm run babelify &amp;&amp; node index.js`, but I don't have permission to write to `dist`. `babel-node index.js` seems to work, but afaik `babel-node` isn't meant for production use. What's best practice for using `babel` in a case like this? Can I make `now` include my `dist` folder in the upload? Or do I have to use `babel-node`?</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Publish - @now/bash@0.1.2-canary.0 - @now/build-utils@0.4.33-canary.2 - @now/cgi@0.0.16-canary.0 - @now/go@0.2.13-canary.0 - @now/html-minifier@1.0.8-canary.0 - @now/lambda@0.4.10-canary.0 - @now/md@0.4.10-canary.0 - @now/mdx-deck@0.4.19-canary.0 - @now/next@0.0.85-canary.1 - @now/node-bridge@0.1.11-canary.0 - @now/node-server@0.4.27-canary.2 - @now/node@0.4.29-canary.2 - @now/optipng@0.4.9-canary.0 - @now/php-bridge@0.4.14-canary.0 - @now/php@0.4.14-canary.0 - @now/python@0.0.41-canary.0 - @now/rust@0.0.2-canary.0 - @now/static-build@0.4.18-canary.0 - @now/wordpress@0.4.15-canary.0</MESSAGE>
+    <SHA>9e1d577fc0d326292ed669de4dcda8de89e37d02</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Publish initial version to crates.io (#193)</MESSAGE>
+      <SHA>4b6371530c965f949296f657963fd9298dced82f</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-rust/Cargo.lock</FILE>
+        <FILE>packages/now-rust/Cargo.toml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

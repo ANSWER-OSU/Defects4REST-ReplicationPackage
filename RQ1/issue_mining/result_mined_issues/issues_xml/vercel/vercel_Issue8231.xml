@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8231</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/8231</ISSUEURL>
+  <TITLE>500 errors for Vercel Python: &quot;There is no current event loop in thread&quot;</TITLE>
+  <DESCRIPTION>I'm getting the following error from ALL of my Python functions - for example on https://til.simonwillison.net/ which logs to https://vercel.com/datasette/simon-til/9SYmpgw4ExnTbRLnsevw5zXXTRgb/functions ``` [ERROR] RuntimeError: There is no current event loop in thread 'MainThread'. Traceback (most recent call last) : File &quot;/var/task/vc handler python.py&quot;, line 453, in vc_handler lifespan = Lifespan( vc module.app) File &quot;/var/task/vc handler python.py&quot;, line 308, in init self. loop = get event loop() File &quot;/var/task/vc handler_python. py&quot;, line 184, in get_event_loop return asyncio.get event_loop() File &quot;/var/lang/lib/python3.g/asyncio/events.py&quot; line 642, in get _event_loop raise RuntimeError('There is no current event loop in thread er. ``` Full details here: - https://github.com/simonw/datasette-publish-vercel/issues/58 I first encountered this error this afternoon. I think it's caused by this commit here, which applied fixes involving `asyncio.get event_loop()` for Python 3.10: https://github.com/vercel/vercel/commit/66c8544e8fb7b8eb77106d8b428ef6736b9ecb45 I would upgrade to Python 3.10 but as far as I can tell that's not possible yet - the docs at https://vercel.com/docs/runtimes#official-runtimes/python/python-version suggest that only Python 3.9 is supported at the moment.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[build-utils] Fix package.json and lockfile detection (#8230) This PR fixes a couple issues where `vercel build` was not correctly detecting the package.json files ``` Error: @vercel/node:test: ERROR: frontend/index.ts(1,12): error TS2580: Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`. ``` It also fixes an issue where all deployments were incorrectly detecting the lock file because the lock file doesn't always live in the same directory as the package.json file. So we need to do 2 passes: one to find the nearest package.json and one to find the nearest lock file.</MESSAGE>
+    <SHA>1ee9a96a62735d576123db1a78fc6d3cb00f670f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Revert &quot;[python] support Sanic &gt;=21 and python &gt;= 3.10&quot; (#8241) - Reverts vercel/vercel#8045 - Fixes vercel/vercel#8231</MESSAGE>
+      <SHA>5af65d5a2438ac6170f9a5e96c1744ffec9a9a75</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/python/test/fixtures/30-asgi-lifespan/Pipfile</FILE>
+        <FILE>packages/python/test/fixtures/30-asgi-lifespan/Pipfile.lock</FILE>
+        <FILE>packages/python/test/fixtures/30-asgi-lifespan/api/raw.py</FILE>
+        <FILE>packages/python/test/fixtures/30-asgi-lifespan/api/sani22.py</FILE>
+        <FILE>packages/python/test/fixtures/30-asgi-lifespan/vercel.json</FILE>
+        <FILE>packages/python/vc_init.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

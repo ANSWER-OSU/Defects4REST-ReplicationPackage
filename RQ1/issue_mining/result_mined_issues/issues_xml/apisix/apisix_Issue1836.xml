@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1836</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/1836</ISSUEURL>
+  <TITLE>bug: should not save the runtime data of plugin into etcd</TITLE>
+  <DESCRIPTION>### Issue description admin api will pollute and save plugin_conf into etcd when calling plugin's function check_schema. e.g. [https://github.com/apache/incubator-apisix/blob/master/apisix/plugins/proxy-rewrite.lua#L111](https://github.com/apache/incubator-apisix/blob/master/apisix/plugins/proxy-rewrite.lua#L111) ### Environment * apisix version (cmd: `apisix version`): 1.4 * OS: centos7 ### Minimal test code / Steps to reproduce the issue 1. add a route with plugin proxy_write 2. view the route just added ### What's the actual result? (including assertion message &amp; call stack if applicable) the runtime data of the plugin has be saved into etcd. ### What's the expected result? the runtime data of the plugin should't be saved into etcd.</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>bugfix: failed to get `host` in health check configuration. (#1871) The `host` of health check should be sub-item of `check.active` . FIX #1869</MESSAGE>
+    <SHA>a108d2eee17b823fb7df90d66e340e2795b6e229</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>bugfix: should not save the runtime data of plugin into `etcd`. (#1910) Fixed #1836 .</MESSAGE>
+      <SHA>2d667ecb709115e7ed17e350b38c387b7a1bb66f</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/echo.lua</FILE>
+        <FILE>apisix/plugins/proxy-rewrite.lua</FILE>
+        <FILE>apisix/plugins/response-rewrite.lua</FILE>
+        <FILE>t/lib/json_sort.lua</FILE>
+        <FILE>t/plugin/echo.t</FILE>
+        <FILE>t/plugin/proxy-rewrite.t</FILE>
+        <FILE>t/plugin/request-validation.t</FILE>
+        <FILE>t/plugin/response-rewrite.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

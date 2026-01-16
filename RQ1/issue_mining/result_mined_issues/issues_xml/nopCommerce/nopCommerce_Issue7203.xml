@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7203</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7203</ISSUEURL>
+  <TITLE>Error when entering billing address on the checkout page</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.7 [We can also reproduce this on the official demo](https://demo.nopcommerce.com/) Steps to reproduce the problem: On the checkout page, when entering billing information, if any required information is not entered and you click &quot;Next,&quot; the other valid information will be cleared. We need to retain the valid information. Enter the information as follows: -&gt; Note that I skipped one required field, ZipCode ![image](https://github.com/nopSolutions/nopCommerce/assets/52314713/c8843ba9-c5b6-4bdd-b8e1-c065b2522189) -&gt; Click &quot;Next&quot; -&gt; The other valid information is cleared ![image](https://github.com/nopSolutions/nopCommerce/assets/52314713/095cb29c-d61d-4003-b2ce-5742fc59e609)</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>165</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7193 Fixed incorrect using of Combination.OveriddenPrice as AdditionalCharge in some cases</MESSAGE>
+    <SHA>c172f6f587ecd7a0df69867bb2d7c5b7d01bdfd6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7203 Suppressed clearing the form when entering the wrong billing/shipping address on the checkout page</MESSAGE>
+      <SHA>36ff3e4c58ea8fca0106d3282e9bbb2f09ae2243</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Controllers/CheckoutController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#7203 Suppressed clearing the form when entering the wrong billing/shipping address on the multistep checkout page</MESSAGE>
+      <SHA>1fe42cc649f3780bc99c738f39b9d413af36d565</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Controllers/CheckoutController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#7203 Code refactoring of preparing billing and shipping address methods</MESSAGE>
+      <SHA>2b818505fddd0a4a0a4bcf7cd63a79668565268f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Controllers/CheckoutController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/CheckoutModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/ICheckoutModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Models/Checkout/OnePageCheckoutModel.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Web.Tests/Public/Factories/CheckoutModelFactoryTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

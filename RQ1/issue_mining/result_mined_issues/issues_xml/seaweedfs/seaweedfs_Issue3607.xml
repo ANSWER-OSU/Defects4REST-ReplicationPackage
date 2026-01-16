@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3607</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3607</ISSUEURL>
+  <TITLE>[S3] SIGSEGV weed S3Options</TITLE>
+  <DESCRIPTION>weed v 3.25 **Describe the bug** ``` /opt/seaweedfs/weed -v 5 -logdir=/var/log/seaweedfs/s3 s3 -filer=.....:8888 -allowEmptyFolder -config=/etc/seaweedfs/s3config.json I0906 11:30:12.359621 config.go:59 Reading security.toml from /etc/seaweedfs/security.toml I0906 11:30:12.365343 s3.go:172 S3 read filer buckets dir: /buckets I0906 11:30:12.365389 s3.go:179 connected to filer 10.152.2.45:8888 grpc address 10.152.2.45:18888 panic: runtime error: invalid memory address or nil pointer dereference [signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x1d36371] goroutine 1 [running]: github.com/seaweedfs/seaweedfs/weed/command.(*S3Options).startS3Server(0x3a835a0) /github/workspace/weed/command/s3.go:197 +0x551 github.com/seaweedfs/seaweedfs/weed/command.runS3(0x3a668f8?, {0xc000050150?, 0x3?, 0x3?}) /github/workspace/weed/command/s3.go:148 +0x69 main.main() /github/workspace/weed/weed.go:81 +0x38c ``` type S3Options.localFilerSocket not set</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix bug due to data racing on VidMap (#3606)</MESSAGE>
+    <SHA>bc629665de418ce71c85f83ae618b8f7e5ac42bc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>avoid SIGSEGV on localFilerSocket https://github.com/seaweedfs/seaweedfs/issues/3607</MESSAGE>
+      <SHA>24573c180e2d73996415039a19851d4fb1045e84</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/s3.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>avoid SIGSEGV on localFilerSocket (#3609) https://github.com/seaweedfs/seaweedfs/issues/3607</MESSAGE>
+      <SHA>f4f6855c61150282295ec0b10233d9b1585153e3</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/s3.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

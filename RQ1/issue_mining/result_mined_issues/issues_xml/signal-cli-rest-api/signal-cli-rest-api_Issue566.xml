@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>566</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/566</ISSUEURL>
+  <TITLE>Add account number to challenge token log output</TITLE>
+  <DESCRIPTION>### Feature Request I have a multi-number signal setup. When i get a rate-limit-challenge the logging works and i get the token id and the phonenumber of the recipient. To lift the rate-limit i need to call http://localhost:8888/v1/accounts/{number}/rate-limit-challenge with the number of the registered account in signal-cli. This number is not in the log output. Can you please add it?</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>117</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>protect map write with mutex * in order to make the r.receivedResponsesById map goroutine-safe, a mutex was added. This is not particular nice, but rewriting the jsonrpc connection handling would be quite a lot of work and has a big regression potential. So, if it is not absolutely necessary, I'd like to avoid that. see #555</MESSAGE>
+    <SHA>dc1efc1a14391ea0c1dc60c454af7300352e6efe</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>add account to SendMessageError json response * when a rate limiting error is returned, also include the account information (this is quite useful for multi account setups). see #566</MESSAGE>
+      <SHA>d1694ee88cbf1b256b1ba34a745d552cb991017a</SHA>
+      <PATCHEDFILES>
+        <FILE>src/api/api.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

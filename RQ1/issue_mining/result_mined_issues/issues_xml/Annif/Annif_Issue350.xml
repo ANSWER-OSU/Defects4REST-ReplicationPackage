@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>350</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/350</ISSUEURL>
+  <TITLE>Eval command on empty corpus error: Samplewise metrics are not available outside of multilabel classification.</TITLE>
+  <DESCRIPTION>I noticed that the `eval` command gives a non-obvious error when given an empty corpus: ``` $ touch empty.tsv $ annif eval tfidf-fi empty.tsv Traceback (most recent call last): File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/bin/annif&quot;, line 11, in &lt;module&gt; load_entry_point('annif', 'console_scripts', 'annif')() File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/click/core.py&quot;, line 764, in __call__ return self.main(*args, **kwargs) File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/flask/cli.py&quot;, line 586, in main return super(FlaskGroup, self).main(*args, **kwargs) File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/click/core.py&quot;, line 717, in main rv = self.invoke(ctx) File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/click/core.py&quot;, line 1137, in invoke return _process_result(sub_ctx.command.invoke(sub_ctx)) File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/click/core.py&quot;, line 956, in invoke return ctx.invoke(self.callback, **ctx.params) File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/click/core.py&quot;, line 555, in invoke return callback(*args, **kwargs) File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/click/decorators.py&quot;, line 17, in new_func return f(get_current_context(), *args, **kwargs) File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/flask/cli.py&quot;, line 426, in decorator return __ctx.invoke(f, *args, **kwargs) File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/click/core.py&quot;, line 555, in invoke return callback(*args, **kwargs) File &quot;/home/oisuomin/git/Annif/annif/cli.py&quot;, line 276, in run_eval for metric, score in eval_batch.results().items(): File &quot;/home/oisuomin/git/Annif/annif/eval.py&quot;, line 144, in results y_true, y_pred, metrics) File &quot;/home/oisuomin/git/Annif/annif/eval.py&quot;, line 93, in _evaluate_samples y_true, y_pred_binary, average='samples') File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/sklearn/metrics/classification.py&quot;, line 1569, in precision_score sample_weight=sample_weight) File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/sklearn/metrics/classification.py&quot;, line 1421, in precision_recall_fscore_support labels=labels, samplewise=samplewise) File &quot;/home/oisuomin/.local/share/virtualenvs/Annif-OYFUWV2R/lib/python3.5/site-packages/sklearn/metrics/classification.py&quot;, line 415, in multilabel_confusion_matrix raise ValueError(&quot;Samplewise metrics are not available outside of &quot; ValueError: Samplewise metrics are not available outside of multilabel classification. ``` This case should be caught in the code and result in a more intuitive error message.</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #344 from NatLibFi/issue269-mauiserver-backend Add Maui Server backend</MESSAGE>
+    <SHA>86f406d1a9b8cffd73a56827f86c10582a53df0e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fail gracefully when trying to evaluate an empty corpus. Fixes #350</MESSAGE>
+      <SHA>fd91dcc78251ac98a661843a6d5d51e8c48bd1a9</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/eval.py</FILE>
+        <FILE>tests/test_cli.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

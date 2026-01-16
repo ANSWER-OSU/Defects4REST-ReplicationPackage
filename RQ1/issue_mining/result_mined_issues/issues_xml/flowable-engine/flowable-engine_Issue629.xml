@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>629</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/629</ISSUEURL>
+  <TITLE>Incomplete support for variable based user task assignments</TITLE>
+  <DESCRIPTION>Dynamically assigning a user task via a variable (ex: activiti:assignee=&quot;${assignmentId}&quot;) works well but in my scenario I'm using a decision table to determine either an individual to assign a task to **or** a list of candidate users **or** groups: &lt;userTask id=&quot;review&quot; name=&quot;Task Review&quot; activiti:assignee=&quot;${assignmentId}&quot; activiti:candidateUsers=&quot;${candidateUserIds}&quot; activiti:candidateGroups=&quot;${candidateGroupIds}&quot;&gt; The code in UserTaskActivityBehavior.handleAssignments is testing the assignee, candidateUsers and candidateGroups attributes to see if they are blank before evaluating any expression that is set for those attributes. It should first evaluate the expression if set and then test to see if the result is blank before processing each type of assignment: protected void handleAssignments(TaskEntityManager taskEntityManager, String assignee, String owner, List&lt;String&gt; candidateUsers, List&lt;String&gt; candidateGroups, TaskEntity task, ExpressionManager expressionManager, DelegateExecution execution) { // // NOTE: Should also test for isNotEmpty after evaluating the expression to allow for dynamic assignments of an individual member or candidateUsers or candidateGroups // if (StringUtils.isNotEmpty(assignee)) { Object assigneeExpressionValue = expressionManager.createExpression(assignee).getValue(execution); String assigneeValue = null; if (assigneeExpressionValue != null) { assigneeValue = assigneeExpressionValue.toString(); } taskEntityManager.changeTaskAssignee(task, assigneeValue); } // // NOTE: Should also test for isNotEmpty after evaluating the expression to allow for dynamic assignments of an individual member or candidateUsers or candidateGroups // if (StringUtils.isNotEmpty(owner)) { Object ownerExpressionValue = expressionManager.createExpression(owner).getValue(execution); String ownerValue = null; if (ownerExpressionValue != null) { ownerValue = ownerExpressionValue.toString(); } taskEntityManager.changeTaskOwner(task, ownerValue); } // // NOTE: Should also test for isNotEmpty after evaluating the expression to allow for dynamic assignments of an individual member or candidateUsers or candidateGroups // if (candidateGroups != null &amp;&amp; !candidateGroups.isEmpty()) { for (String candidateGroup : candidateGroups) { Expression groupIdExpr = expressionManager.createExpression(candidateGroup); Object value = groupIdExpr.getValue(execution); if (value instanceof String) { List&lt;String&gt; candidates = extractCandidates((String) value); task.addCandidateGroups(candidates); } else if (value instanceof Collection) { task.addCandidateGroups((Collection) value); } else { throw new FlowableIllegalArgumentException(&quot;Expression did not resolve to a string or collection of strings&quot;); } } } // // NOTE: Should also test for isNotEmpty after evaluating the expression to allow for dynamic assignments of an individual member or candidateUsers or candidateGroups // if (candidateUsers != null &amp;&amp; !candidateUsers.isEmpty()) { for (String candidateUser : candidateUsers) { Expression userIdExpr = expressionManager.createExpression(candidateUser); Object value = userIdExpr.getValue(execution); if (value instanceof String) { List&lt;String&gt; candidates = extractCandidates((String) value); task.addCandidateUsers(candidates); } else if (value instanceof Collection) { task.addCandidateUsers((Collection) value); } else { throw new FlowableException(&quot;Expression did not resolve to a string or collection of strings&quot;); } } }</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>22</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'master' of https://github.com/flowable/flowable-engine</MESSAGE>
+    <SHA>5f65e870df8c80ee06990f1210fed1d40d7de396</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix empty expression assignments #629</MESSAGE>
+      <SHA>5bd480c192250442fb8d9788fa443cccdcb1bd3b</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/UserTaskActivityBehavior.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/usertask/UserTaskTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/usertask/UserTaskTest.testEmptyAssignmentExpression.bpmn20.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

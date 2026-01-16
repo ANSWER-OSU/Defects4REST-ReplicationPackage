@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>42</ISSUENO>
+  <ISSUEURL>https://github.com/sunscrapers/djoser/issues/42</ISSUEURL>
+  <TITLE>Username is not validated properly for `set_username` endpoint</TITLE>
+  <DESCRIPTION>To be precise the issue is caused by function called `create_username_field()`. It creates the serializer field but it doesn't add the validators to this field instance. It just doesn't take into account the parameters passed to username model field.</DESCRIPTION>
+  <REPONAME>djoser</REPONAME>
+  <TIMEDIFFERENCEDAYS>55</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Simplify login serializer.</MESSAGE>
+    <SHA>740ed7711b752a43f2a1b5c43a1e0f0030f8a3a4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add tests for #42 and skip for DRF 2.4.</MESSAGE>
+      <SHA>d7d92fff1cacada96a6d99c5e80b516d0f5048e6</SHA>
+      <PATCHEDFILES>
+        <FILE>djoser/serializers.py</FILE>
+        <FILE>testproject/testapp/tests.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix test skip. See #42.</MESSAGE>
+      <SHA>0fb1f00cb2cba399df13e094dca122f6ecc92852</SHA>
+      <PATCHEDFILES>
+        <FILE>requirements-test.txt</FILE>
+        <FILE>testproject/testapp/tests.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

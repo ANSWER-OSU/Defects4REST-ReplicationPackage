@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5194</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/5194</ISSUEURL>
+  <TITLE>[filer_sync] DATA RACE runFilerSynchronize</TITLE>
+  <DESCRIPTION>**Describe the bug** steps: ``` make 2mount CGO_ENABLED=1 go build -race ./weed -v=4 filer.sync -a=127.0.0.1:8888 -b=127.0.0.1:7888 -a.debug -b.debug ``` ``` ================== WARNING: DATA RACE Read at 0x000107653f74 by goroutine 71: github.com/seaweedfs/seaweedfs/weed/command.runFilerSynchronize.func1() /Users/whitefox/GolandProjects/seaweedfs/weed/command/filer_sync.go:153 +0x274 Previous write at 0x000107653f74 by goroutine 72: github.com/seaweedfs/seaweedfs/weed/command.runFilerSynchronize.func2() /Users/whitefox/GolandProjects/seaweedfs/weed/command/filer_sync.go:191 +0x88 Goroutine 71 (running) created at: github.com/seaweedfs/seaweedfs/weed/command.runFilerSynchronize() /Users/whitefox/GolandProjects/seaweedfs/weed/command/filer_sync.go:144 +0x54c main.main() /Users/whitefox/GolandProjects/seaweedfs/weed/weed.go:80 +0x73c Goroutine 72 (running) created at: github.com/seaweedfs/seaweedfs/weed/command.runFilerSynchronize() /Users/whitefox/GolandProjects/seaweedfs/weed/command/filer_sync.go:189 +0x6e4 main.main() /Users/whitefox/GolandProjects/seaweedfs/weed/weed.go:80 +0x73c ================== ``` **System Setup** ``` master branch ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: compose 2mount with sync</MESSAGE>
+    <SHA>ff25aed126e11bbc4d79f7f05388ec214ab46ce0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: DATA RACE https://github.com/seaweedfs/seaweedfs/issues/5194 https://github.com/seaweedfs/seaweedfs/issues/5195</MESSAGE>
+      <SHA>013f5992518c74beaf0b30989eef748a9b185133</SHA>
+      <PATCHEDFILES>
+        <FILE>docker/compose/local-sync-mount-compose.yml</FILE>
+        <FILE>weed/command/filer_remote_gateway_buckets.go</FILE>
+        <FILE>weed/command/filer_remote_sync_dir.go</FILE>
+        <FILE>weed/command/filer_sync.go</FILE>
+        <FILE>weed/command/filer_sync_jobs.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix filer sync set offset (#5197) * fix: compose 2mount with sync * fix: DATA RACE https://github.com/seaweedfs/seaweedfs/issues/5194 https://github.com/seaweedfs/seaweedfs/issues/5195</MESSAGE>
+      <SHA>1169f943103684ded4d67edac686fd94e8e78ccc</SHA>
+      <PATCHEDFILES>
+        <FILE>docker/compose/local-sync-mount-compose.yml</FILE>
+        <FILE>weed/command/filer_remote_gateway_buckets.go</FILE>
+        <FILE>weed/command/filer_remote_sync_dir.go</FILE>
+        <FILE>weed/command/filer_sync.go</FILE>
+        <FILE>weed/command/filer_sync_jobs.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>274</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/274</ISSUEURL>
+  <TITLE>是否有可能在weed filer模式上传文件和浏览文件列表时的返回信息中增加volume url值，将会帮助很大</TITLE>
+  <DESCRIPTION>你好！ 我们准备在项目中使用weedfs，考虑采用filer模式运行，文件上传测试过程如下： 上传bar.js文件至http://127.0.0.1:8888/test/ 程序返回日志： 2016-03-31 16:38:05 INFO WeedFSClientTest1 (WeedFSClientTest1.java:166) - - {&quot;name&quot;:&quot;sitemapindex.xml&quot;,&quot;size&quot;:32675} 能否把返回值改成这样的形式： {&quot;name&quot;:&quot;bar.js&quot;,&quot;size&quot;:32675,&quot;fid&quot;:&quot;2,125de60a06&quot;,**&quot;url&quot;:&quot;127.0.0.1:8080&quot;,&quot;publicUrl&quot;:&quot;localhost:8080&quot;**} 上文中加粗文字部分为希望新增字段值，若存在这几个字段值，则可以通过url+fid进行更新等操作。 在浏览器访问http://127.0.0.1:8888/test/时，返回值：{&quot;Directory&quot;:&quot;/test/&quot;,&quot;Files&quot;:[{&quot;name&quot;:&quot;bar.js&quot;,&quot;fid&quot;:&quot;2,026605fd23&quot;}]} 希望也能加上上文中的加粗文字部分字段值，方便后续程序持续处理。 非常感谢！</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>refactoring</MESSAGE>
+    <SHA>4f47b8cff9f785027e3b3b868faf9192f0be67e0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>add fid and url to filer post result fix https://github.com/chrislusf/seaweedfs/issues/274</MESSAGE>
+      <SHA>535b1610c81c9e65826e6808348a5796b17ab57f</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/filer_server_handlers_write.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

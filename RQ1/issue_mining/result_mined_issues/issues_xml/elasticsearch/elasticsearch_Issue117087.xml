@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117087</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/117087</ISSUEURL>
+  <TITLE>[CI] FullClusterRestartIT testNewReplicasTimeSeriesMode {cluster=OLD} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #4944 / 8.0.1_bwc](https://gradle-enterprise.elastic.co/s/2flf62ewrzvx6) - [elasticsearch-pull-request #42094 / 8.0.1_bwc](https://gradle-enterprise.elastic.co/s/4dsscw4p7a3m6) - [elasticsearch-pull-request #42084 / 8.0.1_bwc](https://gradle-enterprise.elastic.co/s/bfelmtyt2veru) - [elasticsearch-pull-request #41713 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/uhjq723zit2aa) **Reproduction Line:** ``` ./gradlew &quot;:qa:full-cluster-restart:v8.0.1#bwcTest&quot; -Dtests.class=&quot;org.elasticsearch.upgrades.FullClusterRestartIT&quot; -Dtests.method=&quot;testNewReplicasTimeSeriesMode {cluster=OLD}&quot; -Dtests.seed=76D982BB0907F49A -Dtests.bwc=true -Dtests.locale=rw -Dtests.timezone=Pacific/Pago_Pago -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.upgrades.FullClusterRestartIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testNewReplicasTimeSeriesMode%20%7Bcluster%3DOLD%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.client.ResponseException: method [PUT], host [http://[::1]:41665], URI [/testnewreplicastimeseriesmode], status line [HTTP/1.1 400 Bad Request] {&quot;error&quot;:{&quot;root_cause&quot;:[{&quot;type&quot;:&quot;illegal_argument_exception&quot;,&quot;reason&quot;:&quot;unknown setting [index.time_series.start_time] please check that any required plugins are installed, or check the breaking changes documentation for removed settings&quot;}],&quot;type&quot;:&quot;illegal_argument_exception&quot;,&quot;reason&quot;:&quot;unknown setting [index.time_series.start_time] please check that any required plugins are installed, or check the breaking changes documentation for removed settings&quot;,&quot;suppressed&quot;:[{&quot;type&quot;:&quot;illegal_argument_exception&quot;,&quot;reason&quot;:&quot;unknown setting [index.time_series.end_time] please check that any required plugins are installed, or check the breaking changes documentation for removed settings&quot;}]},&quot;status&quot;:400} ``` **Issue Reasons:** - [main] 3 consecutive failures in step 8.0.1_bwc - [main] 4 failures in test testNewReplicasTimeSeriesMode {cluster=OLD} (0.4% fail rate in 954 executions) - [main] 3 failures in step 8.0.1_bwc (100.0% fail rate in 3 executions) - [main] 3 failures in pipeline elasticsearch-pull-request (1.4% fail rate in 208 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ESQL: Refactor named writeable entries for expressions and plans (#117029) Move writable declarations outside the core classes to avoid errors (such as subClass.getNamedWritable()) and centralize them in a top package class for better management. Make all touched serialization code the same as in the initial PR, except for the fact that LookupJoin/LookupJoinExec are missing. Co-authored-by: Costin Leau &lt;costin.leau@gmail.com&gt;</MESSAGE>
+    <SHA>0b74492a30f3e9c5bd366fa2c82fa637c87f5974</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.upgrades.FullClusterRestartIT testNewReplicasTimeSeriesMode {cluster=OLD} #117087</MESSAGE>
+      <SHA>231ebaf777b707083848d65042237683ad41c27d</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

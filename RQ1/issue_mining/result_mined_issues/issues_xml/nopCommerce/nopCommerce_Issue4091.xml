@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4091</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4091</ISSUEURL>
+  <TITLE>Incorrect map placement for pickup point during checkout when store language is set to German</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.20 Steps to reproduce the problem: -Switch store language to German -Add item to cart -Goto Checkout On pickup address the map will be displayed with incorrect coordinates. This might be caused due to the formatting the values with , (comma) instead of . (point) As a quick fix to illustrate the problem the followings lines can be inserted in OpcShippingAddress.cshtml in line 106 var latitude = point.Latitude.Value.ToString(System.Globalization.CultureInfo.InvariantCulture); var longitude = point.Longitude.Value.ToString(System.Globalization.CultureInfo.InvariantCulture); then use the newly created variables when calling the google maps api: var marker = new google.maps.Marker({ map: googleMap, title: &quot;@point.Name&quot;, //position: new google.maps.LatLng(@point.Latitude, @point.Longitude), position: new google.maps.LatLng(@latitude, @longitude), icon: &quot;https://maps.google.com/mapfiles/ms/icons/blue-dot.png&quot; });</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>40</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#4117 For group products, the default should always be request redirection with code 301</MESSAGE>
+    <SHA>f233980741db6ff2a53969ae442a0699a2505bed</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4091 Invariant Culture format for Latitude/Longitude value</MESSAGE>
+      <SHA>621fa6a90d3a4741aaae1e9da6fa7161d9da644c</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Views/Checkout/OpcShippingAddress.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Checkout/ShippingAddress.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

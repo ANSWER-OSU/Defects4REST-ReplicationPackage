@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24452</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/24452</ISSUEURL>
+  <TITLE>Command `podman system df` returns a negative reclaimable size of images</TITLE>
+  <DESCRIPTION>### Issue Description Command `podman system df` returns a negative reclaimable size of images. ``` [web@s4 ~]$ podman system df TYPE TOTAL ACTIVE SIZE RECLAIMABLE Images 8 6 1.311GB -5.989e+08B (-46%) Containers 15 15 196.2kB 0B (0%) Local Volumes 0 0 0B 0B (0%) ``` It happens after I run 2 containers based on custom images with a common ancestor image, and then run `podman image prune -a`. ### Steps to reproduce the issue ```bash # Start from clean Alma Linux 9. sudo -i dnf update dnf install podman podman --version #podman version 4.9.4-rhel mkdir test12 test13 for t in test12 test13; do cat &lt;&lt;EOF &gt;&quot;${t}/Dockerfile&quot; FROM docker.io/library/busybox:latest RUN echo &quot;${t}&quot; &gt;${t}.txt CMD [&quot;sh&quot;, &quot;-c&quot;, &quot;while true; do cat ${t}.txt; sleep 5; done&quot;] EOF podman build --tag &quot;${t}:latest&quot; &quot;${t}&quot; podman run -d &quot;${t}&quot; done podman system df #TYPE TOTAL ACTIVE SIZE RECLAIMABLE #Images 5 2 4.539MB 4.538MB (100%) #Containers 2 2 22.68kB 0B (0%) #Local Volumes 0 0 0B 0B (0%) podman image prune -a #WARNING! This command removes all images without at least one container associated with them. #Are you sure you want to continue? [y/N] y #27a71e19c95622dce4d60d4a3760707495c9875f5c5322c5bd535214799593ce #ff85c5105a9ccd2209e7892bc827377002769cf5f8578ebb45672a5cb166a643 #ae7c431f01c373313df85b278eda9a7c068e909737d113da37d91158ab80e193 podman system df #TYPE TOTAL ACTIVE SIZE RECLAIMABLE #Images 2 2 4.522MB -4.506e+06B (-100%) #Containers 2 2 22.68kB 0B (0%) #Local Volumes 0 0 0B 0B (0%) ``` &lt;details&gt; &lt;summary&gt;My original steps&lt;/summary&gt; `php-base` is a custom image based on PHP. `mybb-custom` and `grav-custom` are custom images based on `php-base`. ``` [web@s4 ~]$ podman images REPOSITORY TAG IMAGE ID CREATED SIZE localhost/podman-pause 4.9.4-rhel-1728876463 34106bccc6d0 39 hours ago 2.44 MB &lt;none&gt; &lt;none&gt; af1921c0516a 39 hours ago 814 kB &lt;none&gt; &lt;none&gt; c5ffd57e0aa1 39 hours ago 814 kB &lt;none&gt; &lt;none&gt; a8cf0a7c3e87 39 hours ago 814 kB localhost/mybb-custom latest efad2395902f 39 hours ago 521 MB localhost/mybb-custom 2024.10.31-21.25 efad2395902f 39 hours ago 521 MB localhost/grav-custom latest a5d7ee269409 39 hours ago 521 MB localhost/grav-custom 2024.10.31-21.25 a5d7ee269409 39 hours ago 521 MB localhost/php-base 2024.10.31-21.23 ca6f80a64bab 39 hours ago 521 MB localhost/php-base latest ca6f80a64bab 39 hours ago 521 MB docker.io/library/php 8.3-apache 2d9e3fa41a3c 8 days ago 514 MB docker.io/library/nginx 1.27.2 3b25b682ea82 4 weeks ago 196 MB docker.io/library/adminer 4.8.1 2f7580903a1d 3 months ago 258 MB docker.io/library/mariadb 11.3.2 3ba807438681 5 months ago 411 MB ``` ``` [web@s4 ~]$ podman system df TYPE TOTAL ACTIVE SIZE RECLAIMABLE Images 19 6 1.311GB 443.5MB (34%) Containers 15 15 196.2kB 0B (0%) Local Volumes 0 0 0B 0B (0%) ``` ``` [web@s4 ~]$ podman image prune WARNING! This command removes all dangling images. Are you sure you want to continue? [y/N] y a8cf0a7c3e87fe39ef9efd94457f04e7d51bf1e9c6226c0e3ccca1b7d4e399e7 c5ffd57e0aa16a9c2908317b5e7d7dfb298926753f0935839f08d1a2ea08f3cb af1921c0516a7121336a3cebda23b97b523da46b4f1dc7a9378432d1da7f47a3 ``` ``` [web@s4 ~]$ podman images REPOSITORY TAG IMAGE ID CREATED SIZE localhost/podman-pause 4.9.4-rhel-1728876463 34106bccc6d0 39 hours ago 2.44 MB localhost/mybb-custom latest efad2395902f 39 hours ago 521 MB localhost/mybb-custom 2024.10.31-21.25 efad2395902f 39 hours ago 521 MB localhost/php-base latest ca6f80a64bab 39 hours ago 521 MB localhost/php-base 2024.10.31-21.23 ca6f80a64bab 39 hours ago 521 MB localhost/grav-custom latest a5d7ee269409 39 hours ago 521 MB localhost/grav-custom 2024.10.31-21.25 a5d7ee269409 39 hours ago 521 MB docker.io/library/php 8.3-apache 2d9e3fa41a3c 8 days ago 514 MB docker.io/library/nginx 1.27.2 3b25b682ea82 4 weeks ago 196 MB docker.io/library/adminer 4.8.1 2f7580903a1d 3 months ago 258 MB docker.io/library/mariadb 11.3.2 3ba807438681 5 months ago 411 MB ``` ``` [web@s4 ~]$ podman image prune -a WARNING! This command removes all images without at least one container associated with them. Are you sure you want to continue? [y/N] y 2d9e3fa41a3cfb8f9870aafb92d454d7a635587b7d996df5ccaef5a4a689b122 75ec9b338c7578aa24408033f23d5d05eaf6cfab351b8dd1f729981722ead76b 5addd0593e47cf849f3ccdd663f34826c2f0bc7b9ba3d6218d7e54783ba9bdee 2e4196b3bc785975d94dd76633d3ef675644c6f9b0623eeed4351aae98660121 d500fa13d993843f8049df0ea6b2b76c6b6d3889c549def3790ede174bfda453 ba2136c5cd622a42ee3b142b4bdee3e577bae40aaf5795048691b9b2887c1f06 ca6f80a64bab731ed6e944d8ea7d4caa10824b81901c25572b054e86ea74a97a ``` ``` [web@s4 ~]$ podman images REPOSITORY TAG IMAGE ID CREATED SIZE localhost/podman-pause 4.9.4-rhel-1728876463 34106bccc6d0 39 hours ago 2.44 MB localhost/mybb-custom latest efad2395902f 39 hours ago 521 MB localhost/mybb-custom 2024.10.31-21.25 efad2395902f 39 hours ago 521 MB localhost/grav-custom latest a5d7ee269409 39 hours ago 521 MB localhost/grav-custom 2024.10.31-21.25 a5d7ee269409 39 hours ago 521 MB docker.io/library/nginx 1.27.2 3b25b682ea82 4 weeks ago 196 MB docker.io/library/adminer 4.8.1 2f7580903a1d 3 months ago 258 MB docker.io/library/mariadb 11.3.2 3ba807438681 5 months ago 411 MB ``` ``` [web@s4 ~]$ podman system df TYPE TOTAL ACTIVE SIZE RECLAIMABLE Images 8 6 1.311GB -5.989e+08B (-46%) Containers 15 15 196.2kB 0B (0%) Local Volumes 0 0 0B 0B (0%) ``` ``` [web@s4 ~]$ podman --version podman version 4.9.4-rhel ``` &lt;/details&gt; ### Describe the results you received Unexpected value in Images-RECLAIMABLE. ``` [web@s4 ~]$ podman system df TYPE TOTAL ACTIVE SIZE RECLAIMABLE Images 8 6 1.311GB -5.989e+08B (-46%) Containers 15 15 196.2kB 0B (0%) Local Volumes 0 0 0B 0B (0%) ``` ### Describe the results you expected No reclaimable space after pruning. ``` [web@s4 ~]$ podman system df TYPE TOTAL ACTIVE SIZE RECLAIMABLE Images 8 6 1.311GB 0B (0%) Containers 15 15 196.2kB 0B (0%) Local Volumes 0 0 0B 0B (0%) ``` ### podman info output &lt;details&gt; &lt;summary&gt;podman info&lt;/summary&gt; ``` [web@s4 ~]$ podman info host: arch: amd64 buildahVersion: 1.33.8 cgroupControllers: - memory - pids cgroupManager: systemd cgroupVersion: v2 conmon: package: conmon-2.1.10-1.el9.x86_64 path: /usr/bin/conmon version: 'conmon version 2.1.10, commit: 574ce145d4fde456322f648afc2cb9dc2141ee16' cpuUtilization: idlePercent: 98.34 systemPercent: 0.85 userPercent: 0.81 cpus: 1 databaseBackend: sqlite distribution: distribution: almalinux version: &quot;9.4&quot; eventLogger: journald freeLocks: 2028 hostname: s4.lab idMappings: gidmap: - container_id: 0 host_id: 993 size: 1 - container_id: 1 host_id: 100000 size: 65536 uidmap: - container_id: 0 host_id: 996 size: 1 - container_id: 1 host_id: 100000 size: 65536 kernel: 5.14.0-427.40.1.el9_4.x86_64 linkmode: dynamic logDriver: journald memFree: 117637120 memTotal: 738689024 networkBackend: netavark networkBackendInfo: backend: netavark dns: package: aardvark-dns-1.10.0-3.el9_4.x86_64 path: /usr/libexec/podman/aardvark-dns version: aardvark-dns 1.10.0 package: netavark-1.10.3-1.el9.x86_64 path: /usr/libexec/podman/netavark version: netavark 1.10.3 ociRuntime: name: crun package: crun-1.14.3-1.el9.x86_64 path: /usr/bin/crun version: |- crun version 1.14.3 commit: 1961d211ba98f532ea52d2e80f4c20359f241a98 rundir: /run/user/996/crun spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +CRIU +YAJL os: linux pasta: executable: &quot;&quot; package: &quot;&quot; version: &quot;&quot; remoteSocket: exists: false path: /run/user/996/podman/podman.sock security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: true seccompEnabled: true seccompProfilePath: /usr/share/containers/seccomp.json selinuxEnabled: true serviceIsRemote: false slirp4netns: executable: /bin/slirp4netns package: slirp4netns-1.2.3-1.el9.x86_64 version: |- slirp4netns version 1.2.3 commit: c22fde291bb35b354e6ca44d13be181c76a0a432 libslirp: 4.4.0 SLIRP_CONFIG_VERSION_MAX: 3 libseccomp: 2.5.2 swapFree: 2006286336 swapTotal: 2151673856 uptime: 1h 59m 18.00s (Approximately 0.04 days) variant: &quot;&quot; plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan - ipvlan volume: - local registries: search: - registry.access.redhat.com - registry.redhat.io - docker.io store: configFile: /home/web/.config/containers/storage.conf containerStore: number: 15 paused: 0 running: 15 stopped: 0 graphDriverName: overlay graphOptions: {} graphRoot: /home/web/.local/share/containers/storage graphRootAllocated: 23546822656 graphRootUsed: 4689367040 graphStatus: Backing Filesystem: xfs Native Overlay Diff: &quot;true&quot; Supports d_type: &quot;true&quot; Supports shifting: &quot;false&quot; Supports volatile: &quot;true&quot; Using metacopy: &quot;false&quot; imageCopyTmpDir: /var/tmp imageStore: number: 6 runRoot: /run/user/996/containers transientStore: false volumePath: /home/web/.local/share/containers/storage/volumes version: APIVersion: 4.9.4-rhel Built: 1728876463 BuiltTime: Mon Oct 14 05:27:43 2024 GitCommit: &quot;&quot; GoVersion: go1.21.13 (Red Hat 1.21.13-4.el9_4) Os: linux OsArch: linux/amd64 Version: 4.9.4-rhel ``` &lt;/details&gt; ### Podman in a container No ### Privileged Or Rootless Root or rootless - issue reproduced in both cases. ### Upstream Latest Release Reproduced in both: * `4.9.4-rhel` latest in the Alma Linux 9 repositories * Current `main` as of 2024-11-13 ### Additional environment details _No response_ ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>128</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>DNM: vendor: update c/common to my fork To use the new disk usage code. Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+    <SHA>664c1cbd045c507e9e9573a45dc3b95bb90bc397</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>test/system: add systemd df regression test Add a test for https://github.com/containers/podman/issues/24452 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>33f3cf925f04d142efff366d898dde10bff827f2</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/320-system-df.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>test/system: add systemd df regression test Add a test for https://github.com/containers/podman/issues/24452 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>144a6bd8ad0fcc9209bf343d83ab2203c9ef7a1c</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/320-system-df.bats</FILE>
+        <FILE>test/system/400-unprivileged-access.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>test/system: add systemd df regression test Add a test for https://github.com/containers/podman/issues/24452 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>d8e87b4295b9e6d5204e1af483e963773112f86e</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/320-system-df.bats</FILE>
+        <FILE>test/system/400-unprivileged-access.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>test/system: add systemd df regression test Add a test for https://github.com/containers/podman/issues/24452 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>17b312cb1a173ffee6d7f524fa83d26f1f0844ef</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/320-system-df.bats</FILE>
+        <FILE>test/system/400-unprivileged-access.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>test/system: add systemd df regression test Add a test for https://github.com/containers/podman/issues/24452 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>f4ef6b6f269d38a4513f636eacb86d5b3abf1e33</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/320-system-df.bats</FILE>
+        <FILE>test/system/400-unprivileged-access.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>test/system: add systemd df regression test Add a test for https://github.com/containers/podman/issues/24452 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>6fd86d9f222d5d5f5d3595fa76babb3b77a3b9e2</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/320-system-df.bats</FILE>
+        <FILE>test/system/400-unprivileged-access.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>test/system: add systemd df regression test Add a test for https://github.com/containers/podman/issues/24452 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>336517ed8b4e84b2800b54ff5f9e702ebae4fab5</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/320-system-df.bats</FILE>
+        <FILE>test/system/400-unprivileged-access.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>test/system: add systemd df regression test Add a test for https://github.com/containers/podman/issues/24452 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>97cab8c9c0a35bce29dee0375d368d4dd1853e27</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/320-system-df.bats</FILE>
+        <FILE>test/system/400-unprivileged-access.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

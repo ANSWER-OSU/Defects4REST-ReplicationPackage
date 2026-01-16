@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9624</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/9624</ISSUEURL>
+  <TITLE>Lucene indexing. Defining a part as not included for indexing still indexes that part value</TITLE>
+  <DESCRIPTION>When defining the autoroutepart and titlepart to not included in indexing for lucene it still indexes the value. **To Repro :** 0. Enable Lucene Indexing. 1. Create a content type and add the autoroutepart and titlepart. 2. In part settings for autoroute and titlepart uncheck &quot;Included in Indexing&quot; for lucene indexing. 3. Create a content item. 4. Go to Lucene Queries and run a match all lucene query on the index it was stored. 5. Observe that AutoroutePart and titlePart values have been indexed. **Desired behaviour.** Unchecking the &quot;Include in indexing&quot; part setting should be respected.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Jint Engine.GetCompletionValue() is obsolete (#9667)</MESSAGE>
+    <SHA>18801728b3374332c3aa051ef2bd204e9f35259e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Lucene indexing.Respect part settings to not index part values (#9625) fixes #9624</MESSAGE>
+      <SHA>aa7c06490b75c2468d86a32c934d2062a6ff8a3d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Contents/Indexing/ContentItemIndexCoordinator.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

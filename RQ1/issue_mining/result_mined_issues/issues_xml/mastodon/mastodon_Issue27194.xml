@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>27194</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/27194</ISSUEURL>
+  <TITLE>Post language strings with country code are invalid according to BCP47</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem 1. Create a post with the language set to a locale with a country code (e.g. zh-HK) 2. Obtain the JSON-LD of the post (e.g. using `curl -H &quot;Accept: application/json&quot;`) 3. Note the keys of the `contentMap` object ### Expected behaviour The first key of the object should be a valid locale string in accordance with BCP47 (e.g. zh-HK) ### Actual behaviour The first key is in camel-case without a hyphen (e.g. zhHk) ### Detailed description Introduced by #27099. It seems like this is how languages are currently stored in the database, so some conversion is likely needed before sending a post to inboxes. ### Mastodon instance _No response_ ### Mastodon version _No response_ ### Technical details - Ruby version: 3.2.2 - Node.js version: 18.17.1</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>New Crowdin Translations (automated) (#27202) Co-authored-by: GitHub Actions &lt;noreply@github.com&gt;</MESSAGE>
+    <SHA>695e42de0d0db75f15647c1aa6350ab2517701e0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix incorrect serialization of regional languages in `contentMap` Fixes #27194</MESSAGE>
+      <SHA>8a37c913dedba1a7aed27069c24d77a168d29102</SHA>
+      <PATCHEDFILES>
+        <FILE>app/lib/activitypub/case_transform.rb</FILE>
+        <FILE>spec/serializers/activitypub/note_serializer_spec.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

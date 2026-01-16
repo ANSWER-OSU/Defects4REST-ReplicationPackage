@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3853</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3853</ISSUEURL>
+  <TITLE>User Agent Performance Issue</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.2 Steps to reproduce the problem: In UserAgentHelper.IsMobileDevice() for each call two complicated Regex objects created and then not used again. The Regex class is thread safe and we should be creating these as static objects and using the option RegexOptions.Compiled when creating these. I do not have specific performance numbers.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Resolve conflicts</MESSAGE>
+    <SHA>df9df3ebc88ccf9e879ea26aa335631a04c944eb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3853 Refactoring. Moved regexs to static fields to increase performance</MESSAGE>
+      <SHA>e160611fdf6fdd90a88a46066f953fdbac441283</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Helpers/UserAgentHelper.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

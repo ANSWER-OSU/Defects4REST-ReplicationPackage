@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6333</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6333</ISSUEURL>
+  <TITLE>WebOptimizer. Correct work with async collection</TITLE>
+  <DESCRIPTION>nopCommerce version: Steps to reproduce the problem: &gt; The issue appears to be in the css bundle. Server was restarting by ops and that fixed the issue. &gt; CSS files: &gt; &quot;/lib_npm/jquery-ui-dist/jquery-ui.min.css&quot; &gt; &quot;/Themes/DefaultClean/Content/css/fontawesome.css&quot; &quot;/Themes/DefaultClean/Content/css/bootstrap-grid.css&quot; &gt; &quot;/Themes/DefaultClean/Content/css/styles.css&quot; View &quot;/lib_npm/magnific-popup/magnific-popup.css&quot; ``` System.InvalidOperationException: Operations that change non-concurrent collections must have exclusive access. A concurrent update was performed on this collection and corrupted its state. The collection's state is no longer correct. at System.Collections.Generic.HashSet`1.AddIfNotPresent(T value, Int32&amp; location) at WebOptimizer.Asset.TryAddSourceFile(String route) at Nop.Web.Framework.UI.NopHtmlHelper.GetOrCreateBundle(String bundlePath, Func`3 createAsset, String[] sourceFiles) in /home/vsts/work/1/s/src/Presentation/Nop.Web.Framework/UI/NopHtmlHelper.cs:line 124 at Nop.Web.Framework.UI.NopHtmlHelper.GenerateCssFiles() in /home/vsts/work/1/s/src/Presentation/Nop.Web.Framework/UI/NopHtmlHelper.cs:line 534 at AspNetCore._Views_Shared__Root_Head.&lt;&gt;c__DisplayClass10_0.&lt;&lt;ExecuteAsync&gt;b__0&gt;d.MoveNext() in C:\inetpub\wwwroot\Views\Shared\_Root.Head.cshtml:line 69 --- End of stack trace from previous location --- at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.SetOutputContentAsync() at AspNetCore._Views_Shared__Root_Head.ExecuteAsync() in C:\inetpub\wwwroot\Views\Shared\_Root.Head.cshtml:line 44 at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context) at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts) at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderLayoutAsync(ViewContext context, ViewBufferTextWriter bodyWriter) at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context) at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode) at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode) at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ActionContext actionContext, IView view, ViewDataDictionary viewData, ITempDataDictionary tempData, String contentType, Nullable`1 statusCode) at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result) at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context) ``` Source: https://www.nopcommerce.com/en/boards/topic/94740/invalidoperationexception-bundle-on-product-page</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>88</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '4.50-bug-fixes' into develop</MESSAGE>
+    <SHA>abfc66c9b8cdda19bc14c1634281b8cf69bc3258</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6333 #196 Bump WebOptimizer to 3.0.372</MESSAGE>
+      <SHA>00464bc3e34f627cca7b53e286b8b069c8f8e7bb</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Nop.Web.Framework.csproj</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/TagHelpers/Shared/NopScriptTagHelper.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/UI/NopHtmlHelper.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

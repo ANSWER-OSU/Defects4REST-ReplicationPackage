@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2748</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/2748</ISSUEURL>
+  <TITLE>Flowable modeler: export/import of BPMN diagram loses escalation references</TITLE>
+  <DESCRIPTION>I have a very basic BPMN with an intermediate escalation throwing event with the reference set to “escalationId”: ![image](https://user-images.githubusercontent.com/49920707/102493217-c625a900-406a-11eb-8360-a2c9eb40f6aa.png) Exporting the diagram from the modeler, and importing it again results in the escalation reference losing its value: ![image](https://user-images.githubusercontent.com/49920707/102493241-cde54d80-406a-11eb-8c19-c128c583a4f6.png) Here is the diff between the BPMN at creation and the BPMN after exporting and importing it again: ![image](https://user-images.githubusercontent.com/49920707/102493256-d50c5b80-406a-11eb-82ea-382435858c55.png) I attach the 2 BPMN diagrams: [Escalation ref issue.zip](https://github.com/flowable/flowable-engine/files/5815349/Escalation.ref.issue.zip)</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>62</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Bugfix/2788 dmn date collections (#2789) * #2788 fixes issue when using Date input variables and collection operations in DMN decision tables * #2788 added java.time.LocalDate to input variable pre processing (DMN decision table execution)</MESSAGE>
+    <SHA>a412833a95428dd8fa2a0a0ccb449832483ea9bc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix issue with losing escalation references on export / import #2748</MESSAGE>
+      <SHA>935a145fc289e3940db38310894ed31f24844b4f</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-json-converter/src/main/java/org/flowable/editor/language/json/converter/BaseBpmnJsonConverter.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix issue with losing escalation references on export / import #2748</MESSAGE>
+      <SHA>7f4510c032d70730c885edd578d9ce5f75f3129a</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-json-converter/src/main/java/org/flowable/editor/language/json/converter/BaseBpmnJsonConverter.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

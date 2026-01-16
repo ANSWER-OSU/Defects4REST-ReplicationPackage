@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>31392</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/31392</ISSUEURL>
+  <TITLE>Browser crashes on Windows 11</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem 1. Browse to mastodon.social 2. Log in ### Expected behaviour Log in and use Mastodon ### Actual behaviour My home page flashed, then I got a crash. ### Detailed description ![image](https://github.com/user-attachments/assets/67d2a3d9-3cba-4955-980a-26e9dc4df927) Here's the traceback: ``` TypeError: n is undefined @https://mastodon.social/packs/js/common-81e30f7b38745cf6b34f.js:2:1357289 @https://mastodon.social/packs/js/common-81e30f7b38745cf6b34f.js:2:112298 e@https://mastodon.social/packs/js/common-81e30f7b38745cf6b34f.js:2:1543509 t.useSyncExternalStoreWithSelector/d&lt;/&lt;@https://mastodon.social/packs/js/common-81e30f7b38745cf6b34f.js:2:1543714 useSyncExternalStore@https://mastodon.social/packs/js/common-81e30f7b38745cf6b34f.js:2:1448121 t.useSyncExternalStore@https://mastodon.social/packs/js/common-81e30f7b38745cf6b34f.js:2:1515745 t.useSyncExternalStoreWithSelector@https://mastodon.social/packs/js/common-81e30f7b38745cf6b34f.js:2:1543785 n@https://mastodon.social/packs/js/common-81e30f7b38745cf6b34f.js:2:112339 Ee@https://mastodon.social/packs/js/common-81e30f7b38745cf6b34f.js:2:1357230 mi@https://mastodon.social/packs/js/common-81e30f7b38745cf6b34f.js:2:1441138 jc@https://mastodon.social/packs/js/common-81e30f7b38745cf6b34f.js:2:1500107 yl@https://mastodon.social/packs/js/common-81e30f7b38745cf6b34f.js:2:1489357 bl@https://mastodon.social/packs/js/common-81e30f7b38745cf6b34f.js:2:1489285 ml@https://mastodon.social/packs/js/common-81e30f7b38745cf6b34f.js:2:1489146 ol@https://mastodon.social/packs/js/common-81e30f7b38745cf6b34f.js:2:1485981 cl@https://mastodon.social/packs/js/common-81e30f7b38745cf6b34f.js:2:1486363 Ba@https://mastodon.social/packs/js/common-81e30f7b38745cf6b34f.js:2:1427512 rl/&lt;@https://mastodon.social/packs/js/common-81e30f7b38745cf6b34f.js:2:1483936 LabelRenderer (webpack:///app/javascript/mastodon/features/notifications_v2/components/notification_mention.tsx:43:6) selector.name] (webpack:///node_modules/react-redux/dist/react-redux.legacy-esm.js:123:36) useSyncExternalStoreWithSelector (webpack:///node_modules/use-sync-external-store/cjs/use-sync-external-store-with-selector.production.min.js:11:203) useSyncExternalStoreWithSelector (webpack:///node_modules/use-sync-external-store/cjs/use-sync-external-store-with-selector.production.min.js:11:419) useDeferredValue (webpack:///node_modules/react-dom/cjs/react-dom.production.min.js:178:367) useMemo (webpack:///node_modules/react/cjs/react.production.min.js:26:308) useSyncExternalStoreWithSelector (webpack:///node_modules/use-sync-external-store/cjs/use-sync-external-store-with-selector.production.min.js:11:490) subscription (webpack:///node_modules/react-redux/dist/react-redux.legacy-esm.js:177:6) LabelRenderer (webpack:///app/javascript/mastodon/features/notifications_v2/components/notification_mention.tsx:39:30) Nh (webpack:///node_modules/react-dom/cjs/react-dom.production.min.js:160:136) Vk (webpack:///node_modules/react-dom/cjs/react-dom.production.min.js:289:336) tj (webpack:///node_modules/react-dom/cjs/react-dom.production.min.js:279:391) tj (webpack:///node_modules/react-dom/cjs/react-dom.production.min.js:279:322) tj (webpack:///node_modules/react-dom/cjs/react-dom.production.min.js:279:179) Nk (webpack:///node_modules/react-dom/cjs/react-dom.production.min.js:270:87) Ck (webpack:///node_modules/react-dom/cjs/react-dom.production.min.js:272:299) jg (webpack:///node_modules/react-dom/cjs/react-dom.production.min.js:127:104) Dk (webpack:///node_modules/react-dom/cjs/react-dom.production.min.js:266:272) ``` ### Mastodon instance https://mastodon.social ### Mastodon version Mastodon v4.3.0-nightly.2024-08-12 ### Browser name and version Firefox 129.0 (64-bit). It also crashes on Edge, Chrome and Vivaldi. It's probably not a browser problem! ### Operating system Windows 11 ### Technical details _No response_</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add missing Appeals link under Moderation in navigiation (#31071)</MESSAGE>
+    <SHA>b42661ba95b7872ba278fca9b0fee8faffd89e52</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix web UI crash when a encoutering an orphaned notification group Fixes #31392</MESSAGE>
+      <SHA>4c996964c7df866f311a80a91a69c493a76088da</SHA>
+      <PATCHEDFILES>
+        <FILE>app/javascript/mastodon/features/notifications_v2/components/notification_group.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix notification screen crashing in rare cases where the status no longer exists Alternative to #31397, by changing the types to correctly report that the status ID might be `undefined` or `null`, or the status might not be found. Fixes #31392</MESSAGE>
+      <SHA>e3e3d9cf9a2233c9b7a1dec4184107fd75aa8a5a</SHA>
+      <PATCHEDFILES>
+        <FILE>app/javascript/mastodon/actions/notification_groups.ts</FILE>
+        <FILE>app/javascript/mastodon/api_types/notifications.ts</FILE>
+        <FILE>app/javascript/mastodon/features/notifications_v2/components/notification_mention.tsx</FILE>
+        <FILE>app/javascript/mastodon/features/notifications_v2/components/notification_with_status.tsx</FILE>
+        <FILE>app/javascript/mastodon/models/notification_group.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

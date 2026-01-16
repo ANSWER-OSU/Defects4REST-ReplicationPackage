@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>203</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/203</ISSUEURL>
+  <TITLE>Publish Plugin - Pypi</TITLE>
+  <DESCRIPTION>Allow publishing python libraries to pypi on successful build. Placeholder here: https://github.com/drone/drone/blob/master/pkg/plugin/publish/pypi.go I had some code for this (from the old, closed source version of Drone). This is probably better left to someone with more python experience than me. ``` Go // Credentials represents the PyPi authentication credentials // that are stored in the .pypirc file var pypirc = ` cat &lt;&lt;EOF &gt; $HOME/.pypirc [pypirc] servers = pypi [server-login] username:%s password:%s EOF` type Pypi struct { // The Username used by pypi to connect // and publish to the central repository User string // The Password used by pypi to connect // and deploy to the central repository Pass string } func (p *Pypi) Write(f *buildfile.Buildfile) { if len(p.User) == 0 || len(p.Pass) == 0 { return } // debugging purposes so we can see if / where something is failing f.WriteCmdSilent(&quot;echo 'publishing python module to Pypi ...'&quot;) // generate .pypirc file that stores your pip credentials f.WriteCmdSilent(pypirc, p.User, p.Pass) // upload to pypi f.WriteCmd(&quot;python setup.py sdist --formats gztar,zip upload&quot;) } ``` **NOTE** this is pseudo code an is untested. It also assumes the deployment is being executed from the root of the github repository. It is possible the `pwd` could have changed. It is also possible that the publish command should be executed from a sub-directory of the repository.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge remote-tracking branch 'origin/master'</MESSAGE>
+    <SHA>839e77ab58862e021023334ade2d7486c73e3e69</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #233 from swgillespie/master Add support for publishing to PyPI #203</MESSAGE>
+      <SHA>189d880de9c75de335174077f01fbb727cc1038a</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/plugin/publish/publish.go</FILE>
+        <FILE>pkg/plugin/publish/pypi.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[MISC] Webhook Creation Default To Secure, Fix PR/Compare Commit Listing, Fix Merge Commit Message (#203) This change is fixing a few things on both UI and backend side: - update webhook creation screen to default to enable ssl verification (secure by default should always be the move) - fix pr/compare commit listing to show correct diffs the head branch is ahead of the base branch (NOTE: THIS ONLY SHOWS THE LATEST 20 COMMITS - NO PAGINATION ADDED) - fix merge commit message to contain the correct head branch, source repo path and pr numbers (similar'ish to github)</MESSAGE>
+      <SHA>c827fa5e669f984284854b5a142146c9f22b9fb4</SHA>
+      <PATCHEDFILES>
+        <FILE>gitrpc/internal/gitea/merge.go</FILE>
+        <FILE>gitrpc/internal/service/interface.go</FILE>
+        <FILE>gitrpc/internal/service/merge.go</FILE>
+        <FILE>gitrpc/internal/service/operations.go</FILE>
+        <FILE>gitrpc/merge.go</FILE>
+        <FILE>gitrpc/proto/merge.proto</FILE>
+        <FILE>gitrpc/rpc/diff.pb.go</FILE>
+        <FILE>gitrpc/rpc/diff_grpc.pb.go</FILE>
+        <FILE>gitrpc/rpc/http.pb.go</FILE>
+        <FILE>gitrpc/rpc/http_grpc.pb.go</FILE>
+        <FILE>gitrpc/rpc/merge.pb.go</FILE>
+        <FILE>gitrpc/rpc/merge_grpc.pb.go</FILE>
+        <FILE>gitrpc/rpc/operations.pb.go</FILE>
+        <FILE>gitrpc/rpc/operations_grpc.pb.go</FILE>
+        <FILE>gitrpc/rpc/ref.pb.go</FILE>
+        <FILE>gitrpc/rpc/ref_grpc.pb.go</FILE>
+        <FILE>gitrpc/rpc/shared.pb.go</FILE>
+        <FILE>internal/api/controller/pullreq/merge.go</FILE>
+        <FILE>web/src/pages/Compare/Compare.tsx</FILE>
+        <FILE>web/src/pages/PullRequest/PullRequestCommits/PullRequestCommits.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat: [CODE-628]: Admin User Management (#203)</MESSAGE>
+      <SHA>4b5ac6f8e2fa06ab6fabe77d142c38f2d2071e03</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/RouteDefinitions.ts</FILE>
+        <FILE>web/src/RouteDestinations.tsx</FILE>
+        <FILE>web/src/components/UserManagementFlows/AddUserModal.tsx</FILE>
+        <FILE>web/src/components/UserManagementFlows/ResetPassword.tsx</FILE>
+        <FILE>web/src/components/UserManagementFlows/UserManagementFlows.module.scss</FILE>
+        <FILE>web/src/components/UserManagementFlows/UserManagementFlows.module.scss.d.ts</FILE>
+        <FILE>web/src/framework/strings/stringTypes.ts</FILE>
+        <FILE>web/src/i18n/strings.en.yaml</FILE>
+        <FILE>web/src/layouts/layout.tsx</FILE>
+        <FILE>web/src/layouts/menu/AdminMenu.tsx</FILE>
+        <FILE>web/src/pages/UsersListing/UsersListing.module.scss</FILE>
+        <FILE>web/src/pages/UsersListing/UsersListing.module.scss.d.ts</FILE>
+        <FILE>web/src/pages/UsersListing/UsersListing.tsx</FILE>
+        <FILE>web/src/services/code/index.tsx</FILE>
+        <FILE>web/src/services/code/swagger.yaml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

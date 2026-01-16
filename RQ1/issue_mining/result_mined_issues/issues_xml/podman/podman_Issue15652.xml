@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15652</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15652</ISSUEURL>
+  <TITLE>Digest could be invalid when using multiple registries</TITLE>
+  <DESCRIPTION>/kind bug **Description** Reported RepoDigests are invalid when pulling image from more than one registry. podman does cross product of image names and all available digests which can lead to invalid repo digests as digest is registry specific. Similar to: https://github.com/cri-o/cri-o/issues/6208 **Steps to reproduce the issue:** 1. Pull the same image from two registries 2. Inspect images and their repo digests **Describe the results you received:** ```json &quot;Id&quot;: &quot;2b7d6430f78d432f89109b29d88d4c36c868cdbf15dc31d2132ceaa02b993763&quot;, &quot;Digest&quot;: &quot;sha256:f8fe7d0e6be40a7febbdec9aaf820eed7dbe62cb2afff00f67610666f7a9bd97&quot;, &quot;RepoTags&quot;: [ &quot;docker.io/library/nginx:1.23&quot;, &quot;image-registry.openshift-image-registry.svc:5000/rox-12400/nginx:1.23&quot; ], &quot;RepoDigests&quot;: [ &quot;docker.io/library/nginx@sha256:89020cd33be2767f3f894484b8dd77bc2e5a1ccc864350b92c53262213257dfc&quot;, &quot;docker.io/library/nginx@sha256:b95a99feebf7797479e0c5eb5ec0bdfa5d9f504bc94da550c2f58e839ea6914f&quot;, &quot;docker.io/library/nginx@sha256:f8fe7d0e6be40a7febbdec9aaf820eed7dbe62cb2afff00f67610666f7a9bd97&quot;, &quot;image-registry.openshift-image-registry.svc:5000/rox-12400/nginx@sha256:89020cd33be2767f3f894484b8dd77bc2e5a1ccc864350b92c53262213257dfc&quot;, &quot;image-registry.openshift-image-registry.svc:5000/rox-12400/nginx@sha256:b95a99feebf7797479e0c5eb5ec0bdfa5d9f504bc94da550c2f58e839ea6914f&quot;, &quot;image-registry.openshift-image-registry.svc:5000/rox-12400/nginx@sha256:f8fe7d0e6be40a7febbdec9aaf820eed7dbe62cb2afff00f67610666f7a9bd97&quot; ], ``` **Describe the results you expected:** Docker output ```json &quot;Id&quot;: &quot;sha256:2b7d6430f78d432f89109b29d88d4c36c868cdbf15dc31d2132ceaa02b993763&quot;, &quot;RepoTags&quot;: [ &quot;nginx:1.23&quot;, &quot;quay.io/dhaus/repro:1.23&quot; ], &quot;RepoDigests&quot;: [ &quot;nginx@sha256:89020cd33be2767f3f894484b8dd77bc2e5a1ccc864350b92c53262213257dfc&quot;, &quot;nginx@sha256:b95a99feebf7797479e0c5eb5ec0bdfa5d9f504bc94da550c2f58e839ea6914f&quot;, &quot;quay.io/dhaus/repro@sha256:89020cd33be2767f3f894484b8dd77bc2e5a1ccc864350b92c53262213257dfc&quot; ], ```</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>API: report multiple digests for images Be prepared to report multiple image digests for images which contain multiple manifests but, because they continue to have the same set of layers and the same configuration, are considered to be the same image. Signed-off-by: Nalin Dahyabhai &lt;nalin@redhat.com&gt;</MESSAGE>
+    <SHA>07195ff09fdcb0d2d3a044c92665b082d6e742b1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>images: distinguish between tags and digests Generate an image's RepoDigests list using all applicable digests, and refrain from outputting a digest in the tag column of the &quot;images&quot; output. Signed-off-by: Nalin Dahyabhai &lt;nalin@redhat.com&gt;</MESSAGE>
+      <SHA>248bb61b14a3f0d4e1d244eff85b30f48554a6a8</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/images.go</FILE>
+        <FILE>libpod/image/image.go</FILE>
+        <FILE>libpod/image/image_test.go</FILE>
+        <FILE>libpod/image/utils.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

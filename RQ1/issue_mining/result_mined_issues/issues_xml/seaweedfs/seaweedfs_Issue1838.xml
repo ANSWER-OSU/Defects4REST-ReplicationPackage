@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1838</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/1838</ISSUEURL>
+  <TITLE>[s3] http: superfluous response.WriteHeader</TITLE>
+  <DESCRIPTION>**Describe the bug** [s3] http: superfluous response.WriteHeader after `raft.Server: Not current leader` per request ``` I0225 09:43:38 1 masterclient.go:120] filer masterClient failed to receive from fast-master-0.s3-fast-master-direct.service.dcix.consul:9333: rpc error: code = Unavailable desc = transport is closing 2021/02/25 09:43:38 http: superfluous response.WriteHeader call from github.com/chrislusf/seaweedfs/weed/server.processRangeRequest (common.go:283) E0225 09:43:38 1 filer_server_handlers_write.go:42] failing to assign a file id: failed to parse master : server should have hostname:port format: I0225 09:43:38 1 common.go:53] response method:PUT URL:/buckets/registry/docker/registry/v2/repositories/b2c/credits-admin/_uploads/71e12cb4-5c6e-405e-a6ca-1d491ec79441/hashstates/sha256/15728640 with httpStatus:500 and JSON:{&quot;error&quot;:&quot;failed to parse master : server should have hostname:port format: &quot;} E0225 09:43:38 1 s3api_object_handlers.go:330] upload to filer error: failed to parse master : server should have hostname:port format: 2021/02/25 09:43:38 http: superfluous response.WriteHeader call from github.com/chrislusf/seaweedfs/weed/server.processRangeRequest (common.go:283) 2021/02/25 09:43:38 http: superfluous response.WriteHeader call from github.com/chrislusf/seaweedfs/weed/server.processRangeRequest (common.go:283) ``` https://github.com/chrislusf/seaweedfs/blob/master/weed/server/common.go#L284 **Expected behavior** automatic recovery after loss of master If there is no content, the S3 API returns 200 and 206 codes, need return 500</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>27</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>2.32</MESSAGE>
+    <SHA>9f00f95bfb8dcf118ade083c66122725f25fdd45</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>avoid http error: superfluous response.WriteHeader https://github.com/chrislusf/seaweedfs/issues/1838</MESSAGE>
+      <SHA>7194a5e7bf38ec136ea8ec8f6b50960d598a4d95</SHA>
+      <PATCHEDFILES>
+        <FILE>go.mod</FILE>
+        <FILE>go.sum</FILE>
+        <FILE>weed/filer/filechunk_manifest.go</FILE>
+        <FILE>weed/filer/stream.go</FILE>
+        <FILE>weed/replication/repl_util/replication_util.go</FILE>
+        <FILE>weed/util/fasthttp_util.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

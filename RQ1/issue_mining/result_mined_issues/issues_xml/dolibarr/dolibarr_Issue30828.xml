@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>30828</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/30828</ISSUEURL>
+  <TITLE>On Ticket creation, contract origin is printed twice if contract is preselected</TITLE>
+  <DESCRIPTION>### Bug To set a contract by default on ticket creation, we use GET parameter : - origin (object type) - originid (object id) In contract form file, we can see that we print contract selector only if $subelement is not &quot;contract&quot; ![Capture d’écran 2024-09-02 à 12 01 23](https://github.com/user-attachments/assets/e2f9dbb2-0d0c-40b0-a5d5-c48c730f61b8) $subelement comes from GET parameter &quot;origin&quot; ![Capture d’écran 2024-09-02 à 12 03 50](https://github.com/user-attachments/assets/65d94389-3e9a-4dc9-bb40-a9a0b47603be) The contract class name is &quot;Contrat&quot;. If we pass as parameter contract origin, the contract will be shown twice. ![Capture d’écran 2024-09-02 à 12 11 15](https://github.com/user-attachments/assets/3d70c785-1707-4c7b-8e25-32e2d63623a8) To avoid this error, we have to replace &quot;contract&quot; bye &quot;contrat&quot; in html.formticket.class.php line 701. The second problem is that this field does not link the ticket to the selected contract and/or no &quot;contract&quot; field exists on the ticket. ![Capture d’écran 2024-09-04 à 17 33 45](https://github.com/user-attachments/assets/31677662-05cd-4ae5-b50e-a1699ed0eefb) ![Capture d’écran 2024-09-04 à 17 34 22](https://github.com/user-attachments/assets/bc5dab1f-4fc0-4238-a0df-7101161eb7a9) ### Dolibarr Version develop ### Environment PHP 8.2.14 ### Environment Database 8.0.35-0ubuntu0.22.04.1 ### Steps to reproduce the behavior and expected behavior Go on ticket card with GET parameters : - action=create - origin=contrat - originid=x ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Debug v20</MESSAGE>
+    <SHA>9eb61af370e9ecbfaf9b540cc0b3e7dc16f83f3a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #30828 bad save of contract id in ticket card</MESSAGE>
+      <SHA>0c22079d0a68bfe0a79903128a4d123f577125fe</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/class/html.formticket.class.php</FILE>
+        <FILE>htdocs/ticket/card.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #30828 bad save of contract id in ticket card (#30916) Co-authored-by: Hystepik &lt;lmarcouiller@nltechno.com&gt;</MESSAGE>
+      <SHA>ef2ec011f5e8aa504651f7430f22f8f24015f854</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/class/html.formticket.class.php</FILE>
+        <FILE>htdocs/ticket/card.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

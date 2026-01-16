@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2575</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2575</ISSUEURL>
+  <TITLE>The widget zone should be passed to the widget component's Invoke method.</TITLE>
+  <DESCRIPTION>The widget zone should be passed to the widget component's Invoke method. public IViewComponentResult Invoke(string widgetZone) There are many plugins that could be integrated in multiple widget zones and provide different functionality depending on the widget zone. For example in our Anywhere Sliders plugin you can have many Sliders and have each Slider added to a different widget zone. So without knowing the current widget zone in the Invoke method we will not be able to determine which Sliders to show (we can't show each Slider in every supported widget zone). Thank you in advance! Source: https://www.nopcommerce.com/boards/t/48672/nopcommerce-40-bug-fixes-and-improvements.aspx</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#2562 Catch Exception instead of NopException in the ResolveUnregistered method</MESSAGE>
+    <SHA>27bb92a2c03dc9bd9843d41034c75f479acd0765</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2575 Pass widget zone to widget view components</MESSAGE>
+      <SHA>b32f19e2317644e292ac9347e2c47d27455f2cef</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Cms/IWidgetPlugin.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Components/WidgetsGoogleAnalyticsViewComponent.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/GoogleAnalyticPlugin.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Nop.Plugin.Widgets.GoogleAnalytics.csproj</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.NivoSlider/Components/WidgetsNivoSliderViewComponent.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.NivoSlider/Description.txt</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.NivoSlider/NivoSliderPlugin.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.NivoSlider/Nop.Plugin.Widgets.NivoSlider.csproj</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Components/AdminWidget.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/WidgetModelFactory.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#2575 Further changes to passing widget zone parameter to widget view components</MESSAGE>
+      <SHA>0002f8fa08b301d41ae193c475685b4cd4dfa874</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Components/WidgetsGoogleAnalyticsViewComponent.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Nop.Plugin.Widgets.GoogleAnalytics.csproj</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.NivoSlider/Components/WidgetsNivoSliderViewComponent.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.NivoSlider/Nop.Plugin.Widgets.NivoSlider.csproj</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.NivoSlider/plugin.json</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Components/AdminWidget.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/WidgetModelFactory.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

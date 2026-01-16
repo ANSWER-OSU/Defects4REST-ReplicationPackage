@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2154</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2154</ISSUEURL>
+  <TITLE>Drone server failed to unmarshal webhook payload from Gogs (labels are present)</TITLE>
+  <DESCRIPTION>Steps to reproduce: 1. Create PR with labels. 2. See drone-server logs. These errors are found there in my case: ``` drone-server_1 | time=&quot;2017-08-07T06:00:10Z&quot; level=error msg=&quot;failure to parse hook. json: cannot unmarshal object into Go struct field .labels of type string&quot; drone-server_1 | time=&quot;2017-08-07T06:00:10Z&quot; level=error msg=&quot;Error #01: json: cannot unmarshal object into Go struct field .labels of type string\n&quot; ip=89.188.125.8 latency=16.784072ms method=POST path=&quot;/hook&quot; status=400 time=&quot;2017-08-07T06:00:10Z&quot; user-agent=GogsServer ``` 3. See &quot;labels&quot; section of payload (can be found in webhook edit page in Gogs). In my case: ```json &quot;labels&quot;: [ { &quot;id&quot;: 268, &quot;name&quot;: &quot;component/library&quot;, &quot;color&quot;: &quot;7614de&quot;, &quot;url&quot;: &quot;&quot; } ], ``` It seems like drone webhook processing function works incorrectly, somewhere around [this](https://github.com/drone/drone/blob/c8313f8cd8b398becaa46563121a4c5526b1081a/server/hook.go#L324) line. Gitter discussion is [here](https://gitter.im/drone/drone?at=59887a8845fc670746015e41).</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>245</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add ability to restart build of any state</MESSAGE>
+    <SHA>9fd43c95147d7e4284be38cbee607dcceeb6cbaf</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Remove labels deserialization for gogs and gitea PRs This fixes #2154</MESSAGE>
+      <SHA>913091f4475b190255df046ac12342c1445c2686</SHA>
+      <PATCHEDFILES>
+        <FILE>remote/gitea/types.go</FILE>
+        <FILE>remote/gogs/types.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>add migration to add columns in infra_provisioned table (#2154) * rename migration files * change column type to TEXT * change column type to TEXT * update migration scripts * add migration to add columns in infra_provisioned table</MESSAGE>
+      <SHA>dd143cc37ee3f7a29b242bc36c51b4097dab82ee</SHA>
+      <PATCHEDFILES>
+        <FILE>app/store/database/migrate/postgres/0058_alter_cde_infraprovisioned_down.sql</FILE>
+        <FILE>app/store/database/migrate/postgres/0058_alter_cde_infraprovisioned_up.sql</FILE>
+        <FILE>app/store/database/migrate/sqlite/0058_alter_cde_infraprovisioned_down.sql</FILE>
+        <FILE>app/store/database/migrate/sqlite/0058_alter_cde_infraprovisioned_up.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

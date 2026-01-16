@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1439</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/1439</ISSUEURL>
+  <TITLE>Issue with dashboard layout causes API exceptions</TITLE>
+  <DESCRIPTION>Hi, we've recently hit a bug with one of our dashboards. There seems to be an issue with the layout, resulting in 500 API errors: ``` [2016-12-01 02:30:50,198][PID:4692][ERROR][redash] Exception on /api/dashboards/test-dashboard [GET] Traceback (most recent call last): File &quot;/usr/local/lib/python2.7/dist-packages/flask/app.py&quot;, line 1475, in full_dispatch_request rv = self.dispatch_request() File &quot;/usr/local/lib/python2.7/dist-packages/flask/app.py&quot;, line 1461, in dispatch_request return self.view_functions[rule.endpoint](**req.view_args) File &quot;/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py&quot;, line 477, in wrapper resp = resource(*args, **kwargs) File &quot;/usr/local/lib/python2.7/dist-packages/flask_login.py&quot;, line 792, in decorated_view return func(*args, **kwargs) File &quot;/usr/local/lib/python2.7/dist-packages/flask/views.py&quot;, line 84, in view return self.dispatch_request(*args, **kwargs) File &quot;/opt/redash/redash.0.12.0.b2354/redash/handlers/base.py&quot;, line 25, in dispatch_request return super(BaseResource, self).dispatch_request(*args, **kwargs) File &quot;/usr/local/lib/python2.7/dist-packages/flask_restful/__init__.py&quot;, line 587, in dispatch_request resp = meth(*args, **kwargs) File &quot;/opt/redash/redash.0.12.0.b2354/redash/permissions.py&quot;, line 47, in decorated return fn(*args, **kwargs) File &quot;/opt/redash/redash.0.12.0.b2354/redash/handlers/dashboards.py&quot;, line 47, in get response = dashboard.to_dict(with_widgets=True, user=self.current_user) File &quot;/opt/redash/redash.0.12.0.b2354/redash/models.py&quot;, line 1114, in to_dict for widget_id in row: TypeError: 'NoneType' object is not iterable ``` This change in `redash/models.py` appears to fix the problem: Old: ``` for row in layout: new_row = [] for widget_id in row: ... ``` New: ``` for row in layout: if not row: continue new_row = [] for widget_id in row: ... ```</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update version reference in bootstrap.sh.</MESSAGE>
+    <SHA>ba60bfa3b04412493195c1003be3334958e81a65</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix https://github.com/getredash/redash/issues/1439</MESSAGE>
+      <SHA>eaa0b5da0931efe4f550a59522a1a1cca14aa102</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/models.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix https://github.com/getredash/redash/issues/1439</MESSAGE>
+      <SHA>592c5ed4fa620b5d05fa6a7285d7e118ddf5a5ad</SHA>
+      <PATCHEDFILES>
+        <FILE>models.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

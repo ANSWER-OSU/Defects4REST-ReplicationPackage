@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18831</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18831</ISSUEURL>
+  <TITLE>unmounting/EINVAL flake</TITLE>
+  <DESCRIPTION>Two new flakes seen in #13808 (buildah treadmill): ``` &lt;+009ms&gt; # # podman-remote --url unix:/tmp/podman_tmp_9HtW pod rm c3cc31049b088d86ef22ad5b279ce5c1d01b88887116bc9f6486b9b0a28f2080 &lt;+104ms&gt; # Error: 2 errors occurred: # * removing container 0c7966924a988d4e00f2585da31627a0db0621e6fbd6531cea4d02779e3bcfe2 from pod c3cc31049b088d86ef22ad5b279ce5c1d01b88887116bc9f6486b9b0a28f2080: cleaning up storage: removing container 0c7966924a988d4e00f2585da31627a0db0621e6fbd6531cea4d02779e3bcfe2 root filesystem: unmounting &quot;/var/lib/containers/storage/overlay/4e8aaf7a108d0bf91f873379b4558162620f9e4ffaca942d06ef4d40778456bc/merged&quot;: invalid argument # * removing container 55ade4c16aa0fffb758fc893be4d24c8fdaabcde14eec89df7885b42c4b03881 from pod c3cc31049b088d86ef22ad5b279ce5c1d01b88887116bc9f6486b9b0a28f2080: cleaning up storage: removing container 55ade4c16aa0fffb758fc893be4d24c8fdaabcde14eec89df7885b42c4b03881 root filesystem: unmounting &quot;/var/lib/containers/storage/overlay/1ef8c38e52bd1d345801a0a4a7b2e0631b85965881be472dcb6db0afd6c3a65b/merged&quot;: invalid argument ``` Once they happen, everything is hosed: all subsequent tests fail. This is sooooooo close to #17216 (unlinkat/EBUSY) that I'm 99.99% convinced it's the same bug, just a different manifestation (presumably because of new containers/whatever). If that turns out to be the case, I'll close this issue and merge these flakes there. * debian-12 : sys remote debian-12 root host boltdb [remote] * [06-08 15:08](https://api.cirrus-ci.com/v1/artifact/task/4726381167247360/html/sys-remote-debian-12-root-host-boltdb.log.html#t--00550) in [sys] podman play * fedora-38-aarch64 : sys remote fedora-38-aarch64 root host boltdb [remote] * [06-08 15:08](https://api.cirrus-ci.com/v1/artifact/task/5852281074089984/html/sys-remote-fedora-38-aarch64-root-host-boltdb.log.html#t--00319) in [sys] pod exit policies</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>118</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18959 from edsantiago/logs_l_flake e2e: fix one of the many log flakes</MESSAGE>
+    <SHA>80dddd2a243b73ce794535746e03ae91384cd4e8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>systests: test instrumentation for #18514: if we get a timeout in teardown(), run and show the output of podman system locks for #18831: if we hit unmount/EINVAL, nothing will ever work again, so signal all future tests to skip. Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>00292ae1c47794061b17d14086e9e5437b625265</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/helpers.bash</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2751</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/2751</ISSUEURL>
+  <TITLE>ProcessDefinitionQuery.latestVersion() is useless to .active()</TITLE>
+  <DESCRIPTION>**Describe the bug** There are two versions of my deployment process and v2 is suspended. if I use ```java ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery() .latestVersion() .active() ``` I got nothing. The SQL printed is: ```sql SELECT RES.* FROM ACT_RE_PROCDEF RES WHERE RES.VERSION_ = ( SELECT max( VERSION_ ) FROM ACT_RE_PROCDEF WHERE KEY_ = RES.KEY_ AND ( ( TENANT_ID_ IS NOT NULL AND TENANT_ID_ = RES.TENANT_ID_ ) OR ( TENANT_ID_ IS NULL AND RES.TENANT_ID_ IS NULL ) ) ) AND ( RES.SUSPENSION_STATE_ = 1) ``` I think maybe this: ```sql SELECT RES.* FROM ACT_RE_PROCDEF RES WHERE RES.VERSION_ = ( SELECT max( VERSION_ ) FROM ACT_RE_PROCDEF WHERE KEY_ = RES.KEY_ AND ( ( TENANT_ID_ IS NOT NULL AND TENANT_ID_ = RES.TENANT_ID_ ) OR ( TENANT_ID_ IS NULL AND RES.TENANT_ID_ IS NULL ) ) AND (SUSPENSION_STATE_ = 1) ) ``` ![image](https://user-images.githubusercontent.com/23066241/102846909-3efe7980-444c-11eb-9746-6a9ea9e58426.png) **Expected behavior** Get v1 process deployment **Additional context** flowable: v6.6.0 database: mysql</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>315</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fixed broken Dockerhub badge</MESSAGE>
+    <SHA>fea8e87d5d579c999f7e7ff31370d68075061030</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Added test for #2751</MESSAGE>
+      <SHA>719b0e3197589284a8747c3da86050504f1cf476</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/api/repository/ProcessDefinitionSuspensionTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

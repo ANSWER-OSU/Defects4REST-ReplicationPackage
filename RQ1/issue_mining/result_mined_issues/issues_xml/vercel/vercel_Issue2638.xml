@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2638</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/2638</ISSUEURL>
+  <TITLE>inconsistent behaviour for 404 handling in now.json for NextJS v9</TITLE>
+  <DESCRIPTION>With NextJS 9, it is possible to make custom 404 pages by setting the following when deployed to ZEIT (cloud). 1. `/pages/error.js` 2. use the following routes in `now.json` ``` &quot;routes&quot;: [ { &quot;handle&quot;: &quot;filesystem&quot;}, { &quot;src&quot;: &quot;/(.*)&quot;, &quot;dest&quot;: &quot;error.html&quot;, &quot;status&quot;: 404} ] ```` In `now dev`, a different set of `now.json` rules is required 1. `/pages/error.js` 2. use the following routes in `now.json` ``` &quot;routes&quot;: [ { &quot;handle&quot;: &quot;filesystem&quot;}, { &quot;src&quot;: &quot;/(.*)&quot;, &quot;dest&quot;: &quot;error&quot;} ] ```` Note: 1. &quot;status&quot;: 404 cannot be set in `now dev` 2. &quot;dest&quot; needs to point to &quot;error&quot; instead of &quot;error.html&quot; because the page has not been statically generated</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>1858</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix routes definition in `now-dev-static-routes` test fixture (#2687) This is the proper way to define this route because of the capture of the initial `/`. Matches how it works in production.</MESSAGE>
+    <SHA>eeed5a82730eb7751dbea9c7cd3832bb38c8de0b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now dev] Allow custom 404 pages via `routes` This matches the behavior in production, which allows a `dest` to be provided when defining a `status: 404` in the routes configuration. Related to #2638.</MESSAGE>
+      <SHA>fdd113690963f1ab1d47516338751491f283d24d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/util/dev/server.ts</FILE>
+        <FILE>test/dev-server.unit.js</FILE>
+        <FILE>test/fixtures/unit/now-dev-custom-404/error.html</FILE>
+        <FILE>test/fixtures/unit/now-dev-custom-404/error.js</FILE>
+        <FILE>test/fixtures/unit/now-dev-custom-404/now.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now dev] Allow custom 404 pages via `routes` (#2689) * [now dev] Allow custom 404 pages via `routes` This matches the behavior in production, which allows a `dest` to be provided when defining a `status: 404` in the routes configuration. Related to #2638. * Fix typo</MESSAGE>
+      <SHA>8e0c1da441f72148b3e1d9f840dd8b9bde7cb296</SHA>
+      <PATCHEDFILES>
+        <FILE>src/util/dev/server.ts</FILE>
+        <FILE>test/dev-server.unit.js</FILE>
+        <FILE>test/fixtures/unit/now-dev-custom-404/error.html</FILE>
+        <FILE>test/fixtures/unit/now-dev-custom-404/error.js</FILE>
+        <FILE>test/fixtures/unit/now-dev-custom-404/now.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now dev] Allow custom 404 pages via `routes` (#2689) * [now dev] Allow custom 404 pages via `routes` This matches the behavior in production, which allows a `dest` to be provided when defining a `status: 404` in the routes configuration. Related to #2638. * Fix typo</MESSAGE>
+      <SHA>188150da26553d1df281c9556290e64c9d35f719</SHA>
+      <PATCHEDFILES>
+        <FILE>src/util/dev/server.ts</FILE>
+        <FILE>test/dev-server.unit.js</FILE>
+        <FILE>test/fixtures/unit/now-dev-custom-404/error.html</FILE>
+        <FILE>test/fixtures/unit/now-dev-custom-404/error.js</FILE>
+        <FILE>test/fixtures/unit/now-dev-custom-404/now.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

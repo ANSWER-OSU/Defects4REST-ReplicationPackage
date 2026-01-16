@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121842</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121842</ISSUEURL>
+  <TITLE>[CI] ReindexDatastreamIndexTransportActionIT testTimestampNotAddedIfExists failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6228 / rhel-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/43qwl3x5kyud4) - [elasticsearch-pull-request #55501 / part-2](https://gradle-enterprise.elastic.co/s/n5g3hvmmazmho) - [elasticsearch-periodic #6218 / openjdk21_checkpart2_java-fips-matrix](https://gradle-enterprise.elastic.co/s/7ypt5ewrwfl6c) - [elasticsearch-periodic-platform-support #6200 / rocky-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/lj2ci5qtkzpfa) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:migrate:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.migrate.action.ReindexDatastreamIndexTransportActionIT.testTimestampNotAddedIfExists&quot; -Dtests.seed=B45CD9303FA41E74 -Dtests.locale=sd -Dtests.timezone=Europe/Tirane -Druntime.java=23 ``` **Applicable branches:** 9.0 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.migrate.action.ReindexDatastreamIndexTransportActionIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testTimestampNotAddedIfExists),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: All incoming requests on node [node_s1] should have finished. Expected 0 bytes for requests in-flight but got 298 bytes; pending tasks [[{ &quot;node&quot; : &quot;node_s1&quot;, &quot;id&quot; : 17, &quot;type&quot; : &quot;persistent&quot;, &quot;action&quot; : &quot;health-node[c]&quot;, &quot;status&quot; : { &quot;state&quot; : &quot;STARTED&quot; }, &quot;description&quot; : &quot;id=health-node&quot;, &quot;start_time&quot; : &quot;2025-02-06T22:29:10.062Z&quot;, &quot;start_time_in_millis&quot; : 1738880950062, &quot;running_time&quot; : &quot;7.8m&quot;, &quot;running_time_in_nanos&quot; : 470082022969, &quot;cancellable&quot; : true, &quot;cancelled&quot; : false, &quot;parent_task_id&quot; : &quot;cluster:1&quot;, &quot;headers&quot; : { } }]] ``` **Issue Reasons:** - [9.0] 4 failures in test testTimestampNotAddedIfExists (2.2% fail rate in 181 executions) - [9.0] 2 failures in pipeline elasticsearch-periodic-platform-support (40.0% fail rate in 5 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[Transform] Recreate Notifications Index (#121912) (#121943) If the notification index and alias gets deleted, recreate the index. Fix #121909</MESSAGE>
+    <SHA>8611b74c03599c9f5d449973714216afb2e7d8b3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.migrate.action.ReindexDatastreamIndexTransportActionIT testTimestampNotAddedIfExists #121842</MESSAGE>
+      <SHA>c11171a217ea61764be8f0746d0a7bc3cee5f4cb</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,61 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117212</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/117212</ISSUEURL>
+  <TITLE>[CI] StandardVersusLogsStoredSourceChallengeRestIT testEsqlSource failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #4959 / single-processor-node-tests](https://gradle-enterprise.elastic.co/s/wtolnzeq6fire) - [elasticsearch-intake #13070 / part2](https://gradle-enterprise.elastic.co/s/laquohrwxuob6) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:logsdb:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.logsdb.qa.StandardVersusLogsStoredSourceChallengeRestIT.testEsqlSource&quot; -Dtests.seed=EAA6ECC6A04333D3 -Dtests.configure_test_clusters_with_one_processor=true -Dtests.locale=ksh-Latn-DE -Dtests.timezone=America/Paramaribo -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.logsdb.qa.StandardVersusLogsStoredSourceChallengeRestIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testEsqlSource),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.OutOfMemoryError: Java heap space: failed reallocation of scalar replaced objects ``` **Issue Reasons:** - [main] 2 failures in test testEsqlSource (0.5% fail rate in 367 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add 8.17 to branches.json</MESSAGE>
+    <SHA>6fb7fe74d50c60ff2ff42e29d8640f8430861f01</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.logsdb.qa.StandardVersusLogsStoredSourceChallengeRestIT testEsqlSource #117212</MESSAGE>
+      <SHA>2ec1d48a083aa3d9580176b5d6d94d5194248ca7</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[TEST] Unmute randomized logsdb test (#117450) Test fixed in #117228 and here. Fixes #116536 Fixes #117212</MESSAGE>
+      <SHA>fbc6abec0552a29b99675800ed134468910fb9f1</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/logsdb/src/javaRestTest/java/org/elasticsearch/xpack/logsdb/qa/StandardVersusLogsIndexModeChallengeRestIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[TEST] Unmute randomized logsdb test (#117450) Test fixed in #117228 and here. Fixes #116536 Fixes #117212 (cherry picked from commit fbc6abec0552a29b99675800ed134468910fb9f1) # Conflicts: # muted-tests.yml</MESSAGE>
+      <SHA>66e113523c4a8a984577904a1298085044fe6eaf</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/logsdb/src/javaRestTest/java/org/elasticsearch/xpack/logsdb/qa/StandardVersusLogsIndexModeChallengeRestIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[8.x] [TEST] Unmute randomized logsdb test (#117450) (#117646) * [TEST] Unmute randomized logsdb test (#117450) Test fixed in #117228 and here. Fixes #116536 Fixes #117212 (cherry picked from commit fbc6abec0552a29b99675800ed134468910fb9f1) # Conflicts: # muted-tests.yml * Update muted-tests.yml * Update muted-tests.yml * Update StandardVersusLogsIndexModeChallengeRestIT.java</MESSAGE>
+      <SHA>879e4bbb2b9446e91e798312db0a4c6d4b265825</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/logsdb/src/javaRestTest/java/org/elasticsearch/xpack/logsdb/qa/StandardVersusLogsIndexModeChallengeRestIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.logsdb.qa.StandardVersusLogsStoredSourceChallengeRestIT testEsqlSource #117212</MESSAGE>
+      <SHA>6c48f92ea9a7f45b57248e25cee95948352bf824</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[TEST] Unmute randomized logsdb test (#117450) Test fixed in #117228 and here. Fixes #116536 Fixes #117212</MESSAGE>
+      <SHA>22166ee08bb363ebdad4d61744dbd4ef7e2355fc</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/logsdb/src/javaRestTest/java/org/elasticsearch/xpack/logsdb/qa/StandardVersusLogsIndexModeChallengeRestIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

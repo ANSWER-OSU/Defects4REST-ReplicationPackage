@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>597</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/597</ISSUEURL>
+  <TITLE>&quot;'float' object is not iterable&quot; when using coordinates for MongoDB query</TITLE>
+  <DESCRIPTION>I'm trying to run a query using **MongoDB** and the **[$geoNear](http://docs.mongodb.org/manual/reference/operator/aggregation/geoNear/)** function, but every time I type the origin coordinate using floats (to create a [GeoJSON Point](http://docs.mongodb.org/manual/reference/geojson/)), I get an error: [_from Python?_] `Error running query: 'float' object is not iterable` I'm trying to run the query below. The problem here is the `[ -22.910079, -43.205161 ]` part. ``` json { &quot;collection&quot;: &quot;bus&quot;, &quot;aggregate&quot;: [ { &quot;$geoNear&quot;: { &quot;near&quot;: { &quot;type&quot;: &quot;Point&quot;, &quot;coordinates&quot;: [ -22.910079, -43.205161 ] }, &quot;maxDistance&quot;: 100000000, &quot;distanceField&quot;: &quot;dist.calculated&quot;, &quot;includeLocs&quot;: &quot;dist.location&quot;, &quot;spherical&quot;: true } } ] } ``` However, if I use the coordinates with integers, such as `[ -22, -43 ]`, the query runs fine, but this coordinate is now meaningless, obviously. Here is an example that doesn't error: ``` json { &quot;collection&quot;: &quot;bus&quot;, &quot;aggregate&quot;: [ { &quot;$geoNear&quot;: { &quot;near&quot;: { &quot;type&quot;: &quot;Point&quot;, &quot;coordinates&quot;: [ -22, -43 ] }, &quot;maxDistance&quot;: 100000000, &quot;distanceField&quot;: &quot;dist.calculated&quot;, &quot;includeLocs&quot;: &quot;dist.location&quot;, &quot;spherical&quot;: true } } ] } ```</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update docs</MESSAGE>
+    <SHA>d6c229759ffb4dbc101f196c132f20fdd0fadf58</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #597: MongoDB date parsing logic improvement</MESSAGE>
+      <SHA>0f8da884f93b27abd2c1e7892f093ef0e5238328</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/query_runner/mongodb.py</FILE>
+        <FILE>tests/query_runner/__init__.py</FILE>
+        <FILE>tests/query_runner/test_mongodb.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #604 from EverythingMe/small_fixes_11_10_2015 Fix #597: MongoDB date parsing logic improvement</MESSAGE>
+      <SHA>13184519c396822b8d31525c4cf5815ae9a07a83</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/query_runner/mongodb.py</FILE>
+        <FILE>tests/query_runner/__init__.py</FILE>
+        <FILE>tests/query_runner/test_mongodb.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #597: MongoDB date parsing logic improvement</MESSAGE>
+      <SHA>a412379a22d856fcf0d0acbf3457844113dda34c</SHA>
+      <PATCHEDFILES>
+        <FILE>query_runner/mongodb.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #604 from EverythingMe/small_fixes_11_10_2015 Fix #597: MongoDB date parsing logic improvement</MESSAGE>
+      <SHA>71918f24a55a6ba44a1100a940f2112daf3a866b</SHA>
+      <PATCHEDFILES>
+        <FILE>query_runner/mongodb.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

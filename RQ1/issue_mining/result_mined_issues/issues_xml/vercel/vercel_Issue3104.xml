@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3104</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/3104</ISSUEURL>
+  <TITLE>[now-cli] Error after upgrading to 16.3.0</TITLE>
+  <DESCRIPTION>Receive an error message/unable to deploy after upgrading now-cli to version 16.3.0. Works okay when reverting back to 16.2.0 Details: 1. Upgrade to 16.3.0 with `npm i -g now@latest` 2. In console, run &quot;now&quot; command `now` 3. Get this error: &gt; Error! ENOENT: no such file or directory, stat 'LOCAL_PATH/mobile/node_modules/.bin/detect-libc' The 'LOCAL_PATH/mobile' is the directory for a react-native version in the same repo. 4. Revert back to 16.2.0 `npm i -g now@16.2.0` 5. In console, run &quot;now&quot; command `now` 6. Runs and deploys correctly without errors I was able to recreate these steps several times.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now-cli] Remove `dev: &quot;now dev&quot;` script detection logic in `now dev` (#3088) As of https://github.com/zeit/now-builders/pull/679, this logic is unnecessary because the `@now/static-build` builder will never end up executing the `dev` script when there is a `now.json` file present (and thus, no builds present, aka zero config mode). Also, statically detecting the `now dev` command from the script command is brittle, as the command could execute a separate shell script that ends up executing `now dev` (and this detection logic would be a false negative).</MESSAGE>
+    <SHA>85170d7231b665ad0753af26fe6be5d173b8a8b0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-client] Fix `ENOENT` regression in `now-client` (#3125) This PR should fixes `ENOENT` related errors ``` &gt; Error! ENOENT: no such file or directory, stat '.../node_modules/.bin/...' ``` Related: https://github.com/zeit/now/issues/3104</MESSAGE>
+      <SHA>75e6b15199ac9ed63d705140f68c1b67e722ffc9</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-client/src/create-deployment.ts</FILE>
+        <FILE>packages/now-client/src/utils/index.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now-client] Fix `ENOENT` regression in `now-client` (#3125) This PR should fixes `ENOENT` related errors ``` &gt; Error! ENOENT: no such file or directory, stat '.../node_modules/.bin/...' ``` Related: https://github.com/zeit/now/issues/3104</MESSAGE>
+      <SHA>1380e25ef3a572b7fe157ea89e3a25a746cf3af0</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-client/src/create-deployment.ts</FILE>
+        <FILE>packages/now-client/src/utils/index.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

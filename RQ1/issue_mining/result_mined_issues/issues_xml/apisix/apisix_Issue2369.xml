@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2369</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2369</ISSUEURL>
+  <TITLE>bug: Unable to get the latest upstream node list by service discovery</TITLE>
+  <DESCRIPTION>### Issue description I use consul as the registry center and configuration center of apisix and I implemented a consul service discovery through consul-template. After an application is redeployed, the log shows that the consul service discovery has obtained the latest application IP list, but accessing the application through apisix returns 502, the log shows that apisix uses the old application IP. I think it is caused by the cache of server_picker: ``` -- apisix/balancer.lua local server_picker = lrucache_server_picker(key, version, create_server_picker, up_conf, checker) ``` When the upstream checker is not enabled, the value of version is equal to `route.modifiedIndex .. &quot;&amp;&quot; .. service.modifiedIndex`, the change of the application ip address in the registry center will not cause this value to change, this will cause the application to be inaccessible until the server_picker cache is invalidated. I use consul as service discovery instead of eureka, but I believe that using eureka will also have this problem. I think the version should be obtained when obtaining the service ip address: ``` -- apisix/balancer.lua if up_conf.service_name then if not discovery then return nil, &quot;discovery is uninitialized&quot; end up_conf.nodes = discovery.nodes(up_conf.service_name) end ``` change to: ``` if up_conf.service_name then if not discovery then return nil, &quot;discovery is uninitialized&quot; end up_conf.nodes, up_version = discovery.nodes(up_conf.service_name) end ``` ### Environment * apisix version (cmd: `apisix version`): lastest master(251625d8ab969b0b46d12041beff44f329e95321) * OS: mac os/linux ### Minimal test code / Steps to reproduce the issue 1. Set `discovery: eureka` and `worker_processes: 1`, config eureka address in config.yaml. 2. Deploy a multi-instance application and registry to eureka. 3. Confirm that the application can be accessed through apisix. 4. Redeploy the application and access it through apisix again. ### What's the actual result? (including assertion message &amp; call stack if applicable) access application through apisix returns 502 ### What's the expected result? no error</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>100</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ci: support to run ci on Centos 7 (#3061) fix #2573</MESSAGE>
+    <SHA>3e19b06293463f52c8d26f0958542fc475ff0fcd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: avoid caching outdated discovery upstream nodes Fix #2369 Fix #1838 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>5b0f51e405eb0916d06df2968973607beb0a4403</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/balancer.lua</FILE>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>apisix/upstream.lua</FILE>
+        <FILE>apisix/utils/upstream.lua</FILE>
+        <FILE>t/node/healthcheck-discovery.t</FILE>
+        <FILE>t/node/upstream-discovery.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: avoid caching outdated discovery upstream nodes Fix #2369 Fix #1838 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>161df38c4fee2d4d272ee0b6809055eaafcf6d6d</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/balancer.lua</FILE>
+        <FILE>apisix/http/service.lua</FILE>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>apisix/plugin.lua</FILE>
+        <FILE>apisix/router.lua</FILE>
+        <FILE>apisix/upstream.lua</FILE>
+        <FILE>apisix/utils/upstream.lua</FILE>
+        <FILE>t/node/healthcheck-discovery.t</FILE>
+        <FILE>t/node/upstream-discovery.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: avoid caching outdated discovery upstream nodes (#3295) Fix #2369 Fix #1838 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>6fe399c7d6e315b4bbe3bf65340a432e41ce5122</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/balancer.lua</FILE>
+        <FILE>apisix/http/service.lua</FILE>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>apisix/plugin.lua</FILE>
+        <FILE>apisix/router.lua</FILE>
+        <FILE>apisix/upstream.lua</FILE>
+        <FILE>apisix/utils/upstream.lua</FILE>
+        <FILE>t/node/healthcheck-discovery.t</FILE>
+        <FILE>t/node/upstream-discovery.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

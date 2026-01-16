@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6834</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/6834</ISSUEURL>
+  <TITLE>bug: Access-Control-Allow-Origin is manipulated incorrect when using grpc-web and cors plugins in the same route</TITLE>
+  <DESCRIPTION>### Current Behavior We have gprc services that do and do not require authentication. Grpc services that do not require authentication can be perfectly consumed by web clients after using grpc-web and cors plugins. But we are experiencing cors issues on client side for the grpc services that do require authentication. Grpc-web plugin manipulates allow-origin and allow-headers cors headers incorrect when it is used with cors plugin in the same route as you can see in section 3.3 of the document. Grpc-web plugin manipulates allow-origin cors header incorrect when it is used with global cors plugin as you can see in section 3.4 of the document. ### Expected Behavior Cors headers are expected to be set with configured value in cors plugin. ### Error Logs Since the problem occurs on the client-side, APISIX does not produce any error logs. The first line is generated after invoking service with Kreya App. Second&amp;third lines are generated after invoking service by Web Client. 172.21.0.1 - - [13/Apr/2022:05:49:05 +0000] localhost:9080 &quot;POST /hello.HelloGrpc/SayHello HTTP/1.1&quot; 200 55 0.021 &quot;-&quot; &quot;grpc-dotnet/2.40.0.0&quot; 192.168.1.78:9000 200 0.020 &quot;grpc://192.168.1.78&quot; 172.21.0.1 - - [13/Apr/2022:05:49:16 +0000] localhost:9080 &quot;OPTIONS /hello.HelloGrpc/SayHello HTTP/1.1&quot; 200 5 0.000 &quot;http://localhost:4200/&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36 OPR/85.0.4341.60&quot; - - - &quot;http://localhost:9080&quot; 172.21.0.1 - - [13/Apr/2022:05:49:16 +0000] localhost:9080 &quot;POST /hello.HelloGrpc/SayHello HTTP/1.1&quot; 200 55 0.015 &quot;http://localhost:4200/&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36 OPR/85.0.4341.60&quot; 192.168.1.78:9000 200 0.010 &quot;grpc://192.168.1.78&quot; ### Steps to Reproduce You can use the documentation to better understand and reproduce the problem. [grpc-web cors error.docx](https://github.com/apache/apisix/files/8478669/grpc-web.cors.error.docx) ### Environment - APISIX version (run `apisix version`): apache/apisix:2.13.0-alpine docker image - Operating system (run `uname -a`): Linux d56fe896abc6 5.10.16.3-microsoft-standard-WSL2 #1 SMP Fri Apr 2 22:23:49 UTC 2021 x86_64 Linux - OpenResty / Nginx version (run `openresty -V` or `nginx -V`): nginx version: openresty/1.19.9.1 built by gcc 10.3.1 20210424 (Alpine 10.3.1_git20210424) - LuaRocks version, for installation issues (run `luarocks --version`): 3.8.0</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat(xrpc): add unary structure (#6837)</MESSAGE>
+    <SHA>7ba5b2b2f88307b640d124f64e850fd68cc24f17</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix(grpc-web): don't override Access-Control-Allow-Origin header in response Closes #6834</MESSAGE>
+      <SHA>2686f7df9e4de61366d5280714e5045fd450c355</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/grpc-web.lua</FILE>
+        <FILE>t/plugin/grpc-web.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

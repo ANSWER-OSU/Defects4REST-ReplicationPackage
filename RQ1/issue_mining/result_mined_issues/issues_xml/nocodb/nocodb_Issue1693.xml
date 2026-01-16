@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1693</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/1693</ISSUEURL>
+  <TITLE>Expanded card (hmList) is empty for relational column in Commenter/ Viewer mode</TITLE>
+  <DESCRIPTION>Node: **v14.18.0** Arch: **arm64** Platform: **darwin** Docker: **false** Database: **sqlite3** ProjectOnRootDB: **true** RootDB: **sqlite3** PackageVersion: **0.84.16** - create country hm city relation table - expand cityList in preview mode (commenter/ viewer) Expected ![Screenshot 2022-04-16 at 2 16 48 PM](https://user-images.githubusercontent.com/86527202/163668664-570bc7a7-5a6e-45a2-9895-fb8c2ab26b37.png) Observed ![Screenshot 2022-04-16 at 2 11 30 PM](https://user-images.githubusercontent.com/86527202/163668665-c853ad14-c09d-4b8f-aacf-0d2afb0f0381.png) ``` projectAclMiddleware :: Forbidden [Error]: hmList - commenter : Not allowed at Function.forbidden (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/noco/meta/helpers/catchError.ts:47:11) at projectAclMiddleware (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/noco/meta/helpers/ncMetaAclMw.ts:63:17) at /Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/noco/meta/helpers/catchError.ts:6:20 at Layer.handle [as handle_request] (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/express/lib/router/layer.js:95:5) at next (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/express/lib/router/route.js:137:13) at authMiddleware (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/noco/meta/helpers/ncMetaAclMw.ts:23:7) at /Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/noco/meta/helpers/catchError.ts:6:20 at Layer.handle [as handle_request] (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/express/lib/router/layer.js:95:5) at next (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/express/lib/router/route.js:137:13) at exports.default (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/noco/meta/helpers/extractProjectIdAndAuthenticate.ts:141:5) GET /api/v1/db/data/noco/x/country/1/hm/title5?limit=10&amp;offset=0 403 42 - 4.165 ms ```</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: typos in auditApis Signed-off-by: Wing-Kam Wong &lt;wingkwong.code@gmail.com&gt;</MESSAGE>
+    <SHA>195ee6a7368b144f476e8f63d2d6f154684a73eb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: allow hmList permission for commenter/viewer role re #1693 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>3d9125f971b68bf976b293ed66e213acf3bbbc60</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/plugins/tele.js</FILE>
+        <FILE>packages/nocodb/package-lock.json</FILE>
+        <FILE>packages/nocodb/package.json</FILE>
+        <FILE>packages/nocodb/src/lib/noco/meta/api/index.ts</FILE>
+        <FILE>packages/nocodb/src/lib/utils/projectAcl.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

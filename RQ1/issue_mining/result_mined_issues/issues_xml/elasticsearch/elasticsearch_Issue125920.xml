@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>125920</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/125920</ISSUEURL>
+  <TITLE>Increased memory usage in 8.18/9.0</TITLE>
+  <DESCRIPTION>### Elasticsearch Version 8.18, 9.0, main ### Installed Plugins _No response_ ### Java Version _bundled_ ### OS Version All (confirmend on Linux and OSX) ### Problem Description We observed an increased usage of memory from ES processes; when running in 1GiB containers, this leads ES to occasionally exceed the limits of the container and get oom-killed. Apparently, this happens more frequently with 8.18, main, and with cgroups v2; 9.0 appeared to be unaffected, and so nodes running with cgroups v1, but this seems to be more due to chance than hard evidence. This issue was observed internally in our cloud depolyments (ECE and Serverless) -- Incident 1321. The root cause seems to be an increase to Java &quot;Internal&quot; memory (one of the categories reported by Java NMT ([Native Memory Tracking](https://docs.oracle.com/en/java/javase/24/vm/native-memory-tracking.html)), which is ~100MB greater than in previous versions. It seems the additional memory is allocated/retained by the JVM as a consequence of enabling Entitlements. ### Steps to Reproduce The increased memory consumption can be seen by running ES 8.18; in particular, running it with NMT shows the increase in Internal size. In order to compare the numbers with a baseline however it is necessary to run ES 8.18 (or main) with entitlements off; to do that, you need a code change (look for write usages of the `useEntitlements` variable). ### Logs (if relevant) _No response_</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Lower logging level (#125940) In #125595 I accidentally left some logging at WARN level; this PR corrects that to TRACE.</MESSAGE>
+    <SHA>f37564d93895ac9ac7571330151d7e8f3e95e9ba</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Return null from transformer when not transforming The transform API for instrumentation should return null when no transformation occurs. This commit fixes our entitlement transformer to return null instead of the original buffer. closesn #125920</MESSAGE>
+      <SHA>d6cbd4069259b981691f8404ceb55f47319d5ce1</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/instrumentation/Transformer.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Return null from transformer when not transforming (#125961) The transform API for instrumentation should return null when no transformation occurs. This commit fixes our entitlement transformer to return null instead of the original buffer. closes #125920</MESSAGE>
+      <SHA>425cb70d5076b8c955463920010e06f1bb558ede</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/instrumentation/Transformer.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Return null from transformer when not transforming (#125961) The transform API for instrumentation should return null when no transformation occurs. This commit fixes our entitlement transformer to return null instead of the original buffer. closes #125920</MESSAGE>
+      <SHA>bb6ea7629fb9d60c8485c4d44d1b20dcb26b5cfc</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/instrumentation/Transformer.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Return null from transformer when not transforming (#125961) The transform API for instrumentation should return null when no transformation occurs. This commit fixes our entitlement transformer to return null instead of the original buffer. closes #125920</MESSAGE>
+      <SHA>13fc0611c24be03be922df8f89c63928116dd123</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/instrumentation/Transformer.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Return null from transformer when not transforming (#125961) The transform API for instrumentation should return null when no transformation occurs. This commit fixes our entitlement transformer to return null instead of the original buffer. closes #125920</MESSAGE>
+      <SHA>f4262dd7dce19794814017431ec93ea03f701b83</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/instrumentation/Transformer.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Return null from transformer when not transforming (#125961) (#125973) The transform API for instrumentation should return null when no transformation occurs. This commit fixes our entitlement transformer to return null instead of the original buffer. closes #125920</MESSAGE>
+      <SHA>696eabdc663458e0b81e7348be72a4be0c92938f</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/instrumentation/Transformer.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

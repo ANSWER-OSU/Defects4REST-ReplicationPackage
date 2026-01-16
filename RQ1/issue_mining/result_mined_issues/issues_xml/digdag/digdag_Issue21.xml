@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>21</ISSUENO>
+  <ISSUEURL>https://github.com/treasure-data/digdag/issues/21</ISSUEURL>
+  <TITLE>digdag should fail on multiple operators within a task</TITLE>
+  <DESCRIPTION>I.e., the below workflow definition should fail instead of silently just executing `echo bar`. ``` yaml run: +foo +foo: sh&gt;: echo bar py&gt;: baz ``` Also, it might be worth considering if multiple identical keys should fail. In the below workflow definition the second `sh&gt;` operator implicitly overrides the first operator when the yaml is parsed because yaml. ``` yaml run: +foo +foo: sh&gt;: echo bar sh&gt;: echo baz ```</DESCRIPTION>
+  <REPONAME>digdag</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>configure circle-ci</MESSAGE>
+    <SHA>6283aefb24c372dc980fe58c84fd30e67410f1c1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>workflow: fail on multiple operators in a task https://github.com/treasure-data/digdag/issues/21</MESSAGE>
+      <SHA>bf3d30b46de2b5db8ba2262e329b4a2c03ed9e70</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-core/src/main/java/io/digdag/core/workflow/WorkflowCompiler.java</FILE>
+        <FILE>digdag-core/src/test/java/io/digdag/core/workflow/WorkflowCompilerTest.java</FILE>
+        <FILE>digdag-core/src/test/resources/digdag/workflow/cases/multiple_operators.yml</FILE>
+        <FILE>digdag-core/src/test/resources/digdag/workflow/cases/single_operator.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>WM-1351 Enhance /api/projects (#21) Implement WM-1351 enhance /api/projects</MESSAGE>
+      <SHA>e9996158f5b2f78d6c6a22b26ea17aa6ac10ba64</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-core/src/main/java/io/digdag/core/database/DatabaseProjectStoreManager.java</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/repository/ProjectStore.java</FILE>
+        <FILE>digdag-core/src/test/java/io/digdag/core/database/DatabaseProjectStoreManagerTest.java</FILE>
+        <FILE>digdag-server/src/main/java/io/digdag/server/rs/ProjectResource.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

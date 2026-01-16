@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>28505</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/28505</ISSUEURL>
+  <TITLE>Problem in societe/project.php. Blank page from thirparty to projects or projects to thirdparty</TITLE>
+  <DESCRIPTION>### Bug Users, not administrators, have a blank page to open project from third ### Environment Version 19.0 ### Environment OS _No response_ ### Environment Web server _No response_ ### Environment PHP 8.2 ### Environment Database _No response_ ### Environment URL(s) _No response_ ### Expected and actual behavior PHP Warning: Undefined variable $arrayofmassactions in /dolibarr/htdocs/societe/project.php on line 105 PHP Fatal error: Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /dolibarr/htdocs/core/class/html.form.class.php:833 Stack trace: #0 /dolibarr/htdocs/societe/project.php(105): Form-&gt;selectMassAction() #1 {main} thrown in /dolibarr/htdocs/core/class/html.form.class.php on line 833 I can work if I put $arrayofmassactions = array(); in line 105 before $massactionbutton = $form-&gt;selectMassAction('', $arrayofmassactions); of /htdocs/societe/project.php ### Steps to reproduce the behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>251</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '18.0' of git@github.com:Dolibarr/dolibarr.git into 19.0</MESSAGE>
+    <SHA>d51bf2b0ea10ed3f9efa8f09f7b5c9796acacafa</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX #28505 Blank page from thirparty to projects (#31637) Fix Blank page from thirparty to projects for users that has not permisson to do massactions</MESSAGE>
+      <SHA>87fdd4ea5ff0bc199e35ed1b0cb6895864b4c869</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/societe/project.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

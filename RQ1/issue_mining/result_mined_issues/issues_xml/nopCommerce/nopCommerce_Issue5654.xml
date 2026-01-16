@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5654</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5654</ISSUEURL>
+  <TITLE>Restart app after changing some settings</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40 We have some settings, the changed values of which take effect only after restarting, moreover before restarting they can break the correct app work (for example `LocalizationSettings.SeoFriendlyUrlsForLanguagesEnabled`). We should either force restart the app, as we already do for `AppSettings`, or display an appropriate warning to the admin to restart the app manually.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>203</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5925 Removed instruction to create empty datasettings.json file in docker</MESSAGE>
+    <SHA>b5b9e5e4fb922918ffb048c6e4131c8611072505</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5654 Added a warning about the need to restart the application when changing setting LocalizationSettings.SeoFriendlyUrlsForLanguagesEnabled</MESSAGE>
+      <SHA>cb9d4044c0b30a788294d5c47c457a4f994dab61</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo450/LocalizationMigration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/SettingController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Setting/GeneralCommon.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Setting/_GeneralCommon.Localization.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#5654 Further improvement</MESSAGE>
+      <SHA>7e4a777abbd4e769be043012806341a11de069c0</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/SettingController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

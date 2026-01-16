@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>714</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/714</ISSUEURL>
+  <TITLE>Unable to build python project with LDAP</TITLE>
+  <DESCRIPTION>I'm wondering what would be the best way to handle this case. I've been using drone (0.3 via apt package) for a few weeks. When a build succeeds, it pushes the code to a server we have on-site running dokku. If you're not familiar with Dokku, it's basically like Heroku. I have a `.env` file: ``` export BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git ``` and a `.buildpacks` file: ``` https://github.com/heroku/heroku-buildpack-nodejs.git https://github.com/darkpixel/heroku-buildpack-bower.git https://github.com/heroku/heroku-buildpack-python.git https://github.com/damgad/heroku-buildpack-python-ldap.git ``` We recently started to depend on python-ldap. If I `git push` directly to the box, everything builds and deploys correctly. When I push to the main repo and drone gets a hold of it, it blows up. ``` gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -DHAVE_SASL -DHAVE_TLS -DHAVE_LIBLDAP_R -DHAVE_LIBLDAP_R -DLDAPMODULE_VERSION=2.4.18 -IModules -I/opt/openldap/include -I/usr/include/sasl -I/usr/include -I/usr/include/python2.7 -c Modules/LDAPObject.c -o build/temp.linux-x86_64-2.7/Modules/LDAPObject.o Modules/LDAPObject.c:18:18: fatal error: sasl.h: No such file or directory compilation terminated. error: command 'gcc' failed with exit status 1 ``` Is there a way to make the drone build process more closely mimic dokku/heroku?</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>add logic to add author of pr in codeowners (#716)</MESSAGE>
+    <SHA>85337b94183f36d4a79b4d3bcec3c539453a38e9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[fix] Dockerfile fix (#714)</MESSAGE>
+      <SHA>66ac5e3a5c6e0ff8323b8a52943136b456147b66</SHA>
+      <PATCHEDFILES>
+        <FILE>Dockerfile</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

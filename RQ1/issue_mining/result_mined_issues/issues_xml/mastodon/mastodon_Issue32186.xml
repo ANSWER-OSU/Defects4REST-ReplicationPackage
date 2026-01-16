@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>32186</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/32186</ISSUEURL>
+  <TITLE>New Restrictive Form Action CSP breaks OMNIAUTH_ONLY</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem 1. Setup a server with OMNIAUTH_ONLY configured 2. Try clicking the login button on the main webpage ### Expected behaviour can get redirected to provider ### Actual behaviour get csp error in console ### Detailed description i suspect that https://github.com/mastodon/mastodon/pull/26897 broke omniauth_only. the login button on the main page would redirect to https://INSTANCE/auth/auth/openid_connect which then takes you to the oidc provider. this is blocked by the new form-action policy. turning off omniauth_only makes it work as does logging in via /auth/sign_in. I was able to fix this by hardcoding p.form_action in the web app controller concern to be https://INSTANCE/auth/auth/openid_connect . i've reverted the change for now to showcase current behaviour. ### Mastodon instance m.fa.gl ### Mastodon version v4.3.0-beta.2 ### Browser name and version Firefox 130, Edge 129 ### Operating system Windows 11 ### Technical details CSP error in console: &gt; Refused to send form data to 'https://m.fa.gl/auth/auth/openid_connect' because it violates the following Content Security Policy directive: &quot;form-action https://auth.home.fa.gl/api/oidc/authorization&quot;.</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Hide badges in media gallery when media are hidden (#32224)</MESSAGE>
+    <SHA>f768a6eb16880f4e584db530e4106be9b9dcf206</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix Content-Security-Policy when using sso-redirect Fixes #32186</MESSAGE>
+      <SHA>c74cc5b626ae255414270b05c8aac7b04c944bca</SHA>
+      <PATCHEDFILES>
+        <FILE>app/controllers/concerns/web_app_controller_concern.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix Content-Security-Policy when using sso-redirect Fixes #32186</MESSAGE>
+      <SHA>257b30c1ddca8f10fb3cd5fdf57b6c8d0998bb44</SHA>
+      <PATCHEDFILES>
+        <FILE>app/controllers/concerns/web_app_controller_concern.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

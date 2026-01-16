@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20699</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/20699</ISSUEURL>
+  <TITLE>Support lookup of intermediate ID for uidmapping and gidmapping in `--userns=auto`</TITLE>
+  <DESCRIPTION>### Feature request description As a rootless user, the host ID in **uidmapping** and **gidmapping** in `--userns=auto` is mapped from the intermediate namespace, just like when using the **--uidmap** and **--gidmap** options. But these options also support preceding the _host id_ in the mapping with the @ symbol, which means that podman will look up the _intermediate id_ corresponding to the given _host id_ and it will map the found _intermediate id_ to the given _container id_. I think this functionality would be useful for the **uidmapping** and **gidmapping** options in `--userns=auto`, too. ### Suggest potential solution The behavior should be the same as with the **--uidmapping** and **--gidmapping** options (see [**podman-run** -&gt; **--uidmap** -&gt; **Referencing a host ID from the parent namespace**](https://docs.podman.io/en/latest/markdown/podman-run.1.html#uidmap-flags-container-uid-from-uid-amount)). ### Have you considered any alternatives? Looking up the intermediate id manually is also possible, just a little cumbersome.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>25</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #20823 from nalind/close-that-readcloser utils: close a couple of ReadClosers</MESSAGE>
+    <SHA>e0a524f63035cb9f2de1e63b9a2f6daec16a14af</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>support lookup of intermediate IDs in gidmapping/uidmapping options in userns=auto Closes #20699 Signed-off-by: kaivol &lt;github@kavol.de&gt;</MESSAGE>
+      <SHA>d5cf46e80748bf85a853fc3a72229269f14e7d64</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/options/userns.container.md</FILE>
+        <FILE>pkg/domain/infra/runtime_libpod.go</FILE>
+        <FILE>pkg/namespaces/namespaces.go</FILE>
+        <FILE>pkg/util/utils.go</FILE>
+        <FILE>pkg/util/utils_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

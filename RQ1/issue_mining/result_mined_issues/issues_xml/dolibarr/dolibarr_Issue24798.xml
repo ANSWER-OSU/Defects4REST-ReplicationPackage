@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24798</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/24798</ISSUEURL>
+  <TITLE>Deleting member subscription is not possible anymore</TITLE>
+  <DESCRIPTION>### Bug When trying to delete a subscription of one member dolibarr throw this error Fatal error: Uncaught Error: Call to undefined method Subscription::getFullName() in htdocs/core/triggers/interface_50_modAgenda_ActionsAuto.class.php:767 Stack trace: #0 htdocs/core/class/interfaces.class.php(183): InterfaceActionsAuto-&gt;runTrigger('MEMBER_SUBSCRIP...', Object(Subscription), Object(User), Object(Translate), Object(Conf)) #1 htdocs/core/class/commonobject.class.php(5758): Interfaces-&gt;run_triggers('MEMBER_SUBSCRIP...', Object(Subscription), Object(User), Object(Translate), Object(Conf)) #2 htdocs/adherents/class/subscription.class.php(340): CommonObject-&gt;call_trigger('MEMBER_SUBSCRIP...', Object(User)) #3 htdocs/adherents/subscription/card.php(146): Subscription-&gt;delete(Object(User)) #4 {main} thrown in htdocs/core/triggers/interface_50_modAgenda_ActionsAuto.class.php on line 767 ### Environment Version develop ### Environment OS _No response_ ### Environment Web server _No response_ ### Environment PHP _No response_ ### Environment Database _No response_ ### Environment URL(s) _No response_ ### Expected and actual behavior _No response_ ### Steps to reproduce the behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #24578 from Easya-Solutions/14.0_fix-massaction-builddoc-special-chars FIX special chars in generated file name from build doc mass action</MESSAGE>
+    <SHA>af5b821b4423b666f806c4e6777cca156351ef8a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX #24798 Deleting member subscription is not possible object subscription has no getfullname method, it's in adherent class</MESSAGE>
+      <SHA>8fa581f9368bee2dc840f731220daede3670c8bb</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/triggers/interface_50_modAgenda_ActionsAuto.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #24814 from daraelmin/patch-1 FIX #24798 Deleting member subscription is not possible</MESSAGE>
+      <SHA>8cbafe940dd381a4a4e8f8ae47bd74caeebd34e9</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/triggers/interface_50_modAgenda_ActionsAuto.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15012</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15012</ISSUEURL>
+  <TITLE>podman machine e2e test memory problem</TITLE>
+  <DESCRIPTION>&lt;!-- --------------------------------------------------- BUG REPORT INFORMATION --------------------------------------------------- Use the commands below to provide key information from your environment: You do NOT have to include this information if this is a FEATURE REQUEST **NOTE** A large number of issues reported against Podman are often found to already be fixed in more current versions of the project. Before reporting an issue, please verify the version you are running with `podman version` and compare it to the latest release documented on the top of Podman's [README.md](../README.md). If they differ, please update your version of Podman to the latest possible and retry your command before creating an issue. Also, there is a running list of known issues in the [Podman Troubleshooting Guide](https://github.com/containers/podman/blob/main/troubleshooting.md), please reference that page before opening a new issue. If you are filing a bug against `podman build`, please instead file a bug against Buildah (https://github.com/containers/buildah/issues). Podman build executes Buildah to perform container builds, and as such the Buildah maintainers are best equipped to handle these bugs. --&gt; **Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind bug **Description** The test `set machine cpus, disk, memory` always fails locally for me (on linux): ``` Expected &lt;string&gt;: MemTotal: 3822M to contain substring &lt;string&gt;: 3821 ``` https://github.com/containers/podman/blob/0de7e4662e6d574fe382714cb6664a4519771f88/pkg/machine/e2e/set_test.go#L59-L74 https://github.com/containers/podman/blob/0de7e4662e6d574fe382714cb6664a4519771f88/pkg/machine/e2e/init_test.go#L105-L116 **Steps to reproduce the issue:** 1. `ginkgo --tags remote -v pkg/machine/e2e/.` **Output of `podman version`:** latest main</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>pkg/machine/e2e: do not import from cmd/podman The same problem again as 4374038cc67405e3f5555b1870d5bb7f6570fa5d. Also fix the incorrect --format autocompletion struct. It should be avoided to import cmd/podman/... packages from outside of cmd/podman. This can lead in weird hard to debug import paths but also can have negative consequences when imported in unit tests. In this case it will set XDG_CONFIG_HOME and thus the machine tests this dir over the tmp HOME env variable which is set at a later point. This caused machine files to be leaked into the actual users home dir. Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+    <SHA>19f4a463ed790ab2f527fba7385f0dcba7247379</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix broken machine test The memory both local and in the CI test is converted to 3822. I don't know why this changed but I want to have this working again. For the future we should look at a more robust solution. Fixes #15012 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>88b57dd9f1cb56c65e2ccce9979ce7e89c20a855</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/machine/e2e/init_test.go</FILE>
+        <FILE>pkg/machine/e2e/set_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix broken machine test The memory both local and in the CI test is converted to 3822. I don't know why this changed but I want to have this working again. For the future we should look at a more robust solution. Fixes #15012 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>1f48980af9e44f4096b8e67edd5f4596f69e204f</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/machine/e2e/init_test.go</FILE>
+        <FILE>pkg/machine/e2e/set_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

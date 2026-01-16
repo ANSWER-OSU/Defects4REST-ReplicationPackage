@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2778</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2778</ISSUEURL>
+  <TITLE>DISCUSS(kafka-logger): the key field should be optional</TITLE>
+  <DESCRIPTION>### Issue description In the schema of the kafka-logger plugin, the key field is mandatory, as shown below: ``` ...... properties = { ...... key = {type = &quot;string&quot;}, ...... }, required = {&quot;broker_list&quot;, &quot;kafka_topic&quot;, &quot;key&quot;} ...... ``` I think the key field should be optional, because when a message is sent to the Kafka service, the key can be specified or empty. So when the key is empty, it can be used normally. The key should be optional in the schema： ``` ...... properties = { ...... key = {type = &quot;string&quot;}, ...... }, required = {&quot;broker_list&quot;, &quot;kafka_topic&quot;} ...... ```</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>docs: add missing fields in SSL API (#2804)</MESSAGE>
+    <SHA>2622e38ae0d155bf2ab5bb5bd845d7814046a621</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: the key field should be optional. feat #2778</MESSAGE>
+      <SHA>a04973630c2960923a9299085f9d595fdbf6ea35</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/kafka-logger.lua</FILE>
+        <FILE>t/plugin/kafka-logger.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat(kafka-logger): the key field should be optional. (#2807) fix #2778</MESSAGE>
+      <SHA>dc5fee27a24698e806e4bb826047ea9b2762feb3</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/kafka-logger.lua</FILE>
+        <FILE>doc/plugins/kafka-logger.md</FILE>
+        <FILE>doc/zh-cn/plugins/kafka-logger.md</FILE>
+        <FILE>t/plugin/kafka-logger.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

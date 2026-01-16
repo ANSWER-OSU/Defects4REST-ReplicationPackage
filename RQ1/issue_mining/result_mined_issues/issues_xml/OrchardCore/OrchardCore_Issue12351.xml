@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>12351</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/12351</ISSUEURL>
+  <TITLE>Adding a shortcode with no categories throws and exception</TITLE>
+  <DESCRIPTION>### Describe the bug When adding a custom shortcode without setting the categories some views throw null exceptions. In the views we group categories using this code ``` var categories = shortcodeDescriptors .SelectMany(s =&gt; s.Categories) .GroupBy(c =&gt; c, StringComparer.OrdinalIgnoreCase) .Select(g =&gt; g.Key); ``` That code should be changed to ``` var categories = shortcodeDescriptors .Where(s =&gt; s.Categories != null) // this will prevent the error .SelectMany(s =&gt; s.Categories) .GroupBy(c =&gt; c, StringComparer.OrdinalIgnoreCase) .Select(g =&gt; g.Key); ```</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Extract GetLanguageDirection() and IsRightToLeft() to CultureInfoExtensions (#12315)</MESSAGE>
+    <SHA>382ce6481842224317b17469dc4287134e32ca55</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #12351</MESSAGE>
+      <SHA>cd58ace2b0516e8c5621d65cee3fe688d78bc71d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Shortcodes/Views/Admin/Create.cshtml</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Shortcodes/Views/Admin/Edit.cshtml</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Shortcodes/Views/ShortcodeModal.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #12351 (#12352)</MESSAGE>
+      <SHA>38f76e4beccf41f913e4bb2d94c8b2c1684292eb</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Shortcodes/Views/Admin/Create.cshtml</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Shortcodes/Views/Admin/Edit.cshtml</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Shortcodes/Views/ShortcodeModal.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17219</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/17219</ISSUEURL>
+  <TITLE>Orchard Core intermittently displays login options when only one external provider is configured</TITLE>
+  <DESCRIPTION>### Describe the bug When using Orchard Core with a single external identity provider configured for login and the option &quot;Use external provider for login&quot; enabled in the admin settings, the login screen intermittently displays a choice between the external provider and the standard username/password login. It is expected that the system should automatically redirect to the external provider for authentication without showing the login screen. ### Orchard Core version 2.1.2 ### To Reproduce 1. Go to Settings &gt; External Login in the Orchard Core admin dashboard. 2. Enable the &quot;Use external provider for login&quot; checkbox. 3. Ensure only one external provider is configured (e.g., Github). 4. Access the login page repeatedly using the same URL (e.g., `https://localhost:5001/admin`). ### Expected behavior The login screen should consistently redirect to the external provider for authentication without presenting the choice between username/password login and the external provider. ### Actual behavior The behavior is inconsistent and alternates between the following: - On the first page load, it redirects to the external provider as expected. - On subsequent page loads (odd vs. even attempts), the login screen displays a choice between the external provider and the standard login. For example: - First load of `https://localhost:5001/admin` works and redirects. - Second load shows the login screen with options. - Subsequent attempts alternate between the two behaviors. ### Logs and screenshots #### Settings Configuration: #### Login Screen: ### Steps to Mitigate/Workaround No workaround identified. ### Suggested Fix Update the logic in the login flow to ensure consistent behavior when the &quot;Use external provider for login&quot; option is enabled, particularly when only one external provider is configured. The system should always redirect to the external provider without showing the login screen. ### References N/A</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>57</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update dependency Serilog.AspNetCore to v9 (#17190) Co-authored-by: Zoltán Lehóczky &lt;zoltan.lehoczky@lombiq.com&gt;</MESSAGE>
+    <SHA>4ab7c345f3c1f57e8fe4f7bcf173e86ad41aa5d8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix intermittent redirects during external auto-login Fix #17219</MESSAGE>
+      <SHA>754fa085260ad60ea18e198723de1cde934f61fa</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Users/Services/ExternalLoginFormEvents.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

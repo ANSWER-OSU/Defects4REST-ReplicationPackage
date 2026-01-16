@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4570</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/4570</ISSUEURL>
+  <TITLE>CLI: awx credential create difficulties</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY &lt;!-- Briefly describe the problem. --&gt; Two issues, could be convinced these are not bugs but would like to have discussion about it. 1) Not clear what to pass for `credential_type`. Now that I've been working with the CLI more I knew I needed to probably provide a credential type id, but reptile brain still wanted to put `--credential_type ssh`. Would like to have it described as `CREDENTIAL_TYPE_ID` ![image](https://user-images.githubusercontent.com/29239279/63542163-b6856700-c4ed-11e9-93d9-b6eccc1f5268.png) This is along the lines of other items that need a project id, but the help says PROJECT, etc. Would prefer that `PROJECT_ID` is specified, etc etc. 2) Credentials require a user XOR organization XOR team, and again, these should be USER_ID, ORGANIZATION_ID, TEAM_ID. Because it is one of these three, the help text is not showing you that you must have one of the three. The API does tell you though when you try. (also affected by https://github.com/ansible/awx/issues/4565 ##### STEPS TO REPRODUCE &lt;!-- Please describe exactly how to reproduce the problem. --&gt; ``` awx credentials create --help usage: awx credentials create [-h] --name TEXT [--description TEXT] [--organization ORGANIZATION] --credential_type CREDENTIAL_TYPE [--inputs INPUTS] [--user USER] [--team TEAM] required arguments: --credential_type CREDENTIAL_TYPE [REQUIRED] Specify the type of credential you want to create. Refer to the Ansible Tower documentation for details on each type. optional arguments: -h, --help show this help message and exit --description TEXT Optional description of this credential. --organization ORGANIZATION Inherit permissions from organization roles. If provided on creation, do not give either user or team. --inputs INPUTS Enter inputs using either JSON or YAML syntax. Use the radio button to toggle between the two. Refer to the Ansible Tower documentation for example syntax. --user USER Write-only field used to add user to owner role. If provided, do not give either team or organization. Only valid for creation. --team TEAM Write-only field used to add team to owner role. If provided, do not give either user or organization. Only valid for creation. required arguments: --name TEXT [REQUIRED] Name of this credential. awx credentials create: the following arguments are required: --name, --credential_type ``` #### EXPECTED RESULTS: 1) Tell me I need ID's for related objects 2) Tell me I need one of `CHOICES: [user, team, organization]`</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>19</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #4565 from wenottingham/oops Fix analytics logging</MESSAGE>
+    <SHA>b27fd0121d66e8e30dc56eb64b4bc927b5086eb7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #4570 from ryanpetrello/upgrade-ovirt update to the latest ovirt to address a bug</MESSAGE>
+      <SHA>d74a2ee9ae4c1722b934a87a255a7ecd947d2205</SHA>
+      <PATCHEDFILES>
+        <FILE>requirements/collections_requirements.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

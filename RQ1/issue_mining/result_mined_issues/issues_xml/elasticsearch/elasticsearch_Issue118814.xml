@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118814</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118814</ISSUEURL>
+  <TITLE>[CI] IndexResolverFieldNamesTests class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5432 / release-tests](https://gradle-enterprise.elastic.co/s/t7thnyq72szka) - [elasticsearch-periodic #5427 / release-tests](https://gradle-enterprise.elastic.co/s/6mlswxudzfdie) - [elasticsearch-periodic #5422 / release-tests](https://gradle-enterprise.elastic.co/s/5jghzck5ecrgy) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:test&quot; --tests &quot;org.elasticsearch.xpack.esql.session.IndexResolverFieldNamesTests.testMultiLookupJoinSameIndexKeepBefore&quot; -Dtests.seed=1097DFD0E490B654 -Dbuild.snapshot=false -Dtests.jvm.argline=&quot;-Dbuild.snapshot=false&quot; -Dlicense.key=x-pack/license-tools/src/test/resources/public.key -Dtests.locale=nl-CW -Dtests.timezone=Brazil/DeNoronha -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.session.IndexResolverFieldNamesTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.xpack.esql.session.IndexResolverFieldNamesTests),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.xpack.esql.parser.ParsingException: line 4:3: mismatched input 'LOOKUP' expecting {'dissect', 'drop', 'enrich', 'eval', 'grok', 'keep', 'limit', 'mv_expand', 'rename', 'sort', 'stats', 'where'} ``` **Issue Reasons:** - [8.x] 3 consecutive failures in step release-tests - [8.x] 3 failures in class org.elasticsearch.xpack.esql.session.IndexResolverFieldNamesTests (1.9% fail rate in 154 executions) - [8.x] 3 failures in step release-tests (100.0% fail rate in 3 executions) - [8.x] 3 failures in pipeline elasticsearch-periodic (75.0% fail rate in 4 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Remove esql-core ParsingException (#118789) * Remove esql-core ParsingException Move fulltext related classes: querydsl, predicate and tests</MESSAGE>
+    <SHA>b44469736c92cfb3dcb21d3aaa177765fd643d5d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.session.IndexResolverFieldNamesTests org.elasticsearch.xpack.esql.session.IndexResolverFieldNamesTests #118814</MESSAGE>
+      <SHA>ce7a0c86fb975f76dfbea5eff1cf51602dbed184</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

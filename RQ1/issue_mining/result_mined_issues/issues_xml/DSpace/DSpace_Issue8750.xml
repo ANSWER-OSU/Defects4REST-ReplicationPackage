@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8750</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/8750</ISSUEURL>
+  <TITLE>doi-organiser command line NPE when using VersionedDOIIdentifierProvider</TITLE>
+  <DESCRIPTION>**Describe the bug** An NPE is thrown when trying to reserve (--reserve-doi) or register (--register-doi) an individul DOI for an item ``` /home/dspace/dspace/bin/dspace doi-organiser --reserve-doi 1810/347187 Exception: null java.lang.NullPointerException at org.dspace.identifier.doi.DOIOrganiser.reserve(DOIOrganiser.java:502) at org.dspace.identifier.doi.DOIOrganiser.reserve(DOIOrganiser.java:492) at org.dspace.identifier.doi.DOIOrganiser.runCLI(DOIOrganiser.java:310) at org.dspace.identifier.doi.DOIOrganiser.main(DOIOrganiser.java:103) at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at java.base/java.lang.reflect.Method.invoke(Method.java:566) at org.dspace.app.launcher.ScriptLauncher.runOneCommand(ScriptLauncher.java:277) at org.dspace.app.launcher.ScriptLauncher.handleScript(ScriptLauncher.java:133) at org.dspace.app.launcher.ScriptLauncher.main(ScriptLauncher.java:98) ``` **To Reproduce** Steps to reproduce the behavior: 1. Enable VersionedDOIIdentifierProvider in identifier-service.xml 2. Run command doi-organiser with --reserve-doi or --register-doi option **Expected behavior** The DOI is reserved or registered successfully **Related work** Link to any related tickets or PRs here.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>51</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #8705 from mspalti/jp2-test Added test and format registry entry for JPEG2000 image</MESSAGE>
+    <SHA>bdb88724ac8434956ec52dcdcb182f2d13e5edd5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix for #8732 and #8750</MESSAGE>
+      <SHA>aa45a407ba3510604641a7a7550b2728a2217766</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/identifier/VersionedDOIIdentifierProvider.java</FILE>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/repository/IdentifierRestRepository.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #8752 from amgciadev/fix-8732-b Fix for #8732 and #8750</MESSAGE>
+      <SHA>6fd31622aefc16e5d6190828e2550db5bc7a6fa0</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/identifier/VersionedDOIIdentifierProvider.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

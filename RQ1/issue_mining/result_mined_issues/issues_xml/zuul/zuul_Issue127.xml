@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127</ISSUENO>
+  <ISSUEURL>https://github.com/Netflix/zuul/issues/127</ISSUEURL>
+  <TITLE>Zuul/Hystrix: HTTP connection leak in case of timeout</TITLE>
+  <DESCRIPTION>See https://github.com/spring-cloud/spring-cloud-netflix/issues/327 for a complete description of the issue and scenarios to reproduce it. The bottom line is: &gt; It turns out that Zuul leaks HTTP connections if a service takes longer than the Hystrix execution timeout but less than the ReadTimeout. To summarise: &gt; &gt; execTime &lt; hystrixTimeout &lt; readTimeout --&gt; OK (no leak) &gt; hystrixTimeout &lt; execTime &lt; readTimeout --&gt; LEAK &gt; hystrixTimeout &lt; readTimeout &lt; execTime --&gt; OK (no leak) &gt; readTimeout &lt; execTime &lt; hystrixTimeout --&gt; OK (no leak) &gt; readTimeout &lt; hystrixTimeout &lt; execTime --&gt; LEAK The problem has been identified in the `RibbonCommand` returning an `HttpResponse` that will never be closed in case of Hystrix timeout. Hence causing connection leaks in the HTTP connection pool. Although the issue affects SpringCloud's version of the Zuul server, it seems that `com.netflix.zuul.dependency.ribbon.hystrix.RibbonCommand` would be affected as well.</DESCRIPTION>
+  <REPONAME>zuul</REPONAME>
+  <TIMEDIFFERENCEDAYS>3473</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Change the default origin in zuul-simple-webapp to be http://httpbin.org as it's more useful for testing than the previous http://apache.org</MESSAGE>
+    <SHA>d084b1bf6c35c709050571acd051d7e7b4328fb2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix for #127 Handle the case where the hystrix RibbonCommand timed-out before the ribbon client received a response from origin. So in this situation we want to release the connection now, as we know that the zuul filter chain has already continued without us and therefore won't cleanup itself.</MESSAGE>
+      <SHA>73d86bf3a13455ea48650bcf8bc793b34e5033e6</SHA>
+      <PATCHEDFILES>
+        <FILE>zuul-netflix/src/main/java/com/netflix/zuul/dependency/ribbon/hystrix/RibbonCommand.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #225 from Netflix/issues/127 Fix for #127</MESSAGE>
+      <SHA>48594dc4c150b2ce6031f2c772a707ccef53e97c</SHA>
+      <PATCHEDFILES>
+        <FILE>zuul-netflix/src/main/java/com/netflix/zuul/dependency/ribbon/hystrix/RibbonCommand.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

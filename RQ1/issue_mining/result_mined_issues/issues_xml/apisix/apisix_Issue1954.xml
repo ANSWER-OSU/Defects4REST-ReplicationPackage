@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1954</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/1954</ISSUEURL>
+  <TITLE>bug: service id does not support string</TITLE>
+  <DESCRIPTION>### Issue description service id does not support string ### Environment * apisix version (cmd: `apisix version`): * OS: ### Minimal test code / Steps to reproduce the issue Client error: `PUT http://10.60.53.79:9080/apisix/admin/services/service-xxx-xxx` resulted in a `400 Bad Request` response: {&quot;error_msg&quot;:&quot;wrong type of service id&quot;} ### Source code services.lua ```lua if need_id and not tonumber(id) then return nil, {error_msg = &quot;wrong type of service id&quot;} end ```</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: remove `incubating` in download url in docs.</MESSAGE>
+    <SHA>cd661a71c5c57b22cb1e9ad7ccc70598bf8ff89b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>bugfix: service id does not support string (#1954) feature: accept &quot;:&quot; in id (#1955)</MESSAGE>
+      <SHA>da36833bb7e93a65d8369a6a14528e44969a24a7</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/admin/services.lua</FILE>
+        <FILE>apisix/schema_def.lua</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

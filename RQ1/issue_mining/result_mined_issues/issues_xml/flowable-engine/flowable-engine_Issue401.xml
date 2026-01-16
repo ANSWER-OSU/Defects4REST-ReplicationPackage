@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>401</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/401</ISSUEURL>
+  <TITLE>Issue with signal event handling between v6 and v5 process instances</TITLE>
+  <DESCRIPTION>When a process instance running in Flowable 6 is throwing a signal that is caught by a signal catch event in a process instance running in the Flowable 5 embedded engine or vice versa, an exception is thrown.</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Attempt to correct issue #361 (#397)</MESSAGE>
+    <SHA>297eed1292eb2b04ae28eee5443dfb1dc8914326</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix signal event issue #401</MESSAGE>
+      <SHA>faf7371b3226dfd1c3ffba38cb4c26534870cd7a</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/compatibility/Flowable5CompatibilityHandler.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/IntermediateThrowSignalEventActivityBehavior.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/cfg/ProcessEngineConfigurationImpl.java</FILE>
+        <FILE>modules/flowable5-compatibility/src/main/java/org/flowable/compatibility/DefaultFlowable5CompatibilityHandler.java</FILE>
+        <FILE>modules/flowable5-engine/src/main/java/org/activiti/engine/impl/bpmn/behavior/IntermediateThrowSignalEventActivityBehavior.java</FILE>
+        <FILE>modules/flowable5-test/src/test/java/org/activiti/engine/test/regression/SignalV6andV5Test.java</FILE>
+        <FILE>modules/flowable5-test/src/test/resources/org/activiti/engine/test/regression/signalBoundaryCatch.bpmn</FILE>
+        <FILE>modules/flowable5-test/src/test/resources/org/activiti/engine/test/regression/signalIntermediateCatch.bpmn</FILE>
+        <FILE>modules/flowable5-test/src/test/resources/org/activiti/engine/test/regression/signalThrow.bpmn</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

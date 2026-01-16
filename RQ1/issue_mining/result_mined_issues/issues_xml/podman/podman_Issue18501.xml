@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18501</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18501</ISSUEURL>
+  <TITLE>podman logs: missing output</TITLE>
+  <DESCRIPTION>``` [It] tail 800 lines ... podman [options] logs --tail 800 CID ... [FAILED] Expected &lt;LONG STRING&gt; to have length 800 ``` Different CI runs on different days. root/rootless, f37/38, journald/json-file * fedora-37 : int podman fedora-37 root host sqlite * [05-06 10:27](https://api.cirrus-ci.com/v1/artifact/task/6600480684507136/html/int-podman-fedora-37-root-host-sqlite.log.html#t--tail-800-lines--journald--1) in tail 800 lines: journald * fedora-38 : int podman fedora-38 rootless host sqlite * [05-05 15:51](https://api.cirrus-ci.com/v1/artifact/task/4650393464995840/html/int-podman-fedora-38-rootless-host-sqlite.log.html#t--tail-800-lines--json-file--1) in tail 800 lines: json-file Echoes of #14362, except these failures are on `main` and include the `wait` fix.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>252</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18953 from BlackHole1/update-vendor vendor in latests containers/common</MESSAGE>
+    <SHA>6633a91c5ab489b4bf441ab08d67250798b90a81</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>e2e: fix one of the many log flakes A few tests were doing &quot;podman run -d&quot; + &quot;podman logs&quot;. This is racy. Remove the unnecessary &quot;-d&quot;. And, as long as we're mucking around in here: - remove the &quot;-t&quot; from the 800-lines test, so we get clean output without ^Ms - remove unnecessary &quot;sh&quot;, &quot;-c&quot; from simple echo commands - add actual error-message checks to two places that were only checking exit status Resolves one (not all) of the flakes tracked in #18501 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>13db83a000034ad5601e4fd5c03a6139bc238249</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/logs_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>debug tail 800 lines flake Sometimes this tests flakes but in the CI log I see all expected lines printed but still for some reason the matcher fails. Right now it will truncate the array so it is not possible to verify what the matcher sees. Change this be removing the truncate limit for this specific test only. see #18501 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>2160a114ccb7c4cf3d73b4253f525fdd10fa3627</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/logs_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

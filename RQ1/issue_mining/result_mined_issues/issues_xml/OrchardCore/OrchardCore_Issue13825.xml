@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>13825</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/13825</ISSUEURL>
+  <TITLE>Only include Google Analytics tracking script if the privacy consent was given</TITLE>
+  <DESCRIPTION>### Is your feature request related to a problem? Please describe. The Google Analytics feature always includes the GA tracking script in `GoogleAnalyticsFilter`. Instead, it should only include this if the user gave consent to tracking, otherwise, it's a legal risk under GDPR for EU companies. Potentially something similar for websites run by other entities around the world too. ### Describe the solution you'd like The built-in ASP.NET Core feature can be used for this, just by adding the below check to `GoogleAnalyticsFilter`: ```c# var trackingConsentFeature = _hca.HttpContext.Features.Get&lt;ITrackingConsentFeature&gt;(); if (trackingConsentFeature is null || trackingConsentFeature.CanTrack) { // Only insert the tracking script here. } ``` ### Describe alternatives you've considered There are no alternatives, and I'm afraid because this is what our legal counsel told us: ![image](https://github.com/OrchardCMS/OrchardCore/assets/1976647/b138e48e-ead1-4e0d-8470-b8f4aaea9635)</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>PdfPig 0.1.8 (#13818)</MESSAGE>
+    <SHA>ffaa3ad8f1663b44d4d8544601cbee75b172af45</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Include Google Analytics and Tag Manage when user concents. Fix #13825</MESSAGE>
+      <SHA>f2c8d9923a7f98bbc02f720a863e9f9bd0742c3b</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Google/Analytics/GoogleAnalyticsFilter.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Google/TagManager/GoogleTagManagerFilter.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

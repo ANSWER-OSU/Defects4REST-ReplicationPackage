@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4949</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/4949</ISSUEURL>
+  <TITLE>bug: The logic for method fetch_full_registry in nacos.lua will break the loop if the previous get_url request failed</TITLE>
+  <DESCRIPTION>### Issue description `data, err = get_url(base_uri, instance_list_path .. service_info.service_name .. token_param .. namespace_param .. group_name_param) if err then log.error('get_url:', instance_list_path, ' err:', err) if not applications then applications = up_apps end return end` The above logic for method fetch_full_registry in nacos.lua will break the loop if the previous get_url request failed. This issue can be reproduced with a wrong route with service discovery configuration. ` ```lua local data, err for _, service_info in ipairs(infos) do local namespace_param = get_namespace_param(service_info.namespace_id) local group_name_param = get_group_name_param(service_info.group_name) data, err = get_url(base_uri, instance_list_path .. service_info.service_name .. token_param .. namespace_param .. group_name_param) if err then log.error('get_url:', instance_list_path, ' err:', err) if not applications then applications = up_apps end return end for _, host in ipairs(data.hosts) do local nodes = up_apps[service_info.service_name] if not nodes then nodes = {} up_apps[service_info.service_name] = nodes end core.table.insert(nodes, { host = host.ip, port = host.port, weight = host.weight or default_weight, }) end end ```` ### Environment - apisix version (cmd: `apisix version`): 2.9 - OS (cmd: `uname -a`): MacOs (same with Linux, not tested) - OpenResty / Nginx version (cmd: `nginx -V` or `openresty -V`): nginx version: openresty/1.19.3.2 ### Steps to reproduce 1. Configure a route with a wrong service_name not registered in Nacos. 2. The fetch data request for service_name configured in 1) failed or timeout is reached, it will break the loop, and the next requests to fetch data will be skipped but they are correctly configured. ### Actual result The next requests to fetch data will be skipped but they are correctly configured if the previous request not correctly configured or timeout reached. ### Error log log.error('get_url:', instance_list_path, ' err:', err) ### Expected result The next requests to fetch data will be not skipped when the previous request not correctly configured or timeout reached.</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>21</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat(debug-mode): add dynamic debug mode (#5012)</MESSAGE>
+    <SHA>c4c9b1fd09f464b0bbe51c09ce8999d5ab4f2594</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix(nacos): continue to process other services when request failed Fix #4949 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>7d623dd9aa1195841645d6957de8d0c67c49369a</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/discovery/nacos.lua</FILE>
+        <FILE>ci/centos7-ci.sh</FILE>
+        <FILE>t/discovery/nacos2.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(nacos): continue to process other services when request failed Fix #4949 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>fdeca4f3b5f875812a127ce57041187a7b6fe797</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/discovery/nacos.lua</FILE>
+        <FILE>ci/centos7-ci.sh</FILE>
+        <FILE>t/discovery/nacos2.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(nacos): continue to process other services when request failed Fix #4949 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>bcdb8be3d83b6a489ac68e5cc4ac0081cd37949c</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/discovery/nacos.lua</FILE>
+        <FILE>t/discovery/nacos2.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(nacos): continue to process other services when request failed (#5112) Fix #4949 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>d848a440c9ecdc625e2e43531168138860a495d3</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/discovery/nacos.lua</FILE>
+        <FILE>t/discovery/nacos2.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

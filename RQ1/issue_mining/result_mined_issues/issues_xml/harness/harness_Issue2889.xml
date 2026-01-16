@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2889</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2889</ISSUEURL>
+  <TITLE>[Feature] Signed environment variables</TITLE>
+  <DESCRIPTION>Gitlab-CI supports secret-less push to Docker repository in the pipeline. That is, there is no need to manually pass a secret to the pipeline (such as docker repository username/password) to pipeline to allow a build of my-group/my-project.git to push to my-group/my-project docker repository (whereas a build on other-group/other-project.git cannot, but can obviously push to other-group/other-project repository) I was wondering at how to implement this in my Drone workflow in the most generic possible way, and came at the conclusion that it can’t be done with the features offered by Drone right now – please correct me if I’m wrong — but a simple addition would allow that, and would probably allow a lot of interesting things as well. The idea would be to export all environment variables exposed to a pipeline as a JWT object (let’s say an environment variable $DRONE_SIGNED_ENV, or a /.drone-signed-env file), signed by a private key known only to Drone (not exposed to pipelines so a task can't just recreate a token by itself with crafted values of DRONE_REPO/DRONE_COMMIT_BRANCH/…). The pipeline would be able to communicate this to a third-party service that would itself be able to ascertain the git project/branch build pipeline the request is commit from just be verifying the signature of the token with the associated public key.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: [CDE-438]: add markedForDeletion filter in count (#2887) * add markedForDeletion filter in count</MESSAGE>
+    <SHA>35981e7f02b65045c5cbb124e6459abf5ccf8823</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: [AH-492]: return history layer size (#2889) * fix formatting * fix: [AH-492]: return history layer size</MESSAGE>
+      <SHA>1e305866b45b9d07f3a83bc91d4cdd6075cacdf3</SHA>
+      <PATCHEDFILES>
+        <FILE>registry/app/api/controller/metadata/base.go</FILE>
+        <FILE>registry/app/api/controller/metadata/get_artifacts_docker_layers.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

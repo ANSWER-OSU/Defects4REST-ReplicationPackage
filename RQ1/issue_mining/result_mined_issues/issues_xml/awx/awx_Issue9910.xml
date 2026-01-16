@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9910</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/9910</ISSUEURL>
+  <TITLE>Components with aria-label marked to be translated with Plural being displayed as [object Object]</TITLE>
+  <DESCRIPTION>&lt;!-- Issues are for **concrete, actionable bugs and feature requests** only - if you're just asking for debugging help or technical support, please use: - http://webchat.freenode.net/?channels=ansible-awx - https://groups.google.com/forum/#!forum/awx-project We have to limit this because of limited volunteer time to respond to issues! --&gt; ##### ISSUE TYPE - Bug Report ##### SUMMARY &lt;!-- Briefly describe the problem. --&gt; #### Note the same problem may be happening in different places... While fixing e2e tests I realize that some components is showing `aria-label=&quot;[object Object]&quot;` because is using a variable using the &lt;Plural&gt; component. ##### ENVIRONMENT * Devel ##### STEPS TO REPRODUCE 1. Go to jobs list 2. inspect the button `Cancel Job` ##### EXPECTED RESULTS That the correct text is displayed for aria-labels not object ##### ACTUAL RESULTS ![image](https://user-images.githubusercontent.com/12464858/114781911-b5065380-9d4f-11eb-92ec-7b94dab932fc.png)</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9822 from AlanCoding/boom_no_scripts Remove custom inventory scripts from the API SUMMARY Connect #7775 AWX VERSION 18.0.0 Reviewed-by: Alan Rominger &lt;arominge@redhat.com&gt; Reviewed-by: Jeff Bradberry &lt;None&gt; Reviewed-by: Bianca Henderson &lt;beeankha@gmail.com&gt;</MESSAGE>
+    <SHA>8142f5fb55ec366398fcd3d7785d04a52cb8b0a4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9958 from AlexSCorey/9910-PluralAriaLabel Fixes object rendered on dom in aria-label SUMMARY This addresses #9910. Aria-labels that use &lt;Plural/&gt; won't work properly. In this case I used aria-labelledby and passed it the id of the button. I tested it with a screen reader and that fixed it. I also fixed some JobListCancelButton tooltips ISSUE TYPE Bugfix Pull Request COMPONENT NAME UI AWX VERSION ADDITIONAL INFORMATION Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+      <SHA>c1a009d12822c3648090824860e84a2f221e2b77</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/components/JobList/JobListCancelButton.jsx</FILE>
+        <FILE>awx/ui_next/src/components/NotificationList/__snapshots__/NotificationListItem.test.jsx.snap</FILE>
+        <FILE>awx/ui_next/src/components/PaginatedDataList/__snapshots__/ToolbarDeleteButton.test.jsx.snap</FILE>
+        <FILE>awx/ui_next/src/components/ResourceAccessList/__snapshots__/DeleteRoleConfirmationModal.test.jsx.snap</FILE>
+        <FILE>awx/ui_next/src/components/ResourceAccessList/__snapshots__/ResourceAccessListItem.test.jsx.snap</FILE>
+        <FILE>awx/ui_next/src/locales/en/messages.po</FILE>
+        <FILE>awx/ui_next/src/locales/es/messages.po</FILE>
+        <FILE>awx/ui_next/src/locales/fr/messages.po</FILE>
+        <FILE>awx/ui_next/src/locales/ja/messages.po</FILE>
+        <FILE>awx/ui_next/src/locales/nl/messages.po</FILE>
+        <FILE>awx/ui_next/src/locales/zh/messages.po</FILE>
+        <FILE>awx/ui_next/src/locales/zu/messages.po</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

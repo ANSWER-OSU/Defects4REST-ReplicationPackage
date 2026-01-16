@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3037</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/3037</ISSUEURL>
+  <TITLE>disable</TITLE>
+  <DESCRIPTION>version: '2' services: drone-server: image: drone/drone:latest ports: - 8080:80 volumes: - /var/lib/drone:/var/lib/drone/ restart: always environment: - DRONE_OPEN=true - DRONE_SERVER_HOST=192.168.101.65:8080 - DRONE_GITLAB=true - DRONE_SERVER_PROTO=http - DRONE_AGENTS_ENABLED=true - DRONE_GITLAB_SKIP_VERIFY=true - DRONE_GITLAB_SERVER=http://192.168.101.244/ - DRONE_GITLAB_CLIENT_ID=&lt;id&gt; - DRONE_GITLAB_CLIENT_SECRET=&lt;secret&gt; - DRONE_SECRET=&lt;secret&gt; - DRONE_LOGS_TRACE=true drone-agent: image: drone/agent:latest restart: always depends_on: - drone-server volumes: - /var/run/docker.sock:/var/run/docker.sock environment: - DRONE_SERVER=http://192.168.101.65:8080 - DRONE_SECRET=&lt;secret&gt; - DRONE_LOGS_TRACE=true - DRONE_RPC_PROTO=http drone-agent_1 | 2020/11/13 08:15:09 [ERR] POST http://localhost:8080/rpc/v1/request request failed: Post http://localhost:8080/rpc/v1/request: dial tcp 127.0.0.1:8080: connect: connection refused drone-agent_1 | 2020/11/13 08:15:09 [DEBUG] POST http://localhost:8080/rpc/v1/request: retrying in 10s (24 left) drone-agent_1 | 2020/11/13 08:15:19 [ERR] POST http://localhost:8080/rpc/v1/request request failed: Post http://localhost:8080/rpc/v1/request: dial tcp 127.0.0.1:8080: connect: connection refused drone-agent_1 | 2020/11/13 08:15:19 [DEBUG] POST http://localhost:8080/rpc/v1/request: retrying in 10s (23 left) drone-agent_1 | 2020/11/13 08:15:29 [ERR] POST http://localhost:8080/rpc/v1/request request failed: Post http://localhost:8080/rpc/v1/request: dial tcp 127.0.0.1:8080: connect: connection refused drone-agent_1 | 2020/11/13 08:15:29 [DEBUG] POST http://localhost:8080/rpc/v1/request: retrying in 10s (22 left) drone-agent_1 | 2020/11/13 08:15:39 [ERR] POST http://localhost:8080/rpc/v1/request request failed: Post http://localhost:8080/rpc/v1/request: context deadline exceeded drone-agent_1 | {&quot;arch&quot;:&quot;amd64&quot;,&quot;level&quot;:&quot;debug&quot;,&quot;machine&quot;:&quot;4de0cd74800b&quot;,&quot;msg&quot;:&quot;runner: polling queue&quot;,&quot;os&quot;:&quot;linux&quot;,&quot;time&quot;:&quot;2020-11-13T08:15:39Z&quot;} drone-agent_1 | 2020/11/13 08:15:39 [DEBUG] POST http://localhost:8080/rpc/v1/request drone-agent_1 | 2020/11/13 08:15:39 [ERR] POST http://localhost:8080/rpc/v1/request request failed: Post http://localhost:8080/rpc/v1/request: dial tcp 127.0.0.1:8080: connect: connection refused drone-agent_1 | 2020/11/13 08:15:39 [DEBUG] POST http://localhost:8080/rpc/v1/request: retrying in 1s (30 left) drone-agent_1 | 2020/11/13 08:15:40 [ERR] POST http://localhost:8080/rpc/v1/request request failed: Post http://localhost:8080/rpc/v1/request: dial tcp 127.0.0.1:8080: connect: connection refused drone-agent_1 | 2020/11/13 08:15:40 [DEBUG] POST http://localhost:8080/rpc/v1/request: retrying in 2s (29 left) drone-agent_1 | 2020/11/13 08:15:42 [ERR] POST http://localhost:8080/rpc/v1/request request failed: Post http://localhost:8080/rpc/v1/request: dial tcp 127.0.0.1:8080: connect: connection refused drone-agent_1 | 2020/11/13 08:15:42 [DEBUG] POST http://localhost:8080/rpc/v1/request: retrying in 4s (28 left)</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [CODE-2531]: replace os.IsNotExist(err) with error.Is(err, fs.ErrNotExist) (#3036) * replace os.IsNotExist(err) with error.Is(err, fs.ErrNotExist)</MESSAGE>
+    <SHA>ad8f74ce716ed35c05623e83552110457760afe7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: [CDE-525]: stream pull image o/p cde, timeline events connector (#3037) * feat: [CDE-525]: move event before network call * feat: [CDE-525]: allow setting runArgs to IDE to allow proxy. * feat: [CDE-525]: allow setting runArgs to IDE to allow proxy. * feat: [CDE-525]: allow setting runArgs to IDE to allow proxy. * feat: [CDE-525]: allow setting runArgs to IDE to allow proxy. * feat: [CDE-525]: allow setting runArgs to IDE to allow proxy. * feat: [CDE-525]: allow setting runArgs to IDE to allow proxy. * feat: [CDE-525]: allow setting runArgs to IDE to allow proxy. * feat: [CDE-525]: allow setting runArgs to IDE to allow proxy. * feat: [CDE-525]: allow setting runArgs to IDE to allow proxy. * feat: [CDE-525]: allow setting runArgs to IDE to allow proxy. * feat: [CDE-470]: execute commands with harness user * feat: [CDE-525]: stream pull image o/p cde, timeline events connector * feat: [CDE-525]: stream pull image o/p cde, timeline events connector * feat: [CDE-525]: stream pull image o/p cde, timeline events connector</MESSAGE>
+      <SHA>35039b9499feaf19a5397b3cca2fcf272ac27e9e</SHA>
+      <PATCHEDFILES>
+        <FILE>app/gitspace/orchestrator/container/devcontainer_setup.go</FILE>
+        <FILE>app/gitspace/orchestrator/container/devcontainer_steps.go</FILE>
+        <FILE>app/gitspace/orchestrator/git/git_impl.go</FILE>
+        <FILE>app/gitspace/orchestrator/ide/ide.go</FILE>
+        <FILE>app/gitspace/orchestrator/ide/vscode.go</FILE>
+        <FILE>app/gitspace/orchestrator/ide/vscodeweb.go</FILE>
+        <FILE>app/gitspace/orchestrator/orchestrator_resume.go</FILE>
+        <FILE>app/gitspace/orchestrator/orchestrator_trigger.go</FILE>
+        <FILE>app/gitspace/orchestrator/template/template.go</FILE>
+        <FILE>app/gitspace/orchestrator/template/templates/clone_code.sh</FILE>
+        <FILE>app/gitspace/orchestrator/template/templates/run_vscode_web.sh</FILE>
+        <FILE>app/gitspace/platformconnector/gitnessplatformconnector.go</FILE>
+        <FILE>app/gitspace/platformconnector/platformconnector.go</FILE>
+        <FILE>types/devcontainer_config.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

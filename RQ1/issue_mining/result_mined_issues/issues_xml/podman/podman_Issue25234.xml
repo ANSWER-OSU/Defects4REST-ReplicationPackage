@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>25234</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/25234</ISSUEURL>
+  <TITLE>Command `machine init` fails to check if WSL is installed</TITLE>
+  <DESCRIPTION>### Issue Description Podman tries to import the machine-os into WSL even when it's impossible because the Windows features `Microsoft-Windows-Subsystem-Linux` and `VirtualMachinePlatform` aren't enabled. This is a regression observed with the latest version of the [WSL client](https://github.com/microsoft/WSL) (2.3.26.0 or later). ### Steps to reproduce the issue Steps to reproduce the issue 1. Make sure to have latest version WSL (`wsl --update`) 2. Disable the Windows features `Microsoft-Windows-Subsystem-Linux` and `VirtualMachinePlatform` 3. Run `podman machine init` ### Describe the results you received ```log Extracting compressed file: podman-machine-default-amd64: done Importing operating system into WSL (this may take a few minutes on a new WSL install)... Import in progress, this may take a few minutes. The operation could not be started because a required feature is not installed. Error code: Wsl/Service/RegisterDistro/CreateVm/HCS/HCS_E_SERVICE_NOT_AVAILABLE Error: the WSL import of guest OS failed: command C:\Users\mario\AppData\Local\Microsoft\WindowsApps\wsl.exe [--import podman-machine-default C:\Users\mario\.local\share\containers\podman\machine\wsl\wsldist\podman-machine-default C:\Users\mario\.local\share\containers\podman\machine\wsl\podman-machine-default-amd64 --version 2] failed: exit status 0xffffffff ``` ### Describe the results you expected The command should NOT try to import the machine OS in WSL and [propose to install WSL to the user](https://github.com/containers/podman/blob/4bd6bc9f3ccac4d3bd79c4a3eb8fb09e05604a06/pkg/machine/wsl/machine.go#L356): ```log WSL is not installed on this system, installing it. NOTE: A system reboot will be required as part of this process. If you prefer, you may abort now, and perform a manual installation using the &quot;wsl --install&quot; command. ``` ### podman info output ```yaml OS: windows/amd64 provider: wsl version: 5.4.0-dev ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details Additional environment details ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>46</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #25450 from baude/issue25449 Replace old nginx image with podman hello</MESSAGE>
+    <SHA>faf8574bb47870f275cd97f5088bc5de5baa2558</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix WSL installation check on Windows Fixes #25234 Signed-off-by: Mario Loriedo &lt;mario.loriedo@gmail.com&gt;</MESSAGE>
+      <SHA>431e483531f436373a73cfb04b4997b62f0c6faf</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/machine/wsl/machine.go</FILE>
+        <FILE>pkg/machine/wsl/wutil/wutil.go</FILE>
+        <FILE>pkg/machine/wsl/wutil/wutil_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix WSL installation check on Windows Fixes #25234 Signed-off-by: Mario Loriedo &lt;mario.loriedo@gmail.com&gt;</MESSAGE>
+      <SHA>c2b5f5f5af944a118a93f54e535faae8008fece1</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/machine/wsl/machine.go</FILE>
+        <FILE>pkg/machine/wsl/wutil/wutil.go</FILE>
+        <FILE>pkg/machine/wsl/wutil/wutil_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix WSL installation check on Windows Fixes #25234 Signed-off-by: Mario Loriedo &lt;mario.loriedo@gmail.com&gt;</MESSAGE>
+      <SHA>0460f8d5725f5409050ea39fd4f9fec043afaf30</SHA>
+      <PATCHEDFILES>
+        <FILE>Makefile</FILE>
+        <FILE>pkg/machine/wsl/machine.go</FILE>
+        <FILE>pkg/machine/wsl/wutil/wutil.go</FILE>
+        <FILE>pkg/machine/wsl/wutil/wutil_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix WSL installation check on Windows Fixes #25234 Signed-off-by: Mario Loriedo &lt;mario.loriedo@gmail.com&gt;</MESSAGE>
+      <SHA>275c18e9747acf67cef3a68f3e55731bab3caa83</SHA>
+      <PATCHEDFILES>
+        <FILE>Makefile</FILE>
+        <FILE>pkg/machine/wsl/machine.go</FILE>
+        <FILE>pkg/machine/wsl/wutil/wutil.go</FILE>
+        <FILE>pkg/machine/wsl/wutil/wutil_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix WSL installation check on Windows Fixes #25234 Signed-off-by: Mario Loriedo &lt;mario.loriedo@gmail.com&gt;</MESSAGE>
+      <SHA>87421d95084486448f85f776529a688a852d902c</SHA>
+      <PATCHEDFILES>
+        <FILE>Makefile</FILE>
+        <FILE>pkg/machine/wsl/machine.go</FILE>
+        <FILE>pkg/machine/wsl/wutil/wutil.go</FILE>
+        <FILE>pkg/machine/wsl/wutil/wutil_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23094</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/23094</ISSUEURL>
+  <TITLE>Separate expedition billing status from main statuses and add more shipping statuses</TITLE>
+  <DESCRIPTION>### Feature Request As discussed [HERE](https://github.com/Dolibarr/dolibarr/issues/20987#issuecomment-1336352533), it will be good to separate expedition billing status from shipment status. ### Use case The reasons for this are, that now when an invoice is created from a shipment (expedition), the column &quot;billed&quot; in llx_expediton remains with a value of 0 instead of 1. Sometimes, there is a workflow, where you create a shipment, then create an invoice and validate this invoice. But the items are NOT shipped yet. So, at a later stage, when the warehouse ship the items they classify the shipment as &quot;Closed (sent)&quot;. I.e. you can have an invoice when the shipment is not yet processed. Thus, when you create an invoice, the shipment should be set as billed but NOT closed. ### Suggested implementation Make following changes: 1. When an invoice is created, no matter the status of the shipment, it should be changed to billed, like &quot;Validated - billed&quot; or, to avoid too many statuses that can be confusing, add a separate field (not editable by user) named &quot;Billed&quot; in view and list mode 2. Add more Shipment statuses like &quot;Awaiting shipment&quot;, &quot;Shipped&quot;, &quot;Delivered&quot; 3. This is not very often, but it will be good to have also status &quot;Returned&quot;, or &quot;Returned from customer&quot;. It could be a wrong address or wrong items but mistakes happens. For this status, it also will be good upon clicking &quot;Set as returned&quot; to have a pop-up to enter the reason for return for future reference. ### Suggested steps _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23081 from FHenry/dev_PropalResetIPSignOnBAckToDraft fix: propal when back to draft delete ip and name of web sign</MESSAGE>
+    <SHA>291cb1908d45c639604a0cc6fa0166759b5e4f4d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>NEW|New [#23094] Add more shipment statuses</MESSAGE>
+      <SHA>cca66fb75bb5b6d4dadae81a1a56f9cba204d799</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/expedition/card.php</FILE>
+        <FILE>htdocs/expedition/class/expedition.class.php</FILE>
+        <FILE>htdocs/expedition/list.php</FILE>
+        <FILE>htdocs/langs/en_US/sendings.lang</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

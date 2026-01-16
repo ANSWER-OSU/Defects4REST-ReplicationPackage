@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5693</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5693</ISSUEURL>
+  <TITLE>problem with the serialization of IPagedList in distributed cache</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40.3 JsonSerializationException: Could not create an instance of type Nop.Core.IPagedList`1[Nop.Core.Domain.Orders.BestsellersReportLine]. Type is an interface or abstract class and cannot be instantiated. Path '', line 1, position 1. Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateNewList(JsonReader reader, JsonArrayContract contract, out bool createdFromNonDefaultCreator) Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, object existingValue, string id) Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, bool checkAdditionalContent) Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType) Newtonsoft.Json.JsonConvert.DeserializeObject(string value, Type type, JsonSerializerSettings settings) Newtonsoft.Json.JsonConvert.DeserializeObject&lt;T&gt;(string value, JsonSerializerSettings settings) Nop.Core.Caching.DistributedCacheManager.TryGetItemAsync&lt;T&gt;(CacheKey key) in DistributedCacheManager.cs + var item = JsonConvert.DeserializeObject&lt;T&gt;(json); Nop.Core.Caching.DistributedCacheManager.GetAsync&lt;T&gt;(CacheKey key, Func&lt;Task&lt;T&gt;&gt; acquire) in DistributedCacheManager.cs + var (isSet, item) = await TryGetItemAsync&lt;T&gt;(key); Nop.Web.Components.HomepageBestSellersViewComponent.InvokeAsync(Nullable&lt;int&gt; productThumbPictureSize) in HomepageBestSellers.cs ticket created by the premium support issue #16097</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>5689 Fixed incorrect new products sorting</MESSAGE>
+    <SHA>397e0fde0503094dd80c5fb4072207f9fdce1a2c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5693 Replaced caching of IPagedList to caching of List on HomepageBestSellersViewComponent</MESSAGE>
+      <SHA>93b0ad30216c3d3948c6c343de64676edaf2bb61</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Components/HomepageBestSellers.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#5693 Replaced caching of IPagedList to caching of List on HomepageBestSellersViewComponent (cherry picked from commit 93b0ad30216c3d3948c6c343de64676edaf2bb61)</MESSAGE>
+      <SHA>c23a4350b91ca3937e9c6e5197f87cadd7bd4e43</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Components/HomepageBestSellers.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

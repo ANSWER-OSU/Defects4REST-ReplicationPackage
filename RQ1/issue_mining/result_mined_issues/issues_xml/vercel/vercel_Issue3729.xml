@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3729</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/3729</ISSUEURL>
+  <TITLE>Routing problems with Python</TITLE>
+  <DESCRIPTION>I've tested just about everything but can't get any other routing working on Python except `/api`. I'm trying to set up Starlette (or Sanic, or whatever, doesn't really matter) to respond from one app (file) to several URLs. (For example. `/api/foo` and `/api/bar` that would be routed in different handler functions in the single app with a router.) Full source code of my test app: ``` from starlette.applications import Starlette from starlette.responses import PlainTextResponse from starlette.routing import Route def homepage(request): return PlainTextResponse(f&quot;Homepage URL: {request.url}, path: {request.url.path}&quot;) routes = [ Route(&quot;/{whatever:path}&quot;, homepage), ] app = Starlette(debug=True, routes=routes) ``` (This works ok with uvicorn or other servers.) When I save this as `api/index.py` the `/api` url works, but no other URL. When I save this as `api/[index].py` or `api/[anything].py` I get a 502 + following error in the logs: `Syntax error in module 'now__handler__python': invalid syntax (now__handler__python.py, line 7)` All other setup combinations result in 404 page (from ZEIT, not from the app) and no logs whatsoever. Is it even possible to do basic URL routing with python? (Also there are zero examples or documentation on how to do this, that would probably help as well.)</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Minor tweaks for CONTRIBUTING.md file (#3778) * Minor tweaks for CONTRIBUTING.md file * Update CONTRIBUTING.md * Update CONTRIBUTING.md</MESSAGE>
+    <SHA>5ce7ff86a47e6c94939539f0a39c4e888b141ee0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-python] Fix path segments with square brackets (#3781) Previously, python would fail when using [Path Segments](https://zeit.co/docs/v2/serverless-functions/introduction#path-segments) as seen in #3729. This PR changes the import logic so that the entrypoint file is [imported as a relative file path](https://stackoverflow.com/a/67692/266535) instead of by module name.</MESSAGE>
+      <SHA>00908e8ebedc8c6499666b91831323bd51a4329b</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-python/now_init.py</FILE>
+        <FILE>packages/now-python/src/index.ts</FILE>
+        <FILE>packages/now-python/test/fixtures/27-square-brackets/api/[hello].py</FILE>
+        <FILE>packages/now-python/test/fixtures/27-square-brackets/now.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

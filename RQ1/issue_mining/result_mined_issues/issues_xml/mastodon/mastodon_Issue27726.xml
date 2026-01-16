@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>27726</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/27726</ISSUEURL>
+  <TITLE>Explore prompt still shows up with out of order posts</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem 1. Load a home timeline with plenty of activity, in which one of the most recent 20 posts was received out of order and had been created more than 10 hours ago ### Expected behaviour Expect to see no explore prompt prompting you to follow more people ### Actual behaviour See an explore prompt that prompts you to follow more people ### Detailed description This looks like it's the same issue as #27211 which didn't actually fix the issue; in fact, it made it worse (though thankfully easier to debug) as now the explore prompt shows up the entire time the out of order post is in the latest 20 posts. If a post from another server arrives at your server over 10 hours late, then it can show up in the latest 20 posts which are used to calculate whether the explore prompt should show up, and it will be used as the oldest post when calculating the average gap. If there's over a 10 hour delta between this and the newest post, then the calculation will decide to show the explore prompt. In #27211 a change was made to try to address this issue; but that changed it from looking at the last post in the list (ordered by the order they are arranged on your timeline), to looking at the one with the oldest timestamp. Now, the explore prompt will show up the entire time this post which is displayed out of order is in the latest 20, not just when it's at the end of the list. For example, here are a couple of the values I extracted for the oldest and newest when looking at this in the debugger: * Newest: Date Mon Nov 06 2023 07:34:30 GMT-0500 (Eastern Standard Time) * Oldest: Date Sun Nov 05 2023 12:35:52 GMT-0500 (Eastern Standard Time) I think that a quick fix for this might be to sort by the created date before looking at the first 20 statuses, so you'll get the latest 20 by created date, rather than taking the latest 20 by displayed order. ### Mastodon instance hachyderm.io ### Mastodon version v4.2.1 ### Browser name and version FIrefox 119.0 ### Operating system Ubuntu 22.04.3 LTS (Jammy Jellyfish) ### Technical details _No response_</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>87</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Adjust transform origin for favorite star (#27700)</MESSAGE>
+    <SHA>e4e752c26e526d0d29e3fe5e2cf5ca9d915546ef</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Use latest 20 posts by timestamp for explore prompt calculation The explore prompt will display if the average time between posts in the latest 20 is greater than 30 minutes per post; but it currently uses the order that posts are displayed on the timeline to take the latest 20, but the `created_at` timestamp for the calculation. If some post is displayed out of order, because it took a long time before it got propagated to your server, then the explore prompt will show up even on a busy timeline. This change sorts the posts by the `created_at` timestamp before taking the most recent 20, so out of order posts will only be considered only if there are fewer than 20 other posts on your timeline. Closes #27726</MESSAGE>
+      <SHA>a63bf40864cedf4dfe2470e13897524634843472</SHA>
+      <PATCHEDFILES>
+        <FILE>app/javascript/mastodon/features/home_timeline/index.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Remove explore prompt In #25267 a prompt was added to encourage people to follow more accounts and hashtags if there weren't enough posts or variety when viewing your home timeline. This prompt has been showing up at a lot of inappropriate times on busy home timelines, leading to a series of bugs and PRs about it showing up when it shouldn't. See for example #25569 #25570 #25579 #27211 #27197 In #27726 and associated PR #27728 I discuss how I don't think that there really can be a reasonable fix for this prompt showing up on timelines which contain posts that have been delayed for whatever reason (outgoing or incoming queue on servers being behind, for example), without substantially increasing the number of posts we load initially or implementing the feature on the server side. Additionally, the dismissal state being stored purely client side means that the prompt can frustratingly keep showing up even if you dismiss it if you move between browsers, computers, private tabs, etc. So it seems that to truly implement this feature well, it can't be a purely client side feature; it needs some amount of API and server side implementation. That brings up the question of whether this feature is worth that complexity. This feature is prompting people to follow more people or hashtags because their home timeline is a bit slow; but maybe some people like it that way, or follow mostly the local or global timelines. One of the reasons that some people prefer Mastodon is that it doesn't aggressively push discovery features, while this is a fairly aggressive discovery feature, and without a bunch of extra effort can come up in quite inappropriate contexts. So this PR proposes just removing the feature. Fixing the feature, probably by moving more of the implementation server side, and possibly making it a bit less aggressive, might be another option, but I wanted to propose just removing it to get a feel for people's thoughts.</MESSAGE>
+      <SHA>707f9006c70318e0fb19744e87e035ab36555343</SHA>
+      <PATCHEDFILES>
+        <FILE>app/javascript/mastodon/features/home_timeline/components/explore_prompt.tsx</FILE>
+        <FILE>app/javascript/mastodon/features/home_timeline/index.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2774</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/2774</ISSUEURL>
+  <TITLE>Select v2: reconfiguring option values</TITLE>
+  <DESCRIPTION>Node: **v16.14.0** Arch: **arm64** Platform: **darwin** Docker: **false** Database: **mysql2** ProjectOnRootDB: **true** RootDB: **mysql2** PackageVersion: **0.92.4** - create root db project, add single select column - add options `a`, `b`, `c`, `d`, save - edit options, rename `a` as `b` and `b` as `a` ``` POST /api/v1/db/meta/audits/rows/4/update 200 452 - 7.567 ms ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗ ║ ║ ║ EXCEPTION OCCURED!! in MysqlClient @ tableUpdate ║ ║ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ║ ║ MESSAGE: ║ ║ ALTER TABLE `nc_h330__Sheet1` ║ ║ CHANGE ║ ║ COLUMN `title5` `title5` enum('a','b','c','d','b') NULL; - Column 'title5' has duplicated value 'b' in ENUM ║ ║ ║ ║ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ║ ║ CODE: ║ ║ ER_DUPLICATED_VALUE_IN_TYPE ║ ║ ║ ║ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ║ ║ STACK: ║ ║ Error: ALTER TABLE `nc_h330__Sheet1` ║ ║ CHANGE ║ ║ COLUMN `title5` `title5` enum('a','b','c','d','b') NULL; - Column 'title5' has duplicated value 'b' in ENUM ║ ║ at Packet.asError (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/packets/packet.js:728:17) ║ ║ at Query.execute (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/commands/command.js:29:26) ║ ║ at Connection.handlePacket (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/connection.js:456:32) ║ ║ at PacketParser.onPacket (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/connection.js:85:12) ║ ║ at PacketParser.executeStart (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/packet_parser.js:75:16) ║ ║ at Socket.&lt;anonymous&gt; (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/connection.js:92:25) ║ ║ at Socket.emit (node:events:520:28) ║ ║ at Socket.emit (node:domain:475:12) ║ ║ at addChunk (node:internal/streams/readable:315:12) ║ ║ at readableAddChunk (node:internal/streams/readable:289:9) ║ ║ ║ ║ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ║ ║ ║ ║ ║ ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝ Error: ALTER TABLE `nc_h330__Sheet1` CHANGE COLUMN `title5` `title5` enum('a','b','c','d','b') NULL; - Column 'title5' has duplicated value 'b' in ENUM at Packet.asError (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/packets/packet.js:728:17) at Query.execute (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/commands/command.js:29:26) at Connection.handlePacket (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/connection.js:456:32) at PacketParser.onPacket (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/connection.js:85:12) at PacketParser.executeStart (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/packet_parser.js:75:16) at Socket.&lt;anonymous&gt; (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/connection.js:92:25) at Socket.emit (node:events:520:28) at Socket.emit (node:domain:475:12) at addChunk (node:internal/streams/readable:315:12) at readableAddChunk (node:internal/streams/readable:289:9) { code: 'ER_DUPLICATED_VALUE_IN_TYPE', errno: 1291, sqlState: 'HY000', sqlMessage: &quot;Column 'title5' has duplicated value 'b' in ENUM&quot;, sql: 'ALTER TABLE `nc_h330__Sheet1` \n' + ' CHANGE\n' + &quot; COLUMN `title5` `title5` enum('a','b','c','d','b') NULL;&quot; } columnUpdate :: Error: ALTER TABLE `nc_h330__Sheet1` CHANGE COLUMN `title5` `title5` enum('a','b','c','d','b') NULL; - Column 'title5' has duplicated value 'b' in ENUM at Packet.asError (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/packets/packet.js:728:17) at Query.execute (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/commands/command.js:29:26) at Connection.handlePacket (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/connection.js:456:32) at PacketParser.onPacket (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/connection.js:85:12) at PacketParser.executeStart (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/packet_parser.js:75:16) at Socket.&lt;anonymous&gt; (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/mysql2/lib/connection.js:92:25) at Socket.emit (node:events:520:28) at Socket.emit (node:domain:475:12) at addChunk (node:internal/streams/readable:315:12) at readableAddChunk (node:internal/streams/readable:289:9) { code: 'ER_DUPLICATED_VALUE_IN_TYPE', errno: 1291, sqlState: 'HY000', sqlMessage: &quot;Column 'title5' has duplicated value 'b' in ENUM&quot;, sql: 'ALTER TABLE `nc_h330__Sheet1` \n' + ' CHANGE\n' + &quot; COLUMN `title5` `title5` enum('a','b','c','d','b') NULL;&quot; } PATCH /api/v1/db/meta/columns/cl_g16zcwelvfa69g 400 165 - 45.086 ms ```</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>27</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: handle select columns with no options Re #2764 Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+    <SHA>673f552d9f917d81dfaccb7270d39316b85dbd39</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: handle interchange of options Re #2774 Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+      <SHA>866d10ab18fd04420e07cd6ceb8dfce11e611c4f</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/meta/api/columnApis.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: handle interchange of options Re #2774 Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+      <SHA>6e83ff567d1977563410bcb6cd557bfeaac7bf97</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/meta/api/columnApis.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: handle interchange of options Re #2774 Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+      <SHA>8dc316799d1065cdf881ef73730812c5bb9f4c9b</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/meta/api/columnApis.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

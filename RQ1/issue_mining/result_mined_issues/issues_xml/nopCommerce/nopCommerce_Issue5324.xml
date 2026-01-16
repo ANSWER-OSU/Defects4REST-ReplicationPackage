@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5324</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5324</ISSUEURL>
+  <TITLE>Add event for system warnings</TITLE>
+  <DESCRIPTION>To allow plugin developers to add custom SystemWarning from plugins, let's add an appropriate event Add the following code to the &quot;PrepareSystemWarningModelsAsync&quot; method: `await _eventPublisher.PublishAsync(new SystemWarningCreatedEvent(model));` And a new SystemWarningCreatedEvent class ``` /// &lt;summary&gt; /// Represents an event that occurs when the sitemap is created /// &lt;/summary&gt; public class SystemWarningCreatedEvent { #region Ctor public SystemWarningCreatedEvent (IList&lt;SystemWarningModel&gt; systemWarnings ) { SystemWarnings = systemWarnings ?? new List&lt;SystemWarningModel&gt;(); } #endregion #region Properties /// &lt;summary&gt; /// Gets a list of sitemap URLs /// &lt;/summary&gt; public IList&lt;SystemWarningModel&gt; SystemWarnings { get; } #endregion } ```</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5325 Added ability to add a CSS class to the list of CSS classes in the tag &quot;nop-tab&quot;</MESSAGE>
+    <SHA>30d0f4288037109888998c165d71211d0fca9f46</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5324 Added event for system warnings</MESSAGE>
+      <SHA>ee84eca6a784f3ae6feb6abe004fb3c22fc24e92</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/CommonModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Common/SystemWarningCreatedEvent.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Common/SystemWarningLevel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Common/SystemWarningModel.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,119 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7813</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/7813</ISSUEURL>
+  <TITLE>Improve support for fetching content from multiple Galaxy-like endpoints</TITLE>
+  <DESCRIPTION>Today, AWX users can specify Ansible role/collection dependencies in their SCM repositories in a `requirements.yml` file, and AWX will install these as part of the Project Update. Currently, AWX has support for pulling this content from https://galaxy.ansible.org or *one* Galaxy-like API such as Red Hat's cloud-based Ansible Automation Hub. The model for configuring Galaxy credentials today is too simple (you can only specify *one* &quot;private&quot; Galaxy, ordering is complicated, and it's a set of *global* settings that can't be differentiated per Organization). This issue is meant to track a change to this interface whereby Galaxy credentials will be assigned to Organizations, and can be unlimited and ordered as the user sees fit. ### Scope of API Change - [x] Introduce a new CredentialType of e.g., `kind=&quot;galaxy&quot;` which represents a content source for fetching collections defined in `requirements.yml` when project updates are run (e.g., galaxy.ansible.com, cloud.redhat.com, on-premise Automation Hub). This new type will represent a URL and (optional) authentication details necessary to construct the environment variables _when a project update runs_ `ansible-galaxy collection install` as described in https://docs.ansible.com/ansible/latest/user_guide/collections_using.html#configuring-the-ansible-galaxy-client. It will have fields which map directly to the configuration options exposed to the Ansible Galaxy CLI, e.g., per-server: - `url` (required str) - `auth_url` (optional str) - `token` (optional str, encrypted) Note that a URL will *always* be required, but authentication (as in the case of galaxy.ansible.com) is optional. **This new solution _will not_ support basic authentication, because several of these APIs will be removing support for basic auth in the next year** (see: https://github.com/ansible/awx/pull/7811/) - [x] Add an API endpoint for associating an _ordered list_ of these credentials _at the Organization level_. For example, an Organization may have an empty list (the default), or one or more items in the list (i.e., Public Galaxy, _then_ On-Prem AH). This might be something like: `/api/v2/organizations/N/galaxy_credentials/` - [x] Write code to detect and migrate the *existing* Galaxy-oriented setting values in such a way that post-upgrade, proper credentials are created and attached to _every_ Organization in the AWX install: - `PRIMARY_GALAXY_URL` - `PRIMARY_GALAXY_USERNAME` - `PRIMARY_GALAXY_PASSWORD` - `PRIMARY_GALAXY_TOKEN` - `PRIMARY_GALAXY_AUTH_URL` - `PUBLIC_GALAXY_ENABLED` In other words, after upgrading, you should find that *every* organization that existed prior to upgrade now has a list of (one or more) &quot;Galaxy&quot; credentials associated with it. Additionally, post-upgrade, these settings should not be visible (or editable) from `/api/v2/settings/jobs/`. - [x] Change the `awx.main.tasks` code such that when a project update runs, it looks at the list of Galaxy/AH credentials assigned to the organization, and (respecting the defined order) builds the appropriate environment variables to properly configure the `ansible-galaxy` CLI. See: https://docs.ansible.com/ansible/latest/user_guide/collections_using.html#configuring-the-ansible-galaxy-client &gt; As well as being defined in the ansible.cfg file, these server options can be defined as an environment variable. The environment variable is in the form `ANSIBLE_GALAXY_SERVER_{{ id }}_{{ key }}` where `{{ id }}` is the upper case form of the server identifier and `{{ key }}` is the key to define. For example I can define token for release_galaxy by setting `ANSIBLE_GALAXY_SERVER_RELEASE_GALAXY_TOKEN=secret_token`. For example: ``` ANSIBLE_GALAXY_SERVER_LIST=server1,server2 ANSIBLE_GALAXY_SERVER_SERVER1_URL=https://galaxy.ansible.com ANSIBLE_GALAXY_SERVER_SERVER2_URL=https://cloud.redhat.com/api/automation-hub/ ANSIBLE_GALAXY_SERVER_SERVER2_AUTH_URL=https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token ANSIBLE_GALAXY_SERVER_SERVER2_TOKEN=secret123 ``` In this way, when `awx/playbooks/project_update.yml` runs `ansible-galaxy collection install`, it will attempt the servers in order: &gt; The GALAXY_SERVER_LIST option is a list of server identifiers in a prioritized order. When searching for a collection, the install process will search in that order, e.g. automation_hub first, then my_org_hub, release_galaxy, and finally test_galaxy until the collection is found. - [x] Continue to support `GALAXY_IGNORE_CERTS` as a global setting, as the `ansible-galaxy` CLI doesn't currently have the ability to specify this value at a per-server level. - [x] We should ensure that this implementation _continues_ to provide support for the use case where users want to fetch roles directly from public Galaxy _even if_ galaxy.ansible.com is not the _first_ credential in the list for the Organization). ### Scope of UI Change - [x] the organization add/edit form will need a non-required credential lookup field for credentials of `kind=galaxy`. A note is needed to let the user know the order of these credentials matters (order sets precedence for the sync and lookup of the content) - [x] Remove the global &quot;Galaxy&quot; settings from `/#/settings/jobs`.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>76</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #7811 from ryanpetrello/deprecate-galaxy-basic-auth mark PRIMARY_GALAXY_USERNAME and PRIMARY_GALAXY_PASSWORD as deprecated Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>b990271dec9b3db18dbfe7754a69a2ed3592704b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>add model support and a migration for Org -&gt; Galaxy credentials see: https://github.com/ansible/awx/issues/7813</MESSAGE>
+      <SHA>6bb750cca1d49f499fb8c5c52c495733ad77d72a</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/conf.py</FILE>
+        <FILE>awx/main/constants.py</FILE>
+        <FILE>awx/main/models/credential/__init__.py</FILE>
+        <FILE>awx/main/models/organization.py</FILE>
+        <FILE>awx/main/redact.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/main/tests/functional/api/test_credential_type.py</FILE>
+        <FILE>awx/main/tests/functional/models/test_project.py</FILE>
+        <FILE>awx/main/tests/functional/test_credential.py</FILE>
+        <FILE>awx/main/tests/unit/test_tasks.py</FILE>
+        <FILE>awx/settings/defaults.py</FILE>
+        <FILE>awx/ui/client/src/configuration/forms/jobs-form/configuration-jobs.form.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>add model support, an API, and a migration for Org -&gt; Galaxy credentials see: https://github.com/ansible/awx/issues/7813</MESSAGE>
+      <SHA>802b6f6e78efb081da18750cf0b623e4cd254f65</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/serializers.py</FILE>
+        <FILE>awx/api/urls/organization.py</FILE>
+        <FILE>awx/api/views/__init__.py</FILE>
+        <FILE>awx/api/views/organization.py</FILE>
+        <FILE>awx/main/conf.py</FILE>
+        <FILE>awx/main/constants.py</FILE>
+        <FILE>awx/main/migrations/0118_galaxy_credentials.py</FILE>
+        <FILE>awx/main/models/credential/__init__.py</FILE>
+        <FILE>awx/main/models/organization.py</FILE>
+        <FILE>awx/main/redact.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/main/tests/functional/api/test_credential_type.py</FILE>
+        <FILE>awx/main/tests/functional/models/test_project.py</FILE>
+        <FILE>awx/main/tests/functional/test_credential.py</FILE>
+        <FILE>awx/main/tests/unit/test_tasks.py</FILE>
+        <FILE>awx/settings/defaults.py</FILE>
+        <FILE>awx/ui/client/src/configuration/forms/jobs-form/configuration-jobs.form.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>add model support, an API, and a migration for Org -&gt; Galaxy credentials see: https://github.com/ansible/awx/issues/7813</MESSAGE>
+      <SHA>146dc346012f3e05bb142093164008f69465d5d2</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/serializers.py</FILE>
+        <FILE>awx/api/urls/organization.py</FILE>
+        <FILE>awx/api/views/__init__.py</FILE>
+        <FILE>awx/api/views/organization.py</FILE>
+        <FILE>awx/main/conf.py</FILE>
+        <FILE>awx/main/constants.py</FILE>
+        <FILE>awx/main/migrations/0118_galaxy_credentials.py</FILE>
+        <FILE>awx/main/models/credential/__init__.py</FILE>
+        <FILE>awx/main/models/organization.py</FILE>
+        <FILE>awx/main/redact.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/main/tests/functional/api/test_credential_type.py</FILE>
+        <FILE>awx/main/tests/functional/api/test_organizations.py</FILE>
+        <FILE>awx/main/tests/functional/models/test_project.py</FILE>
+        <FILE>awx/main/tests/functional/test_credential.py</FILE>
+        <FILE>awx/main/tests/unit/test_tasks.py</FILE>
+        <FILE>awx/settings/defaults.py</FILE>
+        <FILE>awx/ui/client/src/configuration/forms/jobs-form/configuration-jobs.form.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>add model support, an API, and a migration for Org -&gt; Galaxy credentials see: https://github.com/ansible/awx/issues/7813</MESSAGE>
+      <SHA>95584a58c4d70a5121098872b59d5fdf632f5e9c</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/serializers.py</FILE>
+        <FILE>awx/api/urls/organization.py</FILE>
+        <FILE>awx/api/views/__init__.py</FILE>
+        <FILE>awx/api/views/organization.py</FILE>
+        <FILE>awx/main/conf.py</FILE>
+        <FILE>awx/main/constants.py</FILE>
+        <FILE>awx/main/migrations/0118_galaxy_credentials.py</FILE>
+        <FILE>awx/main/models/credential/__init__.py</FILE>
+        <FILE>awx/main/models/organization.py</FILE>
+        <FILE>awx/main/redact.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/main/tests/functional/api/test_credential_type.py</FILE>
+        <FILE>awx/main/tests/functional/api/test_organizations.py</FILE>
+        <FILE>awx/main/tests/functional/models/test_project.py</FILE>
+        <FILE>awx/main/tests/functional/test_credential.py</FILE>
+        <FILE>awx/main/tests/unit/test_tasks.py</FILE>
+        <FILE>awx/settings/defaults.py</FILE>
+        <FILE>awx/ui/client/src/configuration/forms/jobs-form/configuration-jobs.form.js</FILE>
+        <FILE>docs/collections.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>add a data migration for Galaxy credentials see: https://github.com/ansible/awx/issues/7813</MESSAGE>
+      <SHA>b3aa4590d5f75611abfafaab2bd4cc2972fe5905</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0118_galaxy_credentials.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>add a data migration for Galaxy credentials see: https://github.com/ansible/awx/issues/7813</MESSAGE>
+      <SHA>bb909b7920bdb56c745b5f7221c4c61d550583f9</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0118_galaxy_credentials.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

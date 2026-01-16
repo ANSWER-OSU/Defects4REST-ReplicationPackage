@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>630</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/630</ISSUEURL>
+  <TITLE>Error when attempting to spawn drone</TITLE>
+  <DESCRIPTION>``` ~/code/docker-drone (master) X λ docker run --rm -it --link dronedb:db -v /var/run/docker.sock:/docker.sock -e DOCKER_HOST=&quot;unix:///docker.sock&quot; -p 80:8080 xena/drone *** Running /etc/rc.local... *** Booting runit daemon... *** Runit started as PID 13 DRONE_DATABASE_DATASOURCE=host=172.17.0.4 user=postgres dbname=drone sslmode=disable DB_PORT=tcp://172.17.0.4:5432 HOSTNAME=b2aaa48dd364 DB_ENV_PG_MAJOR=9.3 DB_PORT_5432_TCP=tcp://172.17.0.4:5432 DB_NAME=/pensive_curie/db DRONE_WORKER_NODES=unix:///docker.sock DB_ENV_PGDATA=/var/lib/postgresql/data DRONE_GITHUB_CLIENT=sadfasdfsadf TERM=xterm PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin DB_ENV_PG_VERSION=9.3.5-1.pgdg70+1 DB_ENV_LANG=en_US.utf8 DRONE_GITHUB_SECRET=fozbroz INITRD=no DRONE_DATABASE_DRIVER=postgres DOCKER_HOST=unix:///docker.sock DRONE_SERVER_PORT=:8080 PWD=/etc/service/drone DB_PORT_5432_TCP_ADDR=172.17.0.4 DB_PORT_5432_TCP_PORT=5432 DB_PORT_5432_TCP_PROTO=tcp Everything is okay. Starting up drone! panic: Could not get DB version: missing &quot;=&quot; after &quot;drone.sqlite&quot; in connection info string&quot; goroutine 16 [running]: runtime.panic(0xa4fee0, 0xc2080aeb70) /usr/local/go/src/pkg/runtime/panic.c:279 +0xf5 github.com/drone/drone/server/datastore/database.MustConnect(0x7fffb903af33, 0x8, 0xba0b10, 0xc, 0x0) /var/cache/drone/src/github.com/drone/drone/server/datastore/database/database.go:51 +0x8a main.main() /var/cache/drone/src/github.com/drone/drone/server/main.go:106 +0x2f1 goroutine 19 [finalizer wait]: runtime.park(0x4919d0, 0x112ad90, 0x11157e9) /usr/local/go/src/pkg/runtime/proc.c:1369 +0x89 runtime.parkunlock(0x112ad90, 0x11157e9) /usr/local/go/src/pkg/runtime/proc.c:1385 +0x3b runfinq() /usr/local/go/src/pkg/runtime/mgc0.c:2644 +0xcf runtime.goexit() /usr/local/go/src/pkg/runtime/proc.c:1445 goroutine 22 [syscall]: os/signal.loop() /usr/local/go/src/pkg/os/signal/signal_unix.go:21 +0x1e created by os/signal.init·1 /usr/local/go/src/pkg/os/signal/signal_unix.go:27 +0x32 goroutine 24 [runnable]: database/sql.(*DB).connectionOpener(0xc208052580) /usr/local/go/src/pkg/database/sql/sql.go:582 created by database/sql.Open /usr/local/go/src/pkg/database/sql/sql.go:442 +0x27c ^C*** Shutting down runit daemon (PID 13)... *** Killing all processes... ``` My Dockerfile is [here](http://github.com/Xe/docker-drone). Is there anything I am obviously doing wrong?</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix 404 on refreshing routes that has ... in it (#628)</MESSAGE>
+    <SHA>93845bc66bf59e439f68c0d85a329f1265a25b26</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[MISC] Fix Refresh Button not Refreshing (#630)</MESSAGE>
+      <SHA>8872d04dec89aad48492fc98e3c141f5cec142f1</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/components/Changes/Changes.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

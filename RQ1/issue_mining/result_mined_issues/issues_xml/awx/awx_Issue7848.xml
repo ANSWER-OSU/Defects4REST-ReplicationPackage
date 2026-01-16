@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7848</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/7848</ISSUEURL>
+  <TITLE>Dispatcher unable to handle absent nodes</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY &lt;!-- Briefly describe the problem. --&gt; To start, we are backing up a cluster and restoring to servers in a different data center which may have different names. In the database the main_instance table has entries with the same UUIDs but different hostnames. When this happens the dispatcher for running jobs becomes unreachable and you can no longer cancel jobs. PR https://github.com/ansible/awx/pull/7823 fixes a 500 error from happening within the UI when trying to cancel a job running on a non-reachable dispatcher. While it works for a job template, workflow job templates appear to &quot;resurrect&quot; themselves in the UI. https://drive.google.com/file/d/1KBdTjOeY1Jag1eISlKbR9WJhiwwv9x_k/view?usp=sharing This appears to be happening because on a workflow only the cancel_flag is set too True and then the dispatcher picks up this flag and actually performs the job cancel. So the UI makes it looked canceled but then (after the status is reloaded) the UI puts it back into its running state. Should the reaper logic should be updated to handle dispatcher processes which have been lost and will not return? ##### ENVIRONMENT * AWX version: 13.0.0 (Tower 3.7.1) * AWX install method: Tower Cluster * Ansible version: X.Y.Z * Operating System: RHEL * Web Browser: Any ##### STEPS TO REPRODUCE Build a 3 node cluster with external database. Start a workflow running on the cluster. Backup the cluster. Restore the backup into a new 3 node cluster. The workflow that was running in the old cluster during the backup will not be cancelable. NOTE: there is a PR to the backup code #841 which will auto-cancel running jobs during a restore. If the above is tested with that PR this will not be reproducible. ##### EXPECTED RESULTS Canceling a job in the UI will result in the job being canceled. ##### ACTUAL RESULTS Jobs are stuck running in queue. ##### ADDITIONAL INFORMATION &lt;!-- Include any links to sosreport, database dumps, screenshots or other information. --&gt;</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>40</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #7964 from nixocio/ui_update_button Update disassociate button variant Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>2a824fc1d5b5ca48eeff8bf33998c8d909287d0e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>improve job reaping for jobs that were started on a missing Instance see: https://github.com/ansible/awx/issues/7848</MESSAGE>
+      <SHA>de59d1d3f6c62c461af46edec44b9629dc06d6a5</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/scheduler/task_manager.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>improve job reaping for jobs that were started on a missing Instance see: https://github.com/ansible/awx/issues/7848</MESSAGE>
+      <SHA>40b4bb2ac3adf6709b0b71a71c392dfb0da87dc4</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/scheduler/task_manager.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>improve job reaping for jobs that were started on a missing Instance see: https://github.com/ansible/awx/issues/7848</MESSAGE>
+      <SHA>cb0a6a334e7f1ca55685b40c814a99dc0a67355a</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/scheduler/task_manager.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>improve job reaping for jobs that were started on a missing Instance see: https://github.com/ansible/awx/issues/7848</MESSAGE>
+      <SHA>41dff166c8c0b5365e0fc3756d8a23ad63d90f57</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/scheduler/task_manager.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>improve job reaping for jobs that were started on a missing Instance see: https://github.com/ansible/awx/issues/7848</MESSAGE>
+      <SHA>fa5a34e2267fbe8a592bb865021d97957e054f16</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/scheduler/task_manager.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

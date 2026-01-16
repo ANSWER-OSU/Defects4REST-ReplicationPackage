@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5253</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5253</ISSUEURL>
+  <TITLE>Trim values of some inputs when binding model</TITLE>
+  <DESCRIPTION>nopCommerce version: develop This can be useful for example on search, when extra spaces are removed from the search term, etc. Previously, we forcedly used `.Trim()` in our [custom model binder](https://github.com/nopSolutions/nopCommerce/commit/59c7fc04958f52cebda0be1b0b4870c7f6eb0505#diff-c61493506ddee573adb6fdefd895cf3c5223eea7c199dce53832a4362def1617L72), with the [updating to .NET 5](https://github.com/nopSolutions/nopCommerce/issues/4268) this approach no longer works. Should we look for another way do it or just leave the model values as they come? [UPDATE] Decided to trim it only when searching in public store. In all other places let's have the default behavior of ASP.NET Core 5 (no trim)</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>22</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue-5217-disable-localization-sitemap-location' into develop</MESSAGE>
+    <SHA>cd1b00d0ce8865c02502764e7b832c3eb7fc0fd9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5253 Added trimming search term when searching in public store</MESSAGE>
+      <SHA>327c8102cefd36315300a38573c94f24d30c35ed</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Controllers/CatalogController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#5253 Added trimming for email and username</MESSAGE>
+      <SHA>9fe5052a2d835629355a86ad1a9b37454bfc231e</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Controllers/CustomerController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

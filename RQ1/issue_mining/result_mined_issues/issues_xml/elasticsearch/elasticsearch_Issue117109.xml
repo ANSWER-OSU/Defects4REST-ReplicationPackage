@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117109</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/117109</ISSUEURL>
+  <TITLE>[CI] RemoteClusterSecurityReloadCredentialsRestIT testDowngradeToRcs1 failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #4954 / openjdk21_checkpart4_java-fips-matrix](https://gradle-enterprise.elastic.co/s/bbbb5i37nq2kw) - [elasticsearch-pull-request #41932 / part-4](https://gradle-enterprise.elastic.co/s/y6m64obgw4xme) - [elasticsearch-pull-request #41740 / part-4-fips](https://gradle-enterprise.elastic.co/s/zzf6ieqz5feh6) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:security:qa:multi-cluster:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.remotecluster.RemoteClusterSecurityReloadCredentialsRestIT.testDowngradeToRcs1&quot; -Dtests.seed=19EEA2D2920B0226 -Dtests.locale=fr-GQ -Dtests.timezone=Africa/Abidjan -Druntime.java=21 -Dtests.fips.enabled=true ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.remotecluster.RemoteClusterSecurityReloadCredentialsRestIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testDowngradeToRcs1),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.Exception: Test abandoned because suite timeout was reached. ``` **Issue Reasons:** - [main] 3 failures in test testDowngradeToRcs1 (0.7% fail rate in 458 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (0.9% fail rate in 216 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Esql/lookup join grammar (#116515) (#117107) First PR for adding LOOKUP JOIN in ESQL. Introduces grammar and wires the main building blocks to execute a query ; follow-ups are required (see #116208 for more details). Co-authored-by: Nik Everett &lt;nik9000@users.noreply.github.com&gt; (cherry picked from commit bc785f5ca19da7f51958495908b9819fc72b0c4e)</MESSAGE>
+    <SHA>bb3a24cc38c850b8b8f5a38e40e0c711d083bb7d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.remotecluster.RemoteClusterSecurityReloadCredentialsRestIT testDowngradeToRcs1 #117109</MESSAGE>
+      <SHA>df7e31853623772437b07e6659372ac10f8477c5</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

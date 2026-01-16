@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>111</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/111</ISSUEURL>
+  <TITLE>Initialize backends when starting WSGI server</TITLE>
+  <DESCRIPTION>Currently backends are initialized lazily. Models are only loaded when the first request comes in. This is good for development as it avoids unnecessary delays, but bad for production setups where the first request to come in after the service has started may take a very long time to process. Should initialize the models when the WSGI service starts up, at least in when not in debug/development mode.</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>remove unnecessary config</MESSAGE>
+    <SHA>f11dddd00372e8adf6614b8cb99907e62d8dd7b0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Initial support for initializing backends in WSGI setting (#111)</MESSAGE>
+      <SHA>ecdf5eb45ea823b8ffba33da9cfdf3994fbd26c5</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/__init__.py</FILE>
+        <FILE>annif/backend/backend.py</FILE>
+        <FILE>annif/project.py</FILE>
+        <FILE>config.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

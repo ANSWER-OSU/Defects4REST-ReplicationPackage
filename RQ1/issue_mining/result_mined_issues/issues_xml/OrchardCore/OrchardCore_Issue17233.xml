@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17233</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/17233</ISSUEURL>
+  <TITLE>OpenId.Validation feature configuration does not allow authorities from Settings UI</TITLE>
+  <DESCRIPTION>### Describe the bug OpenId Validation settings UI displays an error when I try to save settings with a valid authority (which is my external IDP) and leaving &quot;Tenant&quot; field empty. As documented here [https://docs.orchardcore.net/en/main/reference/modules/OpenId/#openid-connect-token-validation](https://docs.orchardcore.net/en/main/reference/modules/OpenId/#openid-connect-token-validation) other trusted servers are allowed. So I wouldn't expect a tenant is required. It looks to me a bug in display driver Update method, because configuration with authority and no tenant is perfectly working by running OpenIdValidationSettings recipe step. ### Orchard Core version This is not working in version 2.1.2 ### To Reproduce 1. Enable feature OrchardCore.OpenId.Validation 2. Go to feature settings UI (Security/OpenId Connect/Settings/Token Validation) 3. Set a valid authority and an audience, leave tenant field empty. 4. Save. =&gt; &quot;Tenant is required&quot; error is displayed ### Expected behavior I would expect that only one of Tenant or Authority fields must be filled out. If I configure the feature with its recipe step like this, everything is working as expected and tokens issued by my IDP are correctly validated ```json { &quot;name&quot;: &quot;OpenIdValidationSettings&quot;, &quot;Authority&quot;: &quot;https://myidp&quot;, &quot;Audience&quot;: &quot;my-audience &quot; } ``` Thank you!</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Remove widgets checkbox (#17264)</MESSAGE>
+    <SHA>10c4319fe8fdc3465e61ed41480c3d4433870dbe</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes issue #17233. In OpenIdValidationSettingsDisplayDriver, if authority is provided, tenant is not required</MESSAGE>
+      <SHA>a13d18ad4a55114727d9152d3a44aa5fa9dc7f52</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.OpenId/Drivers/OpenIdValidationSettingsDisplayDriver.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes issue #17233. In OpenIdValidationSettingsDisplayDriver, if authority is provided, tenant is not required</MESSAGE>
+      <SHA>6cf746c872eaab84a1e961c149d4ed53e59e8b59</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.OpenId/Drivers/OpenIdValidationSettingsDisplayDriver.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

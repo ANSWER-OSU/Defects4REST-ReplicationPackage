@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5774</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/5774</ISSUEURL>
+  <TITLE>remote sync unexpected behavior</TITLE>
+  <DESCRIPTION>Not mounted directory has same prefix as mounted directory pushed to remote storage when running filer.remote.sync. for example, there is two dir, /foo and /foo-bar, only /foo mounted to remote storage remote:/foo, when running: `weed filer.remote.sync -dir=/foo` files in /foo-bar, for example /foo-bar/baz/qux was pushed to remote:/foo/-bar/baz/qux</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>-metricsIp cmd flag (#5773) * Added/Updated: - Added metrics ip options for all servers; - Fixed a bug with the selection of the binIp or ip parameter for the metrics handler; * Fixed cmd flags</MESSAGE>
+    <SHA>ec9e7493b34df5c13462cdaeab5b35f152d0cb68</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ensure metadata follow a specific folder fix https://github.com/seaweedfs/seaweedfs/issues/5774</MESSAGE>
+      <SHA>3a82f5ffad3122a3adeb9e652cee72420a2f6f97</SHA>
+      <PATCHEDFILES>
+        <FILE>unmaintained/load_test/load_test_meta_tail/load_test_meta_tail.go</FILE>
+        <FILE>weed/command/filer_backup.go</FILE>
+        <FILE>weed/command/filer_meta_backup.go</FILE>
+        <FILE>weed/command/filer_remote_gateway_buckets.go</FILE>
+        <FILE>weed/command/filer_remote_sync_dir.go</FILE>
+        <FILE>weed/command/filer_sync.go</FILE>
+        <FILE>weed/mount/meta_cache/meta_cache_subscribe.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

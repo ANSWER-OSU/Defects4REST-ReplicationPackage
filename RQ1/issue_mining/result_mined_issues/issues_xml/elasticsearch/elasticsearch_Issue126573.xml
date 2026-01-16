@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126573</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126573</ISSUEURL>
+  <TITLE>[CI] GenerativeIT test failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7567 / rhel-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/3gzqgzyeyo2o6) - [elasticsearch-pull-request #67059 / part-3](https://gradle-enterprise.elastic.co/s/hcmjbwklylppg) - [elasticsearch-pull-request #67005 / part-3](https://gradle-enterprise.elastic.co/s/d22uqw2tw2vgw) - [elasticsearch-pull-request #66982 / part-3](https://gradle-enterprise.elastic.co/s/g2rmh7jazpdxs) - [elasticsearch-pull-request #66934 / part-3](https://gradle-enterprise.elastic.co/s/bzpmpltmvyddy) - [elasticsearch-pull-request #66906 / part-3](https://gradle-enterprise.elastic.co/s/samjtsvar4uhw) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:single-node:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.qa.single_node.GenerativeIT.test&quot; -Dtests.seed=9BEB71494829D856 -Dtests.locale=es-419 -Dtests.timezone=America/Havana -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.single_node.GenerativeIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: query: from hos*,languages,message_types | stats `host_group` = max(language_code), blwldNmdNT = count_distinct(ip1), `type` = max(language_code) by ip0| rename type as language_code | lookup join languages_lookup on language_code | rename language_code AS host_group, `blwldNmdNT` AS XestDuQGgH, host_group AS GrGohjSgZDKC | eval `XestDuQGgH` = 8114584234002416914, LkJAzHvh = -584594685, `ip0` = &quot;RybGIVMRgk&quot;, eLJEZHIT = 922367746, XestDuQGgH = false | where NOT true AND NOT false AND true | where true OR NOT true | eval eLJEZHIT = true, eLJEZHIT = false, `ip0` = null, LoHDpeHrPhQ = 2106562490, `XestDuQGgH` = null, udcDrTDNWEn = true, btMNxWSTgt = true, KrKFGkPeVf = 5964325812842123566, language_name = null | where NOT LoHDpeHrPhQ &gt;= 50 OR LkJAzHvh != 50 OR NOT LkJAzHvh &gt;= 50 OR NOT false| rename GrGohjSgZDKC as language_code | lookup join languages_lookup on language_code | enrich languages_policy on language_name | enrich languages_policy on language_ [truncated] ``` **Issue Reasons:** - [main] 6 failures in test test (2.2% fail rate in 267 executions) - [main] 5 failures in step part-3 (4.2% fail rate in 120 executions) - [main] 5 failures in pipeline elasticsearch-pull-request (4.3% fail rate in 116 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ESQL: Fix bug in octal ip parsing tests (#126552) This fixes a bug in the tests for parsing ipv4 addresses with leading zeros as octal numbers. The bug was in the expectation code that we use for random input ips. Closes #126496</MESSAGE>
+    <SHA>599be802cac8f5ad011be9b6b5e36a8e2ad698a1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.single_node.GenerativeIT test #126573</MESSAGE>
+      <SHA>90f8b87a2ef958a3dbca5d8b079bd164c7a9a6a1</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

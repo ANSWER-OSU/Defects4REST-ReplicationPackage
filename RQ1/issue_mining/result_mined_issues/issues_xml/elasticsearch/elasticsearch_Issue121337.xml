@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121337</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121337</ISSUEURL>
+  <TITLE>[CI] DocsClientYamlTestSuiteIT test {yaml=reference/rest-api/security/invalidate-tokens/line_194} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6079 / almalinux-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/6eqbtqy6spzdq) - [elasticsearch-pull-request #53493 / part-1](https://gradle-enterprise.elastic.co/s/mmuxqoostbhkg) **Reproduction Line:** ``` ./gradlew &quot;:docs:yamlRestTest&quot; --tests &quot;org.elasticsearch.smoketest.DocsClientYamlTestSuiteIT.test {yaml=reference/rest-api/security/invalidate-tokens/line_194}&quot; -Dtests.seed=9560C65A851EF9F8 -Dtests.locale=sd-Arab -Dtests.timezone=America/Kentucky/Monticello -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.smoketest.DocsClientYamlTestSuiteIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Byaml%3Dreference%2Frest-api%2Fsecurity%2Finvalidate-tokens%2Fline_194%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Failure at [reference/rest-api/security/invalidate-tokens:119]: expected [2xx] status code but api [raw[method=DELETE path=_security/oauth2/token]] returned [404 Not Found] [{&quot;error&quot;:{&quot;root_cause&quot;:[{&quot;type&quot;:&quot;index_not_found_exception&quot;,&quot;reason&quot;:&quot;no such index [.security-tokens]&quot;,&quot;resource.type&quot;:&quot;index_or_alias&quot;,&quot;resource.id&quot;:&quot;.security-tokens&quot;,&quot;index_uuid&quot;:&quot;_na_&quot;,&quot;index&quot;:&quot;.security-tokens&quot;,&quot;stack_trace&quot;:&quot;[.security-tokens] org.elasticsearch.index.IndexNotFoundException: no such index [.security-tokens]\n\tat org.elasticsearch.server@9.0.0-SNAPSHOT/org.elasticsearch.cluster.metadata.IndexNameExpressionResolver.notFoundException(IndexNameExpressionResolver.java:685)\n\tat org.elasticsearch.server@9.0.0-SNAPSHOT/org.elasticsearch.cluster.metadata.IndexNameExpressionResolver.ensureAliasOrIndexExists(IndexNameExpressionResolver.java:1321)\n\tat org.elasticsearch.server@9.0.0-SNAPSHOT/org.elasticsearch.cluster.metadata.IndexNameExpressionResolver.resolveExpressionsToR [truncated] ``` **Issue Reasons:** - [main] 2 failures in test test {yaml=reference/rest-api/security/invalidate-tokens/line_194} (0.3% fail rate in 608 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>41</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.index.engine.ShuffleForcedMergePolicyTests testDiagnostics #121336</MESSAGE>
+    <SHA>b3a23df83ffdca5a0cef17412efb561a69aec0dc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.smoketest.DocsClientYamlTestSuiteIT test {yaml=reference/rest-api/security/invalidate-tokens/line_194} #121337</MESSAGE>
+      <SHA>6553f0ffcc8fba7d8b7f646ddfd35a2744d93443</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.smoketest.DocsClientYamlTestSuiteIT test {yaml=reference/rest-api/security/invalidate-tokens/line_194} #121337</MESSAGE>
+      <SHA>7ec9f37fa2acd2bb4a3437df171b13e40a7ff509</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.smoketest.DocsClientYamlTestSuiteIT test {yaml=reference/rest-api/security/invalidate-tokens/line_194} #121337</MESSAGE>
+      <SHA>6cef715b826b9d2395fe89e6f07a43c5b04a846a</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

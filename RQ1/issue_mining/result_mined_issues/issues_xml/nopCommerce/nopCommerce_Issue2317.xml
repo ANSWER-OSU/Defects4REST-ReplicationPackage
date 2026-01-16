@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2317</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2317</ISSUEURL>
+  <TITLE>Storing thumbnails in Azure blob - multiple issues</TITLE>
+  <DESCRIPTION>I have run a few nop sites on Azure over the last few years and my major issue with performance and scalability is with pictures... We know that storing pictures in the database is a bad option (bandwidth killer, expensive storage). Storing them on the web server is not great either (storage constraints, backups, load on web server, scaling out). So blob storage is the way to go, however... 1. The AzurePictureService needs to be async, looking up and editing blobs is sloooowwww! e.g. a category page can take a couple seconds in server response time just to check if the thumbnails exist. With async it's a few milliseconds using await and WhenAll(). Async will need to be applied all the way up the chain to the controllers. In the .NET core version of the SDK the none async version has been dropped which tells you how bad it is. 2. Because thumbnails are generated on the fly by ImageResizer (with poor compression) there is a further performance hit pulling the image out of blob, generating the thumbs and putting back. In the meantime your customer has bounced to some other site that will load this year. Again, async would help a lot. As an aside, another option would be to allow image compression and thumbnail generation to be handed off to a plugin and generated before the product is published. This would remove the need for all the on the fly lookups and generation. I have developed a tinyPNG plugin for this purpose but the pictureservice interface doesn't have any public methods to affect the thumbs as it is all hard-coded around ImageResizer. We also have a plugin that send images via schedule to a third party to be photoshopped and interface would help here.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>161</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Added missing locales</MESSAGE>
+    <SHA>3f29612ce7cfd48208f5f58272c71535b1bb8c81</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2317 Add async methods to Azure blob container</MESSAGE>
+      <SHA>a3ebc7c05c752a860e91efa8581b878234f6af43</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Media/AzurePictureService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#2317 Cache thumb exists value</MESSAGE>
+      <SHA>bcc058031a349d6bc57fba5259535a7ca193fdd6</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Media/AzurePictureService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

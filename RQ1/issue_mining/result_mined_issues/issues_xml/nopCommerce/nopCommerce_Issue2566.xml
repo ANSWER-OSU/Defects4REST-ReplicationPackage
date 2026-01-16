@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2566</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2566</ISSUEURL>
+  <TITLE>Display a link to the search page at the bottom of Autocomplete search result list if more than X number of products are found</TITLE>
+  <DESCRIPTION>to show your user that there are more products which were not displayed in the list. var result = (from p in models select new { label = p.Name, producturl = Url.RouteUrl(&quot;Product&quot;, new { SeName = p.SeName }), productpictureurl = p.DefaultPictureModel.ImageUrl, //add this line to retrieve total products productNumber = products.TotalCount }) .ToList(); Nop.Web\Views\Catalog\SearchBox.cshtml, Line 23 (replace or edit): &lt;script type=&quot;text/javascript&quot;&gt; $(document).ready(function() { var i //get number of products returned; var searchText //get value in textbox user typed; $('#small-searchterms').autocomplete({ delay: 500, minLength: @(Model.SearchTermMinimumLength.ToString()), source: '@(Url.RouteUrl(&quot;ProductSearchAutoComplete&quot;))', appendTo: '.search-terms', select: function(event, ui) { $(&quot;#small-searchterms&quot;).val(ui.item.label); setLocation(ui.item.producturl); return false; }, //this does the work - append link to the end of list open: function(event, ui) { //display link to search page if product number greater than x (set any number according to your autocomplete settings, here I have set to 9) if(i &gt; 9){ //get string user has entered searchText = document.getElementById(&quot;small-searchterms&quot;).value; //add class to li and style how ever you like $(&quot;.ui-autocomplete&quot;).append(&quot;&lt;li class=\&quot;link-to-searchpage\&quot;&gt;&lt;a href=\&quot;/search?q=&quot;+searchText+&quot;\&quot;&gt;View all results...&lt;/a&gt;&lt;/li&gt;&quot;); } } }) .data(&quot;ui-autocomplete&quot;)._renderItem = function(ul, item) { var t = item.label; //get total number of products found i = item.productNumber; //html encode t = htmlEncode(t); return $(&quot;&lt;li&gt;&lt;/li&gt;&quot;) .data(&quot;item.autocomplete&quot;, item) .append(&quot;&lt;a&gt;@(Model.ShowProductImagesInSearchAutoComplete ? Html.Raw(&quot;&lt;img src='\&quot; + item.productpictureurl + \&quot;'&gt;&quot;) : null)&lt;span&gt;&quot; + t + &quot;&lt;/span&gt;&lt;/a&gt;&quot;) .appendTo(ul); }; }); &lt;/script&gt; Source: https://www.nopcommerce.com/boards/t/48728/how-to-improve-searchbox-autocomplete-and-sidebar-ux.aspx</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>253</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue-2942-Combine-Payment-methods-and-Payment-restrictions' into develop # Conflicts: # upgradescripts/4.00-4.10 (under development)/upgrade.sql</MESSAGE>
+    <SHA>b781d176174e45ad3492707261385ab7e0e2c17a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2566 added display link to the search page of autocomplete search result list</MESSAGE>
+      <SHA>52ae618ee3a73c66b4333cf5e246867fc4ca29d3</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Catalog/CatalogSettings.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Installation/CodeFirstInstallationService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/SettingController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/SettingModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Infrastructure/Mapper/AdminMapperConfiguration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Settings/CatalogSettingsModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Setting/Catalog.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/CatalogController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/Components/SearchBox/Default.cshtml</FILE>
+        <FILE>upgradescripts/4.00-4.10 (under development)/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

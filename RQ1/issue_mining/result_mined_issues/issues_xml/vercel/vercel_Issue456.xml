@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>456</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/456</ISSUEURL>
+  <TITLE>Star plus negation on `.dockerignore` doesn't work as expected</TITLE>
+  <DESCRIPTION>The negations doesn't seems to be working – only the `*` is being considered: `.dockerignore`: ``` * !lib !index.js !package.json ``` ``` ~/tmp now --debug --docker &gt; Deploying ~/dev/zeit/tmp &gt; [debug] Forcing `deploymentType` = `docker` &gt; No `name` LABEL in `Dockerfile`, using qr &gt; [debug] ignoring &quot;~/dev/zeit/tmp/.dockerignore&quot; &gt; [debug] ignoring &quot;~/dev/zeit/tmp/.git&quot; &gt; [debug] ignoring &quot;~/dev/zeit/tmp/.gitignore&quot; &gt; [debug] ignoring &quot;~/dev/zeit/tmp/Dockerfile&quot; &gt; [debug] ignoring &quot;~/dev/zeit/tmp/Readme.md&quot; &gt; [debug] ignoring &quot;~/dev/zeit/tmp/app.yaml&quot; &gt; [debug] ignoring &quot;~/dev/zeit/tmp/lib/get.js&quot; &gt; [debug] ignoring &quot;~/dev/zeit/tmp/lib/white-bg-logo-1200.png&quot; &gt; [debug] locating files ~/dev/zeit/tmp: 21.093ms &gt; [debug] Getting files: 29.172ms &gt; [debug] Computing hashes: 2.401ms ^C ```</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>396</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Publish - @now/node@0.6.1-canary.1 - @now/static-build@0.5.3-canary.1</MESSAGE>
+    <SHA>4393dad15a9168bf8086ce9c5091b6b728bbaec3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add default `shouldServe()` to appropriate builders (#456) This adds the default `shouldServe()` implementation to the following builders: * `@now/bash` * `@now/cgi` * `@now/html-minifier` * `@now/lambda` * `@now/md` * `@now/node-server` * `@now/node` * `@now/optipng` * `@now/php` * `@now/python` * `@now/rust` The default implementation may be used for these builders because they map 1-1 with their entrypoint file -&gt; output file/lambda.</MESSAGE>
+      <SHA>b03405a665c529d1525075327a9a28b698864495</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-bash/index.js</FILE>
+        <FILE>packages/now-cgi/index.js</FILE>
+        <FILE>packages/now-html-minifier/index.js</FILE>
+        <FILE>packages/now-lambda/index.js</FILE>
+        <FILE>packages/now-md/index.js</FILE>
+        <FILE>packages/now-node-server/index.js</FILE>
+        <FILE>packages/now-node/src/index.ts</FILE>
+        <FILE>packages/now-optipng/src/index.ts</FILE>
+        <FILE>packages/now-php/index.js</FILE>
+        <FILE>packages/now-python/index.ts</FILE>
+        <FILE>packages/now-rust/index.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

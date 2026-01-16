@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>11423</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/11423</ISSUEURL>
+  <TITLE>OrchardCore.Resources should not depend on ISiteService</TITLE>
+  <DESCRIPTION>### Is your feature request related to a problem? Please describe. I am trying to use `OrchardCore.ResourceManagement` in a standard ASP.NET project. I am using `OrchardCore.ResourceManagement` to deal with resources but would also like to use `OrchardCore.Resources` to provide me common resources to use. The issue here is that `OrchardCore.Resources` depends `ISiteService` and that may couple the module with CMS data. ### Describe the solution you'd like IMHO, `OrchardCore.Resources` should not depend on `ISiteService` as that may couple the module with CMS data. I suggest we replace that with `IResourceSettingProvider` which provides the settings needed for the resource. Here is how I suggest we approach this The following two file would probably go in `OrchardCore.ResourceManagement.Abstraction` ``` public interface IResourceSettingProvider { public Task&lt;ResourceSetting&gt; GetAsync(); } public class ResourceSetting { public ResourceDebugMode ResourceDebugMode { get; set; } public bool UseCdn { get; set; } public string CdnBaseUrl { get; set; } public bool AppendVersion { get; set; } = true; public string ContentBasePath { get; set; } = String.Empty; } ``` Then in the `OrchardCore.Resource` we would add default implementation of `IResourceSettingProvider` would read settings from the `appsettings.json`. Finally, in the `OrchardCore.Settings` we can add a different implementation that would replace the default implementation with one that reads from the `ISiteService`. ### Describe alternatives you've considered I created my own module that does not depend on `ISiteService` because I don't need to bother with implementing it and in my module I added common resources like bootstrap</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>147</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'OrchardCMS:main' into main</MESSAGE>
+    <SHA>295b392002b90fac1d91904a9ffe60f2ea07b8cd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Reduce OrchardCore.Resources dependency by adding IResourceSettingProvider and fix #11423</MESSAGE>
+      <SHA>a53323ee4a2f0046606e0f5ec1cb71c4de734da7</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Resources/LocalResourceSettingProvider.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Resources/OrchardCore.Resources.csproj</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Resources/ResourceManagementOptionsConfiguration.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Resources/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Settings/OrchardCore.Settings.csproj</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Settings/ResourceSettingProvider.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Settings/Startup.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Abstractions/Settings/ResourceDebugMode.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.ResourceManagement.Abstractions/IResourceSettingProvider.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.ResourceManagement.Abstractions/OrchardCore.ResourceManagement.Abstractions.csproj</FILE>
+        <FILE>src/OrchardCore/OrchardCore.ResourceManagement.Abstractions/ResourceSetting.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

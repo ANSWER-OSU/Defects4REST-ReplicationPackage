@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>12259</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/12259</ISSUEURL>
+  <TITLE>Clear alternates before morphing Stereotypes otherwise we run into infinite loop</TITLE>
+  <DESCRIPTION>### Describe the bug In PR#12149, we added a fallback alternate for `stereotype`. To do that, new templates were added to the alternates collection. Now, anytime morphing is used with stereotype, we must `Model.Metadata.Alternates.Clear()` to avoid the infinite loop. ### To Reproduce Steps to reproduce the behavior: 1. Enable Form module and Widget module. Widget 2. Create content type called `SitePage` with `FlowPart` and make it creatable 3. Try creating a new SitePage using the UI, this should cause an infinite loop and the app will crash</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>monacoEditorVersion</MESSAGE>
+    <SHA>94a301a6f0fda5488b005071ea316457d624ecaf</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #12259</MESSAGE>
+      <SHA>d4b9c4b1ea33ac311efa563a45101077953d5399</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.AdminDashboard/Views/DashboardWidget.Edit.cshtml</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Widgets/Views/Widget.Edit.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #12259 (#12260)</MESSAGE>
+      <SHA>d2626f45d4026fe7e22935b322d30ed3bd75d6b0</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.AdminDashboard/Views/DashboardWidget.Edit.cshtml</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Widgets/Views/Widget.Edit.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>915</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/915</ISSUEURL>
+  <TITLE>filer.copy复制文件到volume出错</TITLE>
+  <DESCRIPTION>./weed filer.copy /files/ http://127.0.0.1:8888/xxx/ upload data 44776s.jpg to http://127.0.0.1:8888/xxx/44/44776/44776.jpg: update fh: rpc error: code = Unavailable desc = all SubConns are in TransientFailure, latest connection error: connection error: desc = &quot;transport: Error while dialing dial tcp 127.0.0.1:18888: connect: cannot assign requested address&quot; 大约有三千万个文件，每次停止的地方都不一样</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>weed filer.copy: skip files that can not be opened such as socket</MESSAGE>
+    <SHA>921231268b182620aa004fb49c7e318225b0b3bd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>weed filer.copy: use cached filer grpc connection another attemp for https://github.com/chrislusf/seaweedfs/issues/915</MESSAGE>
+      <SHA>300b39b5af583533abf60b763ebcd421ed0fc690</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/filer_copy.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>weed filer.copy: parallelize the copying to increase throughput improvement https://github.com/chrislusf/seaweedfs/issues/915</MESSAGE>
+      <SHA>24c020104aedbf48e568eaebd79d35d7125b55ce</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/filer_copy.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

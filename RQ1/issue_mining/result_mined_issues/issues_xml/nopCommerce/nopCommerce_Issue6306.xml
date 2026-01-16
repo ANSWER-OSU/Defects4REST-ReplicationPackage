@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6306</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6306</ISSUEURL>
+  <TITLE>PayPal Commerce: Voiding an order causes error, but order still voided with PayPal</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.50.3 Steps to reproduce the problem: 1. Submit an order with PayPal Commerce enabled. 2. From admin, void the order 3. Order in nopCommerce does not seem to void 4. Check PayPal, order is voided 5. Check nopCommerce log and observe errors in the log that all happened at exact same date/time: ``` Error voiding order #33844. Error: Error 0: Common Language Runtime detected an invalid program. Payments.PayPalCommerce error: Common Language Runtime detected an invalid program. Error voiding order #33844. Error: Error 0: The requested action could not be performed, semantically incorrect, or failed business validation: Authorization has been previously voided and hence cannot be voided again Payments.PayPalCommerce error: The requested action could not be performed, semantically incorrect, or failed business validation: Authorization has been previously voided and hence cannot be voided again ```</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue-6300-required-products' into 4.50-bug-fixes</MESSAGE>
+    <SHA>36c9f1953737e1ab4358c3d5bec638e7ce5002af</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6306 PayPalCommerce plugin. Fixed bug when voiding an order</MESSAGE>
+      <SHA>b455dc2f687385b8f6579186490a7d3df3850134</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/PayPal/Checkout/VoidRequest.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/Services/ServiceManager.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

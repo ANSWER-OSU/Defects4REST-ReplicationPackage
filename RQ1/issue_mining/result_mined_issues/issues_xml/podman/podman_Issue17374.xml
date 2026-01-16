@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17374</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/17374</ISSUEURL>
+  <TITLE>[Bug]: podman-system-generator failed with exit status 1</TITLE>
+  <DESCRIPTION>### Issue Description After upgrading to podman 4.4 (ArchLinux using latest podman 4.4.0-2) on every systemctl daemon-reload I see following in logs: systemd[1311594]: /usr/lib/systemd/system-generators/podman-system-generator failed with exit status 1 I suspect that this caused by introduced in 4.4 quadlet integration. But my system does not have any needed dirs or files for quadlet (/etc/containers/systemd), I rely on manually created systemd files. ### Steps to reproduce the issue Just run systemctl daemon-reload or /usr/lib/podman/quadlet /etc/containers/systemd ; echo $? ### Describe the results you received systemd[1311594]: /usr/lib/systemd/system-generators/podman-system-generator failed with exit status 1 ### Describe the results you expected No errors shown in log files ### podman info output ```yaml host: arch: amd64 buildahVersion: 1.29.0 cgroupControllers: - cpuset - cpu - io - memory - hugetlb - pids - rdma - misc cgroupManager: systemd cgroupVersion: v2 conmon: package: /usr/bin/conmon принадлежит conmon 1:2.1.5-1 path: /usr/bin/conmon version: 'conmon version 2.1.5, commit: c9f7f19eb82d5b8151fc3ba7fbbccf03fdcd0325' cpuUtilization: idlePercent: 99.5 systemPercent: 0.22 userPercent: 0.28 cpus: 8 distribution: distribution: arch version: unknown eventLogger: journald hostname: nas idMappings: gidmap: null uidmap: null kernel: 5.19.13-arch1-1-barzog linkmode: dynamic logDriver: journald memFree: 631918592 memTotal: 16490774528 networkBackend: cni ociRuntime: name: crun package: /usr/bin/crun принадлежит crun 1.8-1 path: /usr/bin/crun version: |- crun version 1.8 commit: 0356bf4aff9a133d655dc13b1d9ac9424706cac4 rundir: /run/crun spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +CRIU +YAJL os: linux remoteSocket: exists: true path: /run/podman/podman.sock security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: false seccompEnabled: true seccompProfilePath: /etc/containers/seccomp.json selinuxEnabled: false serviceIsRemote: false slirp4netns: executable: /usr/bin/slirp4netns package: /usr/bin/slirp4netns принадлежит slirp4netns 1.2.0-1 version: |- slirp4netns version 1.2.0 commit: 656041d45cfca7a4176f6b7eed9e4fe6c11e8383 libslirp: 4.7.0 SLIRP_CONFIG_VERSION_MAX: 4 libseccomp: 2.5.4 swapFree: 8584425472 swapTotal: 8589930496 uptime: 577h 56m 42.00s (Approximately 24.04 days) plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan - ipvlan volume: - local registries: search: - docker.io store: configFile: /etc/containers/storage.conf containerStore: number: 9 paused: 0 running: 9 stopped: 0 graphDriverName: overlay graphOptions: overlay.mountopt: nodev graphRoot: /var/lib/containers/storage graphRootAllocated: 226424152064 graphRootUsed: 56040407040 graphStatus: Backing Filesystem: extfs Native Overlay Diff: &quot;true&quot; Supports d_type: &quot;true&quot; Using metacopy: &quot;false&quot; imageCopyTmpDir: /var/tmp imageStore: number: 79 runRoot: /run/containers/storage transientStore: false volumePath: /var/lib/containers/storage/volumes version: APIVersion: 4.4.0 Built: 1675466908 BuiltTime: Sat Feb 4 02:28:28 2023 GitCommit: 3443f453e28169a88848f90a7ce3137fc4a4bebf-dirty GoVersion: go1.20 Os: linux OsArch: linux/amd64 Version: 4.4.0 ``` ### Podman in a container No ### Privileged Or Rootless Privileged ### Upstream Latest Release Yes ### Additional environment details Arch Linux, kernel 5.19.13 ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #17364 from eriksjolund/add_return Add missing return after utils.Error()</MESSAGE>
+    <SHA>dcbe0182a926fd1663c29d635be2a9ea535d1382</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Quadlet: exit 0 when there are no files to process Quadlet should not exit with failure if no files to process have been found. Otherwise, even simple operations such as reloading systemd will fail as it retriggers generators. Fixes: #17374 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>f1352521ff7dbc9e330357bda1583914c94d55da</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/quadlet/main.go</FILE>
+        <FILE>test/e2e/quadlet_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Quadlet: exit 0 when there are no files to process Quadlet should not exit with failure if no files to process have been found. Otherwise, even simple operations such as reloading systemd will fail as it retriggers generators. Fixes: #17374 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>52ae4a2c4068a98ffee97b9ff0e94ec508666160</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/quadlet/main.go</FILE>
+        <FILE>test/e2e/quadlet_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

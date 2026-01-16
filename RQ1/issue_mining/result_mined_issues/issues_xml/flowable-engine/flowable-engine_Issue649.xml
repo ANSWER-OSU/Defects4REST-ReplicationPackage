@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>649</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/649</ISSUEURL>
+  <TITLE>Entry criterion export/import does not support all attributes</TITLE>
+  <DESCRIPTION>![original entry criterion](https://user-images.githubusercontent.com/5585296/32648457-094f035e-c5f6-11e7-883e-496ec81db49e.PNG) ![imported entry criterion](https://user-images.githubusercontent.com/5585296/32648460-0bd1b9e6-c5f6-11e7-9125-796229651a43.PNG) exported xml: ``` &lt;sentry id=&quot;sentry1&quot;&gt; &lt;ifPart&gt; &lt;condition&gt;&lt;![CDATA[${true}]]&gt;&lt;/condition&gt; &lt;/ifPart&gt; &lt;/sentry&gt; ``` the problem is that entry and exit criterion are loosing their reference to parent after import/export</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>sentry if part conversion impl</MESSAGE>
+    <SHA>9baea57851778a1adcf6c7341d1ebfac9a00c276</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#649(fix): sentry name conversion impl &amp; sentry documentation remove Entry criterion export/import does not support all attributes</MESSAGE>
+      <SHA>5a1c41c7e2494d105593a007a2df13094c209e64</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-cmmn-converter/src/test/java/org/flowable/test/cmmn/converter/CmmnXmlConverterTest.java</FILE>
+        <FILE>modules/flowable-cmmn-converter/src/test/resources/org/flowable/test/cmmn/converter/simple-case.cmmn</FILE>
+        <FILE>modules/flowable-cmmn-json-converter/src/main/java/org/flowable/cmmn/editor/json/converter/CriterionJsonConverter.java</FILE>
+        <FILE>modules/flowable-cmmn-json-converter/src/test/java/org/flowable/cmmn/editor/SentryIfPartConverterTest.java</FILE>
+        <FILE>modules/flowable-cmmn-json-converter/src/test/resources/test.sentryIfpartmodel.json</FILE>
+        <FILE>modules/flowable-ui-modeler/flowable-ui-modeler-logic/src/main/resources/stencilset_cmmn.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#649(fix): fixing connector source reference and documentation Entry criterion export/import does not support all attributes</MESSAGE>
+      <SHA>4d6632dbe8f2226c05cf8910825e2595987084ea</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-cmmn-converter/src/test/resources/org/flowable/test/cmmn/converter/simple-case.cmmn</FILE>
+        <FILE>modules/flowable-cmmn-json-converter/src/main/java/org/flowable/cmmn/editor/json/converter/CmmnJsonConverter.java</FILE>
+        <FILE>modules/flowable-cmmn-json-converter/src/main/java/org/flowable/cmmn/editor/json/converter/CriterionJsonConverter.java</FILE>
+        <FILE>modules/flowable-cmmn-json-converter/src/test/java/org/flowable/cmmn/editor/SentryConverterTest.java</FILE>
+        <FILE>modules/flowable-cmmn-json-converter/src/test/resources/test.sentryIfpartmodel.json</FILE>
+        <FILE>modules/flowable-ui-modeler/flowable-ui-modeler-logic/src/main/java/org/flowable/app/service/editor/ModelImageService.java</FILE>
+        <FILE>modules/flowable-ui-modeler/flowable-ui-modeler-logic/src/main/resources/stencilset_cmmn.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#649(fix): fixing connector source reference for exit criterion Entry criterion export/import does not support all attributes</MESSAGE>
+      <SHA>01f9482a8bee6a6ed4f939e062fe59f2c0d56bed</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-cmmn-converter/src/main/java/org/flowable/cmmn/converter/ConversionHelper.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

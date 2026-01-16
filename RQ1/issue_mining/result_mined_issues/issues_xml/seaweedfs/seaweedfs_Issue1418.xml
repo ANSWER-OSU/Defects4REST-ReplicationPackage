@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1418</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/1418</ISSUEURL>
+  <TITLE>listObjects和listObjectsV2不能查询子目录</TITLE>
+  <DESCRIPTION>例如file/topic/2020-08-08/目录有以下文件： file/topic/2020-08-08/0574046b06ee4c24939e950dd0351c03b1.mp4 file/topic/2020-08-08/27b09a28b0ae45159c3b91d35593c776b1.mp4 file/topic/2020-08-08/test/1.jpg 问题一：查询file/topic/2020-08-08/只出现下面这两条，但是用同样的API连接minio的S3接口是可以查子目录下的文件的。 file/topic/2020-08-08/0574046b06ee4c24939e950dd0351c03b1.mp4 file/topic/2020-08-08/27b09a28b0ae45159c3b91d35593c776b1.mp4 问题二：listObjectsV2接口的maxKeys查询结果不准确，例如file/topic/2020-08-08/目录有10多个文件，maxKeys(2)只能显示1个，maxKeys(6)只能显示4个，并且不能分页。 查询的API S3Client s3Client = ... ListObjectsRequest listObjectsRequest = ListObjectsRequest.builder() .bucket(&quot;testbucket&quot;).prefix(&quot;file/topic/2020-08-08/&quot;).build(); ListObjectsResponse objectsResponse = s3Client.listObjects(listObjectsRequest); while (true) { for (Iterator&lt;?&gt; iterator = objectsResponse.contents().iterator(); iterator.hasNext(); ) { S3Object s3Object = (S3Object)iterator.next(); System.out.println(&quot;-- &quot;+s3Object.key()); } if (objectsResponse.isTruncated()) { objectsResponse = s3Client.listObjects(listObjectsRequest); continue; } break; }; 或者 ListObjectsV2Request listObjectsReqManual = ListObjectsV2Request.builder() .bucket(&quot;testbucket&quot;) .maxKeys(10) .prefix(&quot;file/topic/2020-08-08/&quot;) .build(); boolean done = false; while (!done) { ListObjectsV2Response listObjResponse = s3Client.listObjectsV2(listObjectsReqManual); for (S3Object content : listObjResponse.contents()) { System.out.println(content.key()); } if (listObjResponse.nextContinuationToken() == null) { done = true; } System.out.println(&quot;分页&quot;); listObjectsReqManual = listObjectsReqManual.toBuilder() .continuationToken(listObjResponse.nextContinuationToken()) .build(); }</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>s3: fix delimiter in list response</MESSAGE>
+    <SHA>3f4aff5ddef0cb20f033295765be7fbc129e2157</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>istObjects和listObjectsV2不能查询子目录 #1418 fix https://github.com/chrislusf/seaweedfs/issues/1418</MESSAGE>
+      <SHA>9ecc1170a39131125cf31a956989d9ed02a05511</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/s3api/s3api_objects_list_handlers.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6690</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6690</ISSUEURL>
+  <TITLE>reCAPTCHA v3 doesn't work when adding news/blog comments</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.60.2 As an additional check, we look not only at the score from reCAPTCHA response but also [compare the action names](https://github.com/nopSolutions/nopCommerce/blob/4.60-bug-fixes/src/Presentation/Nop.Web.Framework/Mvc/Filters/ValidateCaptchaAttribute.cs#L114). But the names may sometimes not match, e.g. when using generic routes (for example in [this commit](https://github.com/nopSolutions/nopCommerce/commit/07e75d60c5eaf24157417bcf4c10e79911ba7885) we changed the names for `NewsCommentAdd` and `BlogCommentAdd` actions). We should add a new parameter `ActionName` to &quot;nop-captcha&quot; tag helper to allow developers to directly pass action names in such cases.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '4.60-bug-fixes' into develop</MESSAGE>
+    <SHA>2b494db882a39aade48942f70dc050e9d4992df2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6690 add data-action to submit button</MESSAGE>
+      <SHA>a3c9c4eb5f66cba5db2eff10318c43608e187ec5</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Security/Captcha/HtmlExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Blog/BlogPost.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/News/NewsItem.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Product/_ProductReviews.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Revert &quot;#6690 add data-action to submit button&quot; This reverts commit a3c9c4eb5f66cba5db2eff10318c43608e187ec5.</MESSAGE>
+      <SHA>2f5ec12057b1d9ae8875c073e6138c38778cf58f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Security/Captcha/HtmlExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Blog/BlogPost.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/News/NewsItem.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Product/_ProductReviews.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6690 add ActionName to nop-captcha</MESSAGE>
+      <SHA>48ce4df0b701d52758c9c5e10fab2fec7f54f1be</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Security/Captcha/HtmlExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/TagHelpers/Public/NopGenerateCaptchaTagHelper.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Blog/BlogPost.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/News/NewsItem.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Product/_ProductReviews.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6690 Fix captcha v3 on news/blog comments pages</MESSAGE>
+      <SHA>c5fa511eaabbfab49872d615ae94617dd4a4fde5</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Security/Captcha/HtmlExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Blog/BlogPost.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/News/NewsItem.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Product/ProductReviews.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6690 Fix captcha v3 on news/blog comments pages</MESSAGE>
+      <SHA>d08a10e0d4d0db1edde3a17af2ff61a22e5f7cef</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Security/Captcha/HtmlExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Blog/BlogPost.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/News/NewsItem.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Product/ProductReviews.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

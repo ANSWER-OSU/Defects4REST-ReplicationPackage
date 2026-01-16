@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>949</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/949</ISSUEURL>
+  <TITLE>Error when build image has -onbuild directive</TITLE>
+  <DESCRIPTION>Man this took me a lot of head scratching... Apparently because drone copies and re-tags the image that you specify in .drone.yml, if you use -onbuild images, e.g. library/node:0.12-onbuild; they fail very quietly. Should make a note of this in the documentation somewhere. This is what it looks like in the docker log: ``` Apr 02 16:51:09 &lt;redacted&gt; dockerd[629]: time=&quot;2015-04-02T16:51:09Z&quot; level=&quot;info&quot; msg=&quot;+job image_inspect(library/node:0.12-onbuild)&quot; Apr 02 16:51:09 &lt;redacted&gt; dockerd[629]: time=&quot;2015-04-02T16:51:09Z&quot; level=&quot;info&quot; msg=&quot;-job image_inspect(library/node:0.12-onbuild) = OK (0)&quot; Apr 02 16:51:09 &lt;redacted&gt; dockerd[629]: time=&quot;2015-04-02T16:51:09Z&quot; level=&quot;info&quot; msg=&quot;POST /v1.9/build?q=1&amp;rm=1&amp;t=drone-9b02bc62b7&quot; Apr 02 16:51:09 &lt;redacted&gt; dockerd[629]: time=&quot;2015-04-02T16:51:09Z&quot; level=&quot;info&quot; msg=&quot;+job build()&quot; Apr 02 16:51:09 &lt;redacted&gt; dockerd[629]: package.json: no such file or directory Apr 02 16:51:09 &lt;redacted&gt; dockerd[629]: time=&quot;2015-04-02T16:51:09Z&quot; level=&quot;info&quot; msg=&quot;-job build() = ERR (1)&quot; Apr 02 16:51:09 &lt;redacted&gt; dockerd[629]: time=&quot;2015-04-02T16:51:09Z&quot; level=&quot;info&quot; msg=&quot;GET /v1.9/images/drone-9b02bc62b7/json&quot; Apr 02 16:51:09 &lt;redacted&gt; dockerd[629]: time=&quot;2015-04-02T16:51:09Z&quot; level=&quot;info&quot; msg=&quot;+job image_inspect(drone-9b02bc62b7)&quot; Apr 02 16:51:09 &lt;redacted&gt; dockerd[629]: No such image: drone-9b02bc62b7 Apr 02 16:51:09 &lt;redacted&gt; dockerd[629]: time=&quot;2015-04-02T16:51:09Z&quot; level=&quot;info&quot; msg=&quot;-job image_inspect(drone-9b02bc62b7) = ERR (1)&quot; Apr 02 16:51:09 &lt;redacted&gt; dockerd[629]: time=&quot;2015-04-02T16:51:09Z&quot; level=&quot;error&quot; msg=&quot;Handler for GET /images/{name:.*}/json returned error: No such image: drone-9b02bc62b7&quot; ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>141</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix repo sizing job cron (#948)</MESSAGE>
+    <SHA>18c81b04b4ecc4568f24d759cead93db081d104a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: [CODE-1251]: fix Repo list not refreshing in old/new nav after changing project (#949)</MESSAGE>
+      <SHA>a085839d84c67493087fd54c0652eb221ee3ce56</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/App.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

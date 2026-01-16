@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2689</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2689</ISSUEURL>
+  <TITLE>&quot;~/files/importexport&quot; not being created on azure webapp with nop 4.00</TITLE>
+  <DESCRIPTION>On a fresh install the folder ~/files/importexport/ does not exist and hence the following exception is thrown when attempting to generate the PDF after a sale. &gt; System.IO.DirectoryNotFoundException: Could not find a part of the path 'D:\home\site\wwwroot\files\exportimport\order_c741d120-5cdb-48d2-882d-d0d40da1213d_4996.pdf'. &gt; at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath) &gt; at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost) &gt; at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy) &gt; at System.IO.FileStream..ctor(String path, FileMode mode) &gt; at Nop.Services.Common.PdfService.PrintOrderToPdf(Order order, Int32 languageId, Int32 vendorId) &gt; at Nop.Services.Orders.OrderProcessingService.ProcessOrderPaid(Order order) &gt; at Nop.Services.Orders.OrderProcessingService.MarkOrderAsPaid(Order order) &gt; at Nop.Plugin.Payments.company.Controllers.blah.SuccessfulPayment(QueryTransactionResponse res) &gt; at Nop.Plugin.Payments..Controllers..HandleSuccessOrder() &gt; at lambda_method(Closure , Object , Object[] ) &gt; at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters) &gt; at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.&lt;InvokeActionMethodAsync&gt;d__12.MoveNext() &gt; --- End of stack trace from previous location where exception was thrown --- &gt; at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task) &gt; at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task) &gt; at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.&lt;InvokeNextActionFilterAsync&gt;d__10.MoveNext() &gt; --- End of stack trace from previous location where exception was thrown --- &gt; at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context) &gt; at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State&amp; next, Scope&amp; scope, Object&amp; state, Boolean&amp; isCompleted) &gt; at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.&lt;InvokeInnerFilterAsync&gt;d__14.MoveNext() &gt; --- End of stack trace from previous location where exception was thrown --- &gt; at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task) &gt; at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task) &gt; at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.&lt;InvokeNextExceptionFilterAsync&gt;d__23.MoveNext() I added the following code to Configure(IApplicationBuilder app) Startup.cs in my plugin to rectify the issue. `Directory.CreateDirectory(CommonHelper.MapPath(&quot;~/files/exportimport&quot;));` Looking through the code I can't see any calls to CreateDirectory in the whole project so I'm confused how these folders would ever be created.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Disable script loading for Square and WorldPay plugins when they're disabled</MESSAGE>
+    <SHA>39676d0a76c54378de359cd00d79cba8c08580bc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2689 Fixed error with wrong path in PrintOrderToPdf method</MESSAGE>
+      <SHA>56677a22d426ab5bd0fe85f1c9b6f45b0b40db07</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Common/PdfService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>123093</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/123093</ISSUEURL>
+  <TITLE>[CI] EnrichIT testAvgDurationByArtist failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6527 / oraclelinux-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/4wpfh5yjchb5i) - [elasticsearch-pull-request #58092 / part-3](https://gradle-enterprise.elastic.co/s/esj7js55b35am) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.esql.action.EnrichIT.testAvgDurationByArtist&quot; -Dtests.seed=BC97B63594E42D7C -Dtests.locale=naq -Dtests.timezone=Africa/Gaborone -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.action.EnrichIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testAvgDurationByArtist),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: an empty collection but: &lt;[LEAK: resource was not cleaned up before it was garbage-collected. Recent access records: Created at: in [elasticsearch[main-cluster-0][search][T#2]][testStopQueryLocal] org.elasticsearch.search.internal.SearchContext.&lt;init&gt;(SearchContext.java:79) org.elasticsearch.search.DefaultSearchContext.&lt;init&gt;(DefaultSearchContext.java:172) org.elasticsearch.search.SearchService.createSearchContext(SearchService.java:1191) org.elasticsearch.search.SearchService.createSearchContext(SearchService.java:1166) org.elasticsearch.xpack.esql.plugin.DataNodeComputeHandler$DataNodeRequestExecutor.lambda$acquireSearchContexts$5(DataNodeComputeHandler.java:318) org.elasticsearch.action.ActionRunnable$2.accept(ActionRunnable.java:58) org.elasticsearch.action.ActionRunnable$2.accept(ActionRunnable.java:55) org.elasticsearch.action.ActionRunnable$4.doRun(ActionRunnable.java:101) org.elasticsearch.common.util.concurrent.AbstractRunna [truncated] ``` **Issue Reasons:** - [main] 2 failures in test testAvgDurationByArtist (0.5% fail rate in 421 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix GoogleCloudStorageServiceTests (#123092)</MESSAGE>
+    <SHA>d48cf3f2f0efd74869daea943e0f1ddedda01ca0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.EnrichIT testAvgDurationByArtist #123093</MESSAGE>
+      <SHA>e2b8e0af3312b2adcdd70b5049297ee9dbeccf2a</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Unmute EnrichIT#testAvgDurationByArtist (#123443) Relates #123093</MESSAGE>
+      <SHA>c4ff1c8eb3a277063800cb6ab665f16c5bbde332</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

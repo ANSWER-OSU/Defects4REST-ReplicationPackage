@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>11088</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/11088</ISSUEURL>
+  <TITLE>Placement is not applied to ContentPart_Edit</TITLE>
+  <DESCRIPTION>### Describe the bug When placement is defined for `ContentPart_Edit` none of them applied /cc @kdubious ```json { &quot;ContentPart_Edit&quot;: [ { &quot;place&quot;: &quot;-&quot;, &quot;contentType&quot;: [ &quot;Container&quot; ] } ], &quot;BackgroundColor_Edit&quot;: [ { &quot;place&quot;: &quot;-&quot;, &quot;contentType&quot;: [ &quot;Container&quot; ] } ], &quot;BootstrapColor_Edit&quot;: [ { &quot;place&quot;: &quot;-&quot;, &quot;contentType&quot;: [ &quot;Container&quot; ] } ] } ``` ### To Reproduce Steps to reproduce the behavior: 1. Create Part `BootstrapColor` with `TextField` with PredefinedList as editor 2. Select Reusable 2. Add `BootstrapColor` Part as named part to `Container` content type with name `BackgroundColor ` 3. Add any of following placement rule in placement.json to hide . &lt;br/&gt; `&quot;ContentPart_Edit&quot;: [ { &quot;place&quot;: &quot;-&quot;, &quot;contentType&quot;: [ &quot;Container&quot;], &quot;contentPart&quot; : [&quot;BootstrapColor&quot;], &quot;differentiator&quot;: &quot;BackgroundColor&quot; } ]` OR &lt;br/&gt; `&quot;BootstrapColor_Edit&quot;: [ { &quot;place&quot;: &quot;-&quot;, &quot;contentType&quot;: [ &quot;Container&quot;], &quot;contentPart&quot; : [&quot;BootstrapColor&quot;], &quot;differentiator&quot;: &quot;BackgroundColor&quot; } ]` OR &lt;br/&gt; `&quot;BootstrapColor&quot;: [ { &quot;place&quot;: &quot;-&quot;, &quot;displayType&quot;: &quot;Edit&quot;, &quot;contentType&quot;: [ &quot;Container&quot;], &quot;contentPart&quot; : [&quot;BootstrapColor&quot;], &quot;differentiator&quot;: &quot;BackgroundColor&quot; } ]` 4. See part is still visible while editing and placement rule is not applied. ### Expected behavior The placement should apply ### Screenshots NONE</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>61</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Code Mirror 5.65.1 (#11042)</MESSAGE>
+    <SHA>7c7a3dfea1a6ec945103a3f40111eaec5f30056e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Creating ContentPart Shape using ShapeResult to support placement Added ContentPartName_Edit shape for display name rendering in case of named part Fixes #11088 Fixes #6784 Fixes #6850</MESSAGE>
+      <SHA>082edd19d81d1011cd1739478627479c3b0b2d87</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Contents/Views/ContentPart.Edit.cshtml</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Contents/Views/ContentPartName.Edit.cshtml</FILE>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement.Display/ContentDisplay/ContentItemDisplayCoordinator.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Creating ContentPart_Edit Shape using ShapeResult to support placement (#11098) Fixes #11088 Fixes #6784 Fixes #6850</MESSAGE>
+      <SHA>5d3cdca6cd2e04a404f130ca38a404a2699f37dc</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement.Display/ContentDisplay/ContentItemDisplayCoordinator.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

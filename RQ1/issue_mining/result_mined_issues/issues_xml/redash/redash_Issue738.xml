@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>738</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/738</ISSUEURL>
+  <TITLE>Alert send Error(AttributeError: 'Organization' object has no attribute 'domain)</TITLE>
+  <DESCRIPTION>Hello. Alert send Error. ``` 01:51:24 worker.1 | [2016-01-07 01:51:24,764: ERROR/MainProcess] Task redash.tasks.check_alerts_for_query[6fd2a1aa-bb2b-4054-a6a1-2487c0bae30c] raised unexpected: AttributeError(&quot;'Organization' object has no attribute 'domain'&quot;,) 01:51:24 worker.1 | Traceback (most recent call last): 01:51:24 worker.1 | File &quot;/usr/local/lib/python2.7/dist-packages/celery/app/trace.py&quot;, line 240, in trace_task 01:51:24 worker.1 | R = retval = fun(*args, **kwargs) 01:51:24 worker.1 | File &quot;/opt/redash/current/redash/tasks.py&quot;, line 31, in __call__ 01:51:24 worker.1 | return super(BaseTask, self).__call__(*args, **kwargs) 01:51:24 worker.1 | File &quot;/usr/local/lib/python2.7/dist-packages/celery/app/trace.py&quot;, line 437, in __protected_call__ 01:51:24 worker.1 | return self.run(*args, **kwargs) 01:51:24 worker.1 | File &quot;/opt/redash/current/redash/tasks.py&quot;, line 338, in check_alerts_for_query 01:51:24 worker.1 | &quot;&quot;&quot;.format(host=base_url(alert.query.org), alert_id=alert.id, query_id=query.id) 01:51:24 worker.1 | File &quot;/opt/redash/current/redash/tasks.py&quot;, line 309, in base_url 01:51:24 worker.1 | if org.domain: 01:51:24 worker.1 | AttributeError: 'Organization' object has no attribute 'domain' ```</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix: datasource refresh schemas was broken</MESSAGE>
+    <SHA>bd29bdbb2e400ec0ef933f59183551af4d9fbe24</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #738: alert code was referencing non existing attribute</MESSAGE>
+      <SHA>246725515d55ae419653ad213e4f27e093bf1a72</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #740 from getredash/feature/permissions Fix #738: alert code was referencing non existing attribute</MESSAGE>
+      <SHA>ce9a5c05fbe4ef39c7e3735eca62cca740373b7b</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #738: alert code was referencing non existing attribute</MESSAGE>
+      <SHA>d9702253c85e0b88a0ebc6fd054957a2bcda1b8c</SHA>
+      <PATCHEDFILES>
+        <FILE>tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #740 from getredash/feature/permissions Fix #738: alert code was referencing non existing attribute</MESSAGE>
+      <SHA>3626e1eb8eed4a93f12083d907cbf56371b8895c</SHA>
+      <PATCHEDFILES>
+        <FILE>tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

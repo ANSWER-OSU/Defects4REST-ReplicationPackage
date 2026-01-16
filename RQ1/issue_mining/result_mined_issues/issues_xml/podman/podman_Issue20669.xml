@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20669</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/20669</ISSUEURL>
+  <TITLE>rootless_tutorial: modernize it please</TITLE>
+  <DESCRIPTION>### Issue Description When i am reading this doc [cgroup V2 support](https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md#cgroup-v2-support) i cant run the command ### Steps to reproduce the issue Steps to reproduce the issue 1. podman --runtime crun 2. 3. ### Describe the results you received Error: missing command 'podman COMMAND' Try 'podman --help' for more information. ### Describe the results you expected as docs suggested ### podman info output ```yaml host: arch: amd64 buildahVersion: 1.23.1 cgroupControllers: - cpuset - cpu - io - memory - pids cgroupManager: systemd cgroupVersion: v2 conmon: package: 'conmon: /usr/libexec/podman/conmon' path: /usr/libexec/podman/conmon version: 'conmon version 2.1.2, commit: ' cpus: 2 distribution: codename: jammy distribution: ubuntu version: &quot;22.04&quot; eventLogger: journald hostname: VM-4-17-ubuntu idMappings: gidmap: - container_id: 0 host_id: 1002 size: 1 - container_id: 1 host_id: 231072 size: 65536 uidmap: - container_id: 0 host_id: 1002 size: 1 - container_id: 1 host_id: 231072 size: 65536 kernel: 5.15.0-86-generic linkmode: dynamic logDriver: journald memFree: 153522176 memTotal: 2059169792 ociRuntime: name: crun package: 'crun: /usr/bin/crun' path: /usr/bin/crun version: |- crun version UNKNOWN commit: ea1fe3938eefa14eb707f1d22adff4db670645d6 spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +CRIU +YAJL os: linux remoteSocket: path: /run/user/1002/podman/podman.sock security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: true seccompEnabled: true seccompProfilePath: /usr/share/containers/seccomp.json selinuxEnabled: false serviceIsRemote: false slirp4netns: executable: /usr/bin/slirp4netns package: 'slirp4netns: /usr/bin/slirp4netns' version: |- slirp4netns version 1.1.8 commit: unknown libslirp: 4.3.1-git SLIRP_CONFIG_VERSION_MAX: 3 libseccomp: 2.5.3 swapFree: 0 swapTotal: 0 uptime: 1h 7m 33.13s (Approximately 0.04 days) plugins: log: - k8s-file - none - journald network: - bridge - macvlan volume: - local registries: {} store: configFile: /home/lu/.config/containers/storage.conf containerStore: number: 0 paused: 0 running: 0 stopped: 0 graphDriverName: overlay graphOptions: {} graphRoot: /home/lu/.local/share/containers/storage graphStatus: Backing Filesystem: extfs Native Overlay Diff: &quot;true&quot; Supports d_type: &quot;true&quot; Using metacopy: &quot;false&quot; imageStore: number: 1 runRoot: /run/user/1002/containers volumePath: /home/lu/.local/share/containers/storage/volumes version: APIVersion: 3.4.4 Built: 0 BuiltTime: Thu Jan 1 08:00:00 1970 GitCommit: &quot;&quot; GoVersion: go1.18.1 OsArch: linux/amd64 Version: 3.4.4 ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details Ubuntu 22.04 ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #20715 from TomSweeneyRedHat/dev/tsweeney/buildah1.33.1 Bump Buildah to v1.33.1</MESSAGE>
+    <SHA>7dfbc727691de46d262b155445c879bfb66026fe</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>rootless_tutorial: modernize - We can assume that cgroups v2 and rootless overlayfs are the default everywhere. - Remove RHEL7-only instructions - add clear '$' and '#' prompts to rootless and root commands - other minor consistency cleanups Ref: #20669 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>9ea390191b579b2cf2dc6737be2ad12443e8660d</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/tutorials/rootless_tutorial.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

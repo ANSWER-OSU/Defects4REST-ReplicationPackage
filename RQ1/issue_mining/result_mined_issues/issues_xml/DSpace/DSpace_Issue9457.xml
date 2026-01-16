@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9457</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/9457</ISSUEURL>
+  <TITLE>NotifyServiceRestRepositoryIT has two tests which do not succeed in GitHub CI</TITLE>
+  <DESCRIPTION>**Describe the bug** The `NotifyServiceRestRepositoryIT` has two tests which are consistently failing in GitHub CI. * `NotifyServiceInboundPatternConstraintRemoveOperationTest` * `NotifyServiceInboundPatternConstraintRemoveOperationBadRequestTest` However, these tests are *always* succeeding for me when I run them locally. My suspicion is that they are failing in GitHub CI because the tests are running in a different order and encountering _unexpected_ data. This most often occurs when other tests are not sufficiently cleaning up their own data. (It's also worth noting that the order of tests sometimes *does change* in GitHub CI...I suspect that has occurred recently, causing these tests to fail consistently.) I've attempted to resolve these failures twice: * #9444 (merged as it seemed successful at the time. But the failures have appeared again.) * #9456 (closed without merging. This might be worth referencing to see what fixes I attempted, but I was unable to get the tests to succeed.) **These tests have been temporarily disabled in #9458** They will require more investigation before they can be reenabled.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[maven-release-plugin] prepare for next development iteration</MESSAGE>
+    <SHA>fbb8403df7d9a05939c0a3114b54b30e079dbcd2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Disable failing tests temporarily. See https://github.com/DSpace/DSpace/issues/9457</MESSAGE>
+      <SHA>d145c328f00ee06e54cde13f34553d1f097c73e2</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-server-webapp/src/test/java/org/dspace/app/rest/NotifyServiceRestRepositoryIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

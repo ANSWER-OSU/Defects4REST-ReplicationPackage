@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6930</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6930</ISSUEURL>
+  <TITLE>Vendor collections to make isolated jobs work in Ansible 2.10</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Feature Idea ##### SUMMARY Isolated jobs are made possible by a few [internal playbooks](https://github.com/ansible/awx/tree/devel/awx/playbooks) used to start, check, heartbeat, and cleanup. This is also true for container groups. In Ansible 2.10 those playbooks will no longer work because content used by them has been moved out of ansible-base. We recently began to vendor inventory plugins in https://github.com/ansible/awx/pull/6283, the same pattern can be used for isolated playbooks. As far as I know, this will require: - `community.kubernetes` for `kubectl` connection plugin - `ansible.posix.synchronize` for `synchronize` module So we need to put those in a folder at build time, and then change the isolated logic to set the collections path for their location.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>224</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #6992 from ryanpetrello/job-host-summary-optimization drastically optimize job host summary creation Reviewed-by: Ryan Petrello https://github.com/ryanpetrello</MESSAGE>
+    <SHA>ba4ae7c1045efc9ba269f6fe8ba5689f71d516a4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Vendor collections for isolated jobs to work in ansible 2.10 kubectl and synchronize are now part of community.kubernetes and ansible.posix collections, respectively. This change installs these collections to a local directory to be used in inventory and isolated management playbooks. awx issue #6930</MESSAGE>
+      <SHA>4da0e0dd804ada784b7072ea423b459fcfc501b2</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/isolated/manager.py</FILE>
+        <FILE>awx/main/management/commands/inventory_import.py</FILE>
+        <FILE>awx/main/models/inventory.py</FILE>
+        <FILE>awx/main/tasks.py</FILE>
+        <FILE>awx/playbooks/check_isolated.yml</FILE>
+        <FILE>awx/playbooks/run_isolated.yml</FILE>
+        <FILE>awx/settings/defaults.py</FILE>
+        <FILE>awx/settings/development.py</FILE>
+        <FILE>awx/settings/local_settings.py.docker_compose</FILE>
+        <FILE>docs/inventory/inventory_plugins.md</FILE>
+        <FILE>installer/roles/image_build/files/settings.py</FILE>
+        <FILE>installer/roles/image_build/templates/Dockerfile.j2</FILE>
+        <FILE>installer/roles/kubernetes/templates/configmap.yml.j2</FILE>
+        <FILE>requirements/collections_requirements.yml</FILE>
+        <FILE>tools/collections/README.md</FILE>
+        <FILE>tools/docker-compose/Dockerfile</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

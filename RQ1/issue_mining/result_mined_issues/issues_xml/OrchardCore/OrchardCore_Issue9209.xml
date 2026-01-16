@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9209</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/9209</ISSUEURL>
+  <TITLE>FluidTagHelper reuse of buffers</TITLE>
+  <DESCRIPTION>This code seems to use the same `ViewBufferTextWriterContent` twice which would throw an exception. https://github.com/OrchardCMS/OrchardCore/blob/dev/src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/FluidTagHelper.cs#L89-L97 Either the code is wrong, or the buffer should me materialized first. Ideally we should understand how the TagHelper is working hre and add a comment.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Contents GetAsync: Recall published items (Lombiq Technologies: OCORE-42) (#8457)</MESSAGE>
+    <SHA>fff328a32ff3501e4b750fda141d3e44e09cf9c4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #9209 FluidTagHelper reuse of buffer</MESSAGE>
+      <SHA>b13ced2088ad38882818522f695438b01313862e</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/LiquidViewParser.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/FluidTagHelper.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/ViewBufferTextWriterContent.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #9209 FluidTagHelper reuse of buffer (#9215)</MESSAGE>
+      <SHA>3733b32fc34eb1c85ac65d6fbf491aa4752e228b</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/LiquidViewParser.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/FluidTagHelper.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/ViewBufferTextWriterContent.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

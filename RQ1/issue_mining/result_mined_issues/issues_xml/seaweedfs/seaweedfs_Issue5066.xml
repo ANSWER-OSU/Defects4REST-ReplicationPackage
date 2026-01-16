@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5066</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/5066</ISSUEURL>
+  <TITLE>Failed to commit new volume file while performing garbage collection on Windows</TITLE>
+  <DESCRIPTION>**Describe the bug** When the system runs for a while, the volume becomes unavailable, and when recreated, it shows that the. bat file is being occupied by other processes. Causing historical files to be unreadable and writable, and being able to recover after restarting. Tested other versions on Windows that also have the same issue, such as 3.51 and 3.59. **System Setup** Windows 11 version 30GB 3.58 windows amd64 Start with weed -logdir=D:\ims-data\seaweedfs\logs server -s3 -ip=0.0.0.0 -dir=D:\ims-data\seaweedfs\datanode -s3.port=8333 -s3.config=C:\ims-depends\seaweedfs\script\s3_auth_config.json -filer.port=8888 -master.port=9333 -master.volumeSizeLimitMB=30000 -volume.max=1400 -volume.port=9011 Upload a file and delete Trigger the vacuum **Expected behavior** Vacuum completes with no errors. **Screenshots** **Additional context** I1130 14:43:18.806449 volume_layout.go:383 Volume 4 becomes unwritable I1130 14:43:18.806449 topology_vacuum.go:74 0 Start vacuuming 4 on 0.0.0.0:9011 I1130 14:43:18.822075 topology_vacuum.go:93 0 vacuum 4 on 0.0.0.0:9011 processed 292051360 bytes, loadAvg 0.00% I1130 14:43:18.868939 needle_map_memory.go:111 loading idx from offset 0 for file: D:\ims-data\seaweedfs\datanode/test-bucket_4.cpx I1130 14:43:18.931785 topology_vacuum.go:102 Complete vacuuming 4 on 0.0.0.0:9011 I1130 14:43:18.931785 topology_vacuum.go:128 Start Committing vacuum 4 on 0.0.0.0:9011 I1130 14:43:18.931785 volume_vacuum.go:106 Committing volume 4 vacuuming... E1130 14:43:18.947110 volume_grpc_vacuum.go:89 failed commit volume 4: remove D:\ims-data\seaweedfs\datanode/test-bucket_4.dat: The process cannot access the file because it is being used by another process. E1130 14:43:18.947110 topology_vacuum.go:144 Error when committing vacuum 4 on 0.0.0.0:9011: rpc error: code = Unknown desc = remove D:\ims-data\seaweedfs\datanode/test-bucket_4.dat: The process cannot access the file because it is being used by another process.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>121</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: ensure complete gRPC stream consumption in doListFilerEntries to prevent context canceled errors. (#5441)</MESSAGE>
+    <SHA>df9031e19a96a97f12613d7b4c90eb19b265d311</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: always close volume file (#5066)</MESSAGE>
+      <SHA>7354637f74620c991469b7a84910fa41d9947d87</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/storage/backend/disk_file.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

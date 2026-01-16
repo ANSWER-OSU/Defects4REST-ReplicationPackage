@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20634</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/20634</ISSUEURL>
+  <TITLE>The RSS feed endpoint returns a wrong content type</TITLE>
+  <DESCRIPTION>### Issue Summary When requesting an RSS feed from a ghost blog (e.g. https://activitypub.ghost.org/rss/), the returned content-type is `content-type: text/xml; charset=utf-8` (as you can see in [this file](https://github.com/TryGhost/Ghost/blob/main/ghost/core/core/frontend/services/rss/renderer.js)). This can result in the feed not being correctly displayed: |How it is displayed|How it should be displayed (with an Add-on for RSS feeds)| |-------------------|---------------------------| |![grafik](https://github.com/user-attachments/assets/6bd50845-9533-4176-a428-64361f79c99d)|![grafik](https://github.com/user-attachments/assets/609aa980-bf8c-4dcd-9025-26789039980d)| As far as I can see, it should be `application/rss+xml`. (Sources: [[1]](https://datatracker.ietf.org/doc/id/draft-nottingham-rss-media-type-00), [[2]](https://stackoverflow.com/questions/595616/what-is-the-correct-mime-type-to-use-for-an-rss-feed)). ### Steps to Reproduce 1. Open the RSS feed URL from any ghost blog (e.g. https://activitypub.ghost.org/rss/) 2. Open the developer tools from the browser, look into the network tab. 3. (Sometimes required:) Refresh the site 4. Click on the request of the main request. 5. See in the Response Headers: `content-type: text/xml; charset=utf-8` ### Ghost Version 5.87.3 ### Node.js Version (I don't see that with docker?) ### How did you install Ghost? Using a docker container on a debian 12 server. ### Database type MySQL 8 ### Browser &amp; OS version Firefox 128.0 (64-Bit) on Windows 11 Pro ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>16</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Lazyloaded several required dependencies - these dependencies can be pushed to be loaded later than upon boot, where boot time is critical - this commit makes boot about 4% faster</MESSAGE>
+    <SHA>09c59a65697f36afa9d01833f3a4570d4d8ae7b5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: Use correct Content-Type for rss feed Fixes #20634</MESSAGE>
+      <SHA>9c42606b8b22b77dacd7347fdd33d7840dbee694</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/frontend/services/rss/renderer.js</FILE>
+        <FILE>ghost/core/test/e2e-frontend/default_routes.test.js</FILE>
+        <FILE>ghost/core/test/regression/mock-express-style/api-vs-frontend.test.js</FILE>
+        <FILE>ghost/core/test/unit/frontend/services/rss/renderer.test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed Content-Type for RSS feed (#20670) fixes https://github.com/TryGhost/Ghost/issues/20634 - this sets the correct Content-Type (`application/rss+xml; charset=utf-8`) for the RSS Endpoint as mentioned in the referenced issue - references for this Content-Type: https://datatracker.ietf.org/doc/id/draft-nottingham-rss-media-type-00 and https://stackoverflow.com/questions/595616/what-is-the-correct-mime-type-to-use-for-an-rss-feed</MESSAGE>
+      <SHA>0d1916505f94d4f687058c4b16e459d81acaea92</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/frontend/services/rss/renderer.js</FILE>
+        <FILE>ghost/core/test/e2e-frontend/default_routes.test.js</FILE>
+        <FILE>ghost/core/test/regression/mock-express-style/api-vs-frontend.test.js</FILE>
+        <FILE>ghost/core/test/unit/frontend/services/rss/renderer.test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

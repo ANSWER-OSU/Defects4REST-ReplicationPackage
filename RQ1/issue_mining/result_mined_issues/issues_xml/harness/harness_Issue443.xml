@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>443</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/443</ISSUEURL>
+  <TITLE>0.3 github login fails</TITLE>
+  <DESCRIPTION>- open /login - click Github login - error shown in browser: received empty access token from authorization server The log is showing: ``` Sep 05 15:12:36 support-2 bash[32386]: 2014/09/05 15:12:36 http: panic serving 212.238.236.125:56129: runtime error: invalid memory address or nil pointer dereference Sep 05 15:12:36 support-2 bash[32386]: goroutine 19 [running]: Sep 05 15:12:36 support-2 bash[32386]: net/http.func·009() Sep 05 15:12:36 support-2 bash[32386]: /usr/local/go/src/pkg/net/http/server.go:1093 +0xae Sep 05 15:12:36 support-2 bash[32386]: runtime.panic(0x999660, 0x12f5da8) Sep 05 15:12:36 support-2 bash[32386]: /usr/local/go/src/pkg/runtime/panic.c:248 +0x106 Sep 05 15:12:36 support-2 bash[32386]: github.com/drone/drone/plugin/remote/github.(*GitHub).Authorize(0xc2100e0380, 0x7f32ffb55d20, 0xc2101440a0, 0xc2100c8410, 0xa, ...) Sep 05 15:12:36 support-2 bash[32386]: /var/cache/drone/src/github.com/drone/drone/plugin/remote/github/github.go:95 +0x86b Sep 05 15:12:36 support-2 bash[32386]: github.com/drone/drone/server/handler.(*LoginHandler).GetLogin(0xc210034f00, 0x7f32ffb55d20, 0xc2101440a0, 0xc2100c8410, 0x7f32ff9c9b80, ...) Sep 05 15:12:36 support-2 bash[32386]: /var/cache/drone/src/github.com/drone/drone/server/handler/login.go:39 +0x19c Sep 05 15:12:36 support-2 bash[32386]: github.com/drone/drone/server/handler.*LoginHandler.GetLogin·fm(0x7f32ffb55d20, 0xc2101440a0, 0xc2100c8410, 0x0, 0x0) Sep 05 15:12:36 support-2 bash[32386]: /var/cache/drone/src/github.com/drone/drone/server/handler/login.go:158 +0x56 Sep 05 15:12:36 support-2 bash[32386]: github.com/drone/drone/server/handler.func·002(0x7f32ffb55d20, 0xc2101440a0, 0xc2100c8410) Sep 05 15:12:36 support-2 bash[32386]: /var/cache/drone/src/github.com/drone/drone/server/handler/error.go:32 +0x53 Sep 05 15:12:36 support-2 bash[32386]: net/http.HandlerFunc.ServeHTTP(0xc21010e340, 0x7f32ffb55d20, 0xc2101440a0, 0xc2100c8410) Sep 05 15:12:36 support-2 bash[32386]: /usr/local/go/src/pkg/net/http/server.go:1220 +0x40 Sep 05 15:12:36 support-2 bash[32386]: github.com/gorilla/pat.(*Router).ServeHTTP(0xc210096370, 0x7f32ffb55d20, 0xc2101440a0, 0xc2100c8410) Sep 05 15:12:36 support-2 bash[32386]: /var/cache/drone/src/github.com/gorilla/pat/pat.go:75 +0x1b8 Sep 05 15:12:36 support-2 bash[32386]: main.func·001(0x7f32ffb55d20, 0xc2101440a0, 0xc2100c8410) Sep 05 15:12:36 support-2 bash[32386]: /var/cache/drone/src/github.com/drone/drone/server/main.go:150 +0x4f7 Sep 05 15:12:36 support-2 bash[32386]: net/http.HandlerFunc.ServeHTTP(0xc2101407e0, 0x7f32ffb55d20, 0xc2101440a0, 0xc2100c8410) Sep 05 15:12:36 support-2 bash[32386]: /usr/local/go/src/pkg/net/http/server.go:1220 +0x40 Sep 05 15:12:36 support-2 bash[32386]: net/http.(*ServeMux).ServeHTTP(0xc2100338d0, 0x7f32ffb55d20, 0xc2101440a0, 0xc2100c8410) Sep 05 15:12:36 support-2 bash[32386]: /usr/local/go/src/pkg/net/http/server.go:1496 +0x163 Sep 05 15:12:36 support-2 bash[32386]: net/http.serverHandler.ServeHTTP(0xc21014a050, 0x7f32ffb55d20, 0xc2101440a0, 0xc2100c8410) Sep 05 15:12:36 support-2 bash[32386]: /usr/local/go/src/pkg/net/http/server.go:1597 +0x16e Sep 05 15:12:36 support-2 bash[32386]: net/http.(*conn).serve(0xc21011d700) Sep 05 15:12:36 support-2 bash[32386]: /usr/local/go/src/pkg/net/http/server.go:1167 +0x7b7 Sep 05 15:12:36 support-2 bash[32386]: created by net/http.(*Server).Serve Sep 05 15:12:36 support-2 bash[32386]: /usr/local/go/src/pkg/net/http/server.go:1644 +0x28b Sep 05 15:12:36 support-2 bash[32386]: 2014/09/05 15:12:36 GET /login/github.com Sep 05 15:12:36 support-2 bash[32386]: 2014/09/05 15:12:36 received empty access token from authorization server ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge remote-tracking branch 'origin' into abhinav/CODE-830</MESSAGE>
+    <SHA>3ec8d18fbf4a31231081449b6fdce286a731491c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge branch 'abhinav/CODE-847' of _OKE5H2PQKOUfzFFDuD4FA/default/CODE/gitness (#443)</MESSAGE>
+      <SHA>7d52e401d0ae364961448a331a9dc0d83612ff0e</SHA>
+      <PATCHEDFILES>
+        <FILE>internal/api/controller/repo/controller.go</FILE>
+        <FILE>internal/api/controller/space/controller.go</FILE>
+        <FILE>internal/api/controller/space/export.go</FILE>
+        <FILE>internal/api/controller/space/export_progress.go</FILE>
+        <FILE>internal/api/handler/space/export_progress.go</FILE>
+        <FILE>internal/router/api.go</FILE>
+        <FILE>internal/services/exporter/repository.go</FILE>
+        <FILE>mocks/mock_client.go</FILE>
+        <FILE>mocks/mock_store.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

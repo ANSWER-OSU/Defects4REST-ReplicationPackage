@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>10078</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/10078</ISSUEURL>
+  <TITLE>Cant delete managed_by_tower Execution Environments</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY Deleted during update Default EE is still in a list and can not be removed ##### ENVIRONMENT * AWX version: 19.0.0, 19.1.0 * AWX install method: AWX Operator * Ansible version: Who knows ? * Operating System: Ubuntu 18.04 * Web Browser: Opera ##### STEPS TO REPRODUCE Updated my minikube AWX setup: kubectl delete -f myawx.yml then minikube kubectl apply -- -f myawx.yml After update the new EE v0.2 is installed Older EE is still in the list and can not be removed. Screenshots ##### EXPECTED RESULTS The only one available EE in the list ##### ACTUAL RESULTS 2 unavailable EE in the list. And 1 actual ##### ADDITIONAL INFORMATION screenshots ![Ansible AWX - Opera 02 05 2021 10_47_40](https://user-images.githubusercontent.com/22151881/116806266-869cbc80-ab34-11eb-89bb-e94bc4936036.png) ![Ansible AWX - Opera 02 05 2021 10_47_31](https://user-images.githubusercontent.com/22151881/116806268-87355300-ab34-11eb-92a3-43907f8c9e94.png)</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>22</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #10081 from nixocio/ui_fix_style_warning Fix unit-test styling warning Fix unit-test styling warning. Warning: Unsupported style property white-space. Did you mean whiteSpace? Style still valid after change: Reviewed-by: Alex Corey &lt;Alex.swansboro@gmail.com&gt;</MESSAGE>
+    <SHA>72a940bef18b32239801db01790f855df7be654d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #10084 from jbradberry/revert-managed-by-tower-ee-lock Revert the code that prevents sysadmins from changing managed EEs SUMMARY related #10078 ISSUE TYPE Bugfix Pull Request COMPONENT NAME API AWX VERSION awx: 19.1.0 Reviewed-by: Shane McDonald &lt;me@shanemcd.com&gt;</MESSAGE>
+      <SHA>a3de2517325a5e81daf98f837a47f8dbba5f8a40</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/views/__init__.py</FILE>
+        <FILE>awx/main/access.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Display Edit/Delete on EE details page as per last API changes Display Edit/Delete buttons on details page for EE managed by tower. See: https://github.com/ansible/awx/issues/10078</MESSAGE>
+      <SHA>8f54627ea6877a9550c4f7cf36e7d1e30c98b923</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/screens/ExecutionEnvironment/ExecutionEnvironmentDetails/ExecutionEnvironmentDetails.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/ExecutionEnvironment/ExecutionEnvironmentDetails/ExecutionEnvironmentDetails.test.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #10173 from nixocio/ui_issue_10078 Display Edit/Delete on EE details page as per last API changes Display Edit/Delete buttons on details page for EE managed by tower. See: #10078 Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+      <SHA>74282c5dfb900e460baf27eda5a11e486b6698e1</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/screens/ExecutionEnvironment/ExecutionEnvironmentDetails/ExecutionEnvironmentDetails.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/ExecutionEnvironment/ExecutionEnvironmentDetails/ExecutionEnvironmentDetails.test.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

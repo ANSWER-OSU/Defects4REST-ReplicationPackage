@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17286</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/17286</ISSUEURL>
+  <TITLE>podman logs --follow, k8s-file, misses a log</TITLE>
+  <DESCRIPTION>``` not ok 108 podman logs - --until --follow k8s-file ... # podman-remote --url unix:/tmp/podman_tmp_hJUP run --log-driver=k8s-file --name dT1IxYdteS -d quay.io/libpod/testimage:20221018 sh -c while :; do echo RnePKS3YFW &amp;&amp; sleep 2; done 26960512e2ef4dda5ac8219d66f7d678d1a30e8fea8f8a6714188468610c6cf9 # podman-remote --url unix:/tmp/podman_tmp_hJUP logs --until 3s -f dT1IxYdteS RnePKS3YFW #/vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv #| FAIL: logs --until -f on running container works #| expected: 'RnePKS3YFW RnePKS3YFW' #| actual: 'RnePKS3YFW' #\^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ``` I'm suspecting a test bug (because of the `sleep`), not an actual podman bug, but will figure it out later. * fedora-36 : sys remote fedora-36 root host [remote] * PR #17255 * [01-27 16:08](https://api.cirrus-ci.com/v1/artifact/task/5526908000010240/html/sys-remote-fedora-36-root-host.log.html#t--00108) * fedora-37 : sys remote fedora-37 rootless host [remote] * PR #17165 * [01-19 07:39](https://api.cirrus-ci.com/v1/artifact/task/6331858288377856/html/sys-remote-fedora-37-rootless-host.log.html#t--00108) * PR #17068 * [01-12 04:28](https://api.cirrus-ci.com/v1/artifact/task/5553891903799296/html/sys-remote-fedora-37-rootless-host.log.html#t--00107)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>120</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #17578 from Luap99/netavark-dns netavark: only use aardvark ip as nameserver</MESSAGE>
+    <SHA>38c91945a64bc49984c32e6a46754ac67b9ce1b1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Logs follow-until tests: loosen checks ...in hopes of fixing a flake with podman-remote. It's still possible that there's a real problem with logs under remote, and this will just sweep that under the rug. Also, fix a nasty-red test warning (add cleanup), refactor uses of $(pause_image), and improve a few test assertions. Closes: #17286 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>12153da8373a766f0b9ca19dd600496489cb328b</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/010-images.bats</FILE>
+        <FILE>test/system/035-logs.bats</FILE>
+        <FILE>test/system/170-run-userns.bats</FILE>
+        <FILE>test/system/500-networking.bats</FILE>
+        <FILE>test/system/700-play.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

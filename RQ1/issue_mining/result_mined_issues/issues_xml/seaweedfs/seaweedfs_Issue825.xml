@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>825</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/825</ISSUEURL>
+  <TITLE>brain split happened when network interrupts between dc</TITLE>
+  <DESCRIPTION>weed vesion:1.15 1. weed master: deployed in 3 DC , 3 nodes in dc1 + 2 in dc2 +in 2 dc3 , 2. volumer server : 3 nodes in dc1 + 3 in dc2 + 3 in dc3 3. when the network between dc3 and dc2 interrupt , dc3 and dc1 also interrupt ,but network between dc1 and dc2 is ok , so dc3 is a network isolated island 。 4. the original leader in dc1 , but when network issue happened , the second leader selected in dc3 and dc3's volumer server connect to the dc3 new leader. Forming two clusters , dc1 and dc2 is a cluster ,dc3 is a cluster 5. when the network issue between dc3 and dc1、dc2 solved , also two leader in whole cluster util restart the dc3's leader.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>1.21</MESSAGE>
+    <SHA>b881e11a1620619d13647bb53e156cf8e5c3fb28</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>timeout http connections possible fix for https://github.com/chrislusf/seaweedfs/issues/825</MESSAGE>
+      <SHA>1d103e3ed54d0e5cf17dbc489ba412ce96c88a20</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/raft_server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>raft: adding idle connection time out another attempt to fix https://github.com/chrislusf/seaweedfs/issues/825</MESSAGE>
+      <SHA>3f56b12ed40c1cebaa669003942d14af826ff42c</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/raft_server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

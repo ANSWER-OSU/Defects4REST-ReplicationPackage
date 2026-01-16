@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1548</ISSUENO>
+  <ISSUEURL>https://github.com/WP-API/WP-API/issues/1548</ISSUEURL>
+  <TITLE>Approving a comment deletes content and author</TITLE>
+  <DESCRIPTION>_Bug:_ Changing comment status from hold to approved using a PUT request deletes the comment author and comment content. I am using the basic auth plugin and an $http request in AngularJS. _How to replicate:_ Add an unapproved comment to your site with the WP API v2 and basic auth plugins installed. Using Postman, send a PUT request with a basic auth header to a comment endpoint, such as mysite.com/wp-json/wp/v2/comments/54 In the form data, send along status=approved. The comment will be approved, but the comment author and comment content are deleted.</DESCRIPTION>
+  <REPONAME>WP-API</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>New new function signature for get_endpoint_args_for_item_schema</MESSAGE>
+    <SHA>fbdc795243073b2612604ac4ed56474ede5b9857</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Unit test to make sure a comment's content is not overwritten on update See https://github.com/WP-API/WP-API/issues/1548</MESSAGE>
+      <SHA>1c7a773f7c15787575b07aed75452b011809f1b1</SHA>
+      <PATCHEDFILES>
+        <FILE>tests/test-rest-comments-controller.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

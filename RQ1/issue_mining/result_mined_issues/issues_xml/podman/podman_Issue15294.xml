@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15294</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15294</ISSUEURL>
+  <TITLE>Add new --userns flag --userns=sync-id</TITLE>
+  <DESCRIPTION>Basically currently we default in rootless users UID to root user. --userns=keep-id maps your UID outside of container to UID inside of container. --userns=keep-id-app would map your UID to the default UID of the app run within the container. Meaning ``` $ podman run --user=1234 --userns=sync-id fedora cat /proc/self/uid_map 0 1 1233 1234 0 1 1235 1235 62269 ``` IE On the host my UID 3267 ends up getting mapped to UID 1234 inside of the container. The benefit of this is it would fix issues like https://github.com/containers/podman/issues/15292</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>19</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>infra: remove dead code Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+    <SHA>cd626060462e0262bf234a7565cad73852d7f884</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>podman: add uid and gid options to keep-id add two new options to the keep-id user namespace option: - uid: allow to override the UID used inside the container. - gid: allow to override the GID used inside the container. For example, the following command will map the rootless user (that has UID=0 inside the rootless user namespace) to the UID=11 inside the container user namespace: $ podman run --userns=keep-id:uid=11 --rm -ti fedora cat /proc/self/uid_map 0 1 11 11 0 1 12 12 65525 Closes: https://github.com/containers/podman/issues/15294 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>e015c9e3f74153ef069bfbb013e715766e793bf9</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-create.1.md.in</FILE>
+        <FILE>docs/source/markdown/podman-kube-play.1.md.in</FILE>
+        <FILE>docs/source/markdown/podman-run.1.md.in</FILE>
+        <FILE>pkg/namespaces/namespaces.go</FILE>
+        <FILE>pkg/specgen/generate/namespaces.go</FILE>
+        <FILE>pkg/specgen/namespaces.go</FILE>
+        <FILE>pkg/util/utils.go</FILE>
+        <FILE>test/e2e/run_userns_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

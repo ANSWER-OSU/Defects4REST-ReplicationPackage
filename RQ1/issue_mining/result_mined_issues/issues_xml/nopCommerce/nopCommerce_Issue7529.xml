@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7529</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7529</ISSUEURL>
+  <TITLE>Infinite recursion in product import</TITLE>
+  <DESCRIPTION>We recently encountered an issue with product uploads using Excel in nopCommerce (due to incorrect index calculation in SplitProductFile method). The platform has a setting in CatalogSettings called ExportImportSplitProductsFile. ![Image](https://github.com/user-attachments/assets/67a4f443-dec2-488a-a1de-018cd94b3111) When enabled, it splits the product Excel file into multiple smaller files based on the value of catalogSettings.ExportImportProductsCountInOneFile. ![Image](https://github.com/user-attachments/assets/395d436f-8ea1-4e14-87d1-5517382596a8) In my case, this value was set to 500. However, when I attempted to upload exactly 501 products, the system's resource usage spiked dramatically, making the server inaccessible due to excessive load. I initially suspected this was caused by server or Nginx configuration issues, so I tried adjusting various settings, but the problem persisted. To investigate further, I added logs to the nopCommerce source code and discovered that the system wasn’t actually processing the products. Instead, it was stuck in an infinite recursion while checking the number of products in the Excel file against the ![Image](https://github.com/user-attachments/assets/3335c60f-e614-411c-9c06-e6803ca9b0fa) catalogSettings.ExportImportProductsCountInOneFile setting. If the product count exceeded the limit, it repeatedly generated new Excel files and continued this operation indefinitely, causing the high resource consumption. Upon analyzing the ImportManager class, I found the root cause in the SplitProductFile method. Specifically, the issue was in the following condition: ``` var endRow = metadata.CountProductsInFile &gt; curIndex + 1 ? metadata.ProductsInFile[curIndex - 1] : metadata.EndRow; ``` Here, the code incorrectly adds 1 to curIndex, leading to the infinite recursion. After removing the + 1, the issue was resolved, and the import process worked as expected.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update PictureService.cs - NullReferenceException remedy (#7480) This is an edge case - my plugin generates invoices in a background task, in which the HttpContext in null, which produces `System.NullReferenceException: Object reference not set to an instance of an object.` `HttpContext` should have a null check just like `Request` does and this should not have any negative side effects, since null is just converted to `string.Empty` anyway.</MESSAGE>
+    <SHA>ffaf12a6a4a9c370f7b8b176037974484ba378d2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7529 Infinite recursion in product import (#7536) * fix the issue of 7529 - Infinite recursion in product import * Checking added to ignore recursion on product import * remove _catalogSettings.ExportImportProductsCountInOneFile checking</MESSAGE>
+      <SHA>0ee8c5c8c6880827eb0a8cffa35ae9d496eae6ca</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/ExportImport/ImportManager.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#7529 Infinite recursion in product import (#7536) * fix the issue of 7529 - Infinite recursion in product import * Checking added to ignore recursion on product import * remove _catalogSettings.ExportImportProductsCountInOneFile checking (cherry picked from commit 0ee8c5c8c6880827eb0a8cffa35ae9d496eae6ca)</MESSAGE>
+      <SHA>1cddfab8fb51489c8215b2514c73699e6ea3f45a</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/ExportImport/ImportManager.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

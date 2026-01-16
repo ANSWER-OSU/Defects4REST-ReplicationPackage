@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16483</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16483</ISSUEURL>
+  <TITLE>podman machine on macOS and default system connection</TITLE>
+  <DESCRIPTION>&lt;!-- --------------------------------------------------- BUG REPORT INFORMATION --------------------------------------------------- Use the commands below to provide key information from your environment: You do NOT have to include this information if this is a FEATURE REQUEST **NOTE** A large number of issues reported against Podman are often found to already be fixed in more current versions of the project. Before reporting an issue, please verify the version you are running with `podman version` and compare it to the latest release documented on the top of Podman's [README.md](../README.md). If they differ, please update your version of Podman to the latest possible and retry your command before creating an issue. Also, there is a running list of known issues in the [Podman Troubleshooting Guide](https://github.com/containers/podman/blob/main/troubleshooting.md), please reference that page before opening a new issue. If you are filing a bug against `podman build`, please instead file a bug against Buildah (https://github.com/containers/buildah/issues). Podman build executes Buildah to perform container builds, and as such the Buildah maintainers are best equipped to handle these bugs. --&gt; **Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind bug **Description** Deleting and adding machines is leading to a missing default connection. **Steps to reproduce the issue:** 1. Create a machine 2. Create another one 3. Delete the first machine 4. start 'another' machine (so this is the machine being running) **Describe the results you received:** ``` $ podman ps Cannot connect to Podman. Please verify your connection to the Linux system using `podman system connection list`, or try `podman machine init` and `podman machine start` to manage a new Linux VM Error: unable to connect to Podman socket: Get &quot;http://d/v4.3.0/libpod/_ping&quot;: dial unix ///var/folders/tg/_5rxbhmj4xncz4szvpgswrmc0000gn/T/podman-run--1/podman/podman.sock: connect: no such file or directory ``` **Describe the results you expected:** ``` $ podman ps ``` should work. Removing a machine when there is another one should move the default connection to another one Or when starting a new machine, if all system connections are set to false, it should flag to true the connection to the machine being started. **Additional information you deem important (e.g. issue happens only occasionally):** **Output of `podman version`:** ``` V4.3.0 ``` **Output of `podman info`:** ``` (paste your output here) ``` **Package info (e.g. output of `rpm -q podman` or `apt list podman` or `brew info podman`):** ``` (paste your output here) ``` **Have you tested with the latest version of Podman and have you checked the Podman Troubleshooting Guide? (https://github.com/containers/podman/blob/main/troubleshooting.md)** Yes/No **Additional environment details (AWS, VirtualBox, physical, etc.):**</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>112</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #16717 from umohnani8/detach play kube: Add --wait option</MESSAGE>
+    <SHA>8457bb55428cad65a60a2c3610caa12dba5b2049</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: update the default machine value when the previously set default machine is deleted [NO NEW TESTS NEEDED] Fixes: https://github.com/containers/podman/issues/16483 Signed-off-by: vyasgun &lt;vyasgun20@gmail.com&gt;</MESSAGE>
+      <SHA>cca65db01dd0d08bf1efd98b5bddb6acea880842</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/machine/rm.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

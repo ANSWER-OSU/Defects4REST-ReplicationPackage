@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7105</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/7105</ISSUEURL>
+  <TITLE>Replace usage of `handleDelete` async function by `useRequest`</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY There are a few async functions used to delete items, mainly in details components that can raise a warning such as: ```text react_devtools_backend.js:6 Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function. in WorkflowJobTemplateDetail (created by I18n) in I18n (created by WithI18n) in WithI18n (created by WorkflowJobTemplate) in Route (created by WorkflowJobTemplate) in Switch (created by WorkflowJobTemplate) in article (created by Card) in Card (created by WorkflowJobTemplate) in section (created by PageSection) in PageSection (created by WorkflowJobTemplate) in WorkflowJobTemplate (created by Context.Consumer) in withRouter(WorkflowJobTemplate) (created by I18n) in I18n (created by WithI18n) in WithI18n (created by Context.Consumer) ``` ##### STEPS TO REPRODUCE 1. Go to Projects 2. Select a Project 3. Go to Project Details page 4. Delete the selected project 5. Verify logs ##### EXPECTED RESULTS No warnings to be raised. ##### ADDITIONAL INFORMATION This work was already done for `JobTemplate` and `WorkflowJobTemplate`. As an example, https://github.com/ansible/awx/issues/6971</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>102</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #7079 from wenottingham/short-circuit Always check configuration before gathering data. Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>c2c6f2a197852be34ebf5a2134c6f45c3e0a7616</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Make consistent usage of `useRequest` to delete items Make consistent usage of `useRequest` to delete items. This change is required to avoid warnings such as `Warning: Can't perform a React state update on an unmounted component.` See: https://github.com/ansible/awx/issues/7105</MESSAGE>
+      <SHA>77691a963134505deb3520c967db86a26c2fc64f</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/components/Schedule/ScheduleDetail/ScheduleDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Credential/CredentialDetail/CredentialDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Organization/OrganizationDetail/OrganizationDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Project/ProjectDetail/ProjectDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Team/TeamDetail/TeamDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/User/UserDetail/UserDetail.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

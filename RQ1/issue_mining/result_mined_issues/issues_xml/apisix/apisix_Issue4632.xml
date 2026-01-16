@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4632</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/4632</ISSUEURL>
+  <TITLE>bug: When the service kv does not exist, the fetch timer of consul_kv will fetch service data frantically, resulting in 100% CPU</TITLE>
+  <DESCRIPTION>当服务kv不存在时consul_kv的fetch timer会疯狂获取服务数据导致CPU 100% 2021/07/20 07:11:55 [error] 42#42: *193170 [lua] consul_kv.lua:329: connect consul: http://10.242.154.205:8500/v1/kv/ by key: /kv/apisix-service-upstreams, got result: null, with error: timeout, context: ngx.timer 目测是因为_M.connect异常后直接再次跳转到:: ERR ::再次尝试_M.connect~ 死循环了</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>47</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>docs(cors): update expose_headers description (#4937)</MESSAGE>
+    <SHA>a062a9c83bad20672babd0b0b64484220dcac16c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix(consul): retry connecting after a delay Fix #4632 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>4ebf6a8baae7911af274d025217213f810ab253f</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/discovery/consul_kv.lua</FILE>
+        <FILE>t/discovery/consul_kv.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

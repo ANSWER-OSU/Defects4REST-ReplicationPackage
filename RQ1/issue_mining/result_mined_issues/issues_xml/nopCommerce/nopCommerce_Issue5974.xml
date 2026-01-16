@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5974</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5974</ISSUEURL>
+  <TITLE>PayPal Commerce TAX issue</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40.4 Steps to reproduce the problem: Store has items with different tax percentages, in my case, 0% and 18%. In the scenario where shopping cart has different tax categories and qty the `UnitAmount.Value` sent to PayPal is wrong. ### Cart Example: 1 x Item A (0% Tax) @ € 1 2 x Item B (0% Tax) @ € 1 1 x Item C (18% Tax) @ €1 4 x Item D (18% Tax) @ €1 ### Values Sent to Paypal: `AmountWithBreakdown.Value`: 8.00 `AmountBreakdown.ItemTotal.Value`: 7.25 `AmountWithBreakdown.AmountBreakdown.TaxTotal.Value`: 0.75 `PurchaseUnits.Items.Item.Tax`: null (for all items) `PurchaseUnits.Items.Item.UnitAmount.Value`: € 1 for items with QTY 1, 0.85 for items with QTY 4. This is causing an `UNPROCESSABLE_ENTITY` error when trying to process the payment. **Full message:** ``` PayPalHttp.HttpException: {&quot;name&quot;:&quot;UNPROCESSABLE_ENTITY&quot;,&quot;details&quot;:[{&quot;field&quot;:&quot;/purchase_units/@reference_id=='4d5c7aab-54dc-4f3c-b2a1-6da0c7016ec8'/amount/breakdown/item_total/value&quot;,&quot;value&quot;:&quot;27.98&quot;,&quot;issue&quot;:&quot;ITEM_TOTAL_MISMATCH&quot;,&quot;description&quot;:&quot;Should equal sum of (unit_amount * quantity) across all items for a given purchase_unit&quot;}],&quot;message&quot;:&quot;The requested action could not be performed, semantically incorrect, or failed business validation.&quot;,&quot;debug_id&quot;:&quot;9a1ca202185c0&quot;,&quot;links&quot;:[{&quot;href&quot;:&quot;https://developer.paypal.com/docs/api/orders/v2/#error-ITEM_TOTAL_MISMATCH&quot;,&quot;rel&quot;:&quot;information_link&quot;,&quot;method&quot;:&quot;GET&quot;}]} at PayPalHttp.HttpClient.Execute[T](T req) at Nop.Plugin.Payments.PayPalCommerce.Services.ServiceManager.HandleCheckoutRequestAsync[TRequest,TResult](PayPalCommerceSettings settings, TRequest request) at Nop.Plugin.Payments.PayPalCommerce.Services.ServiceManager.&lt;&gt;c__DisplayClass28_0.&lt;&lt;CreateOrderAsync&gt;b__0&gt;d.MoveNext() --- End of stack trace from previous location --- at Nop.Plugin.Payments.PayPalCommerce.Services.ServiceManager.HandleFunctionAsync[TResult](Func`1 function) ```</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>361</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5934 Fixed display of some elements in advanced mode</MESSAGE>
+    <SHA>e846644eff1d689905a91a45747c4b2482d128e6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5974 PayPalCommerce plugin. Fix rounding issue</MESSAGE>
+      <SHA>de31288b2d5c42b7449d735faedbe7713e9e92fe</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/PayPalCommercePaymentMethod.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/PayPalCommerceSettings.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/Services/ServiceManager.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#5974 PayPalCommerce plugin. Fix shipping tax issue</MESSAGE>
+      <SHA>cd85972aed746dad86e39e6512588dc18fa57c66</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/Services/ServiceManager.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

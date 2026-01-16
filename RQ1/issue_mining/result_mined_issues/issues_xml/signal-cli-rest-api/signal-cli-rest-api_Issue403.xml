@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>403</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/403</ISSUEURL>
+  <TITLE>Actionable information on $stderr goes to nirvana</TITLE>
+  <DESCRIPTION>### The problem On this line here: https://github.com/bbernhard/signal-cli-rest-api/blob/master/src/client/cli.go#L109 only `cmd.Stderr` but not `cmd.Stdout` is part of the error message. This is unfortunate. Why? When our HTTP client sends a request to `signal-cli-rest-api` all we see is the following response: ``` {&quot;error&quot;:&quot;Failed to send message\n&quot;} ``` That's it. But if we try to send the same message to the same number again with `signal-cli`, we also see: ``` Failed to send (some) messages: +49176xxxxxxxx: CAPTCHA proof required for sending to \&quot;+49176xxxxxxxx\&quot;, available options \&quot;RECAPTCHA, PUSH_CHALLENGE\&quot; with challenge token \&quot;6002d6d0-0c16-xxxx-xxxx-xxxxxxxxxxxx\&quot;, or wait \&quot;86400\&quot; seconds. To get the captcha token, go to https://signalcaptchas.org/challenge/generate.html Check the developer tools (F12) console for a failed redirect to signalcaptcha:// Everything after signalcaptcha:// is the captcha token. Use the following command to submit the captcha token: signal-cli submitRateLimitChallenge --challenge CHALLENGE_TOKEN --captcha CAPTCHA_TOKEN ``` This message contains the challenge token(!) This is important for the HTTP client because it could throw a specific error and send this information along with it, e.g. via Sentry, to a human to solve the problem. Based on our experience, this error occurs every now and then. Unfortunately it is phone number specific, so sending messages *to another phone number* works **just fine** making it difficult to become aware of this issue. Waiting the specified 86400 seconds does nothing. So we can no longer message that person (bad) and we unaware of it (even worse). ### Are you using the latest released version? - [X] Yes ### Have you read the troubleshooting page? - [ ] Yes ### What type of installation are you running? signal-cli-rest-api Docker Container ### In which mode are you using the docker container? Normal Mode ### What's the architecture of your host system? x86-64 ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>updated libsignal-client to v0.30.0</MESSAGE>
+    <SHA>c6d065980f69500c66dcbd347b2a164be7febd44</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: include $stdin in server response on error Motivation ---------- The way how I fixed this is that both `Stdout` and `Stderr` are responded back to the client. I don't think it's good practice to discard `$stderr` on success and to discard `$stdout` on error. Let me know what you think. I'm still very new to Golang. How to test ----------- 1. First of all you must be able to reproduce &quot;CAPTCHA proof required&quot; error (I guess you need to send a lot of messages to the same number) 2. Execute: ``` curl -X POST -H &quot;Content-Type: application/json&quot; 'http://localhost:8080/v2/send' \ -d '{&quot;message&quot;: &quot;Test via Signal API!&quot;, &quot;number&quot;: &quot;&lt;SENDER_PHONE_NUMBER&gt;&quot;, &quot;recipients&quot;: [ &quot;&lt;RECIPIENT_PHONE_NUMBER&gt;&quot; ]} ' ``` 3. See in the JSON response: ``` {&quot;error&quot;:&quot;Failed to send (some) messages:\n+49176xxxxxxxx: CAPTCHA proof required for sending to \&quot;+49176xxxxxxxx\&quot;, available options \&quot;RECAPTCHA, PUSH_CHALLENGE\&quot; with challenge token \&quot;1f209ee0-d487-4efc-xxxx-xxxxxxxxxxxx\&quot;, or wait \&quot;86400\&quot; seconds.\nTo get the captcha token, go to https://signalcaptchas.org/challenge/generate.html\nCheck the developer tools (F12) console for a failed redirect to signalcaptcha://\nEverything after signalcaptcha:// is the captcha token.\nUse the following command to submit the captcha token:\nsignal-cli submitRateLimitChallenge --challenge CHALLENGE_TOKEN --captcha CAPTCHA_TOKEN\nxxxxxxxxxxxxx\nFailed to send message\n&quot;} ``` fix #403</MESSAGE>
+      <SHA>7aa1fddcd8f25ce25af39462547094e60e8c7b34</SHA>
+      <PATCHEDFILES>
+        <FILE>src/client/cli.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>28306</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/28306</ISSUEURL>
+  <TITLE>Bug with accountancy import</TITLE>
+  <DESCRIPTION>### Bug Hello everyone! Trying to import some accountancy data in FEC format on Dolibarr 18.0.4 I receive this error for each line of my file: &quot;Data truncated for column 'montant' at row 1&quot;. Have a nice day! ### Environment Version 18.0.4 ### Environment OS Darwin mbpdealexandra2.home 23.3.0 Darwin Kernel Version 23.3.0: Wed Dec 20 21:30:59 PST 2023; root:xnu-10002.81.5~7/RELEASE_ARM64_T6030 arm64 ### Environment Web server Apache/2.4.54 (Unix) OpenSSL/1.0.2u PHP/7.4.33 mod_wsgi/3.5 Python/2.7.18 mod_fastcgi/mod_fastcgi-SNAP-0910052141 mod_perl/2.0.11 Perl/v5.30.1 ### Environment PHP 7.4.33 ### Environment Database 5.7.39 mysqli (mysqlnd 7.4.33) ### Environment URL(s) _No response_ ### Expected and actual behavior When we import a document whith everything mathing the given import format we expect that it works. Here, I receive this error for each line of my file: &quot;Data truncated for column 'montant' at row 1&quot;. ### Steps to reproduce the behavior Importing an XLS FEC file. ### Attached files As I look for this error source, I find bugs in method &quot;computeAmount&quot; in accountancyimport.class.php: We have this line : $field_index_list = array_flip($listfields); But the $listfields don't need to be flip as it is already on the good format: $listfields[$key]=$value; where $key is the field name like debit or credit and $value is an int matching the index for the $arrayrecord[index]['val']. The second error is that in $listfields the indexes are all like b.something. Therefore, $listfield['debit'] must be change in $listfield['b.debit']; With these things changed, the import work well. Here is the corrected code : /** * Compute amount * * @param array $arrayrecord Array of read values: [fieldpos] =&gt; (['val']=&gt;val, ['type']=&gt;-1=null,0=blank,1=string), [fieldpos+1]... * @param array $listfields Fields list to add * @param int $record_key Record key * @return mixed Value */ public function computeAmount(&amp;$arrayrecord, $listfields, $record_key) { // get fields indexes if (isset($listfields['b.debit']) &amp;&amp; isset($listfields['b.credit'])) { $debit_index = $listfields['b.debit']; $credit_index = $listfields['b.credit']; $debit = floatval($arrayrecord[$debit_index]['val']); $credit = floatval($arrayrecord[$credit_index]['val']); if (!empty($debit)) { $amount = $debit; } else { $amount = $credit; } return &quot;'&quot; . $this-&gt;db-&gt;escape(abs($amount)) . &quot;'&quot;; } return &quot;''&quot;; }</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>99</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>FIX: background color for enabled modules (#29378)</MESSAGE>
+    <SHA>be14db7b73bd7a13d11eb28c50405f0f2ee3cc9e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX accounting FEC import (Issue #28306)</MESSAGE>
+      <SHA>e9906fb03aada15ecab55f4e8b48df280bd4f9a3</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/accountancy/class/accountancyimport.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>FIX accounting FEC import (Issue #28306) (#29414)</MESSAGE>
+      <SHA>370785d515176f8203e1176cc45e9b3e47cbf5e5</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/accountancy/class/accountancyimport.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

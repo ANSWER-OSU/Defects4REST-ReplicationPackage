@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122680</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122680</ISSUEURL>
+  <TITLE>[CI] EntitlementsAllowedIT class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6511 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/y7ihmvuhmrm4e) - [elasticsearch-periodic-platform-support #6511 / windows-2019_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/u2tglv75hmsf4) - [elasticsearch-pull-request #58246 / part-1-fips](https://gradle-enterprise.elastic.co/s/nhqblaqej6n76) - [elasticsearch-pull-request #57909 / part-1-fips](https://gradle-enterprise.elastic.co/s/xlkewzrtt4eba) **Reproduction Line:** ``` undefined ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.entitlement.qa.EntitlementsAllowedIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.entitlement.qa.EntitlementsAllowedIT),title:'Test',type:optionsListControl))))) **Failure Message:** ``` undefined ``` **Issue Reasons:** - [8.x] 2 consecutive failures in class org.elasticsearch.entitlement.qa.EntitlementsAllowedIT - [8.x] 2 consecutive failures in step part-1-fips - [8.x] 4 failures in class org.elasticsearch.entitlement.qa.EntitlementsAllowedIT (2.0% fail rate in 201 executions) - [8.x] 2 failures in step part-1-fips (100.0% fail rate in 2 executions) - [8.x] 2 failures in pipeline elasticsearch-pull-request (10.5% fail rate in 19 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Knn vector rescoring to sort score docs (#122653) RescoreKnnVectorQuery rewrites to KnnScoreDocQuery, which takes a sorted array of doc ids and corresponding array including scores fo such docs. A binary search is performed on top of the docs array, and such global ids are converted back to segment level ids (subtracting the context docbase) when scoring docs. RescoreKnnVectoryQuery did not sort the array of docs which caused binary search to return non deterministic results, which in turn made us look up wrong docs, something using out of bound ids. One symptom of this was observed in a DFSProfilerIT test failure which triggered a Lucene assertion around doc id being outside of the range of the bitset of live docs. The fix is to simply sort the score docs array before extracting docs ids and scores and providing them to KnnScoreDocQuery upon rewrite. Relates to #116663 Closes #119711</MESSAGE>
+    <SHA>9adb91d4fe5fe17c2e92706f4dcd8be65b54f9f8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.entitlement.qa.EntitlementsAllowedIT org.elasticsearch.entitlement.qa.EntitlementsAllowedIT #122680</MESSAGE>
+      <SHA>0c16abf454fdf57cb371c20299c7911d129d64ac</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.entitlement.qa.EntitlementsAllowedIT org.elasticsearch.entitlement.qa.EntitlementsAllowedIT #122680</MESSAGE>
+      <SHA>f2a33b89d71cf2fbd40d65babc7d37df7f085d8f</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Entitlements] Add missing entitlements for trust store (#122797) Add missing entitlements for trust store if running in fips mode. Fixes #122546, fixes #122569, fixes #122568, fixes #122680, fixes #122566</MESSAGE>
+      <SHA>87c58ff93f809227888af4ec912935e1515bed31</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/main/java/org/elasticsearch/entitlement/initialization/EntitlementInitialization.java</FILE>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/security/src/main/plugin-metadata/entitlement-policy.yaml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

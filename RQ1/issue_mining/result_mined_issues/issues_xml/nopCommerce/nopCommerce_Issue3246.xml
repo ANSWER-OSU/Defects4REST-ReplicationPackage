@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3246</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3246</ISSUEURL>
+  <TITLE>After changing the product name images are not displayed</TITLE>
+  <DESCRIPTION>Steps to reproduce the issue: 1. Login with an admin user 2. Go to the Product Details page for a product. E.g. Product name: ‘Apple MacBook Pro 13-inch’ a. If you inspect the image, its SEO filename is ‘apple-macbook-pro-13-inch’ 3. Open “Manage this page” in another browser tab to go to the Admin section for this product. 4. Modify the product name and save it. E.g. By adding a letter to the end, from ‘Apple MacBook Pro 13-inch’ to ‘Apple MacBook Pro 13-inchA’ a. This will trigger the SEO filename to get updated and the old thumbs to be deleted. The new SEO filename is now ‘apple-macbook-pro-13-inchA’ 5. Refresh the Product Details page in step#2 or navigate to the same product. a. If you inspect the image, it’s still referring to the old SEO filename and causing the image not to load from its source. After restarting restarting the application or clearing the cache everything is fine. So the problem is in cache.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixed problem with garbage collection type</MESSAGE>
+    <SHA>1d58d0c6ebfc74fa87f37deab223d22fd6203f1f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3246 Added cache cleaning for product images</MESSAGE>
+      <SHA>71bccc40e25c536b6613cd83cae23ea5766094f2</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Infrastructure/Cache/ModelCacheEventConsumer.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

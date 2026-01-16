@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9150</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/9150</ISSUEURL>
+  <TITLE>Search Broken?</TITLE>
+  <DESCRIPTION>I upgraded one of my Orchard Core websites to a recent development release a couple of days ago and search stopped working. In particular it looks like the templates for `Search-Form.liquid` and `Search-Results.liquid` are no longer being rendered, but I haven't had time to investigate it deeply. I also noticed that I am getting errors in the backend when I attempt to add or edit a Lucene Index, but I'm not worried about that at the moment. Interestingly enough, when I run OrchardCore.CMS.Web (.NET5) from the source code using The Blog Theme and navigate to ~/search, it displays nothing (although I can add and edit indexes). I believe this used to display the search form and search results. I verified the search index and permissions are properly configured, but the route just doesn't display the search form or search results. Reproduce I start with no App_Data folder. 1. Navigate to src/OrchardCore.Cms.Web 2. `dotnet run -f net5.0` 3. Setup using The Blog Theme and Sqlite 4. Navigate browser to &quot;search&quot; and see nothing is displayed I don't see anything in the documentation that says search is any different. Am I missing something simple? Thanks!</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Implementing script and style blocks (#9116)</MESSAGE>
+    <SHA>6b3bfaa90fa50a04bb7f99ba7aad7755ffc0e054</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #9150 Search Liquid Views</MESSAGE>
+      <SHA>ee68d896a113f2119dfb433c3366aa5372836289</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Lucene/Startup.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #9150 Search Liquid Views (#9151)</MESSAGE>
+      <SHA>2b90861ea823aba931b4c630681d0323d659180c</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Lucene/Startup.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

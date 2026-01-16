@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19373</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/19373</ISSUEURL>
+  <TITLE>socat examples in socket_activation.md might silently time out due to the 0.5 second socat default timeout</TITLE>
+  <DESCRIPTION>### Issue Description The socat default timeout is __0.5 seconds__. There is a risk that these commands do not succeed: https://github.com/containers/podman/blob/970614708937a57b6e77d2423418c40bfad398a2/docs/tutorials/socket_activation.md?plain=1#L196-L207 Use the socat option __-t__ to increase the timeout. At least, using the __-t__ option will highlight the fact that __socat__ uses a timeout. ### Steps to reproduce the issue Steps to reproduce the issue 1. Follow the socket-activate-echo example in Podman socket activation tutorial [_socket_activation.md_](https://github.com/containers/podman/blob/main/docs/tutorials/socket_activation.md#example-socket-activated-echo-server-container-in-a-systemd-service) ### Describe the results you received I have not seen this myself, but maybe the 0.5 second socat default timeout could result in ``` $ echo hello | socat - tcp4:127.0.0.1:3000 $ echo hello | socat - tcp6:[::1]:3000 $ echo hello | socat - udp4:127.0.0.1:3000 $ echo hello | socat - udp6:[::1]:3000 $ echo hello | socat - unix:$HOME/echo_stream_sock $ echo hello | socat - VSOCK-CONNECT:1:3000 ``` I have experienced that the first socat command times out when the container image needs to be pulled. In other words, I have experienced: ``` $ echo hello | socat - tcp4:127.0.0.1:3000 $ echo hello | socat - tcp6:[::1]:3000 hello $ echo hello | socat - udp4:127.0.0.1:3000 hello $ echo hello | socat - udp6:[::1]:3000 hello $ echo hello | socat - unix:$HOME/echo_stream_sock hello $ echo hello | socat - VSOCK-CONNECT:1:3000 hello ``` In *socket_activation.md* the instruction is to pull the container image beforehand (to avoid the problem of long downloading times). ### Describe the results you expected ``` $ echo hello | socat - tcp4:127.0.0.1:3000 hello $ echo hello | socat - tcp6:[::1]:3000 hello $ echo hello | socat - udp4:127.0.0.1:3000 hello $ echo hello | socat - udp6:[::1]:3000 hello $ echo hello | socat - unix:$HOME/echo_stream_sock hello $ echo hello | socat - VSOCK-CONNECT:1:3000 hello ``` ### podman info output ```yaml Not relevant. ``` ### Podman in a container No ### Privileged Or Rootless Rootless ### Upstream Latest Release Yes ### Additional environment details _No response_ ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19281 from edsantiago/alternate_tmpdir CI: use different TMPDIR on prior-fedora</MESSAGE>
+    <SHA>aa372ce22dfa3bcae019e7852148f9a3cbc03629</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[CI:DOCS] socket_activation.md: increase socat timeout The default socat timeout is 0.5 seconds. Make the socket-activate-echo example in socket_activation.md more robust by increasing the socat timeout. Fixes: https://github.com/containers/podman/issues/19373 Signed-off-by: Erik Sjölund &lt;erik.sjolund@gmail.com&gt;</MESSAGE>
+      <SHA>5ba055937756b268da265280b8b69a621f679457</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/tutorials/socket_activation.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

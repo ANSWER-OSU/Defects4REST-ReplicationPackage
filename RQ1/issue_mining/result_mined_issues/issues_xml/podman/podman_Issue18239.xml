@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18239</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18239</ISSUEURL>
+  <TITLE>Error: stat Dockerfile: no such file or directory on windows with Podman 4.4.4</TITLE>
+  <DESCRIPTION>### Issue Description Describe your issue When I install the latest Podman (current 4.4.4) I got the following error, when I call `podman build --build-arg output_format=sd-aarch64 -f Dockerfile ./nix-configurations`: `Error: stat /var/tmp/libpod_builder142412274/build/path/Dockerfile: no such file or directory `. It was confusing, because here it says it is fixed with Podman 4: https://github.com/containers/podman/issues/12841. So I tried a bit and I downgraded to Podman 4.3.1 and after downgrading and using a fedora image with the exact podman engine 4.3.1 the build is working. So smth has changed betiween 4.3.1 and 4.4.4. ### Steps to reproduce the issue Steps to reproduce the issue 1. Install `Podman 4.4.4` 2. Call `podman machine init` 3. Call `podman machine start` 4. Check version to see whether we have podman and podman engine both 4.4.4 5. Call command in your folder with a subfolder which is the context: `podman build --build-arg output_format=sd-aarch64 -f Dockerfile ./nix-configurations` 6. See the error `Error: stat /var/tmp/libpod_builder142412274/build/path/Dockerfile: no such file or directory` 7. Remove podman and all the machines from your system and install version 4.3.1 8. If you removed everything and reinstalled Podman 4.3.1, just call this podman machine init --image-path https://github.com/containers/podman-wsl-fedora/releases/download/v36.0.130/rootfs.tar.xz 9. Call `podman build --build-arg output_format=sd-aarch64 -f Dockerfile ./nix-configurations` and it will work ### Describe the results you received Describe the results you received The error that the Dockerfile was not found but it is inside the current folder. ### Describe the results you expected Describe the results you expected It should find the Dockerfile ### podman info output ```yaml host: arch: amd64 buildahVersion: 1.28.0 cgroupControllers: - memory - pids cgroupManager: cgroupfs cgroupVersion: v2 conmon: package: conmon-2.1.5-1.fc36.x86_64 path: /usr/bin/conmon version: 'conmon version 2.1.5, commit: ' cpuUtilization: idlePercent: 98.96 systemPercent: 0.66 userPercent: 0.38 cpus: 2 distribution: distribution: fedora variant: container version: &quot;36&quot; eventLogger: journald hostname: DESKTOP-E9VTPG2 idMappings: gidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 100000 size: 65536 uidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 100000 size: 65536 kernel: 5.10.102.1-microsoft-standard-WSL2 linkmode: dynamic logDriver: journald memFree: 1243852800 memTotal: 3058081792 networkBackend: netavark ociRuntime: name: crun package: crun-1.8-1.fc36.x86_64 path: /usr/bin/crun version: |- crun version 1.8 commit: 0356bf4aff9a133d655dc13b1d9ac9424706cac4 rundir: /run/user/1000/crun spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +CRIU +WASM:wasmedge +YAJL os: linux remoteSocket: exists: true path: /run/user/1000/podman/podman.sock security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: true seccompEnabled: true seccompProfilePath: /usr/share/containers/seccomp.json selinuxEnabled: false serviceIsRemote: true slirp4netns: executable: /usr/bin/slirp4netns package: slirp4netns-1.2.0-0.2.beta.0.fc36.x86_64 version: |- slirp4netns version 1.2.0-beta.0 commit: 477db14a24ff1a3de3a705e51ca2c4c1fe3dda64 libslirp: 4.6.1 SLIRP_CONFIG_VERSION_MAX: 3 libseccomp: 2.5.3 swapFree: 1066168320 swapTotal: 1073741824 uptime: 31h 27m 3.00s (Approximately 1.29 days) plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan volume: - local registries: search: - registry.fedoraproject.org - registry.access.redhat.com - docker.io - quay.io store: configFile: /home/user/.config/containers/storage.conf containerStore: number: 0 paused: 0 running: 0 stopped: 0 graphDriverName: overlay graphOptions: {} graphRoot: /home/user/.local/share/containers/storage graphRootAllocated: 1081101176832 graphRootUsed: 1583628288 graphStatus: Backing Filesystem: extfs Native Overlay Diff: &quot;false&quot; Supports d_type: &quot;true&quot; Using metacopy: &quot;false&quot; imageCopyTmpDir: /var/tmp imageStore: number: 2 runRoot: /run/user/1000/containers volumePath: /home/user/.local/share/containers/storage/volumes version: APIVersion: 4.3.1 Built: 1668180253 BuiltTime: Fri Nov 11 16:24:13 2022 GitCommit: &quot;&quot; GoVersion: go1.18.7 Os: linux OsArch: linux/amd64 Version: 4.3.1 ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details Windows 11 - 64 bit Client: Podman Engine Version: 4.3.1 API Version: 4.3.1 Go Version: go1.18.5 Git Commit: 814b7b003cc630bf6ab188274706c383f9fb9915 Built: Thu Nov 10 15:18:45 2022 OS/Arch: windows/amd64 Server: Podman Engine Version: 4.3.1 API Version: 4.3.1 Go Version: go1.18.7 Built: Fri Nov 11 16:24:13 2022 OS/Arch: linux/amd64 ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>42</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18554 from n1hility/sync-docker-sock Sync machine docker.sock according to rootful flag</MESSAGE>
+    <SHA>4c399fc6fb2de70e0a197cd81fc3978d586e23ee</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Support podman --remote when Containerfile is not in context directory Fixes: https://github.com/containers/podman/issues/18239 [NO NEW TESTS NEEDED] @test &quot;podman build -f test&quot; in test/system/070-build.bats Will test this. This was passing when run on a local system since the remote end was using the clients path to read the Containerfile The issue is it would not work in a podman machine since the Containerfile would/should be a different path. Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>abd72f6d2175edf407a2f90e45536d13e1caf5ad</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/compat/images_build.go</FILE>
+        <FILE>pkg/bindings/images/build.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Support podman --remote when Containerfile is not in context directory Fixes: https://github.com/containers/podman/issues/18239 [NO NEW TESTS NEEDED] @test &quot;podman build -f test&quot; in test/system/070-build.bats Will test this. This was passing when run on a local system since the remote end was using the clients path to read the Containerfile The issue is it would not work in a podman machine since the Containerfile would/should be a different path. Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>4108b37118c3abf199cf211eac4eba26b2ab10b6</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/compat/images_build.go</FILE>
+        <FILE>pkg/bindings/images/build.go</FILE>
+        <FILE>pkg/util/utils.go</FILE>
+        <FILE>test/e2e/build_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Support podman --remote when Containerfile is not in context directory Fixes: https://github.com/containers/podman/issues/18239 [NO NEW TESTS NEEDED] @test &quot;podman build -f test&quot; in test/system/070-build.bats Will test this. This was passing when run on a local system since the remote end was using the clients path to read the Containerfile The issue is it would not work in a podman machine since the Containerfile would/should be a different path. Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt; Signed-off-by: Romain Geissler &lt;romain.geissler@amadeus.com&gt;</MESSAGE>
+      <SHA>65af13bbf79d4740918e29e25103697ef5891c3d</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/compat/images_build.go</FILE>
+        <FILE>pkg/bindings/images/build.go</FILE>
+        <FILE>test/e2e/build_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Support podman --remote when Containerfile is not in context directory Fixes: https://github.com/containers/podman/issues/18239 [NO NEW TESTS NEEDED] @test &quot;podman build -f test&quot; in test/system/070-build.bats Will test this. This was passing when run on a local system since the remote end was using the clients path to read the Containerfile The issue is it would not work in a podman machine since the Containerfile would/should be a different path. Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt; &lt;MH: Cherry-pick to v4.4.1-rhel&gt; Signed-off-by: Matt Heon &lt;mheon@redhat.com&gt;</MESSAGE>
+      <SHA>e0654150d07a4974b6b587918e400066eea3936f</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/compat/images_build.go</FILE>
+        <FILE>pkg/bindings/images/build.go</FILE>
+        <FILE>test/e2e/build_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

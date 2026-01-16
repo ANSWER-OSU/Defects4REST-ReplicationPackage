@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126354</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126354</ISSUEURL>
+  <TITLE>[CI] SearchableSnapshotActionIT testSearchableSnapshotTotalShardsPerNode failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7440 / release-tests](https://gradle-enterprise.elastic.co/s/2e7cwesify5he) - [elasticsearch-pull-request #66239 / part-5](https://gradle-enterprise.elastic.co/s/gn77vuvis2caq) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:ilm:qa:multi-node:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.ilm.actions.SearchableSnapshotActionIT.testSearchableSnapshotTotalShardsPerNode&quot; -Dtests.seed=497C5BC56D95C60C -Dbuild.snapshot=false -Dtests.jvm.argline=&quot;-Dbuild.snapshot=false&quot; -Dlicense.key=x-pack/license-tools/src/test/resources/public.key -Dtests.locale=sa-IN -Dtests.timezone=Etc/GMT+3 -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.ilm.actions.SearchableSnapshotActionIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testSearchableSnapshotTotalShardsPerNode),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: null ``` **Issue Reasons:** - [main] 2 failures in test testSearchableSnapshotTotalShardsPerNode (0.7% fail rate in 289 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[DOCS] Migrate search profile API examples (#126347)</MESSAGE>
+    <SHA>1d1feb60104ae390b6c43dc1c51438bc9edf0db2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ilm.actions.SearchableSnapshotActionIT testSearchableSnapshotTotalShardsPerNode #126354</MESSAGE>
+      <SHA>a6aaccdb7f693eb8fbf3676667443b90e5d403c7</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix equality bug in `WaitForIndexColorStep` The `indexNameSupplier` was included in the equality and is of type `BiFunction`, which doesn't implement a proper `equals` method by default - and thus neither do the lambdas. This meant that two instances of this step would only be considered equal if they were the same instance. By excluding `indexNameSupplier` from the `equals` method, we ensure the method works as intended and is able to properly tell the equality between two instances. As a side effect, we expect/hope this change will fix a number of tests that were failing because `WaitForIndexColorStep` missed the last cluster state update in the test, causing ILM to get stuck and the test to time out. Fixes #125683 Fixes #125789 Fixes #125867 Fixes #125911 Fixes #126053 Fixes #126354</MESSAGE>
+      <SHA>941a977347e5a9f4a5cce09aaec4161193d92bcb</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/core/src/main/java/org/elasticsearch/xpack/core/ilm/WaitForIndexColorStep.java</FILE>
+        <FILE>x-pack/plugin/ilm/qa/multi-node/src/javaRestTest/java/org/elasticsearch/xpack/ilm/actions/SearchableSnapshotActionIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix equality bug in `WaitForIndexColorStep` The `indexNameSupplier` was included in the equality and is of type `BiFunction`, which doesn't implement a proper `equals` method by default - and thus neither do the lambdas. This meant that two instances of this step would only be considered equal if they were the same instance. By excluding `indexNameSupplier` from the `equals` method, we ensure the method works as intended and is able to properly tell the equality between two instances. As a side effect, we expect/hope this change will fix a number of tests that were failing because `WaitForIndexColorStep` missed the last cluster state update in the test, causing ILM to get stuck and the test to time out. Fixes #125683 Fixes #125789 Fixes #125867 Fixes #125911 Fixes #126053 Fixes #126354</MESSAGE>
+      <SHA>5098a1645b5731c155fae38de0be7e9a0f21dd82</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/core/src/main/java/org/elasticsearch/xpack/core/ilm/WaitForIndexColorStep.java</FILE>
+        <FILE>x-pack/plugin/ilm/qa/multi-node/src/javaRestTest/java/org/elasticsearch/xpack/ilm/actions/SearchableSnapshotActionIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

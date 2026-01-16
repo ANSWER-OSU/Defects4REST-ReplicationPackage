@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5768</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5768</ISSUEURL>
+  <TITLE>VAT (tax) calculation. Option to automatically detect a country</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40.4 Originally the issue is described at https://www.nopcommerce.com/en/boards/topic/7455/vat-configuration-guide/page/3#286741 So there are two options to implement: 1. Detect a country by IP address. 2. Ask a customer to confirm a determined country with a popup window. For example, &quot;Your country is [country_name]&quot;. And two options - the &quot;Yes&quot; button (confirm) and a dropdownlist to change it in case if it wasn't properly detected Let's implement the first option only. So we'll detect the country automatically but at the same moment we'll also have an option to leave the existing logic: 1. Currently we already have the &quot;default tax address&quot; block in the admin area &gt; configuration &gt; settings &gt; tax settings 2. Rename it to &quot;Tax address (used for tax calculation)&quot; instead of &quot;Default tax address (used for tax calculation)&quot; 3. Let's add a new setting (checkbox) to this page - &quot;Automatically detect a country by IP address&quot;. It'll be enabled by default 4. When enabled we'll detect a customer country with GEO service (by IP address). And when enabled, the &quot;default address&quot; block will be hidden on this configuration page 5. When disabled, we'll display the &quot;Default tax address&quot; block with all appropriate address fields. In this case, the old (existing) logic will be used</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>659</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6678 AddThis service replaced with ShareThis</MESSAGE>
+    <SHA>2871811eecf8f6666236df8bd1892b1ac9230824</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5768 Added option to automatically detect country for tax calculation</MESSAGE>
+      <SHA>62daccbe2691dfe995b741827b566fd8204947a3</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Tax/TaxSettings.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Installation/InstallationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Tax/TaxService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo470/LocalizationMigration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo470/SettingMigration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/SettingController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/SettingModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Infrastructure/Mapper/AdminMapperConfiguration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Settings/TaxSettingsModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Setting/_Tax.Common.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#5768 Changed locales. Fixed condition of address selection</MESSAGE>
+      <SHA>e01225f3843308b87b65f6dd14b8937e7b1c6bbf</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Tax/TaxSettings.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Tax/TaxService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo470/LocalizationMigration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2553</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2553</ISSUEURL>
+  <TITLE>E-mail plugin reports build as succesfull even though other pipelines failed</TITLE>
+  <DESCRIPTION>After updating to 1.0 I've converted a matrix build to a multi-machine with a notify step which depends on the previous pipelines, similar to what is suggested here: https://docs.drone.io/user-guide/pipeline/multi-machine/ Instead of Slack, I'm using the e-mail plugin though: ```yaml --- kind: pipeline name: notify clone: disable: true steps: - name: notify image: drillster/drone-email settings: # ... depends_on: - pipeline_a - pipeline_b trigger: status: - failure ``` Even though all pipeline_a and pipeline_b failed, I'm getting an email with the message &quot;Successful build #xy&quot;. I guess this is because the plugin gets the status of its own machine / pipeline, not the status of the whole build?</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>92</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>enable basic jsonnet in process</MESSAGE>
+    <SHA>5013cfa993fa455fc56f10e45b9f36cf1d6dff57</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix issue #2553</MESSAGE>
+      <SHA>4e4932512cc42c668cff8f627235cf1899991a28</SHA>
+      <PATCHEDFILES>
+        <FILE>operator/manager/manager.go</FILE>
+        <FILE>operator/runner/runner.go</FILE>
+        <FILE>store/shared/migrate/mysql/ddl_gen.go</FILE>
+        <FILE>store/shared/migrate/postgres/ddl_gen.go</FILE>
+        <FILE>store/shared/migrate/postgres/files/002_create_table_repos.sql</FILE>
+        <FILE>store/shared/migrate/postgres/files/004_create_table_builds.sql</FILE>
+        <FILE>store/shared/migrate/postgres/files/005_create_table_stages.sql</FILE>
+        <FILE>store/shared/migrate/sqlite/ddl_gen.go</FILE>
+        <FILE>store/shared/migrate/sqlite/files/004_create_table_builds.sql</FILE>
+        <FILE>store/shared/migrate/sqlite/files/005_create_table_stages.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

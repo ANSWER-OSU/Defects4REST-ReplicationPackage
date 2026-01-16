@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>639</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/639</ISSUEURL>
+  <TITLE>Params cannot contain the equals sign</TITLE>
+  <DESCRIPTION>Because of https://github.com/drone/drone/blob/master/shared/build/script/script.go#L106 , seems you'll only get the portion of a param up until the = sign. Maybe something as simple as `strings.SplitN(env, &quot;=&quot;, 2)` ?</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge remote-tracking branch 'upstream/master'</MESSAGE>
+    <SHA>f3eb93ca184141ca5de34c420b806c9c7b802838</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fixes #639</MESSAGE>
+      <SHA>f21fd563e8a11821a6d16b8e8dfc80057f486639</SHA>
+      <PATCHEDFILES>
+        <FILE>shared/build/buildfile/buildfile.go</FILE>
+        <FILE>shared/build/buildfile/buildfile_test.go</FILE>
+        <FILE>shared/build/script/script.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #656 from bradrydzewski/master fixes #639</MESSAGE>
+      <SHA>df115cacb253da4913bd57ace3dd858e3f73a498</SHA>
+      <PATCHEDFILES>
+        <FILE>plugin/deploy/modulus/modulus_test.go</FILE>
+        <FILE>plugin/deploy/nodejitsu/nodejitsu_test.go</FILE>
+        <FILE>plugin/deploy/ssh_test.go</FILE>
+        <FILE>shared/build/buildfile/buildfile.go</FILE>
+        <FILE>shared/build/buildfile/buildfile_test.go</FILE>
+        <FILE>shared/build/script/script.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Upgrade alpine git image version (#639)</MESSAGE>
+      <SHA>504f40cc504a211fbe7a46ade559b1d786237994</SHA>
+      <PATCHEDFILES>
+        <FILE>Dockerfile</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

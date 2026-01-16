@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7107</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/7107</ISSUEURL>
+  <TITLE>awxkit install fails on local clones</TITLE>
+  <DESCRIPTION>Note: i heard of another issue about this, but i couldn't find it. please link them together if you know the issue. ##### ISSUE TYPE - Bug Report ##### SUMMARY `pip` does not honor symlinks in local clones. It got merged three weeks ago and they're going to have to revert it: https://github.com/pypa/pip/issues/7555 The issue has been somewhat existent since 2016: https://github.com/pypa/pip/issues/3500 Current workaround is rm awx/awxkit/VERSION and cp awx/VERSION awx/awxkit/VERSION. This issue should be about either acknowledging the pip issue and monitoring it via this repo, or making the VERSION file not a symlink. ##### STEPS TO REPRODUCE run `pip install awx/awxkit`. ##### EXPECTED RESULTS Install succeeds. ##### ACTUAL RESULTS VERSION file isn't found, failure occurs.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #7106 from ryanpetrello/no-symlinks Revert &quot;follow symlinks while discovering valid playbooks&quot; Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>7939f2d320b4c54d3823e9ed56081d663456bc43</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>don't use symlinks for awxkit VERSION as much as I'd like this to just work, certain versions of pip just don't support it -_- see: https://github.com/ansible/awx/issues/7107 see: https://github.com/pypa/pip/issues/7555 so unfortunately, we just have to track these as two distinct files and just keep them in sync</MESSAGE>
+      <SHA>1d7769e122d25c2a39f9d46c0631818432611ebe</SHA>
+      <PATCHEDFILES>
+        <FILE>awxkit/VERSION</FILE>
+        <FILE>awxkit/VERSION</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>don't use symlinks for awxkit VERSION as much as I'd like this to just work, certain versions of pip just don't support it -_- see: https://github.com/ansible/awx/issues/7107 see: https://github.com/pypa/pip/issues/7555 so unfortunately, we just have to track these as two distinct files and just keep them in sync</MESSAGE>
+      <SHA>0c6b7fdb590198d33e5201e19513e3916d7508e1</SHA>
+      <PATCHEDFILES>
+        <FILE>Makefile</FILE>
+        <FILE>awxkit/VERSION</FILE>
+        <FILE>awxkit/VERSION</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

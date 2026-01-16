@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23753</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/23753</ISSUEURL>
+  <TITLE>Bug: Can't create invoice from ODT template - Error &quot;Nothing to parse - Check that the content.xml file is correctly formed in source file '/var/lib/dolibarr/documents/doctemplates/invoices/template_invoice.odt'&quot; - Ubuntu 22.04 - PHP 8.1.2 - Dolibarr Deb 16.0.3-4</TITLE>
+  <DESCRIPTION>Dear Dolibarr community, I've been using Dolibarr on Ubuntu 20.x and PHP 7.4 for a long time without any problem, and very stable. Since the migration to Ubuntu 22.x and PHP 8.1, I experience the following issue: every time I try to generate an invoice based on an ODT template, the following error occurs on the GUI: `Nothing to parse - Check that the content.xml file is correctly formed in source file '/var/lib/dolibarr/documents/doctemplates/invoices/template_invoice.odt'` The PHP error: ` [Wed Feb 01 18:37:50.154062 2023] [php:warn] [pid 57527] [client xxx.xxx.xxx.xxx:52755] PHP Warning: Undefined array key &quot;propal&quot; in /usr/share/dolibarr/htdocs/core/modules/facture/doc/doc_generic_invoice_odt.modules.php on line 337, referer: https://xxx.xxx.xx/dolibarr/compta/facture/card.php?facid=113&amp;mainmenu=home [Wed Feb 01 18:37:50.154130 2023] [php:warn] [pid 57527] [client xxx.xxx.xxx.xxx:52755] PHP Warning: Trying to access array offset on value of type null in /usr/share/dolibarr/htdocs/core/modules/facture/doc/doc_generic_invoice_odt.modules.php on line 337, referer: https://xxx.xxx.xx/dolibarr/compta/facture/card.php?facid=113&amp;mainmenu=home ` The thing is that the ODT templates have not been modified at all, and they were working perfectly with Ubuntu 20.x and PHP 7.4. OS: 22.04.1 LTS PHP version: 8.1.2 Dolibarr: Deb 16.0.3-4 Any idea on how to fix this? Thank you and best regards. Alexandre</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '15.0' of git@github.com:Dolibarr/dolibarr.git into 16.0</MESSAGE>
+    <SHA>c4d8268ea5a73a2a25393f31c44a342dadc2cec0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix https://github.com/Dolibarr/dolibarr/issues/23753</MESSAGE>
+      <SHA>eb6c25f64d67788a11d54ce0036eb8c2054cc035</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/modules/facture/doc/doc_generic_invoice_odt.modules.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #23755 from frederic34/patch-4 fix #23753</MESSAGE>
+      <SHA>d3a26efb0e639dfe08977325d898b441916fb3e1</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/modules/facture/doc/doc_generic_invoice_odt.modules.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

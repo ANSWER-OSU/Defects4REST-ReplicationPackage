@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2450</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2450</ISSUEURL>
+  <TITLE>bug: limit-conn</TITLE>
+  <DESCRIPTION>### Issue description I had test the plugin of limit-conn.I found the question that the same ip only request the router by five times when conn is 5 and key is remote_addr, and i don't request the router next time.Why so that? ### Environment * apisix version (cmd: `apisix version`): * OS: ### Minimal test code / Steps to reproduce the issue Plugin limit-conn Edit conn=5 rejected_code=503 burst=0 key=remote_addr default_conn_delay=0 ### What's the actual result? (including assertion message &amp; call stack if applicable) same user only visit the router with the config ### What's the expected result? i hope that the plugin only limit concurrency,and different users also continue to request the router when user request the service after first .</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>53</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>test: make node/merge-route.t stable (#2999) The time_window field might be the last one, which doesn't have ',' Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+    <SHA>270aef027a695a5b80b04b1859dfa3250fd9dec4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>bugfix: always necessary to save the data of the limit concurrency, and release the statistical status in the log phase. (#2465) fix #2450</MESSAGE>
+      <SHA>a670ea2f2e7fc25bf3e597573a97a04594cbfee0</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/limit-conn.lua</FILE>
+        <FILE>t/plugin/limit-conn.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4307</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/4307</ISSUEURL>
+  <TITLE>Single master server takes a long time to start up</TITLE>
+  <DESCRIPTION>Sponsors SeaweedFS via Patreon https://www.patreon.com/seaweedfs Report issues here. Ask questions here https://stackoverflow.com/questions/tagged/seaweedfs Please ask questions in https://github.com/seaweedfs/seaweedfs/discussions example of a good issue report: https://github.com/seaweedfs/seaweedfs/issues/1005 example of a bad issue report: https://github.com/seaweedfs/seaweedfs/issues/1008 **Describe the bug** I would like to use seaweedfs for testing so the current startup speed is an issue for me. Starting the master server on a single node takes quite a long time (~20s). For example: ```shell $ mkdir tmp $ weed master -mdir $(readlink -f tmp) -ip localhost -port 9333 I0314 11:41:10.886451 file_util.go:23 Folder /home/stewart/tmp Permission: -rwxr-xr-x I0314 11:41:10.887853 master.go:268 current: localhost:9333 peers: I0314 11:41:10.887920 master_server.go:127 Volume Size Limit is 30000 MB I0314 11:41:10.888133 master.go:149 Start Seaweed Master 30GB 3.43 3227e4175e2bf8df2ac8aeeff8cf73a819abc5a7 at localhost:9333 I0314 11:41:10.888407 raft_server.go:119 Starting RaftServer with localhost:9333 I0314 11:41:10.903295 raft_server.go:168 current cluster leader: I0314 11:41:28.904858 master_server.go:215 [localhost:9333] - is the leader. W0314 11:41:28.905130 tls.go:39 pemfile.NewProvider({ 5h0m0s}) grpc.master failed: pemfile: at least one credential file needs to be specified I0314 11:41:28.907455 master.go:200 Start Seaweed Master 30GB 3.43 3227e4175e2bf8df2ac8aeeff8cf73a819abc5a7 grpc server at localhost:19333 I0314 11:41:30.408553 masterclient.go:155 No existing leader found! I0314 11:41:30.408613 raft_server.go:190 Initializing new cluster I0314 11:41:30.408659 master_server.go:174 leader change event: =&gt; localhost:9333 I0314 11:41:30.408689 master_server.go:177 [localhost:9333] localhost:9333 becomes leader. I0314 11:41:33.911888 master_grpc_server.go:349 + client .master@localhost:9333 ``` The startup process hangs for ~18s between 11:41:10.903295 and 11:41:28.904858. I had a quick dig through the code and it looks like it's something to do with the leader election and Raft. As far as I can tell there isn't a way to configure this startup timeout when running in a single node configuration. **System Setup** - List the command line to start &quot;weed master&quot;, &quot;weed volume&quot;, &quot;weed filer&quot;, &quot;weed s3&quot;, &quot;weed mount&quot;. `weed master` (see above) - OS version Ubuntu 20.04 - output of `weed version` `version 30GB 3.43 3227e4175e2bf8df2ac8aeeff8cf73a819abc5a7 linux amd64` - if using filer, show the content of `filer.toml` N/A **Expected behavior** It would be great if there was a flag / configuration option to enable master server start up without waiting for leader election. **Screenshots** N/A see logs above. **Additional context** As mentioned above, I would love to use this in a testing environment for code that would usually hit a Cloud hosted blob/object store like AWS S3.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#4270 set http status code to 409 if dir already exists (#4287)</MESSAGE>
+    <SHA>59706c89fb3d2ab325a36ef237e147f99d6d259e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix -raftHashicorp and -raftBootstrap flag propagation. `weed server` was not correctly propagating `-master.raftHashicorp` and `-master.raftBootstrap` flags when starting the master server. Related to #4307</MESSAGE>
+      <SHA>eff7e75a0dca517481fcc8e2dc5d3c4f1807ad1d</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/master.go</FILE>
+        <FILE>weed/command/server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix -raftHashicorp and -raftBootstrap flag propagation. (#4309) `weed server` was not correctly propagating `-master.raftHashicorp` and `-master.raftBootstrap` flags when starting the master server. Related to #4307</MESSAGE>
+      <SHA>dd71f54c6b8355a35cda134173d9ebb76a53b62c</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/master.go</FILE>
+        <FILE>weed/command/server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Use exponential backoff to query leader. `topology.Leader()` was using a backoff that typically resulted in at least a 5s delay when initially starting a master and raft server. This changes the backoff algorithm to use exponential backoff starting with 100ms and waiting up to 20s for leader selection. Related to #4307</MESSAGE>
+      <SHA>8c11affc496efb10b1115c888ecb10c1729eb2a0</SHA>
+      <PATCHEDFILES>
+        <FILE>go.mod</FILE>
+        <FILE>go.sum</FILE>
+        <FILE>weed/topology/topology.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Use exponential backoff to query leader. (#4313) `topology.Leader()` was using a backoff that typically resulted in at least a 5s delay when initially starting a master and raft server. This changes the backoff algorithm to use exponential backoff starting with 100ms and waiting up to 20s for leader selection. Related to #4307</MESSAGE>
+      <SHA>57ab1f851656276f62124c3dc5e3fc0d15eed646</SHA>
+      <PATCHEDFILES>
+        <FILE>go.mod</FILE>
+        <FILE>go.sum</FILE>
+        <FILE>weed/topology/topology.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Retry until a leader is selected. Fixes regression introduced in https://github.com/seaweedfs/seaweedfs/pull/4313 Related to #4307</MESSAGE>
+      <SHA>28a1b2adf2a052c9b8ac6baf3398f0f5c34e2a91</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/topology/topology.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Retry until a leader is selected. Fixes regression introduced in https://github.com/seaweedfs/seaweedfs/pull/4313 Related to #4307</MESSAGE>
+      <SHA>6d47e9f4b52e99a19845d47d5ef4db3963ebea54</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/topology/topology.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Retry until a leader is selected. (#4318) Fixes regression introduced in https://github.com/seaweedfs/seaweedfs/pull/4313 Related to #4307</MESSAGE>
+      <SHA>264be0d2d4e61543902e79c0b092103400c283f7</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/topology/topology.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

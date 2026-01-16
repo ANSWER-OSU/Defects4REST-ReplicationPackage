@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2022</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2022</ISSUEURL>
+  <TITLE>drone may restart previously finished builds on startup</TITLE>
+  <DESCRIPTION>The build queue is persisted so that on restart we can re-queue pending builds. When a build is pulled from the queue it is deleted from the datastore. This doesn't seem to be working properly. As a result, when you restart drone, builds that have already finished might still be re-queued and re-executed. The impacts the 0.6 release candidate. Note that I only encountered this issue once and have been unable to repeat since. I will monitor closely over the next few days and report back.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>add debug info to queue backup</MESSAGE>
+    <SHA>9c69e2a5e13ded57fc2ea6817a6a28740526ea1c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix issue #2022</MESSAGE>
+      <SHA>797bb4970fced3062c001c4de5842110b535731a</SHA>
+      <PATCHEDFILES>
+        <FILE>model/queue.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat: add desc to webhooks (#2022)</MESSAGE>
+      <SHA>cfddbeb143ac40f3ce0ad7881e2ad998480049d0</SHA>
+      <PATCHEDFILES>
+        <FILE>app/services/webhook/types.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat: add desc to webhooks (#2022)</MESSAGE>
+      <SHA>c5bc7733a6200b26a1727581ad36ed38f68393a0</SHA>
+      <PATCHEDFILES>
+        <FILE>app/services/webhook/types.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

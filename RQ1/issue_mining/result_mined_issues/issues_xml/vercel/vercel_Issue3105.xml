@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3105</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/3105</ISSUEURL>
+  <TITLE>[now-cli] upgrading to 16.3.0 breaks the routes</TITLE>
+  <DESCRIPTION>**Summary** I'm hosting a `static build` of my CRA bootstrapped app to Zeit. After upgrading to 16.3.0, my route redirection to root file stopped working. I was using `now.json.routes` to redirect all my dynamic routes to `index.html` file for frontend route handling. I am getting 404 errors while accessing routes other than index. Reverting back to **16.2.0** seams to fix this issue. My `now.json` file ```json { &quot;name&quot;: &quot;app-name&quot;, &quot;routes&quot;: [ { &quot;src&quot;: &quot;/static/(.*)&quot;, &quot;dest&quot;: &quot;/static/$1&quot; }, { &quot;src&quot;: &quot;/(.*\\.(js|json|png|jpg|ico|txt))&quot;, &quot;dest&quot;: &quot;/$1&quot; }, { &quot;src&quot;: &quot;/(.*)&quot;, &quot;dest&quot;: &quot;/&quot; } ] } ``` **Steps to reproduce** Any `SPA` which is statically hosted with above `routes` configuration should reproduce the issue when deployed with `now-cli@16.3.0`.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Revert &quot;[tests] Add test all script&quot; since it runs on commit (#3108) Reverts #3106 from @MAPESO The tests seem to be running on each commit which is going to slow down development.</MESSAGE>
+    <SHA>0af87dc2bef14e1368342482cf416e32055021b3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-cli][now-client] Add parameter `nowConfig` for custom now.json (#3110) When now-client was implemented, it did not work with `--local-config` flag from now-cli because the only parameters it looks at are the files in a directory. This fixes the regression in now@16.3.0 so that now-client can accept an optional `nowConfig` object or fallback to the `now.json` file. Fixes #3099 Fixes #3105 Fixes #3107 Fixes #3109 [PRODUCT-350] #close [PRODUCT-350]: https://zeit.atlassian.net/browse/PRODUCT-350</MESSAGE>
+      <SHA>2791338e04b1cc1f5dafa355aa223d153e26e971</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-cli/src/util/deploy/process-deployment.ts</FILE>
+        <FILE>packages/now-cli/src/util/get-config.ts</FILE>
+        <FILE>packages/now-cli/src/util/index.js</FILE>
+        <FILE>packages/now-cli/test/helpers/prepare.js</FILE>
+        <FILE>packages/now-cli/test/integration.js</FILE>
+        <FILE>packages/now-client/src/create-deployment.ts</FILE>
+        <FILE>packages/now-client/src/deploy.ts</FILE>
+        <FILE>packages/now-client/src/types.ts</FILE>
+        <FILE>packages/now-client/src/upload.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

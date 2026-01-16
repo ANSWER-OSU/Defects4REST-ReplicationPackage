@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2139</ISSUENO>
+  <ISSUEURL>https://github.com/makeplane/plane/issues/2139</ISSUEURL>
+  <TITLE>[bug]: Project identifier rules are misleading</TITLE>
+  <DESCRIPTION>### Is there an existing issue for this? - [X] I have searched the existing issues ### Current behavior Creating a project results in different rules for limiting the allowed characters for the &quot;identifier field&quot; depending on the page you edit the field. Which currently displays 3 different rules and messages: - Identifier error message on project creation says: &quot;Identifier must at most be of **`12 characters`**&quot; - Identifier description in form says: &quot;Create a **`1-6 characters`**' identifier for the project.&quot; - Actual rule and error message says: &quot;Identifier must at most be of **`5 characters`**&quot; Screenshots: [Create new project](https://github.com/makeplane/plane/assets/67892761/742f3611-7bac-4405-8d2c-f3a1dfd1ab42), [Edit project settings](https://github.com/makeplane/plane/assets/67892761/2c4e3f6f-ac23-471f-a035-cd8efc3db0a9) #### What I expect ist: All **rules** for setting an identifier name **should be identical**, currently we have 3 different behaviours So please normalize the rules to support 1 rule for all 3 occurences of the identifier field. I would love to see the 12 characters rule applied as it provides more options to set an identifier, but I'm also fine with a max of 6 characters. ### Steps to reproduce 1. Navigate to &quot;projects&quot; and click on `+ Add project` 2. Defining the &quot;identifier&quot;, e.g. `A23MYLA` (which is 7 characters long) 3. Press `Create project` and navigate to &quot;project settings&quot; 4. After changing some stuff on the main page simply hit `Update project` 5. Saving/Updating is not possible due to an form error: &quot;_Identifier must at most be of 5 characters_&quot; ### Browser Other (chromium based Edge) ### Version Cloud</DESCRIPTION>
+  <REPONAME>plane</REPONAME>
+  <TIMEDIFFERENCEDAYS>118</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #2141 from makeplane/sync/ce-ee Sync: Community Changes</MESSAGE>
+    <SHA>1d0df47135a686563b65ed7a42931a8a45a42605</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[WEB-2932] chore: member validation and improvement (#2139) * feat: add member validation * fix: member validation * fix: remove workspace guests from all team level dropdowns * chore: add or remove members from create update modal * chore: team member role update * chore: remove team pages/ views favorite option * chore: minor UI fixes * fix: team member statistics * chore: update members leave/ role update error message * chore: remove member validation for activity * chore: member removal --------- Co-authored-by: pablohashescobar &lt;nikhilschacko@gmail.com&gt;</MESSAGE>
+      <SHA>cc3a1ca054491b6ee0e1aa916bebbfed3c629b0e</SHA>
+      <PATCHEDFILES>
+        <FILE>apiserver/plane/app/views/project/member.py</FILE>
+        <FILE>apiserver/plane/ee/views/app/team/analytic.py</FILE>
+        <FILE>apiserver/plane/ee/views/app/team/member.py</FILE>
+        <FILE>web/ee/components/teams/actions/members/modal.tsx</FILE>
+        <FILE>web/ee/components/teams/create-update/form.tsx</FILE>
+        <FILE>web/ee/components/teams/overview/sidebar/properties/root.tsx</FILE>
+        <FILE>web/ee/components/teams/overview/workload/detail.tsx</FILE>
+        <FILE>web/ee/components/teams/overview/workload/summary.tsx</FILE>
+        <FILE>web/ee/components/teams/views/view-list-item-action.tsx</FILE>
+        <FILE>web/ee/store/team/pages/team-page.ts</FILE>
+        <FILE>web/ee/store/team/team.store.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

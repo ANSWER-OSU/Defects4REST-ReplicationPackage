@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>236</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/236</ISSUEURL>
+  <TITLE>Optimize command is really slow</TITLE>
+  <DESCRIPTION>There is something wrong with the optimize command. It used to be fast, but now it can take several minutes just to produce the table of results. I suspect this has to do with converting analysis results from lists to vectors (or vice versa) when evaluating different limit and threshold settings.</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #234 from NatLibFi/rename-load-to-train Rename load_documents and load_corpus methods to train</MESSAGE>
+    <SHA>299d844e441981b8d08042d1b45176d9b7332abf</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Make HitFilter lazy. Helps to conserve a lot of RAM especially in optimize command. Part of #236</MESSAGE>
+      <SHA>371fa04934022dd078a1fd0c4c91aad42e5f8a71</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/cli.py</FILE>
+        <FILE>annif/eval.py</FILE>
+        <FILE>annif/hit.py</FILE>
+        <FILE>annif/rest.py</FILE>
+        <FILE>tests/test_hit.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix (again) high memory usage in optimize command. Fixes #236</MESSAGE>
+      <SHA>657af61d9494aa327e8a470f7f47fb7a53bb15ef</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/cli.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

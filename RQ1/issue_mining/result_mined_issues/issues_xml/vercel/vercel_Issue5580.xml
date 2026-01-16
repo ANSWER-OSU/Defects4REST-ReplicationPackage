@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5580</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/5580</ISSUEURL>
+  <TITLE>Python bug: error occurs when url including special charactors visited</TITLE>
+  <DESCRIPTION>The server cannot deal with url with special charactors when the serverless function is written in python using handler that inherits from the BaseHTTPRequestHandler class. For example, https://test.nicelee.vercel.app/api/date goes right, while https://test.nicelee.vercel.app/api/date?test=%E5%93%88%E5%93%88 goes wrong, or https://test.nicelee.vercel.app/api/date?test=哈哈 goes wrong The serverless function follows here. ``` from http.server import BaseHTTPRequestHandler, HTTPServer from datetime import datetime count = 0 class handler(BaseHTTPRequestHandler): def do_GET(self): global count count = count + 1 self.send_response(200) self.send_header('Content-type', 'text/plain') self.end_headers() self.wfile.write(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S\n')).encode()) self.wfile.write(str(count).encode()) return ```</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>43</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[docs] Fix error message when credentials are missing (#5590)</MESSAGE>
+    <SHA>09ff9cda9faaf0b28e863a2a06aa593fc056d6f4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>delete unquote operation for path(#5580) [python] Fix error for BaseHTTPRequestHandler dealing url beyond ascii after unquoting (#5580)</MESSAGE>
+      <SHA>cbdb549452f53623819ab68ef61433a84e7e1dd8</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-python/now_init.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

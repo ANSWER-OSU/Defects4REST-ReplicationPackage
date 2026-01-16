@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>882</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/882</ISSUEURL>
+  <TITLE>bug: dashboard cannot be access via /apisix/dashboard behind LB</TITLE>
+  <DESCRIPTION>### Issue description Access dashboard without '/' will redirect to the REAL server + port , and access dashboard with '/' works fine. ### Environment * apisix version (cmd: `apisix version`): bash-4.4# apisix version 0.9-rc1 (current master) * OS: alpine 3.7 ### Minimal test code / Steps to reproduce the issue ![11574219812_ pic](https://user-images.githubusercontent.com/1818214/69214650-755f2a80-0ba2-11ea-8c7e-fb43aaa60e63.jpg) ### What's the actual result? (including assertion message &amp; call stack if applicable) request： ``` ➜ src curl -I 'http://nsa.works/apisix/dashboard' HTTP/1.1 301 Moved Permanently Date: Wed, 20 Nov 2019 03:04:22 GMT Content-Type: text/html Content-Length: 239 Location: http://nsa.works:9080/apisix/dashboard/ Connection: keep-alive Server: APISIX web server ➜ src curl -I 'http://nsa.works/apisix/dashboard/' HTTP/1.1 200 OK Date: Wed, 20 Nov 2019 03:04:50 GMT Content-Type: text/html Content-Length: 2975 Last-Modified: Mon, 18 Nov 2019 15:17:00 GMT Connection: keep-alive ETag: &quot;5dd2b5ec-b9f&quot; Server: APISIX web server Accept-Ranges: bytes ```</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>doc: fixed some typo and update content. (#895)</MESSAGE>
+    <SHA>24d1190e83007a6a8e7f4db1f48b423b7df8681b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Resolve #882 and simplify conf (#894) * Resolve #882 and simplify conf</MESSAGE>
+      <SHA>744313303103e3310494e096a297da41e3c7e41e</SHA>
+      <PATCHEDFILES>
+        <FILE>bin/apisix</FILE>
+        <FILE>conf/nginx.conf</FILE>
+        <FILE>utils/install-apisix.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

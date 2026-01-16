@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120121</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120121</ISSUEURL>
+  <TITLE>[CI] DatafeedJobsIT testDatafeedTimingStats_QueryDelayUpdated_TimingStatsNotReset failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #15843 / part4](https://gradle-enterprise.elastic.co/s/ajhuughyy3hnm) - [elasticsearch-periodic #5845 / graalvm-ce17_checkpart4_java-matrix](https://gradle-enterprise.elastic.co/s/7wv7duud5aal6) - [elasticsearch-periodic #5840 / openjdk21_checkpart4_java-matrix](https://gradle-enterprise.elastic.co/s/fs352qwgvvhwi) - [elasticsearch-periodic #5840 / openjdk17_checkpart4_java-fips-matrix](https://gradle-enterprise.elastic.co/s/uvdfdrnjmlu5k) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:ml:qa:native-multi-node-tests:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.ml.integration.DatafeedJobsIT.testDatafeedTimingStats_QueryDelayUpdated_TimingStatsNotReset&quot; -Dtests.seed=CE300D03636DCA93 -Dtests.locale=sd-Deva -Dtests.timezone=PST8PDT -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.ml.integration.DatafeedJobsIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testDatafeedTimingStats_QueryDelayUpdated_TimingStatsNotReset),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.tasks.TaskCancelledException: Task was cancelled ``` **Issue Reasons:** - [8.x] 4 failures in test testDatafeedTimingStats_QueryDelayUpdated_TimingStatsNotReset (1.6% fail rate in 250 executions) - [8.x] 2 failures in pipeline elasticsearch-periodic (33.3% fail rate in 6 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.inference.InferenceCrudIT testGetServicesWithCompletionTaskType #119959</MESSAGE>
+    <SHA>86d527b5c629757f88f57de0af8a3160f1d8f9c7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ml.integration.DatafeedJobsIT testDatafeedTimingStats_QueryDelayUpdated_TimingStatsNotReset #120121</MESSAGE>
+      <SHA>33e69fbd4166dafa8b8b4c4c6017187449826c0c</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

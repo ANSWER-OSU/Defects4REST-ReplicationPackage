@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>28168</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/28168</ISSUEURL>
+  <TITLE>SecurityTest::testGetURLContent fails - ftp connection is allowed despite default options</TITLE>
+  <DESCRIPTION>### Bug The test case wants to validate the an ftp request is not possible, however it gets a &quot;Connection refused back&quot; with a port number. To make sure that an attempt to connect was made, I added a valid ftp server and got the following reply: ``` 1) SecurityTest::testGetURLContent Did not get 'not supported' in Access denied: 530 Failed asserting that 0 is true. ``` The reason this is possible is not obvious from the code. ### Environment Version develop/8592f6ba492/ed1e818ada9 ### Environment OS Windows 10 ### Environment PHP c:\wamp64\bin\php\php7.4.33\ phpunit 9.5 ### Steps to reproduce the behavior Run SecurityTest with phpunit (on windows).</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Qual: Improve test result message # Qual: Improve test result message Improved some messages to locate the failing test easier and see why it fails.</MESSAGE>
+    <SHA>ed1e818ada91eec40e76ebd0d8d7e3acc44e53fc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>SEC: #28168 Correct protocol limitations (PHP7.4/Win) # SEC: #28168 Correct protocol limitations (PHP7.4/Win) Protocol limitation was not active during test on windows platform. Moving the application of the limitation just before the curl_exec instruction made the limitation effective. Also extended the code to enable allowing ftp and ftps and extended the code for [CURLOPT_REDIR_PROTOCOLS_STR](https://www.php.net/manual/en/curl.constants.php#constant.curlopt-redir-protocols-str).</MESSAGE>
+      <SHA>c23d3184585b809d67de592896200fd42e030b6c</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/geturl.lib.php</FILE>
+        <FILE>test/phpunit/SecurityTest.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>SEC: #28168 Correct protocol limitations (PHP7.4/Win) # SEC: #28168 Correct protocol limitations (PHP7.4/Win) Protocol limitation was not active during test on windows platform. Moving the application of the limitation just before the curl_exec instruction made the limitation effective. Also extended the code to enable allowing ftp and ftps and extended the code for [CURLOPT_REDIR_PROTOCOLS_STR](https://www.php.net/manual/en/curl.constants.php#constant.curlopt-redir-protocols-str).</MESSAGE>
+      <SHA>5ec2c17c32bda718ce5c5ff66f01d4dba9ba340b</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/geturl.lib.php</FILE>
+        <FILE>test/phpunit/SecurityTest.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>SEC: #28168 Correct protocol limitations (PHP7.4/Win) # SEC: #28168 Correct protocol limitations (PHP7.4/Win) Protocol limitation was not active during test on windows platform. Moving the application of the limitation just before the curl_exec instruction made the limitation effective. Also extended the code to enable allowing ftp and ftps and extended the code for [CURLOPT_REDIR_PROTOCOLS_STR](https://www.php.net/manual/en/curl.constants.php#constant.curlopt-redir-protocols-str).</MESSAGE>
+      <SHA>e8b531c7ad544bb36a071634b39ce6f488dfc8b6</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/geturl.lib.php</FILE>
+        <FILE>test/phpunit/SecurityTest.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>SEC: #28168 Correct protocol limitations (PHP7.4/Win) # SEC: #28168 Correct protocol limitations (PHP7.4/Win) Protocol limitation was not active during test on windows platform. Moving the application of the limitation just before the curl_exec instruction made the limitation effective. Also extended the code to enable allowing ftp and ftps and extended the code for [CURLOPT_REDIR_PROTOCOLS_STR](https://www.php.net/manual/en/curl.constants.php#constant.curlopt-redir-protocols-str).</MESSAGE>
+      <SHA>025aea029d78669c995ec93862ee3963a9190a3f</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/geturl.lib.php</FILE>
+        <FILE>test/phpunit/SecurityTest.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>SEC: #28168 Correct protocol limitations (PHP7.4/Win) (#28172) # SEC: #28168 Correct protocol limitations (PHP7.4/Win) Protocol limitation was not active during test on windows platform. Moving the application of the limitation just before the curl_exec instruction made the limitation effective. Also extended the code to enable allowing ftp and ftps and extended the code for [CURLOPT_REDIR_PROTOCOLS_STR](https://www.php.net/manual/en/curl.constants.php#constant.curlopt-redir-protocols-str).</MESSAGE>
+      <SHA>43967a83a3b32a0881daabeb7c8c71f2aaf5df3c</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/geturl.lib.php</FILE>
+        <FILE>test/phpunit/SecurityTest.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>SEC: #28168 Correct protocol limitations (PHP7.4/Win) (#28172) # SEC: #28168 Correct protocol limitations (PHP7.4/Win) Protocol limitation was not active during test on windows platform. Moving the application of the limitation just before the curl_exec instruction made the limitation effective. Also extended the code to enable allowing ftp and ftps and extended the code for [CURLOPT_REDIR_PROTOCOLS_STR](https://www.php.net/manual/en/curl.constants.php#constant.curlopt-redir-protocols-str).</MESSAGE>
+      <SHA>02f96f22b3d602ba5970946988964d7f389c41c4</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/geturl.lib.php</FILE>
+        <FILE>test/phpunit/SecurityTest.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

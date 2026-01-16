@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14980</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/14980</ISSUEURL>
+  <TITLE>Tenor V1 API has been decomissioned, unable to load Gifs from editor.</TITLE>
+  <DESCRIPTION>### Issue Summary Whenever trying to insert a gif from Tenor on the editor, the error &quot;Unable to connect to Tenor, please check your connection&quot; intermittently appears. The reason for this is that Tenor V1 API has been deprecated and migrated to a Google Api. ### Steps to Reproduce 1. Start writing a Post or a new Page 2. on the editor enter the `/tenor` command to open the GIF Search card 3. Tenor will display the error `Uh oh! Trouble reaching the Tenor API, please check your connection` ### Ghost Version 5.2 ### Node.js Version 16.15.0 ### How did you install Ghost? Docker ### Database type MySQL 8 ### Browser &amp; OS version Chrome, Mac OS Monterey 12.4 ### Relevant log / error output ```shell GET https://g1.tenor.com/v1/trending?media_filter=minimal&amp;key=null&amp;contentfilter=off 401 (Unauthorized) ``` ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>47</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>v5.7.1</MESSAGE>
+    <SHA>cf64dc89d037effb3240fcccfe34285d46a48078</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Updated Tenor API to v2 (#2418) refs: https://github.com/TryGhost/Ghost/issues/14980 refs: https://github.com/TryGhost/Ghost/pull/15087 - The Tenor v1 API has been decommissioned https://developers.google.com/tenor/guides/migrate-from-v1 - Updated the API to v2, but there are some differences we have to account for - Swapped from using the old &quot;trending&quot; API to the new &quot;featured&quot; API, which at present seem to be the same thing - Added a new client_key, which identifies the integration using the google API key, as google API keys can be used for multiple APIs and projects - Fixed up the error handling to support Google's error format, and also caught and replaced the error that everyone with old keys will see to make it clearer. This includes adding an htmlError property so that we can output HTML safely in the frontend. There is still an active TODO with the naming of the config key, but we will resolve this after merging admin into the monorepo. Co-authored-by: Hannah Wolfe &lt;github.erisds@gmail.com&gt;</MESSAGE>
+      <SHA>cc276486f0360eb3017e1d55f0d3dd9b2d3a2228</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/app/services/tenor.js</FILE>
+        <FILE>ghost/admin/lib/koenig-editor/addon/components/koenig-card-image/selector-tenor.hbs</FILE>
+        <FILE>ghost/admin/lib/koenig-editor/addon/components/koenig-card-image/selector-tenor.js</FILE>
+        <FILE>ghost/admin/lib/koenig-editor/addon/components/koenig-card-image/selector-tenor/gif.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

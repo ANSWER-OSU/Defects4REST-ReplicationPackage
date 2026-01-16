@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>654</ISSUENO>
+  <ISSUEURL>https://github.com/treasure-data/digdag/issues/654</ISSUEURL>
+  <TITLE>Proposal for for_range operator</TITLE>
+  <DESCRIPTION>We have a ETL workflow that needs to process approximately 300 million rows at a time. It is too big to process using one statement. Therefore, we want to divide it into multiple tasks using workflow. Our current approach is this: ```yaml # Fetch statistics of the source table +count: td&gt;: {data: select min(time) as min_time, max(time) as max_time, count(*) as count from src} store_last_results: true # Divide it into 1 million rows +loop: loop&gt;: ${Math.ceil(td.last_results.count / 1000000.0)} _do: td&gt;: etl_with_time_range.sql time_width: ${Math.max((max_time - min_time) / Math.ceil(td.last_results.count / 1000000.0), 1)} time_cond: | ${td.last_results.min_time + i * parseInt(time_width)} &lt;= time AND time &lt;${td.last_results.min_time + (i + 1) * parseInt(time_width)} ``` There are several problems with this approach. * Workflow becomes complicated. It's hard to read. * Calculation of ceil and max are tricky and easily lead bugs. * If count is big, this loop creates too many tasks. It should add limitation on number of loop but adding such limitation makes the workflow even more complicated. Proposal here is adding another operator to make it easy. It can make the workflow much simpler: ```yaml # Fetch statistics of the source table +count: td&gt;: {data: select min(time) as min_time, max(time) as max_time, count(*) as count from src} store_last_results: true # Divide it into 1 million rows +loop: # for the range of [min_time, max_time) for_range&gt;: from: ${td.last_results.min_time} until: ${td.last_results.max_time + 1} # slice the range into this many chunks: count: ${Math.min(td.last_results.count / 1000000, 200)} # at most 200 tasks # it loops for each chunk with `range.from` and `range.until` parameters set _do: td&gt;: etl_with_time_range.sql time_cond: | ${range.from} &lt;= time AND ${range.until} &lt; time ```</DESCRIPTION>
+  <REPONAME>digdag</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>start v0.9.18-SNAPSHOT</MESSAGE>
+    <SHA>432683ab4eee10e92fd215b82323b5892b3f9acf</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Adding for_range operator See #654 for discussion.</MESSAGE>
+      <SHA>2de457ccd8c1ee046e23c2c99e30b8587803b6ef</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-standards/src/main/java/io/digdag/standards/operator/ForRangeOperatorFactory.java</FILE>
+        <FILE>digdag-standards/src/test/java/io/digdag/standards/operator/ForRangeOperatorFactoryTest.java</FILE>
+        <FILE>digdag-standards/src/test/resources/io/digdag/standards/operator/for_range/count.yml</FILE>
+        <FILE>digdag-standards/src/test/resources/io/digdag/standards/operator/for_range/count_expected.yml</FILE>
+        <FILE>digdag-standards/src/test/resources/io/digdag/standards/operator/for_range/parallel.yml</FILE>
+        <FILE>digdag-standards/src/test/resources/io/digdag/standards/operator/for_range/parallel_expected.yml</FILE>
+        <FILE>digdag-standards/src/test/resources/io/digdag/standards/operator/for_range/step.yml</FILE>
+        <FILE>digdag-standards/src/test/resources/io/digdag/standards/operator/for_range/step_expected.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

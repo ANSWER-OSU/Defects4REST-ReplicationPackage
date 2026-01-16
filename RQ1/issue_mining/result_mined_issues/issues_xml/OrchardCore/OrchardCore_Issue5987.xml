@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5987</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/5987</ISSUEURL>
+  <TITLE>Form with workflow puts CPU to 100% and unrecoverable</TITLE>
+  <DESCRIPTION>I have this strange situation which exists across multiple themes and versions of OC. If I have a standard contact style form with a workflow to check for validation (attached). I can't quite work out the pattern and I haven't yet worked out where the problem is but: - If all fields are filled the form submit and workflow works fine. - If one field is empty that is required, it also works fine and the validation comes back correctly. - If a few fields are empty (but it is not consistent which ones), the post to the workflow stops responding and the CPU goes to 100% and never recovers until I restart the App Service. I have also been able to replicate this locally but I have not been able to isolate where the problem occurs. Any help on isolating the issue would be great. &lt;img width=&quot;1366&quot; alt=&quot;Screen Shot 2020-04-20 at 9 30 08 am&quot; src=&quot;https://user-images.githubusercontent.com/2867511/79702832-f4d85d80-82ea-11ea-81be-cbce061be5df.png&quot;&gt; [recipe.zip](https://github.com/OrchardCMS/OrchardCore/files/4500526/recipe.zip)</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>15</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Set isNew to true only for ajax requests (#6084) Fixes #6076</MESSAGE>
+    <SHA>7a14d3e2e2243f32a0b2d8592500a1f5d48db4eb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #5987: WF Activity infinite loop</MESSAGE>
+      <SHA>78f24e0c6c898c784551f9db0fcdd482014d6eab</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Workflows/Services/WorkflowManager.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #5987: WF Activity infinite loop (#6107)</MESSAGE>
+      <SHA>d5822d10c1720fc48d0cf315d5b220097448ebf7</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Workflows/Services/WorkflowManager.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

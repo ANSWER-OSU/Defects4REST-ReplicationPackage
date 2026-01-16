@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18150</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18150</ISSUEURL>
+  <TITLE>REST request to `/containers/{id}/wait` consumes CPU time unnecessarily</TITLE>
+  <DESCRIPTION>### Issue Description Running the above request willw cause the podman system service to consume &gt;100% CPU until the waited-for condition is fulfilled. ### Steps to reproduce the issue Steps to reproduce the issue 1. start container 2. get container id (say baaadf000d) 3. run `curl -X POST --unix-socket /var/run/docker.sock http://d/containers/baaadf000d/wait` 4. Observe podman system service is pegged @ &gt;100% CPU time. ### Describe the results you received Podman keeps CPU busy. ### Describe the results you expected Waiting for something to happen should not consume CPU cycles. ### podman info output ```yaml This is podman as of 3a47342a6, i.e. main as of April 11, 2023. ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details Additional environment details ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18002 from Luap99/netavark-plugin add netavark plugin support</MESSAGE>
+    <SHA>3a47342a6a94a550484e70bcd6aad09bdc0b5809</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Use a sane polling interval in WaitContainerDocker When using the docker REST API to wait for a container to be removed, for example, WaitContainerDocker uses a one microsecond interval between poll requests. This ends up being effectively a busy-wait, with the podman system service spinning at &gt; 100% CPU time. The equivalent Podman method uses a 250ms default. Use that for the docker variant, too. I'm going to optimistically assert [NO NEW TESTS NEEDED] - given there's no functional change here, and a test will require some form of mocking or strac'ing the binary for evidence that it's polling less frequently, unless someone who is familiar with podman can briefly explain what kind of test would be appropriate here. Signed-off-by: Peter Edwards &lt;peadar@arista.com&gt; Fixes: #18150</MESSAGE>
+      <SHA>fe22299f97b2a008dc431ede13af45c65c794846</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/utils/containers.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

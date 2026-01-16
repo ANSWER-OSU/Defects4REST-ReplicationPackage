@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18742</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18742</ISSUEURL>
+  <TITLE>Location List and Locations not Showing Associated VLAN Groups</TITLE>
+  <DESCRIPTION>### Deployment Type Self-hosted ### NetBox Version v4.2.3 ### Python Version 3.12 ### Steps to Reproduce 1. Create a Site. 2. Create a Location within that Site. 3. Create a VLAN Group and any constituent VLANs. 4. Assign the VLAN Group to the Location. 5. View the list of Locations. 6. View the Location with the VLAN Group assigned. ### Expected Behavior ### Viewing the Location List - When viewing the list of Locations, we should be able to see any reference to the associated VLAN Group(s). ### Viewing the Location Itself - When viewing the Location itself, we should be able to see any reference to the assigned VLAN Group(s) in the `Related Objects` list at the right. ![Image](https://github.com/user-attachments/assets/4f19242e-6840-41f9-a8b2-0413e65d8104) ### Observed Behavior We do not see any reference to any VLAN Groups anywhere other than when viewing `IPAM &gt; VLAN Groups`. This makes it difficult to see which VLAN Groups are defined for different locations within a site. --- ### Potential Resolutions I tried to resolve some of this, but I don't have enough knowledge/experience with the coding of NetBox. #### Location List File: `/opt/netbox/netbox/dcim/tables/sites.py` Changes: ```python class LocationTable ... ... vlan_groups = tables.ManyToManyColumn( verbose_name=_(&quot;VLAN Groups&quot;), linkify_item=True, ) class Meta(NetBoxTable.Meta): model = Location fields = ( 'pk', 'id', 'name', 'site', 'status', 'facility', 'tenant', 'tenant_group', 'rack_count', 'device_count', 'description', 'slug', 'contacts', 'tags', 'actions', 'created', 'last_updated', &quot;vlan_groups&quot;, ) ``` This would result in the following: ![Image](https://github.com/user-attachments/assets/9845282a-6042-47bd-80f8-3bf9e9580554) #### Location I was unable to figure out how to update the `Related Objects` field when looking at a Location to view the associated VLAN Groups.</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixes: #18582 Bulk import prefixes with associated VLAN not working when multiple VLANs with the same vid exist. (#18844) * Add site CSVModelChoiceField * Change site field to vlan_site</MESSAGE>
+    <SHA>5d81f911d6203ef4129d926229d28aee875e4d72</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #18804 from renatoalmeidaoliveira/18742-Location-List-and-Locations-not-Showing-Associated-VLAN-Groups Fixes: #18742 Location List and Locations not Showing Associated VLAN Groups</MESSAGE>
+      <SHA>2266a8af676513083113d1ba6588800fadc5ee52</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/dcim/tables/sites.py</FILE>
+        <FILE>netbox/dcim/views.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

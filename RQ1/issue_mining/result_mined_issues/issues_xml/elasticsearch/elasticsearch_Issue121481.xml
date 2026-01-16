@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121481</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121481</ISSUEURL>
+  <TITLE>[CI] HeapAttackIT testLookupExplosionManyMatches failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6126 / rhel-7_platform-support-unix](https://gradle-enterprise.elastic.co/s/xvpuq6jshgxfg) - [elasticsearch-periodic-platform-support #6050 / ubuntu-2404_platform-support-unix](https://gradle-enterprise.elastic.co/s/tpd2gfab673ci) **Reproduction Line:** ``` ./gradlew &quot;:test:external-modules:test-esql-heap-attack:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.heap_attack.HeapAttackIT.testLookupExplosionManyMatches&quot; -Dtests.seed=84260B8935292342 -Dtests.locale=kxv-IN -Dtests.timezone=ECT -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.heap_attack.HeapAttackIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testLookupExplosionManyMatches),title:'Test',type:optionsListControl))))) **Failure Message:** ``` junit.framework.AssertionFailedError: Expected exception ResponseException but no exception was thrown ``` **Issue Reasons:** - [8.x] 2 failures in test testLookupExplosionManyMatches (0.4% fail rate in 564 executions) - [8.x] 2 failures in pipeline elasticsearch-periodic-platform-support (15.4% fail rate in 13 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.security.CoreWithSecurityClientYamlTestSuiteIT test {yaml=cluster.health/10_basic/cluster health basic test} #121478</MESSAGE>
+    <SHA>61e1fb65f3a480cdd930b89de999a67019f529b3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.heap_attack.HeapAttackIT testLookupExplosionManyMatches #121481</MESSAGE>
+      <SHA>a9f03b5ae482f3ccbc9eef136b4f0d7c5bacab22</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>29966</ISSUENO>
+  <ISSUEURL>https://github.com/supabase/supabase/issues/29966</ISSUEURL>
+  <TITLE>Supabase Swift docs - `.order(&quot;table&quot;, ascending:, foreignTable: )` should be `.order(&quot;table&quot;, ascending:, referencedTable: )`</TITLE>
+  <DESCRIPTION># Improve documentation ## Link https://supabase.com/docs/reference/swift/order ## Describe the problem Documentation is wrong for the `.order` modifier on a foreign table. Docs say: ``` try await supabase .from(&quot;countries&quot;) .select( &quot;&quot;&quot; name, cities ( name ) &quot;&quot;&quot; ) .order(&quot;name&quot;, ascending: false, foreignTable: &quot;cities&quot;) .execute() ``` `foreignTable` is invalid - this should be `referencedTable`. ## Describe the improvement Update docs to say: ``` try await supabase .from(&quot;countries&quot;) .select( &quot;&quot;&quot; name, cities ( name ) &quot;&quot;&quot; ) .order(&quot;name&quot;, ascending: false, referencedTable: &quot;cities&quot;) .execute() ```</DESCRIPTION>
+  <REPONAME>supabase</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update logs.mdx | remove restart suggestion (#29934)</MESSAGE>
+    <SHA>061dce4d8c7decf1586a98980ebe750f7488ea88</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>update swift docs to use referencedTable instead of foreignTable. Closes #29966</MESSAGE>
+      <SHA>5dc901fe24490974106643b31a50392a508f6de0</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/docs/spec/supabase_swift_v2.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>update swift docs to use referencedTable instead of foreignTable. Closes #29966 (#29968)</MESSAGE>
+      <SHA>646989bb91ab97b31bab38c0966732892b927a4e</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/docs/spec/supabase_swift_v2.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>update swift docs to use referencedTable instead of foreignTable. Closes #29966 (#29968)</MESSAGE>
+      <SHA>21d1b291d0f2153cda32c434999340f79942ad9b</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/docs/spec/supabase_swift_v2.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

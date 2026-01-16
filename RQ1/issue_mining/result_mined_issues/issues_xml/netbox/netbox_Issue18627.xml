@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18627</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18627</ISSUEURL>
+  <TITLE>Granular proxy configuration</TITLE>
+  <DESCRIPTION>### NetBox version v4.2.3 ### Feature type Change to existing functionality ### Proposed functionality Currently proxies are configured globally in Netbox. We would like the ability to specify proxies individually for each component that makes external requests: - Authentication - Remote datasources - Webhooks - News feed - Plugins API - Release checks A proposed approach would offload the proxy decision making process to a platform provided function. in `settings.py` ``` PROXY_ROUTERS = getattr(configuration, 'PROXY_ROUTERS', []) ``` in `configuration.py` ``` # Default PROXY_ROUTERS = [] # Platform specify they want to handle proxies returned to calling functions PROXY_ROUTERS = [&quot;common.proxy.ProxyRouter&quot;] ``` in `common/proxy.py` ``` class ProxyRouter: def route(self, module: str, url: Union[str,None], protocol: Union[str,None]) -&gt; Optional[str]: # every router class must implement a route() method # internal platform logic to decide how to handle each request # based on module, protocol and/or url # return &quot;http://my.lovely.proxy.server:8080&quot; return None ``` When making requests loop through PROXY_ROUTERS passing in the module name, protocol and url if known, use the result from the first function that does not return None Helper functions in core: ``` def proxy_handler(module: str, url: Union[str,None], protocol: Union[str,None]) -&gt; Optional[str]: # any proxy routers defined? if len(settings.PROXY_ROUTERS) &gt; 0: # yes, delegate routing decisions to the provided function for router in settings.PROXY_ROUTERS: proxy_server = router.route(module=module, url=url, protocol=protocol) if proxy_server is not None: return proxy_server # no match, try the next one # provided routers did not match, default to no proxy return None if protocol in settings.HTTP_PROXIES: return settings.HTTP_PROXIES return None ``` e.g. with Sentry… https://github.com/netbox-community/netbox/blob/b91366129783d34b474d36e5dbf65e0d09016983/netbox/netbox/settings.py#L573-L580 ``` sentry_sdk.init( dsn=SENTRY_DSN, release=RELEASE.full_version, sample_rate=SENTRY_SAMPLE_RATE, traces_sample_rate=SENTRY_TRACES_SAMPLE_RATE, send_default_pii=SENTRY_SEND_DEFAULT_PII, http_proxy=HTTP_PROXIES.get('http') if HTTP_PROXIES else None, https_proxy=HTTP_PROXIES.get('https') if HTTP_PROXIES else None ) ``` ``` http_proxy=proxy_handler(module=&quot;sentry&quot;, protocol=&quot;http&quot;), https_proxy=proxy_handler(module=&quot;sentry&quot;, protocol=&quot;https&quot;) ) ``` e.g. webhook dispatch https://github.com/netbox-community/netbox/blob/b91366129783d34b474d36e5dbf65e0d09016983/netbox/extras/webhooks.py#L86-L91 # Send the request with requests.Session() as session: session.verify = webhook.ssl_verification if webhook.ca_file_path: session.verify = webhook.ca_file_path response = session.send(prepared_request, proxies=settings.HTTP_PROXIES) becomes ``` # Send the request with requests.Session() as session: session.verify = webhook.ssl_verification if webhook.ca_file_path: session.verify = webhook.ca_file_path response = session.send(prepared_request, proxies=proxy_handler(module=&quot;webhook&quot;, url=params[&quot;url&quot;]) ``` census requests https://github.com/netbox-community/netbox/blob/b91366129783d34b474d36e5dbf65e0d09016983/netbox/core/jobs.py#L70C1-L75C14 ``` requests.get( url=settings.CENSUS_URL, params=census_data, timeout=3, proxies=settings.HTTP_PROXIES ) ``` becomes ``` requests.get( url=settings.CENSUS_URL, params=census_data, timeout=3, proxies=proxy_handler(module=&quot;census&quot;, url=settings.CENSUS_URL) ) ``` other modules would be: - `newsfeed` - `plugins_catalog` - `housekeeping_releasecheck` - `datasource` each of these would hand off proxy decision making to proxy_handler ### Use case - Force only webhook traffic via a SOCKS proxy into a connectivity customer VPC and out through a DX/tunnel. - Force both webhook and remote datasources via a proxy, but all other traffic goes another route. ### Database changes None identified ### External dependencies None identified</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18748 from netbox-community/18352-add-poweroutlet-status Closes #18352: Adds PowerOutlet.status field</MESSAGE>
+    <SHA>7c52698c08673873ac1c673b5d378ada10d5a4ed</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Closes #18627: Proxy routing (#18681) * Introduce proxy routing * Misc cleanup * Document PROXY_ROUTERS parameter</MESSAGE>
+      <SHA>4e65117e7c77c3a07b90c448b7af645e41f08c71</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/configuration/system.md</FILE>
+        <FILE>netbox/core/data_backends.py</FILE>
+        <FILE>netbox/core/jobs.py</FILE>
+        <FILE>netbox/core/plugins.py</FILE>
+        <FILE>netbox/extras/dashboard/widgets.py</FILE>
+        <FILE>netbox/extras/management/commands/housekeeping.py</FILE>
+        <FILE>netbox/extras/webhooks.py</FILE>
+        <FILE>netbox/netbox/settings.py</FILE>
+        <FILE>netbox/utilities/proxy.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

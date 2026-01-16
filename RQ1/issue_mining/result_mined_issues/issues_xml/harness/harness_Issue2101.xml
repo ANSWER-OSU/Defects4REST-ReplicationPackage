@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2101</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2101</ISSUEURL>
+  <TITLE>Got an internal_error after auth Gitlab</TITLE>
+  <DESCRIPTION>version : latest, 0.7 I follow the official installation guide to build the drone server. Run docker using the following variables &gt; #!/bin/bash &gt; docker run -d \ &gt; --dns {MY_OWN} \ &gt; -e DRONE_GITLAB=true \ &gt; -e DRONE_GITLAB_CLIENT={FROM_GITLAB} \ &gt; -e DRONE_GITLAB_SECRET={FROM_GITLAB} \ &gt; -e DRONE_GITLAB_SKIP_VERIFY=true \ &gt; -e DRONE_GITLAB_URL=https://{PRIVATE_GITLAB}.com \ &gt; -e DRONE_SECRET=0 \ &gt; -e DRONE_OPEN=true \ &gt; -e DRONE_ADMIN={USER_NAME} \ &gt; -v /var/lib/drone:/var/lib/drone \ &gt; -P \ &gt; --restart=always \ &gt; --name=drone_latest \ &gt; drone/drone:latest **And I can login my Gitlab successfully, but after I press the green access button.** ![image](https://user-images.githubusercontent.com/15358211/27939417-0fdf33f4-62f7-11e7-9df2-a64e484fa51f.png) **It show me an interal_error** ![image](https://user-images.githubusercontent.com/15358211/27939474-7931a5d0-62f7-11e7-8c05-de4e6d07c907.png) **Here is my log:** ``` eddler.Targets: column [user_remote] not found in struct meddler.Targets: column [user_access] not found in struct meddler.Targets: column [user_name] not found in struct meddler.Targets: column [user_gravatar] not found in struct meddler.Targets: column [user_syncing] not found in struct meddler.Targets: column [user_created] not found in struct meddler.Targets: column [user_updated] not found in struct meddler.Targets: column [user_synced] not found in struct meddler.Targets: column [user_access_expires] not found in struct meddler.WriteTargets: column [user_remote] not found in struct meddler.WriteTargets: column [user_access] not found in struct meddler.WriteTargets: column [user_name] not found in struct meddler.WriteTargets: column [user_gravatar] not found in struct meddler.WriteTargets: column [user_syncing] not found in struct meddler.WriteTargets: column [user_created] not found in struct meddler.WriteTargets: column [user_updated] not found in struct meddler.WriteTargets: column [user_synced] not found in struct meddler.WriteTargets: column [user_access_expires] not found in struct time=&quot;2017-07-07T01:24:23Z&quot; level=error msg=&quot;cannot update bob.li. meddler.Update: DB error in Exec: no such column: user_expiry&quot; meddler.Targets: column [user_remote] not found in struct meddler.Targets: column [user_access] not found in struct meddler.Targets: column [user_name] not found in struct meddler.Targets: column [user_gravatar] not found in struct meddler.Targets: column [user_syncing] not found in struct meddler.Targets: column [user_created] not found in struct meddler.Targets: column [user_updated] not found in struct meddler.Targets: column [user_synced] not found in struct meddler.Targets: column [user_access_expires] not found in struct meddler.WriteTargets: column [user_remote] not found in struct meddler.WriteTargets: column [user_access] not found in struct meddler.WriteTargets: column [user_name] not found in struct meddler.WriteTargets: column [user_gravatar] not found in struct meddler.WriteTargets: column [user_syncing] not found in struct meddler.WriteTargets: column [user_created] not found in struct meddler.WriteTargets: column [user_updated] not found in struct meddler.WriteTargets: column [user_synced] not found in struct meddler.WriteTargets: column [user_access_expires] not found in struct time=&quot;2017-07-07T01:31:43Z&quot; level=error msg=&quot;cannot update bob.li. meddler.Update: DB error in Exec: no such column: user_expiry&quot; ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[maint] remove unused keygenpath (#2093)</MESSAGE>
+    <SHA>19600c3a177e0e13b10f864b9b0354b47a967473</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[code-2009] only if ssh is enabled show ssh url box (#2101)</MESSAGE>
+      <SHA>f0e12faa6745f6f64e1156aeb96f52ff6c9838ad</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/handler/system/list_config.go</FILE>
+        <FILE>app/url/provider.go</FILE>
+        <FILE>app/url/wire.go</FILE>
+        <FILE>web/src/components/CloneButtonTooltip/CloneButtonTooltip.tsx</FILE>
+        <FILE>web/src/pages/Repository/EmptyRepositoryInfo.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

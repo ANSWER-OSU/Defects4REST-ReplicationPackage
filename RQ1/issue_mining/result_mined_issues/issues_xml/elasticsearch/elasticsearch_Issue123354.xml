@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>123354</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/123354</ISSUEURL>
+  <TITLE>Limit number of suppressed S3 deletion errors</TITLE>
+  <DESCRIPTION>When issuing blob deletions to S3, there is no limit to the number of errors that we accumulate while [deletions](https://github.com/elastic/elasticsearch/blob/12fcdd8633f03159a8f1505d2f828ed0bba06709/modules/repository-s3/src/main/java/org/elasticsearch/repositories/s3/S3BlobStore.java#L377) are ongoing. The combination of large snapshot clean ups which would issue many such calls, and all deletions and their retries failing e.g. due to some setup issue, could lead to a huge amount of memory usage and potentially OOMing the node. It is not clear how severe the same issue can be in other object stores, since it might depend a bit on the error responses that the SDK returns and how large it is, but theoretically this could still happen there too. We should limit the suppressed errors we keep while issuing deletes as I do not think there is any value in recording all of these in the exception (I'm not even sure they are preserved).</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Handle exceptions when register compute group (#123438) If the parent task is canceled, registering the compute group task might throw a TaskCancelledException, so the listener won't be notified. Closes #123216 Closes #123101 Closes #123451</MESSAGE>
+    <SHA>a320809843ffd366a7fba3dad10f41c70d508c66</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Limit number of suppressed S3 deletion errors (#123630) We've seen this being an issue on 7.x although can happen on all versions (I'm pretty sure this PR doesn't cleanly back-port to 7.x though). Closes https://github.com/elastic/elasticsearch/issues/123354</MESSAGE>
+      <SHA>113f0c17cc48913225d5c9e4e06ebb44a3a56e14</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/123630.yaml</FILE>
+        <FILE>modules/repository-gcs/src/test/java/org/elasticsearch/repositories/gcs/GoogleCloudStorageBlobContainerRetriesTests.java</FILE>
+        <FILE>modules/repository-s3/src/main/java/org/elasticsearch/repositories/s3/S3BlobStore.java</FILE>
+        <FILE>modules/repository-s3/src/test/java/org/elasticsearch/repositories/s3/S3BlobContainerRetriesTests.java</FILE>
+        <FILE>modules/repository-url/src/test/java/org/elasticsearch/common/blobstore/url/URLBlobContainerRetriesTests.java</FILE>
+        <FILE>test/framework/src/main/java/org/elasticsearch/repositories/blobstore/AbstractBlobContainerRetriesTestCase.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>183</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/183</ISSUEURL>
+  <TITLE>General error fix for the &quot;Error during serialization&quot; issues (admin area only)</TITLE>
+  <DESCRIPTION>When we have too long json return we can get an exception - http://www.nopcommerce.com/boards/t/38582/blog-posts-not-appearing-in-admin-screen.aspx However, adding this override on BaseController will fix the issue in cases we need the content to be on the first place: ``` protected override JsonResult Json(object data, string contentType, Encoding contentEncoding, JsonRequestBehavior behavior) { return new JsonResult() { Data = data, ContentType = contentType, ContentEncoding = contentEncoding, JsonRequestBehavior = behavior, MaxJsonLength = Int32.MaxValue }; } ``` Source: http://www.nopcommerce.com/boards/t/38582/blog-posts-not-appearing-in-admin-screen.aspx?p=2</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>55</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Performance optimization. Refactoring of ModelCacheEventConsumer</MESSAGE>
+    <SHA>60fd74b69561e8be512b2f7bf34d6f3c6aa7fdc4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#183 Applied a general error fix for the &quot;Error during serialization&quot; issues in admin area</MESSAGE>
+      <SHA>f21b6f9a56e1a272e9174a94f1add00f09515667</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Administration/Controllers/BaseAdminController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

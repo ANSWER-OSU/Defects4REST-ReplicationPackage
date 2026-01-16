@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3536</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/3536</ISSUEURL>
+  <TITLE>Historic variables API crashes after terminating process instance during multi-instance sub process or call activity</TITLE>
+  <DESCRIPTION>**Describe the bug** Consulting the `GET /history/historic-variable-instances` API crashes for variables &quot;nrOfActiveInstances&quot; and &quot;nrOfCompletedInstances&quot; variables when you (prematurely) stop a process instance (with the `DELETE runtime/process-instances/{processInstanceId}` API) during a multi-instance execution (eg. using the `subProcess` or `callActivity` constructs). **Expected behavior** Loading the historic variables should never crash obviously. **Code** Deploy this model ([ModelWithSubProcess.bpmn20.xml.zip](https://github.com/flowable/flowable-engine/files/10114350/ModelWithSubProcess.bpmn20.xml.zip)) to a Flowable engine, start a new process instance using the `POST runtime/process-instances` API, retrieve the process instance id from the response body and stop it again using the `DELETE runtime/process-instances/{processInstanceId}` Then go and retrieve the historic variables using the `GET history/historic-variable-instances?processInstanceId={processInstanceId}&amp;size=500` API. This will result in an HTTP 500 server error with content: &lt;img width=&quot;327&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/599538/204570166-958a29a5-a04f-4056-9752-79735b6ec847.png&quot;&gt; ... and log the following exception: [flowable-exception.txt](https://github.com/flowable/flowable-engine/files/10114434/flowable-exception.txt) Notice that this does work if you query for a specific variableName as long as it is not &quot;nrOfActiveInstances&quot; or &quot;nrOfCompletedInstances&quot;. If you look at the database, the most noticeable thing is that the `var_type_` in `act_hi_varinst` for both variables is &quot;bpmnParallelMultiInstanceCompleted&quot;. This is also the case when the process is still running, but at that time the API does not &quot;crash&quot;. If you complete the process instance in a normal manner (by submitting the 3 tasks until an end event is reached), the `var_type_` for both variables is changed to &quot;integer&quot; and the API also continues to work as expected. **Additional context** Tested in Flowable 6.7.2 Able to reproduce in our own production and UAT environments as well as in an empty spawned [docker flowable-ui container from docker hub](https://hub.docker.com/r/flowable/flowable-ui). The same bug occurred when we use a multi-instance `callActivity` (as opposed to a mutli-instance `subProcess` in the example model above).</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix sql error. (#3538)</MESSAGE>
+    <SHA>fdebc68796c0e2048ce5cbddc07b152013cc0529</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Make sure that Parallel multi instance local variables are properly transformed When a parallel multi instance execution is interrupted or deleted then we need to transform the temporary runtime variables into permanent historic variables fixes #3536</MESSAGE>
+      <SHA>356ae528b5bc2952ed8d73562748823294a40aa2</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/MultiInstanceActivityBehavior.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/ParallelMultiInstanceBehavior.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/ExecutionEntityManagerImpl.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/data/impl/MybatisHistoricDetailDataManager.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/data/impl/cachematcher/HistoricDetailsByProcessInstanceIdEntityMatcher.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/data/impl/cachematcher/HistoricDetailsByTaskInstanceIdEntityMatcher.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/multiinstance/MultiInstanceTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/multiinstance/MultiInstanceVariableAggregationTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/multiinstance/MultiInstanceTest.testLoopVariablesWithBoundaryOnSubprocess.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/multiinstance/MultiInstanceTest.testLoopVariablesWithSubprocessWhenProcessIsDeleted.bpmn20.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Make sure that Parallel multi instance local variables are properly transformed When a parallel multi instance execution is interrupted or deleted then we need to transform the temporary runtime variables into permanent historic variables fixes #3536</MESSAGE>
+      <SHA>97985d74c47b131c497b4cdd1d803b42b35576aa</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/MultiInstanceActivityBehavior.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/ParallelMultiInstanceBehavior.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/ExecutionEntityManagerImpl.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/data/impl/MybatisHistoricDetailDataManager.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/data/impl/cachematcher/HistoricDetailsByProcessInstanceIdEntityMatcher.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/data/impl/cachematcher/HistoricDetailsByTaskInstanceIdEntityMatcher.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/multiinstance/MultiInstanceTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/multiinstance/MultiInstanceVariableAggregationTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/multiinstance/MultiInstanceTest.testLoopVariablesWithBoundaryOnSubprocess.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/multiinstance/MultiInstanceTest.testLoopVariablesWithSubprocessWhenProcessIsDeleted.bpmn20.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Make sure that Parallel multi instance local variables are properly transformed When a parallel multi instance execution is interrupted or deleted then we need to transform the temporary runtime variables into permanent historic variables fixes #3536</MESSAGE>
+      <SHA>448958f0e6f1b3cdde0b5c1795d883897ae29872</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/MultiInstanceActivityBehavior.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/ParallelMultiInstanceBehavior.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/ExecutionEntityManagerImpl.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/data/impl/MybatisHistoricDetailDataManager.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/data/impl/cachematcher/HistoricDetailsByProcessInstanceIdEntityMatcher.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/persistence/entity/data/impl/cachematcher/HistoricDetailsByTaskInstanceIdEntityMatcher.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/multiinstance/MultiInstanceTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/multiinstance/MultiInstanceVariableAggregationTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/multiinstance/MultiInstanceTest.testLoopVariablesWithBoundaryOnSubprocess.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/multiinstance/MultiInstanceTest.testLoopVariablesWithSubprocessWhenProcessIsDeleted.bpmn20.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

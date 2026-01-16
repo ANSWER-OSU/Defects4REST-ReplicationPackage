@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>12256</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/12256</ISSUEURL>
+  <TITLE>Add settings to the form part for creating label and validation elements</TITLE>
+  <DESCRIPTION>### Is your feature request related to a problem? Please describe. When creating a form using the Form input widgets like (`Input`, `Select`, `Text Area`) there is no easy way to add a label and validation elements to the input. The current approach is to add label widget and then validation widget which is not ideal all the time. Here are some of the issues with the current process 1. Creates too much html code because each widget has its own wrappers. 2. When creating two input with 50% width and two label with 50% width, on a small device the labels are stacked over each other (I.e., label, label, input, input) instead of stacking label, input, label input. ![image](https://user-images.githubusercontent.com/24724371/186444814-ba417471-fe3d-4dd9-9214-9dfe59f6bc44.png) 4. It makes editing experience terrible specially if you want to drag/drop one field since you’ll have to drag all 3 related widgets. ### Describe the solution you'd like We can make this process much simpler by adding settings to the `Input`, `Select`, `Text Area` widgets with the following properties - `LabelOption` an `enum` value with the following values (`None`, `Standard`, `ScreenReaders`.) By default, `None` is selected to keep it backward compatible. - `ValidationOptions` an `enum` value with the following values (`None`, `Standard`). By default, `None` is selected to keep it backward compatible. Now, if the user selects option other than `None` in the settings, we’ll create the label in the same widget block. The same applies to `ValidationOptions`. This will make things like dragging/dropping widgets during edit and controlling the size much easier. At the same time, we output less HTML code. And if we add the validation rules, we’ll have more validation logic which makes the widgets more useful. Lastly, the `Input Widget` should not have &quot;Radio&quot;, I don't think that is useful at all. However, the `Select Input` should have `Editor` settings with `Dropdown`, `Radio`, or `Checkbox` style so that the user can render the option different ways.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>add label and validation to input</MESSAGE>
+    <SHA>df8d73e0197d963dd246b156d39a84882c0887fd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #12256</MESSAGE>
+      <SHA>d886846b16a7e3342266fe8eb59610496b1be794</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/Assets.json</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/Assets/js/edit-form-widget-options.js</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/Drivers/InputPartDisplayDriver.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/Drivers/SelectPartDisplayDriver.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/Drivers/TextAreaPartDisplayDriver.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/Models/InputPart.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/Models/SelectPart.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/Models/TextAreaPart.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/ResourceOptionsConfiguration.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/ViewModels/SelectPartEditViewModel.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/ViewModels/TextAreaPartEditViewModel.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/Views/Items/InputPart.Fields.Edit.cshtml</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/Views/Items/InputPart.cshtml</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/Views/Items/SelectPart.Fields.Edit.cshtml</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/Views/Items/SelectPart.cshtml</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/Views/Items/TextAreaPart.Fields.Edit.cshtml</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/Views/Items/TextAreaPart.cshtml</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/wwwroot/Scripts/edit-form-widget-options.js</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/wwwroot/Scripts/edit-form-widget-options.min.js</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Widgets/Views/Widget.Edit.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

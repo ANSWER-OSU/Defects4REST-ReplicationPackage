@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4337</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/4337</ISSUEURL>
+  <TITLE>Touch()'ing a file should update its last modified time</TITLE>
+  <DESCRIPTION>**Describe the bug** While copying a file &quot;over itself&quot; via the S3 protocol, I discovered that SeaweedFS didn't update its last modified time. **Expected behavior** The last modified time should be be updated, just like the regular `touch` shell command. I am not really familiar with the SeaweedFS codebase, but a quick try with the following change seemed to work: ```golang // weed/pb/filer_pb/filer_client.go func Touch(filerClient FilerClient, parentDirectoryPath string, entryName string, entry *Entry) (err error) { return filerClient.WithFilerClient(false, func(client SeaweedFilerClient) error { entry.Attributes.Mtime = time.Now().Unix() // &lt;==== update mtime to current time request := &amp;UpdateEntryRequest{ Directory: parentDirectoryPath, Entry: entry, } ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>refactoring</MESSAGE>
+    <SHA>5db9fcccd4194660a8503696ac44c3539c29d41e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>update entry Attributes.Mtime = time.Now().Unix() fix https://github.com/seaweedfs/seaweedfs/issues/4337</MESSAGE>
+      <SHA>6bfb91b539519f6524c3d4d95507855c475191f0</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/s3api/s3api_object_copy_handlers.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

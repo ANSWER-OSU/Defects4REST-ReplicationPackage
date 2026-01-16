@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>811</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/811</ISSUEURL>
+  <TITLE>Error use AJAX to dynamically update SKU, GTIN, MPN with product attributes</TITLE>
+  <DESCRIPTION>When no information on the product SKU, GTIN and MPN, but informed the combination of attributes is not visible on the product detail these attribute information. Correction follows: 1. Update /Nop.Web/Views/Product/_SKU_Man_Stock.cshtml ``` @model ProductDetailsModel @using Nop.Web.Models.Catalog; @*SKU*@ @if (Model.ShowSku &amp;&amp; (!String.IsNullOrWhiteSpace(Model.Sku) || Model.ProductVariantAttributes.Any())) { &lt;div class=&quot;sku&quot;&gt; &lt;span class=&quot;label&quot;&gt;@T(&quot;Products.Sku&quot;): &lt;/span&gt;&lt;span class=&quot;value&quot; itemprop=&quot;sku&quot; id=&quot;sku-@Model.Id&quot;&gt;@Model.Sku&lt;/span&gt; &lt;/div&gt; } @*Manufacturer part number*@ @if (Model.ShowManufacturerPartNumber &amp;&amp; (!String.IsNullOrWhiteSpace(Model.ManufacturerPartNumber) || Model.ProductVariantAttributes.Any())) { &lt;div class=&quot;manufacturer-part-number&quot;&gt; &lt;span class=&quot;label&quot;&gt;@T(&quot;Products.ManufacturerPartNumber&quot;): &lt;/span&gt;&lt;span class=&quot;value&quot; id=&quot;mpn-@Model.Id&quot;&gt;@Model.ManufacturerPartNumber&lt;/span&gt; &lt;/div&gt; } @*GTIN*@ @if (Model.ShowGtin &amp;&amp; (!String.IsNullOrWhiteSpace(Model.Gtin) || Model.ProductVariantAttributes.Any())) { &lt;div class=&quot;gtin&quot;&gt; &lt;span class=&quot;label&quot;&gt;@T(&quot;Products.GTIN&quot;): &lt;/span&gt;&lt;span class=&quot;value&quot; id=&quot;gtin-@Model.Id&quot;&gt;@Model.Gtin&lt;/span&gt; &lt;/div&gt; } ``` 1. Update /Nop.Web/Views/Product/_ProductAttributes.cshtml ``` $.ajax({ cache: false, url: '@Url.Action(&quot;ProductDetails_AttributeChange&quot;, &quot;ShoppingCart&quot;, new {productId = productId})', data: $('#product-details-form').serialize(), type: 'post', success: function(data) { if (data != null) { if (data.sku) { $('#sku-@productId').text(data.sku).parent(&quot;.sku&quot;).show(); } else { $('#sku-@productId').parent(&quot;.sku&quot;).hide(); } if (data.mpn) { $('#mpn-@productId').text(data.mpn).parent(&quot;.manufacturer-part-number&quot;).show(); } else { $('#mpn-@productId').parent(&quot;.manufacturer-part-number&quot;).hide(); } if (data.gtin) { $('#gtin-@productId').text(data.gtin).parent(&quot;.gtin&quot;).show(); } else { $('#gtin-@productId').parent(&quot;.gtin&quot;).hide(); } if (data.price) { $(&quot;.@(priceVarClass)&quot;).text(data.price); } if (data.stock) { $(&quot;#stock-@productId&quot;).text(data.stock).parent().show(); } } else { $(&quot;#stock-@productId&quot;).parent().hide(); } }, complete: function() { displayAjaxLoading(false); }, error: this.ajaxFailure }); ```</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>282</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Minor formatting changes on the plugin list page</MESSAGE>
+    <SHA>1f890e5529a7e5741211a897703f41a491eb2431</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#811 Fix bug with wrong display SKU, GTIN, MPN with product attributes</MESSAGE>
+      <SHA>ba9e9dc172986e4a4138fb00be5ac8a727205100</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Controllers/ProductController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Models/Catalog/ProductDetailsModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Product/_ProductAttributes.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Product/_SKU_Man_GTIN_Ven.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

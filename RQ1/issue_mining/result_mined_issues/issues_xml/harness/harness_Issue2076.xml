@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2076</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2076</ISSUEURL>
+  <TITLE>RFC replace websockets to support http2 and quic</TITLE>
+  <DESCRIPTION>http2 does not provide support to negotiate connection upgrades and therefore does not support websockets [1]. Furthermore reverse proxies suck and are a common cause for false positive &quot;drone is broken&quot; issues due to improper websocket configuration, and in some case (Amazon ELB) don't work at all. I plan to kill two birds with one stone here. The recommended solution is to use server sent events (SSE) [2]. Early versions of drone used SSE which I personally preferred to websockets. There were however some issues at the time that made SSE unreliable which is why I replaced the implementation with websockets. __What has changed with SSE?__ The issue with SSE is that connections frequently timeout after a minute or so due to reverse proxy and load balancer configurations. This required custom configurations (similar to websockets) but in practice had poor support from nginx, caddy and others. The fact that nginx killed a SSE connection normally would not be an issue because SSE will automatically reconnect AND provide the last message ID received so the server can resume. The problem was, at the time, Drone was unable to seek to a specific location in the stream and resume. This limitation has been removed. This means nginx (et al) can kill connections and the browser will auto-reconnect, and drone can resume with no extra overhead or complexity. __What about http2 push?__ This would force everyone to use http2 which is not feasible at this time. It would also require generating keys and configuring tls for local development. Bottom line, this would increase the barrier to entry for installing and developing Drone, and would negatively impact my personal development workflow. Server push is also quite new (just landed in Go 1.8). We can therefore re-evaluate http2 server push at a later time. __What is the end user impact here?__ Absolutely none. This change will take place in the website and server and should not impact usage at all. If you are running Drone on AWS with ELB we probably just made your life way easier. If you are running Drone behind nginx or something else, no changes should be required. Nginx (et al) will certainly timeout connections, but the browser and server will coordinate re-connects and resume streams. If anything you can expect a performance improvement since we will be able to enable http2 protocol by default if supported by your environment. [1] https://daniel.haxx.se/blog/2016/06/15/no-websockets-over-http2/ [2] https://www.infoq.com/articles/websocket-and-http2-coexist</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>36</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: [code-1880]: fix alignment of slash (#2031)</MESSAGE>
+    <SHA>a1ce21aa7c3042e6bddafedb5ab8492f78f8dc94</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix ssh key fingerprint (#2076)</MESSAGE>
+      <SHA>ef18a7aff275c8c83cdefd19fd95f0ef95710eaa</SHA>
+      <PATCHEDFILES>
+        <FILE>app/services/publickey/parse.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

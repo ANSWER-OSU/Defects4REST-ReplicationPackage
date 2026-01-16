@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3827</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/3827</ISSUEURL>
+  <TITLE>Unexpected result when querying process instances in Flowable 7.0.1</TITLE>
+  <DESCRIPTION>**Describe the bug** Hi all, I have found what it could be a bug in the recent `7.0.1` version. When using `HistoryService` to query process instances, it's using `or` instead of `and` for the query criteria. It was working well in `7.0.0`. **Expected behavior** Here is a test that, in my opinion, should be passing. I run a query with two criteria: * `createdAfter(yesterday)` (always true) * `processInstanceId == &quot;NONEXISTENT_ID&quot;` (always false) I expect the `count()` to be `0`, as I expect the search to look for `criteria1 AND criteria2` ``` @Test @Deployment(resources = [&quot;processes/simple_process.bpmn20.xml&quot;]) fun `counts returns 0 when filtering by unknown process instance id`() { // Define the filter val yesterday = OffsetDateTime.now().minusDays(1).toDate() val tasksQuery = historyService.createHistoricTaskInstanceQuery() tasksQuery.taskCreatedAfter(yesterday) tasksQuery.processInstanceId(&quot;NONEXISTENT_ID&quot;) // Create an instance runtimeService.startProcessInstanceByKey(&quot;simple_process&quot;) // Count the instances that match the filter val total = tasksQuery.count() // No instances are expected to match with id &quot;NONEXISTENT_ID&quot;) assertEquals(0, total) } ``` Looking at the logs, the SQL generated is as follows: ``` select count(distinct RES.ID_) from ACT_HI_TASKINST RES WHERE RES.PROC_INST_ID_ IN ( ? ) or RES.START_TIME_ &gt; ? ``` In version `7.0.0` the SQL is as follows: ``` select count(distinct RES.ID_) from ACT_HI_TASKINST RES WHERE RES.PROC_INST_ID_ IN ( ? ) and RES.START_TIME_ &gt; ? ``` (Notice `or` vs `and`) **Code** Looking at the [diff between 7.0.0 and 7.0.1](https://github.com/flowable/flowable-engine/compare/flowable-7.0.0...flowable-7.0.1), I see that [there has been a change in the file `HistoricTaskInstance.xml`](https://github.com/flowable/flowable-engine/blame/9aecece6e4ecdaa3c5368b1d8fe34bd2032a9190/modules/flowable-task-service/src/main/resources/org/flowable/task/service/db/mapping/entity/HistoricTaskInstance.xml#L1338) in the commit [`8e2be39`](https://github.com/flowable/flowable-engine/commit/8e2be39dca356bde5949fb07c706f068a35735ac) that might be related (some `and`'s have been replaced by `or`'s). **Additional context** I am using Flowable 7.0.0 with Spring Boot 3.2.1</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Move to version 7.0.0.19</MESSAGE>
+    <SHA>a2a8db76e30e97e19d6602fc92fdce689a850859</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #3827</MESSAGE>
+      <SHA>8023746621c93b1e95488e7faae27a78f3b18ec8</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/history/HistoricTaskInstanceTest.java</FILE>
+        <FILE>modules/flowable-task-service-api/src/main/java/org/flowable/task/api/history/HistoricTaskInstanceQuery.java</FILE>
+        <FILE>modules/flowable-task-service/src/main/java/org/flowable/task/service/impl/HistoricTaskInstanceQueryImpl.java</FILE>
+        <FILE>modules/flowable-task-service/src/main/resources/org/flowable/task/service/db/mapping/entity/HistoricTaskInstance.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #3827</MESSAGE>
+      <SHA>9ae1694ac06912af9a354d77ae7f4c2dfd58e457</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/history/HistoricTaskInstanceTest.java</FILE>
+        <FILE>modules/flowable-task-service-api/src/main/java/org/flowable/task/api/history/HistoricTaskInstanceQuery.java</FILE>
+        <FILE>modules/flowable-task-service/src/main/java/org/flowable/task/service/impl/HistoricTaskInstanceQueryImpl.java</FILE>
+        <FILE>modules/flowable-task-service/src/main/resources/org/flowable/task/service/db/mapping/entity/HistoricTaskInstance.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

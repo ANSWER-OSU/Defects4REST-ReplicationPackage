@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17989</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/17989</ISSUEURL>
+  <TITLE>e2e: podm rm empty pod: error in WalkDir</TITLE>
+  <DESCRIPTION>``` podman pod rm empty pod ... Unexpected error: &lt;*fs.PathError | 0xc000879530&gt;: open /sys/fs/cgroup/user.slice/user-3004.slice/user@3004.service/user.slice/libpod-conmon-a71b28bb423c68c150e51edc8e578afeda8d12bd770d4190d21a56fcaaa7e676.scope: no such file or directory { Op: &quot;open&quot;, Path: &quot;/sys/fs/cgroup/user.slice/user-3004.slice/user@3004.service/user.slice/libpod-conmon-a71b28bb423c68c150e51edc8e578afeda8d12bd770d4190d21a56fcaaa7e676.scope&quot;, Err: &lt;syscall.Errno&gt;0x2, } ``` The code in question is https://github.com/containers/podman/blob/c247b90c4a61a3e4ee38544ea10d5409d805bfbb/test/e2e/pod_rm_test.go#L47-L48 Only one instance that I can find, in [f37 rootless](https://api.cirrus-ci.com/v1/artifact/task/6414147026419712/html/int-podman-fedora-37-rootless-host-boltdb.log.html#t--podman-pod-rm-empty-pod--1)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18268 from edsantiago/bindingtest_fail_early bindings tests: bail out early on image errors</MESSAGE>
+    <SHA>911be1cbcb0ad654a8e10666262bdcee50ee54e0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>test: fix race when listing cgroups A cgroup could have been deleted by the time WalkDir is trying to access it. Ignore the error and continue. Closes: https://github.com/containers/podman/issues/17989 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>0364aef1e07c2d70c1fc03029bb11c2012e5b166</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/pod_rm_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

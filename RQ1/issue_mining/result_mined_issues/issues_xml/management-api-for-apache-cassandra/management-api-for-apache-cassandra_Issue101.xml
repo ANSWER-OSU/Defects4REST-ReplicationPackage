@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>101</ISSUENO>
+  <ISSUEURL>https://github.com/k8ssandra/management-api-for-apache-cassandra/issues/101</ISSUEURL>
+  <TITLE>DB home is not a writeable path</TITLE>
+  <DESCRIPTION>Running the API v0.1.24 on GKE fails with: &gt; Running java -Xms128m -Xmx128m -jar /opt/management-api/datastax-mgmtapi-server-0.1.0-SNAPSHOT.jar --cassandra-socket /tmp/cassandra.sock --host tcp://0.0.0.0:8080 --host file:///tmp/oss-mgmt.sock --explicit-start true --cassandra-home /var/lib/cassandra/ &gt; Usage error: Option 'db_home' was given value '/var/lib/cassandra/' which is not a writeable path Note: I'm running a slightly modified version of the Management API image because I need to run with a custom C* image instead of pulling the prebuilt one from dockerhub, but other than that my setup is pretty standard so I have no reasons to believe this wouldn't be a problem in general. The issue is that when it mounts the volume /var/lib/cassandra in GKE, the folder ends up being owned by root (regardless of the `chown` that happened earlier). I confirmed that by logging the permissions at the very end of the Dockerfile execution which was correct, and then at the beginning of the entrypoint, which was incorrect. It looks like this is how k8s works: https://github.com/kubernetes/kubernetes/issues/2630 In the entrypoint, it does have another chown call to fix the permissions, but that only happens if the user is root: https://github.com/k8ssandra/management-api-for-apache-cassandra/blob/v0.1.24/scripts/docker-entrypoint.sh#L17 I think we can fix this by removing/reverting the `USER cassandra` directive from the Dockerfile and then run the java command in the entrypoint with gosu.</DESCRIPTION>
+  <REPONAME>management-api-for-apache-cassandra</REPONAME>
+  <TIMEDIFFERENCEDAYS>19</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update to Cassandra 4.0-RC1</MESSAGE>
+    <SHA>d82d54de166127f662e4fa5a1ff2708da2536dcb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#101 Do not set the USER directive in Dockerfile to prevent permission issues on the mounted volume in GKE, instead, start the server with `gosu cassandra`.</MESSAGE>
+      <SHA>d50665633b33d84069ccfbeb6a31eeca664d3639</SHA>
+      <PATCHEDFILES>
+        <FILE>Dockerfile-4_0</FILE>
+        <FILE>scripts/docker-entrypoint.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18040</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18040</ISSUEURL>
+  <TITLE>Cirrus: aarch64: 404 in clone</TITLE>
+  <DESCRIPTION>Occasionally the CI `clone` job will 404: ``` cd /tmp echo &quot;$ARTCURL/build_aarch64/repo/repo.tbz&quot; curl --retry 5 --retry-delay 8 --fail --location -O --url https://api.cirrus-ci.com/v1/artifact/build/5921399689183232/build_aarch64/repo/repo.tbz time $ARTCURL/build_aarch64/repo/repo.tbz % Total % Received % Xferd Average Speed Time Time Time Current Dload Upload Total Spent Left Speed 0 0 0 0 0 0 0 0 --:--:-- --:--:-- --:--:-- 0 0 70 0 0 0 0 0 0 --:--:-- --:--:-- --:--:-- 0 curl: (22) The requested URL returned error: 404 ``` Seems to be aarch64 only. (Other arches also have clone flakes, but I haven't seen this 404). ### sys remote fedora-37-aarch64 root host boltdb: unknown failure * fedora-37-aarch64 : sys remote fedora-37-aarch64 root host boltdb [remote] * PR #17993 * [04-04 01:10](https://api.cirrus-ci.com/v1/task/6647048406040576/logs/clone.log) * [04-04 01:10](https://api.cirrus-ci.com/v1/task/4808942258225152/logs/clone.log) * [04-03 14:50](https://api.cirrus-ci.com/v1/task/6518674450808832/logs/clone.log) * [04-03 14:49](https://api.cirrus-ci.com/v1/task/5398696498561024/logs/clone.log) * PR #17951 * [03-27 17:40](https://api.cirrus-ci.com/v1/task/4562637627850752/logs/clone.log) * [03-27 17:39](https://api.cirrus-ci.com/v1/task/6489988766892032/logs/clone.log) ### sys podman fedora-37-aarch64 root host boltdb: unknown failure * fedora-37-aarch64 : sys podman fedora-37-aarch64 root host boltdb * PR #17993 * [04-04 01:10](https://api.cirrus-ci.com/v1/task/5999876157210624/logs/clone.log) * [04-04 01:09](https://api.cirrus-ci.com/v1/task/6281841162846208/logs/clone.log) * [04-03 14:50](https://api.cirrus-ci.com/v1/task/5686719421349888/logs/clone.log) * [04-03 14:49](https://api.cirrus-ci.com/v1/task/5680171475271680/logs/clone.log) * PR #17951 * [03-27 17:40](https://api.cirrus-ci.com/v1/task/6040278478356480/logs/clone.log) * [03-27 17:39](https://api.cirrus-ci.com/v1/task/5082613883338752/logs/clone.log)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18050 from n1hility/ignore-nonexist-env Fix daily run CI failures on win installer task</MESSAGE>
+    <SHA>89d186bdcf775fefca2c1554e7987eb02a4cc921</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Cirrus: Fix aarch64 clone_script 404 errors Fixes: https://github.com/containers/podman/issues/18040 If the `build_aarch64` task happens to fail for any reason, it will cause the `curl` command in the `clone_script` for the aarch64 system test tasks to throw a 404. This is because the `local_system_test_aarch64_task` depends on `build` not `build_aarch64`. As discovered in another issue long ago, the Cirrus API depends on doing some dependency-resolution magic to function properly. Fix this by correcting the dependencies. Signed-off-by: Chris Evich &lt;cevich@redhat.com&gt;</MESSAGE>
+      <SHA>74f9fd8e6c4c2f1b3e23204487c4876399e9109b</SHA>
+      <PATCHEDFILES>
+        <FILE>.cirrus.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

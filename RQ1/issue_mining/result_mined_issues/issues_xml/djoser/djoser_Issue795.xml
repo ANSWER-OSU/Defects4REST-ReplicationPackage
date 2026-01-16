@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>795</ISSUENO>
+  <ISSUEURL>https://github.com/sunscrapers/djoser/issues/795</ISSUEURL>
+  <TITLE>DJOSER is giving tokens to users that don't pass the AUTHENTICATION_BACKENDS.authenticate</TITLE>
+  <DESCRIPTION>https://github.com/sunscrapers/djoser/blob/4452009f628b59f02704373d5e7f991f1243397f/djoser/serializers.py#L127 When retrieving a token DJOSER check itself if the password match, or not. If password match, only active or not validation is done. Django authentication backends propose a set of method to do authentication centralised by backend, while respecting the configuration order (first login accepted first groups and permissions given to the user). django.contrib.auth.authenticate is used in AUTHENTICATION_BACKENDShttps://github.com/sunscrapers/djoser/blob/4452009f628b59f02704373d5e7f991f1243397f/djoser/serializers.py#L122. This function call, in the order declared in AUTHENTICATION_BACKENDS, the authenticate method for each backend. After checking if the login is correct in all authentication backends, if one user without any permission to get token has a user -password that match, DJOSE give the token. DJOSER should accept the result of authenticate because developpers can add more condition in the backends to allow user be authenticated.</DESCRIPTION>
+  <REPONAME>djoser</REPONAME>
+  <TIMEDIFFERENCEDAYS>267</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>improve test names</MESSAGE>
+    <SHA>893e0ddd743d62f539ef6bf2970a522a45ecbfa6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge branch 'master' into feature/#795</MESSAGE>
+      <SHA>ec6a32852cfca5af3468ab4564b2a5ba8053435e</SHA>
+      <PATCHEDFILES>
+        <FILE>.github/workflows/test-suite.yml</FILE>
+        <FILE>djoser/locale/ca/LC_MESSAGES/django.po</FILE>
+        <FILE>djoser/locale/es/LC_MESSAGES/django.po</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge branch 'refs/heads/master' into feature/#795</MESSAGE>
+      <SHA>8e0af130c5af7e8f15ab2d41bb63883848bdcf93</SHA>
+      <PATCHEDFILES>
+        <FILE>.github/workflows/publish_pypi.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

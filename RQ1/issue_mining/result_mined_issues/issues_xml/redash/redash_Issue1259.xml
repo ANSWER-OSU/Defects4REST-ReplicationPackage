@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1259</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/1259</ISSUEURL>
+  <TITLE>Can't logout when using only Google Apps SSO</TITLE>
+  <DESCRIPTION>### Issue Summary Trying to logout Redash keep redirecting me to the login page and signing me in automatically. This happened on a fresh installation with the following settings, which I think that is somehow related with the issue: - **REDASH_GOOGLE_APPS_DOMAINS**: &quot;domain1.com,gmail.com&quot; - **REDASH_PASSWORD_LOGIN_ENABLED**: &quot;false&quot; --- the logs: ``` [2016-08-26 03:32:45,014][PID:25][INFO][metrics] method=GET path=/logout endpoint=redash.logout status=302 content_type=text/html; charset=utf-8 content_length=237 duration=6.48 query_count=2 query_duration=2.41 [2016-08-26 03:32:45,016][PID:25][INFO][metrics] method=GET path=/logout endpoint=redash.logout status=500 content_type=? content_length=-1 duration=8.56 query_count=2 query_duration=2.41 [2016-08-26 03:32:45,163][PID:25][INFO][metrics] method=GET path=/login endpoint=redash.login status=302 content_type=text/html; charset=utf-8 content_length=251 duration=2.97 query_count=0 query_duration=0.00 [2016-08-26 03:32:45,165][PID:25][INFO][metrics] method=GET path=/login endpoint=redash.login status=500 content_type=? content_length=-1 duration=5.24 query_count=0 query_duration=0.00 [2016-08-26 03:32:45,438][PID:25][INFO][metrics] method=GET path=/oauth/google endpoint=google_oauth.authorize status=302 content_type=text/html; charset=utf-8 content_length=941 duration=2.95 query_count=0 query_duration=0.00 [2016-08-26 03:32:45,440][PID:25][INFO][metrics] method=GET path=/oauth/google endpoint=google_oauth.authorize status=500 content_type=? content_length=-1 duration=5.40 query_count=0 query_duration=0.00 [2016-08-26 03:32:46,375][PID:25][INFO][requests.packages.urllib3.connectionpool] Starting new HTTPS connection (1): www.googleapis.com [2016-08-26 03:32:46,634][PID:25][INFO][metrics] method=GET path=/oauth/google_callback endpoint=google_oauth.callback status=302 content_type=text/html; charset=utf-8 content_length=209 duration=494.07 query_count=6 query_duration=3.87 [2016-08-26 03:32:46,637][PID:25][INFO][metrics] method=GET path=/oauth/google_callback endpoint=google_oauth.callback status=500 content_type=? content_length=-1 duration=496.63 query_count=6 query_duration=3.87 [2016-08-26 03:32:46,789][PID:30][INFO][metrics] method=GET path=/ endpoint=redash.index status=200 content_type=text/html; charset=utf-8 content_length=3420 duration=8.75 query_count=4 query_duration=3.33 [2016-08-26 03:32:46,791][PID:30][INFO][metrics] method=GET path=/ endpoint=redash.index status=500 content_type=? content_length=-1 duration=10.59 query_count=4 query_duration=3.33 [2016-08-26 03:32:48,043][PID:30][INFO][metrics] method=GET path=/api/dashboards endpoint=dashboards status=200 content_type=application/json content_length=2 duration=11.50 query_count=5 query_duration=5.29 [2016-08-26 03:32:48,045][PID:30][INFO][metrics] method=GET path=/api/dashboards endpoint=dashboards status=500 content_type=? content_length=-1 duration=13.32 query_count=5 query_duration=5.29 [2016-08-26 03:32:48,222][PID:30][INFO][metrics] method=GET path=/api/queries/recent endpoint=recent_queries status=200 content_type=application/json content_length=2 duration=14.51 query_count=5 query_duration=7.75 [2016-08-26 03:32:48,225][PID:30][INFO][metrics] method=GET path=/api/queries/recent endpoint=recent_queries status=500 content_type=? content_length=-1 duration=17.70 query_count=5 query_duration=7.75 [2016-08-26 03:32:48,226][PID:25][INFO][metrics] method=GET path=/api/dashboards/recent endpoint=recent_dashboards status=200 content_type=application/json content_length=2 duration=15.83 query_count=7 query_duration=7.64 [2016-08-26 03:32:48,228][PID:25][INFO][metrics] method=GET path=/api/dashboards/recent endpoint=recent_dashboards status=500 content_type=? content_length=-1 duration=18.15 query_count=7 query_duration=7.64 [2016-08-26 03:32:49,253][PID:32][INFO][metrics] method=POST path=/api/events endpoint=events status=200 content_type=application/json content_length=4 duration=9.48 query_count=3 query_duration=2.62 [2016-08-26 03:32:49,255][PID:32][INFO][metrics] method=POST path=/api/events endpoint=events status=500 content_type=? content_length=-1 duration=11.85 query_count=3 query_duration=2.62 ``` --- - Redash Version: 0.12.0-rc - Browser/OS: Chrome Incognito Mode - How did you install Redash: docker</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>549</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Make SAML work in MULTI_ORG mode.</MESSAGE>
+    <SHA>3044c77309c864362dae69ffdeb9775654cdf0e5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Always show login page and generate URLs with url_for. Close #1259, #2235.</MESSAGE>
+      <SHA>35594ecb00fcbb5d691eaa5e1e4e1e63415b4875</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/handlers/authentication.py</FILE>
+        <FILE>redash/handlers/organization.py</FILE>
+        <FILE>redash/templates/login.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Always show login page and generate URLs with url_for. Close #1259, #2235.</MESSAGE>
+      <SHA>55260c9d26d34288890150121cddc84a366e90ba</SHA>
+      <PATCHEDFILES>
+        <FILE>handlers/authentication.py</FILE>
+        <FILE>handlers/organization.py</FILE>
+        <FILE>templates/login.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

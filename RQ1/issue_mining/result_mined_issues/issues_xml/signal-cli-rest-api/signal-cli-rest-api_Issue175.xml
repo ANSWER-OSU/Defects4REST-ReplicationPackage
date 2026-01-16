@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>175</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/175</ISSUEURL>
+  <TITLE>Swagger documentation of HTTP success status codes is incorrect?</TITLE>
+  <DESCRIPTION>### The problem I barely understand the Go language, but looking at [api.go](https://github.com/bbernhard/signal-cli-rest-api/blob/master/src/api/api.go), I can see multiple endpoints that result in ```c.Status(http.StatusNoContent)```, which should be status code 204, when not erroring out, but their Swagger documentation lists them with code 200. A quick test confirmed that successful requests indeed give status 204 on my end. These endpoints are: - [/v1/configuration](https://github.com/bbernhard/signal-cli-rest-api/blob/2d80ff91a2463fa370c12a65b62b7bc0c81c3dbb/src/api/api.go#L749) (POST) - [/v1/groups/{number}/{groupid}/block](https://github.com/bbernhard/signal-cli-rest-api/blob/2d80ff91a2463fa370c12a65b62b7bc0c81c3dbb/src/api/api.go#L805) - [/v1/groups/{number}/{groupid}/join](https://github.com/bbernhard/signal-cli-rest-api/blob/2d80ff91a2463fa370c12a65b62b7bc0c81c3dbb/src/api/api.go#L838) - [/v1/groups/{number}/{groupid}/quit](https://github.com/bbernhard/signal-cli-rest-api/blob/2d80ff91a2463fa370c12a65b62b7bc0c81c3dbb/src/api/api.go#L871) The newly introduced ```/v1/typing-indicator/{number}``` endpoints also result in ```c.Status(http.StatusNoContent)```, but the documentation has them listed with status code 201. However, I haven't been able to test this yet. I apologize if there's just something that I'm missing because I don't know a lot about the Go language. But in case this is just an oversight in the documentation, I wanted to point this out. :) ### Are you using the latest released version? - [X] Yes ### Have you read the troubleshooting page? - [X] Yes ### What type of installation are you running? signal-cli-rest-api Docker Container ### In which mode are you using the docker container? JSON-RPC Mode ### What's the architecture of your host system? armv7 ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>17</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>use SIGNAL_CLI_CONFIG_DIR env variable in jsonrpc2-helper script * do not hardcode path, but use path specified by SIGNAL_CLI_CONFIG_DIR env variable.</MESSAGE>
+    <SHA>2d80ff91a2463fa370c12a65b62b7bc0c81c3dbb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fixed swagger documentation * some endpoints had a wrong HTTP status code in the swagger documentation. see #175</MESSAGE>
+      <SHA>d4b2dbea7f5c7aab75fd34628ffb00e373400653</SHA>
+      <PATCHEDFILES>
+        <FILE>src/api/api.go</FILE>
+        <FILE>src/docs/docs.go</FILE>
+        <FILE>src/docs/swagger.json</FILE>
+        <FILE>src/docs/swagger.yaml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fixed swagger documentation * some endpoints had a wrong HTTP status code in the swagger documentation. see #175</MESSAGE>
+      <SHA>42704f023700c2d4079025fcbfc8023f25909747</SHA>
+      <PATCHEDFILES>
+        <FILE>src/api/api.go</FILE>
+        <FILE>src/docs/docs.go</FILE>
+        <FILE>src/docs/swagger.json</FILE>
+        <FILE>src/docs/swagger.yaml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

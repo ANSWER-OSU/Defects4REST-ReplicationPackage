@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17616</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/17616</ISSUEURL>
+  <TITLE>podman logs --since --follow: missing output</TITLE>
+  <DESCRIPTION>New flake: ``` not ok 108 podman logs - --since --follow journald ... $ podman logs --since 0.1s -f T37slH9xww timeout: sending signal TERM to command ?/var/tmp/go/src/github.com/containers/podman/bin/podman? [ rc=124 (expected) ] #/vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv #| FAIL: logs --since -f on running container works #| expected: =~ \^wxTfKjwkoo #| &gt; timeout: sending signal TERM to command.\* #| actual: timeout: sending signal TERM to command ?/var/tmp/go/src/github.com/containers/podman/bin/podman? ``` Suspiciously similar to #17286, but that one is `--until`, this one is `--since`; and that one is `k8s-file`, this one `journald`; and that one was remote-only, this one is happening local too. First seen today, which is -- coincidentally or not -- after the merge of #17305 (new CI VMs) and #17603 (Ed's proposed fix for the other `logs --follow` flake). * fedora-36 : sys podman fedora-36 rootless host * PR #17589 * [02-23 06:49](https://api.cirrus-ci.com/v1/artifact/task/6669329605853184/html/sys-podman-fedora-36-rootless-host.log.html#t--00108) in [sys] podman logs - --since --follow journald * fedora-36 : sys remote fedora-36 root host [remote] * PR #17601 * [02-23 04:25](https://api.cirrus-ci.com/v1/artifact/task/6359623121240064/html/sys-remote-fedora-36-root-host.log.html#t--00108) in [sys] podman logs - --since --follow journald</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #17643 from cevich/fix_cron_bud Cirrus: Fix bud tests failing to apply patches</MESSAGE>
+    <SHA>8f95a50d49930e91a1f390f4226b5ef906a1fd83</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix &quot;podman logs --since --follow&quot; flake The test should make sure the logs --follow call will log entries that are created in the future when --since is used and doe not include the container start event. However it seems the timing is to tight. I think it was possible that CI logged the line before the logs call was made, thus it is missing because --since excluded it. I cannot reproduce so I am not 100% on this but we can reopen the issue if it still happens. Fixes #17616 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>77861d6af35e6750f6fed8d40407c2b5dd8bdf40</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/035-logs.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix &quot;podman logs --since --follow&quot; flake The test should make sure the logs --follow call will log entries that are created in the future when --since is used and doe not include the container start event. However it seems the timing is to tight. I think it was possible that CI logged the line before the logs call was made, thus it is missing because --since excluded it. I cannot reproduce so I am not 100% on this but we can reopen the issue if it still happens. Fixes #17616 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>1a3a5594a06cf2c7e589ad38469929789043969b</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/035-logs.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>661</ISSUENO>
+  <ISSUEURL>https://github.com/WP-API/WP-API/issues/661</ISSUEURL>
+  <TITLE>The response from creating or updating a User should pass context = edit</TITLE>
+  <DESCRIPTION>When returning the User response from `WP_JSON_Users_Controller-&gt;create_item()` or `WP_JSON_Users_Controller-&gt;update_item()` the edit context should be passed. This: ``` $response = $this-&gt;get_item( array( 'id' =&gt; $user_id ) ); ``` Becomes: ``` $response = $this-&gt;get_item( array( 'id' =&gt; $user_id, 'context' =&gt; 'edit', ) ); ```</DESCRIPTION>
+  <REPONAME>WP-API</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #659 from WP-API/multisite-52 Run multisite test against PHP 5.2</MESSAGE>
+    <SHA>15d891b99ca07bdac68bf0cda8f7aee59ab9dc19</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Pass the edit context to get_item when returning the create or update user response. Fixes #661</MESSAGE>
+      <SHA>79f8c42a7d0646607273d4ebe767f44f96c486a4</SHA>
+      <PATCHEDFILES>
+        <FILE>lib/class-wp-json-users-controller.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #664 from WP-API/issue-661 Pass the edit context when returning the create or update response. Fixes #661</MESSAGE>
+      <SHA>046aa3289f7aeaa109e76fb94e23bb38dea4a6a6</SHA>
+      <PATCHEDFILES>
+        <FILE>lib/class-wp-json-users-controller.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

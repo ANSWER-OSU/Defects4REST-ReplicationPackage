@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19169</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/19169</ISSUEURL>
+  <TITLE>How do you create a macvlan network with explicit DNS servers?</TITLE>
+  <DESCRIPTION>### Issue Description In pre-netavark podman releases, it was possible to specify `--dns=9.9.9.10` when creating a container. In 4.5.0, I can still create the container with the `--dns` argument, but that has no effect: `/etc/resolv.conf` is created from the host regardless. ### Steps to reproduce the issue Steps to reproduce the issue 1. `podman network create media-test -d macvlan -o parent=v55toys --ipam-driver=host-local --subnet &quot;10.0.5.0/24&quot; --ip-range 10.0.5.225/28 --gateway &quot;10.0.5.1&quot; --dns 9.9.9.10` fails: &quot;Error: cannot set NetworkDNSServers if DNS is not enabled for the network: invalid argument&quot; 2. `podman network create media-test -d macvlan -o parent=v55toys --ipam-driver=host-local --subnet &quot;10.0.5.0/24&quot; --ip-range 10.0.5.225/28 --gateway &quot;10.0.5.1&quot;` without DNS servers succeeds, but then: 3. `podman run --network=media-test --dns=9.9.9.9 --rm ubuntu:latest cat /etc/resolv.conf` shows the host's DNS configuration. However: 4. `podman run --dns=9.9.9.9 --rm ubuntu:latest cat /etc/resolv.conf | grep 9.9.9.9` does work. ### Describe the results you received (see repro) ### Describe the results you expected I would have hoped to be able to set DNS servers for all drivers, regardless of whether they have DNS resolution enabled or not. Even if you can't set the DNS servers on the network, I would have expected the container creation argument to have the desired effect of using the specified servers instead of the host's. ### podman info output ```yaml plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan - ipvlan volume: - local registries: search: - docker.io - quay.io store: configFile: /etc/containers/storage.conf containerStore: number: 8 paused: 0 running: 7 stopped: 1 graphDriverName: overlay graphOptions: {} graphRoot: /var/lib/docker/podman-storage graphRootAllocated: 210241560576 graphRootUsed: 95477915648 graphStatus: Backing Filesystem: extfs Native Overlay Diff: &quot;false&quot; Supports d_type: &quot;true&quot; Using metacopy: &quot;false&quot; imageCopyTmpDir: /var/tmp imageStore: number: 86 runRoot: /home/asf transientStore: false volumePath: /var/lib/docker/podman-storage/volumes version: APIVersion: 4.5.0 Built: 315532800 BuiltTime: Mon Dec 31 19:00:00 1979 GitCommit: &quot;&quot; GoVersion: go1.20.5 Os: linux OsArch: linux/amd64 Version: 4.5.0 ``` ### Podman in a container No ### Privileged Or Rootless Privileged ### Upstream Latest Release Yes ### Additional environment details This is running on a physical machine running NixOS 23.05, with a macvlan I'm hoping to parent to a specific ethernet device. ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19197 from containers/renovate/go-github.com/gin-gonic/gin-vulnerability chore(deps): update module github.com/gin-gonic/gin to v1.9.1 [security]</MESSAGE>
+    <SHA>99ca4435fc69c469ff86bd89cc43aeb5f0924bc9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>netavark: macvlan networks keep custom nameservers The change to use the custom dns server in aardvark-dns caused a regression here because macvlan networks never returned the nameservers in netavark and it also does not make sense to do so. Instead check here if we got any network nameservers, if not we then use the ones from the config if set otherwise fallback to host servers. Fixes #19169 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>2a9b9bb53f0e7ca36450bb0361b0754ec7ac4595</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_internal_common.go</FILE>
+        <FILE>test/e2e/run_networking_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>netavark: macvlan networks keep custom nameservers The change to use the custom dns server in aardvark-dns caused a regression here because macvlan networks never returned the nameservers in netavark and it also does not make sense to do so. Instead check here if we got any network nameservers, if not we then use the ones from the config if set otherwise fallback to host servers. Fixes #19169 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>9d0470f125482a55a1b4d5d8ef38529cb505b485</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_internal_common.go</FILE>
+        <FILE>test/e2e/run_networking_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

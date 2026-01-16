@@ -1,0 +1,87 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24810</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/24810</ISSUEURL>
+  <TITLE>Trailing backslash causes infinite loop in quadlet generator</TITLE>
+  <DESCRIPTION>### Issue Description When an exec line ends with a trailing backslash, the quadlet generator enters an infinite loop and never returns. ### Steps to reproduce the issue I can reproduce this on `podman-5.3.0-1.fc41.x86_64`, or from 07dddebd1209ec1cabc35613d970fc821618fd2c (latest `main` at time of writing). 1. Populate this test case in `/etc/containers/systemd/breakstuff.container`: ``` [Container] Exec=true \ # must have a blank line above, but this line can be anything (including another blank line) ``` 2. Run `/usr/lib/systemd/system-generators/podman-system-generator` (or `cmd/quadlet/main.go`) ### Describe the results you received The `podman-system-generator` (`quadlet`) process never terminates, and uses 100% CPU: ``` $ ./quadlet -dryrun -v quadlet-generator[1284258]: Loading source unit file /etc/containers/systemd/breakstuff.container &lt;wait for flying cars to be invented&gt; ^C ``` ### Describe the results you expected I would expect a parse error to occur, or at least some kind of timeout. By the time I noticed this issue, there were many copies of `podman-system-generator` running on my system, as a new copy is spawned with each `systemctl daemon-reload`. While user error is what triggers this (due to bad syntax), it should fail gracefully. This class of problem has occurred elsewhere in #21109 and #22974, which makes me wonder whether this is worth additionally mitigating by introducing some kind of timeout, e.g. doing the work in a goroutine, which is raced against a timer (could be quite long, e.g. order of minutes). ### podman info output ```yaml host: arch: amd64 buildahVersion: 1.38.0 cgroupControllers: - cpuset - cpu - io - memory - hugetlb - pids - rdma - misc cgroupManager: systemd cgroupVersion: v2 conmon: package: conmon-2.1.12-3.fc41.x86_64 path: /usr/bin/conmon version: 'conmon version 2.1.12, commit: ' cpuUtilization: idlePercent: 90.73 systemPercent: 2.97 userPercent: 6.31 cpus: 4 databaseBackend: sqlite distribution: distribution: fedora variant: server version: &quot;41&quot; eventLogger: journald freeLocks: 1948 idMappings: gidmap: null uidmap: null kernel: 6.11.8-300.fc41.x86_64 linkmode: dynamic logDriver: journald memFree: 444219392 memTotal: 8130838528 networkBackend: netavark networkBackendInfo: backend: netavark dns: package: aardvark-dns-1.13.1-1.fc41.x86_64 path: /usr/libexec/podman/aardvark-dns version: aardvark-dns 1.13.1 package: netavark-1.13.0-1.fc41.x86_64 path: /usr/libexec/podman/netavark version: netavark 1.13.0 ociRuntime: name: crun package: crun-1.18.1-1.fc41.x86_64 path: /usr/bin/crun version: |- crun version 1.18.1 commit: c41f034fdbb9742c395085fc98459c94ad1f9aae rundir: /run/crun spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +CRIU +LIBKRUN +WASM:wasmedge +YAJL os: linux pasta: executable: /usr/bin/pasta package: passt-0^20241030.gee7d0b6-1.fc41.x86_64 version: | pasta 0^20241030.gee7d0b6-1.fc41.x86_64-pasta Copyright Red Hat GNU General Public License, version 2 or later &lt;https://www.gnu.org/licenses/old-licenses/gpl-2.0.html&gt; This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. remoteSocket: exists: true path: unix:///run/podman/podman.sock rootlessNetworkCmd: pasta security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: false seccompEnabled: true seccompProfilePath: /usr/share/containers/seccomp.json selinuxEnabled: true serviceIsRemote: true slirp4netns: executable: /usr/bin/slirp4netns package: slirp4netns-1.3.1-1.fc41.x86_64 version: |- slirp4netns version 1.3.1 commit: e5e368c4f5db6ae75c2fce786e31eef9da6bf236 libslirp: 4.8.0 SLIRP_CONFIG_VERSION_MAX: 5 libseccomp: 2.5.5 swapFree: 7390883840 swapTotal: 8130654208 uptime: 85h 2m 0.00s (Approximately 3.54 days) variant: &quot;&quot; plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan - ipvlan volume: - local registries: search: - registry.fedoraproject.org - registry.access.redhat.com - docker.io store: configFile: /usr/share/containers/storage.conf containerStore: number: 23 paused: 0 running: 23 stopped: 0 graphDriverName: overlay graphOptions: overlay.imagestore: /usr/lib/containers/storage overlay.mountopt: nodev,metacopy=on graphRoot: /var/lib/containers/storage graphRootAllocated: 107307073536 graphRootUsed: 26410164224 graphStatus: Backing Filesystem: xfs Native Overlay Diff: &quot;false&quot; Supports d_type: &quot;true&quot; Supports shifting: &quot;true&quot; Supports volatile: &quot;true&quot; Using metacopy: &quot;true&quot; imageCopyTmpDir: /var/tmp imageStore: number: 47 runRoot: /run/containers/storage transientStore: false volumePath: /var/lib/containers/storage/volumes version: APIVersion: 5.3.0 Built: 1731456000 BuiltTime: Wed Nov 13 11:00:00 2024 GitCommit: &quot;&quot; GoVersion: go1.23.2 Os: linux OsArch: linux/amd64 Version: 5.3.0 ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details Reproduced on Fedora 41 (amd64). ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #24716 from arixmkii/improve-machine-inspect-test Cover Unix socket in inpect test on Windows platform</MESSAGE>
+    <SHA>bf1661c93027cc723473ead3746585289190efc1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>systemd: simplify parser and fix infinite loop This commit simplifies the systemd parser logic, and it solves an infinite loop when using a continuation line. Closes: https://github.com/containers/podman/issues/24810 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>6435f3a75fe08b1ea93201ccb878b80f6f2a57c7</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/systemd/parser/split.go</FILE>
+        <FILE>pkg/systemd/parser/unitfile.go</FILE>
+        <FILE>pkg/systemd/parser/unitfile_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>systemd: simplify parser and fix infinite loop This commit simplifies the systemd parser logic, and it solves an infinite loop when using a continuation line. Closes: https://github.com/containers/podman/issues/24810 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>f88a2fe40f325210a64607f35649f901399721a3</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/systemd/parser/split.go</FILE>
+        <FILE>pkg/systemd/parser/unitfile.go</FILE>
+        <FILE>pkg/systemd/parser/unitfile_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>systemd: simplify parser and fix infinite loop This commit simplifies the systemd parser logic, and it solves an infinite loop when using a continuation line. Closes: https://github.com/containers/podman/issues/24810 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>d7b6d7c8b6122bc602803e3cb5d584275ea26000</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/systemd/parser/split.go</FILE>
+        <FILE>pkg/systemd/parser/unitfile.go</FILE>
+        <FILE>pkg/systemd/parser/unitfile_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>systemd: simplify parser and fix infinite loop This commit simplifies the systemd parser logic, and it solves an infinite loop when using a continuation line. Closes: https://github.com/containers/podman/issues/24810 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>7b72ddb87ba4f08f11af5480e41d9a1c05dd61d9</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/systemd/parser/split.go</FILE>
+        <FILE>pkg/systemd/parser/unitfile.go</FILE>
+        <FILE>pkg/systemd/parser/unitfile_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>systemd: simplify parser and fix infinite loop This commit simplifies the systemd parser logic, and it solves an infinite loop when using a continuation line. Closes: https://github.com/containers/podman/issues/24810 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>e01e43ab605320881125e59d795dca15bff1bb4f</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/systemd/parser/unitfile.go</FILE>
+        <FILE>pkg/systemd/parser/unitfile_test.go</FILE>
+        <FILE>test/e2e/quadlet/emptyline.container</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>systemd: simplify parser and fix infinite loop This commit simplifies the systemd parser logic, and it solves an infinite loop when using a continuation line. Closes: https://github.com/containers/podman/issues/24810 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>bb61a1bbf90c55b0a824be673513b96984ae9f30</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/systemd/parser/unitfile.go</FILE>
+        <FILE>pkg/systemd/parser/unitfile_test.go</FILE>
+        <FILE>test/e2e/quadlet/emptyline.container</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>systemd: simplify parser and fix infinite loop This commit simplifies the systemd parser logic, and it solves an infinite loop when using a continuation line. Closes: https://github.com/containers/podman/issues/24810 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>036e01ba152806c42cda091c57ebf11801ab3fe5</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/systemd/parser/unitfile.go</FILE>
+        <FILE>pkg/systemd/parser/unitfile_test.go</FILE>
+        <FILE>test/e2e/quadlet/emptyline.container</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>systemd: simplify parser and fix infinite loop This commit simplifies the systemd parser logic, and it solves an infinite loop when using a continuation line. Closes: https://github.com/containers/podman/issues/24810 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>a26a2ff88e38cdfa5c9d6c2d670fe18f27bed901</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/systemd/parser/unitfile.go</FILE>
+        <FILE>pkg/systemd/parser/unitfile_test.go</FILE>
+        <FILE>test/e2e/quadlet/emptyline.container</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

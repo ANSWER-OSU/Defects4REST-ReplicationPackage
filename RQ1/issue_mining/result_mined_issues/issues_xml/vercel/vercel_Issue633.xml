@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>633</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/633</ISSUEURL>
+  <TITLE>`now ls` throws after logging in</TITLE>
+  <DESCRIPTION>now 6.3.1, macos `rm ~/.now.json` `now ls` I log in and see ``` Cannot read property 'username' of undefined at list (/snapshot/home/travis/build/zeit/now-cli/bin/now-list.js:148:145) ```</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>23</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>7.1.0</MESSAGE>
+    <SHA>0392b5e3188d31d76bcbb7a884142f8d3cf20950</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>same solution to just-logged-in as in... https://github.com/zeit/now-cli/blob/7.1.0/bin/now-deploy.js#L298 fixes https://github.com/zeit/now-cli/issues/633</MESSAGE>
+      <SHA>f6fce666a43db2915fcd8230ce28c69e03e685f4</SHA>
+      <PATCHEDFILES>
+        <FILE>bin/now-list.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed property `username` not being defined (#700) https://github.com/zeit/now-cli/blob/7.1.0/bin/now-deploy.js#L298 fixes https://github.com/zeit/now-cli/issues/633</MESSAGE>
+      <SHA>50b7f878544a87119544e4d72857d5072a27c470</SHA>
+      <PATCHEDFILES>
+        <FILE>bin/now-list.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now-go] Fix failing build when go.mod exists in a subfolder (#633) * add test * fix test * fix 14-go-mod-sub test fixtures * add index.go to make fixtures correct</MESSAGE>
+      <SHA>f81d753104ffe44e43221998b7900e42cd8348e6</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-go/index.ts</FILE>
+        <FILE>packages/now-go/test/fixtures/14-go-mod-sub/api/index.go</FILE>
+        <FILE>packages/now-go/test/fixtures/14-go-mod-sub/now.json</FILE>
+        <FILE>packages/now-go/test/fixtures/14-go-mod-sub/other-folder/go.mod</FILE>
+        <FILE>packages/now-go/test/fixtures/14-go-mod-sub/other-folder/index.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

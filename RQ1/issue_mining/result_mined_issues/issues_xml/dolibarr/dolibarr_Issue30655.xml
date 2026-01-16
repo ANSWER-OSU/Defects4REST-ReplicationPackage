@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>30655</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/30655</ISSUEURL>
+  <TITLE>Fatal php error in create loan schedule</TITLE>
+  <DESCRIPTION>### Bug Creating loan schedules is failing ``` Fatal error: Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /var/www/html/loan/schedule.php:234 Stack trace: #0 {main} thrown in /var/www/html/loan/schedule.php on line 234 ``` ### Dolibarr Version 19.0.2,19.0.3,20.0.0 ### Environment PHP 8.2 ### Environment Database mariadb:latest ### Steps to reproduce the behavior and expected behavior 1. Install dolibarr 2. Activate bank and loan module 3. Create a bank account 4. Create a loan 5. Try to create a schedule ### Attached files &lt;img width=&quot;1255&quot; alt=&quot;image&quot; src=&quot;https://github.com/user-attachments/assets/0d5d4981-9f5a-4d72-8d51-f159b80d1cfb&quot;&gt; &lt;img width=&quot;1329&quot; alt=&quot;image&quot; src=&quot;https://github.com/user-attachments/assets/c3d48e3b-8aaf-4001-a204-bc426af319f3&quot;&gt; &lt;img width=&quot;1544&quot; alt=&quot;image&quot; src=&quot;https://github.com/user-attachments/assets/8b9c18ea-75f9-4fd6-bc86-2433a71f952d&quot;&gt;</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Prepare 19.0.3</MESSAGE>
+    <SHA>76c1f625f6273b1b4b73f0c2090d6e3b0644be31</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>don't set `$echeances-&gt;lines` to null to prevent fatal error also replace wrong variable `$echeance` with `$new_echeance` #30655</MESSAGE>
+      <SHA>99ce8261a8a52f683aeb37e966fbdba7b2f33874</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/loan/schedule.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>replace &quot;step1&quot; with a more speaking error message #30655</MESSAGE>
+      <SHA>592b2a0c3f2f31189bc4d326aaaa58c3ad19c76c</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/loan/class/loanschedule.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>FIX: Fatal error on create loan schedule (#30656) * don't set `$echeances-&gt;lines` to null to prevent fatal error also replace wrong variable `$echeance` with `$new_echeance` #30655 * replace &quot;step1&quot; with a more speaking error message #30655 --------- Co-authored-by: Oliver Lippert &lt;oliver@lipperts-web.de&gt; Co-authored-by: Laurent Destailleur &lt;eldy@destailleur.fr&gt;</MESSAGE>
+      <SHA>9757e189607acc572251197d87ec1a727d78412a</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/loan/class/loanschedule.class.php</FILE>
+        <FILE>htdocs/loan/schedule.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

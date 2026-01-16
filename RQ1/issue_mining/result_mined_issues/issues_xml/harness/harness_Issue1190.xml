@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1190</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/1190</ISSUEURL>
+  <TITLE>0.3 series stack traces when attempting to add a repository</TITLE>
+  <DESCRIPTION>The following is output when attempting to Add a repository from a fresh Drone-CI installation (via the .deb package) for the 0.3 series. This happens on any repository, so it doesn't appear to be triggered by existing configuration. 2015/09/05 23:48:06 http: panic serving 192.30.252.34:32556: runtime error: invalid memory address or nil pointer dereference goroutine 171 [running]: net/http.func·011() /usr/local/go/src/pkg/net/http/server.go:1100 +0xb7 runtime.panic(0xb42de0, 0x11b98d3) /usr/local/go/src/pkg/runtime/panic.c:248 +0x18d github.com/drone/drone/server/handler.PostHook(0xc20894d9e0, 0xc20894d830, 0x7f65f2564928, 0xc20863d4a0, 0xc2083d68f0) /var/cache/drone/src/github.com/drone/drone/server/handler/hook.go:46 +0xfdb github.com/zenazn/goji/web.handlerFuncWrap.ServeHTTPC(0xd5d430, 0xc20894d9e0, 0xc20894d830, 0x7f65f2564928, 0xc20863d4a0, 0xc2083d68f0) /var/cache/drone/src/github.com/zenazn/goji/web/handler.go:25 +0x54 github.com/zenazn/goji/web.(_router).route(0xc208026348, 0xc2089bd260, 0x7f65f2564928, 0xc20863d4a0, 0xc2083d68f0) /var/cache/drone/src/github.com/zenazn/goji/web/router.go:119 +0x143 github.com/zenazn/goji/web.func·002(0x7f65f2564928, 0xc20863d4a0, 0xc2083d68f0) /var/cache/drone/src/github.com/zenazn/goji/web/middleware.go:88 +0x5f net/http.HandlerFunc.ServeHTTP(0xc2089912c0, 0x7f65f2564928, 0xc20863d4a0, 0xc2083d68f0) /usr/local/go/src/pkg/net/http/server.go:1235 +0x40 github.com/drone/drone/server/middleware.func·006(0x7f65f2564928, 0xc20863d4a0, 0xc2083d68f0) /var/cache/drone/src/github.com/drone/drone/server/middleware/user.go:21 +0x1a6 net/http.HandlerFunc.ServeHTTP(0xc2089912e0, 0x7f65f2564928, 0xc20863d4a0, 0xc2083d68f0) /usr/local/go/src/pkg/net/http/server.go:1235 +0x40 github.com/drone/drone/server/middleware.func·001(0x7f65f2564928, 0xc20863d4a0, 0xc2083d68f0) /var/cache/drone/src/github.com/drone/drone/server/middleware/header.go:28 +0x4e9 net/http.HandlerFunc.ServeHTTP(0xc2081fb6a0, 0x7f65f2564928, 0xc20863d4a0, 0xc2083d68f0) /usr/local/go/src/pkg/net/http/server.go:1235 +0x40 main.func·002(0x7f65f2564928, 0xc20863d4a0, 0xc2083d68f0) /var/cache/drone/src/github.com/drone/drone/server/main.go:176 +0x721 net/http.HandlerFunc.ServeHTTP(0xc208991300, 0x7f65f2564928, 0xc20863d4a0, 0xc2083d68f0) /usr/local/go/src/pkg/net/http/server.go:1235 +0x40 github.com/drone/drone/server/middleware.func·002(0x7f65f2564928, 0xc20863d4a0, 0xc2083d68f0) /var/cache/drone/src/github.com/drone/drone/server/middleware/options.go:22 +0x261 net/http.HandlerFunc.ServeHTTP(0xc2081fb6d0, 0x7f65f2564928, 0xc20863d4a0, 0xc2083d68f0) /usr/local/go/src/pkg/net/http/server.go:1235 +0x40 github.com/zenazn/goji/web.(_cStack).ServeHTTP(0xc2089bd260, 0x7f65f2564928, 0xc20863d4a0, 0xc2083d68f0) /var/cache/drone/src/github.com/zenazn/goji/web/middleware.go:46 +0x7f github.com/zenazn/goji/web.(_Mux).ServeHTTP(0xc208026310, 0x7f65f2564928, 0xc20863d4a0, 0xc2083d68f0) /var/cache/drone/src/github.com/zenazn/goji/web/mux.go:45 +0x5f net/http.(_ServeMux).ServeHTTP(0xc208022930, 0x7f65f2564928, 0xc20863d4a0, 0xc2083d68f0) /usr/local/go/src/pkg/net/http/server.go:1511 +0x1a3 net/http.serverHandler.ServeHTTP(0xc208005a40, 0x7f65f2564928, 0xc20863d4a0, 0xc2083d68f0) /usr/local/go/src/pkg/net/http/server.go:1673 +0x19f net/http.(_conn).serve(0xc2089fad00) /usr/local/go/src/pkg/net/http/server.go:1174 +0xa7e created by net/http.(_Server).Serve /usr/local/go/src/pkg/net/http/server.go:1721 +0x313</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[code-1524] audit trails package (#1176)</MESSAGE>
+    <SHA>227aac90b591bbddc7ae862a6c43de626a1d2b32</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: add multi user created by filter (#1190)</MESSAGE>
+      <SHA>aff7391e08270580d5b0a97f42c9e29a97df2e3d</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/openapi/pullreq.go</FILE>
+        <FILE>app/api/request/pullreq.go</FILE>
+        <FILE>app/api/request/util.go</FILE>
+        <FILE>app/store/database/pullreq.go</FILE>
+        <FILE>types/pullreq.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

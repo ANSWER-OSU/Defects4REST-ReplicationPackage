@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>29421</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/29421</ISSUEURL>
+  <TITLE>BUG: API GET /members/types/{id} says it deletes member type</TITLE>
+  <DESCRIPTION>### Bug BUG: API GET /members/types/{id} says it deletes member type { &quot;success&quot;: { &quot;code&quot;: 200, &quot;message&quot;: &quot;Member type deleted&quot; } } but GET should never do that, only DELETE ### Dolibarr Version 20.0.0-alpha ### Environment PHP 8.2.7 ### Environment Database 10.11.7-MariaDB-1:10.11.7+maria~ubu2204 ### Steps to reproduce the behavior and expected behavior enable API module, create API key for user, visit the API explorer, scroll down and find GET /members/types/{id}, fill in a number, any number, even 89327434 and it says { &quot;success&quot;: { &quot;code&quot;: 200, &quot;message&quot;: &quot;Member type deleted&quot; } } ### Attached files ![get_member_types_says_delete_membeR_types](https://github.com/Dolibarr/dolibarr/assets/2551481/0cb13c2d-7408-4a73-a7a4-4c45c77f9b64)</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix syntax error</MESSAGE>
+    <SHA>c0326128cb6e4ed0678ef328ac8ebe351466e93b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX: API GET /members/types/{id} says it deletes member type #29421</MESSAGE>
+      <SHA>e29691a3206ab87d8b13c949e74698e929353915</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/adherents/class/adherent_type.class.php</FILE>
+        <FILE>htdocs/adherents/class/api_members.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>FIX: API GET /members/types/{id} says it deletes member type #29421 (#29423) Co-authored-by: Jon Bendtsen &lt;xcodeauthor@jonb.dk&gt;</MESSAGE>
+      <SHA>eb1c0444198e707bc40dab02fc1147d594610c98</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/adherents/class/adherent_type.class.php</FILE>
+        <FILE>htdocs/adherents/class/api_members.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

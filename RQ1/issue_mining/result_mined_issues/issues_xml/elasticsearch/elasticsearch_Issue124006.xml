@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>124006</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/124006</ISSUEURL>
+  <TITLE>[CI] FileAccessTreeTests testDuplicatePrunedPaths failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6780 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/t3rn5fyarqyyg) - [elasticsearch-pull-request #60569 / part-1-windows](https://gradle-enterprise.elastic.co/s/zvj5zs4phffyo) - [elasticsearch-pull-request #60527 / part-1-windows](https://gradle-enterprise.elastic.co/s/avv3zkk36qujs) - [elasticsearch-periodic-platform-support #6773 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/kqi4vnura5nio) - [elasticsearch-periodic-platform-support #6764 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/2f5sczceg5ubk) **Reproduction Line:** ``` gradlew &quot;:libs:entitlement:test&quot; --tests &quot;org.elasticsearch.entitlement.runtime.policy.FileAccessTreeTests.testDuplicatePrunedPaths&quot; -Dtests.seed=10CF3219AE697D7F -Dtests.locale=dyo -Dtests.timezone=Etc/GMT-0 -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.entitlement.runtime.policy.FileAccessTreeTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testDuplicatePrunedPaths),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: expected:&lt;[/a, /b/c, b/c/d, e/f]&gt; but was:&lt;[/a, /a/b, /b/c, b/c/d, e/f]&gt; ``` **Issue Reasons:** - [main] 3 consecutive failures in step windows-2022_checkpart1_platform-support-windows - [main] 5 failures in test testDuplicatePrunedPaths (2.3% fail rate in 214 executions) - [main] 3 failures in step windows-2022_checkpart1_platform-support-windows (100.0% fail rate in 3 executions) - [main] 2 failures in step part-1-windows (66.7% fail rate in 3 executions) - [main] 3 failures in pipeline elasticsearch-periodic-platform-support (100.0% fail rate in 3 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (2.1% fail rate in 97 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>38</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Simplify check to split bulk request (#124035) Use an optional to check if bulk operation should be split.</MESSAGE>
+    <SHA>b46dd1ca5cb2f17ba0e7395dc8199390f6c9b0d8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.entitlement.runtime.policy.FileAccessTreeTests testDuplicatePrunedPaths #124006</MESSAGE>
+      <SHA>c96fcf7b72e7a74fecf879a9d836370b90517407</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.entitlement.runtime.policy.FileAccessTreeTests testDuplicatePrunedPaths #124006</MESSAGE>
+      <SHA>8d921bfd3b542a4624f5c90c72999cd10238f190</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.entitlement.runtime.policy.FileAccessTreeTests testDuplicatePrunedPaths #124006</MESSAGE>
+      <SHA>7424b4577e36f2642f3af6a8825424ef7c65c54d</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126304</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126304</ISSUEURL>
+  <TITLE>[CI] CustomWebIdentityTokenCredentialsProviderTests testSupportRegionalizedEndpoints failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7433 / openjdk21_entitlements_false_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/4oei5ptkxl3tg) - [elasticsearch-periodic #7433 / openjdk23_entitlements_false_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/ia32ahsvr3zje) - [elasticsearch-periodic #7433 / openjdk23_entitlements_true_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/brbfu5aub5eyw) - [elasticsearch-periodic #7433 / openjdk21_entitlements_true_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/tnxmdvourcgxk) **Reproduction Line:** ``` ./gradlew &quot;:modules:repository-s3:qa:web-identity-token:test&quot; --tests &quot;org.elasticsearch.repositories.s3.CustomWebIdentityTokenCredentialsProviderTests.testCreateWebIdentityTokenCredentialsProvider&quot; -Dtests.seed=B9B4FCCCE00D687C -Dtests.jvm.argline=&quot;-Des.entitlements.enabled=false&quot; -Dtests.locale=ps-PK -Dtests.timezone=Europe/Dublin -Druntime.java=21 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.repositories.s3.CustomWebIdentityTokenCredentialsProviderTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testSupportRegionalizedEndpoints),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.security.AccessControlException: access denied (&quot;java.lang.RuntimePermission&quot; &quot;accessDeclaredMembers&quot;) ``` **Issue Reasons:** - [main] 4 failures in test testSupportRegionalizedEndpoints (1.7% fail rate in 236 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Use official ubi9-minimal base image for es docker (#126280) Based on feedback we got here: Based on feedback we got https://github.com/docker-library/official-images/pull/18692\#issuecomment-2749045229 we can not rely on non official images here</MESSAGE>
+    <SHA>d39db02a741056e1765254034fbaf31b43865804</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add missing test security policies Relates #126274 Closes #126301 Closes #126302 Closes #126303 Closes #126304 Closes #126305 Closes #126306</MESSAGE>
+      <SHA>e8712dc3589aa7cc5bd155958955637d2d00e5a6</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/repository-s3/qa/insecure-credentials/src/test/resources/plugin-security.policy</FILE>
+        <FILE>modules/repository-s3/qa/web-identity-token/src/test/resources/plugin-security.policy</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add missing test security policies (#126309) Relates #126274 Closes #126301 Closes #126302 Closes #126303 Closes #126304 Closes #126305 Closes #126306</MESSAGE>
+      <SHA>6ef45b05ead0af4f78101a1ddf76370979891247</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/repository-s3/qa/insecure-credentials/src/test/resources/plugin-security.policy</FILE>
+        <FILE>modules/repository-s3/qa/web-identity-token/src/test/resources/plugin-security.policy</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add missing test security policies (#126309) Relates #126274 Closes #126301 Closes #126302 Closes #126303 Closes #126304 Closes #126305 Closes #126306</MESSAGE>
+      <SHA>3e35900b07a920fbb1ae51e40b694ec851ad0191</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/repository-s3/qa/insecure-credentials/src/test/resources/plugin-security.policy</FILE>
+        <FILE>modules/repository-s3/qa/web-identity-token/src/test/resources/plugin-security.policy</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add missing test security policies (#126309) (#126321) Relates #126274 Closes #126301 Closes #126302 Closes #126303 Closes #126304 Closes #126305 Closes #126306</MESSAGE>
+      <SHA>f9ef6a81162386b0c68d7aea873c6c1fa0cb2883</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/repository-s3/qa/insecure-credentials/src/test/resources/plugin-security.policy</FILE>
+        <FILE>modules/repository-s3/qa/web-identity-token/src/test/resources/plugin-security.policy</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

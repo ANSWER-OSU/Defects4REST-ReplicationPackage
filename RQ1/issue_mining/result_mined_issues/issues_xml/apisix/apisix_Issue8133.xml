@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8133</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/8133</ISSUEURL>
+  <TITLE>bug: plugin(openid-connect): when set `use_jwks: true`, userinfo is not set</TITLE>
+  <DESCRIPTION>### Current Behavior When set `use_jwks: true`, the plugin not set userinfo into headers https://github.com/apache/apisix/blob/23356d6c4a58379f5cf33be92e0d88cc6399a853/apisix/plugins/openid-connect.lua#L228-L240 maybe line 240 should be `return res, err, token, res` ? ### Expected Behavior userinfo set into headers as x-userinfo ### Error Logs _No response_ ### Steps to Reproduce configs: ```yaml routes: - uri: plugins: openid-connect: # https://github.com/apache/apisix/issues/5425 client_id: xxx client_secret: xxx discovery: some_host/oidc/.well-known/openid-configuration use_jwks: true bearer_only: true access_token_in_authorization_header: true set_userinfo_header: true ``` ### Environment - APISIX version (docker: 2.15.0-alpine):</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>32</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat(test): add default no_error_log (#8006)</MESSAGE>
+    <SHA>c56bace23af3cb3312674647db3179f508ea0763</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix(openid-connect): return userinfo when use_jwks is true (#8347) Fixes https://github.com/apache/apisix/issues/8133</MESSAGE>
+      <SHA>4346b0b2c58f6473d31f6882c6aeabb7084f9c7f</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/openid-connect.lua</FILE>
+        <FILE>t/plugin/openid-connect.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(openid-connect): return userinfo when use_jwks is true (#8347) Fixes https://github.com/apache/apisix/issues/8133 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>460306de376f46164f3f6a68022e12b328fc939e</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/openid-connect.lua</FILE>
+        <FILE>t/plugin/openid-connect.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(openid-connect): return userinfo when use_jwks is true (#8347) Fixes https://github.com/apache/apisix/issues/8133 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>b4a69274fb0e7a68e6ffa6de9e3a6a97bc734dd4</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/openid-connect.lua</FILE>
+        <FILE>t/plugin/openid-connect.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

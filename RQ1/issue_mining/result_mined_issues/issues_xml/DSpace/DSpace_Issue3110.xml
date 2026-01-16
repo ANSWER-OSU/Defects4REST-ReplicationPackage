@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3110</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/3110</ISSUEURL>
+  <TITLE>Poor URL matching causes improper failure with confusing message</TITLE>
+  <DESCRIPTION>**400 Bad Request** while rendering the initial page server-side. The underlying error made no sense: `java.lang.IllegalArgumentException: the supplied uri is not valid: http://ds7.wood.net/server/api/core/sites/2510e895-db7e-46b2-9a9e-b4fd92026156`. The string *is* a valid HTTP URI, and fetching it with `curl` succeeds. I traced the problem to the way that URIs are validated in `org.dspace.app.rest.utils.Utils.getBaseObjectRestFromUri`. The problem was revealed because I had configured `dspace.server.url` with an explicit port 80, which is useless (for protocol `http`) but not incorrect. This failure is incorrect, surprising, and time-consuming to understand. The ultimate cause of the failure is that `getBaseObjectRestFromUri` compares URLs as strings rather than as serializations of complex structured objects (which is what URLs are). I suggest that, to discover whether URL A is a prefix of URL B, one must compare protocol, host, port, and path separately. **To Reproduce** Steps to reproduce the behavior: 1. Configure `dspace.server.url` explicitly with the default port for its protocol. 2. Start up front end and back end, and browse to the front end. **Expected behavior** For example: the URL `http://example.com:80/foo` should be recognized as a prefix of `http://example.com/foo/bar`.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>21</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[maven-release-plugin] prepare release dspace-7.0-beta4.1</MESSAGE>
+    <SHA>5be0009a3c4b93730c00f00c22d5a140a7483e0d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Compare URLs in a way that recognizes URL structure, not as simple strings. #3110 Also improve readability of some commentary.</MESSAGE>
+      <SHA>751d7d5fdb922c6142bee408061d4f8a4a7c4891</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/utils/URLUtils.java</FILE>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/utils/Utils.java</FILE>
+        <FILE>dspace-server-webapp/src/test/java/org/dspace/app/rest/utils/URLUtilsTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Extract paths from URLs to arrays before trimming leading elements. #3110 Let exception report its constructor arguments in its message. More comment cleanup.</MESSAGE>
+      <SHA>0b1789ad09d9a2908958ecc0bfd8e1a7816d8f49</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/exception/RepositoryNotFoundException.java</FILE>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/utils/Utils.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Address reviews. Fix reversed parameters. Compare path elements, not whole paths. #3110</MESSAGE>
+      <SHA>f9a527fd5c00f3703a0411cf3ba000d1460c30d8</SHA>
+      <PATCHEDFILES>
+        <FILE>.gitignore</FILE>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/utils/URLUtils.java</FILE>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/utils/Utils.java</FILE>
+        <FILE>dspace-server-webapp/src/test/java/org/dspace/app/rest/utils/URLUtilsTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Correct misleading method javadoc. #3110</MESSAGE>
+      <SHA>8d6318d3e93f05c92a795bcb4d6d0e35a43f1398</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/utils/URLUtils.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

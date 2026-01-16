@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14368</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14368</ISSUEURL>
+  <TITLE>podman-remote defaults to client host's default network mode (slirp4netns when not running as root)</TITLE>
+  <DESCRIPTION>**Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind bug **Description** `podman-remote` seems to be defaulting the `HostConfig.NetworkMode` value for containers based on whether the *client side* is root, rather than the **remote**. **Steps to reproduce the issue:** 1. Set up a podman-remote connection on a host running non-root to a remote host which will be connected to over ssh as root, e.g. `CONTAINER_HOST='root@my-host/run/podman/podman.sock'` 2. Start a container, e.g. `podman-remote run -it alpine` 3. Inspect the container's network mode, e.g. `podman-remote inspect &lt;ctr&gt; | jq .[0].HostConfig.NetworkMode` **Describe the results you received:** ``` &gt; podman-remote inspect 6d | jq .[0].HostConfig.NetworkMode &quot;slirp4netns&quot; ``` **Describe the results you expected:** The same behaviour as running podman inside the remote host, i.e. use 'bridge' network mode by default: ``` &gt; podman-remote inspect 6d | jq .[0].HostConfig.NetworkMode &quot;bridge&quot; ``` **Output of `podman version`:** ``` Client: Version: 3.4.4 API Version: 3.4.4 Go Version: go1.16.8 Git Commit: f6526ada1025c2e3f88745ba83b8b461ca659933 Built: Wed Dec 8 13:15:01 2021 OS/Arch: linux/amd64 Server: Version: 3.4.4 API Version: 3.4.4 Go Version: go1.17.3 Built: Wed Dec 31 16:00:00 1969 OS/Arch: linux/amd64 ``` **Output of `podman info --debug`:** ``` host: arch: amd64 buildahVersion: 1.23.1 cgroupControllers: - cpuset - cpu - io - memory - hugetlb - pids - rdma - misc cgroupManager: systemd cgroupVersion: v2 conmon: package: 'conmon: /usr/bin/conmon' path: /usr/bin/conmon version: 'conmon version 2.0.25, commit: unknown' cpus: 6 distribution: codename: jammy distribution: ubuntu version: &quot;22.04&quot; eventLogger: journald hostname: ubuntu idMappings: gidmap: null uidmap: null kernel: 5.15.0-30-generic linkmode: dynamic logDriver: journald memFree: 3193929728 memTotal: 6222995456 ociRuntime: name: crun package: 'crun: /usr/bin/crun' path: /usr/bin/crun version: |- crun version 0.17 commit: 0e9229ae34caaebcb86f1fde18de3acaf18c6d9a spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +YAJL os: linux remoteSocket: exists: true path: /run/podman/podman.sock security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: false seccompEnabled: true seccompProfilePath: /usr/share/containers/seccomp.json selinuxEnabled: false serviceIsRemote: true slirp4netns: executable: /usr/bin/slirp4netns package: 'slirp4netns: /usr/bin/slirp4netns' version: |- slirp4netns version 1.0.1 commit: 6a7b16babc95b6a3056b33fb45b74a6f62262dd4 libslirp: 4.6.1 swapFree: 0 swapTotal: 0 uptime: 18h 15m 0.26s (Approximately 0.75 days) plugins: log: - k8s-file - none - journald network: - bridge - macvlan volume: - local registries: {} store: configFile: /etc/containers/storage.conf containerStore: number: 2 paused: 0 running: 2 stopped: 0 graphDriverName: overlay graphOptions: {} graphRoot: /var/lib/containers/storage graphStatus: Backing Filesystem: extfs Native Overlay Diff: &quot;true&quot; Supports d_type: &quot;true&quot; Using metacopy: &quot;false&quot; imageStore: number: 1 runRoot: /run/containers/storage volumePath: /var/lib/containers/storage/volumes version: APIVersion: 3.4.4 Built: 0 BuiltTime: Thu Jan 1 00:00:00 1970 GitCommit: &quot;&quot; GoVersion: go1.17.3 OsArch: linux/amd64 Version: 3.4.4 ``` **Package info (e.g. output of `rpm -q podman` or `apt list podman`):** On the remote host (`podman-remote` is a static binary that's been downloaded): ``` podman/jammy,now 3.4.4+ds1-1ubuntu1 amd64 [installed] ``` **Have you tested with the latest version of Podman and have you checked the Podman Troubleshooting Guide? (https://github.com/containers/podman/blob/main/troubleshooting.md)** No (sorry)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14433 from Luap99/restore-net fix podman container restore without CreateNetNS</MESSAGE>
+    <SHA>398e7ceb86fec37c28720391914655387778b554</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>pkg/specgen: parse default network mode on server When podman-remote is used we should not resolve the default network mode on the client. Defaults should be set on the server. In this case this is important because we have different defaults for root/rootless. So when the client is rootless and the server is root we must pick the root default. Note that this already worked when --network was set since we did not parsed the flag in this case. To reproduce you need --network=default. Also removed a unused function. [NO NEW TESTS NEEDED] I tested it manually but I am not sure how I can hook a test like this up in CI. The client would need to run as rootless and the server as root or the other way around. Fixes #14368 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>2805c7353b15679d66eec988949bb79e1e320805</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/specgen/container_validate.go</FILE>
+        <FILE>pkg/specgen/generate/namespaces.go</FILE>
+        <FILE>pkg/specgen/generate/pod_create.go</FILE>
+        <FILE>pkg/specgen/namespaces.go</FILE>
+        <FILE>pkg/specgen/namespaces_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>pkg/specgen: parse default network mode on server When podman-remote is used we should not resolve the default network mode on the client. Defaults should be set on the server. In this case this is important because we have different defaults for root/rootless. So when the client is rootless and the server is root we must pick the root default. Note that this already worked when --network was set since we did not parsed the flag in this case. To reproduce you need --network=default. Also removed a unused function. [NO NEW TESTS NEEDED] I tested it manually but I am not sure how I can hook a test like this up in CI. The client would need to run as rootless and the server as root or the other way around. Fixes #14368 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>6f6b64049f5721a9e82a9e1a8d87ae64c34c6e7e</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/specgen/container_validate.go</FILE>
+        <FILE>pkg/specgen/generate/namespaces.go</FILE>
+        <FILE>pkg/specgen/generate/pod_create.go</FILE>
+        <FILE>pkg/specgen/namespaces.go</FILE>
+        <FILE>pkg/specgen/namespaces_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

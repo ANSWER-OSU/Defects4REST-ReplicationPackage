@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14973</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/14973</ISSUEURL>
+  <TITLE>Error when parsing bookmark cards</TITLE>
+  <DESCRIPTION>### Issue Summary When I copy a URL to my post and it turns to Bookmark card automatically. But for some site(e.g. some Chinese site), it fails to parse correct content with error encoding. Some fails to fetch icon and thumbnail preview. It’s not site problem, I am sure there is something wrong with Ghost cause I can get these correctly in other CMS system. ### Steps to Reproduce Please try to paste these in post: http://slide.news.sina.com.cn/slide_1_86058_547338.html#p=1 https://new.qq.com/omn/20220613/20220613A0A3G200.html ![](https://aws1.discourse-cdn.com/business4/uploads/ghost2/original/3X/0/5/05c28b59479a84620b726c41e38a7224d0f048dd.jpeg) ### Ghost Version 5.2.2 ### Node.js Version 16.15.1 ### How did you install Ghost? Follow official tutorial. ### Database type MySQL 8 ### Browser &amp; OS version Ubuntu 20.04LTS ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>121</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>:bug: Removed sitemaps with no content Closes #14981 - Taxonomy-specific sitemaps were invalid xml when there was no data - These invalid empty sitemaps were referenced in the index sitemap causing SEO tools to report errors</MESSAGE>
+    <SHA>9d1ec4d59e13bb98ae2b3e7456c725480f6b9639</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>:bug: Fixed embedded cards for non-utf8 content Closes #14973 When fetching content using a non-standard charset, characters were not properly decoded to utf-8 resulting in mangled text in the editor. -&gt; Detect charset and use iconv to decode the page text When requesting a non bookmark card, if no oembed data could be found and we fallback to bookmark, a second network request to fetch the content. This seemed unnecessary. -&gt; refactored to avoid making that</MESSAGE>
+      <SHA>91433954c0d3d6cd208553ff6101cc691198f61a</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/package.json</FILE>
+        <FILE>ghost/core/test/e2e-api/admin/oembed.test.js</FILE>
+        <FILE>ghost/oembed-service/lib/oembed-service.js</FILE>
+        <FILE>ghost/oembed-service/package.json</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>:bug: Fixed embedded cards for non-utf8 content Closes #14973 When fetching content using a non-standard charset, characters were not properly decoded to utf-8 resulting in mangled text in the editor. &amp;rarr;Detect charset and use iconv to decode the page text When requesting a non bookmark card, if no oembed data could be found and we fallback to bookmark, a second network request to fetch the content. This seemed unnecessary. &amp;rarr;refactored to avoid making that</MESSAGE>
+      <SHA>14f0ef411cbfad8044747a37d993f8a7ff81bfad</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/test/e2e-api/admin/oembed.test.js</FILE>
+        <FILE>ghost/oembed-service/lib/oembed-service.js</FILE>
+        <FILE>ghost/oembed-service/package.json</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed embedded cards for non-utf8 content (#15578) closes: https://github.com/TryGhost/Ghost/issues/14973 - When fetching content using a non-standard charset, characters were notproperly decoded to utf-8 resulting in mangled text in the editor -&gt; Detect charset and use iconv to decode the page text - When requesting a non bookmark card, if no oembed data could be foundand we fallback to bookmark, a second network request to fetch the content was issued. This seemed unnecessary -&gt; refactored to avoid that</MESSAGE>
+      <SHA>75811f35bcdda1c2d95bac457951c012fd72948f</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/test/e2e-api/admin/oembed.test.js</FILE>
+        <FILE>ghost/oembed-service/lib/oembed-service.js</FILE>
+        <FILE>ghost/oembed-service/package.json</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed embedded cards for non-utf8 content (#15578) closes: https://github.com/TryGhost/Ghost/issues/14973 - When fetching content using a non-standard charset, characters were notproperly decoded to utf-8 resulting in mangled text in the editor -&gt; Detect charset and use iconv to decode the page text - When requesting a non bookmark card, if no oembed data could be foundand we fallback to bookmark, a second network request to fetch the content was issued. This seemed unnecessary -&gt; refactored to avoid that</MESSAGE>
+      <SHA>0837d925c10b74c671a30b292f9c38767cd2c77f</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/test/e2e-api/admin/oembed.test.js</FILE>
+        <FILE>ghost/oembed-service/lib/oembed-service.js</FILE>
+        <FILE>ghost/oembed-service/package.json</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

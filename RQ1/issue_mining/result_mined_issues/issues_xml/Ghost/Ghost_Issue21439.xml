@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>21439</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/21439</ISSUEURL>
+  <TITLE>Drop target for uploads (content and theme) is broken.</TITLE>
+  <DESCRIPTION>### Issue Summary (Not a new issue - has been bugging me for months!) The 'drop target' for drag and dropping a theme or upload file doesn't work right on Windows 10, Chrome browser. Occurs on local installs AND on Ghost Pro. Image: Shows hovering over the 'drop area', but the cursor still shows 'copy', and if I drop it here, it'll download it (NOT upload it to Ghost). ![image](https://github.com/user-attachments/assets/e4837bf4-580d-4cf7-9366-fbd6f262f128) Image: The very edge of the drop area (marked in yellow) is actually droppable. /IF/ I can get my cursor over this sliver between the dotted and solid borders, dropping works. The big red x area is not. ![image](https://github.com/user-attachments/assets/2cf3ea75-b33a-40a8-ba43-f781f3a7362f) Chrome is up to date: Version 130.0.6723.70 (Official Build) (64-bit) **UPDATE:** See https://github.com/TryGhost/Ghost/pull/21687 for more discussion . I think this is not actually a problem with the drop area, but with re-rendering. (Holding the mouse still for a long period seems to stop the rerenders, and targeting the edge was probably causing me to do that? I think?) ### Steps to Reproduce Use Chrome. (Possibly use Chrome on Windows - not sure.) Attempt to drag and drop a file into the drop area for theme upload or import upload. I expect the entire box to be a valid drop target. ### Ghost Version 5.98 (and multiple versions before) ### Node.js Version 18 ### How did you install Ghost? various, including on Ghost Pro ### Database type MySQL 8 ### Browser &amp; OS version Chrome Version 130.0.6723.70 (Official Build) (64-bit) ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>25</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Removed TTL from tinybird analytics_events datasource (#21697) ref https://linear.app/ghost/issue/ANAL-115/data-retention - The bad news here is I didn't notice that the tinybird web analytics starter kit included a TTL on the analytics_events datasource of 60 days - This means any data older than 60days was automatically dropped from the table - I updated this in the UI when I noticed it a few days ago, this makes sure it can't come back - The good news is that we don't have to implement anything to make this work when we do get to the point where we want a TTL!</MESSAGE>
+    <SHA>2016e6a6df1a1fc9a13721d152c26ed524a3342d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix Windows bug with the admin file upload widget (#21687) closes #21439 On Windows 10/Chrome (but maybe nowhere else?), attempting to drag a file into any of the drop targets in the admin panel resulted in flickering behavior, and generally dropping didn't actually trigger the upload. I thought originally it was a problem with the size of the drop target, but it actually appears to be a rerender bug. In brief, handleDragging and handleStopDragging were firing repeatedly, and each fire triggered a rerender, that added or removed a div from the file upload widget. I suspect some browser-specific difference in how drag events fire is to blame. This PR moves the logic to change the classes applied to the div, rather than changing whether the div is present. I have manually tested with Windows 10 in the users import, theme import, and content import widgets. Styles are preserved (although I think they could be improved, as the grey outline is really faint) and uploading now works consistently, instead of mostly triggering display of the raw file most of the time.</MESSAGE>
+      <SHA>ebd98d005acf1b04b737e50601c71dc3020490fa</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/admin-x-design-system/src/global/form/FileUpload.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

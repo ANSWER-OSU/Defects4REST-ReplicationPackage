@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15640</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15640</ISSUEURL>
+  <TITLE>Fail to remove image with command &quot;podman container cleanup --rmi xxx&quot;</TITLE>
+  <DESCRIPTION>This issue is found in Podman 3.4.4. The code logic is that remove image directly, but the container is still using the image. I suppose it should remove the container first and then remove the image in code. Or is it work as design? func (ic *ContainerEngine) ContainerCleanup() Ubuntu Linux 20.04 root@fanhuawei-Standard-PC-i440FX-PIIX-1996:/home/fanhuawei/podman/podman-3.4.4/bin# ./podman container cleanup --rmi b11c6311eaf7 ERRO[0000] Error removing image: Image used by b11c6311eaf74ea64ca500781fb96207ec41ec01a5d8311ccf20e93c4b4a6401: image is in use by a container Error: Image used by b11c6311eaf74ea64ca500781fb96207ec41ec01a5d8311ccf20e93c4b4a6401: image is in use by a container</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>331</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19406 from rhatdan/volumes Fix up man page and add test on globs</MESSAGE>
+    <SHA>cd5ce637249e58298a2d55ec54bd2b77b6274b4d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Make podman run --rmi automatically set --rm Forcing users to set --rm when setting --rmi is just bad UI. If I want the image to be removed, it implies that I want the container removed that I am creating. Fixes: https://github.com/containers/podman/issues/15640 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>f3ebd798c64cfbea6ecd1cc180d4d57c00dcb7b0</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/containers/run.go</FILE>
+        <FILE>docs/source/markdown/podman-run.1.md.in</FILE>
+        <FILE>test/system/030-run.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

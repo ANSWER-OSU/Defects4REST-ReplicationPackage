@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>862</ISSUENO>
+  <ISSUEURL>https://github.com/WP-API/WP-API/issues/862</ISSUEURL>
+  <TITLE>Post query returns json_invalid_query for valid query</TITLE>
+  <DESCRIPTION>If you do a query that happens to have no results (e.g. `cat=2` where the category has no posts), you get back a 404 and a `json_invalid_query` error. This should just be an empty JSON list, and not an error.</DESCRIPTION>
+  <REPONAME>WP-API</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Return an empty array for valid queries that don't return any results.</MESSAGE>
+    <SHA>c9de8affb8bf24181cb28fdb14898b23e22dea3f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Update zero results unit test to match expectations in #862. - Return 200 response. - Return empty array list.</MESSAGE>
+      <SHA>620f2a85b4791ba9ea1d9039815aa007eadeb08c</SHA>
+      <PATCHEDFILES>
+        <FILE>tests/test-json-posts-controller.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

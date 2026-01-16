@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16091</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16091</ISSUEURL>
+  <TITLE>signal flake: Timed out waiting for BYE</TITLE>
+  <DESCRIPTION>Haven't seen this one before (note, &quot;sigkill&quot; in test name is a misnomer, it's actually SIGINT) ``` [+0226s] not ok 81 podman sigkill ... # #/vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv # #| FAIL: Timed out waiting for BYE from container # #\^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ``` Basically, it looks like container is never receiving the INT signal) [ubuntu root](https://api.cirrus-ci.com/v1/artifact/task/6536729771900928/html/sys-podman-ubuntu-2204-root-host.log.html#t--00081)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>231</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #16284 from vrothberg/fix-16076 notifyproxy: fix container watcher</MESSAGE>
+    <SHA>045a190c33d12f2a851bb1545c17b1de2784649d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>sig-proxy test: bump timeout Bump the timeout waiting for the container to process the signal. The comparatively short timeout is most likely responsible for flakes in gating tests. Fixes: #16091 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>f0ba2d89e8616e5983dbd4a578bb611f81852a18</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/032-sig-proxy.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>sig-proxy test: bump timeout Bump the timeout waiting for the container to process the signal. The comparatively short timeout is most likely responsible for flakes in gating tests. Fixes: #16091 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>1afde78708e98d5112d6fa1c1a88dd53720767df</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/032-sig-proxy.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>sig-proxy test: bump timeout Bump the timeout waiting for the container to process the signal. The comparatively short timeout is most likely responsible for flakes in gating tests. Fixes: #16091 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt; (cherry picked from commit f0ba2d89e8616e5983dbd4a578bb611f81852a18) Signed-off-by: Lokesh Mandvekar &lt;lsm5@fedoraproject.org&gt;</MESSAGE>
+      <SHA>2f0aedd4dbd4bef89e1783b55ef8473546879229</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/032-sig-proxy.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8437</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/8437</ISSUEURL>
+  <TITLE>Solr search core initialization is fragile</TITLE>
+  <DESCRIPTION>**Describe the bug** If `discovery.search.server` is incorrect, `org.dspace.discovery.SolrSearchCore#initSolr` just logs an error but leaves the class uninitialized, causing obscure errors later. At time of writing, it causes the server Context to fail to start. This is because the SolrClient reference held by the class is still null. **To Reproduce** Steps to reproduce the behavior: 1. Set `discovery.search.server` to a valid URL that won't connect to Solr. 2. Try to start `webapps/server`. **Expected behavior** There's no good way to recover, but perhaps `initSolr` could throw a more informative exception instead of silently failing.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>25</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #8452 from philipprumpf/issue-8403 Update jbibtex library to version 1.0.20</MESSAGE>
+    <SHA>1215992c861766230cd1448adf78fd94eb6377aa</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Throw a RuntimeException if the Solr server cannot be reached. #8437</MESSAGE>
+      <SHA>ed0455840212ab4e01b1c92901fa665fa2f43fbc</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/discovery/SolrSearchCore.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

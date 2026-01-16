@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>165</ISSUENO>
+  <ISSUEURL>https://github.com/spring-petclinic/spring-petclinic-rest/issues/165</ISSUEURL>
+  <TITLE>Error when executing requests with basic auth under non-admin</TITLE>
+  <DESCRIPTION>After creating a user with ROLE_OWNER_ADMIN and trying to make requests using Basic Authentication, I get a 401 Unauthorized response. The following error appears in the logs: ``` java.lang.IllegalArgumentException: There is no PasswordEncoder mapped for the id &quot;null&quot; at org.springframework.security.crypto.password.DelegatingPasswordEncoder$UnmappedIdPasswordEncoder.matches(DelegatingPasswordEncoder.java:289) at org.springframework.security.crypto.password.DelegatingPasswordEncoder.matches(DelegatingPasswordEncoder.java:237) at org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration$LazyPasswordEncoder.matches(AuthenticationConfiguration.java:321) at org.springframework.security.authentication.dao.DaoAuthenticationProvider.additionalAuthenticationChecks(DaoAuthenticationProvider.java:86) at org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider.authenticate(AbstractUserDetailsAuthenticationProvider.java:147) at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:182) at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:201) at org.springframework.security.authentication.ObservationAuthenticationManager.lambda$authenticate$1(ObservationAuthenticationManager.java:54) at io.micrometer.observation.Observation.observe(Observation.java:565) at org.springframework.security.authentication.ObservationAuthenticationManager.authenticate(ObservationAuthenticationManager.java:53) at org.springframework.security.web.authentication.www.BasicAuthenticationFilter.doFilterInternal(BasicAuthenticationFilter.java:187) at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ```</DESCRIPTION>
+  <REPONAME>spring-petclinic-rest</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Bump mapstruct.version from 1.4.1.Final to 1.6.2 (#162) Bumps `mapstruct.version` from 1.4.1.Final to 1.6.2. Updates `org.mapstruct:mapstruct` from 1.4.1.Final to 1.6.2 - [Release notes](https://github.com/mapstruct/mapstruct/releases) - [Commits](https://github.com/mapstruct/mapstruct/compare/1.4.1.Final...1.6.2) Updates `org.mapstruct:mapstruct-processor` from 1.4.1.Final to 1.6.2 - [Release notes](https://github.com/mapstruct/mapstruct/releases) - [Commits](https://github.com/mapstruct/mapstruct/compare/1.4.1.Final...1.6.2) --- updated-dependencies: - dependency-name: org.mapstruct:mapstruct dependency-type: direct:production update-type: version-update:semver-minor - dependency-name: org.mapstruct:mapstruct-processor dependency-type: direct:production update-type: version-update:semver-minor ... Signed-off-by: dependabot[bot] &lt;support@github.com&gt; Co-authored-by: dependabot[bot] &lt;49699333+dependabot[bot]@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>10653f0a8ea4621b0b1ddfcf3964184ddc0e851e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: #165 Set up DelegatingPasswordEncoder with NoOpPasswordEncoder</MESSAGE>
+      <SHA>23810b109da74e6a2feff91ede5e4380ab824789</SHA>
+      <PATCHEDFILES>
+        <FILE>src/main/java/org/springframework/samples/petclinic/security/BasicAuthenticationConfig.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: #165 Set up DelegatingPasswordEncoder with NoOpPasswordEncoder (#166)</MESSAGE>
+      <SHA>50c9942f0b142f32daa0d5485fef1ec07c73485d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/main/java/org/springframework/samples/petclinic/security/BasicAuthenticationConfig.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

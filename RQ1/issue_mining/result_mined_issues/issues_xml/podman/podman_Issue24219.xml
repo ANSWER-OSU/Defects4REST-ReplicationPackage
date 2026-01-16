@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24219</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/24219</ISSUEURL>
+  <TITLE>CI: e2e: pull/run and decrypt from local registry: timeout</TITLE>
+  <DESCRIPTION>Placeholder for a flake I've been seeing in e2e. So far, only rootless, but that might be happenstance. ``` • [FAILED] [94.159 seconds] Podman pull podman pull and decrypt &lt;------ sometimes &quot;run and decrypt&quot; [It] From local registry $ podman [options] push -q --compression-format=zstd --encryption-key jwe:/tmp/CI_vNKl/podman-e2e-2638702892/subtest-158022943/key,withcomma.rsa.pub --tls-verify=false --remove-signatures quay.io/libpod/alpine:latest localhost:5012/my-alpine-pull-and-decrypt $ podman [options] rmi quay.io/libpod/alpine:latest Untagged: quay.io/libpod/alpine:latest Deleted: 961769676411f082461f9ef46626dd7a2d1e2b2a38e6a44364bcbecf51e66dd4 $ podman [options] pull --tls-verify=false localhost:5012/my-alpine-pull-and-decrypt Trying to pull localhost:5012/my-alpine-pull-and-decrypt:latest... Getting image source signatures Copying blob sha256:3e9bdc83b3abf695cc03140088561898566a98d3895d11dd5e5ba6c54031c6d0 SIGABRT: abort ... [FAILED] Timed out after 90.001s. ``` * debian-13 : int podman debian-13 rootless host sqlite * PR #24110 * [10-01 08:26](https://api.cirrus-ci.com/v1/artifact/task/4731544428871680/html/int-podman-debian-13-rootless-host-sqlite.log.html#t--Podman-pull-podman-pull-and-decrypt-From-local-registry--1) in Podman pull podman pull and decrypt From local registry * PR #23814 * [08-30-2024 10:06](https://api.cirrus-ci.com/v1/artifact/task/5426360372428800/html/int-podman-debian-13-rootless-host-sqlite.log.html#t--Podman-run-podman-run-and-decrypt-from-local-registry--1) in Podman run podman run and decrypt from local registry * fedora-40 : int podman fedora-40 rootless host sqlite * PR #23985 * [09-17 12:06](https://api.cirrus-ci.com/v1/artifact/task/5682818120941568/html/int-podman-fedora-40-rootless-host-sqlite.log.html#t--Podman-run-podman-run-and-decrypt-from-local-registry--1) in Podman run podman run and decrypt from local registry * rawhide : int podman rawhide rootless host sqlite * PR #24128 * [10-01 18:34](https://api.cirrus-ci.com/v1/artifact/task/4932238159118336/html/int-podman-rawhide-rootless-host-sqlite.log.html#t--Podman-run-podman-run-and-decrypt-from-local-registry--1) in Podman run podman run and decrypt from local registry * PR #24124 * [10-04 09:39](https://api.cirrus-ci.com/v1/artifact/task/6420526938193920/html/int-podman-rawhide-rootless-host-sqlite.log.html#t--Podman-pull-podman-pull-and-decrypt-From-local-registry--1) in Podman pull podman pull and decrypt From local registry | x | x | x | x | x | x | | ---: | ---: | ---: | ---: | ---: | ---: | | int(5) | podman(5) | rawhide(2) | rootless(5) | host(5) | sqlite(5) | | | | debian-13(2) | | | | | | | fedora-40(1) | | | |</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>28</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #24221 from edsantiago/fix-sizerootfs-flake CI: quadlet system tests: use airgapped testimage</MESSAGE>
+    <SHA>9a887d1600fccd0b23f38940aeeddb9e19ec96b8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>test/e2e: try debug potential pasta issue Run pasta with --trace and a log file to see if the hangs are caused by pasta not correctly closing connections as assumed in #24219. As the log is super verbose do not log it by default so I added some extra logic to make sure it is only logged when the test fails. Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>f517e5216763f9e51729fa277e8e0045a484d950</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/pull_test.go</FILE>
+        <FILE>test/e2e/run_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

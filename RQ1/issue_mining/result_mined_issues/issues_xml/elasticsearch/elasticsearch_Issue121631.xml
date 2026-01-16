@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121631</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121631</ISSUEURL>
+  <TITLE>[CI] CrossClustersCancellationIT testCancelSkipUnavailable failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6207 / encryption-at-rest](https://gradle-enterprise.elastic.co/s/twcj7gmsn3wuc) - [elasticsearch-periodic-platform-support #6196 / debian-12_platform-support-unix](https://gradle-enterprise.elastic.co/s/2whzvb7zcbjfs) - [elasticsearch-periodic-platform-support #6196 / rhel-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/nhf3qfc4aidq6) - [elasticsearch-periodic-platform-support #6196 / amazonlinux-2_platform-support-aws](https://gradle-enterprise.elastic.co/s/qvlbh2mydtlue) - [elasticsearch-periodic-platform-support #6196 / rocky-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/t7c4qc47r5evw) - [elasticsearch-periodic-platform-support #6189 / almalinux-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/o43wqbpd4onaq) - [elasticsearch-periodic-platform-support #6189 / oraclelinux-7_platform-support-unix](https://gradle-enterprise.elastic.co/s/fc373kxcaxujo) - [elasticsearch-periodic-platform-support #6189 / ubuntu-2404_platform-support-unix](https://gradle-enterprise.elastic.co/s/5i5zvli67cihg) - [elasticsearch-periodic-platform-support #6189 / ubuntu-1804_platform-support-unix](https://gradle-enterprise.elastic.co/s/xbvfi5d67vxqi) - [elasticsearch-periodic-platform-support #6189 / amazonlinux-2_platform-support-aws](https://gradle-enterprise.elastic.co/s/ylts3v4tiyh7m) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.esql.action.CrossClustersCancellationIT.testCancelSkipUnavailable&quot; -Dtests.seed=4FF77A23C590193E -Dtests.locale=es -Dtests.timezone=America/Nipigon -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.action.CrossClustersCancellationIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testCancelSkipUnavailable),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: a string containing &quot;remote failed&quot; but: was &quot;cancelled on failure&quot; ``` **Issue Reasons:** - [8.x] 2 consecutive failures in step amazonlinux-2_platform-support-aws - [8.x] 26 failures in test testCancelSkipUnavailable (18.7% fail rate in 139 executions) - [8.x] 3 failures in step debian-12_platform-support-unix (75.0% fail rate in 4 executions) - [8.x] 2 failures in step rhel-8_platform-support-unix (50.0% fail rate in 4 executions) - [8.x] 3 failures in step amazonlinux-2_platform-support-aws (75.0% fail rate in 4 executions) - [8.x] 2 failures in step almalinux-8-aarch64_checkpart3_platform-support-arm (50.0% fail rate in 4 executions) - [8.x] 2 failures in step part-3 (12.5% fail rate in 16 executions) - [8.x] 2 failures in step almalinux-9_platform-support-unix (66.7% fail rate in 3 executions) - [8.x] 2 failures in step ubuntu-2404_platform-support-unix (66.7% fail rate in 3 executions) - [8.x] 4 failures in pipeline elasticsearch-periodic-platform-support (100.0% fail rate in 4 executions) - [8.x] 2 failures in pipeline elasticsearch-periodic (50.0% fail rate in 4 executions) - [8.x] 2 failures in pipeline elasticsearch-pull-request (14.3% fail rate in 14 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.esql.action.CrossClustersCancellationIT testCancel #121632</MESSAGE>
+    <SHA>1b7518d5780cef3b8134572a95a82ac375ccef3f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.CrossClustersCancellationIT testCancelSkipUnavailable #121631</MESSAGE>
+      <SHA>c570950d48d0551d59ddbf128dc2571501202e1b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.CrossClustersCancellationIT testCancelSkipUnavailable #121631</MESSAGE>
+      <SHA>c2196ff5ad33ad9e78ba0c209f1e7c3785bb7ce6</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.CrossClustersCancellationIT testCancelSkipUnavailable #121631</MESSAGE>
+      <SHA>e7759af0c4a3283a1a521a4f71724f6e64941763</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

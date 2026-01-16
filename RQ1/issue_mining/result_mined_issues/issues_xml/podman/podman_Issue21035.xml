@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>21035</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/21035</ISSUEURL>
+  <TITLE>Feature Request - Add &quot;Port&quot; Key for Podman Pod Quadlet</TITLE>
+  <DESCRIPTION>### Feature request description Probably one of the most common flags given to containers/pods is opening up specific ports for other services to reach the container on. Currently there is no key for this in the merged Quadlet Pod implementation, though one should be able to use `PodmanArgs=--publish=8000:8000` to open up port 8000. ### Suggest potential solution Add a straightforward key for opening up ports for the Pod. ### Have you considered any alternatives? Users could continue to use `PodmanArgs=--publish=8000:8000` and it would probably work fine, though since opening ports is probably the singularly most common non-required flag passed to pods/containers it seems like it probably should be baked in as a key. ### Additional context _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #21013 from gavinkflam/17167-compat-base-hosts-file Fix Docker API compatibility with network alias</MESSAGE>
+    <SHA>07834ab39e92b7f292be808ae5ed69d67c1f9bee</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Allow PublishPorts to be used with [Pod] entry Fixed: https://github.com/containers/podman/issues/21035 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>f169fc76af45f649c2985cf9512c23f1357a1ce3</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-systemd.unit.5.md</FILE>
+        <FILE>pkg/systemd/quadlet/quadlet.go</FILE>
+        <FILE>test/e2e/quadlet/network.pod</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

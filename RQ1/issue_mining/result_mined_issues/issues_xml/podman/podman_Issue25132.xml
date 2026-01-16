@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>25132</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/25132</ISSUEURL>
+  <TITLE>podman system test failure on rawhide: `not ok 21 [410] podman selinux: check unsupported relabel`</TITLE>
+  <DESCRIPTION>This is happening on rawhide only so far. Noticed it in [container-selinux upstream TMT job](https://github.com/containers/container-selinux/pull/345/checks?check_run_id=35989642118https://github.com/containers/container-selinux/pull/345/checks?check_run_id=35989642118) and [podman rawhide bodhi](https://bodhi.fedoraproject.org/updates/FEDORA-2025-0edf5f285c) EDIT: Moving from container-selinux to podman.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #25106 from Fak3/patch-1 docs: mount.md - idmapped mounts only work for root user</MESSAGE>
+    <SHA>c76c13f179e78be1cf65a4ff9a273e58b01b635e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>system-tests: switch ls with getfattr for selinux tests The test `podman selinux: check unsupported relabel` has been failing recently on Fedora rawhide. This is due to a regression in the `ls` command itself. Workaround for now is to switch to `getfattr -n security.selinux ...`. Ref: https://github.com/containers/podman/issues/25132#issuecomment-2615744915 Fixes: #25132 Signed-off-by: Lokesh Mandvekar &lt;lsm5@fedoraproject.org&gt;</MESSAGE>
+      <SHA>06c103469d16edce68e6117fef2915963438489c</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/410-selinux.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

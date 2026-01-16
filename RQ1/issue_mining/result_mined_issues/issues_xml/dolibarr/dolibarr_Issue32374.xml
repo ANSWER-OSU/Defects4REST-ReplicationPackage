@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>32374</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/32374</ISSUEURL>
+  <TITLE>[20.0.2][pgsql] SQL Error accountancy/journal/purchasesjournal.php</TITLE>
+  <DESCRIPTION>### Bug SQL error on the purchase journal. ### Dolibarr Version 20.0.2 ### Environment PHP 8.2 ### Environment Database Postgresql 15 ### Steps to reproduce the behavior and expected behavior No transactions done, empty instance installed on postgresql. - create fiscal year - go to the purchase journal ### Attached files ``` Dec 15 16:01:33: dolibarr[98]: 33 sql=SELECT f.rowid, f.ref as ref, f.type, f.datef as df, f.libelle as label, f.ref_supplier, f.date_lim_reglement as dlr, f.close_code, f.vat_reverse_charge, fd.rowid as fdid, fd.description, fd.product_type, fd.total_ht, fd.tva as total_tva, fd.total_localtax1, fd.total_localtax2, fd.tva_tx, fd.total_ttc, fd.vat_src_code, fd.info_bits, p.default_vat_code AS product_buy_default_vat_code, p.tva_tx as product_buy_vat, p.localtax1_tx as product_buy_localvat1, p.localtax2_tx as product_buy_localvat2, co.code as country_code, co.label as country_label, s.rowid as socid, s.nom as name, s.fournisseur, s.code_client, s.code_fournisseur, s.fk_pays, s.code_compta as code_compta, s.code_compta_fournisseur, p.accountancy_code_buy, aa.rowid as fk_compte, aa.account_number as compte, aa.label as label_compte FROM llx_facture_fourn_det as fd LEFT JOIN llx_product as p ON p.rowid = fd.fk_product LEFT JOIN llx_accounting_account as aa ON aa.rowid = fd.fk_code_ventilation JOIN llx_facture_fourn as f ON f.rowid = fd.fk_facture_fourn JOIN llx_societe as s ON s.rowid = f.fk_soc LEFT JOIN llx_c_country as co ON co.rowid = s.fk_pays WHERE f.fk_statut &gt; 0 AND fd.fk_code_ventilation &gt; 0 AND f.entity IN (1) AND f.type IN (0,1,2,3,5) AND f.datef &gt;= '2024-01-01 00:00:00' AND f.datef &lt;= '2024-12-31 23:59:59' AND f.rowid NOT IN (SELECT fk_doc FROM llx_accounting_bookkeeping as ab WHERE ab.doc_type='supplier_invoice') ORDER BY f.datef Dec 15 16:01:33: dolibarr[98]: 33 sql=SELECT cc.code FROM llx_c_country as cc WHERE cc.eec = 1 Dec 15 16:01:33: dolibarr[98]: 33 sql=SELECT Dec 15 16:01:33: dolibarr[98]: fk_facture_fourn, Dec 15 16:01:33: dolibarr[98]: COUNT(fd.rowid) as nb Dec 15 16:01:33: dolibarr[98]: FROM Dec 15 16:01:33: dolibarr[98]: llx_facture_fourn_det as fd Dec 15 16:01:33: dolibarr[98]: WHERE Dec 15 16:01:33: dolibarr[98]: fd.product_type &lt;= 2 Dec 15 16:01:33: dolibarr[98]: AND fd.fk_code_ventilation &lt;= 0 Dec 15 16:01:33: dolibarr[98]: AND fd.total_ttc &lt;&gt; 0 Dec 15 16:01:33: dolibarr[98]: \x09AND fk_facture_fourn IN () Dec 15 16:01:33: dolibarr[98]: GROUP BY fk_facture_fourn Dec 15 16:01:33: dolibarr[98]: 33 DoliDBPgsql::query SQL Error message: ERROR: 42601: syntax error at or near &quot;)&quot; Dec 15 16:01:33: dolibarr[98]: LINE 10: AND fk_facture_fourn IN () Dec 15 16:01:33: dolibarr[98]: ^ Dec 15 16:01:33: dolibarr[98]: LOCATION: scanner_yyerror, scan.l:1188 (DB_ERROR_SYNTAX) Dec 15 16:01:33: 172.22.0.3 - 15/Dec/2024:16:01:33 +0000 &quot;GET /accountancy/journal/purchasesjournal.php&quot; 500 Dec 15 16:01:33: dolibarr[98]: 33 DoliDBPgsql::query SQL Error usesavepoint = 0 Dec 15 16:01:33: dolibarr[98]: 33 --- End access to /accountancy/journal/purchasesjournal.php ```</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>24</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'develop' of git@github.com:Dolibarr/dolibarr.git into develop</MESSAGE>
+    <SHA>8febf249ce845bad38c1cfe175ded40d80b77eff</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>purchasesjournal: fix empty IN () SQL request `WHERE xx IN ()` is not allowed in PostgreSQL queries, and result in the following fatal error: GROUP BY fk_facture_fourn 33 DoliDBPgsql::query SQL Error message: ERROR: 42601: syntax error at or near &quot;)&quot; LINE 10: AND fk_facture_fourn IN () ^ We can check whether we have valid invoices before running the query, since the query will only check whether the invoices are complete or not. It also fixes the following error on the development PHP output. Fatal error: Uncaught TypeError: pg_num_rows(): Argument #1 ($result) must be of type PgSql\Result, bool given in /var/www/html/core/db/pgsql.class.php:654 Stack trace: #0 /var/www/html/core/db/pgsql.class.php(654): pg_num_rows(false) #1 /var/www/html/accountancy/journal/purchasesjournal.php(418): DoliDBPgsql-&gt;num_rows(false) #2 {main} thrown in /var/www/html/core/db/pgsql.class.php on line 654 Fixes #32374</MESSAGE>
+      <SHA>b9419a869c43ced535cf41877f563cdffb6fd1e2</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/accountancy/journal/purchasesjournal.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>expensereportsjournal: fix empty IN () SQL request `WHERE xx IN ()` is not allowed in PostgreSQL queries, and result in fatal errors. We can check whether we have valid invoices before running the query, since the query will only check whether the invoices are complete or not. It also fixes the following error on the development PHP output: Fatal error: Uncaught TypeError: pg_num_rows(): Argument #1 ($result) must be of type PgSql\Result, bool given in /var/www/html/core/db/pgsql.class.php:654 Stack trace: #0 /var/www/html/core/db/pgsql.class.php(654): pg_num_rows(false) #1 /var/www/html/accountancy/journal/expensereportsjournal.php(264): DoliDBPgsql-&gt;num_rows(false) #2 {main} thrown in /var/www/html/core/db/pgsql.class.php on line 654 Refs #32374 but for the expensereportsjournal page.</MESSAGE>
+      <SHA>5d778eedab385667424397c4229a74d67f73bc7f</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/accountancy/journal/expensereportsjournal.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>purchasesjournal: fix empty IN () SQL request `WHERE xx IN ()` is not allowed in PostgreSQL queries, and result in the following fatal error: GROUP BY fk_facture_fourn 33 DoliDBPgsql::query SQL Error message: ERROR: 42601: syntax error at or near &quot;)&quot; LINE 10: AND fk_facture_fourn IN () ^ We can check whether we have valid invoices before running the query, since the query will only check whether the invoices are complete or not. It also fixes the following error on the development PHP output. Fatal error: Uncaught TypeError: pg_num_rows(): Argument #1 ($result) must be of type PgSql\Result, bool given in /var/www/html/core/db/pgsql.class.php:654 Stack trace: #0 /var/www/html/core/db/pgsql.class.php(654): pg_num_rows(false) #1 /var/www/html/accountancy/journal/purchasesjournal.php(418): DoliDBPgsql-&gt;num_rows(false) #2 {main} thrown in /var/www/html/core/db/pgsql.class.php on line 654 Fixes #32374</MESSAGE>
+      <SHA>6aae924377a0f7268094ba02e1ae6376ecc42263</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/accountancy/journal/purchasesjournal.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>expensereportsjournal: fix empty IN () SQL request `WHERE xx IN ()` is not allowed in PostgreSQL queries, and result in fatal errors. We can check whether we have valid invoices before running the query, since the query will only check whether the invoices are complete or not. It also fixes the following error on the development PHP output: Fatal error: Uncaught TypeError: pg_num_rows(): Argument #1 ($result) must be of type PgSql\Result, bool given in /var/www/html/core/db/pgsql.class.php:654 Stack trace: #0 /var/www/html/core/db/pgsql.class.php(654): pg_num_rows(false) #1 /var/www/html/accountancy/journal/expensereportsjournal.php(264): DoliDBPgsql-&gt;num_rows(false) #2 {main} thrown in /var/www/html/core/db/pgsql.class.php on line 654 Refs #32374 but for the expensereportsjournal page.</MESSAGE>
+      <SHA>3058f54f9eb1b0da10bac4646c5554863d459ffa</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/accountancy/journal/expensereportsjournal.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>purchasesjournal: fix empty IN () SQL request `WHERE xx IN ()` is not allowed in PostgreSQL queries, and result in the following fatal error: GROUP BY fk_facture_fourn 33 DoliDBPgsql::query SQL Error message: ERROR: 42601: syntax error at or near &quot;)&quot; LINE 10: AND fk_facture_fourn IN () ^ We can check whether we have valid invoices before running the query, since the query will only check whether the invoices are complete or not. It also fixes the following error on the development PHP output. Fatal error: Uncaught TypeError: pg_num_rows(): Argument #1 ($result) must be of type PgSql\Result, bool given in /var/www/html/core/db/pgsql.class.php:654 Stack trace: #0 /var/www/html/core/db/pgsql.class.php(654): pg_num_rows(false) #1 /var/www/html/accountancy/journal/purchasesjournal.php(418): DoliDBPgsql-&gt;num_rows(false) #2 {main} thrown in /var/www/html/core/db/pgsql.class.php on line 654 Fixes #32374</MESSAGE>
+      <SHA>740ad5b0fd7d5ba71d7c179ef1267768ce4639bd</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/accountancy/journal/purchasesjournal.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>expensereportsjournal: fix empty IN () SQL request `WHERE xx IN ()` is not allowed in PostgreSQL queries, and result in fatal errors. We can check whether we have valid invoices before running the query, since the query will only check whether the invoices are complete or not. It also fixes the following error on the development PHP output: Fatal error: Uncaught TypeError: pg_num_rows(): Argument #1 ($result) must be of type PgSql\Result, bool given in /var/www/html/core/db/pgsql.class.php:654 Stack trace: #0 /var/www/html/core/db/pgsql.class.php(654): pg_num_rows(false) #1 /var/www/html/accountancy/journal/expensereportsjournal.php(264): DoliDBPgsql-&gt;num_rows(false) #2 {main} thrown in /var/www/html/core/db/pgsql.class.php on line 654 Refs #32374 but for the expensereportsjournal page.</MESSAGE>
+      <SHA>c022a530e5c14da7ec4c10356bf3fcf791c271e0</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/accountancy/journal/expensereportsjournal.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>purchasesjournal: fix empty IN () SQL request `WHERE xx IN ()` is not allowed in PostgreSQL queries, and result in the following fatal error: GROUP BY fk_facture_fourn 33 DoliDBPgsql::query SQL Error message: ERROR: 42601: syntax error at or near &quot;)&quot; LINE 10: AND fk_facture_fourn IN () ^ We can check whether we have valid invoices before running the query, since the query will only check whether the invoices are complete or not. It also fixes the following error on the development PHP output. Fatal error: Uncaught TypeError: pg_num_rows(): Argument #1 ($result) must be of type PgSql\Result, bool given in /var/www/html/core/db/pgsql.class.php:654 Stack trace: #0 /var/www/html/core/db/pgsql.class.php(654): pg_num_rows(false) #1 /var/www/html/accountancy/journal/purchasesjournal.php(418): DoliDBPgsql-&gt;num_rows(false) #2 {main} thrown in /var/www/html/core/db/pgsql.class.php on line 654 Fixes #32374</MESSAGE>
+      <SHA>7e1c87e3ab93b426a4d2843780a94242b219d208</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/accountancy/journal/purchasesjournal.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>expensereportsjournal: fix empty IN () SQL request `WHERE xx IN ()` is not allowed in PostgreSQL queries, and result in fatal errors. We can check whether we have valid invoices before running the query, since the query will only check whether the invoices are complete or not. It also fixes the following error on the development PHP output: Fatal error: Uncaught TypeError: pg_num_rows(): Argument #1 ($result) must be of type PgSql\Result, bool given in /var/www/html/core/db/pgsql.class.php:654 Stack trace: #0 /var/www/html/core/db/pgsql.class.php(654): pg_num_rows(false) #1 /var/www/html/accountancy/journal/expensereportsjournal.php(264): DoliDBPgsql-&gt;num_rows(false) #2 {main} thrown in /var/www/html/core/db/pgsql.class.php on line 654 Refs #32374 but for the expensereportsjournal page.</MESSAGE>
+      <SHA>f895c8a2fff5d4878d688fd3d70fa98a0ec66a1a</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/accountancy/journal/expensereportsjournal.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17514</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/17514</ISSUEURL>
+  <TITLE>Make this site private - not working in Chrome and Opera</TITLE>
+  <DESCRIPTION>### Issue Summary Change or delete the row 58: versions/5.54.4/core/frontend/apps/private-blogging/lib/middleware.js ``` return session({ name: 'ghost-private', maxAge: constants.ONE_MONTH_MS, signed: false, sameSite: 'lax' &lt;----- row 58: instead of 'none' or delete row })(req, res, next); ``` Or you can delete the row 58 because **sameSite: 'Lax' is the default value.** You can't code 'secure' within an object - **secure: true** will not work. Works now in Chrome and Opera. See [https://web.dev/i18n/en/samesite-cookies-explained](https://web.dev/i18n/en/samesite-cookies-explained/#samesite=lax-by-default) ![x (1) Mark cross-site cookies as Secure to allow setting them in cross-site contexts](https://github.com/TryGhost/Ghost/assets/93246850/c3a11e60-8d16-45f2-8261-b889e074da71) ### Steps to Reproduce See [https://forum.ghost.org/t/make-this-site-private-not-working/39938/1](https://forum.ghost.org/t/make-this-site-private-not-working/39938/1) ### Ghost Version 5.54.4 ### Node.js Version v18.15.0 ### How did you install Ghost? local, macos ### Database type SQLite3 ### Browser &amp; OS version _No response_ ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>511</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update dependency @uiw/react-codemirror to v4.21.13</MESSAGE>
+    <SHA>355a03325053194d899c6e5790beccfa725f07c4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed: Set cookie in privateBlogging - Update middleware.js &quot;Make this site private&quot; - not working in Chrome and Opera Closes #17514</MESSAGE>
+      <SHA>acad566bed5cee8b9942d255efe5a221d541c980</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/frontend/apps/private-blogging/lib/middleware.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed private mode cookie for local development (#17938) fixes #17514 - good explanation in https://github.com/TryGhost/Ghost/pull/17938#discussion_r1328157348 - fixes setting the private mode cookie in stricter browsers for local development</MESSAGE>
+      <SHA>f303eee8a432291d5458aaa092920a06612d324c</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/frontend/apps/private-blogging/lib/middleware.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

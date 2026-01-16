@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3677</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/3677</ISSUEURL>
+  <TITLE>bug: proxy-cache plugin has side-effect even if it's not configured in any route</TITLE>
+  <DESCRIPTION>### Issue description If proxy-cache is configured in plugin list, it will override Cache-Control and Expires headers from the upstream. Problem is that even if proxy-cache is not configured in any route, those headers will still be overridden. So we have a side effect for proxy-cache. ### Environment * apisix version (cmd: `apisix version`): 2.0 * OS (cmd: `uname -a`): linux * OpenResty / Nginx version (cmd: `nginx -V` or `openresty -V`): openresty/1.19.3.1 * etcd version, if have (cmd: run `curl http://127.0.0.1:9090/v1/server_info` to get the info from server-info API): * apisix-dashboard version, if have: ### Minimal test code / Steps to reproduce the issue 1. Use the default configuration from apisix 2. Write Cache-Control and Expires headers in upstream 3. Check the response ### What's the actual result? (including assertion message &amp; call stack if applicable) Cache-Control and Expires headers disappeared ### What's the expected result? If proxy-cache is not configured for a route, apisix should not rewrite Cache-Control and Expires headers.</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>perf(standalone): load configuration in the init phase (#3782) Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+    <SHA>c530135c5a179c99637d52d99e0e8a45ce4cc8b8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: don't override cache relative headers Fix #3373 Fix #3677 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>63d883b0de2832345ee514975ecdfa990435f7c0</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ngx_tpl.lua</FILE>
+        <FILE>apisix/core/ctx.lua</FILE>
+        <FILE>apisix/plugins/proxy-cache.lua</FILE>
+        <FILE>t/APISIX.pm</FILE>
+        <FILE>t/plugin/proxy-cache.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

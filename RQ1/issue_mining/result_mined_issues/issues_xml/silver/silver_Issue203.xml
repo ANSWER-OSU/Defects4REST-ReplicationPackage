@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>203</ISSUENO>
+  <ISSUEURL>https://github.com/silverapp/silver/issues/203</ISSUEURL>
+  <TITLE>Wrong data in invoices/proforma when subscription is canceled</TITLE>
+  <DESCRIPTION>So in the middle of the month the customer decides to move. We cancel the subscription in billing and the expected result is that the new billing cycle invoice to have only the extra pageviews included on it and no more full month subscription. Well, the Billing subscription moved to ended, but the current month subscription package got invoiced wrongly on top of the expected extra pageviews.</DESCRIPTION>
+  <REPONAME>silver</REPONAME>
+  <TIMEDIFFERENCEDAYS>34</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Added MF factory and removed duplicate PC factory.</MESSAGE>
+    <SHA>a3f3a1d83d9389450f428595e3ab3ccec41631c5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge branch 'master' into no-prepay-for-canceled-subscriptions-#203</MESSAGE>
+      <SHA>6253cc53848409fe36b7eff11d299e3f6042dcb4</SHA>
+      <PATCHEDFILES>
+        <FILE>silver/models.py</FILE>
+        <FILE>silver/tests/commands/test_generate_billing_documents.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #207 from PressLabs/no-prepay-for-canceled-subscriptions-#203 No prepay for canceled subscriptions (closes #203)</MESSAGE>
+      <SHA>7029ded5907f510486f2b0f397cefb0e446e38f0</SHA>
+      <PATCHEDFILES>
+        <FILE>silver/models.py</FILE>
+        <FILE>silver/tests/commands/test_generate_billing_documents.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

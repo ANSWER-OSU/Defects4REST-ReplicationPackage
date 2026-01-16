@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>78</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/78</ISSUEURL>
+  <TITLE>Failed webpack build step of a universal redux react app</TITLE>
+  <DESCRIPTION>I am not sure if this is the place to report issues with now, but here I go anyway. I keep getting an error in my now deployments. First of all a little context. I am deploying a server rendered rect app with redux bootstraped using [universal kyt](https://github.com/NYTimes/kyt-starter-universal), and I have a build step that compiles the app using webpack. The problem is that the build step fails on now, but works perfectly on my machine. The error I am getting is `Module not found: Error: Can't resolve 'lodash/isPlainObject' in '/home/nowuser/src/node_modules/e3d8a6548416ea90c89022179a97a8ef8f8428d0/lib/components'` I think that this error comes from the `react-redux` package (I cannot tell for sure because now shows a hash instead of the package name) I reproduced the error locally using the same node version and starting from an empty node_modules folder. With this configuration everything works perfectly on my machine, but fails on now. I hacked a solution by forking react-redux, and changing lodash dependency to lodash.isplainobject because that is the only function that react-redux needs. Using my fork of react-redux everything works fine, so the problem has something to do with now and react-redux lodash dependency. Anyone came across this kind of error before? Any idea of how to solve this without my ugly fork?</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>75</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>1.1.6</MESSAGE>
+    <SHA>5cf31cf2c1426bb096fbf1e4ada4e000b6b4c9f7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Version 2.0 (#78) * v2 rewrite * Add lint * Add full path hames * Specify codes for errors * Restore Travis config</MESSAGE>
+      <SHA>8eb8798b9819bc232a735abd33b005494c055fa2</SHA>
+      <PATCHEDFILES>
+        <FILE>.gitignore</FILE>
+        <FILE>.npmignore</FILE>
+        <FILE>.npmrc</FILE>
+        <FILE>.travis.yml</FILE>
+        <FILE>lib/index.js</FILE>
+        <FILE>package.json</FILE>
+        <FILE>readme.md</FILE>
+        <FILE>rollup.config.js</FILE>
+        <FILE>src/index.js</FILE>
+        <FILE>test/README.md</FILE>
+        <FILE>test/index.js</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

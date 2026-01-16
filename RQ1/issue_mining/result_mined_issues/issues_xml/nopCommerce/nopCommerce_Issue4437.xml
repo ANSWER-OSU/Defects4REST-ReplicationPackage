@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4437</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4437</ISSUEURL>
+  <TITLE>Localization issues</TITLE>
+  <DESCRIPTION>nopCommerce version: release-4.30-beta Steps to reproduce the problem: **Fail to import language resource file:** 1. Create a second language 2. Import a language file 3. It will broke the primary web site language (and possible duplicate some items in LocaleStringResource table) **Performance issue:** 1. Create a second language 2. Import a language file 3. Reimport the same language file 4. For each resource item, the code will run GetLocaleStringResourceByName method, it will go to database to obtain a instance of LocaleStringResource 5. It should avoid those round-trips in database PR to solve those issues: https://github.com/nopSolutions/nopCommerce/pull/4373</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#4441 Added EPPlus licensing config section to the appsettings.json file</MESSAGE>
+    <SHA>cd8f066552691fbbfb26fff0818a212cbef810a6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed issue to import(insert) and reimport(update) a language file #4437</MESSAGE>
+      <SHA>f938e6a747ffca2012840fbd2e7710d690561b0b</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Localization/LocalizationService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#4437 Fixed issue to import(insert) and reimport(update) a language file (#4448) Co-authored-by: Alexandre Vitorelli &lt;alexandre.vitorelli@itelios.com&gt;</MESSAGE>
+      <SHA>11962ede228b1bc51edc4989b52cfd1cb5cbfb58</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Localization/LocalizationService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

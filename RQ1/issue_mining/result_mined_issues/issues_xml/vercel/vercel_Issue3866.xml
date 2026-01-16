@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3866</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/3866</ISSUEURL>
+  <TITLE>Now Dev Crashes on Node 8</TITLE>
+  <DESCRIPTION>When running `now dev` on node 8.6, it crashes with a very cryptic error. It should check the node version cleanly if there's a requirement. ``` kpffl % now dev (master) kpffl /usr/local/Cellar/now-cli/17.0.4/libexec/lib/node_modules/now/dist/index.js:2 require('./sourcemap-register.js');module.exports=function(e,t){&quot;use strict&quot;;var n={};function __webpack_require__(t){if(n[t]){return n[t].exports}var r=n[t]={i:t,l:false,exports:{}};e[t].call(r.exports,r,r.exports,__webpack_require__);r.l=true;return r.exports}__webpack_require__.c=n;function startup(){return __webpack_require__(4165)}t(__webpack_require__);return startup()}([,,,,,,,,,,,,,,,,function(e,t,n){&quot;use strict&quot;;var r=this&amp;&amp;this.__importDefault||function(e){return e&amp;&amp;e.__esModule?e:{default:e}};Object.defineProperty(t,&quot;__esModule&quot;,{value:true});const i=r(n(4859));function arrayMove(e,t,n,r,i){for(let o=0;o&lt;i;++o){n[o+r]=e[o+t];e[o+t]=void 0}}function pow2AtLeast(e){e=e&gt;&gt;&gt;0;e=e-1;e=e|e&gt;&gt;1;e=e|e&gt;&gt;2;e=e|e&gt;&gt;4;e=e|e&gt;&gt;8;e=e|e&gt;&gt;16;return e+1}function getCapacity(e){return pow2AtLeast(Math.min(Math.max(16,e),1073741824))}class Deque{constructor(e){this._capacity=getCapacity(e);this._length=0;this._front=0;this.arr=[]}push(e){cons SyntaxError: Unexpected token * at createScript (vm.js:80:10) at Object.runInThisContext (vm.js:139:10) at Module._compile (module.js:616:28) at Object.Module._extensions..js (module.js:663:10) at Module.load (module.js:565:32) at tryModuleLoad (module.js:505:12) at Function.Module._load (module.js:497:3) at Function.Module.runMain (module.js:693:10) at startup (bootstrap_node.js:191:16) at bootstrap_node.js:612:3 kpffl % (master) kpffl kpffl % nvm use (master) kpffl Found '/Users/XXXXX/Documents/Projects/kpffl/.nvmrc' with version &lt;13.8.0&gt; Now using node v13.8.0 (npm v6.13.6) kpffl % now dev (master) kpffl Now CLI 17.0.4 dev (beta) — https://zeit.co/feedback &gt; Ready! Available at http://localhost:3000 ```</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Publish Canary - @now/cgi@1.0.4-canary.0 - now@18.0.0-canary.3</MESSAGE>
+    <SHA>07a920ed180f6fffc16a5da13985bfbb170d1f4c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-cli] Print error during install for unsupported Node version (#3869) Fixes #3866 ### Output ``` &gt; now@18.0.0 preinstall /usr/local/lib/node_modules/now &gt; node ./scripts/preinstall.js &gt; Error! Detected unsupported Node.js version. Expected &quot;&gt;= 10&quot; but found &quot;8.10.0&quot;. Please update to the latest Node.js LTS version to install Now CLI. ```</MESSAGE>
+      <SHA>2a7c1dc4e4bca230e1a1cd0ca07c415d3afe476a</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-cli/scripts/preinstall.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18261</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18261</ISSUEURL>
+  <TITLE>Add CI self-destruct to the v3.0.1-rhel branch</TITLE>
+  <DESCRIPTION>### Feature request description Based on current info., this branch will be completely out of support on 2025-05-01 with no chance any CVE fix will get backported. However, while these dates can change, it's worth encoding this into an automated notice which can't be overlooked - given the ever growing number of release-branches being maintained. ### Suggest potential solution Port the self-destruct conditional from https://github.com/containers/podman/pull/18233 to the `v3.0.1-rhel` branch on/after May 2023 - to ensure it doesn't falsely trigger for some reason. ### Have you considered any alternatives? Yes, this is a much better solution than expecting a sticky-note to stay stuck for 2 years. ### Additional context Add any other context or screenshots about the feature request here.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>30</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18260 from cevich/v3.0.1-rhel_ci_duct_tape [v3.0.1-rhel] Fix attempt to use incompatible go tools</MESSAGE>
+    <SHA>c54e5d9b43c2bcc9f2dde9a6e24dd43a2c7903ba</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Cirrus: Add CI self-destruct condition on EOL date Fixes: #18261 This branch will never receive any security-backports when the associated RHEL release reaches EOL. Add a condition to force CI to break with a helpful message, after this RHEL EOL date. Signed-off-by: Chris Evich &lt;cevich@redhat.com&gt;</MESSAGE>
+      <SHA>b048b6e0532a8a33d5cb0a54eae561b7a7249897</SHA>
+      <PATCHEDFILES>
+        <FILE>contrib/cirrus/setup_environment.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

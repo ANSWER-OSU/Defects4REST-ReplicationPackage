@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1722</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/1722</ISSUEURL>
+  <TITLE>s3 gateway ListObjects does not support arbitrary prefix</TITLE>
+  <DESCRIPTION>**Describe the bug** The S3 gateway of seaweedfs does not support listing objects with arbitrary prefix. **System Setup** - filer leveldb2 backend, seaweedfs master **Expected behavior** Calling `GET` on `http://seaweedfs_s3_gw/bucket/?prefix=arbitrary_prefix` should always return files whose path starts with `arbitrary_prefix`, no matter whether `arbitrary_prefix` is an actual directory or not. **Actual behavior** Calling `GET` on `http://seaweedfs_s3_gw/bucket/?prefix=arbitrary_prefix` returns every single object in the bucket regardless of their prefix if `arbitrary_prefix` is not a folder inside `bucket`. **Additional context** After a bit of digging around myself, it seems that this issue is actually two issues (both of which are about : 1. The `namePattern` parameter passed to `ListDirectoryEntries` in `weed/filer/filer_search.go` should contain a wildcard character `*` at the end of the prefix (i.e. `prefix*`, not `prefix`); this is what caused the list request to return every single file 2. ~~(After making the change above) the `ListDirectoryPrefixedEntries` (at least in the leveldb2 backend) does not seem to work properly (I cannot figure out why yet because I don't really understand the filer store design). In my case, it simply does not return any entry if the prefix should match more than one files. I think it is related to the latest commit that implements hash-prefix-based searching in leveldb / leveldb2.~~ I think https://github.com/chrislusf/seaweedfs/blob/master/weed/filer/leveldb2/leveldb2_store.go#L188 needs to be `continue` instead of `break` Some programs expect ListObjects to be able to list files with arbitrary prefix (such as `s3ql`) and will error if this does not work. Most other S3 implementations, including the official S3 service, support this correctly.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update release.yml</MESSAGE>
+    <SHA>2a5fc7aa4def384b31ee83c60a27e15b180c7fbf</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>filer: Fix prefix matching (#1722) * `ListDirectoryEntries` takes a pattern, not a prefix, thus to match a prefix we have to include a wildcard character `*` * In the prefix match implementations in leveldb and leveldb2, we should continue instead of stop if the current entry does not match the prefix.</MESSAGE>
+      <SHA>bff678770bdca1e52ed56297c54a9dc5cabd035f</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filer/leveldb/leveldb_store.go</FILE>
+        <FILE>weed/filer/leveldb2/leveldb2_store.go</FILE>
+        <FILE>weed/server/filer_grpc_server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

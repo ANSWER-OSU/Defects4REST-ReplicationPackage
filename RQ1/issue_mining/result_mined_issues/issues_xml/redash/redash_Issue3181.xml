@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3181</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/3181</ISSUEURL>
+  <TITLE>RuntimeError: Working outside of application context.</TITLE>
+  <DESCRIPTION>After deploying v6-beta to demo.redash.io we started seeing this error, which we haven't before: https://sentry.io/share/issue/08f84c11d6d04474b642b2d1435f9fb8/ By guessing what might be the cause of the issue I commented out the following code: https://github.com/getredash/redash/blob/cfe12c5a5d37b8ec01c8a26fd9c8c8ad97e12d07/redash/worker.py#L85-L90 Once I have the issue stopped happening. The reason I suspected this code was because we call `create_app` here for the second time during the initialization process of Celery. I'm not sure why it causes it though or how to fix it (aside from removing this code). @jezdez @emtwo If I'm not mistaken, you were running this code in your env for a long time now. You haven't seen this exception?</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix eslint issues on user.js (#3186)</MESSAGE>
+    <SHA>8481dacff43b767ccc129ea068a09d888c130db2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Safely create_app in Celery code (try to fetch current_app first). Closes #3181.</MESSAGE>
+      <SHA>fbf1ca7a04c256b1d6bab333ac4e1f7c855952cf</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/__init__.py</FILE>
+        <FILE>redash/worker.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Safely create_app in Celery code (try to fetch current_app first). (#3187) Closes #3181.</MESSAGE>
+      <SHA>f5dbdf245a705d7813e6ff56575660616a1f05c9</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/__init__.py</FILE>
+        <FILE>redash/worker.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

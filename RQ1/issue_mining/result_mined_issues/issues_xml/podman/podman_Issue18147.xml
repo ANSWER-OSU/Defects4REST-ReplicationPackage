@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18147</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18147</ISSUEURL>
+  <TITLE>podman 4.4.2 podman image save on windows (gitbash) fails with Error: open /dev/stdout: The system cannot find the path specified.</TITLE>
+  <DESCRIPTION>### Issue Description $ podman image save 6788562d9966 Error: open /dev/stdout: The system cannot find the path specified. Identical looking to the mac os variant podman image save results in Error: open /dev/stdout: permission denied #12402 ### Steps to reproduce the issue Steps to reproduce the issue 1. on windows gitbash with podman 4.4.2 2. podman image save 6788562d9966 ### Describe the results you received Error: open /dev/stdout: The system cannot find the path specified. resulting file is 20 bytes ugh no! 20 Apr 11 12:22 blah-web-service-4.0.55-2023-04-03-1542.tar.gz ### Describe the results you expected Glad you asked... on docker... no error... and a real tar file :-) rw-rw-r--. 1 vagrant vagrant 393693795 Apr 11 12:12 blah-web-service-4.0.55-2023-04-03-1542.tar.gz ### podman info output ```yaml $ podman info host: arch: amd64 buildahVersion: 1.29.0 cgroupControllers: [] cgroupManager: cgroupfs cgroupVersion: v1 conmon: package: conmon-2.1.7-2.fc37.x86_64 path: /usr/bin/conmon version: 'conmon version 2.1.7, commit: ' cpuUtilization: idlePercent: 99.82 systemPercent: 0.13 userPercent: 0.05 cpus: 8 distribution: distribution: fedora variant: container version: &quot;37&quot; eventLogger: journald hostname: MLBLAP0520 idMappings: gidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 524288 size: 65536 uidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 524288 size: 65536 kernel: 5.10.102.1-microsoft-standard-WSL2 linkmode: dynamic logDriver: journald memFree: 18307121152 memTotal: 19898867712 networkBackend: netavark ociRuntime: name: crun package: crun-1.8.3-2.fc37.x86_64 path: /usr/bin/crun version: |- crun version 1.8.3 commit: 59f2beb7efb0d35611d5818fd0311883676f6f7e rundir: /run/user/1000/crun spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +CRIU +LIBKRUN +WASM:wasmedge +YAJL os: linux remoteSocket: exists: true path: /run/user/1000/podman/podman.sock security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: true seccompEnabled: true seccompProfilePath: /usr/share/containers/seccomp.json selinuxEnabled: false serviceIsRemote: true slirp4netns: executable: /usr/bin/slirp4netns package: slirp4netns-1.2.0-8.fc37.x86_64 version: |- slirp4netns version 1.2.0 commit: 656041d45cfca7a4176f6b7eed9e4fe6c11e8383 libslirp: 4.7.0 SLIRP_CONFIG_VERSION_MAX: 4 libseccomp: 2.5.3 swapFree: 5368709120 swapTotal: 5368709120 uptime: 16h 29m 14.00s (Approximately 0.67 days) plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan volume: - local registries: search: - docker.io store: configFile: /home/user/.config/containers/storage.conf containerStore: number: 0 paused: 0 running: 0 stopped: 0 graphDriverName: overlay graphOptions: {} graphRoot: /home/user/.local/share/containers/storage graphRootAllocated: 269490393088 graphRootUsed: 1702436864 graphStatus: Backing Filesystem: extfs Native Overlay Diff: &quot;false&quot; Supports d_type: &quot;true&quot; Using metacopy: &quot;false&quot; imageCopyTmpDir: /var/tmp imageStore: number: 1 runRoot: /run/user/1000/containers transientStore: false volumePath: /home/user/.local/share/containers/storage/volumes version: APIVersion: 4.4.4 Built: 1680521485 BuiltTime: Mon Apr 3 07:31:25 2023 GitCommit: &quot;&quot; GoVersion: go1.19.7 Os: linux OsArch: linux/amd64 Version: 4.4.4 ``` ### Podman in a container Yes ### Privileged Or Rootless Rootless ### Upstream Latest Release Yes ### Additional environment details $ wsl --list Windows Subsystem for Linux Distributions: podman-machine-default (Default) ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18362 from rhatdan/quadlet Support systemd optional prefix '-' for devices.</MESSAGE>
+    <SHA>af185b2f2587bddcd2c759156abd38e7f762f405</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>windows: podman save allow the use of stdout By default podman save tries to write to /dev/stdout, this file doe snot exists on windows and cannot be opened. Instead we should just use fd 1 in such case. [NO NEW TESTS NEEDED] Fixes #18147 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>aca993632f7bbe8034234beba2855dd2d95ff16c</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/infra/tunnel/images.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>windows: podman save allow the use of stdout By default podman save tries to write to /dev/stdout, this file doe snot exists on windows and cannot be opened. Instead we should just use fd 1 in such case. [NO NEW TESTS NEEDED] Fixes #18147 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>02b9f4f5d030398844c11e8ccc603772df0299ab</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/infra/tunnel/images.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

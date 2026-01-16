@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16429</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/16429</ISSUEURL>
+  <TITLE>(OrchardCore.OpenId) contains CORS metadata, but a middleware was not found that supports CORS.</TITLE>
+  <DESCRIPTION>### Describe the bug I am not sure if this is an issue or just a misuse. I run the main branch locally. I created a site using the blank recipe called `sso` and enabled the OpenId server feature. added `email` and `profile` scopes, then create a test application. Created another tenant locally called `ssoblog` using the blog recipe`. I enabled the OpenId Client feature and configured the client using the info I used to create the app with: ![image](https://github.com/user-attachments/assets/7a87125c-a17d-4f9f-b18c-f1ac52bf9fb0) When I went to https://localhost:44300/ssoblog/Login, and clicked on the &quot;Local SSO&quot; button. I get the following error &gt; InvalidOperationException: Endpoint OrchardCore.OpenId.Controllers.AccessController.Authorize (OrchardCore.OpenId) contains CORS metadata, but a middleware was not found that supports CORS. Configure your application startup by adding app.UseCors() in the application startup code. If there are calls to app.UseRouting() and app.UseEndpoints(...), the call to app.UseCors() must go between them. ![image](https://github.com/user-attachments/assets/899c42f4-2eda-47c7-bf3a-2c3e4b7a0be5) @kevinchalet I know we have updated OpenIdDict multiple times lately, if this a issue or am I doing something wrong during the setup? I have a feeling because I am doing this locally I may have to enable cors feature but want to make sure there isn't a real issue that we should worry about before I mess around with CORS.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix ExpandoObject property access (#16432) Fix #16431</MESSAGE>
+    <SHA>4d4f20f3a9d9d5314b487cdb720d544a8401643d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Suppress Check For Unhandled Security Metadata Fix #16429</MESSAGE>
+      <SHA>c8adf4677764c489e93563fab9fa5c8f0d69cc8f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.Mvc.Core/Extensions/OrchardCoreBuilderExtensions.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

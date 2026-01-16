@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4195</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/4195</ISSUEURL>
+  <TITLE>Unable to balance volumes with s3 tiering in place</TITLE>
+  <DESCRIPTION>**Describe the bug** Unable to fully balance my nodes: ``` error: copy volume 1122 from &lt;Node A&gt;:8080 to &lt;Node B&gt;:8080: rpc error: code = Unknown desc = failed to copy /mnt/Disk-4/360_1122.dat file: receiving /mnt/Disk-4/360_1122.dat: rpc error: code = Unknown desc = open /mnt/Disk-5/360_1122.dat: no such file or directory ``` this halts the balance process so i can't really balance at all... Not always the same volume erroring, but is always one in my s3 tier **System Setup** - List the command line to start &quot;weed master&quot;, &quot;weed volume&quot;, &quot;weed filer&quot;, &quot;weed s3&quot;, &quot;weed mount&quot;. * master: `/usr/bin/weed master -ip=&lt;ip&gt; -peers=&lt;master ips&gt; -defaultReplication=100 -mdir=/var/lib/weed` * volulme: `weed volume -dataCenter=DFW -rack=DFWCLOUD -mserver=&lt;master ips&gt; -dir=&lt;dirlist&gt; -port=8080 -max=0` - OS version CentOS 7 - output of `weed version` `version 30GB 3.41 4d71af87f39324b0ff3136947f8e3c58868c3241 linux amd64` **Expected behavior** S3 volume info to seamlessly shuffle, or not balance at all. ...Not sure which really. **Other info** Affected volume info : ``` &gt; volume.list -volumeId=1122 DataNode &lt;Node A&gt;:8080 hdd(volume:480/480 active:453 free:0 remote:18) Disk hdd(volume:480/480 active:453 free:0 remote:18) volume id:1122 size:7336 collection:&quot;360&quot; file_count:1 read_only:true replica_placement:100 version:3 modified_at_second:1675099646 remote_storage_name:&quot;s3.decom&quot; remote_storage_key:&quot;7e22146b-5e9c-4045-9528-5fd579ea61bd&quot; DataNode &lt;Node C&gt;:8080 hdd(volume:79/165 active:79 free:86 remote:0) Disk hdd(volume:79/165 active:79 free:86 remote:0) volume id:1122 size:7336 collection:&quot;360&quot; file_count:1 replica_placement:100 version:3 modified_at_second:1666739548 ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>11</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>adjust text</MESSAGE>
+    <SHA>e037c71ec32c6c89861a6f21e53729811dc3e3df</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>avoid infinite loop fix https://github.com/seaweedfs/seaweedfs/issues/4195#issuecomment-1426100904</MESSAGE>
+      <SHA>5869945f16d1f9c0e5df9b468b610d1380c353d7</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/shell/command_volume_balance.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>do not move cloud tier volumes fix https://github.com/seaweedfs/seaweedfs/issues/4195</MESSAGE>
+      <SHA>dc4ed2cd9b66ea390aa5d295fe6b841c9e79a5b2</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/shell/command_volume_balance.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

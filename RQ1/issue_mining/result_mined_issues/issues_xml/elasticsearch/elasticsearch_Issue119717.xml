@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>119717</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/119717</ISSUEURL>
+  <TITLE>[CI] DataStreamsUpgradeIT testUpgradeDataStream failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #15368 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/lddobhoduslbq) - [elasticsearch-pull-request #49253 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/magwpo6kwqeyo) - [elasticsearch-intake #15364 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/qmtfs72trp4iu) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:qa:rolling-upgrade:v9.0.0#upgradedClusterTest&quot; -Dtests.class=&quot;org.elasticsearch.upgrades.DataStreamsUpgradeIT&quot; -Dtests.method=&quot;testUpgradeDataStream&quot; -Dtests.seed=CFC46CDC32581CEC -Dtests.bwc=true -Dtests.locale=yue-Hant -Dtests.timezone=Greenwich -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.upgrades.DataStreamsUpgradeIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testUpgradeDataStream),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: &lt;2&gt; but: was &lt;1&gt; ``` **Issue Reasons:** - [main] 3 failures in test testUpgradeDataStream (0.3% fail rate in 1000 executions) - [main] 3 failures in step 9.0.0_bwc-snapshots (2.5% fail rate in 122 executions) - [main] 2 failures in pipeline elasticsearch-intake (5.3% fail rate in 38 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add CCS tests for index filtering (#119619) * Add CCS tests for index filtering See also: https://github.com/elastic/elasticsearch/pull/116755</MESSAGE>
+    <SHA>7ea1d30a879b7d2c105bc7bd5bb9fd0f2b2a7eb3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.upgrades.DataStreamsUpgradeIT testUpgradeDataStream #119717</MESSAGE>
+      <SHA>48f8e97434c3476995be80d62cce97aea5be7414</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

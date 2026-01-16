@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>45</ISSUENO>
+  <ISSUEURL>https://github.com/treasure-data/digdag/issues/45</ISSUEURL>
+  <TITLE>workflow per file and digdag.yml</TITLE>
+  <DESCRIPTION>Design: `$ digdag init &lt;name&gt;` creates `digdag.yml` and `&lt;name&gt;.yml` files in `&lt;name&gt;` directory as following: ``` # digdag.yml name: &lt;name&gt; workflows: - &lt;name&gt;.yml ``` ``` # &lt;name&gt;.yml +step1: sh&gt;: some example here... +step2: sh&gt;: some example here... ``` All digdag commands (run, push, etc.) use `digdag.yml` as the entry point. `name` section in digdag.yml is the name of project. Name of a workflow matches with the file name (so workflow yml files don't need `name` section). `digdag push` doesn't require `-f` option. It reads ./digdag.yml.</DESCRIPTION>
+  <REPONAME>digdag</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Added plural REST API that looks up a resource by name [#46] Added: * GET /api/projects?name=&lt;name&gt; * GET /api/projects/{id}/workflows?name=&lt;name&gt;[&amp;revision=&lt;name&gt;] Deprecated (not removed yet): * GET /api/project?name=&lt;name&gt; * GET /api/projects/{id}/workflow?name=name[&amp;revision=name] * GET /api/workflow?project=&lt;name&gt;&amp;name=&lt;name&gt; * GET /api/workflow?project=&lt;name&gt;&amp;revision=&lt;name&gt;&amp;name=&lt;name&gt;</MESSAGE>
+    <SHA>6ac69683f217c6e4d6ae511b80c8b3a3fba420b5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Entry point is digdag.yml that includes project settings [#45]</MESSAGE>
+      <SHA>f6e3def5530d9f82dbd513f0c6bd9467408707b2</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-cli/src/main/java/io/digdag/cli/Check.java</FILE>
+        <FILE>digdag-cli/src/main/java/io/digdag/cli/Init.java</FILE>
+        <FILE>digdag-cli/src/main/java/io/digdag/cli/Main.java</FILE>
+        <FILE>digdag-cli/src/main/java/io/digdag/cli/RevisionAutoReloader.java</FILE>
+        <FILE>digdag-cli/src/main/java/io/digdag/cli/Run.java</FILE>
+        <FILE>digdag-cli/src/main/java/io/digdag/cli/Sched.java</FILE>
+        <FILE>digdag-cli/src/main/java/io/digdag/cli/Show.java</FILE>
+        <FILE>digdag-cli/src/main/java/io/digdag/cli/client/Archive.java</FILE>
+        <FILE>digdag-cli/src/main/java/io/digdag/cli/client/Push.java</FILE>
+        <FILE>digdag-cli/src/main/resources/digdag/cli/digdag.yml</FILE>
+        <FILE>digdag-cli/src/main/resources/digdag/cli/workflow.yml</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/agent/OperatorManager.java</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/archive/ProjectArchiveLoader.java</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/archive/ProjectFile.java</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/archive/WorkflowFile.java</FILE>
+        <FILE>digdag-docs/src/command_reference.rst</FILE>
+        <FILE>digdag-docs/src/getting_started.rst</FILE>
+        <FILE>digdag-docs/src/scheduling_workflow.rst</FILE>
+        <FILE>examples/basic.yml</FILE>
+        <FILE>examples/call.yml</FILE>
+        <FILE>examples/check_task.yml</FILE>
+        <FILE>examples/conditions.yml</FILE>
+        <FILE>examples/error_task.yml</FILE>
+        <FILE>examples/export_params.yml</FILE>
+        <FILE>examples/generate_subtasks.yml</FILE>
+        <FILE>examples/include.yml</FILE>
+        <FILE>examples/js_vars.yml</FILE>
+        <FILE>examples/mail.yml</FILE>
+        <FILE>examples/params.yml</FILE>
+        <FILE>examples/python_args.yml</FILE>
+        <FILE>examples/require.yml</FILE>
+        <FILE>examples/ruby_args.yml</FILE>
+        <FILE>examples/schedule_daily.yml</FILE>
+        <FILE>examples/schedule_hourly.yml</FILE>
+        <FILE>examples/shell_envvar.yml</FILE>
+        <FILE>examples/sla.yml</FILE>
+        <FILE>examples/treasuredata.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #45 from treasure-data/WM-1639 WM-1639: Add DDL for project_metadata table</MESSAGE>
+      <SHA>74607cf44c48d2ae47c41862418cd6c391129ec4</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-core/src/main/java/io/digdag/core/database/DatabaseMigrator.java</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/database/migrate/Migration_20221021035534_CreateProjectMetadata.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Backport] Add support for project metadata (#1802) * Merge pull request #45 from treasure-data/WM-1639 WM-1639: Add DDL for project_metadata table * Merge pull request #47 from treasure-data/WM-1646-td-digdag WM-1646: Add support for adding project metadata * Merge pull request #69 from treasure-data/WM-1732 WM-1732: Allow ProjectService to pass AuthencatedResource userInfo</MESSAGE>
+      <SHA>e91111ef1ed7a7077d503615de06ca87f615ec02</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-client/src/main/java/io/digdag/client/DigdagClient.java</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/database/DatabaseMigrator.java</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/database/DatabaseProjectStoreManager.java</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/database/migrate/Migration_20221021035534_CreateProjectMetadata.java</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/repository/ProjectControl.java</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/repository/ProjectControlStore.java</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/repository/ProjectMetadataMap.java</FILE>
+        <FILE>digdag-server/src/main/java/io/digdag/server/ServerModule.java</FILE>
+        <FILE>digdag-server/src/main/java/io/digdag/server/rs/ProjectResource.java</FILE>
+        <FILE>digdag-server/src/main/java/io/digdag/server/rs/RestModels.java</FILE>
+        <FILE>digdag-server/src/main/java/io/digdag/server/service/ProjectService.java</FILE>
+        <FILE>digdag-tests/src/test/java/utils/TestUtils.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

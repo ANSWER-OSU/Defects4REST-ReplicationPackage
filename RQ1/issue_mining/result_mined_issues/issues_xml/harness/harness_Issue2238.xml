@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2238</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2238</ISSUEURL>
+  <TITLE>Uncaught (in promise) RangeError: Invalid time value</TITLE>
+  <DESCRIPTION>I got some builds which are using `group:` for parallel execution, there it can happen that some `procs` don't have a start date defined which will result in a javascript error as stated in the title. With this error it's not possible to see the build details anymore. &lt;img width=&quot;1440&quot; alt=&quot;bildschirmfoto 2017-10-06 um 22 03 00&quot; src=&quot;https://user-images.githubusercontent.com/156964/31296437-8f9511ee-aae2-11e7-884d-c6685de909bc.png&quot;&gt; After that I prepared a query to look for the `procs` values: ``` sqlite&gt; select proc_id, proc_name, proc_state, proc_started, proc_stopped, build_id, repo_full_name from procs left join builds on (proc_build_id = build_id) left join repos on (build_repo_id = repo_id) where repo_full_name = 'demos/launcher' and build_number = 5; 568||failure|1507131916|1507132244|129|demos/launcher 569|clone|success|1507131916|1507131922|129|demos/launcher 570|restore|success|1507131922|1507131928|129|demos/launcher 571|frontend-prepare|success|1507131928|1507131986|129|demos/launcher 572|frontend-lint|success|1507131986|1507132000|129|demos/launcher 573|frontend-test|success|1507131986|1507131998|129|demos/launcher 574|frontend-build|success|1507131986|1507132014|129|demos/launcher 575|backend-prepare|success|1507132015|1507132151|129|demos/launcher 576|backend-vet|success|0|1507132186|129|demos/launcher 577|backend-varcheck|success|1507132151|1507132187|129|demos/launcher 578|backend-structcheck|success|1507132151|1507132184|129|demos/launcher 579|backend-unconvert|success|1507132151|1507132172|129|demos/launcher 580|backend-ineffassign|success|1507132151|1507132159|129|demos/launcher 581|backend-lint|success|1507132151|1507132174|129|demos/launcher 582|backend-test|success|1507132151|1507132201|129|demos/launcher 583|backend-build|success|1507132151|1507132186|129|demos/launcher 584|docker|failure|1507132201|1507132233|129|demos/launcher 585|rebuild|skipped|0|0|129|demos/launcher 586|flush|skipped|0|0|129|demos/launcher 587|slack|failure|1507132233|1507132241|129|demos/launcher ``` After setting the `proc_started` values for ids 576 to a real date the UI started to work as expected agin.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [CDE-173]: Running IDE and related services on boot up. Changing entrypoint cmd for quicker stopping. (#2240) * feat: [CDE-173]: Running IDE and related services on boot up. Changing entrypoint cmd for quicker stopping.</MESSAGE>
+    <SHA>ed92f75f68b2c6b851ddec61622a5f45145ee893</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: [CODE-2127]: fix pr count with filter (#2238) * feat: [CODE-2127]: fix pr count with filter</MESSAGE>
+      <SHA>ba934bb4e2bc1c2264e6712a93e30271b6dc6dd1</SHA>
+      <PATCHEDFILES>
+        <FILE>app/store/database/pullreq.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

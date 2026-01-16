@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126967</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126967</ISSUEURL>
+  <TITLE>[CI] LogsIndexModeFullClusterRestartIT testLogsIndexing {cluster=UPGRADED} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #21967 / 8.17.6_bwc-snapshots](https://gradle-enterprise.elastic.co/s/4eclyft3wvhlu) - [elasticsearch-intake #21966 / 8.17.6_bwc-snapshots](https://gradle-enterprise.elastic.co/s/n6erckudpx536) - [elasticsearch-intake #21962 / 8.17.6_bwc-snapshots](https://gradle-enterprise.elastic.co/s/47hpfxm6oqxs2) - [elasticsearch-pull-request #68333 / 8.17.6_bwc-snapshots](https://gradle-enterprise.elastic.co/s/xyqi4u75c4mxo) - [elasticsearch-intake #21958 / 8.17.6_bwc-snapshots](https://gradle-enterprise.elastic.co/s/e5pa4gw4wbaue) - [elasticsearch-intake #21952 / 8.17.6_bwc-snapshots](https://gradle-enterprise.elastic.co/s/hqwm4zzagmqzy) **Reproduction Line:** ``` ./gradlew &quot;:qa:full-cluster-restart:v8.17.6#bwcTest&quot; -Dtests.class=&quot;org.elasticsearch.upgrades.LogsIndexModeFullClusterRestartIT&quot; -Dtests.method=&quot;testLogsIndexing {cluster=UPGRADED}&quot; -Dtests.seed=FB921CF806D67D73 -Dtests.bwc=true -Dtests.locale=szl-Latn-PL -Dtests.timezone=Mexico/General -Druntime.java=24 ``` **Applicable branches:** 9.0 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.upgrades.LogsIndexModeFullClusterRestartIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testLogsIndexing%20%7Bcluster%3DUPGRADED%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.RuntimeException: An error occurred orchestrating test cluster. ``` **Issue Reasons:** - [9.0] 2 consecutive failures in test testLogsIndexing {cluster=UPGRADED} - [9.0] 6 consecutive failures in step 8.17.6_bwc-snapshots - [9.0] 2 consecutive failures in pipeline elasticsearch-intake - [9.0] 6 failures in test testLogsIndexing {cluster=UPGRADED} (8.0% fail rate in 75 executions) - [9.0] 6 failures in step 8.17.6_bwc-snapshots (30.0% fail rate in 20 executions) - [9.0] 5 failures in pipeline elasticsearch-intake (41.7% fail rate in 12 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>17</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Bump versions after 8.18.0 release</MESSAGE>
+    <SHA>e505850627ed80c632f3e04ecfab2537df0baac6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.upgrades.LogsIndexModeFullClusterRestartIT testLogsIndexing {cluster=UPGRADED} #126967</MESSAGE>
+      <SHA>c05231a1965b792a7dd6b8e3dafcc0ccc4cbd30c</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

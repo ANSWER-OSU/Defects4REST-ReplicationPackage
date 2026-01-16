@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>897</ISSUENO>
+  <ISSUEURL>https://github.com/louislam/uptime-kuma/issues/897</ISSUEURL>
+  <TITLE>uptime-kuma container image and logs</TITLE>
+  <DESCRIPTION>Hi there I run uptime-kuma as a container behind a nginx reverse proxy. Everything is working fine except except seeing the following entries filled up the docker log. If I do not do anything, it would fill up the 20GB of the host storage in a few days. It may well be my set up though. Here are the logs: {&quot;log&quot;:&quot;Timeout duration was set to 1.\n&quot;,&quot;stream&quot;:&quot;stderr&quot;,&quot;time&quot;:&quot;2021-11-09T14:18:37.638861043Z&quot;} {&quot;log&quot;:&quot;(node:7) TimeoutOverflowWarning: 2678400000 does not fit into a 32-bit signed integer.\n&quot;,&quot;stream&quot;:&quot;stderr&quot;,&quot;time&quot;:&quot;2021-11-09T14:18:37.640455606Z&quot;} {&quot;log&quot;:&quot;Timeout duration was set to 1.\n&quot;,&quot;stream&quot;:&quot;stderr&quot;,&quot;time&quot;:&quot;2021-11-09T14:18:37.640466647Z&quot;} {&quot;log&quot;:&quot;(node:7) TimeoutOverflowWarning: 2678400000 does not fit into a 32-bit signed integer.\n&quot;,&quot;stream&quot;:&quot;stderr&quot;,&quot;time&quot;:&quot;2021-11-09T14:18:37.642007007Z&quot;} Here is a subset of the docker-compose.yaml file related to uptime-kuma: uptime-kuma: image: louislam/uptime-kuma container_name: uptime-kuma volumes: - ./data/uptime-kuma:/app/data logging: options: max-size: &quot;10m&quot; max-file: &quot;3&quot; TIA.</DESCRIPTION>
+  <REPONAME>uptime-kuma</REPONAME>
+  <TIMEDIFFERENCEDAYS>193</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add dockerfile-windows</MESSAGE>
+    <SHA>e0028cb114958a739eec7f472165e2350f263556</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #897</MESSAGE>
+      <SHA>bf49a548c73c7b39a27e2bfe38b0a353a67edc3b</SHA>
+      <PATCHEDFILES>
+        <FILE>server/model/monitor.js</FILE>
+        <FILE>src/pages/EditMonitor.vue</FILE>
+        <FILE>src/util.js</FILE>
+        <FILE>src/util.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2092</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/2092</ISSUEURL>
+  <TITLE>[now-dev] Route parameters do not work in headers</TITLE>
+  <DESCRIPTION>Route parameters do not work in &quot;headers&quot;. In the following example, the correct $locale value is used for both _headers_ and _dest_ on Now server. In `now-dev`, `$locale` will resolves to the right value only for dest. When used in &quot;headers&quot; for redirect, $locale did not resolve to a value, a redirection to the literal path &quot;/$locale/how/&quot; occured. ``` routes: [ { &quot;src&quot;: &quot;/(?&lt;locale&gt;[^/]*)/how/$&quot;, &quot;dest&quot;: &quot;/how?locale=$locale&quot; }, { &quot;src&quot;: &quot;/(?&lt;locale&gt;[^/]*)/how$&quot;, &quot;status&quot;: 301, &quot;headers&quot;: { &quot;Location&quot;: &quot;/$locale/how/&quot; } } ] ```</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>version bump (canary)</MESSAGE>
+    <SHA>5857489ceffcbcce07eb6e5d6fcc20279d0ba5fd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>inject paramters into headers.Location fixes #2092</MESSAGE>
+      <SHA>331322f2cc6f3ca31bcfb3839129ee46d136d43e</SHA>
+      <PATCHEDFILES>
+        <FILE>src/commands/dev/lib/dev-router.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now dev] Apply route params to `headers` (#2095) * version bump (canary) * inject paramters into headers.Location fixes #2092 * refactored route parameter resolving function * Revert &quot;version bump (canary)&quot; This reverts commit 5857489ceffcbcce07eb6e5d6fcc20279d0ba5fd. * Update src/commands/dev/lib/dev-router.ts Co-Authored-By: williamli &lt;email@williamli.dev&gt; * refactor headers resolution * try to resolve all parameters inside each child of headers</MESSAGE>
+      <SHA>2d855391b6886bb764fea51c3dfba0c4f3cc8d2a</SHA>
+      <PATCHEDFILES>
+        <FILE>src/commands/dev/lib/dev-router.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

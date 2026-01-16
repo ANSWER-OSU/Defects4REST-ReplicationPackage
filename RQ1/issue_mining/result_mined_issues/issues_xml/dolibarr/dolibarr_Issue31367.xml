@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>31367</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/31367</ISSUEURL>
+  <TITLE>Feature Request: Bank account label is too short</TITLE>
+  <DESCRIPTION>### Feature Request version: 20.0.1 Hello, My bank account label looks like this ![image](https://github.com/user-attachments/assets/6c73ac15-fd9c-47a0-9399-05cec8a4f179) But when I created it I wanted it to be like this `BOUR Compte Courant d'associé – Prénom Nom` Because I have multiple comptes courant d'associés, I also specify their bank in case they have multiple banks and I specify Compte courant d'associé A label is supposed to be easily readable and not full of acronyms such as &quot;BOUR CCA - P.Nom&quot; (16 caracters here) When looking at the table llx_bank_account I see that the label is 30 caracters ` label | varchar(30) | NO | MUL | NULL` In my initial example BOUR Compte Courant d'associé – Prénom Nom is 43 caracters long but that also depends on the name of the person I think varchar(64) should be enough Also, the box field should be blocked so that we cannot insert anything above 64 caracters, for the field Ref the length is blocked to 12 during account creation. But for the field label, we can add as many letters we want but after validation the label is truncated to 30. ### Use case _No response_ ### Suggested implementation `label | varchar(64) | NO | MUL | NULL` instead of `label | varchar(30) | NO | MUL | NULL` in table llx_bank_account + limit GUI box to 64 caracters (during creation and also during edition) ### Suggested steps _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>33</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Try to exclude phan</MESSAGE>
+    <SHA>714dc0c4b30636030276af304927d7a07179c35b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Close #31367 - label increased to 50 chars</MESSAGE>
+      <SHA>bb1256a74a2cc33660d5b9be5e756fef38388755</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/install/mysql/migration/20.0.0-21.0.0.sql</FILE>
+        <FILE>htdocs/install/mysql/tables/llx_bank_account.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

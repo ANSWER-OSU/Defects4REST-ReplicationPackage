@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3003</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/3003</ISSUEURL>
+  <TITLE>Wrong mediaType reported by REST API for forms</TITLE>
+  <DESCRIPTION>**Describe the bug** The `app-repository/deployments/{id}/resources` REST API returns `mediaType` as `text/xml` for `.form` files. **Expected behavior** Return `application/json`, which is the correct media type for forms. **Additional context** Found in v6.6.0 and further verified in master branch of source [DefaultContentTypeResolver](https://github.com/flowable/flowable-engine/blob/master/modules/flowable-common-rest/src/main/java/org/flowable/common/rest/resolver/DefaultContentTypeResolver.java) Additionally found that `.app` files content type is not included in the common class but in [AppDeploymentResourceResource](https://github.com/flowable/flowable-engine/blob/master/modules/flowable-app-engine-rest/src/main/java/org/flowable/app/rest/service/api/repository/AppDeploymentResourceResource.java) so that should probably be centralised too.</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix issue with service tasks with type attribute</MESSAGE>
+    <SHA>f178b2e1d5e35d4ef1d6986baa2aa6a08171fe69</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>resolves #3003 form content type</MESSAGE>
+      <SHA>70003458870bd73ca18c6b82ee2dfb3ed273a2d3</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-app-engine-rest/src/main/java/org/flowable/app/rest/service/api/repository/AppDeploymentResourceResource.java</FILE>
+        <FILE>modules/flowable-common-rest/src/main/java/org/flowable/common/rest/resolver/DefaultContentTypeResolver.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>resolves correct content type for form (#3004) Fixes #3003</MESSAGE>
+      <SHA>e16cfe88757fdf2a37404cd0245d99760145de38</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-app-engine-rest/src/main/java/org/flowable/app/rest/service/api/repository/AppDeploymentResourceResource.java</FILE>
+        <FILE>modules/flowable-common-rest/src/main/java/org/flowable/common/rest/resolver/DefaultContentTypeResolver.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

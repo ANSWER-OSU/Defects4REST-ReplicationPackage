@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>11622</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/11622</ISSUEURL>
+  <TITLE>Hop nodes instances can be modified</TITLE>
+  <DESCRIPTION>### Please confirm the following - [X] I agree to follow this project's [code of conduct](https://docs.ansible.com/ansible/latest/community/code_of_conduct.html). - [X] I have checked the [current issues](https://github.com/ansible/awx/issues) for duplicates. - [X] I understand that AWX is open source software provided for free and that I might not receive a timely response. ### Summary After merging https://github.com/ansible/awx/pull/11591 the hop nodes are now exposed in `/api/v2/instances/`. Example: ``` { &quot;id&quot;: 4, &quot;type&quot;: &quot;instance&quot;, &quot;url&quot;: &quot;/api/v2/instances/4/&quot;, &quot;related&quot;: { &quot;jobs&quot;: &quot;/api/v2/instances/4/jobs/&quot;, &quot;instance_groups&quot;: &quot;/api/v2/instances/4/instance_groups/&quot; }, &quot;uuid&quot;: &quot;00000000-0000-0000-0000-000000000000&quot;, &quot;hostname&quot;: &quot;receptor-hop&quot;, &quot;created&quot;: &quot;2022-01-26T19:15:07.439405Z&quot;, &quot;modified&quot;: &quot;2022-01-26T19:27:58.447951Z&quot;, &quot;last_seen&quot;: &quot;2022-01-27T13:36:46.163205Z&quot;, &quot;last_health_check&quot;: null, &quot;errors&quot;: &quot;&quot;, &quot;capacity_adjustment&quot;: &quot;1.00&quot;, &quot;version&quot;: &quot;&quot;, &quot;capacity&quot;: 0, &quot;consumed_capacity&quot;: 0, &quot;percent_capacity_remaining&quot;: 0.0, &quot;jobs_running&quot;: 0, &quot;jobs_total&quot;: 0, &quot;cpu&quot;: 0, &quot;memory&quot;: 0, &quot;cpu_capacity&quot;: 0, &quot;mem_capacity&quot;: 0, &quot;enabled&quot;: false, &quot;managed_by_policy&quot;: false, &quot;node_type&quot;: &quot;hop&quot; } ``` and now is possible to `PUT` or `PATCH` the values through API ``` { &quot;capacity_adjustment&quot;: &quot;1.00&quot;, &quot;enabled&quot;: false, &quot;managed_by_policy&quot;: false } ``` although setting capacity to 0 enabld to false is not making the job to faul, @jbradberry do we want allow users to patch/put on hop node instances? ### AWX version devel ### Installation method docker on linux ### Modifications no ### Ansible version _No response_ ### Operating system _No response_ ### Web browser Chrome ### Steps to reproduce 1. Go to /api/v2/instances/&lt;id&gt;/ 2. patch any value: ``` { &quot;capacity_adjustment&quot;: 1.0, &quot;enabled&quot;: true, &quot;managed_by_policy&quot;: true } ``` ### Expected results These fields to be not modifyable for hop nodes? ### Actual results 1. The user can change those values 2. This is not making the job to fail 3. The hop nodes instances are showing as `disabled` in the mesh view (may confuse users) ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>46</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Disable checkbox while job is running in project and inventory source lists (#11841)</MESSAGE>
+    <SHA>4c9d028a35dab930c8a9c59da70b8e4c8448a666</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add validation for hop nodes Add validation for hop nodes See: https://github.com/ansible/awx/issues/11622</MESSAGE>
+      <SHA>53185a4ea56a36fe04f2d1cc07bfb965a054c137</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/serializers.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add validation for hop nodes Add validation for hop nodes See: https://github.com/ansible/awx/issues/11622</MESSAGE>
+      <SHA>3047397d70fdcd89c24a0c3427530c0481ce0e62</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/serializers.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

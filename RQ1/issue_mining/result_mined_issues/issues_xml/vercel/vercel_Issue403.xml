@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>403</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/403</ISSUEURL>
+  <TITLE>now with xargs immediately exits</TITLE>
+  <DESCRIPTION>To tidy up old unused deployments, I run a custom script called `now-no-alias` and I pluck the `uid` and `now rm` them. The workflow is: ``` $ now-no-alias | json -a uid | xargs now rm ``` This used to work, and it would prompt me with `[Y/n]` to remove the deployments. Except, now it doesn't. When I run it through a pipe from `xargs` it exits (success) without doing anything: &lt;img width=&quot;763&quot; alt=&quot;screen shot 2017-03-25 at 14 14 24&quot; src=&quot;https://cloud.githubusercontent.com/assets/13700/24322969/a1fc175e-1165-11e7-836f-7e7366bbac1d.png&quot;&gt; I'd love to see this fixed again…though I've no idea what `now` is looking for to make this fail the way it is.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>874</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now-build-utils] Add `meta` object type definition for `build()` (#399) * [now-build-utils] Add `meta` object type definition for `build()` * Add `meta.requestPath`</MESSAGE>
+    <SHA>b480b07ccec9303890bfa245bdaf85f65634a8a2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add fetchTokenWithRetry for bad json response (#403) This is a quick fix for our token problem by attempting to retry the fetch. &gt; FetchError: invalid json response body at NOW_TOKEN_FACTORY_URL reason: Unexpected token A in JSON at position 0 The root cause is in the token factory because it throws `Confirmation incomplete` but that will be harder to track down and fix.</MESSAGE>
+      <SHA>ee179b9b52a7f494ff3527f53bba976157087311</SHA>
+      <PATCHEDFILES>
+        <FILE>test/lib/deployment/now-deploy.js</FILE>
+        <FILE>test/lib/deployment/test-deployment.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

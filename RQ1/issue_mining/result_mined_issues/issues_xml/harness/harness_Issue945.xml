@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>945</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/945</ISSUEURL>
+  <TITLE>Drone container linking problem [0.3.0-alpha]</TITLE>
+  <DESCRIPTION>Hi, i am trying to work with drone and I have a problem with services. i have to set of integration tests that runs agains a mongodb database. My drone file is this one: ``` image: wdalmut/php:5.5 services: - wdalmut/mongo:2.6 script: - echo &quot;date.timezone=Europe/Rome&quot; &gt; /usr/local/etc/php/php.ini - echo &quot;memory_limit=512M&quot; &gt;&gt; /usr/local/etc/php/php.ini - curl -Ss http://getcomposer.org/installer | php - php composer.phar install - bin/phpunit -c app ``` The script section works correctly and the container is correctly prepared and executed. Same things for the MongoDB service that is effectively started as described in my `.drone.yml` The problem is that containers are not linked and my testing scenarios cannot connect to mongodb using &quot;locahost:27017&quot;. I have also inspected both containers and there is no linking between them. I checked out the docs and i see that the `.drone.yml` is correctly configured. There is anything that i'm missing? Thanks Walter</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>remove default Admin account /environment variables (#938)</MESSAGE>
+    <SHA>4c90cec3e59d9218a606c4b533688ff96569503f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: [code-1247]: fix toaster color (#945)</MESSAGE>
+      <SHA>80f91c24086e093e590c0bc1d04da21f2f89b411</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/pages/Compare/Compare.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

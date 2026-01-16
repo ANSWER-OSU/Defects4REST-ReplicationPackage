@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20771</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/20771</ISSUEURL>
+  <TITLE>Opening the recommendation popup only works with enabled subscription</TITLE>
+  <DESCRIPTION>### Issue Summary Trying to open the recommendation pop up (https://example.org/#/portal/recommendations) - e.g. through the URL, or through the &quot;View all&quot; button on the homepage - doesn't do anything when `Subscription access` is disabled / set to &quot;nobody&quot;. ### Steps to Reproduce 1. Set the Subscription access to `Nobody` (https://example.org/ghost/#/settings/members) 2. Enable the `publication info sidebar` at https://example.org/ghost/#/settings/design/edit - in the Tab Homepage. 3. Recommend a site (https://example.org/ghost/#/settings/recommendations) 4. See the recommendation panel. (https://example.org) 5. Try to click on &quot;View all&quot;. ### Ghost Version 5.89.1 ### Node.js Version v18.20.4 ### How did you install Ghost? Via Docker Compose ### Database type MySQL 8 ### Browser &amp; OS version Firefox 129.0.1 (64-Bit) on Windows 11 Pro ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>66</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>MRR/Members chart axis fix (#21359) fixes https://linear.app/ghost/issue/DES-869/dashboard-mrr-member-chart-axis-is-making-flat-growth-look-like A slight decline/increase on the MRR/members chart was shown as a very dramatic shift. These changes will make the chart appear more gradual when the changes are small. The chart will effectively &quot;zoom in&quot; on the range where the values fluctuate. The y-axis minimum is 95% of the lowest data point, and the maximum is 105% of the highest data point. That way there's a small buffer above and below the data range, and the chart as a whole doesn't have the overly dramatic drops/peaks. I've tested it with hardcoded values, as well as values inserted via the API, and the charts look a lot better. **Before** &lt;img width=&quot;1257&quot; alt=&quot;1 - chart before&quot; src=&quot;https://github.com/user-attachments/assets/8d59fc38-0a57-4a7a-a83f-06e045057f45&quot;&gt; &lt;img width=&quot;1255&quot; alt=&quot;2 - chart before&quot; src=&quot;https://github.com/user-attachments/assets/46476d88-3991-4253-a5bc-76591ea67e39&quot;&gt; **After (same two values)** &lt;img width=&quot;1260&quot; alt=&quot;3 - chart after&quot; src=&quot;https://github.com/user-attachments/assets/d5bcfdb2-40dd-4655-afd4-ba19a62d76b9&quot;&gt; &lt;img width=&quot;1263&quot; alt=&quot;4 - chart after&quot; src=&quot;https://github.com/user-attachments/assets/6c8cf189-6497-482e-9414-a7d77c00c533&quot;&gt; **Gradual decline** &lt;img width=&quot;1259&quot; alt=&quot;5 - chart gradual&quot; src=&quot;https://github.com/user-attachments/assets/5ec2b470-f1d2-45cd-aba5-5f11e6e718fd&quot;&gt; &lt;img width=&quot;1250&quot; alt=&quot;6 - chart gradual&quot; src=&quot;https://github.com/user-attachments/assets/b6dd67ab-0b5e-47db-a9ef-d4ae10b78f73&quot;&gt; **More pronounced decline** &lt;img width=&quot;1270&quot; alt=&quot;7 - chart dramatic&quot; src=&quot;https://github.com/user-attachments/assets/c43215c3-a687-47be-ab05-70fee855a345&quot;&gt; &lt;img width=&quot;1256&quot; alt=&quot;8 - chart dramatic&quot; src=&quot;https://github.com/user-attachments/assets/55ae833b-e47d-441a-98e0-fcfa2e9734a0&quot;&gt; &lt;img width=&quot;1258&quot; alt=&quot;9 - chart dramatic&quot; src=&quot;https://github.com/user-attachments/assets/b9fdef8f-61fa-4315-a662-b37eea2259d3&quot;&gt;</MESSAGE>
+    <SHA>8615bd538b56d71f6b83607d77cba392d6426aad</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Added breaking test for ghost_head including portal script refs https://linear.app/ghost/issue/ONC-254 refs https://github.com/TryGhost/Ghost/issues/20771 The reason that recommendations aren't working is because portal isn't loaded, which handles the data-attributes having the event listeners added to them.</MESSAGE>
+      <SHA>9a5086456b46e6f4af2d78730214e4442319503c</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/test/unit/frontend/helpers/__snapshots__/ghost_head.test.js.snap</FILE>
+        <FILE>ghost/core/test/unit/frontend/helpers/ghost_head.test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed recommendations popup not opening closes https://linear.app/ghost/issue/ONC-254 closes https://github.com/TryGhost/Ghost/issues/20771 The portal script, which is responsible for handling the recommendations popup, was only loaded into the front end if either members or donations are enabled. We're adding an extra condition to load it if recommendations are enabled. We may want to consider splitting out this functionality into several scripts, so that we don't have to load _everything_ if only one feature is enabled, but that is outside the scope of this issue.</MESSAGE>
+      <SHA>6154234e86afb1284c7a876189c10610f01b3d18</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/frontend/helpers/ghost_head.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed recommendations popup not opening closes https://linear.app/ghost/issue/ONC-254 closes https://github.com/TryGhost/Ghost/issues/20771 The portal script, which is responsible for handling the recommendations popup, was only loaded into the front end if either members or donations are enabled. We're adding an extra condition to load it if recommendations are enabled. We may want to consider splitting out this functionality into several scripts, so that we don't have to load _everything_ if only one feature is enabled, but that is outside the scope of this issue.</MESSAGE>
+      <SHA>93b4c28d55f21e943ebcb96a3b05917939dc0724</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/frontend/helpers/ghost_head.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed recommendations popup not opening closes https://linear.app/ghost/issue/ONC-254 closes #20771 The portal script, which is responsible for handling the recommendations popup, was only loaded into the front end if either members or donations are enabled. We're adding an extra condition to load it if recommendations are enabled. We may want to consider splitting out this functionality into several scripts, so that we don't have to load _everything_ if only one feature is enabled, but that is outside the scope of this issue.</MESSAGE>
+      <SHA>de3b9b1ec5cc92844d13a6ce62d6178d393aa2c3</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/core/frontend/helpers/ghost_head.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Added breaking test for ghost_head including portal script refs https://linear.app/ghost/issue/ONC-254 refs https://github.com/TryGhost/Ghost/issues/20771 The reason that recommendations aren't working is because portal isn't loaded, which handles the data-attributes having the event listeners added to them.</MESSAGE>
+      <SHA>33935ac7b372dbfa20e9672cca1d3434a1fb3c6f</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/core/test/unit/frontend/helpers/__snapshots__/ghost_head.test.js.snap</FILE>
+        <FILE>ghost/core/test/unit/frontend/helpers/ghost_head.test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

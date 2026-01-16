@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126496</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126496</ISSUEURL>
+  <TITLE>[CI] ParseIpTests testLeadingZerosAreOctal {TestCase[str=v4, validLeadingZerosRejected=true, validLeadingZerosAreDecimal=true, validLeadingZerosAreOctal=true]} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7560 / rocky-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/tcweh47jnjsqq) - [elasticsearch-pull-request #66991 / part-3](https://gradle-enterprise.elastic.co/s/7lzz6bacl4o42) - [elasticsearch-periodic-platform-support #7553 / opensuse-leap-15_platform-support-unix](https://gradle-enterprise.elastic.co/s/qt5tdcxowdczm) - [elasticsearch-pull-request #66961 / part-3](https://gradle-enterprise.elastic.co/s/zwon2dvxosdha) - [elasticsearch-pull-request #66770 / part-3](https://gradle-enterprise.elastic.co/s/6mdftkpwpkwzi) - [elasticsearch-intake #21480 / part3](https://gradle-enterprise.elastic.co/s/asbnvsemntta2) - [elasticsearch-pull-request #66720 / part-3](https://gradle-enterprise.elastic.co/s/qjxzyehcjb4uo) - [elasticsearch-intake #21457 / part3](https://gradle-enterprise.elastic.co/s/s6matucx4ajha) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:test&quot; --tests &quot;org.elasticsearch.xpack.esql.expression.function.scalar.convert.ParseIpTests.testLeadingZerosAreOctal {TestCase[str=v4, validLeadingZerosRejected=true, validLeadingZerosAreDecimal=true, validLeadingZerosAreOctal=true]}&quot; -Dtests.seed=FA865C2C84E9BA3E -Dtests.locale=shi-Tfng -Dtests.timezone=Europe/Brussels -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.expression.function.scalar.convert.ParseIpTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testLeadingZerosAreOctal%20%7BTestCase%5Bstr%3Dv4%2C%20validLeadingZerosRejected%3Dtrue%2C%20validLeadingZerosAreDecimal%3Dtrue%2C%20validLeadingZerosAreOctal%3Dtrue%5D%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: &lt;[0 0 0 0 0 0 0 0 0 0 ff ff 0 6d 87 46]&gt; but: was &lt;[0 0 0 0 0 0 0 0 0 0 ff ff 0 9b cf 6a]&gt; ``` **Issue Reasons:** - [main] 8 failures in test testLeadingZerosAreOctal {TestCase[str=v4, validLeadingZerosRejected=true, validLeadingZerosAreDecimal=true, validLeadingZerosAreOctal=true]} (2.0% fail rate in 403 executions) - [main] 4 failures in step part-3 (2.2% fail rate in 185 executions) - [main] 2 failures in step part3 (3.5% fail rate in 57 executions) - [main] 2 failures in pipeline elasticsearch-periodic-platform-support (33.3% fail rate in 6 executions) - [main] 4 failures in pipeline elasticsearch-pull-request (2.2% fail rate in 181 executions) - [main] 2 failures in pipeline elasticsearch-intake (3.5% fail rate in 57 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix inference plugin name in entitlements warning suppression (#126470) (#126490)</MESSAGE>
+    <SHA>a07d50648bb69924c58faf5e3a02fd48461c0982</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.expression.function.scalar.convert.ParseIpTests testLeadingZerosAreOctal {TestCase[str=v4, validLeadingZerosRejected=true, validLeadingZerosAreDecimal=true, validLeadingZerosAreOctal=true]} #126496</MESSAGE>
+      <SHA>0d7b961ac1720a62353842438dcaea8926501e06</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: Fix bug in octal ip parsing tests This fixes a bug in the tests for parsing ipv4 addresses with leading zeros as octal numbers. The bug was in the expectation code that we use for random input ips. Closes #126496</MESSAGE>
+      <SHA>f24ec9e15e4e8d3a66db22b272b3c2a84c400f7f</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/src/test/java/org/elasticsearch/xpack/esql/expression/function/scalar/convert/ParseIpTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

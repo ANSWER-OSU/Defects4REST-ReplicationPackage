@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>93</ISSUENO>
+  <ISSUEURL>https://github.com/treasure-data/digdag/issues/93</ISSUEURL>
+  <TITLE>server side workflow log filtering</TITLE>
+  <DESCRIPTION>It would be useful for users to be able to filter logs from workflows executed on the server. Currently all output from workflow and its tasks, both stdout/err as well as java log messages are concatenated into a single log file. Thus it's not easy to reliably filter out only e.g. stdout or on java logging level. I propose changing the digdag log file format to be a structured stream of messages (e.g. msgpack) that combines the raw log message with metadata like timestamp and whether the message is from stdout/err or java logging and then the logging level. I.e. something like: ``` json // ... { &quot;ts&quot;: 1463387968, &quot;stream&quot;: &quot;OUT&quot;, &quot;message&quot;: &quot;hello world&quot;, }, { &quot;ts&quot;: 1463388012, &quot;stream&quot;: &quot;LOG&quot;, &quot;level&quot;: &quot;WARN&quot;, &quot;message&quot;: &quot;the foo failed to bar the baz because quux&quot;, }, { &quot;ts&quot;: 1463388153, &quot;stream&quot;: &quot;ERR&quot;, &quot;message&quot;: &quot;The quick brown fox jumps over the lazy dog&quot;, }, { &quot;ts&quot;: 1463388265, &quot;stream&quot;: &quot;LOG&quot;, &quot;level&quot;: &quot;DEBUG&quot;, &quot;message&quot;: &quot;...&quot;, }, // ... ``` We could then have server the expose a rest api endpoint for querying this stream or have the client fetch all log entries and perform the filtering client-side.</DESCRIPTION>
+  <REPONAME>digdag</REPONAME>
+  <TIMEDIFFERENCEDAYS>2410</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>cli cleanup</MESSAGE>
+    <SHA>e5ceadd45a881672b0eb304c95d5e3688bed0e68</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>wip: add metadata to workflow logs https://github.com/treasure-data/digdag/issues/93</MESSAGE>
+      <SHA>a5eed4435d81306b5b3e5fb22a20293e8a05ee50</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-core/build.gradle</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/agent/TaskContextCommandLogger.java</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/log/BufferedRemoteTaskLogger.java</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/log/LocalFileLogServerFactory.java</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/log/LogEntry.java</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/log/LogFiles.java</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/log/NullTaskLogger.java</FILE>
+        <FILE>digdag-core/src/main/java/io/digdag/core/log/TaskLogger.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

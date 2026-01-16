@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>340</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/340</ISSUEURL>
+  <TITLE>/home/nowuser/automap: line 31: can't fork</TITLE>
+  <DESCRIPTION>I'm having trouble deploying with the now cli: ``` &gt; ▲ npm start &gt; &gt; quantlife-web@1.0.0 start /home/nowuser/src &gt; &gt; next -p $PORT start &gt; &gt; Using .babelrc defined in your app root &gt; &gt; Using &quot;webpack&quot; config function defined in next.config.js. &gt; /home/nowuser/autopmap: line 31: can't fork ``` Running build and start locally works fine but seems to get stuck in a loop during deployment. Eventually it ends but the page shows &quot;502 An error occured with your deployment.&quot; now-cli@4.5.6 next@2.0.0-beta.18 I also have a yarn.lock file in my project...</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Python WSGI builder without server (#95) This PR adds a builder for Python WSGI web apps. It is heavily based on [`serverless-wsgi`](https://github.com/logandk/serverless-wsgi) and [`requests-wsgi-adapter`](https://github.com/seanbrant/requests-wsgi-adapter), uses [`Werkzeug`](https://github.com/pallets/werkzeug), and works without running an additional web server. I've tested it manually with a simple Flask app that contains endpoints with `GET` and `POST` methods, nested paths, and JSON and binary response bodies. Curiously, the `event` parameter in the `now_handler` function does not appear to have the expected structure of AWS Lambda functions. For instance, `event['isBase64Encoded']` does not exist. Instead, this information is encoded in `json.loads(event['body'])['encoding']`. The returned `dict` also expects `encoding='base64'` for a binary response body instead of `isBase64Encoded=True`. I've also noticed that no AWS request headers are included. I assume Now is responsible for these differences to plain AWS Lambda functions. I'd appreciate code review and feedback to get robust official Python WSGI support into Now as soon as possible.</MESSAGE>
+    <SHA>409359bfec42346e7df2a96b33500584d933de38</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Make @now/next compatible with `now dev` (#340)</MESSAGE>
+      <SHA>6d2b0e014cdb784c6d26f44d47b7135e074dd697</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-next/index.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

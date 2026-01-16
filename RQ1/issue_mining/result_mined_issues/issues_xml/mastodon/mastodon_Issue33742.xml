@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>33742</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/33742</ISSUEURL>
+  <TITLE>Streaming API and REST API language filtering is inconsistent</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem 1. select chosen languages in `/settings/preferences/other` 2. open the public timeline 3. observe new posts appearing 4. refresh page ### Expected behaviour refreshing the page should result in the same posts ### Actual behaviour streaming gets more posts than REST API ### Detailed description At first glance, this seems to be due to the language filtering logic being different in the streaming server (`streamFrom` function) and the Ruby server (`PublicFeed#language_scope`): - the streaming code treats posts with an unknown language as acceptable (`payload.language !== null `) - when language filtering is enabled, the Ruby code does not return posts with `language: nil` ### Mastodon instance mastodon.social ### Mastodon version v4.3.0 ### Technical details _No response_</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>24</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update RuboCop (non-major) to v1.71.0 (#33644) Co-authored-by: renovate[bot] &lt;29139614+renovate[bot]@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>0091459369f0b570e1b7d076b252a4ff741e6633</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix polls not being validated on edition Fixes #33742</MESSAGE>
+      <SHA>5fc85b8a8d5b64dde8c08c39199a428b5138c9e0</SHA>
+      <PATCHEDFILES>
+        <FILE>app/models/poll.rb</FILE>
+        <FILE>app/serializers/rest/instance_serializer.rb</FILE>
+        <FILE>app/serializers/rest/v1/instance_serializer.rb</FILE>
+        <FILE>app/validators/poll_expiration_validator.rb</FILE>
+        <FILE>app/validators/poll_options_validator.rb</FILE>
+        <FILE>spec/requests/api/v2/instance_spec.rb</FILE>
+        <FILE>spec/validators/poll_expiration_validator_spec.rb</FILE>
+        <FILE>spec/validators/poll_options_validator_spec.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix polls not being validated on edition Fixes #33742</MESSAGE>
+      <SHA>23e2b8816865535bb141e99d5b7aca6e6dea32ce</SHA>
+      <PATCHEDFILES>
+        <FILE>app/models/poll.rb</FILE>
+        <FILE>app/serializers/rest/instance_serializer.rb</FILE>
+        <FILE>app/serializers/rest/v1/instance_serializer.rb</FILE>
+        <FILE>app/validators/poll_expiration_validator.rb</FILE>
+        <FILE>app/validators/poll_options_validator.rb</FILE>
+        <FILE>spec/requests/api/v2/instance_spec.rb</FILE>
+        <FILE>spec/validators/poll_expiration_validator_spec.rb</FILE>
+        <FILE>spec/validators/poll_options_validator_spec.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes streaming server not filtering unknown-language posts from public timelines Fixes #33742</MESSAGE>
+      <SHA>90d9ab5efb42834ad50504c78ccf13bbfacba2b1</SHA>
+      <PATCHEDFILES>
+        <FILE>streaming/index.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

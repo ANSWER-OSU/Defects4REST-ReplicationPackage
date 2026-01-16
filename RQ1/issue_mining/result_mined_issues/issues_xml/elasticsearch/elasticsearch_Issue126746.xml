@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126746</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126746</ISSUEURL>
+  <TITLE>[CI] TimeSeriesDataStreamsIT testShrinkActionInPolicyWithoutHotPhase failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7630 / ubuntu-2404-aarch64_checkpart5_platform-support-arm](https://gradle-enterprise.elastic.co/s/qkzprgjx7pl66) - [elasticsearch-pull-request #67642 / part-5](https://gradle-enterprise.elastic.co/s/thnws5yvse5lm) - [elasticsearch-pull-request #66748 / part-5](https://gradle-enterprise.elastic.co/s/e4vsfn7bc3sq6) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:ilm:qa:multi-node:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.ilm.TimeSeriesDataStreamsIT.testShrinkActionInPolicyWithoutHotPhase&quot; -Dtests.seed=E09DE1E27786974F -Dtests.locale=pl -Dtests.timezone=NZ -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.ilm.TimeSeriesDataStreamsIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testShrinkActionInPolicyWithoutHotPhase),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.client.ResponseException: method [GET], host [http://127.0.0.1:33149], URI [shrink-stkv-.ds-logs-dakdrclfzi-2025.04.12-000001/_ilm/explain?only_errors=false&amp;only_managed=false], status line [HTTP/1.1 404 Not Found] {&quot;error&quot;:{&quot;root_cause&quot;:[{&quot;type&quot;:&quot;index_not_found_exception&quot;,&quot;reason&quot;:&quot;no such index [shrink-stkv-.ds-logs-dakdrclfzi-2025.04.12-000001]&quot;,&quot;resource.type&quot;:&quot;index_or_alias&quot;,&quot;resource.id&quot;:&quot;shrink-stkv-.ds-logs-dakdrclfzi-2025.04.12-000001&quot;,&quot;index_uuid&quot;:&quot;_na_&quot;,&quot;index&quot;:&quot;shrink-stkv-.ds-logs-dakdrclfzi-2025.04.12-000001&quot;}],&quot;type&quot;:&quot;index_not_found_exception&quot;,&quot;reason&quot;:&quot;no such index [shrink-stkv-.ds-logs-dakdrclfzi-2025.04.12-000001]&quot;,&quot;resource.type&quot;:&quot;index_or_alias&quot;,&quot;resource.id&quot;:&quot;shrink-stkv-.ds-logs-dakdrclfzi-2025.04.12-000001&quot;,&quot;index_uuid&quot;:&quot;_na_&quot;,&quot;index&quot;:&quot;shrink-stkv-.ds-logs-dakdrclfzi-2025.04.12-000001&quot;},&quot;status&quot;:404} ``` **Issue Reasons:** - [main] 3 failures in test testShrinkActionInPolicyWithoutHotPhase (0.3% fail rate in 889 executions) - [main] 2 failures in step part-5 (0.5% fail rate in 418 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (0.5% fail rate in 417 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[DOCS] Fix broken images (#126648)</MESSAGE>
+    <SHA>ae33eaabdba054a4182e2ae7b0117ace06d79d9d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ilm.TimeSeriesDataStreamsIT testShrinkActionInPolicyWithoutHotPhase #126746</MESSAGE>
+      <SHA>31b8e361468dad5c19191ae44cfb219b8117b778</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fx tests in `TimeSeriesDataStreamsIT` These tests had the potential to fail when subsequent requests would hit different nodes with different versions of the cluster state. Only one of these tests failed already, but we fix the other ones proactively to avoid future failures. Fixes #126746</MESSAGE>
+      <SHA>6ac40cc038a5659ac3d11cf47701dcb7e519b0db</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>test/framework/src/main/java/org/elasticsearch/test/rest/ESRestTestCase.java</FILE>
+        <FILE>x-pack/plugin/ilm/qa/multi-node/src/javaRestTest/java/org/elasticsearch/xpack/ilm/TimeSeriesDataStreamsIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix tests in `TimeSeriesDataStreamsIT` These tests had the potential to fail when subsequent requests would hit different nodes with different versions of the cluster state. Only one of these tests failed already, but we fix the other ones proactively to avoid future failures. Fixes #126746</MESSAGE>
+      <SHA>4e03b53719c7b03df60018e2e8f6a3d7870ad0aa</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>test/framework/src/main/java/org/elasticsearch/test/rest/ESRestTestCase.java</FILE>
+        <FILE>x-pack/plugin/ilm/qa/multi-node/src/javaRestTest/java/org/elasticsearch/xpack/ilm/TimeSeriesDataStreamsIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix tests in `TimeSeriesDataStreamsIT` These tests had the potential to fail when subsequent requests would hit different nodes with different versions of the cluster state. Only one of these tests failed already, but we fix the other ones proactively to avoid future failures. Fixes #126746</MESSAGE>
+      <SHA>99415c324d18003f83982148d8deab6d4a98a5a5</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>test/framework/src/main/java/org/elasticsearch/test/rest/ESRestTestCase.java</FILE>
+        <FILE>x-pack/plugin/ilm/qa/multi-node/src/javaRestTest/java/org/elasticsearch/xpack/ilm/TimeSeriesDataStreamsIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix tests in `TimeSeriesDataStreamsIT` These tests had the potential to fail when subsequent requests would hit different nodes with different versions of the cluster state. Only one of these tests failed already, but we fix the other ones proactively to avoid future failures. Fixes #126746</MESSAGE>
+      <SHA>674fc4058eadcfc759a381e9e66f7ae9c0c9f225</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>test/framework/src/main/java/org/elasticsearch/test/rest/ESRestTestCase.java</FILE>
+        <FILE>x-pack/plugin/ilm/qa/multi-node/src/javaRestTest/java/org/elasticsearch/xpack/ilm/TimeSeriesDataStreamsIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix tests in `TimeSeriesDataStreamsIT` (#126851) These tests had the potential to fail when subsequent requests would hit different nodes with different versions of the cluster state. Only one of these tests failed already, but we fix the other ones proactively to avoid future failures. Fixes #126746</MESSAGE>
+      <SHA>16070a342f829c1adae48f0883409bca54f23968</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>test/framework/src/main/java/org/elasticsearch/test/rest/ESRestTestCase.java</FILE>
+        <FILE>x-pack/plugin/ilm/qa/multi-node/src/javaRestTest/java/org/elasticsearch/xpack/ilm/TimeSeriesDataStreamsIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

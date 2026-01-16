@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>582</ISSUENO>
+  <ISSUEURL>https://github.com/treasure-data/digdag/issues/582</ISSUEURL>
+  <TITLE>[digdag-ui] Can't display file contents if the sh&gt; operator has an argument.</TITLE>
+  <DESCRIPTION>* Digdag: 0.9.12 * macOS: 10.12.5 The `sh&gt;: ./script/c.sh a` operator in the `+task3` has an argument `a` In this case, digdag-ui does not show the file contents. If I remove the argument `a`. digdag-ui show the contents of `./script/c.sh` ![digdag](https://user-images.githubusercontent.com/767650/27278683-0ca9c308-551d-11e7-9a62-0f02ef40d167.png) ### Server setting ``` digdag server -m ``` ### Client setting ``` . |-- files.dig `-- scripts |-- a.sh |-- b.sh `-- c.sh ``` ``` digdag push ``` ```yaml timezone: &quot;Asia/Tokyo&quot; +file_list: +task1: sh&gt;: ./scripts/a.sh +task2: sh&gt;: ./scripts/b.sh +task3: sh&gt;: ./scripts/c.sh a ``` ## Reference Reported-by : [kamekoopa](https://twitter.com/kamekoopa/status/875653206977544192) (written in Japanese)</DESCRIPTION>
+  <REPONAME>digdag</REPONAME>
+  <TIMEDIFFERENCEDAYS>602</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #900 from pdelagrave/attempt_id_built_in_var Added 'attempt_id' to the RuntimeParams</MESSAGE>
+    <SHA>c51f2040b2eeeffad6e77a7ba435746c2e255619</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #582</MESSAGE>
+      <SHA>6820d37073e72f9dadb67e5118bc667f5e385015</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-ui/console.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #952 from szyn/fix-issues-582 Fix #582</MESSAGE>
+      <SHA>2cc07da4d50c1808550a80c47d7f1b8d5f4b6a45</SHA>
+      <PATCHEDFILES>
+        <FILE>digdag-ui/console.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

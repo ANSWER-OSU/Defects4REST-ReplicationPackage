@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121294</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121294</ISSUEURL>
+  <TITLE>[CI] InferenceServiceNodeLocalRateLimitCalculatorTests class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6153 / release-tests](https://gradle-enterprise.elastic.co/s/4ugwidz24dv5c) - [elasticsearch-periodic #6146 / release-tests](https://gradle-enterprise.elastic.co/s/zcogrhp6i7xyk) - [elasticsearch-periodic #6139 / release-tests](https://gradle-enterprise.elastic.co/s/5zt52arye5pp2) - [elasticsearch-periodic #6132 / release-tests](https://gradle-enterprise.elastic.co/s/zcok7rlu5y3mw) - [elasticsearch-periodic #6125 / release-tests](https://gradle-enterprise.elastic.co/s/vsoz6f2rgoiqi) - [elasticsearch-periodic #6118 / release-tests](https://gradle-enterprise.elastic.co/s/andg4mc6mtvue) - [elasticsearch-periodic #6111 / release-tests](https://gradle-enterprise.elastic.co/s/scufvd5tujvh2) - [elasticsearch-pull-request #54447 / checkpart2_release-tests](https://gradle-enterprise.elastic.co/s/t6wxc4bfwc34o) - [elasticsearch-pull-request #54436 / checkpart2_release-tests](https://gradle-enterprise.elastic.co/s/oqwynramcqs24) - [elasticsearch-pull-request #54412 / checkpart2_release-tests](https://gradle-enterprise.elastic.co/s/fmfblac5h6s56) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:inference:test&quot; --tests &quot;org.elasticsearch.xpack.inference.common.InferenceServiceNodeLocalRateLimitCalculatorTests.testRateLimits_Decrease_OnNodeJoin&quot; -Dtests.seed=2BE643421E81E555 -Dbuild.snapshot=false -Dtests.jvm.argline=&quot;-Dbuild.snapshot=false&quot; -Dlicense.key=x-pack/license-tools/src/test/resources/public.key -Dtests.locale=fil-Latn-PH -Dtests.timezone=America/Porto_Acre -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.inference.common.InferenceServiceNodeLocalRateLimitCalculatorTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.xpack.inference.common.InferenceServiceNodeLocalRateLimitCalculatorTests),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: [org.elasticsearch.xpack.inference.common.InferenceServiceNodeLocalRateLimitCalculatorTests] should use [org.elasticsearch.xpack.inference.common.InferenceServiceNodeLocalRateLimitCalculator] as implementation for [org.elasticsearch.xpack.inference.common.InferenceServiceRateLimitCalculator]. Provided implementation was [org.elasticsearch.xpack.inference.common.NoopNodeLocalRateLimitCalculator]. Expected: an instance of org.elasticsearch.xpack.inference.common.InferenceServiceNodeLocalRateLimitCalculator but: &lt;org.elasticsearch.xpack.inference.common.NoopNodeLocalRateLimitCalculator@6a8d4370&gt; is a org.elasticsearch.xpack.inference.common.NoopNodeLocalRateLimitCalculator ``` **Issue Reasons:** - [main] 7 consecutive failures in step release-tests - [main] 4 consecutive failures in step checkpart2_release-tests - [main] 18 failures in class org.elasticsearch.xpack.inference.common.InferenceServiceNodeLocalRateLimitCalculatorTests (3.2% fail rate in 570 executions) - [main] 8 failures in step release-tests (72.7% fail rate in 11 executions) - [main] 10 failures in step checkpart2_release-tests (66.7% fail rate in 15 executions) - [main] 8 failures in pipeline elasticsearch-periodic (72.7% fail rate in 11 executions) - [main] 9 failures in pipeline elasticsearch-pull-request (4.4% fail rate in 205 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.inference.action.TransportInferenceActionTests testRerouting_ToOtherNode #121293</MESSAGE>
+    <SHA>2c83d8d90eef5edb549e1c638c0280933b00ff05</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.inference.common.InferenceServiceNodeLocalRateLimitCalculatorTests org.elasticsearch.xpack.inference.common.InferenceServiceNodeLocalRateLimitCalculatorTests #121294</MESSAGE>
+      <SHA>766cbb23eb7bf3f4214bcb01a1f55ec930c06b09</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.inference.common.InferenceServiceNodeLocalRateLimitCalculatorTests org.elasticsearch.xpack.inference.common.InferenceServiceNodeLocalRateLimitCalculatorTests #121294</MESSAGE>
+      <SHA>223f14857f3331cccbd920d9762a131b239d0c37</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.inference.common.InferenceServiceNodeLocalRateLimitCalculatorTests org.elasticsearch.xpack.inference.common.InferenceServiceNodeLocalRateLimitCalculatorTests #121294</MESSAGE>
+      <SHA>ddacb2104f42149984f981cb3cbcf8415f9e440e</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.inference.common.InferenceServiceNodeLocalRateLimitCalculatorTests org.elasticsearch.xpack.inference.common.InferenceServiceNodeLocalRateLimitCalculatorTests #121294</MESSAGE>
+      <SHA>406b4a3dcdb2b931d7cb56f46915d5b791c78536</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

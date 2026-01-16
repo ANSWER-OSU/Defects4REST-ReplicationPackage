@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122487</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122487</ISSUEURL>
+  <TITLE>[CI] RollingUpgradeLuceneIndexCompatibilityTestCase testIndexUpgrade {p0=[9.1.0, 9.1.0, 9.1.0]} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #17984 / part1](https://gradle-enterprise.elastic.co/s/t2zud3dosfqvc) - [elasticsearch-pull-request #56369 / part-1-entitlements](https://gradle-enterprise.elastic.co/s/xt5cu7kojvmxw) **Reproduction Line:** ``` ./gradlew &quot;:qa:lucene-index-compatibility:javaRestTest&quot; --tests &quot;org.elasticsearch.lucene.RollingUpgradeLuceneIndexCompatibilityTestCase&quot; -Dtests.method=&quot;testIndexUpgrade {p0=[9.1.0, 9.1.0, 9.1.0]}&quot; -Dtests.seed=A4BF26C7102D98A5 -Dtests.locale=az -Dtests.timezone=America/Montevideo -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.lucene.RollingUpgradeLuceneIndexCompatibilityTestCase),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testIndexUpgrade%20%7Bp0%3D%5B9.1.0%2C%209.1.0%2C%209.1.0%5D%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.RuntimeException: An error occurred while checking cluster 'test-cluster' status. ``` **Issue Reasons:** - [main] 2 failures in test testIndexUpgrade {p0=[9.1.0, 9.1.0, 9.1.0]} (0.8% fail rate in 262 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.lucene.RollingUpgradeLuceneIndexCompatibilityTestCase testIndexUpgrade {p0=[9.1.0, 8.19.0, 8.19.0]} #122484</MESSAGE>
+    <SHA>bfaffe9d51029dc220e2173100910042b3afa388</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.lucene.RollingUpgradeLuceneIndexCompatibilityTestCase testIndexUpgrade {p0=[9.1.0, 9.1.0, 9.1.0]} #122487</MESSAGE>
+      <SHA>22e1a67d6f1805adb2ae5d7b0abda5b6c8e3daf0</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

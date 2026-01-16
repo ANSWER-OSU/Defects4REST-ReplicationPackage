@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121992</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121992</ISSUEURL>
+  <TITLE>[CI] SmokeTestMultiNodeClientYamlTestSuiteIT test {yaml=update/100_synthetic_source/keyword} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6244 / release-tests](https://gradle-enterprise.elastic.co/s/gp4gbqtvzxvfc) - [elasticsearch-pull-request #54605 / checkpart1_release-tests](https://gradle-enterprise.elastic.co/s/jugbyxgvl52gq) **Reproduction Line:** ``` ./gradlew &quot;:qa:smoke-test-multinode:yamlRestTest&quot; --tests &quot;org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT.test {yaml=update/100_synthetic_source/stored text}&quot; -Dtests.seed=59F65ADE0D1DBAC -Dbuild.snapshot=false -Dtests.jvm.argline=&quot;-Dbuild.snapshot=false&quot; -Dlicense.key=x-pack/license-tools/src/test/resources/public.key -Dtests.locale=cs-Latn-CZ -Dtests.timezone=Europe/Madrid -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Byaml%3Dupdate%2F100_synthetic_source%2Fkeyword%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Failure at [update/100_synthetic_source:126]: field [test.fields._recovery_source] should be null but was [{total=114b, total_in_bytes=114, inverted_index={total=0b, total_in_bytes=0}, stored_fields=114b, stored_fields_in_bytes=114, doc_values=0b, doc_values_in_bytes=0, points=0b, points_in_bytes=0, norms=0b, norms_in_bytes=0, term_vectors=0b, term_vectors_in_bytes=0, knn_vectors=0b, knn_vectors_in_bytes=0}] expected null, but was:&lt;{total=114b, total_in_bytes=114, inverted_index={total=0b, total_in_bytes=0}, stored_fields=114b, stored_fields_in_bytes=114, doc_values=0b, doc_values_in_bytes=0, points=0b, points_in_bytes=0, norms=0b, norms_in_bytes=0, term_vectors=0b, term_vectors_in_bytes=0, knn_vectors=0b, knn_vectors_in_bytes=0}&gt; ``` **Issue Reasons:** - [main] 2 failures in test test {yaml=update/100_synthetic_source/keyword} (0.4% fail rate in 492 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT test {yaml=update/100_synthetic_source/stored text} #121991</MESSAGE>
+    <SHA>111c13077c9640db27f18e509670aaefc2f57e2f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT test {yaml=update/100_synthetic_source/keyword} #121992</MESSAGE>
+      <SHA>144ff0ce8e053b8e19d99451f38418a71d629fa9</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

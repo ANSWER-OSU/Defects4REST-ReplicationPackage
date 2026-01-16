@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6383</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6383</ISSUEURL>
+  <TITLE>Options for notification templates not set when using frontend</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY Options for notification templates are not set when using the frontend. When using the API there is no problem. ##### ENVIRONMENT * AWX version: 9.2.0 * AWX install method: docker on linux * Ansible version: 2.9.3 * Operating System: Ubuntu 18.04 (for AWX), Client is on Windows 10 * Web Browser: Chrome 80.0.3987.149 ##### STEPS TO REPRODUCE 1. Choose a notification template 2. Select &quot;Use TLS&quot; or &quot;Use SSL&quot; in the &quot;Options&quot; Menu 3. Hit save - no options will be saved. 1. Going to api/v2/notification_templates/n/ 2. In the content, change &quot;&quot;use_ssl&quot;: false,&quot; to &quot;&quot;use_ssl&quot;: true,&quot; 3. Hit Patch - options will be saved and shown correctly in the frontend ##### EXPECTED RESULTS Options will be saved ##### ACTUAL RESULTS Options will only be saved when using the API, Fronted does not work ##### ADDITIONAL INFORMATION</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[4.4] [Backport] Make Topology view and Instances visible only to system admin/auditor (#6366) * Make Topology view and Instances visible only to system admin/auditor * tests</MESSAGE>
+    <SHA>faa73046be915e3a6e9c9e6c1d83c3a28e67ccce</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix for 'Run on' field in frequency details (#6383)</MESSAGE>
+      <SHA>c2d216c34c76323159e10e7db3e2b790981453cd</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui/src/components/Schedule/ScheduleDetail/FrequencyDetails.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

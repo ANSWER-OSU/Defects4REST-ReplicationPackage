@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118220</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118220</ISSUEURL>
+  <TITLE>[CI] OperatorPrivilegesIT testEveryActionIsEitherOperatorOnlyOrNonOperator failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5740 / release-tests](https://gradle-enterprise.elastic.co/s/t55sodbih3hcy) - [elasticsearch-periodic #5727 / release-tests](https://gradle-enterprise.elastic.co/s/7mfg5hhflkjr2) - [elasticsearch-periodic #5722 / release-tests](https://gradle-enterprise.elastic.co/s/wmbp4efa2llb2) - [elasticsearch-periodic #5717 / release-tests](https://gradle-enterprise.elastic.co/s/rird5rxcc33gs) - [elasticsearch-periodic #5707 / release-tests](https://gradle-enterprise.elastic.co/s/guowmxulvq7kk) - [elasticsearch-periodic #5702 / release-tests](https://gradle-enterprise.elastic.co/s/3syctwsapyjx2) - [elasticsearch-periodic #5697 / release-tests](https://gradle-enterprise.elastic.co/s/sbxcqthshcdpc) - [elasticsearch-periodic #5692 / release-tests](https://gradle-enterprise.elastic.co/s/tpflp47xldw6q) - [elasticsearch-periodic #5682 / release-tests](https://gradle-enterprise.elastic.co/s/ajgunwudup5he) - [elasticsearch-periodic #5677 / release-tests](https://gradle-enterprise.elastic.co/s/vcht4zvvzugny) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:security:qa:operator-privileges-tests:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.security.operator.OperatorPrivilegesIT.testEveryActionIsEitherOperatorOnlyOrNonOperator&quot; -Dtests.seed=5F49A956EFD585D7 -Dbuild.snapshot=false -Dtests.jvm.argline=&quot;-Dbuild.snapshot=false&quot; -Dlicense.key=x-pack/license-tools/src/test/resources/public.key -Dtests.locale=agq-CM -Dtests.timezone=America/Whitehorse -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.security.operator.OperatorPrivilegesIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testEveryActionIsEitherOperatorOnlyOrNonOperator),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Actions may no longer be valid: [[cluster:monitor/xpack/inference/unified]]. They should be removed from either the operator-only action registry in [org.elasticsearch.xpack.security.operator.DefaultOperatorOnlyRegistry] or the non-operator action list in [org.elasticsearch.xpack.security.operator.Constants] ``` **Issue Reasons:** - [8.x] 16 consecutive failures in step release-tests - [8.x] 16 failures in test testEveryActionIsEitherOperatorOnlyOrNonOperator (2.4% fail rate in 675 executions) - [8.x] 16 failures in step release-tests (100.0% fail rate in 16 executions) - [8.x] 16 failures in pipeline elasticsearch-periodic (84.2% fail rate in 19 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>30</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.datastreams.DataStreamsClientYamlTestSuiteIT test {p0=data_stream/120_data_streams_stats/Multiple data stream} #118217</MESSAGE>
+    <SHA>2b0bf196be87bc2b10580f2d89b971b82927cdd6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.security.operator.OperatorPrivilegesIT testEveryActionIsEitherOperatorOnlyOrNonOperator #118220</MESSAGE>
+      <SHA>4a8a8a0bfe337aff50774c2c398060399a4d93e5</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.security.operator.OperatorPrivilegesIT testEveryActionIsEitherOperatorOnlyOrNonOperator #118220</MESSAGE>
+      <SHA>d5589d7fca0e3481d6617a28da9483ed1db83494</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Skip operator privilege action test on release builds (#119386) The `testEveryActionIsEitherOperatorOnlyOrNonOperator` test has been reliably muted because release builds frequently miss actions due to disabled feature flags. There's no straight-forward way to account for this. This PR changes the test to only run on snapshot builds. This way we get test coverage while reducing maintenance burden. Closes: https://github.com/elastic/elasticsearch/issues/118220</MESSAGE>
+      <SHA>5f9a9e0641d09aa2ffe6b129dec872181376a47a</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/security/qa/operator-privileges-tests/src/javaRestTest/java/org/elasticsearch/xpack/security/operator/OperatorPrivilegesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

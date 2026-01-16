@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7189</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7189</ISSUEURL>
+  <TITLE>Schedule tasks. Use async timer</TITLE>
+  <DESCRIPTION>nopCommerce version: &gt; 4.5 Steps to reproduce the problem: Schedule tasks are made async but there caller stacks are sync and that leads to threadpool starvation, refer below screen shots **TaskThread** ![image](https://github.com/nopSolutions/nopCommerce/assets/165811203/563ae27b-0391-4354-8ab4-e5b2e422d31c) I think we should use periodic timer here, so that it can use async methods https://learn.microsoft.com/en-us/dotnet/api/system.threading.periodictimer?view=net-8.0 **ScheduleTaskRunner** ![image](https://github.com/nopSolutions/nopCommerce/assets/165811203/90644b52-52f8-436a-ab52-289fbe9227f0) We should use async methods</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>23</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7192 Returned back the reference for HarfBuzzSharp.NativeAssets.Linux library</MESSAGE>
+    <SHA>5e654720bc4f08a436300a40232f25f3659bef36</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7189 Schedule tasks. Use PeriodicTimer to prevent thread pool starvation</MESSAGE>
+      <SHA>b7af2bdf43c6cf17e8de9546111d1b67bf06b1cb</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/ScheduleTasks/ITaskScheduler.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/ScheduleTasks/TaskScheduler.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ApplicationBuilderExtensions.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Services.Tests/ScheduleTasks/TaskSchedulerTests.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Services.Tests/ScheduleTasks/TestTaskScheduler.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

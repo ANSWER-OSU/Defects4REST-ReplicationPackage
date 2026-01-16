@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8803</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/8803</ISSUEURL>
+  <TITLE>how to split RequestUrlHost</TITLE>
+  <DESCRIPTION>under RunningShellTable.cs , shellSettings .RequestUrlHost .Split(HostSeparators, StringSplitOptions.RemoveEmptyEntries) which char[] HostSeparators = new[] { ',', ' ' }; ----- under index.cshtml of tenant/admin , var host = shellSettings.RequestUrlHost?.Split(new[] { &quot;,&quot; }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault(); ------- under ModularBackgroundService.cs , var urlHost = settings.RequestUrlHost?.Split('/', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault(); ---------- 1---why are they diff.? 2---can we use one code in a place for consistent?</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Feature/auto setup v2 (#8596)</MESSAGE>
+    <SHA>3123a9a76a2cfec72f6a87f689475252f6c85969</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #8803 RequestUrlHost tweaks (#8804)</MESSAGE>
+      <SHA>183b7683990d5d71617ee6f3dd6da896aa91d474</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Tenants/Controllers/ApiController.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Tenants/Views/Admin/Index.cshtml</FILE>
+        <FILE>src/OrchardCore/OrchardCore/Modules/ModularBackgroundService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

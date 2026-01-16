@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1157</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/1157</ISSUEURL>
+  <TITLE>Improve conditional step logic in Yaml</TITLE>
+  <DESCRIPTION>We currently have a `Condition` structure that let's us conditionally execute steps in the `.drone.yml` file represented by the `where` attribute. ``` Go type Condition struct { Owner string // Indicates the step should run only for this repo (useful for forks) Branch string // Indicates the step should run only for this branch // Indicates the step should only run when the following // matrix values are present for the sub-build. Matrix map[string]string } ``` The above is represented in the yaml as: ``` yaml publish: heroku: when: branch: master ``` ### When Repo Probably less confusing to specify `repo` instead of `owner` to prevent steps from running for forks. For example, specify `repo: drone/drone` to prevent `bradrydzewski/drone` fork from executing a build step: ``` diff type Condition struct { - Owner string + Repo string } ``` ### When Success, Failure, Change The ability to filter steps by status exists in 0.3, however, has not been implemented in 0.4. This is one proposal to do so: ``` diff type Condition struct { + Success bool + Failure bool } ``` which could be represented in the yaml as: ``` yaml publish: heroku: when: success: on|off|on_change failure: on|off|on_change ``` or an alternative: ``` yaml publish: heroku: when: success: false failure: false change: true ``` In order to facilitate `on_change` we need to fetch and send the last build as part of the current build's payload. This filtering should happen external to the plugin, in the `drone-build` controller, so that each plugin doesn't have to duplicate the same filtering logic. ### When Event Is... We should give the ability to limit steps based on the hook event type. For example, we may want to execute some steps only for `pull_request` events, and others only for `tag` events. This will also help us support the GitHub `deployment` API flow: ``` yaml publish: heroku: when: push: on|off pull_request: on|off tag: on|off deploy: on|off ``` or an alternative: ``` yaml publish: heroku: when: event: push|pull_request|tag|deployment ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>69</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: [code-1588]: fix pipeline execution time (#1153)</MESSAGE>
+    <SHA>4f6227bf1ad8b7f253da31a20e730f451a804a09</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add alternateObjectDirs param to get blob related funcs (#1157)</MESSAGE>
+      <SHA>9a1e656be1cb4ec64db34e596908c770e04472a3</SHA>
+      <PATCHEDFILES>
+        <FILE>git/api/blob.go</FILE>
+        <FILE>git/api/cat-file.go</FILE>
+        <FILE>git/api/commit.go</FILE>
+        <FILE>git/api/match_files.go</FILE>
+        <FILE>git/api/submodule.go</FILE>
+        <FILE>git/api/tag.go</FILE>
+        <FILE>git/blob.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>32495</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/32495</ISSUEURL>
+  <TITLE>Bug modify product: unit kg/m dissapears and database is updated from 0 to NULL</TITLE>
+  <DESCRIPTION>### Bug When modifying a product: /product/card.php?action=edit Change any field or do not change anything. Save the page. kg or meter is no longer visble as the database has been updated from 0 to NULL Problem started when testing from empty was added. Empty testing for 0 results in TRUE and makes it an empty string. ```php $this-&gt;net_measure = price2num($this-&gt;net_measure); $this-&gt;net_measure_units = (empty($this-&gt;net_measure_units) ? '' : trim($this-&gt;net_measure_units)); $this-&gt;weight = price2num($this-&gt;weight); $this-&gt;weight_units = (empty($this-&gt;weight_units) ? '' : trim($this-&gt;weight_units)); $this-&gt;length = price2num($this-&gt;length); $this-&gt;length_units = (empty($this-&gt;length_units) ? '' : trim($this-&gt;length_units)); $this-&gt;width = price2num($this-&gt;width); $this-&gt;width_units = (empty($this-&gt;width_units) ? '' : trim($this-&gt;width_units)); $this-&gt;height = price2num($this-&gt;height); $this-&gt;height_units = (empty($this-&gt;height_units) ? '' : trim($this-&gt;height_units)); $this-&gt;surface = price2num($this-&gt;surface); $this-&gt;surface_units = (empty($this-&gt;surface_units) ? '' : trim($this-&gt;surface_units)); $this-&gt;volume = price2num($this-&gt;volume); $this-&gt;volume_units = (empty($this-&gt;volume_units) ? '' : trim($this-&gt;volume_units)); ``` Please advise to remove the empty function and immedialtely call trim function (as before) or rewrite the fuctions to is_null: ``` $this-&gt;net_measure_units = (is_null($this-&gt;net_measure_units) ? '' : trim($this-&gt;net_measure_units)); ``` https://github.com/Dolibarr/dolibarr/blob/b579ff9cd81f0b140fa68f8c3ee2a03146738e7d/htdocs/product/class/product.class.php#L1368 ### Dolibarr Version 20.0.3 ### Environment PHP PHP8.1 ### Environment Database mysql ### Steps to reproduce the behavior and expected behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Debug v21</MESSAGE>
+    <SHA>dee9f20f0cf04c74f46a9d0e972ab7d6d4dddd0f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX units product solves issue #32495: current Empty testing for 0 results in TRUE and makes it an empty string. Testing for is_null solves the issue. this issue is connected with pull FIX #32496</MESSAGE>
+      <SHA>f8361564148a2d2e2a229adc413ad91a05c040aa</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/product/class/product.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>FIX units product solves issue #32495: current Empty testing for 0 results in TRUE and makes it an empty string. Testing for is_null solves the issue. this issue is connected with pull FIX #32496</MESSAGE>
+      <SHA>b3c286a673f23cc2b955a2cee80ccb2e2f02f720</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/product/class/product.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

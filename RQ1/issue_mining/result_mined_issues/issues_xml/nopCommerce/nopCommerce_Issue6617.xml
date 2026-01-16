@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6617</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6617</ISSUEURL>
+  <TITLE>Avalara tax plugin. Enabling ValidateAddress and UseTaxRateTables settings at the same time may cause errors</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.50 &gt; When `ValidateAddress` is enabled Avalara checks an address and allows only 9-digits zip codes (12345-6789) for US. While in the table (`UseTaxRateTables` is enabled) it uses there are only 5-digits zip codes (12345). Since plugin looks for exact match, it will always fail to find corresponding tax in the table. We should use `StartsWith()` for zip code in that case and not the full match.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6484 Properly display estimate shipping errors</MESSAGE>
+    <SHA>cf24ce401184ae0440c50f02338013e7611173b9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6617 Fix possible error when ValidateAddress and UseTaxRateTables settings used at the same time</MESSAGE>
+      <SHA>5496cc30549b562cd0d87785ea5d77ab6cfb5130</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Tax.Avalara/Services/AvalaraTaxManager.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.Avalara/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6617 Fix possible error when ValidateAddress and UseTaxRateTables settings used at the same time</MESSAGE>
+      <SHA>3b9ed0fcd2c6a2865e83f7449db631c8e927f517</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Tax.Avalara/Services/AvalaraTaxManager.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.Avalara/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

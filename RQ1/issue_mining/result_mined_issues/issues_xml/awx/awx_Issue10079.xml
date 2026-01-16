@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>10079</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/10079</ISSUEURL>
+  <TITLE>Cannot update custom credential type with multiple multiline fields</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY When a credential type has multiple multiline fields defined, only the first multiline field gets an editor when editing a credential. All other multiline fields are disabled and cannot be interacted with. If instead I create a credential type with only one multiline field, and keep the other string fields for what they are, then I can modify all fields when editing a credential. ##### ENVIRONMENT * AWX version: 19.0.0 * AWX install method: kubernetes + awx-operator * Ansible version: Whatever is in the [awx-ee](https://github.com/ansible/awx-ee) image * Operating System: Linux * Web Browser: Firefox 88.0 and Chromium 90.0.4430.93 ##### STEPS TO REPRODUCE * Create a credential type with the following definition: ```yaml fields: - id: field_1 type: string label: A magical field secret: true multiline: true - id: field_2 type: string label: A magical but public field multiline: true required: - field_1 ``` * Create a credential of this type, values of the fields doesn't matter. * Edit the newly created credential ##### EXPECTED RESULTS All fields are editable ##### ACTUAL RESULTS Only the first multiline field is editable by clicking on the replace icon on the left of the field. Other multiline fields lack this option and cannot be updated. ##### ADDITIONAL INFORMATION ![Screenshot from 2021-05-03 12-49-41](https://user-images.githubusercontent.com/569574/116867979-3f82fa00-ac0e-11eb-8835-da0cd8f90fab.png)</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>45</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add a periodic task to reap unreleased receptor work units - Add work_unit_id field to UnifiedJob</MESSAGE>
+    <SHA>75a27c38c2c4e96d1a36662b4d62af88dc8c3f8e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Allow edit fields to custom credential types The logic to disable certain fields is just valid for `encrypted` fields. Since the multiline field - no secret, does not have a button to `replace` the content to null - it was always set to disabled. Fix: https://github.com/ansible/awx/issues/10079</MESSAGE>
+      <SHA>1665acd58abcd7d519a42b962e5789e297060269</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/screens/Credential/shared/CredentialFormFields/CredentialField.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

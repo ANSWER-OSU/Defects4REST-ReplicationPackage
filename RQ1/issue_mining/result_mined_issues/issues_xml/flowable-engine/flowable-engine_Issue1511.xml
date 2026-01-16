@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1511</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/1511</ISSUEURL>
+  <TITLE>Tenant id not returned</TITLE>
+  <DESCRIPTION>Hi, When using Flowable’s REST API, if you specify either “includeProcessVariables” or “includeTaskLocalVariables” when querying for tasks, the response does not contain the tenant that is associated with that task, it always contains an empty string If you omit those query params (or set them to false), it works fine: the tenant is correctly set. This happens for both GET /runtime/tasks and POST /query/tasks. After some digging, I found that the SQL queries that are fired against the database are different when you want to include variables. It looks like one of them (for example, selectTasksWithRelatedEntitiesByQueryCriteria) is not including the tenant column. Is this an expected behavior? David Lamas.</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Only delete historic task log entries when enabled</MESSAGE>
+    <SHA>5c7b90ce61533e67a903ad114c140c56b4ad8a97</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#1511 test task query with include process/task variables to include teantId</MESSAGE>
+      <SHA>f9090e767be6468f59bc75eba5f608c58ac6b83e</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-rest/src/test/java/org/flowable/rest/service/api/runtime/TaskQueryResourceTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#1511 another task query test</MESSAGE>
+      <SHA>db061e43db09fb157c26c9ec9b836f76b125ea7c</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/api/task/TaskQueryTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#1511 mssql and db2 include tenantId for taskQueries with variables included</MESSAGE>
+      <SHA>bb6cca49bebdc473ca48d80ad9e0dd80a0632ef2</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/api/task/TaskQueryTest.java</FILE>
+        <FILE>modules/flowable-task-service/src/main/resources/org/flowable/task/service/db/mapping/entity/Task.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#1511 task query tenant (#1522) * #1511 test task query with include process/task variables to include teantId * #1511 another task query test * #1511 mssql and db2 include tenantId for taskQueries with variables included</MESSAGE>
+      <SHA>b0584904839a309be5ab8c9b277de9036aec90ba</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/api/task/TaskQueryTest.java</FILE>
+        <FILE>modules/flowable-rest/src/test/java/org/flowable/rest/service/api/runtime/TaskQueryResourceTest.java</FILE>
+        <FILE>modules/flowable-task-service/src/main/resources/org/flowable/task/service/db/mapping/entity/Task.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5122</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/5122</ISSUEURL>
+  <TITLE>MacOS+Chrome Users cannot access traditional cluster deployments if configured with invalid self-signed cert</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY MacOS+Chrome Users cannot access traditional cluster deployments if configured with a self-signed cert. Note: tested the following via browserstack: - Windows 10 with Firefox 68 &amp; 70 - Windows 10 with Chrome 75-79 - MacOS High Sierra with Firefox 68 &amp; 70 - MacOS High Sierra with Chrome 65-80 - MacOS High Sierra with Safari latest - MacOS Mojave with Firefox 68 &amp; 70 - MacOS Mojave with Chrome 65-79 - MacOS Mojave with Safari latest ##### ENVIRONMENT * AWX version: 8.0.0 * AWX install method: openshift, minishift, docker on linux, docker for mac, boot2docker * Ansible version: X.Y.Z * Operating System: macOS:any * Web Browser: chrome:any (chrome only) ##### STEPS TO REPRODUCE Deploy a yolo tower cluster. Attempt to log in with macOS and Chrome ##### EXPECTED RESULTS Accept cert warning and continue ##### ACTUAL RESULTS Unable to accept cert warning ##### ADDITIONAL INFORMATION ``` &lt;TOWER URL&gt; normally uses encryption to protect your information. When Google Chrome tried to connect to &lt;TOWER URL&gt; this time, the website sent back unusual and incorrect credentials. This may happen when an attacker is trying to pretend to be ec2-3-88-132-1.compute-1.amazonaws.com, or a Wi-Fi sign-in screen has interrupted the connection. Your information is still secure because Google Chrome stopped the connection before any data was exchanged. You cannot visit &lt;TOWER URL&gt; right now because the website sent scrambled credentials that Google Chrome cannot process. Network errors and attacks are usually temporary, so this page will probably work later. ```</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>default credentials are selected on POL load</MESSAGE>
+    <SHA>3cdd35f2cf1d719cc06868c174526aad7593fd38</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Null iso IG jobs before deleting (#5122) This is a workaround for polymorphic SET_NULL bug</MESSAGE>
+      <SHA>1831b2591a2bf87e442af8c9a718c993560635d2</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0139_isolated_removal.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Null iso IG jobs before deleting (#5122) This is a workaround for polymorphic SET_NULL bug</MESSAGE>
+      <SHA>70527191eca6c2359a501ee4a2949314be263f8a</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0139_isolated_removal.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

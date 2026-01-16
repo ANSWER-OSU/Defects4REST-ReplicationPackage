@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>88</ISSUENO>
+  <ISSUEURL>https://github.com/k8ssandra/management-api-for-apache-cassandra/issues/88</ISSUEURL>
+  <TITLE>Fix cassandra user's HOME directory</TITLE>
+  <DESCRIPTION>See [this issue](https://github.com/k8ssandra/k8ssandra/issues/396) Essentially, now that Management API runs as the `cassandra` user, that user's effective HOME directory should exist and be writable by that user. We can either: 1) Create the default HOME directory of `/home/cassandra` and set the correct permissions, or 2) Run a `usermod` command to alter the home directory to `/opt/cassandra` which is already setup with correct permissions.</DESCRIPTION>
+  <REPONAME>management-api-for-apache-cassandra</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update RestEasy libs to address CVEs</MESSAGE>
+    <SHA>f31efb7adc3525190e14c315815f6cfdbee4b074</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Create home directory for cassandra user (#89) * Create home directory for cassandra user Create the `/home/cassandra` directory and make it writable for the `cassandra` user. This will allow files, including the cqlsh history, to be written for the user without warnings. Resolves #88</MESSAGE>
+      <SHA>858e0e78d04e5c56335eda89b6851b2411ae8eb9</SHA>
+      <PATCHEDFILES>
+        <FILE>Dockerfile-4_0</FILE>
+        <FILE>Dockerfile-astra-4_0</FILE>
+        <FILE>Dockerfile-oss</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

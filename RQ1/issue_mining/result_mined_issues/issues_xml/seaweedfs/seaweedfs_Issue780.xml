@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>780</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/780</ISSUEURL>
+  <TITLE>volume had run out of disk space but still write successfully</TITLE>
+  <DESCRIPTION>**Describe the bug** Version: 1.08 one master, one volume( -max=100) volume's dir is in the mount path whose disk space is 500GB, when volume run out of disk space but not reach the volume limit size, master can assgin fileid and volume write needle successfully. And use the fileid to retreive the uploaded content, volume server return not found. **System Setup** weed master -port=9333 -defaultReplication=000 weed volume -port=8080 -max=100 -dir=/mnt/weed/volume **Expected behavior** When volume dir run out of disk space, write needle should return err</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>HCFS: adjust file modification time to milliseconds</MESSAGE>
+    <SHA>060ce1d9a2f5498df24d0bd8bfb0b4a64f9b34d2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix https://github.com/chrislusf/seaweedfs/issues/780</MESSAGE>
+      <SHA>31038acccf73541204b320fc334d0acad0b9923a</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/operation/upload_content.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #781 from PapaYofen/fix-780 fix https://github.com/chrislusf/seaweedfs/issues/780</MESSAGE>
+      <SHA>093f8bb91733801475baceabe40095160b008600</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/operation/upload_content.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Revert &quot;fix https://github.com/chrislusf/seaweedfs/issues/780&quot; This reverts commit 31038acccf73541204b320fc334d0acad0b9923a.</MESSAGE>
+      <SHA>c668e55e07bbaac85ab1d3f0778e9916678756e5</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/operation/upload_content.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #878 from PapaYofen/revert-fix-780 Revert &quot;fix https://github.com/chrislusf/seaweedfs/issues/780&quot;</MESSAGE>
+      <SHA>1e0e909fa144557fe95f50a0619c3c6b0db3c1d3</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/operation/upload_content.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

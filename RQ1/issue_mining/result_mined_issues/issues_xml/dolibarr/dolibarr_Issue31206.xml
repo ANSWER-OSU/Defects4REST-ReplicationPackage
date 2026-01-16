@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>31206</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/31206</ISSUEURL>
+  <TITLE>Ticket markAsRead function does not update the status to STATUS_READ</TITLE>
+  <DESCRIPTION>### Bug Clicking the &quot;Read&quot; status button does not update the object's fk_statut attribute resulting in the object's status remaining the same as before the action. The ticket.class.php 'markAsRead' function executes a database update for the field. However, it does not set '$this-&gt;fk_statut' to Ticket::STATUS_READ. As a result, if there are triggers that update the object the status is reverted back to the original status. If the following is added somewhere before or after the database update the problem is resolved. `$this-&gt;fk_status = Ticket::STATUS_READ;` ### Dolibarr Version 18.0 ### Environment PHP PHP 7.x ### Environment Database 10.11.3-MariaDB-1 - Debian 12 ### Steps to reproduce the behavior and expected behavior 1. Open a ticket card. 2. Click the 'Read' status button. 3. Observe the status did not change. ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '17.0' of git@github.com:Dolibarr/dolibarr.git into 18.0</MESSAGE>
+    <SHA>97eacefa6b85e607dba70fa6adf7079b1ecfced4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Update ticket.class.php Bug-fix Issue #31206 Fix Issue #31206 for the v.18 branch because unrelated tests failing on develop branch.</MESSAGE>
+      <SHA>75aa59199e0b18bdfada8318d34ec348e3f0d0c8</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/ticket/class/ticket.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Update ticket.class.php Bug-fix Issue #31206 (#31208) Fix Issue #31206 for the v.18 branch because unrelated tests failing on develop branch.</MESSAGE>
+      <SHA>9af212a5427afa019f1d0b57dfbb5f0813fcbd08</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/ticket/class/ticket.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

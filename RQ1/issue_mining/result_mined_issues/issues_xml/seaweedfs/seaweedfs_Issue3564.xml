@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3564</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3564</ISSUEURL>
+  <TITLE>[filer] DATA RACE on signal_handling</TITLE>
+  <DESCRIPTION>https://github.com/seaweedfs/seaweedfs/issues/3507 ``` ================== WARNING: DATA RACE Read at 0x00c0001276d0 by goroutine 36: github.com/seaweedfs/seaweedfs/weed/util/grace.init.0.func1() /go/src/github.com/seaweedfs/seaweedfs/weed/util/grace/signal_handling.go:31 +0xac Previous write at 0x00c0001276d0 by main goroutine: github.com/seaweedfs/seaweedfs/weed/util/grace.OnInterrupt() /go/src/github.com/seaweedfs/seaweedfs/weed/util/grace/signal_handling.go:46 +0xfb github.com/seaweedfs/seaweedfs/weed/server.NewFilerServer() /go/src/github.com/seaweedfs/seaweedfs/weed/server/filer_server.go:179 +0x1999 github.com/seaweedfs/seaweedfs/weed/command.(*FilerOptions).startFiler() /go/src/github.com/seaweedfs/seaweedfs/weed/command/filer.go:227 +0xcf7 github.com/seaweedfs/seaweedfs/weed/command.runFiler() /go/src/github.com/seaweedfs/seaweedfs/weed/command/filer.go:203 +0x892 main.main() /go/src/github.com/seaweedfs/seaweedfs/weed/weed.go:81 +0x943 Goroutine 36 (running) created at: github.com/seaweedfs/seaweedfs/weed/util/grace.init.0() /go/src/github.com/seaweedfs/seaweedfs/weed/util/grace/signal_handling.go:29 +0x18a ================== Found 3 data race(s) ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'master' of https://github.com/seaweedfs/seaweedfs</MESSAGE>
+    <SHA>86a5b6183de6e94d2f7fde4123cd8677bd4bfff3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>avoid data race on grace.hooks https://github.com/seaweedfs/seaweedfs/issues/3564</MESSAGE>
+      <SHA>b39c3ba30be7a8f2db171f2237669d8dcf8eaf71</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/util/grace/signal_handling.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>avoid data race on grace.hooks (#3572) https://github.com/seaweedfs/seaweedfs/issues/3564</MESSAGE>
+      <SHA>c37d6fc01a8b70ea3686a81c2acf9d3da0b5ef09</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/util/grace/signal_handling.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

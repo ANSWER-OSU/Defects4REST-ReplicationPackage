@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3836</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/3836</ISSUEURL>
+  <TITLE>Table isn't displayed with Date filter</TITLE>
+  <DESCRIPTION>&lt;!-- We use GitHub only for bug reports Anything else should be posted to https://discuss.redash.io For support, help &amp; questions use https://discuss.redash.io/c/support For feature requests &amp; ideas use https://discuss.redash.io/c/feature-requests **Found a security vulnerability?** Please email security@redash.io to report any security vulnerabilities. We will acknowledge receipt of your vulnerability and strive to send you regular updates about our progress. If you're curious about the status of your disclosure please feel free to email us again. If you want to encrypt your disclosure email, you can use this PGP key. --&gt; ### Issue Summary The table breaks if there is a date filter ### Steps to Reproduce 1) with Python executor: ``` add_result_column(result, 'name', 'name', TYPE_STRING) add_result_column(result, 'month__filter', 'month__filter', TYPE_DATE) add_result_column(result, 'section__filter', section__filter', TYPE_STRING) add_result_row(result, { 'section__filter': 'c', 'month__filter': '2019-01-01', 'name': 'a' }) ``` 2) comment `month__filter` column both in add column and row sections and the table will be shown. ### Technical details: * Redash Version: master</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix for Mac browser’s scrollbar obscuring content (#3830)</MESSAGE>
+    <SHA>7679df63ba814d33309e8ffc1b0db239822ad794</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #3836: convert moment to string</MESSAGE>
+      <SHA>a8f213c98c25a004efcfe1450c9b3281b5327aaf</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/components/Filters.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

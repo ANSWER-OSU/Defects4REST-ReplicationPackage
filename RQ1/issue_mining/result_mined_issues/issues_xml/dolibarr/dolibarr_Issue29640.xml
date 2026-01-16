@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>29640</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/29640</ISSUEURL>
+  <TITLE>Impossible to delete Draft Invoice because of delete_linked_contact empty</TITLE>
+  <DESCRIPTION>### Bug Error when trying to delete a draft invoice. In facture.class.php line 2871 the if do 3 tests at the same time that all need to be true : 1. $this-&gt;db-&gt;query($sqlef) 2. $this-&gt;db-&gt;query($sql) 3. $this-&gt;delete_linked_contact() In delete_linked_contact from the object CommonObject, the result can be : Return integer &lt;0 if KO, 0=Nothing done, &gt;0 if OK The ligne : `if ($this-&gt;db-&gt;query($sqlef) &amp;&amp; $this-&gt;db-&gt;query($sql) &amp;&amp; $this-&gt;delete_linked_contact()) {` Have to be change by: `if ($this-&gt;db-&gt;query($sqlef) &amp;&amp; $this-&gt;db-&gt;query($sql) &amp;&amp; $this-&gt;delete_linked_contact()&gt;=0) {` ### Dolibarr Version 19.0.2 ### Environment PHP 8.2.5 ### Environment Database MySQL or MariaDB 10.11.2-MariaDB ### Steps to reproduce the behavior and expected behavior Create a draft invoice. Try do delete It. ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>31</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>prefix and suffix core cleanup (#29938)</MESSAGE>
+    <SHA>3421352e7c230b707aa36c3a7183685159aafa66</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #29640: (#29939) * FIX REPLENISH MANY FOURN WHEN ORDER ALREADY CREATE (#29710) * fix restrictedArea on selectobject (#29882) * Fix travis * Fix : expense report reapproval email, wrong date format + missing parameter (#29874) * delete_linked_contact is &lt; 0 in case of error --------- Co-authored-by: IC-Mathieu &lt;95343351+IC-Mathieu@users.noreply.github.com&gt; Co-authored-by: Rémi Champlon &lt;85104766+Kazimir42@users.noreply.github.com&gt; Co-authored-by: Laurent Destailleur &lt;eldy@users.sourceforge.net&gt; Co-authored-by: Maxime Kohlhaas &lt;maxime@atm-consulting.fr&gt; Co-authored-by: Laurent Destailleur &lt;eldy@destailleur.fr&gt;</MESSAGE>
+      <SHA>000efd5221ea8ebdf757b4e11612843ea97803ba</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/compta/facture/class/facture.class.php</FILE>
+        <FILE>htdocs/core/ajax/selectobject.php</FILE>
+        <FILE>htdocs/expensereport/card.php</FILE>
+        <FILE>htdocs/product/stock/replenish.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

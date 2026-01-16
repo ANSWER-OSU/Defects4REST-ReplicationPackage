@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5347</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/5347</ISSUEURL>
+  <TITLE>bug: disable proxy_buffering doesn't work</TITLE>
+  <DESCRIPTION>### Issue description upsteam is cepg rgw endpoint. apisix doesn't send data to upsteam when upload big file. Ctrl - C abort the upload command. the file is 1G and already upload 60%, but upstream doesn't received any data. apisix cache the data. ``` [root@node3 zhendong]# s3cmd put 1G-1234567890 ls s3://onest-k8s/fake --disable-multipart upload: '1G-1234567890' -&gt; 's3://onest-k8s/fake' [1 of 1] 701235200 of 1073741824 65% in 5s 121.13 MB/s^CSee ya! ``` ### Environment - apisix version (cmd: `apisix version`): 2.7 - OS (cmd: `uname -a`): - OpenResty / Nginx version (cmd: `nginx -V` or `openresty -V`): - etcd version, if have (cmd: run `curl http://127.0.0.1:9090/v1/server_info` to get the info from server-info API): - apisix-dashboard version, if have: - the plugin runner version, if the issue is about a plugin runner (cmd: depended on the kind of runner): - luarocks version, if the issue is about installation (cmd: `luarocks --version`): ### Steps to reproduce confi.yaml ``` proxy_buffering: &quot;off&quot; # Enables or disables buffering of responses from the proxied server. proxy_request_buffering: &quot;off&quot; # Enables or disables buffering of a client request body. proxy_http_version: 1.1 client_max_body_size: 0 client_body_postpone_size: 0 ``` routes ``` curl http://127.0.0.1:9080/apisix/admin/routes/1 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -i -d ' { &quot;uri&quot;: &quot;/*&quot;, &quot;upstream&quot;: { &quot;type&quot;: &quot;roundrobin&quot;, &quot;nodes&quot;: { &quot;127.0.0.1:8881&quot;: 1 } } }' ``` ### Actual result access.log access_log_format: &quot;$remote_addr - $remote_user [$fmt_ms_time_local] $http_host \&quot;$request\&quot; $status $body_bytes_sent $content_length $request_time \&quot;$http_referer\&quot; \&quot;$http_user_agent\&quot; $http_x_request_id $http_x_amz_target $upstream_addr $upstream_status $upstream_connect_time $upstream_header_time $upstream_response_time&quot; 127.0.0.1 - - [2021-10-27 14:27:36.004] 127.0.0.1:9080 &quot;PUT /onest-k8s/fake HTTP/1.1&quot; 400 0 1073741824 2.347 &quot;-&quot; &quot;-&quot; - - - - - - - ### Error log no ### Expected result _No response_</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>66</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>docs(request-id): fix typo in request-id plugin zh document. (#5863)</MESSAGE>
+    <SHA>e29ab837a913629c473cdc5a74c29831bd6e6a14</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: allow setting proxy_request_buffering without disabling proxy-mirror Fix #5347 By avoiding creating subrequest, we also speed up the route without proxy-mirror &gt; 5%. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>88802bc997e85b093ef0c42cc4079ba7fa655439</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ngx_tpl.lua</FILE>
+        <FILE>apisix/plugins/proxy-mirror.lua</FILE>
+        <FILE>t/APISIX.pm</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat: allow setting proxy_request_buffering without disabling proxy-mirror Fix #5347 By avoiding creating subrequest, we also speed up the route without proxy-mirror &gt; 5%. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>4dc87897f84c796d34f5d7d54eb0c00c5574815c</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ngx_tpl.lua</FILE>
+        <FILE>apisix/plugins/proxy-mirror.lua</FILE>
+        <FILE>t/APISIX.pm</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

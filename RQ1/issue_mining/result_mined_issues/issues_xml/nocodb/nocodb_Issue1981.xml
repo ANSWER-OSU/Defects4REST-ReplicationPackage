@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1981</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/1981</ISSUEURL>
+  <TITLE>Nested fields query param does not respect '*' to include all fields</TITLE>
+  <DESCRIPTION>I want to get all nested fields for the nested column table Since 0.90.10 it started to only return primary key and value for nested colums, f.e. `/api/v1/db/data/noco/AppName/SomeTable/8` returns ``` { &lt;other data&gt;, SomeNestedColumn: { id: 1, Name: 'name string', } } ``` Specifying fields directly does work, but is not practical for my use case, since we have a lot of columns and need all of them: `/api/v1/db/data/noco/AppName/SomeTable/8?nested[SomeNestedColumn][fields]=somefield,anotherfield` ``` { &lt;other data&gt;, SomeNestedColumn: { somefield: 'foo', anotherfield: 'bar', } } ``` I tried using '*' for it to return all fields but it returns the same as not specifying the fields param (only primary key and value): `/api/v1/db/data/noco/AppName/SomeTable/8?nested[SomeNestedColumn][fields]=*` ``` { &lt;other data&gt;, SomeNestedColumn: { id: 1, Name: 'name string', } } ``` I suspect this does code in #1856 does not handle the '*' case correctly: https://github.com/nocodb/nocodb/pull/1856/files#diff-7768878066d19300f9872bc703464d8c2b7f2c79b747d9ee1fd9660805d97e17R48-R74 ``` Node: **v12.22.12** Arch: **x64** Platform: **linux** Docker: **false** Database: **pg** ProjectOnRootDB: **true** RootDB: **pg** PackageVersion: **0.90.10** ```</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>17</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>chore: update package-lock.json</MESSAGE>
+    <SHA>0563fe3a3ef1264fa2654b557e4c085604cfaa5a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: if fields value specified as `*` extract all fields re #1981 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>454a686a58ec9a14fda3c91fcb8d83d068076673</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/dataMapper/lib/sql/helpers/getAst.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

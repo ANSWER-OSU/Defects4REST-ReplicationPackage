@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4733</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4733</ISSUEURL>
+  <TITLE>UPS shipping plugin. Remove Access Point Economy Service and add settings to choose dimension and weight</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.30 Plugin: Nop.Plugin.Shipping.UPS Steps to reproduce the problem: Hi! When I use UPS shipping plugin I get two errors when I proceed to checkout: UPS Access Point Economy Service shipments must have a Hold for Pickup at UPS Access Point or UPS Access Point Delivery Shipment Indication Type or must be a Return shipment. Error code : 111526 This measurement system is not valid for the selected country or territory. Error code: 111057 I have one product in my shopping cart with dimensions in CM and weight in KGS. But UPS plugin use &quot;LBS&quot; as default weight unit and &quot;inches&quot; as default dimensions for a product. (See UPSService.cs constants between lines 52 to 62) When I replace this defaults units values by CM and KGS I don't get any errors and plugin works fine. So I don't know if I miss something in NopCommerce configuration otherwise I think that the possibility to choose the default dimension and the default weight should be added in the UPS Shipping plugin configuration.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#4641 Configure store with using SSL settings during installation if site running over the HTTPS</MESSAGE>
+    <SHA>0eac6dde273391a4d9ee30a1a87b544f36c7791b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4733 UPS shipping plugin. Removed Access Point Economy delivery service, it's currently unavailable.</MESSAGE>
+      <SHA>c49d6c8cd03b4565994090969ceccf070040c1f7</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/Domain/DeliveryService.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#4733 UPS shipping plugin. New settings to choose dimension and weight.</MESSAGE>
+      <SHA>ad1e7261a80bfe596f5e1aef8b4ee4eca71ebbe5</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/Controllers/UPSShippingController.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/Models/UPSShippingModel.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/Services/UPSService.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/UPSComputationMethod.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/UPSSettings.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/Views/Configure.cshtml</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/plugin.json</FILE>
+        <FILE>upgradescripts/4.20-4.30 (under development)/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

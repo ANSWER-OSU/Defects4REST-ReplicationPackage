@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3414</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/3414</ISSUEURL>
+  <TITLE>[DS-36] DSpace 1.5 XMLUI - Enable METS &lt;amdSec&gt; using crosswalks - ID: 2477820</TITLE>
+  <DESCRIPTION>&lt;i&gt;Imported from JIRA &lt;a href=&quot;https://jira.lyrasis.org/browse/DS-36&quot;&gt;[DS-36]&lt;/a&gt; created by kipkorir2008&lt;/i&gt; &lt;p&gt;By default, the Item-level METS files which the DSpace 1.5.x XMLUI&lt;br/&gt; auto-generates contain only descriptive metadata (&lt;dmdSec&gt;), file&lt;br/&gt; (&lt;fileSec&gt;) and structure mapping (&lt;structMap&gt;) sections.&lt;/p&gt; &lt;p&gt;This patch allows you to also generate the METS administrative metadata&lt;br/&gt; (&lt;amdSec&gt;) section, based on the request made. This patch itself doesn't&lt;br/&gt; create the administrative metadata. Rather, it provides you a way to&lt;br/&gt; utilize DSpace Crosswalks to generate the adminstrative metadata for the&lt;br/&gt; &lt;amdSec&gt;.&lt;/p&gt; &lt;p&gt;As an example, you can now make requests similar to the following:&lt;/p&gt; &lt;p&gt;&lt;a href=&quot;http://localhost/xmlui/metadata/handle/123456789/1/mets.xml?techMDTypes=PRE&quot; class=&quot;external-link&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot;&gt;http://localhost/xmlui/metadata/handle/123456789/1/mets.xml?techMDTypes=PRE&lt;/a&gt;&lt;br/&gt; MIS&lt;/p&gt; &lt;p&gt;Notice the &quot;techMDTypes&quot; is specified as &quot;PREMIS&quot;. This tells the XMLUI&lt;br/&gt; that you want to run the &quot;PREMIS&quot; crosswalk to generate metadata to be&lt;br/&gt; placed in the &lt;techMD&gt; subsection of &lt;amdSec&gt;. So, the result would&lt;br/&gt; include the following &lt;amdSec&gt;:&lt;/p&gt; &lt;p&gt;&lt;mets:amdSec&gt;&lt;br/&gt; &lt;mets:techMD&gt;&lt;br/&gt; &lt;mets:mdWrap MDTYPE=&quot;PREMIS&quot;&gt;&lt;br/&gt; &lt;mets:xmlData&gt;&lt;br/&gt; &lt;span class=&quot;error&quot;&gt;&amp;#91;..PREMIS Crosswalk-generated metadata..&amp;#93;&lt;/span&gt;&lt;br/&gt; &lt;/mets:xmlData&gt;&lt;br/&gt; &lt;/mets:mdWrap&gt;&lt;br/&gt; &lt;/mets:techMD&gt;&lt;br/&gt; &lt;/mets:amdSec&gt;&lt;/p&gt; &lt;p&gt;By default, normal requests to &quot;metadata/handle/&lt;b&gt;/&lt;/b&gt;/mets.xml&quot; will NOT&lt;br/&gt; generate this &lt;amdSec&gt; section. This ensures that the default METS files&lt;br/&gt; are still kept small.&lt;/p&gt; &lt;p&gt;However, this ability to request administrative metadata now allows more&lt;br/&gt; flexibility to XMLUI Themes. It also opens up more opportunities for&lt;br/&gt; Crosswalks which generate administrative metadata. Finally, it also begins&lt;br/&gt; to allow one to utilize the XMLUI as a &quot;pseudo-Web-Service&quot; interface for&lt;br/&gt; dissemination of Item-level METS representations (including administrative&lt;br/&gt; metadata)&lt;/p&gt; &lt;p&gt;The attached patch was built against the latest DSpace 1.5.x branch (as of&lt;br/&gt; 30-Dec-2008).&lt;/p&gt;</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merged in task/dspace-cris-2023_02_x/DSC-1921 (pull request #3715) [DSC-1921] Enabled impersonate in dspace.cfg Approved-by: Vincenzo Mecca</MESSAGE>
+    <SHA>9e61113ccdc664fb47392c97fbc8b1f506778d0b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merged in task/dspace-cris-2023_02_x/DSC-2169 (pull request #3414) [DSC-2169] Approved-by: Fapohunda, Adamo</MESSAGE>
+      <SHA>7c67e040b6f45de7f907d1e5c30dab516ea058c0</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace/config/modules/deduplication.cfg</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5553</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5553</ISSUEURL>
+  <TITLE>VisibleIndividually option ignored</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40 Steps to reproduce the problem: - Set a product in the catalog so 'Visible individually' option is not selected. - Start the store where this product is available - In the search box or in the item by category list, the product appears when it should not Fix: - In Nop.Services\Catalog\ProductServices.cs, - In public virtual async Task&lt;IPagedList&lt;Product&gt;&gt; SearchProductsAsync - Check the value (after line 815) with the below code `if (visibleIndividuallyOnly) productsQuery = productsQuery.Where(p =&gt; p.VisibleIndividually);`</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>62</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5693 Replaced caching of IPagedList to caching of List on HomepageBestSellersViewComponent</MESSAGE>
+    <SHA>93b0ad30216c3d3948c6c343de64676edaf2bb61</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5553 Added missed applying the visibleIndividuallyOnly filter option in the search products method</MESSAGE>
+      <SHA>6a9fae2472312c7d39a78d8c64a1b12459b4271f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Catalog/ProductService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

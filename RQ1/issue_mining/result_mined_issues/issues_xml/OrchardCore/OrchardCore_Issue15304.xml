@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15304</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/15304</ISSUEURL>
+  <TITLE>InvalidOperationException when visiting GraphQL explorer</TITLE>
+  <DESCRIPTION>I've just updated to the latest OC and getting this when visiting GraphiQL explorer: ``` System.InvalidOperationException: This graph type 'AutorouteInputObjectType' with name 'AutoroutePartInput' has already been initialized. Make sure that you do not use the same instance of a graph type in multiple schemas. It may be so if you registered this graph type as singleton; see https://graphql-dotnet.github.io/docs/getting-started/dependency-injection/ for more info. at GraphQL.Types.GraphType.Initialize(ISchema schema) in /_/src/GraphQL/Types/GraphType.cs:line 44 at GraphQL.Types.SchemaTypes.AddType(IGraphType type, TypeCollectionContext context) in /_/src/GraphQL/Types/Collections/SchemaTypes.cs:line 522 at GraphQL.Types.SchemaTypes.AddTypeIfNotRegistered(IGraphType type, TypeCollectionContext context) in /_/src/GraphQL/Types/Collections/SchemaTypes.cs:line 776 at GraphQL.Types.SchemaTypes.Initialize(ISchema schema, IServiceProvider serviceProvider, IEnumerable`1 graphTypeMappings) in /_/src/GraphQL/Types/Collections/SchemaTypes.cs:line 277 at GraphQL.Types.SchemaTypes..ctor(ISchema schema, IServiceProvider serviceProvider, IEnumerable`1 graphTypeMappings) in /_/src/GraphQL/Types/Collections/SchemaTypes.cs:line 190 at GraphQL.Types.SchemaTypes..ctor(ISchema schema, IServiceProvider serviceProvider) in /_/src/GraphQL/Types/Collections/SchemaTypes.cs:line 175 at GraphQL.Types.Schema.CreateSchemaTypes() in /_/src/GraphQL/Types/Schema.cs:line 477 at GraphQL.Types.Schema.CreateAndInitializeSchemaTypes() in /_/src/GraphQL/Types/Schema.cs:line 448 at GraphQL.Types.Schema.Initialize() in /_/src/GraphQL/Types/Schema.cs:line 196 at OrchardCore.Apis.GraphQL.Services.SchemaService.GetSchemaAsync() in C:\repo\OrchardCore\src\OrchardCore.Modules\OrchardCore.Apis.GraphQL\Services\SchemaService.cs:line 116 at OrchardCore.Apis.GraphQL.GraphQLMiddleware.ExecuteAsync(HttpContext context) in C:\repo\OrchardCore\src\OrchardCore.Modules\OrchardCore.Apis.GraphQL\GraphQLMiddleware.cs:line 142 at OrchardCore.Apis.GraphQL.GraphQLMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\repo\OrchardCore\src\OrchardCore.Modules\OrchardCore.Apis.GraphQL\GraphQLMiddleware.cs:line 65 at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.&lt;&gt;c__DisplayClass2_0.&lt;&lt;CreateMiddleware&gt;b__0&gt;d.MoveNext() ``` ![image](https://github.com/OrchardCMS/OrchardCore/assets/6403130/e052141f-3c28-4824-b756-49218af27626) Steps to reproduce: - create new **ContentType**, you don't need to add Parts nor Fields, - go to **GraphQL** explorer, - schema is not loading anymore. I've just checked, and it looks like you don't need to create new **ContentType**, you can reconfigure existing one instead. This way you could also reproduce the issue.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Prevent an unhandled exception has occurred while executing the request. (#15317) Co-authored-by: Sébastien Ros &lt;sebastienros@gmail.com&gt;</MESSAGE>
+    <SHA>a8bdd63b6df6ae5d45444271e2c144425cc7db84</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix GraphQL Explorer Fix #15304</MESSAGE>
+      <SHA>63d1832c4e2a13c2cad2aae3d75e66de9ab50ba8</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.Apis.GraphQL.Abstractions/ServiceCollectionExtensions.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement.GraphQL/Queries/Types/TypedContentTypeBuilder.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement.GraphQL/ServiceCollectionExtensions.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

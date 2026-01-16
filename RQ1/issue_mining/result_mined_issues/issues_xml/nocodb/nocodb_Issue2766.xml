@@ -1,0 +1,81 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2766</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/2766</ISSUEURL>
+  <TITLE>Select v2: configuring default value for multi select</TITLE>
+  <DESCRIPTION>Node: **v16.14.0** Arch: **arm64** Platform: **darwin** Docker: **false** Database: **sqlite3** ProjectOnRootDB: **true** RootDB: **sqlite3** PackageVersion: **0.92.4** - consider for options configured as a, b, c, d - doesn't work: set default value as `a,b` [options separated by comma without any additional space after comma] ``` GET /api/v1/db/data/noco/x/md_0uwut02cayvoey/views/vw_8jr05u93l8su7e/count 200 11 - 10.596 ms ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗ ║ ║ ║ EXCEPTION OCCURED!! in SqliteClient @ tableUpdate ║ ║ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ║ ║ MESSAGE: ║ ║ ALTER TABLE `nc_c12h__Sheet2` ADD `title7` text DEFAULT a,b - SQLITE_ERROR: near &quot;,&quot;: syntax error ║ ║ ║ ║ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ║ ║ CODE: ║ ║ SQLITE_ERROR ║ ║ ║ ║ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ║ ║ STACK: ║ ║ Error: ALTER TABLE `nc_c12h__Sheet2` ADD `title7` text DEFAULT a,b - SQLITE_ERROR: near &quot;,&quot;: syntax error ║ ║ ║ ║ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ║ ║ ║ ║ ║ ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝ [Error: ALTER TABLE `nc_c12h__Sheet2` ADD `title7` text DEFAULT a,b - SQLITE_ERROR: near &quot;,&quot;: syntax error] { errno: 1, code: 'SQLITE_ERROR' } columnAdd :: [Error: ALTER TABLE `nc_c12h__Sheet2` ADD `title7` text DEFAULT a,b - SQLITE_ERROR: near &quot;,&quot;: syntax error] { errno: 1, code: 'SQLITE_ERROR' } ``` - works: set default value as `[a,b]` [options separated by comma &amp; bounded by square braces] - doesn't work: set default value as `[a, b]` [same as above, with space induced after comma]. No error, but default value is displayed as only `a` ### Expected - what ever option we intend to support, has to be set in the example. - would prefer selecting options using drop down like we do it in the cell - if it has to be via text input, I would prefer it as comma separated values without explicit square brace bound</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>27</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: handle multiselect to singleselect Re #2770 Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+    <SHA>283d8637fbdcee801b5dcc1fadb800c4a85fc052</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: default value containing comma breaks drop column for sqlite Re #2766 Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+      <SHA>adb659589ae9d5d71d1f42462a7b6b59d91d3596</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/db/sql-client/lib/sqlite/SqliteClient.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: mssql default value query fails for text &amp; ntext Re #2766 Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+      <SHA>54e5cb8e873dfb42fb5e7a97d9c1a57343cf266c</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/db/sql-client/lib/mssql/MssqlClient.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: unified default value for select columns Re #2766 Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+      <SHA>718499846a403d1844fafc2a1ad1f9b19ed5c17b</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/components/project/spreadsheet/components/EditColumn.vue</FILE>
+        <FILE>packages/nocodb/src/lib/meta/api/columnApis.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: default value containing comma breaks drop column for sqlite Re #2766 Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+      <SHA>eef3b04c3d01305c1cd3e6d6d26b7553662e1993</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/db/sql-client/lib/sqlite/SqliteClient.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: mssql default value query fails for text &amp; ntext Re #2766 Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+      <SHA>576db184969c09970135ca6636cad522b1bb7807</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/db/sql-client/lib/mssql/MssqlClient.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: unified default value for select columns Re #2766 Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+      <SHA>7e1201c20cd33777e5741a89be437fe7f57f2290</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/components/project/spreadsheet/components/EditColumn.vue</FILE>
+        <FILE>packages/nocodb/src/lib/meta/api/columnApis.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: default value containing comma breaks drop column for sqlite Re #2766 Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+      <SHA>99988654a0f26377efb3860c8f0e19fbe9c63f0c</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/db/sql-client/lib/sqlite/SqliteClient.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: mssql default value query fails for text &amp; ntext Re #2766 Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+      <SHA>afb4b981c9f16f846bb3ce400a9cac663ce94d5f</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/db/sql-client/lib/mssql/MssqlClient.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: unified default value for select columns Re #2766 Signed-off-by: mertmit &lt;mertmit99@gmail.com&gt;</MESSAGE>
+      <SHA>662696811e5c94bc02363289cb4f6d0900896417</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/components/project/spreadsheet/components/EditColumn.vue</FILE>
+        <FILE>packages/nocodb/src/lib/meta/api/columnApis.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

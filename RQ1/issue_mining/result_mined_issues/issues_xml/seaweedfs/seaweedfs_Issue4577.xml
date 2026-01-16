@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4577</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/4577</ISSUEURL>
+  <TITLE>Auth Value of gRPC Response of LookupVolume is empty instead of containing a JWT</TITLE>
+  <DESCRIPTION>**Describe the bug** When calling the Method &quot;LookupVolume&quot; with a FileId via gRPC on the Master Server the Auth-Value of the response is empty even though i added a security.toml with jwt keys to my servers. ``` var channel = GrpcChannel.ForAddress(&quot;&lt;ip address&gt;&quot;); var client = new Seaweed.SeaweedClient(channel); LookupVolumeRequest request = new LookupVolumeRequest(); request.VolumeOrFileIds.Add(&quot;1,290c3fc91f20&quot;); var res = client.LookupVolume(request); Console.WriteLine(&quot;Auth: '&quot; + res.VolumeIdLocations[0].Auth + &quot;'&quot;); ``` The Console Part outputs nothing and res.Auth == &quot;&quot; is True. **System Setup** Seaweed running via docker with this compose file: ``` version: '3.9' services: masterjwt: image: chrislusf/seaweedfs # use a remote image ports: - 9333:9333 - 19333:19333 - 9324:9324 container_name: seaweedfs-master-jwt command: &quot;master -ip=172.28.0.102 -ip.bind=0.0.0.0 -metricsPort=9324&quot; volume1jwt: image: chrislusf/seaweedfs # use a remote image ports: - 8080:8080 - 18080:18080 - 9325:9325 container_name: seaweedfs-volume-1-jwt command: 'volume -mserver=&quot;masterjwt:9333&quot; -ip.bind=0.0.0.0 -port=8080 -metricsPort=9325 -publicUrl=&lt;ip&gt;' depends_on: - masterjwt ``` - output of `weed version`: version 30GB 3.51 4310e1fac linux amd64 - i added following security.toml file to volume and master server: ``` [jwt.signing] key = &quot;&lt;my key&gt;&quot; expires_after_seconds = 120 # seconds [access] ui = true [jwt.signing.read] key = &quot;&lt;m&lt; key&gt;&quot; expires_after_seconds = 120 # seconds ``` **Expected behavior** I excpect the Response to include a JWT in the Auth value to read or update the given file. It works fine via http like this: `curl -i &quot;&lt;ip master&gt;:9333/dir/lookup?fileId=1,290c3fc91f20&amp;read=yes&quot;`</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: Add datasource as variable (#4584)</MESSAGE>
+    <SHA>2369a45c9b70d9098b3c4a151dc3e8d9adf0c471</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>generate jwt token when looking up needle id fix https://github.com/seaweedfs/seaweedfs/issues/4577</MESSAGE>
+      <SHA>0c7d98c6ab26d39158ede907377e5f0e76d5558b</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/master_grpc_server_volume.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>generate jwt token when looking up needle id fix https://github.com/seaweedfs/seaweedfs/issues/4577</MESSAGE>
+      <SHA>94fbf02ea2fdfd7a786af8ce8b9b04006b361dd0</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/master_grpc_server_volume.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

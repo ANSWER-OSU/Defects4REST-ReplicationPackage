@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23248</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/23248</ISSUEURL>
+  <TITLE>Prices not updated when external user (client) create a propal or command</TITLE>
+  <DESCRIPTION>### Bug I just found (and hope to have resolved) a quite tricky bug: In one of my projects, we allow some clients to connect to Dolibarr to create themselves their commands They can add lines to the command, but if they choose a predefined product or service, its price is not copied in #price_ht input A dive in the code shows that /core/tpl/objectline_create.tpl.php make an ajax call to /product/ajax/products.php In this file line ~68 (65 in dev branch) `restrictedArea($user, 'produit|service', 0, 'product&amp;product');` doesnt allow access to external users, and the ajax call throw an error which in not logged :-\ (because of line ~320 `if (!empty($user-&gt;socid) &amp;&amp; !empty($conf-&gt;global-&gt;MAIN_MODULES_FOR_EXTERNAL) &amp;&amp; !in_array($featureforlistofmodule, $listofmodules)) { // If limits on modules for external users, module must be into list of modules for external users` in /core/lib/security.lib.php) I suggest after tests to change line ~68 in /product/ajax/products.php to `restrictedArea($user, 'produit|service|commande|propal', 0, 'product&amp;product');` ### Environment Version All including dev ### Environment OS _No response_ ### Environment Web server _No response_ ### Environment PHP _No response_ ### Environment Database _No response_ ### Environment URL(s) _No response_ ### Expected and actual behavior _No response_ ### Steps to reproduce the behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>376</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'develop' of git@github.com:Dolibarr/dolibarr.git into develop</MESSAGE>
+    <SHA>bdaff375a12dade98b738b05edbc8faf38d8c397</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #23248 Prices not updated when external user (client) create a propal or command</MESSAGE>
+      <SHA>ec9b048e2ec61795f8ba7045d67467e078e4eecf</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/product/ajax/products.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #27243 from vmaury/Fix_23248_product_price_not_updated_when_user_is_ext Fix #23248 Prices not updated when external user (client) create a propal or command</MESSAGE>
+      <SHA>5619d634d396bf7a8c0cc3aa02af557e51cf9f8a</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/product/ajax/products.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4024</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/4024</ISSUEURL>
+  <TITLE>[Cy]: Circular reference in Formula column</TITLE>
+  <DESCRIPTION>### Please confirm if bug report does NOT exists already ? - [X] I confirm there is no existing issue for this ### Steps to reproduce ? - create new table - create new formula field 'One': {Title} - create new formula field 'Two': {One} - create new formula field 'Three': CONCAT({Two},{Two}) - edit definition of either column One or Two - add a single space at the end of the formula - error &quot;Can’t save field because it causes a circular reference&quot; displayed ### Desired Behavior This should not be flagged as a circular reference and it should be possible to edit the formula fields. Note: The formulas work fine (the expected calculated values are displayed) but further editing of the formulas is impossible. ### Project Details Node: **v18.10.0** Arch: **x64** Platform: **darwin** Docker: **false** Database: **sqlite3** ProjectOnRootDB: **true** RootDB: **sqlite3** PackageVersion: **0.97.0** ### Attachements _No response_</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #3811 from nocodb/feat/import-optimization feat: import optimization</MESSAGE>
+    <SHA>5a0fa932d5cdc9f75df3dc4c054b07ac26d9db59</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix(ng-gui): find unique neighbours Find unique neighbours on formula paths, therefore avoiding &quot;circular reference&quot; incorrect error validation while editing formula columns. closes #4024</MESSAGE>
+      <SHA>b0249e6964662dc8d1135455257c1f97d492ed19</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/components/smartsheet/column/FormulaOptions.vue</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

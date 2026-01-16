@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3467</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/3467</ISSUEURL>
+  <TITLE>TaskService.getIdentityLinksForTask(taskId)</TITLE>
+  <DESCRIPTION>**Describe the bug** TaskService.getIdentityLInksForTask(taskId) is duplicating IdentityLink in results. Looks like same IdentityLink added to list twice. **Expected behavior** TaskService.getIdentityLInksForTask(taskId) should not duplicate IdentityLink in results. **Code** ![image](https://user-images.githubusercontent.com/4571314/190918885-3d8a813f-158c-42f9-ac9e-4719126257ce.png) **Additional context** https://github.com/flowable/flowable-engine/blob/main/modules/flowable-task-service/src/main/java/org/flowable/task/service/impl/persistence/entity/TaskEntityImpl.java#L247-L270 Here, getCandidates method returns set, but getIdentityLinks returns map. So duplicates are removed for getCandidates method.</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>73</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix missing checks for history level in tests (#3517)</MESSAGE>
+    <SHA>9bef50459170ab965c8cfdb8877e78c66d2be513</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3467 Fix duplicate addition of same identity link in IdentityLinkUtil</MESSAGE>
+      <SHA>c270428944c690ad074a482dcbeae50163635c33</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/util/IdentityLinkUtil.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/identity/IdentityTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/identity/TestListener.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/identity/IdentityTest.testIdentityLinkNotDuplicate.bpmn20.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3467 Fix duplicate addition of same identity link in IdentityLinkUtil</MESSAGE>
+      <SHA>5ef6638e20bfa518d48c04cabd36aecc878fcf8f</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/util/IdentityLinkUtil.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/identity/IdentityTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/identity/TestListener.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/identity/IdentityTest.testIdentityLinkNotDuplicate.bpmn20.xml</FILE>
+        <FILE>modules/flowable-task-service/src/main/java/org/flowable/task/service/impl/persistence/entity/TaskEntity.java</FILE>
+        <FILE>modules/flowable-task-service/src/main/java/org/flowable/task/service/impl/persistence/entity/TaskEntityImpl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3467 Fix tests after code change</MESSAGE>
+      <SHA>16c6b398162867bd2c99aeab34cc46809dfc8bc1</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/cfg/executioncount/VerifyDatabaseOperationsTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3467 Move test to UserTaskTest.java</MESSAGE>
+      <SHA>bfa7c97fd5ee4c1150a9a4e663cd76ae1819fb20</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/usertask/TestListener.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/bpmn/usertask/UserTaskTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/engine/test/identity/IdentityTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/bpmn/usertask/UserTaskTest.testIdentityLinkNotDuplicate.bpmn20.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

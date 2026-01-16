@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6704</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6704</ISSUEURL>
+  <TITLE>Inconsistent store authorization for Orders placed with unmapped Currency/Language to the store</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.60.2 Steps to reproduce the problem: https://github.com/nopSolutions/nopCommerce/blob/fd96372633927c1d245c49ae84c956d9686ba91e/src/Libraries/Nop.Services/Orders/OrderProcessingService.cs#L758 And https://github.com/nopSolutions/nopCommerce/blob/fd96372633927c1d245c49ae84c956d9686ba91e/src/Libraries/Nop.Services/Orders/OrderProcessingService.cs#L765 Both use customers' currency and language. There should be a store authorization. When a customer has any currency/language selected which is no longer mapped to that store they still will be able to place an order with the old language and currency. It has an effect on email notifications, orders details, invoices, and any other views where order detail is used.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>182</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6912 Use Timeout.Infinite in TaskThread.TimerHandler method</MESSAGE>
+    <SHA>3ecb145a2e660558f617525e0299749bee3e39b0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6704 Added authorization check whether currency and language can be accessed in the current store when placing an order</MESSAGE>
+      <SHA>5a81a84e1f0c10a1ad4ee7999038267b98864056</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderProcessingService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>730</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/730</ISSUEURL>
+  <TITLE>Deployment claims to be successful, while in fact still building</TITLE>
+  <DESCRIPTION>It is sort of a weird setup, but my `now-build` executes the server and binds to a port. Once there, `now` claims deployment is successful ``` 1. Synced 59s 2. Prepared container 8s 3. Installed and built project 48s 4. Started! 52m READY! VISIT NOW ``` But in fact it's still in the `build` phase, and will time out after 15mins, causing `now` to then rebuild if the instance is accessed. instance log: ``` 08/10 07:38 PM (10m) npm run now-build 08/10 07:38 PM (10m) &gt; gisteam@0.9.0 now-build /home/nowuser/src &gt; gulp build &amp;&amp; cross-env NODE_ENV=production node . 08/10 07:38 PM (10m) [12:38:25] Using gulpfile ~/src/gulpfile.js 08/10 07:38 PM (10m) [12:38:25] Starting 'build'... 08/10 07:38 PM (10m) [12:38:25] Starting 'clean'... 08/10 07:38 PM (10m) [12:38:25] Finished 'clean' after 12 ms 08/10 07:38 PM (10m) [12:38:25] Starting 'copy'... 08/10 07:38 PM (10m) [12:38:25] Finished 'copy' after 144 ms 08/10 07:38 PM (10m) [12:38:25] Starting 'babel'... 08/10 07:38 PM (10m) [12:38:26] Finished 'babel' after 1.28 s 08/10 07:38 PM (10m) [12:38:26] Starting 'gzip'... 08/10 07:38 PM (10m) [12:38:26] Finished 'gzip' after 41 ms 08/10 07:38 PM (10m) [12:38:26] Finished 'build' after 1.49 s 08/10 07:38 PM (10m) Thu, 10 Aug 2017 12:38:29 GMT koa deprecated Support for generators will be removed in v3. See the documentation for examples of how to convert old middleware https://github.com/koajs/koa/blob/master/docs/migration.md at lib/server.js:94:5 08/10 07:38 PM (10m) info: Server now listening on 3000 ``` https://zeit.co/hirako2000/gisteam/wlrojcrklj/logs The status should probably says it's still building. It is also a problem `now-build` can be hijacked to actually start an application. with the current behaviour, this causes multiple re-build per day, in a loop, every 15mins if the instance is accessed.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>171</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Nested tsconfig.json lookup support (#726) * lookup nested tsconfig.json for each ts compilation * [now-node] Nested tsconfig.json * fixes</MESSAGE>
+    <SHA>70f3d6f7dedef260eee7f9409603693235365784</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-node] Add integration test for `sharp` (#730) * [now-node] Add integration test for `sharp` * Add monkey image in test</MESSAGE>
+      <SHA>30eede64ec1384cdd7dfebb96465811c1ee6585d</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-node/test/fixtures/30-sharp/index.js</FILE>
+        <FILE>packages/now-node/test/fixtures/30-sharp/monkey.jpg</FILE>
+        <FILE>packages/now-node/test/fixtures/30-sharp/now.json</FILE>
+        <FILE>packages/now-node/test/fixtures/30-sharp/package.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

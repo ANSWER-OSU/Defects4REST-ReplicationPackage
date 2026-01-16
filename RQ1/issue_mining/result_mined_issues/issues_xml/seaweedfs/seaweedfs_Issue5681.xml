@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5681</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/5681</ISSUEURL>
+  <TITLE>helm chart: resources should be a map</TITLE>
+  <DESCRIPTION>**Describe the bug** `resources` should be maps, and not strings for the helm chart. You can verify this is the default and recommended by creating a default chart: ```console $ helm create testing123 Creating testing123 $ cd testing123 $ grep -A 7 resources values.yaml resources: {} # We usually recommend not to specify default resources and to leave this as a conscious # choice for the user. This also increases chances charts run on environments with little # resources, such as Minikube. If you do want to specify resources, uncomment the following # lines, adjust them as necessary, and remove the curly braces after 'resources:'. # limits: # cpu: 100m # memory: 128Mi # requests: # cpu: 100m # memory: 128Mi ``` Here's an example in the values.yaml: https://github.com/seaweedfs/seaweedfs/blob/d87f88418696f72a752779b6ce776d216f5e61d1/k8s/charts/seaweedfs/values.yaml#L596 And here's the corresponding template: https://github.com/seaweedfs/seaweedfs/blob/d87f88418696f72a752779b6ce776d216f5e61d1/k8s/charts/seaweedfs/templates/filer-statefulset.yaml#L272-L275 But this is present for all of the following templates: - templates/filer-statefulset.yaml - templates/master-statefulset.yaml - templates/s3-deployment.yaml - templates/volume-statefulset.yaml We need to fix this, and I'll submit a PR to fix that to be consistent, but also because it breaks syntax highlighting to have them be strings. See example when using the string vs a map: ```yaml resources: |- limits: cpu: 100m memory: 128Mi requests: cpu: 100m memory: 128Mi ``` **System Setup** This is the helm chart version pushed out with this release: https://github.com/seaweedfs/seaweedfs/releases/tag/3.68 **Expected behavior** Resources should be declared as mentioned above as maps `{}` instead of strings `&quot;&quot;` or null. ```yaml resources: limits: cpu: 100m memory: 128Mi requests: cpu: 100m memory: 128Mi ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update README.md</MESSAGE>
+    <SHA>d87f88418696f72a752779b6ce776d216f5e61d1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix #5681 convert all resources parameters to maps instead of strings</MESSAGE>
+      <SHA>a522e8fc37d19e20bd4cb90ed666c5ec70505fde</SHA>
+      <PATCHEDFILES>
+        <FILE>k8s/charts/seaweedfs/Chart.yaml</FILE>
+        <FILE>k8s/charts/seaweedfs/templates/filer-statefulset.yaml</FILE>
+        <FILE>k8s/charts/seaweedfs/templates/master-statefulset.yaml</FILE>
+        <FILE>k8s/charts/seaweedfs/templates/s3-deployment.yaml</FILE>
+        <FILE>k8s/charts/seaweedfs/templates/volume-statefulset.yaml</FILE>
+        <FILE>k8s/charts/seaweedfs/values.yaml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix #5681 convert all resources parameters to maps instead of strings (#5689)</MESSAGE>
+      <SHA>bfd3bbac20a720d390f739ea41e1cc080e8591ee</SHA>
+      <PATCHEDFILES>
+        <FILE>k8s/charts/seaweedfs/Chart.yaml</FILE>
+        <FILE>k8s/charts/seaweedfs/templates/filer-statefulset.yaml</FILE>
+        <FILE>k8s/charts/seaweedfs/templates/master-statefulset.yaml</FILE>
+        <FILE>k8s/charts/seaweedfs/templates/s3-deployment.yaml</FILE>
+        <FILE>k8s/charts/seaweedfs/templates/volume-statefulset.yaml</FILE>
+        <FILE>k8s/charts/seaweedfs/values.yaml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

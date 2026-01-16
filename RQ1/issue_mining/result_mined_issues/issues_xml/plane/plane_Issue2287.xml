@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2287</ISSUENO>
+  <ISSUEURL>https://github.com/makeplane/plane/issues/2287</ISSUEURL>
+  <TITLE>[bug]:</TITLE>
+  <DESCRIPTION>### Is there an existing issue for this? - [X] I have searched the existing issues ### Current behavior When I try self hosting plane using : `docker compose -f docker-compose-hub.yml up` I get &quot;Error response from daemon: pull access denied for makeplane/plane-space, repository does not exist or may require 'docker login': denied: requested access to the resource is denied&quot;. I logged in to docker before trying again but same error. I looked up docker hub and don't see image called makeplane/plane-space . ![image](https://github.com/makeplane/plane/assets/119484425/2b7ff152-54ca-483f-a19f-1e70fbb0ef68) Is the image name changed recently? ### Steps to reproduce 1. sudo yum install git -y 2. git clone https://github.com/makeplane/plane 3. cd plane 4. chmod +x setup.sh 5. sudo yum install docker -y 6. sudo curl -L &quot;https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose 7. sudo chmod +x /usr/local/bin/docker-compose 8. sudo systemctl start docker 9. sudo usermod -aG docker username 10. ./setup.sh http://myIP 11. docker compose -f docker-compose-hub.yml up ### Browser Google Chrome ### Version Self-hosted</DESCRIPTION>
+  <REPONAME>plane</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: added fallback for state removal (#2268)</MESSAGE>
+    <SHA>836f2155e687e0b24876e7220b4eddff1732eaa0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[WEB-3217] feat: added epics to initiatives modal and list layout (#2287) * feat: added epics to initiatives modal and list layout * fix: initiative indicator * chore: add epics while creating initiative * feat: Update epics in same API * fix: epics dropdown * fix: epics api call * activity logs of initiative epics * Return epic ids in list initiative list api * Update initative activity * fix: patch api response only updating on second call * fix: progress indicator moved + empty initiatives * feat: Create initiatves without project and epic --------- Co-authored-by: sangeethailango &lt;sangeethailango21@gmail.com&gt;</MESSAGE>
+      <SHA>01fc205cf0136ad33abf0962cc326e8b41214741</SHA>
+      <PATCHEDFILES>
+        <FILE>apiserver/plane/ee/bgtasks/initiative_activity_task.py</FILE>
+        <FILE>apiserver/plane/ee/serializers/app/initiative.py</FILE>
+        <FILE>apiserver/plane/ee/views/app/initiative/base.py</FILE>
+        <FILE>web/ee/components/dropdowns/epics.tsx</FILE>
+        <FILE>web/ee/components/dropdowns/index.ts</FILE>
+        <FILE>web/ee/components/initiatives/components/block-properties.tsx</FILE>
+        <FILE>web/ee/components/initiatives/components/create-update-initiatives-modal.tsx</FILE>
+        <FILE>web/ee/components/initiatives/components/form.tsx</FILE>
+        <FILE>web/ee/components/initiatives/components/initiative-block.tsx</FILE>
+        <FILE>web/ee/components/initiatives/details/main/collapsible-section/projects/project-list-item/quick-actions.tsx</FILE>
+        <FILE>web/ee/components/initiatives/details/main/info-section/indicator-item.tsx</FILE>
+        <FILE>web/ee/types/initiative/initiative.d.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

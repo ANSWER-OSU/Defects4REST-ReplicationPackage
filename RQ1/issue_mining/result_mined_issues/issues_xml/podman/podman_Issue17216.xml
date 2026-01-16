@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17216</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/17216</ISSUEURL>
+  <TITLE>unlinkat/EBUSY/hosed is back (Jan 2023)</TITLE>
+  <DESCRIPTION>Another variant of the &quot;podman rm hoses everything&quot; flake: ``` not ok 510 podman kube --network ... $ podman-remote --url unix:/tmp/podman_tmp_X6wS pod rm -t 0 -f test_pod Error: 2 errors occurred: * removing container 0e3da7bfb50c6d7fb4f92ea81c6470baa918abf7e06d577eca57c6c8f659200b from pod 0c72f802ee245ebd7058f5f53d38563817d7837b7a0541b15e7b6bcf0ca290ee: removing container 0e3da7bfb50c6d7fb4f92ea81c6470baa918abf7e06d577eca57c6c8f659200b root filesystem: 1 error occurred: * unlinkat /home/some26533dude/.local/share/containers/storage/overlay/0cf8c86cb0aa2c77d3bc9488ade58ca3cb56bc8183f98dc9090c822f58bc8192/merged: device or resource busy * removing container 4dabd961b7beefe2d9354d3ca3a6f3e298e4c4fe3fbf554d74938ef6b0115388 from pod 0c72f802ee245ebd7058f5f53d38563817d7837b7a0541b15e7b6bcf0ca290ee: a container that depends on container 4dabd961b7beefe2d9354d3ca3a6f3e298e4c4fe3fbf554d74938ef6b0115388 could not be removed: container state improper ``` All subsequent tests fail, sometimes with timeout, or with unmarshal errors, or with EBUSY. I'm like 99% sure that this is the same as #17042 (the &quot;crun: executable not found&quot;) flake, because it's happening in the same place and leaves the system hosed in a similar way, but it's easier to merge than to unmerge so I'm filing separately. Seen in [f37 remote rootless](https://api.cirrus-ci.com/v1/artifact/task/6639242789519360/html/sys-remote-fedora-37-rootless-host.log.html#t--00510).</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>252</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18532 from vrothberg/template [CI:DOCS] issue template: mention `su`</MESSAGE>
+    <SHA>d7f9ef253a7e80eafe09cb5eaf2e1e129ff18a8f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>system tests: instrument, to try to catch unlinkat-ebusy Several tweaks to see if we can track down #17216, the unlinkat-ebusy flake: - teardown(): if a cleanup command fails, display it and its output to the debug channel. This should never happen, but it can and does (see #18180, dependent containers). We need to know about it. - selinux tests: use unique pod names. This should help when scanning journal logs. - many tests: add &quot;-f -t0&quot; to &quot;pod rm&quot; And, several unrelated changes caught by accident: - images-commit-with-comment test: was leaving a stray image behind. Clean it up, and make a few more readability tweaks - podman-remote-group-add test: add an explicit skip() when not remote. (Otherwise, test passes cleanly on podman local, which is misleading) - lots of container cleanup and/or adding &quot;--rm&quot; to run commands, to avoid leaving stray containers Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>c33ba70f95c09b1f2c798138fa24e0d6a498dcf8</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/010-images.bats</FILE>
+        <FILE>test/system/170-run-userns.bats</FILE>
+        <FILE>test/system/410-selinux.bats</FILE>
+        <FILE>test/system/500-networking.bats</FILE>
+        <FILE>test/system/helpers.bash</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

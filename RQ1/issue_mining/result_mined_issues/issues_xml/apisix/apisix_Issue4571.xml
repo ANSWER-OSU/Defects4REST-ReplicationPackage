@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4571</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/4571</ISSUEURL>
+  <TITLE>bug: `Skywalking` plugin can not be enabled both in Global and Route rules.</TITLE>
+  <DESCRIPTION>### Issue description When`Skywalking` plugin is enabled both in Global and Route rules. The route will be failed. ``` curl: (52) Empty reply from server ``` ### Environment * apisix version (cmd: `apisix version`): 2.6 * OS (cmd: `uname -a`): centos 7 and docker ### Minimal test code / Steps to reproduce the issue Bug report without steps to reproduce will be ignored or closed. 1. Binding `skywalking` plugin in route ``` curl http://127.0.0.1:9080/apisix/admin/routes/1 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d ' { &quot;methods&quot;: [&quot;GET&quot;], &quot;uris&quot;: [ &quot;/*&quot; ], &quot;plugins&quot;: { &quot;skywalking&quot;: { &quot;sample_ratio&quot;: 1 } }, &quot;upstream&quot;: { &quot;type&quot;: &quot;roundrobin&quot;, &quot;nodes&quot;: { &quot;httpbin.org&quot;: 1 } } }' ``` 2. take a request ``` curl -i http://127.0.0.1:9080/ip HTTP/1.1 200 OK Content-Type: application/json Content-Length: 45 Connection: keep-alive Date: Fri, 09 Jul 2021 03:29:39 GMT Access-Control-Allow-Origin: * Access-Control-Allow-Credentials: true Server: APISIX/2.6 { &quot;origin&quot;: &quot;172.19.0.1, 58.208.180.202&quot; } ``` 3.Now add Global rule with `skywalking` plugin. ``` curl -X PUT \ http://127.0.0.1:9080/apisix/admin/global_rules/1 \ -H 'Content-Type: application/json' \ -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' \ -d '{ &quot;plugins&quot;: { &quot;skywalking&quot;: { &quot;sample_ratio&quot;:1 } } }' ``` 4. take a request ``` curl -iv http://127.0.0.1:9080/ip * Trying 127.0.0.1... * TCP_NODELAY set * Connected to 127.0.0.1 (127.0.0.1) port 9080 (#0) &gt; GET /ip HTTP/1.1 &gt; Host: 127.0.0.1:9080 &gt; User-Agent: curl/7.64.1 &gt; Accept: */* &gt; * Empty reply from server * Connection #0 to host 127.0.0.1 left intact curl: (52) Empty reply from server * Closing connection 0 ``` And the error log ``` 2021/07/09 03:37:03 [error] 45#45: *1029911 failed to run body_filter_by_lua*: /usr/local/apisix//deps/share/lua/5.1/skywalking/span.lua:196: attempt to index local 'span' (a nil value) stack traceback: /usr/local/apisix//deps/share/lua/5.1/skywalking/span.lua:196: in function 'setComponentId' /usr/local/apisix/apisix/plugins/skywalking.lua:94: in function 'phase_func' /usr/local/apisix/apisix/plugin.lua:689: in function 'run_plugin' /usr/local/apisix/apisix/init.lua:530: in function 'common_phase' /usr/local/apisix/apisix/init.lua:581: in function 'http_body_filter_phase' body_filter_by_lua:2: in main chunk while sending to client, client: 172.19.0.1, server: _, request: &quot;GET /ip HTTP/1.1&quot;, upstream: &quot;http://18.235.124.214:80/ip&quot;, host: &quot;127.0.0.1:9080&quot; 2021/07/09 03:37:03 [error] 45#45: *1029911 failed to run log_by_lua*: /usr/local/apisix//deps/share/lua/5.1/skywalking/span.lua:190: attempt to index field 'owner' (a nil value) stack traceback: /usr/local/apisix//deps/share/lua/5.1/skywalking/span.lua:190: in function 'finish' /usr/local/apisix//deps/share/lua/5.1/skywalking/tracer.lua:108: in function 'prepareForReport' /usr/local/apisix/apisix/plugins/skywalking.lua:104: in function 'phase_func' /usr/local/apisix/apisix/plugin.lua:689: in function 'run_plugin' /usr/local/apisix/apisix/init.lua:530: in function 'common_phase' /usr/local/apisix/apisix/init.lua:639: in function 'http_log_phase' log_by_lua(nginx.conf:268):2: in main chunk while logging request, client: 172.19.0.1, server: _, request: &quot;GET /ip HTTP/1.1&quot;, upstream: &quot;http://18.235.124.214:80/ip&quot;, host: &quot;127.0.0.1:9080&quot; ```</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: invalid discovery servers setting in config-default.yaml (#4584)</MESSAGE>
+    <SHA>59e9b41b1bde5d52f95380dce0bc5f5be34536c7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix(skywalking): handle conflict between global rule and route Fix #4571 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>b32e0279a5f9197350beb1919a6c52fc636893b6</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>apisix/plugin.lua</FILE>
+        <FILE>apisix/plugins/skywalking.lua</FILE>
+        <FILE>docs/en/latest/plugin-develop.md</FILE>
+        <FILE>docs/zh/latest/plugin-develop.md</FILE>
+        <FILE>t/plugin/skywalking.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(skywalking): handle conflict between global rule and route Fix #4571 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>55e500470f08612013350faeb6ccc2e9f8853e65</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>apisix/plugin.lua</FILE>
+        <FILE>apisix/plugins/skywalking.lua</FILE>
+        <FILE>docs/en/latest/plugin-develop.md</FILE>
+        <FILE>docs/zh/latest/plugin-develop.md</FILE>
+        <FILE>t/node/global-rule.t</FILE>
+        <FILE>t/plugin/skywalking.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(skywalking): handle conflict between global rule and route Fix #4571 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>e49fd24a50ae31f207d3ee29f7ade83c978c422f</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>apisix/plugin.lua</FILE>
+        <FILE>apisix/plugins/skywalking.lua</FILE>
+        <FILE>docs/en/latest/plugin-develop.md</FILE>
+        <FILE>docs/zh/latest/plugin-develop.md</FILE>
+        <FILE>t/plugin/skywalking.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(skywalking): handle conflict between global rule and route (#4589) Fix #4571 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>9bcca2c1f2677d934337ca40bec28923ba4aed43</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>apisix/plugin.lua</FILE>
+        <FILE>apisix/plugins/skywalking.lua</FILE>
+        <FILE>docs/en/latest/plugin-develop.md</FILE>
+        <FILE>docs/zh/latest/plugin-develop.md</FILE>
+        <FILE>t/plugin/skywalking.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

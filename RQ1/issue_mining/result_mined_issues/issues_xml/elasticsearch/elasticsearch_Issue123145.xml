@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>123145</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/123145</ISSUEURL>
+  <TITLE>[CI] ScaledFloatFieldMapperTests testBlockLoaderFromRowStrideReaderWithSyntheticSource failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6534 / almalinux-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/sk2nwugb3fo2e) - [elasticsearch-periodic-platform-support #6534 / ubuntu-2204_platform-support-unix](https://gradle-enterprise.elastic.co/s/sxusapgdiugna) - [elasticsearch-pull-request #58638 / part-1](https://gradle-enterprise.elastic.co/s/zvo2cttcwjv7g) - [elasticsearch-periodic-platform-support #6527 / ubuntu-2004-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/dbt5oyr63q4uu) **Reproduction Line:** ``` ./gradlew &quot;:modules:mapper-extras:test&quot; --tests &quot;org.elasticsearch.index.mapper.extras.ScaledFloatFieldMapperTests.testBlockLoaderFromRowStrideReaderWithSyntheticSource&quot; -Dtests.seed=E5E13908B62F9477 -Dtests.locale=yi-UA -Dtests.timezone=Asia/Bahrain -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.index.mapper.extras.ScaledFloatFieldMapperTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testBlockLoaderFromRowStrideReaderWithSyntheticSource),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected a list containing 0: &lt;-8.933042050316135E12&gt; 1: &lt;0.0896115628168132&gt; 2: expected &lt;0.45645296589868856&gt; but was &lt;0.4564529658986886&gt; ``` **Issue Reasons:** - [main] 2 consecutive failures in test testBlockLoaderFromRowStrideReaderWithSyntheticSource - [main] 4 failures in test testBlockLoaderFromRowStrideReaderWithSyntheticSource (1.6% fail rate in 245 executions) - [main] 2 failures in pipeline elasticsearch-periodic-platform-support (50.0% fail rate in 4 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[Inference API] Follow-up for add rerouting attributes PR (#123121)</MESSAGE>
+    <SHA>71f80c4213dc5e88ab9d57d3c14356b51efe629a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.index.mapper.extras.ScaledFloatFieldMapperTests testBlockLoaderFromRowStrideReaderWithSyntheticSource #123145</MESSAGE>
+      <SHA>b404a8b1f5ab5ea3ad3a60c8683689ef5acc032a</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

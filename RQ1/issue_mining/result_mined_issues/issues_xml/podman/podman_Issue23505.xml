@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23505</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23505</ISSUEURL>
+  <TITLE>machine ssh: remote host identification has changed</TITLE>
+  <DESCRIPTION>Noticed by accident in [machine-linux](https://api.cirrus-ci.com/v1/artifact/task/5066225183621120/html/machine-linux-podman-fedora-40-rootless-host-sqlite.log.html#t--podman-machine-ssh-ssh-to-running-machine-and-check-os-type--1) ``` [+0762s] podman machine ssh ssh to running machine and check os-type .... [+0765s] Image resized. Machine init complete Starting machine &quot;0326c9aaeb61&quot; [+0783s] This machine is currently configured in rootless mode. If your containers require root permissions (e.g. ports &lt; 1024), or if you run into compatibility issues with non-podman clients, you can switch using the following command: podman machine set --rootful 0326c9aaeb61 [+0785s] Mounting volume... /tmp/podman_test1724224437:/tmp/podman_test1724224437 [+0786s] API forwarding listening on: /tmp/podman_test1724224437/podman/0326c9aaeb61-api.sock You can connect Docker API clients by setting DOCKER_HOST using the following command in your terminal session: export DOCKER_HOST='unix:///tmp/podman_test1724224437/podman/0326c9aaeb61-api.sock' Machine &quot;0326c9aaeb61&quot; started successfully /var/tmp/go/src/github.com/containers/podman/bin/podman-remote machine ssh 0326c9aaeb61 cat /etc/os-release @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! @ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY! ```</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23603 from containers/renovate/github.com-docker-docker-27.x Update module github.com/docker/docker to v27.1.2+incompatible</MESSAGE>
+    <SHA>663833745389645823acf10362a098d73f9dd024</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix known_hosts file clogging and remote host id By enabling UserKnownHostsFile=/dev/null, and CheckHostIP=no options to the defaults we prevent the user from adding the host key multiple times and from flakes that can raise Remote Host Id change. Resolves: https://github.com/containers/podman/issues/23505 Signed-off-by: Nicola Sella &lt;nsella@redhat.com&gt;</MESSAGE>
+      <SHA>6b1c7de3d59c1e96778b074b1b1647c2d4499400</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/machine/ssh.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

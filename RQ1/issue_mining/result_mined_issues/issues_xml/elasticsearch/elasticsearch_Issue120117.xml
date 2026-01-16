@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120117</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120117</ISSUEURL>
+  <TITLE>[CI] RepositoryS3MinioBasicCredentialsRestIT class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #15794 / part1](https://gradle-enterprise.elastic.co/s/fk6zvpopjhwfk) - [elasticsearch-periodic-platform-support #5849 / ubuntu-2404-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/tphhjc7jky5qs) - [elasticsearch-periodic-platform-support #5849 / ubuntu-1804_platform-support-unix](https://gradle-enterprise.elastic.co/s/42ilye2ctr7po) - [elasticsearch-periodic-platform-support #5844 / ubuntu-2404-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/4pnypbmzbu6cq) - [elasticsearch-intake #15767 / part1](https://gradle-enterprise.elastic.co/s/5h3pyj5yq33t2) - [elasticsearch-intake #15765 / part1](https://gradle-enterprise.elastic.co/s/zsj2mkmc5wxqk) - [elasticsearch-periodic #5850 / openjdk17_checkpart1_java-fips-matrix](https://gradle-enterprise.elastic.co/s/v4xnrk3y6wl3u) - [elasticsearch-periodic #5850 / openjdk23_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/7brua4wtiiq3e) - [elasticsearch-periodic #5850 / graalvm-ce17_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/jscsjagzfie46) - [elasticsearch-periodic-platform-support #5839 / almalinux-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/kibsrx3erovh2) **Reproduction Line:** ``` undefined ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.repositories.s3.RepositoryS3MinioBasicCredentialsRestIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.repositories.s3.RepositoryS3MinioBasicCredentialsRestIT),title:'Test',type:optionsListControl))))) **Failure Message:** ``` undefined ``` **Issue Reasons:** - [8.x] 2 consecutive failures in step ubuntu-2404-aarch64_checkpart1_platform-support-arm - [8.x] 10 failures in class org.elasticsearch.repositories.s3.RepositoryS3MinioBasicCredentialsRestIT (8.4% fail rate in 119 executions) - [8.x] 3 failures in step part1 (13.0% fail rate in 23 executions) - [8.x] 2 failures in step ubuntu-2404-aarch64_checkpart1_platform-support-arm (66.7% fail rate in 3 executions) - [8.x] 3 failures in pipeline elasticsearch-intake (13.0% fail rate in 23 executions) - [8.x] 3 failures in pipeline elasticsearch-periodic-platform-support (75.0% fail rate in 4 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.repositories.s3.S3RepositoryThirdPartyTests org.elasticsearch.repositories.s3.S3RepositoryThirdPartyTests #120115</MESSAGE>
+    <SHA>a7d831e3009cc2fc2170e73861577e5fd18a4dd7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.repositories.s3.RepositoryS3MinioBasicCredentialsRestIT org.elasticsearch.repositories.s3.RepositoryS3MinioBasicCredentialsRestIT #120117</MESSAGE>
+      <SHA>c638f746763733532e3c9db018ea72916955ac3a</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.repositories.s3.RepositoryS3MinioBasicCredentialsRestIT org.elasticsearch.repositories.s3.RepositoryS3MinioBasicCredentialsRestIT #120117</MESSAGE>
+      <SHA>d3c31d94b0ba846ec2cc9d9c7886152eb6532aca</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.repositories.s3.RepositoryS3MinioBasicCredentialsRestIT org.elasticsearch.repositories.s3.RepositoryS3MinioBasicCredentialsRestIT #120117</MESSAGE>
+      <SHA>b57ef87c7e5145b55f832e54be5e0e171a11e75f</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Test] Fix testcontainers wait for Minio This PR changes the wait strategy from the default HostPortWaitStrategy to LogMessageWaitStrategy to accommodate the change in the latest Minio docker image. The default HostPortWaitStrategy has two issues: 1. It assumes certain Linux commands such as grep and nc available inside the container. This is not the case for the latest version of Minio docker image which does not have either of the commands. 2. The first item on their own is not fatal since the check also falls back on just reading the listening port as a file with `/bin/bash -c '&lt;/dev/tcp/localhost/9000'`. However, the command stirng is build using the system's current locale which may not be Engilsh and can have different symbols for print integers like 9000. This completely breaks the command and in turn leads to total failure of the wait check. There is no easy fix for the above issues nor do I think it is necessary to fix. So the PR simply switches the wait strategy to be log message based. Resolves: #118548 Resolves: #120115 Resolves: #120117 Resolves: #120101</MESSAGE>
+      <SHA>efca1c6b35c8b73ee2936749679190bd749a81db</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>test/fixtures/minio-fixture/src/main/java/org/elasticsearch/test/fixtures/minio/MinioTestContainer.java</FILE>
+        <FILE>x-pack/plugin/snapshot-repo-test-kit/qa/minio/build.gradle</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.repositories.s3.RepositoryS3MinioBasicCredentialsRestIT org.elasticsearch.repositories.s3.RepositoryS3MinioBasicCredentialsRestIT #120117</MESSAGE>
+      <SHA>e39937bd29aa2448cd6f6cb75f0abbc8dbf2ad96</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Test] Fix testcontainers wait for Minio (#120175) This PR changes the wait strategy from the default HostPortWaitStrategy to LogMessageWaitStrategy to accommodate the change in the latest Minio docker image. The default HostPortWaitStrategy has two issues: 1. It assumes certain Linux commands such as grep and nc available inside the container. This is not the case for the latest version of Minio docker image which does not have either of the commands. 2. The first item on their own is not fatal since the check also falls back on just reading the listening port as a file with `/bin/bash -c '&lt;/dev/tcp/localhost/9000'`. However, the command stirng is build using the system's current locale which may not be Engilsh and can have different symbols for print integers like 9000. This completely breaks the command and in turn leads to total failure of the wait check. There is no easy fix for the above issues nor do I think it is necessary to fix. So the PR simply switches the wait strategy to be log message based. Resolves: #120101 Resolves: #120115 Resolves: #120117 Resolves: #118548</MESSAGE>
+      <SHA>7f3e7773d692813b506a3d13a31d0e70e55d20b4</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>test/fixtures/minio-fixture/src/main/java/org/elasticsearch/test/fixtures/minio/MinioTestContainer.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Test] Fix testcontainers wait for Minio (#120175) This PR changes the wait strategy from the default HostPortWaitStrategy to LogMessageWaitStrategy to accommodate the change in the latest Minio docker image. The default HostPortWaitStrategy has two issues: 1. It assumes certain Linux commands such as grep and nc available inside the container. This is not the case for the latest version of Minio docker image which does not have either of the commands. 2. The first item on their own is not fatal since the check also falls back on just reading the listening port as a file with `/bin/bash -c '&lt;/dev/tcp/localhost/9000'`. However, the command stirng is build using the system's current locale which may not be Engilsh and can have different symbols for print integers like 9000. This completely breaks the command and in turn leads to total failure of the wait check. There is no easy fix for the above issues nor do I think it is necessary to fix. So the PR simply switches the wait strategy to be log message based. Resolves: #120101 Resolves: #120115 Resolves: #120117 Resolves: #118548 (cherry picked from commit 7f3e7773d692813b506a3d13a31d0e70e55d20b4) # Conflicts: # muted-tests.yml</MESSAGE>
+      <SHA>df59dfe4d27cf9d0a72a3f80ca997d8c6e062836</SHA>
+      <PATCHEDFILES>
+        <FILE>test/fixtures/minio-fixture/src/main/java/org/elasticsearch/test/fixtures/minio/MinioTestContainer.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[8.x] [Test] Fix testcontainers wait for Minio (#120175) (#120338) * [Test] Fix testcontainers wait for Minio (#120175) This PR changes the wait strategy from the default HostPortWaitStrategy to LogMessageWaitStrategy to accommodate the change in the latest Minio docker image. The default HostPortWaitStrategy has two issues: 1. It assumes certain Linux commands such as grep and nc available inside the container. This is not the case for the latest version of Minio docker image which does not have either of the commands. 2. The first item on their own is not fatal since the check also falls back on just reading the listening port as a file with `/bin/bash -c '&lt;/dev/tcp/localhost/9000'`. However, the command stirng is build using the system's current locale which may not be Engilsh and can have different symbols for print integers like 9000. This completely breaks the command and in turn leads to total failure of the wait check. There is no easy fix for the above issues nor do I think it is necessary to fix. So the PR simply switches the wait strategy to be log message based. Resolves: #120101 Resolves: #120115 Resolves: #120117 Resolves: #118548 (cherry picked from commit 7f3e7773d692813b506a3d13a31d0e70e55d20b4) # Conflicts: # muted-tests.yml * unmute</MESSAGE>
+      <SHA>d0080ceaa31ca0aaff291b2aa6f7b7e89eb8ff97</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>test/fixtures/minio-fixture/src/main/java/org/elasticsearch/test/fixtures/minio/MinioTestContainer.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

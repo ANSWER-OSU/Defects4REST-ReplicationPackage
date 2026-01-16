@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3451</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3451</ISSUEURL>
+  <TITLE>Running nopCommerce in Web Farm Does Not Update installedPlugins.json Properly</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.1 Steps to reproduce the problem: 1. Install nopCommerce on two web servers and configure to point to the same DB. 2. Install a plugin - the installedPlugins.json will be updated to include the name of this plugin on the server for which you are connected. Note: the second web server still has the original installedPlugins.json with the original list of installed plug-ins prior to step #2. Looking for a workaround/solution as well as any other issues running nopCommerce in a web farm.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>121</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue-3475-Cache-key-clear-process-can-consume-too-many-cpu' into develop # Conflicts: # src/Libraries/Nop.Services/Tax/NopTaxDefaults.cs # src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ServiceCollectionExtensions.cs # src/Tests/Nop.Services.Tests/Orders/OrderProcessingServiceTests.cs # src/Tests/Nop.Services.Tests/Shipping/ShippingServiceTests.cs</MESSAGE>
+    <SHA>a4c8243699f11e4db2f0e6a65bc169425cb3238c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3451. Use redise to store plugins info data</MESSAGE>
+      <SHA>f19df44102d75a7cff5ec6b6d01a5fa485eb7eff</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Caching/RedisCacheManager.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Configuration/NopConfig.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Redis/IRedisConnectionWrapper.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Redis/RedisConnectionWrapper.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Redis/RedisDatabaseNumber.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Plugins/IPluginsInfo.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Plugins/PluginService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Plugins/PluginsInfo.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Plugins/RedisPluginsInfo.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/DependencyRegistrar.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ApplicationPartManagerExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ServiceCollectionExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/SettingController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/appsettings.json</FILE>
+        <FILE>src/Tests/Nop.Services.Tests/ServiceTest.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

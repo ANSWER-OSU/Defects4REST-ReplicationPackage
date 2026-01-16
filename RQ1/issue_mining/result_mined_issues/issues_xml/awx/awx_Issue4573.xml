@@ -1,0 +1,156 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4573</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/4573</ISSUEURL>
+  <TITLE>CLI: Need general solution for dictionary-like inputs</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY &lt;!-- Briefly describe the problem. --&gt; This is a general problem but I'm going to flesh out one particular use case for now: Currently, credential type creation does not accept inputs. New credential types need to have some kind of inputs in order to be of any use. Currently the CLI and APi have conflicting constraints on the `--inputs` flag so there is no way to pass it....at least not that I could figure out. ##### STEPS TO REPRODUCE &lt;!-- Please describe exactly how to reproduce the problem. --&gt; Passing any type of dictionary like thing gets an error from the CLI saying it should be an integer: ``` awx credential_types create --name foo_cred_type1 --kind cloud --inputs=&quot;\{'fields': [\{'id': 'password', 'label':'password', 'secret':true, 'type':'string'\}]\}&quot; usage: awx credential_types create [-h] --name TEXT [--description TEXT] --kind {net,cloud} [--inputs INPUTS] [--injectors INJECTORS] required arguments: --kind {net,cloud} [REQUIRED] optional arguments: -h, --help show this help message and exit --description TEXT Optional description of this credential type. --inputs INPUTS Enter inputs using either JSON or YAML syntax. Use the radio button to toggle between the two. Refer to the Ansible Tower documentation for example syntax. --injectors INJECTORS Enter injectors using either JSON or YAML syntax. Use the radio button to toggle between the two. Refer to the Ansible Tower documentation for example syntax. required arguments: --name TEXT [REQUIRED] Name of this credential type. awx credential_types create: argument --inputs: invalid int value: &quot;\\{'fields': [\\{'id': 'password', 'label':'password', 'secret':true, 'type':'string'\\}]\\}&quot; ``` But if you pass an integer (which makes no sense), you get error from API: ``` awx credential_types create --name foo_cred_type1 --kind cloud --inputs=42 {&quot;inputs&quot;: [&quot;int provided, expected dict&quot;]} ``` ##### EXPECTED RESULTS &lt;!-- What did you expect to happen when running the steps above? --&gt; Either have reasonable way provide `inputs` to the new credential_type or do not allow creation from command line. This is something we need to consider what a reasonable UX would be for specifying the new credential type inputs.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #4596 from ryanpetrello/fix-cli-required-args cli: fix a few bugs related to required OPTIONS Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>9e849ad3e6f188f0cbbb0ac0abcac72a74e13899</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>improve parsing of JSON inputs see: https://github.com/ansible/awx/issues/4573 see: https://github.com/ansible/awx/issues/2371</MESSAGE>
+      <SHA>c6d8e382e90459ae705f3053e837a06de0b67b68</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/metadata.py</FILE>
+        <FILE>awx/main/models/base.py</FILE>
+        <FILE>awx/main/models/inventory.py</FILE>
+        <FILE>awx/main/models/jobs.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>improve parsing of JSON inputs see: https://github.com/ansible/awx/issues/4573 see: https://github.com/ansible/awx/issues/2371</MESSAGE>
+      <SHA>07c79e83c4940d5d6bc442342d5ed9a7937f568f</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/metadata.py</FILE>
+        <FILE>awx/main/models/base.py</FILE>
+        <FILE>awx/main/models/inventory.py</FILE>
+        <FILE>awx/main/models/jobs.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>improve parsing of JSON inputs see: https://github.com/ansible/awx/issues/4573 see: https://github.com/ansible/awx/issues/2371</MESSAGE>
+      <SHA>2e6127fbb2755b19208f72bbdb5b139002a77f63</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/metadata.py</FILE>
+        <FILE>awx/main/models/base.py</FILE>
+        <FILE>awx/main/models/inventory.py</FILE>
+        <FILE>awx/main/models/jobs.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>improve parsing of JSON inputs see: https://github.com/ansible/awx/issues/4573 see: https://github.com/ansible/awx/issues/2371</MESSAGE>
+      <SHA>51c9e1890be2f36f344b178077b473462b3b57b3</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/metadata.py</FILE>
+        <FILE>awx/main/models/activity_stream.py</FILE>
+        <FILE>awx/main/models/base.py</FILE>
+        <FILE>awx/main/models/inventory.py</FILE>
+        <FILE>awx/main/models/jobs.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>improve parsing of JSON inputs see: https://github.com/ansible/awx/issues/4573 see: https://github.com/ansible/awx/issues/2371</MESSAGE>
+      <SHA>50ef94b80058cb93f629550e8682fddf3392cd6a</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/metadata.py</FILE>
+        <FILE>awx/main/models/activity_stream.py</FILE>
+        <FILE>awx/main/models/base.py</FILE>
+        <FILE>awx/main/models/inventory.py</FILE>
+        <FILE>awx/main/models/jobs.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>improve parsing of JSON inputs see: https://github.com/ansible/awx/issues/4573 see: https://github.com/ansible/awx/issues/2371</MESSAGE>
+      <SHA>a99f6a3f9d54f0a86d9abc7f7904e8ffec2a1c2a</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/metadata.py</FILE>
+        <FILE>awx/main/models/activity_stream.py</FILE>
+        <FILE>awx/main/models/base.py</FILE>
+        <FILE>awx/main/models/inventory.py</FILE>
+        <FILE>awx/main/models/jobs.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>improve parsing of JSON inputs see: https://github.com/ansible/awx/issues/4573 see: https://github.com/ansible/awx/issues/2371</MESSAGE>
+      <SHA>32cda6bf316cf1c83cb9d6cbbfca7ece51a3c241</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/metadata.py</FILE>
+        <FILE>awx/main/models/activity_stream.py</FILE>
+        <FILE>awx/main/models/base.py</FILE>
+        <FILE>awx/main/models/inventory.py</FILE>
+        <FILE>awx/main/models/jobs.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>improve parsing of JSON inputs see: https://github.com/ansible/awx/issues/4573 see: https://github.com/ansible/awx/issues/2371</MESSAGE>
+      <SHA>976a87ef11642925c0948f38a361efc68919998b</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/metadata.py</FILE>
+        <FILE>awx/main/models/activity_stream.py</FILE>
+        <FILE>awx/main/models/base.py</FILE>
+        <FILE>awx/main/models/inventory.py</FILE>
+        <FILE>awx/main/models/jobs.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>improve parsing of JSON inputs see: https://github.com/ansible/awx/issues/4573 see: https://github.com/ansible/awx/issues/2371</MESSAGE>
+      <SHA>3b9bb2c771fd88352fb05d86a94d5ce09fe0defe</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/metadata.py</FILE>
+        <FILE>awx/main/models/activity_stream.py</FILE>
+        <FILE>awx/main/models/base.py</FILE>
+        <FILE>awx/main/models/inventory.py</FILE>
+        <FILE>awx/main/models/jobs.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>improve parsing of JSON inputs see: https://github.com/ansible/awx/issues/4573 see: https://github.com/ansible/awx/issues/2371</MESSAGE>
+      <SHA>ce4288784d569dbcd51401812ff5197dede60ee9</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/metadata.py</FILE>
+        <FILE>awx/main/models/__init__.py</FILE>
+        <FILE>awx/main/models/activity_stream.py</FILE>
+        <FILE>awx/main/models/base.py</FILE>
+        <FILE>awx/main/models/inventory.py</FILE>
+        <FILE>awx/main/models/jobs.py</FILE>
+        <FILE>awx/main/models/workflow.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>improve parsing of JSON inputs see: https://github.com/ansible/awx/issues/4573 see: https://github.com/ansible/awx/issues/2371</MESSAGE>
+      <SHA>f22adca6f70bc094d2849b945360e62b04583d15</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/metadata.py</FILE>
+        <FILE>awx/main/models/__init__.py</FILE>
+        <FILE>awx/main/models/activity_stream.py</FILE>
+        <FILE>awx/main/models/base.py</FILE>
+        <FILE>awx/main/models/inventory.py</FILE>
+        <FILE>awx/main/models/jobs.py</FILE>
+        <FILE>awx/main/models/workflow.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #4573 from ryanpetrello/backport-rrule-bugfix-373 fix an rrule bug that causes improper HOURLY/MINUTELY calculation</MESSAGE>
+      <SHA>af10a0de9f17aff5a37c1fb4d2a0d71006a3cdf8</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/models/schedules.py</FILE>
+        <FILE>awx/main/tests/functional/models/test_schedule.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

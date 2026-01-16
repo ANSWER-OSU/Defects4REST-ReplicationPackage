@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23756</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23756</ISSUEURL>
+  <TITLE>rootFsSize changing on a created (not running) container?</TITLE>
+  <DESCRIPTION>``` not ok 162 |090| events - container inspect data - journald in 6871ms .... SizeRootFs: 11762614 -&gt; 11761590 ``` In parallel tests. Only one instance, [f39 root](https://api.cirrus-ci.com/v1/artifact/task/5793292044992512/html/sys-podman-fedora-39-root-host-boltdb.log.html#t--00162p). Feel free to verify for yourself that `SizeRootFs` is the only diff. I'm having trouble understanding how this can happen. `rootFsSize()`[1] is image size + container size. A created container should not change size. Can the image? `podman tag existingimage newname` does not change the size of `existingimage`. Is there some other action that could? Note that load/save tests are not parallelizable. [1] https://github.com/containers/podman/blob/d04f0d2802832dfbe47a29f592fc023e7df70607/libpod/container_internal.go#L70 Almost certainly this needs to be addressed in the test, not in podman, but I'd like to understand it first.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>50</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #24194 from lambinoo/quadlet-disable-default-dependencies Allow removing implicit quadlet systemd dependencies</MESSAGE>
+    <SHA>5890190c59921f5a4571f9fd6fe20f6f6bcae1b4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>CI: quadlet system tests: use airgapped testimage This command sequence causes SizeRootFs to change on foo: podman tag foo newimagename podman save ... newimagename podman load ... Solution: get foo completely out of the picture. Use an airgapped image: new image, new digest, new everything. Fixes: #23756 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>38803713d6d281b3a5c3cff0098f1a7c3a8168df</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/252-quadlet.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>CI: fix changing-rootFsSize flake (Second try). Use an airgapped image in the inspect-data tests. Fixes: #23756 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>1b57dcab6182f9ab4156c0132128072e1404e33a</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/090-events.bats</FILE>
+        <FILE>test/system/252-quadlet.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

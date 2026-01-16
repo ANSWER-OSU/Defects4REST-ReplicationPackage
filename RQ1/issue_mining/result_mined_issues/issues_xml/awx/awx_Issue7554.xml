@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7554</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/7554</ISSUEURL>
+  <TITLE>tower_workflow_job_template module not idempotent when defining survey</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY The module tower_workflow_job_template always returns changed if survey_enabled and survey parameters are defined. ##### ENVIRONMENT * AWX version: 13.0.0 * AWX install method: docker on linux * Ansible version: 2.9.7 * Operating System: linux * Web Browser: chrome ##### STEPS TO REPRODUCE Execute tower_workflow_job_template module various times: ```- name: Workflow Job Template awx.awx.tower_workflow_job_template: name: Workflow Job Template organization: Default inventory: Default survey_enabled: yes survey: name: &quot;Workflow Job Template&quot; description: &quot;Workflow Job Template&quot; spec: - required: true min: 0 default: '' max: 1024 question_description: '' choices: '' new_question: true variable: input question_name: input type: text ``` ##### EXPECTED RESULTS After first run which creates the Workflow Job Template the following runs should return changed=false. ##### ACTUAL RESULTS All runs of the task return changed=true. After removing survey_enabled and survey parameters the result is as expected. ##### ADDITIONAL INFORMATION &lt;!-- Include any links to sosreport, database dumps, screenshots or other information. --&gt;</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>324</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #10034 from akus062381/add-locators-template-list-jsx add ouiaId to toolbar delete button In working on fixing a broken e2e test, I discovered an element that needed a better locator in order to allow testability. Reviewed-by: Alex Corey &lt;Alex.swansboro@gmail.com&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+    <SHA>cd6e8969d536d9188f71d5bde8ef4c39304fd1e7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #10035 from sean-m-sullivan/survey_idempotent Make Workflow Surveys Idempotent SUMMARY Update the Workflow survey check to be in line with job template check. Resolving issue #7554 Found that it was returning json/status_code, and needed to reference json output. ISSUE TYPE Bugfix Pull Request COMPONENT NAME awx_collection AWX VERSION 19.0.0 Reviewed-by: Bianca Henderson &lt;beeankha@gmail.com&gt;</MESSAGE>
+      <SHA>24a903142aa62573522e8b2338e87cb1b5a6dabb</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/plugins/modules/tower_workflow_job_template.py</FILE>
+        <FILE>awx_collection/tests/integration/targets/tower_workflow_job_template/tasks/main.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

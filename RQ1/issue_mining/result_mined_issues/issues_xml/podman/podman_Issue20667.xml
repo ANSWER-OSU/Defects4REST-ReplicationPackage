@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20667</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/20667</ISSUEURL>
+  <TITLE>Quadlet: pod fails to start, but unit is reported as online</TITLE>
+  <DESCRIPTION>### Issue Description I have a Quadlet unit which starts a pod (for Traefik). The Pod's spec contains a `port` which binds to a specific network interface on the host. Sometimes, systemd tries to start the Quadlet unit even though the network interface isn't yet ready. The pod fails to start, but systemd reports that the unit is active anyways. Because systemd reports the unit as active, it is not restarted automatically. ### Steps to reproduce the issue 1. Create a Kubernetes unit with a port that binds to a specific network interface 2. While the network interface isn't ready, start the systemd unit 3. The pod fails to start, but the unit is reported as active ### Describe the results you received Output of `systemctl status traefik.service`: ``` ● traefik.service - Traefik service Loaded: loaded (/etc/containers/systemd/traefik.kube; generated) Drop-In: /usr/lib/systemd/system/service.d └─10-timeout-abort.conf Active: active (running) since Sun 2023-11-12 18:39:16 UTC; 4h 43min ago Main PID: 1223 (conmon) Tasks: 1 (limit: 18798) Memory: 2.4M CPU: 571ms CGroup: /system.slice/traefik.service └─1223 /usr/bin/conmon --api-version 1 -c 3ea92eda1f949d138d4163ee3560e685430d584309d51ac26e627edce5b77760 -u 3ea92eda1f949d138d4163ee3560e685430d584309d51ac26e627edce5b77760 -r /usr/bin/crun -b /var/lib/containers/storage/overlay-containers/3ea92eda1f949d138d4163ee3560e685430d584309d51ac26e627edce5b77760/userdata -p /run/containers/storage/overlay-containers/3ea92eda1f949d138d4163ee3560e685430d584309d51ac26e627edce5b77760/userdata/pidfile -n e099b62746ef-service --exit-dir /run/libpod/exits --full-attach -s -l k8s-file:/var/lib/containers/storage/overlay-containers/3ea92eda1f949d138d4163ee3560e685430d584309d51ac26e627edce5b77760/userdata/ctr.log --log-level warning --syslog --runtime-arg --log-format=json --runtime-arg --log --runtime-arg=/run/containers/storage/overlay-containers/3ea92eda1f949d138d4163ee3560e685430d584309d51ac26e627edce5b77760/userdata/oci-log --conmon-pidfile /run/containers/storage/overlay-containers/3ea92eda1f949d138d4163ee3560e685430d584309d51ac26e627edce5b77760/userdata/conmon.pid --exit-command /usr/bin/podman --exit-command-arg --root --exit-command-arg /var/lib/containers/storage --exit-command-arg --runroot --exit-command-arg /run/containers/storage --exit-command-arg --log-level --exit-command-arg warning --exit-command-arg --cgroup-manager --exit-command-arg systemd --exit-command-arg --tmpdir --exit-command-arg /run/libpod --exit-command-arg --network-config-dir --exit-command-arg &quot;&quot; --exit-command-arg --network-backend --exit-command-arg netavark --exit-command-arg --volumepath --exit-command-arg /var/lib/containers/storage/volumes --exit-command-arg --db-backend --exit-command-arg boltdb --exit-command-arg --transient-store=false --exit-command-arg --runtime --exit-command-arg crun --exit-command-arg --storage-driver --exit-command-arg overlay --exit-command-arg --storage-opt --exit-command-arg overlay.mountopt=nodev,metacopy=on --exit-command-arg --events-backend --exit-command-arg journald --exit-command-arg container --exit-command-arg cleanup --exit-command-arg 3ea92eda1f949d138d4163ee3560e685430d584309d51ac26e627edce5b77760 Nov 12 18:39:16 pistacchio traefik[1052]: Pod: Nov 12 18:39:16 pistacchio traefik[1052]: db62e6224ebd58bda991eb4d118ed4eb80fe2a1e938ac2447cb0ac091084f766 Nov 12 18:39:16 pistacchio traefik[1052]: Containers: Nov 12 18:39:16 pistacchio traefik[1052]: f3970a296e8a731c652692aba704e06804bc0ace01cbe13bf62c945224a8a6b7 Nov 12 18:39:16 pistacchio traefik[1052]: 2d4a37c9bc108da06af13d3b34252994cf57b4b282cc6a4e5fe0caa2dfb2d52e Nov 12 18:39:16 pistacchio traefik[1052]: starting container 61dfa2529de56741a870b6fcdc154723b7c079c9b11de8e1c5809df347cbfafe: cannot listen on the TCP port: listen tcp4 xx.xx.xx.xx:80: bind: cannot assign requested address Nov 12 18:39:16 pistacchio traefik[1052]: starting container 2d4a37c9bc108da06af13d3b34252994cf57b4b282cc6a4e5fe0caa2dfb2d52e: a dependency of container 2d4a37c9bc108da06af13d3b34252994cf57b4b282cc6a4e5fe0caa2dfb2d52e failed to start: container state improper Nov 12 18:39:16 pistacchio traefik[1052]: starting container f3970a296e8a731c652692aba704e06804bc0ace01cbe13bf62c945224a8a6b7: a dependency of container f3970a296e8a731c652692aba704e06804bc0ace01cbe13bf62c945224a8a6b7 failed to start: container state improper Nov 12 18:39:16 pistacchio traefik[1052]: Error: failed to start 3 containers Nov 12 18:39:16 pistacchio systemd[1]: Started traefik.service - Traefik service. ``` ### Describe the results you expected If the pod fails to start, the unit should be in a failed state, so systemd can try restarting the pod. ### podman info output ```yaml - podman version 4.7.0 - Fedora CoreOS Stable amd64 (current version: 38.20231027.3.2) - Systemd version 253.12-1.fc38 ``` ### Podman in a container No ### Privileged Or Rootless Privileged ### Upstream Latest Release No ### Additional environment details _No response_ ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>478</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>kube play: don't print start errors twice It is very bad practise to print to stdout in our backend code without nay real context. The exact same error message is returned to the caller and printed in the cli frontend hwere it should be. Therefore drop this print as it is redundant. Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+    <SHA>15f94bd5337905e1cca5a004a487349ce9666ac2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>quadlet kube: correctly mark unit as failed When no contianers could be started we need to make sure the unit status reflects this. This means we should not send the READ=1 message and not keep the service container running when we were unable to start any container. There is the question what should happen when only a subset was started. For systemd we can only be either running or failed. And as podman kube play also just keeps the partial started pods running I opted to let systemd keep considering this as success. Fixes #20667 Fixes https://issues.redhat.com/browse/RHEL-80471 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>b6cabebf19ec624f5a1932bf46b87e49696de149</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/infra/abi/play.go</FILE>
+        <FILE>test/system/252-quadlet.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>quadlet kube: correctly mark unit as failed When no contianers could be started we need to make sure the unit status reflects this. This means we should not send the READ=1 message and not keep the service container running when we were unable to start any container. There is the question what should happen when only a subset was started. For systemd we can only be either running or failed. And as podman kube play also just keeps the partial started pods running I opted to let systemd keep considering this as success. Fixes #20667 Fixes https://issues.redhat.com/browse/RHEL-80471 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>e3778881da6fafd45e329e92ca5c7e3d0109b50f</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/infra/abi/play.go</FILE>
+        <FILE>test/system/252-quadlet.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>quadlet kube: correctly mark unit as failed When no containers could be started we need to make sure the unit status reflects this. This means we should not send the READ=1 message and not keep the service container running when we were unable to start any container. There is the question what should happen when only a subset was started. For systemd we can only be either running or failed. And as podman kube play also just keeps the partial started pods running I opted to let systemd keep considering this as success. Fixes #20667 Fixes https://issues.redhat.com/browse/RHEL-80471 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>68c31df5c73e958c75555b738165647a0b8280c2</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/infra/abi/play.go</FILE>
+        <FILE>test/system/252-quadlet.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>quadlet kube: correctly mark unit as failed When no containers could be started we need to make sure the unit status reflects this. This means we should not send the READ=1 message and not keep the service container running when we were unable to start any container. There is the question what should happen when only a subset was started. For systemd we can only be either running or failed. And as podman kube play also just keeps the partial started pods running I opted to let systemd keep considering this as success. Fixes #20667 Fixes https://issues.redhat.com/browse/RHEL-80471 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>bacab640ca5ca169e6998cfe699c1bdb74f6e044</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/infra/abi/play.go</FILE>
+        <FILE>test/system/252-quadlet.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>quadlet kube: correctly mark unit as failed When no containers could be started we need to make sure the unit status reflects this. This means we should not send the READ=1 message and not keep the service container running when we were unable to start any container. There is the question what should happen when only a subset was started. For systemd we can only be either running or failed. And as podman kube play also just keeps the partial started pods running I opted to let systemd keep considering this as success. Fixes #20667 Fixes https://issues.redhat.com/browse/RHEL-80471 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>945aade38b3d323803270276413dabd717d5cf89</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/infra/abi/play.go</FILE>
+        <FILE>test/system/252-quadlet.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>quadlet kube: correctly mark unit as failed When no containers could be started we need to make sure the unit status reflects this. This means we should not send the READ=1 message and not keep the service container running when we were unable to start any container. There is the question what should happen when only a subset was started. For systemd we can only be either running or failed. And as podman kube play also just keeps the partial started pods running I opted to let systemd keep considering this as success. Fixes #20667 Fixes https://issues.redhat.com/browse/RHEL-80471 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>5327df1921c9476af15ef38ebcddea69a32d74c7</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/infra/abi/play.go</FILE>
+        <FILE>test/system/252-quadlet.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>quadlet kube: correctly mark unit as failed When no containers could be started we need to make sure the unit status reflects this. This means we should not send the READ=1 message and not keep the service container running when we were unable to start any container. There is the question what should happen when only a subset was started. For systemd we can only be either running or failed. And as podman kube play also just keeps the partial started pods running I opted to let systemd keep considering this as success. Fixes #20667 Fixes https://issues.redhat.com/browse/RHEL-80471 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>e71413fd39313fa1d877707ccad51a38e8feb919</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/infra/abi/play.go</FILE>
+        <FILE>test/system/252-quadlet.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8424</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/8424</ISSUEURL>
+  <TITLE>Unified apisix/core/vault.lua and apisix/secret/vault.lua</TITLE>
+  <DESCRIPTION>### Description `apisix/secret/vault.lua` was introduced in https://github.com/apache/apisix/pull/8412. Functions currently in [apisix/secret/vault.lua](https://github.com/apache/apisix/blob/master/apisix/secret/vault.lua) are copied from [apisix/core/vault.lua](https://github.com/apache/apisix/blob/master/apisix/core/vault.lua). The functions in `apisix/core/vault.lua` are only used in the `jwt-auth` plugin to save the jwt key, so it is not appropriate to put vault-related functions in the core module. We need to unify them. The kms component has more comprehensive key management functions and is more versatile, so we should make the following adjustments: 1. Use the vault function provided by the kms component to replace the vault-related functions in the jwt-auth plugin. This will introduce a break change due to changes in configuration. 2. Delete the `apisix/core/vault.lua` file.</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>61</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: stream subsystem support consul_kv service discovery (#8633) Fixes https://github.com/apache/apisix/issues/7779</MESSAGE>
+    <SHA>fab68d7c23a7ce11260dac5018a54ae185a633c8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>change(jwt-auth): unify apisix/core/vault.lua and apisix/secret/vault.lua (#8660) Fixes https://github.com/apache/apisix/issues/8424</MESSAGE>
+      <SHA>c8d5afb5b02a800bb3f7090bc5adb1d26e281d53</SHA>
+      <PATCHEDFILES>
+        <FILE>README.md</FILE>
+        <FILE>apisix/core/vault.lua</FILE>
+        <FILE>apisix/plugins/jwt-auth.lua</FILE>
+        <FILE>apisix/secret/vault.lua</FILE>
+        <FILE>conf/config-default.yaml</FILE>
+        <FILE>docs/en/latest/getting-started.md</FILE>
+        <FILE>docs/en/latest/plugins/jwt-auth.md</FILE>
+        <FILE>docs/zh/latest/getting-started.md</FILE>
+        <FILE>docs/zh/latest/plugins/jwt-auth.md</FILE>
+        <FILE>t/plugin/jwt-auth-vault.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

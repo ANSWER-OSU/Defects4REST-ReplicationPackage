@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>29</ISSUENO>
+  <ISSUEURL>https://github.com/confluentinc/kafka-rest/issues/29</ISSUEURL>
+  <TITLE>Handle exceptions and convert to RestExceptions</TITLE>
+  <DESCRIPTION>We need to handle exceptions and properly convert them to RestExceptions. This includes - Async produce callbacks should check Exception types and convert them. New producer exceptions were modeled well so this should be straightforward - Consumer exceptions, which need to trigger errors in consume task to trigger the response. - All the metadata APIs, which probably mostly means catching ZkClient exceptions</DESCRIPTION>
+  <REPONAME>kafka-rest</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add a sample config file.</MESSAGE>
+    <SHA>cf284eab92f12785af3642c8e3d00010c2980632</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Improve handling of missing topics and producer exceptions, and return per-message information on produce requests. This makes three major changes: 1. Properly handle producer exceptions, returning per-message error information back to the user in the ProduceResponse. We consider the request successful as long as the only error we hit is returned by the producer future, in which case we include that information in the response. 2. Missing topics are now handled properly for either broker setting of auto.create.topics.enable. When auto creation is disabled, Kafka currently generates a timeout exception, which is now handled properly and passed back to the user with an error code. More generally, all Kafka exceptions are converted into an error code indiating either retriable or non-retriable errors, or triggers a 500 for non-Kafka exceptions. 3. As a side effect of these changes, this fixes the data returned on produce requests. It now includes per-message data. Originally the responses only included aggregate information about the last per-partition offset seen in the published messages. However, properly handling errors requires per-message notifications of success. To handle this, each response includes either partition and offset or error_code and error message. This fixes #24. It also fixes the producer half of #29.</MESSAGE>
+      <SHA>371496e6992b4ce18f5618293607514eba5ef53b</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/api.rst</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/AvroRestProducer.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/BinaryRestProducer.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/Errors.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/KafkaRestApplication.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/ProduceTask.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/ProducerPool.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/RecordMetadataOrException.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/entities/PartitionOffset.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/entities/PartitionProduceResponse.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/entities/ProduceResponse.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/resources/PartitionsResource.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/resources/TopicsResource.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/TestUtils.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/AbstractProducerTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/AvroProducerTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/ClusterTestHarness.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/ConsumerBinaryTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/ProducerTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/ProducerTopicAutoCreationTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/TestKafkaRestApplication.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/ConsumerManagerTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/PartitionsResourceAvroProduceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/PartitionsResourceBinaryProduceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/TopicsResourceAvroProduceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/TopicsResourceBinaryProduceTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Improve handling of consumer exceptions. Ensure RestExceptions are returned and that failed consumer read operations don't cause messages to be discarded. Fixes the consumer part of #29.</MESSAGE>
+      <SHA>e48b687d35a731d5d595990a1737f7005ff77793</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/api.rst</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/ConsumerManager.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/ConsumerReadTask.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/ConsumerState.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/ConsumerTopicState.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/Errors.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/mock/MockConsumerQueue.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/ConsumerManagerTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add ZkExceptionMapper to convert all uncaught ZkExceptions into RestServerErrorExceptions. Combined with previous commits, fixes #29.</MESSAGE>
+      <SHA>e1e0cbec9b513a7cdf939a083196e9ab62d40b8e</SHA>
+      <PATCHEDFILES>
+        <FILE>src/main/java/io/confluent/kafkarest/Errors.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/KafkaRestApplication.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/exceptions/ZkExceptionMapper.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/MetadataAPITest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

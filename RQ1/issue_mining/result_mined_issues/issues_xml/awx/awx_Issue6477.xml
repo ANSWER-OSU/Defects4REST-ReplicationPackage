@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6477</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6477</ISSUEURL>
+  <TITLE>failed to resolve broker hostname</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY &lt;!-- Briefly describe the problem. --&gt; ##### ENVIRONMENT * AWX version: :9.3.0 * AWX install method: docker on linux * Ansible version: 2.9.6 * Operating System: centos 7 * Web Browser: chrome ##### STEPS TO REPRODUCE Clean first install from git repo. ansible-playbook -i inventory install.yml Go to web interface and run any managemet job. ##### EXPECTED RESULTS job is run and done ##### ACTUAL RESULTS job state is pending ##### ADDITIONAL INFORMATION task container logs: docker-compose logs task awx_task | 2020-03-30 11:57:49,942 WARNING awx.main.commands.run_callback_receiver scaling up worker pid:175 awx_task | 2020-03-30 11:57:49,942 WARNING awx.main.commands.run_callback_receiver scaling up worker pid:175 awx_task | 2020-03-30 11:57:49,942 WARNING awx.main.dispatch scaling up worker pid:174 awx_task | 2020-03-30 11:57:49,950 WARNING awx.main.dispatch scaling up worker pid:176 awx_task | 2020-03-30 11:57:49,959 WARNING kombu.mixins Broker connection error, trying again in 2.0 seconds: OSError('failed to resolve broker hostname',). awx_task | Traceback (most recent call last): awx_task | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/amqp/transport.py&quot;, line 137, in _connect awx_task | host, port, family, socket.SOCK_STREAM, SOL_TCP) awx_task | File &quot;/usr/lib64/python3.6/socket.py&quot;, line 745, in getaddrinfo awx_task | for res in _socket.getaddrinfo(host, port, family, type, proto, flags): awx_task | socket.gaierror: [Errno -2] Name or service not known awx_task | awx_task | During handling of the above exception, another exception occurred: awx_task | awx_task | Traceback (most recent call last): awx_task | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/kombu/utils/functional.py&quot;, line 344, in retry_over_time awx_task | return fun(*args, **kwargs) awx_task | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/kombu/connection.py&quot;, line 283, in connect awx_task | return self.connection awx_task | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/kombu/connection.py&quot;, line 839, in connection awx_task | self._connection = self._establish_connection() awx_task | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/kombu/connection.py&quot;, line 794, in _establish_connection awx_task | conn = self.transport.establish_connection() awx_task | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/kombu/transport/pyamqp.py&quot;, line 130, in establish_connection awx_task | conn.connect() awx_task | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/amqp/connection.py&quot;, line 311, in connect awx_task | self.transport.connect() awx_task | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/amqp/transport.py&quot;, line 77, in connect awx_task | self._connect(self.host, self.port, self.connect_timeout) awx_task | File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/amqp/transport.py&quot;, line 148, in _connect awx_task | &quot;failed to resolve broker hostname&quot;)) awx_task | OSError: failed to resolve broker hostname</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix CVE-2023-40267 (#14388) (#6471) CVE-2023-40267 GitPython: Insecure non-multi options in clone and clone_from is not blocked https://bugzilla.redhat.com/show_bug.cgi?id=2231474 GitPython before 3.1.32 does not block insecure non-multi options in clone and clone_from. NOTE: this issue exists because of an incomplete fix for CVE-2022-24439. References: gitpython-developers/GitPython@ca965ec gitpython-developers/GitPython#1609</MESSAGE>
+    <SHA>767715c85a171ab46572fcd4a41d2bfccda816d1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Restrict PR body check to just AWX repo (#6477)</MESSAGE>
+      <SHA>f0aaab04ac5abe8ac53adaa61d3da6a9a3ba367a</SHA>
+      <PATCHEDFILES>
+        <FILE>.github/workflows/pr_body_check.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

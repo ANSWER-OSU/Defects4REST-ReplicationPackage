@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4009</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/4009</ISSUEURL>
+  <TITLE>bug: cookie in vars do not work</TITLE>
+  <DESCRIPTION>### Issue description Define a route in APISIX, like this: ```json [ { &quot;modifiedIndex&quot;: 109, &quot;value&quot;: { &quot;id&quot;: &quot;3fc92fca&quot;, &quot;desc&quot;: &quot;xxx_httpbin-route_rule1&quot;, &quot;status&quot;: 1, &quot;update_time&quot;: 1617873717, &quot;uris&quot;: [ &quot;/ip&quot; ], &quot;priority&quot;: 1, &quot;create_time&quot;: 1617873717, &quot;upstream_id&quot;: &quot;d678a7ac&quot; }, &quot;createdIndex&quot;: 109, &quot;key&quot;: &quot;/apisix/routes/3fc92fca&quot; }, { &quot;modifiedIndex&quot;: 110, &quot;value&quot;: { &quot;vars&quot;: [ [ &quot;cookie_x_foo&quot;, &quot;==&quot;, &quot;v2&quot; ] ], &quot;status&quot;: 1, &quot;id&quot;: &quot;a6c07e70&quot;, &quot;desc&quot;: &quot;xxx_httpbin-route_rule2&quot;, &quot;update_time&quot;: 1617873717, &quot;uris&quot;: [ &quot;/ip&quot; ], &quot;create_time&quot;: 1617873717, &quot;priority&quot;: 2, &quot;upstream_id&quot;: &quot;cd3dc953&quot; }, &quot;createdIndex&quot;: 110, &quot;key&quot;: &quot;/apisix/routes/a6c07e70&quot; } ] ``` use curl to request: ```shell curl -v --cookie &quot;X-Foo=v2&quot; http://127.0.0.1:9080/ip ``` The request always hit upstream `d678a7ac`, which is the first route. ### Environment * apisix version (cmd: `apisix version`): 2.5</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>chore(deps): bump actions/setup-node from v2.1.4 to v2.1.5 (#3997) Co-authored-by: dependabot[bot] &lt;49699333+dependabot[bot]@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>1fbee54eaa55752650cc848b435f43055cf2ca8e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>test: show how to fetch special cookie which is not supported by Nginx Fix #4009 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>b447c1d32534800748a3f66166706d2bbd9f8503</SHA>
+      <PATCHEDFILES>
+        <FILE>t/core/ctx.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>test: show how to fetch special cookie which is not supported by Nginx (#4011) Fix #4009 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>d6f3f7ae028ab6de96b400f825557a51b924a781</SHA>
+      <PATCHEDFILES>
+        <FILE>t/core/ctx.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

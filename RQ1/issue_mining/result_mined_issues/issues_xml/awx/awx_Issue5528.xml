@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5528</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/5528</ISSUEURL>
+  <TITLE>New AWX CLI returns type error when modifying list or dict settings</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY When trying to modify a list or dictionary valued setting from the **awx** command line tool, the API return a type error. ##### ENVIRONMENT * AWX version: 9.0.1 * AWX install method: Kubernetes * Ansible version: 2.7.11 * Operating System: Ubuntu 18.04 * Web Browser: Firefox 71 ##### STEPS TO REPRODUCE 1. Install the AWX CLI tool: ``` pip install &quot;https://github.com/ansible/awx/archive/9.0.1.tar.gz#egg=awxkit&amp;subdirectory=awxkit&quot; ``` 2. Try to modify the AUTH_LDAP_GROUP_SEARCH (type list) setting ``` awx settings modify AUTH_LDAP_USER_SEARCH '[&quot;DC=example,DC=com&quot;,&quot;SCOPE_SUBTREE&quot;,&quot;(uid=%(user)s)&quot;]' ``` 3. Receive the following error ``` {&quot;AUTH_LDAP_USER_SEARCH&quot;: [&quot;Expected a list of items but got type \&quot;str\&quot;.&quot;]} ``` ##### EXPECTED RESULTS Expected to modify the setting like the old tower-cli or awx-cli tools were able to. ##### ACTUAL RESULTS Received a type error ``` {&quot;AUTH_LDAP_USER_SEARCH&quot;: [&quot;Expected a list of items but got type \&quot;str\&quot;.&quot;]} ``` ##### ADDITIONAL INFORMATION You can achieve the same modification with the awx-cli: ``` awx-cli setting modify AUTH_LDAP_USER_SEARCH '[&quot;DC=example,DC=com&quot;,&quot;SCOPE_SUBTREE&quot;,&quot;(uid=%(user)s)&quot;]' Resource changed. ===================== =========================================================== id value ===================== =========================================================== AUTH_LDAP_USER_SEARCH [u'DC=example,DC=com', u'SCOPE_SUBTREE', u'(uid=%(user)s)'] ===================== =========================================================== ```</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>54</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #5782 from Spredzy/top_limit_wheel requirements_setup_requires: Top limit wheel to less than 42.0.0 Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>490492e5054c733aa8a5dcd62b6a21eebc59efaa</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix to handle Str and JSON mix-in data correctly with settings API - Fixed issue #5528 Signed-off-by: Hideki Saito &lt;saito@fgrep.org&gt;</MESSAGE>
+      <SHA>437d9843d17fbcc0c66fe1c0498a1e32de4e6d28</SHA>
+      <PATCHEDFILES>
+        <FILE>Makefile</FILE>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #5528 from ansible/add_org_aliasing Add organization_alias to Org Mapping as intended</MESSAGE>
+      <SHA>bf32afc02f10ea188ab201511b7d4453c387665d</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/sso/fields.py</FILE>
+        <FILE>awx/sso/pipeline.py</FILE>
+        <FILE>awx/sso/tests/functional/test_pipeline.py</FILE>
+        <FILE>awx/sso/tests/unit/test_fields.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2777</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2777</ISSUEURL>
+  <TITLE>re-enable github deployment in 1.0</TITLE>
+  <DESCRIPTION>We removed github deployments from 1.0 because we thought nobody was using them. We were very wrong. I re-enabled github deployment events, and mapped deployment events to the new promotion events. However, we are still not correctly setting the deployment status. We need to explicitly invoke the github deployment status endpoint. For the initial implementation (and because this is GitHub specific) we can probably just modify the go-scm library to include a `Deploy` field indicating this is a deployment. In the future we may want to have separate methods to find, create, update and list deployment status, but for now we can probably just share since we only need to create. ```diff type ( StatusInput struct { State State Label string Desc string Target string + Deploy string } ) ``` The only gotcha is that we need to extract the deployment ID and pass to the status. I _think_ we can get the deployment ID from the build link, but this needs to be verified. If this is possible, we can use a regular expression to extract: ``` var reDeploy = regexp.MustCompile(&quot;.+/deployments/(\\d+)&quot;) ``` Reference code from 0.8 https://github.com/drone/drone/blob/v0.8.8/remote/github/github.go#L408:L423</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [AH-341]: support download SLSA report from artifact registry (#2771) * feat: [AH-341]: update spelling mistake * Merge branch 'feat-AH-341' of https://git0.harness.io/l7B_kbSEQD2wjrM7PShm5w/PROD/Harness_Commons/gitness into feat-AH-341 * feat: [AH-341]: update api schema to fix type errors * feat: [AH-341]: support download SLSA report from artifact registry * feat: [AH-341]: update api schema to fix type errors * feat: [AH-341]: support download SLSA report from artifact registry</MESSAGE>
+    <SHA>8b53e5b92a267a93b5356fafee3f5198b5fd5eb7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: [CDE-202]:udpate query for bulk update git instance state (#2777) * add update all * udpate query for bulk update git instance state</MESSAGE>
+      <SHA>f1cb9986c22b09bb5efe70bf2517b35a14a88065</SHA>
+      <PATCHEDFILES>
+        <FILE>app/services/gitspace/update_instance.go</FILE>
+        <FILE>app/store/database.go</FILE>
+        <FILE>app/store/database/gitspace_instance.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

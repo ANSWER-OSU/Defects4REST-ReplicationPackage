@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6290</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/6290</ISSUEURL>
+  <TITLE>[master] avoid timeout when Assigning for main request with filter by DC or rack</TITLE>
+  <DESCRIPTION>**Describe the bug** in case of [errors in finding the volume](https://github.com/seaweedfs/seaweedfs/issues/6278), we wait too long for a timeout instead of immediately sending an alternative request &lt;img width=&quot;545&quot; alt=&quot;image&quot; src=&quot;https://github.com/user-attachments/assets/ea94a786-654e-468e-8494-cecfc258d03f&quot;&gt; **System Setup** ``` 3.77 ``` **Expected behavior** We don't wait for the timeout on the assign fro main request, but immediately send an alternative request</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>use readable bytes size string in shell output (#6288)</MESSAGE>
+    <SHA>d43fa07f06d6c1c7fe4b91e2c045d23e2f73477e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>avoid timeout when assigning for main request with filter by DC or rack https://github.com/seaweedfs/seaweedfs/issues/6290</MESSAGE>
+      <SHA>0e30065d94994a1acd74c176cb9e42d4ad69e4ad</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/master_grpc_server_assign.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[master] avoid timeout when assigning for main request with filter by DC or rack (#6291) * avoid timeout when assigning for main request with filter by DC or rack https://github.com/seaweedfs/seaweedfs/issues/6290 * use constant NoWritableVolumes</MESSAGE>
+      <SHA>e2e97db917641769b5ddf6c311c406ec63463a10</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/master_grpc_server_assign.go</FILE>
+        <FILE>weed/topology/topology.go</FILE>
+        <FILE>weed/topology/volume_layout.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

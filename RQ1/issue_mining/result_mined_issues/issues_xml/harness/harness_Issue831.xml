@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>831</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/831</ISSUEURL>
+  <TITLE>could not connect to the server in the container, is it because of the wrong port mapping between the host and container?</TITLE>
+  <DESCRIPTION>This is my app , a very simple express node.js app. ``` javascript var express = require('express'); console.log(&quot;hello log&quot;); var app = express(); app.get('/', function(req, res){ res.send('hello world'); }); app.listen(3300); ``` my yml is like ``` javascript image: dockerfile/nodejs env: - GOPATH=/var/cache/drone script: - echo hello world 222 - pwd - ls - npm install express redis mqtt - node app.js &amp; - /bin/bash services: - mongodb - rabbitmq - redis ``` As the drone.io built up the image and run the app container successfully on my digitalocean server. I opened the url : https:digital_server_ip:3300, it was supposed to obtain the 'hello world' text, but in fact, the page could not be open. in the docker, usually the container will have to expose the port, and make a mapping with host_port: container_port, how does the drone.io handle this port mapping and exposure, is this the reason that my server in the container is open at 3300 port, but not connected from the host environment ?</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>make failed dryrun DB update noncritical (#841)</MESSAGE>
+    <SHA>598599bf20fe8246aa6cb66f70169911cc83e2ad</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>remove pullreq/recheck API (#831)</MESSAGE>
+      <SHA>7488512f0d8926da048759310677e8cf56cd0b37</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/controller/pullreq/pr_recheck.go</FILE>
+        <FILE>app/api/handler/pullreq/pr_recheck.go</FILE>
+        <FILE>app/api/openapi/pullreq.go</FILE>
+        <FILE>app/router/api.go</FILE>
+        <FILE>app/services/pullreq/handlers_mergeable.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

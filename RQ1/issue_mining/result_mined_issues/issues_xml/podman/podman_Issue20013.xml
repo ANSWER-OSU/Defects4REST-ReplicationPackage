@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20013</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/20013</ISSUEURL>
+  <TITLE>docker rest api compatibility not honored for error responses.</TITLE>
+  <DESCRIPTION>### Issue Description It seems that the compatibility with the api rest of docker is not met for error responses. According to the docker docs, the response should include a field &quot;message&quot; but podman has a different schema. This can be reproduced easily running a request to pull an image, for example. As consequence, clients like the official python library for docker doesn't work because the response has a different schema (the message is inside &quot;errordetail&quot;) and the library expects to have a &quot;message&quot; key at the root level as is described in the docs. Docker docs ref: https://docs.docker.com/engine/api/v1.43/#tag/Image/operation/ImageCreate Example of podman response ``` curl -XPOST &quot;http://localhost:8888/images/create?fromImage=quay.io/idonotexist/idonotexist:dummy&quot; | jq { &quot;progressDetail&quot;: {}, &quot;errorDetail&quot;: { &quot;message&quot;: &quot;initializing source docker://quay.io/idonotexist/idonotexist:dummy: reading manifest dummy in quay.io/idonotexist/idonotexist: unauthorized: access to the requested resource is not authorized&quot; }, &quot;error&quot;: &quot;initializing source docker://quay.io/idonotexist/idonotexist:dummy: reading manifest dummy in quay.io/idonotexist/idonotexist: unauthorized: access to the requested resource is not authorized&quot; } ``` Tested with latest podman container 4.6.1 ### Steps to reproduce the issue ``` curl -XPOST &quot;http://localhost:8888/images/create?fromImage=quay.io/idonotexist/idonotexist:dummy&quot; ``` ### Describe the results you received The response doesn't meet the spec of docker api response, don't have a &quot;message&quot; key in the root level ### Describe the results you expected a &quot;message&quot; key in the root level with the reason of the error. ### podman info output ```yaml podman v4.6.1 ``` ### Podman in a container Yes ### Privileged Or Rootless Privileged ### Upstream Latest Release Yes ### Additional environment details _No response_ ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>48</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #20340 from baude/rtd [CI:DOCS]rtd: implement v2 build file</MESSAGE>
+    <SHA>8de7c48df599c92726831f3b115a58c524622be9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: pull error response docker rest api compatibility This is related to the issue #20013 Signed-off-by: Gabriel Pozo &lt;jackgris2@gmail.com&gt;</MESSAGE>
+      <SHA>b9f2c4d171d6787f1078eb6178bde7ba74a3694d</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/utils/images.go</FILE>
+        <FILE>test/apiv2/10-images.at</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

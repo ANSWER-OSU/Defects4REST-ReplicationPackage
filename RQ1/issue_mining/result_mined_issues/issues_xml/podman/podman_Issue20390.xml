@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20390</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/20390</ISSUEURL>
+  <TITLE>Generated REST API HTML documentation shows `since=( or )` instead of `since=(&lt;container id&gt; or &lt;container name&gt;)`</TITLE>
+  <DESCRIPTION>### Issue Description The REST API documentation _List containers_ (compat) https://docs.podman.io/en/latest/_static/api.html#tag/containers-(compat)/operation/ContainerList contains the text ``` ancestor=([:], , or &lt;image@digest&gt;) before=( or ) expose=([/]|/[]) exited= containers with exit code of health=(starting|healthy|unhealthy|none) id= a container's ID is-task=(true|false) label=key or label=&quot;key=value&quot; of a container label name= a container's name network=( or ) publish=([/]|/[]) since=( or ) status=(created|restarting|running|removing|paused|exited|dead) volume=( or ) ``` It looks that some text is missing. Probably it should instead look something like the REST API documentation _List containers_ https://docs.podman.io/en/latest/_static/api.html#tag/containers/operation/ContainerListLibpod ``` ancestor=(&lt;image-name&gt;[:&lt;tag&gt;], &lt;image id&gt;, or &lt;image@digest&gt;) before=(&lt;container id&gt; or &lt;container name&gt;) expose=(&lt;port&gt;[/&lt;proto&gt;] or &lt;startport-endport&gt;/[&lt;proto&gt;]) exited=&lt;int&gt; containers with exit code of &lt;int&gt; health=(starting, healthy, unhealthy or none) id=&lt;ID&gt; a container's ID is-task=(true or false) label=(key or &quot;key=value&quot;) of a container label name=&lt;name&gt; a container's name network=(&lt;network id&gt; or &lt;network name&gt;) pod=(&lt;pod id&gt; or &lt;pod name&gt;) publish=(&lt;port&gt;[/&lt;proto&gt;] or &lt;startport-endport&gt;/[&lt;proto&gt;]) since=(&lt;container id&gt; or &lt;container name&gt;) status=(created, restarting, running, removing, paused, exited or dead) volume=(&lt;volume name&gt; or &lt;mount point destination&gt;) ``` ### Steps to reproduce the issue Steps to reproduce the issue 1. 2. 3. ### Describe the results you received Describe the results you received ### Describe the results you expected Describe the results you expected ### podman info output ```yaml If you are unable to run podman info for any reason, please provide the podman version, operating system and its version and the architecture you are running. ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details Additional environment details ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>50</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #20924 from Luap99/labeler [CI:DOCS] fix broken labeler.yml config</MESSAGE>
+    <SHA>605a29a714e425698428012b9c189c66a5e0d911</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[CI:DOCS] compat api: fix formatting syntax Reuse text from podman api Fixes https://github.com/containers/podman/issues/20390 Signed-off-by: Erik Sjölund &lt;erik.sjolund@gmail.com&gt;</MESSAGE>
+      <SHA>a1cc99dd4661ebf66979ccad40b9bab76474b35e</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/server/register_containers.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

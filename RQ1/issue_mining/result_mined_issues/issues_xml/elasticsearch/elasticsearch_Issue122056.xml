@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122056</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122056</ISSUEURL>
+  <TITLE>[CI] DataStreamLifecycleDownsampleDisruptionIT testDataStreamLifecycleDownsampleRollingRestart failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #17571 / part2](https://gradle-enterprise.elastic.co/s/yzbr7c3srd3wa) - [elasticsearch-pull-request #55486 / part-2](https://gradle-enterprise.elastic.co/s/yablp5vnrsqh4) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:downsample:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.downsample.DataStreamLifecycleDownsampleDisruptionIT.testDataStreamLifecycleDownsampleRollingRestart&quot; -Dtests.seed=27E3B29FA19E1C95 -Dtests.locale=xog-Latn-UG -Dtests.timezone=America/Managua -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.downsample.DataStreamLifecycleDownsampleDisruptionIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testDataStreamLifecycleDownsampleRollingRestart),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: timed out waiting for green state ``` **Issue Reasons:** - [main] 2 failures in test testDataStreamLifecycleDownsampleRollingRestart (1.0% fail rate in 204 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Avoid cyclic exception in ExchangeSource (#121995) Since introducing the fail_fast (see #117410) option to remote sinks, the ExchangeSource can propagate failures that can lead to circular references. The issue occurs as follows: 1. remote-sink-1 fails with exception e1, and the failure collector collects e1. 2. remote-sink-2 fails with exception e2, and the failure collector collects e2. 3. The listener of remote-sink-2 propagates e2 before the listener of remote-sink-1 propagates e1. 4. The failure collector in ExchangeSource sees [e1, e2] and suppresses e2 to e1. The upstream sees [e2, e1] and suppresses e1 to e2, leading to a circular reference. With this change, we stop collecting failures in ExchangeSource. Labelled this non-issue for an unreleased bug. Relates #117410</MESSAGE>
+    <SHA>e02e887126ffa494f8bf017173ddd98e60534a7d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.downsample.DataStreamLifecycleDownsampleDisruptionIT testDataStreamLifecycleDownsampleRollingRestart #122056</MESSAGE>
+      <SHA>b94fbd1e81e5ede8485909271f4c9f930ab506c3</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Increase timeout in `DataStreamLifecycleDownsampleDisruptionIT` The downsample task sometimes needs a little bit longer to complete so we bump the timeout from 60s to 120s. Fixes #122056</MESSAGE>
+      <SHA>ed0351d00f8ec3c06261dd7c1fb4adc8a0b9a577</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDownsampleDisruptionIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

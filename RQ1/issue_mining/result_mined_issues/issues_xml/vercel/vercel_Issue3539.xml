@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3539</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/3539</ISSUEURL>
+  <TITLE>now.json &quot;rewrites&quot; routes with dynamic params 404 using `now dev`</TITLE>
+  <DESCRIPTION>### Reduced test-case: https://github.com/wilsonpage/zeit-now-next-rewrites-bug ### Steps: 1. Run `now dev` 2. Visit http://localhost:3000/hello 3. Observe `world` `200` response ✅ 4. Visit http://localhost:3000/hello-regex/john 5. Observe `404` response ❌ 6. Visit http://localhost:3000/hello-param/john 7. Observe `404` response ❌</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>1690</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now-next] Add headers support for custom-routes (#3494) This adds support for `headers` in custom-routes which was landed in Next.js. This also updates `@now/routing-utils` `convertHeaders` to call `sourceToRegex` to match behavior with Next.js and allow using `segments` to match in the header `source` as not being able to use the same syntax for a header `source` as a `redirect` source could get confusing</MESSAGE>
+    <SHA>00aa56a095eca3180dd97c105902ef64fd313f61</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-routing-utils] Fix segments in query string (#3640) This PR a regression when path segments are used in the query string. Take a look at the following ASCII Table for why I had to delete certain parts of the parsed url before formatting again. https://nodejs.org/api/url.html#url_url_strings_and_url_objects Related to #3539</MESSAGE>
+      <SHA>4b7367e2dce4d6d1f10568d7eeca35b1b5bf10bd</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-routing-utils/src/superstatic.ts</FILE>
+        <FILE>packages/now-routing-utils/test/superstatic.spec.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

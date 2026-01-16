@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117782</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/117782</ISSUEURL>
+  <TITLE>[CI] ProfileIntegTests testSuggestProfilesWithHint failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5120 / openjdk21_checkpart4_java-fips-matrix](https://gradle-enterprise.elastic.co/s/v7ce6vg3yfhv4) - [elasticsearch-periodic #5042 / concurrent-search-tests](https://gradle-enterprise.elastic.co/s/k3etmfl62etsy) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:security:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.security.profile.ProfileIntegTests.testSuggestProfilesWithHint&quot; -Dtests.seed=87B674B0067A5850 -Dtests.locale=frr -Dtests.timezone=America/Swift_Current -Druntime.java=21 -Dtests.fips.enabled=true ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.security.profile.ProfileIntegTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testSuggestProfilesWithHint),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: &lt;1&gt; but: was &lt;5&gt; ``` **Issue Reasons:** - [main] 2 failures in test testSuggestProfilesWithHint (0.3% fail rate in 690 executions) - [main] 2 failures in pipeline elasticsearch-periodic (14.3% fail rate in 14 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix reconstituting version string from components (#117213) (#117952) * Fix reconstituting version string from components Co-authored-by: Joe Gallo &lt;joegallo@gmail.com&gt; (cherry picked from commit 28eda97ddd48fc23f6d21d3f5b8a68f977f9627f)</MESSAGE>
+    <SHA>a07433731d57841a8e956124d4f24acdd7afbfe8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix ProfileIntegTests (#117888) The test setup for `ProfileIntegTests` is flawed, where the full name of a user can be a substring of other profile names (e.g., `SER` is a substring of `User &lt;random-string&gt;-space1`) -- when that's passed into suggest call with the `*` space, we get a match on all profiles, instead of only the one profile expected in the test, since we are matching on e.g. `SER*`. This PR restricts the setup to avoid the wildcard profile for that particular test. Closes: https://github.com/elastic/elasticsearch/issues/117782</MESSAGE>
+      <SHA>07ef385816aab283f0d56fefcbc53747d900e626</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/src/internalClusterTest/java/org/elasticsearch/xpack/security/profile/ProfileIntegTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix ProfileIntegTests (#117888) The test setup for `ProfileIntegTests` is flawed, where the full name of a user can be a substring of other profile names (e.g., `SER` is a substring of `User &lt;random-string&gt;-space1`) -- when that's passed into suggest call with the `*` space, we get a match on all profiles, instead of only the one profile expected in the test, since we are matching on e.g. `SER*`. This PR restricts the setup to avoid the wildcard profile for that particular test. Closes: https://github.com/elastic/elasticsearch/issues/117782</MESSAGE>
+      <SHA>88ace1a0060933ffc3d5364b6fef5a3e3b7cc5e9</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/src/internalClusterTest/java/org/elasticsearch/xpack/security/profile/ProfileIntegTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix ProfileIntegTests (#117888) The test setup for `ProfileIntegTests` is flawed, where the full name of a user can be a substring of other profile names (e.g., `SER` is a substring of `User &lt;random-string&gt;-space1`) -- when that's passed into suggest call with the `*` space, we get a match on all profiles, instead of only the one profile expected in the test, since we are matching on e.g. `SER*`. This PR restricts the setup to avoid the wildcard profile for that particular test. Closes: https://github.com/elastic/elasticsearch/issues/117782</MESSAGE>
+      <SHA>52f039e0261bc795325273998a37a2a9ae8cd2af</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/src/internalClusterTest/java/org/elasticsearch/xpack/security/profile/ProfileIntegTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix ProfileIntegTests (#117888) (#118060) The test setup for `ProfileIntegTests` is flawed, where the full name of a user can be a substring of other profile names (e.g., `SER` is a substring of `User &lt;random-string&gt;-space1`) -- when that's passed into suggest call with the `*` space, we get a match on all profiles, instead of only the one profile expected in the test, since we are matching on e.g. `SER*`. This PR restricts the setup to avoid the wildcard profile for that particular test. Closes: https://github.com/elastic/elasticsearch/issues/117782</MESSAGE>
+      <SHA>fbb42f19e8102712796747bfb68eaf2fce79061a</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/src/internalClusterTest/java/org/elasticsearch/xpack/security/profile/ProfileIntegTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix ProfileIntegTests (#117888) The test setup for `ProfileIntegTests` is flawed, where the full name of a user can be a substring of other profile names (e.g., `SER` is a substring of `User &lt;random-string&gt;-space1`) -- when that's passed into suggest call with the `*` space, we get a match on all profiles, instead of only the one profile expected in the test, since we are matching on e.g. `SER*`. This PR restricts the setup to avoid the wildcard profile for that particular test. Closes: https://github.com/elastic/elasticsearch/issues/117782</MESSAGE>
+      <SHA>2fe6b60af14800a134db79d85b5f2dcb6df9b340</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/src/internalClusterTest/java/org/elasticsearch/xpack/security/profile/ProfileIntegTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

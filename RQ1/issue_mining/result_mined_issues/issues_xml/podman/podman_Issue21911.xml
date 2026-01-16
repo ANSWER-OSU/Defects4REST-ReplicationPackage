@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>21911</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/21911</ISSUEURL>
+  <TITLE>Provide instructions for linting on Windows</TITLE>
+  <DESCRIPTION>### Feature request description `make lint` or `winmake lint` are both failing on windows currently so contributors don't know how to run the linter against the local changes before pushing a commit. ### Suggest potential solution It's possible to install golangci-lint on Windows (`winget add -e GolangCI.golangci-lint `) but running it complains because [`diff` is not found](https://github.com/golangci/golangci-lint/issues/3408#issuecomment-1439908798). To get `diff` we can then include Git for windows bin folder to `PATH` (`$Env:Path += &quot;;C:\Program Files\Git\usr\bin&quot;`) but then some new errors are thrown...it will eventually work but it needs some more time. ### Have you considered any alternatives? We could provide instructions (or a new make target) to execute `make lint` in a container using `podman run`. ### Additional context Add any other context or screenshots about the feature request here.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>130</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #22878 from containers/renovate/common-image-and-storage-deps fix(deps): update github.com/containers/image/v5 digest to aa93504</MESSAGE>
+    <SHA>5bfea70e87796306e87abe0ae33feb5d7c1e5d51</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add new targets on Windows makefile (winmake.ps1) Add the following targets in winmake.ps1: - `installer`: builds the Windows installer - `docs`: builds the documentation HTML pages - `validatepr`: runs the Linux Makefile `.valiatepr` target using podman. - `lint`: faster validation that runs linter locally Update of `build_windows.md`: - removed every reference to the MSYS2 platform - added instructions to build the installer and linters Fix https://github.com/containers/podman/issues/21821 and https://github.com/containers/podman/issues/21911 Signed-off-by: Mario Loriedo &lt;mario.loriedo@gmail.com&gt;</MESSAGE>
+      <SHA>dcec81e694c855a1eea0106594928248d74c1a78</SHA>
+      <PATCHEDFILES>
+        <FILE>.pre-commit-config.yaml</FILE>
+        <FILE>build_windows.md</FILE>
+        <FILE>docs/make.bat</FILE>
+        <FILE>docs/make.ps1</FILE>
+        <FILE>winmake.ps1</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18863</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18863</ISSUEURL>
+  <TITLE>List views of self-nesting (recursive) object types are displayed incorrectly</TITLE>
+  <DESCRIPTION>### Deployment Type Self-hosted ### NetBox Version v4.2.5 ### Python Version 3.11 ### Steps to Reproduce 1. Create three regions without parent: &quot;North America&quot;, &quot;South America&quot;, &quot;Europe&quot; 2. Create three child regions under North America: &quot;United States&quot;, &quot;Canada&quot;, &quot;Mexico&quot; 3. Create three grandchildren within United States: &quot;Wisconsin&quot;, &quot;Oklahoma&quot;, &quot;Tennessee&quot; 4. Navigate to /dcim/regions/ to view all regions ### Expected Behavior The three child regions that were created within North America are displayed directly below NA. Additionally, &quot;Oklahoma&quot;, &quot;Wisconsin&quot; and &quot;Tennessee&quot; are indented under the US. ### Observed Behavior Child regions &quot;Canada&quot; and &quot;Mexico&quot; are below &quot;Europe&quot;. Grandchild &quot;Oklahoma&quot; is now in &quot;Mexico&quot;. &lt;img width=&quot;870&quot; alt=&quot;Image&quot; src=&quot;https://github.com/user-attachments/assets/8408f9e9-6566-4ab7-bfff-2930fba59989&quot; /&gt; Note that this might not be the only list view that appears to be broken. Replicating the above steps as contact groups behaves in a similar way: &lt;img width=&quot;751&quot; alt=&quot;Image&quot; src=&quot;https://github.com/user-attachments/assets/5a019480-c3da-4754-bccf-5445cb4a5dc6&quot; /&gt;</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixes #18880: Delay enqueuing of background tasks until the DB transaction has been committed (#18899)</MESSAGE>
+    <SHA>ed135102bed0733c4dff90206f3d142494d900fb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes: #18863 - Exempt MPTT-based models from centrally applying ordering on querysets (#18867)</MESSAGE>
+      <SHA>4f45328c77d8e892ce832517142639c8bb4346f5</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/netbox/api/viewsets/__init__.py</FILE>
+        <FILE>netbox/netbox/views/generic/bulk_views.py</FILE>
+        <FILE>netbox/utilities/query.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

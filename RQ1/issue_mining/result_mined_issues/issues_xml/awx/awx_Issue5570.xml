@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5570</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/5570</ISSUEURL>
+  <TITLE>SAML Login error invalid_response request was received at incorrect port</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY Hi there ! I'm trying to configure ADFS SAML for my AWX install, however, once my Service Provider and Identity provider setup, the login doesn't work due to an error : ``` SAML login failed: ['invalid_response'] (The response was received at https://ansible-tower.local:8053/sso/complete/saml/ instead of https://ansible-tower.local/sso/complete/saml/ ``` ##### ENVIRONMENT * AWX version: 9.0.1 * AWX install method: docker on linux * Operating System: Centos 7 * Web Browser: Firefox / Chrome ##### STEPS TO REPRODUCE - Install AWX with docker and configure SAML - Try to login with saml - Enter your username / password if needed - get redirected to AWX login page without being authenticated ##### EXPECTED RESULTS - No error / Being authenticated ##### ACTUAL RESULTS - The following error appear in the logs : ``` social Authentication failed: SAML login failed: ['invalid_response'] (The response was received at https://ansible-tower.local:8053/sso/complete/saml/ instead of https://ansible-tower.local/sso/complete/saml/). ``` ##### ADDITIONAL INFORMATION This error is similar to https://github.com/ansible/awx/issues/1016 The problem being that the solution doesn't apply with the newest version of AWX As I understand, I need to have an X-Forwarded-Port configured somewhere, but it already seem to be there in the nginx.conf file : ``` location / { # Add trailing / if missing rewrite ^(.*)$http_host(.*[^/])$ $1$http_host$2/ permanent; uwsgi_read_timeout 120s; uwsgi_pass uwsgi; include /etc/nginx/uwsgi_params; proxy_set_header X-Forwarded-Port 443; ``` Thanks</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #5563 from beeankha/update_makefile Edit Makefile for Easier Collections Building/Playbook Testing Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>c6dc69c68b9bb3a3dfcdced9b6f774039451c97f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add a uwsgi param to prevent SAML error Add the uwsgi_param 'HTTP_X_FORWARDED_PORT' to nginx configuration, This prevents the python-saml &quot;invalid_response&quot; error related issue : #5570 and #1016 Signed-off-by: loitho</MESSAGE>
+      <SHA>930b46810f25be30ef43792733a76381e2ec3f56</SHA>
+      <PATCHEDFILES>
+        <FILE>installer/roles/kubernetes/templates/configmap.yml.j2</FILE>
+        <FILE>installer/roles/local_docker/templates/nginx.conf.j2</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

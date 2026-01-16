@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122181</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122181</ISSUEURL>
+  <TITLE>[CI] VerifierTests testChangePoint_valueNumeric failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6314 / release-tests](https://gradle-enterprise.elastic.co/s/2af74hhcp5nsa) - [elasticsearch-pull-request #55964 / checkpart3_release-tests](https://gradle-enterprise.elastic.co/s/lcnc7jblh4ek4) - [elasticsearch-pull-request #55962 / checkpart3_release-tests](https://gradle-enterprise.elastic.co/s/5yq5nzmoccafa) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:test&quot; --tests &quot;org.elasticsearch.xpack.esql.analysis.VerifierTests.testChangePoint&quot; -Dtests.seed=E7A620266EE91FCB -Dbuild.snapshot=false -Dtests.jvm.argline=&quot;-Dbuild.snapshot=false&quot; -Dlicense.key=x-pack/license-tools/src/test/resources/public.key -Dtests.locale=ff-Latn-GW -Dtests.timezone=America/Knox_IN -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.analysis.VerifierTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testChangePoint_valueNumeric),title:'Test',type:optionsListControl))))) **Failure Message:** ``` junit.framework.AssertionFailedError: Unexpected exception type, expected VerificationException but got org.elasticsearch.xpack.esql.parser.ParsingException: line 1:17: mismatched input 'CHANGE_POINT' expecting {'dissect', 'drop', 'enrich', 'eval', 'grok', 'keep', 'limit', 'mv_expand', 'rename', 'sort', 'stats', 'where', 'lookup'} ``` **Issue Reasons:** - [main] 2 consecutive failures in step checkpart3_release-tests - [main] 3 failures in test testChangePoint_valueNumeric (11.1% fail rate in 27 executions) - [main] 2 failures in step checkpart3_release-tests (100.0% fail rate in 2 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (18.2% fail rate in 11 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.esql.analysis.VerifierTests testChangePoint_keySortable #122180</MESSAGE>
+    <SHA>99d1fa7b270d66cf53e0aae9539704f248115289</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.analysis.VerifierTests testChangePoint_valueNumeric #122181</MESSAGE>
+      <SHA>aa3cbbdbfcf2a0d111cb3681f99125780a0d7a86</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

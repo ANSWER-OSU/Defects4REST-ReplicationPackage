@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16132</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16132</ISSUEURL>
+  <TITLE>remote: pod logs: catch-up delay</TITLE>
+  <DESCRIPTION>As best I can tell, `podman-remote pod logs` is sometimes not actually fully catching up, so a system test is failing ``` # podman-remote --url unix:/tmp/podman_tmp_tAJi logs 9f7628c570de2a8939936681617a216ebc6cc43943bc4f64874c2e7850c81f20 #/vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv #| FAIL: test string received on container #| expected: 'uwOjtSVXmcfjVrydfvPFF9zoVWdfov' #| actual: '' #\^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ``` The code in question is doing `echo teststring | nc localhost PORT`, then immediately running `podman logs` on a container in a pod. https://github.com/containers/podman/blob/2a9df07f52acd8b695be71997c325bacba47db23/test/system/200-pod.bats#L300-L307 * fedora-36-aarch64 : sys remote fedora-36-aarch64 root host [remote] * PR #16088 * [10-10 07:08](https://api.cirrus-ci.com/v1/artifact/task/5893741222297600/html/sys-remote-fedora-36-aarch64-root-host.log.html#t--00268) * fedora-36-aarch64 : sys remote fedora-36-aarch64 root host [remote] * PR #15837 * [09-21 08:13](https://api.cirrus-ci.com/v1/artifact/task/5923300713955328/html/sys-remote-fedora-36-aarch64-root-host.log.html#t--00264) * fedora-36-aarch64 : sys remote fedora-36-aarch64 root host [remote] * PR #15665 * [09-08-2022 06:58](https://api.cirrus-ci.com/v1/artifact/task/6658182578700288/html/sys-remote-fedora-36-aarch64-root-host.log.html#t--00263) Seems to have started 08-Sept, which suggests a real code problem because that test code hasn't changed since June 2020.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>27</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #16418 from jakegt1/main Fix compat build API returning two JSON objects at once</MESSAGE>
+    <SHA>9e04bab722bd6dd1e7bcd9aac62d4877b4a267fa</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix test flakes caused by improper podman-logs This one has been a thorn in my side: it's a podman-log issue, but not remote, so I _almost_ retitled #16132 (removing &quot;remote&quot;). Nope, it's a bug in the tests themselves. One solution would be to podman-wait, but I see no reason for logs to be involved, so I went with podman start -a instead. This removes the k8s-log stuff which is no longer necessary. Cleanup all around. Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>3ebcfdbbc6387eb76ed4d729ef41ec815549dc6f</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/create_staticip_test.go</FILE>
+        <FILE>test/e2e/create_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>More log-flake work It looks like #16132 was my fault: a missing 'wait' for a container to exit. Let's see if this fixes the flake. And, while poking through flake logs, I found another missing wait. And... in wait_for_output(), address a potential race. Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>6dd508b8e0d6f74945c674a7c2c024d2e715060d</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/logs_test.go</FILE>
+        <FILE>test/system/200-pod.bats</FILE>
+        <FILE>test/system/helpers.bash</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>More log-flake work [backport #16437] It looks like #16132 was my fault: a missing 'wait' for a container to exit. Let's see if this fixes the flake. And, while poking through flake logs, I found another missing wait. And... in wait_for_output(), address a potential race. Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>246cc18746669727d9e680b3a3fb4362d320868e</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/logs_test.go</FILE>
+        <FILE>test/system/200-pod.bats</FILE>
+        <FILE>test/system/helpers.bash</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

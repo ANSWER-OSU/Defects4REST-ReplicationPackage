@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3291</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/3291</ISSUEURL>
+  <TITLE>Scripts &amp; processes error handling</TITLE>
+  <DESCRIPTION>**Describe the bug** The command line script contains [System.exit(1)](https://github.com/DSpace/DSpace/blob/main/dspace-api/src/main/java/org/dspace/scripts/handler/impl/CommandLineDSpaceRunnableHandler.java#L61), this ensures the script stops immediately The REST script in the [same method](https://github.com/DSpace/DSpace/blob/main/dspace-server-webapp/src/main/java/org/dspace/app/rest/scripts/handler/impl/RestDSpaceRunnableHandler.java#L136) doesn't stop the script This implies the `handleException` method works differently when used as a REST script, and the script will simply continue **Expected behavior** The [RestDSpaceRunnableHandler.handleException](https://github.com/DSpace/DSpace/blob/main/dspace-server-webapp/src/main/java/org/dspace/app/rest/scripts/handler/impl/RestDSpaceRunnableHandler.java#L136) should at least throw an exception so it stops from being executed</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>118</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merged in task/main-cris/DSC-2057 (pull request #3218) DSC-2057 Fix error with UsageEvent Approved-by: Vincenzo Mecca</MESSAGE>
+    <SHA>a55412b055c69c147144de33c575a76cc3d0d08c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merged in task/main-cris/OCR-51 (pull request #3291)</MESSAGE>
+      <SHA>d0f719753905ead226cc0b87bc8c68d92b7f10c2</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace/config/modules/curate.cfg</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8948</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/8948</ISSUEURL>
+  <TITLE>Shape &quot;Menu&quot; and &quot;BreadcrumbMenu&quot; are rendered as a &quot;ContentCulturePicker&quot;</TITLE>
+  <DESCRIPTION>We have a site running OC 1.0.0-rc2-15878 with tree different shapes (`Menu`, `BreadcrumbMenu` and `ContentCulturePicker`) which work perfectly on production. Here's a screnshot: ![image](https://user-images.githubusercontent.com/6704109/112114721-aa292a80-8bb8-11eb-8bfe-b8a737846b1f.png) You can see the `Menu` at the right of the company logo, the `ContentCulturePicker` at the right-top side and the `BreadcrumbMenu` at the bottom of the header (the rest of the page is not shown). Now we are trying to update OC to yesterday's release 1.0.0-rc2-16003 and here are the results (in development machine/debug): ![image](https://user-images.githubusercontent.com/6704109/112115144-26bc0900-8bb9-11eb-8f33-b8b226538be3.png) We end up having 3 ContentCulturePicker but only one is correct. The other two are wrongly rendered from a `Menu` shape (that has not been modified) and a `BreadcrumbMenu` shape (that has not been modified either). The important part of the `Layout.liquid` file is as follows: ``` &lt;div class=&quot;culture-wrapper&quot;&gt; &lt;div class=&quot;culture-picker&quot;&gt; {% shape &quot;ContentCulturePicker&quot; %} &lt;/div&gt; &lt;/div&gt; &lt;nav class=&quot;navbar navbar-expand-lg navbar-dark fixed-top&quot; id=&quot;mainNav&quot;&gt; &lt;div class=&quot;container&quot;&gt; {% assign locale_homepage = '~/' | append: twoLetterISOLanguageName %} &lt;a class=&quot;js-scroll-trigger ahed-logo&quot; href=&quot;{{ locale_homepage | href }}&quot;&gt; {{ &quot;Home&quot; | t }} &lt;/a&gt; &lt;button class=&quot;navbar-toggler navbar-toggler-right&quot; type=&quot;button&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#navbarResponsive&quot; aria-controls=&quot;navbarResponsive&quot; aria-expanded=&quot;false&quot; aria-label=&quot;Toggle navigation&quot;&gt; Menu &lt;svg style=&quot;height:1em&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot; data-prefix=&quot;fas&quot; data-icon=&quot;bars&quot; class=&quot;svg-inline--fa fa-bars fa-w-14&quot; role=&quot;img&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 448 512&quot;&gt;&lt;path fill=&quot;currentColor&quot; d=&quot;M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z&quot;&gt;&lt;/path&gt;&lt;/svg&gt; &lt;/button&gt; {% assign locale_menu_name = 'main-menu-' | append: twoLetterISOLanguageName %} {% assign alias_locale_menu_name = 'alias:' | append: locale_menu_name %} {% shape &quot;Menu&quot;, alias: alias_locale_menu_name, cache_id: locale_menu_name, cache_tag: locale_menu_name %} &lt;/div&gt; &lt;/nav&gt; &lt;div{% render_section &quot;MainDivTagAttrs&quot;, required: false %}&gt; {% render_section &quot;Header&quot;, required: false %} &lt;div class=&quot;container&quot; id=&quot;main&quot;&gt; {% shape &quot;BreadcrumbMenu&quot; %} {% render_section &quot;Messages&quot;, required: false %} {% render_section &quot;Content&quot; %} &lt;/div&gt; {% render_section &quot;Footer&quot;, required: false %} {% resources type: &quot;FootScript&quot; %} &lt;/div&gt; ``` The complete `Menu.liquid` file is quite simple: ``` &lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;navbarResponsive&quot;&gt; &lt;ul class=&quot;navbar-nav text-uppercase mr-auto&quot;&gt; {% for item in Model.Items %} {{ item | shape_render }} {% endfor %} &lt;/ul&gt; &lt;/div&gt; ``` But it is not properly rendered as it was with 1.0.0-rc2-15878. Any ideas why? Had there been any changes in the last month (more or less) that could explain this behaviour? PS: The `BreadcrumMenu.cshtml` file is far more long and complex. Hence, it is probably easier to fix this issue for the `Menu` shape first, since the other one might be related too. Thanks.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add @BrentCarter as a contributor</MESSAGE>
+    <SHA>3aa0d9716787b9c88d69936fed0bc6b0b2ee0b9d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #8948 Liquid ShapeTag</MESSAGE>
+      <SHA>af1353d6d6194a73040bf5a1d756962db2578e6d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Contents/Liquid/ContentItemTag.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Contents/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Menu/MenuShapes.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Cache/CacheDependencyTag.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/LiquidViewParser.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/ShapeTag.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #8948 Liquid ShapeTag (#8956)</MESSAGE>
+      <SHA>1ec2e9898ff37e49d4224732c8a3e0acb5ed2fa6</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Contents/Liquid/ContentItemTag.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Contents/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Menu/MenuShapes.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Cache/CacheDependencyTag.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/LiquidViewParser.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement.Liquid/Tags/ShapeTag.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

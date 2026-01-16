@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18978</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18978</ISSUEURL>
+  <TITLE>allow filtering of interfaces in the gui by 802.1Q Mode</TITLE>
+  <DESCRIPTION>### NetBox version v4.2.5 ### Feature type Change to existing functionality ### Proposed functionality add `802.1q mode` as an option on the interfaces filter form. ### Use case currently in the interfaces filter gui theres no option to filter by 802.1q mode. its possible to filter it right now by adding `?mode=tagged-all` to the interfaces ui. filtering by poe mode is already an option so its a bit odd that 802.1q mode isnt available ### Database changes n/a ### External dependencies n/a</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>25</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixes #19169: Remove horizontal padding from highlighted text (#19181)</MESSAGE>
+    <SHA>70cc7c7563fa5923b543d2faad6dbb2d1823f109</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #18978 - Allow filtering of Interfaces in the GUI by 802.1Q Mode (#19183) * feat(dcim): Add VLAN mode filter to CommonInterface Introduces a new FilterSet for VLAN mode in CommonInterfaceFilterSet. This allows filtering interfaces based on their VLAN mode using defined choices. * feat(dcim): Add VLAN mode filter to Interface FilterForm Add a field to InterfaceFilterSet to filter interfaces by 802.1Q VLAN mode. * feat(virtualization): Add VLAN mode filter to VMInterface Add a field to VMInterfaceFilterSet to filter interfaces by 802.1Q VLAN mode. * fix(dcim): Correct mode filter parameter type in tests Updates the `mode` filter parameter to accept a list instead of a single value in `test_filtersets.py`. Ensures proper count assertion for accurate test behavior. * feat(virtualization): Add tests for VLAN mode filtering Introduces tests to validate filtering by `mode` for VMInterface. Ensures correct filtering for 802.1Q VLAN mode. * refactor(virtualization): Reorganize FieldSets in FilterSets Splits the 'Attributes' FieldSet into two distinct FieldSets for better clarity: 'Attributes' and 'Addressing'. This improves form organization and makes it more intuitive for users.</MESSAGE>
+      <SHA>1f93471659a3f9f757592f54f454f33e2481598f</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/dcim/filtersets.py</FILE>
+        <FILE>netbox/dcim/forms/filtersets.py</FILE>
+        <FILE>netbox/dcim/tests/test_filtersets.py</FILE>
+        <FILE>netbox/virtualization/forms/filtersets.py</FILE>
+        <FILE>netbox/virtualization/tests/test_filtersets.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

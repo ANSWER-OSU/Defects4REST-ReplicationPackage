@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2808</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2808</ISSUEURL>
+  <TITLE>bug: example about how to enable Stream proxy is wrong</TITLE>
+  <DESCRIPTION>### Issue description example from [here](https://github.com/apache/apisix/blob/master/doc/stream-proxy.md) is wrong ``` apisix: stream_proxy: # TCP/UDP proxy tcp: # TCP proxy address list - 9100 - 127.0.0.1:9101 udp: # UDP proxy address list - 9200 - 127.0.0.1:9211 ``` should be ``` apisix: stream_proxy: # TCP/UDP proxy tcp: # TCP proxy port list - 9100 - 9101 udp: # UDP proxy port list - 9200 - 9211 ``` otherwise ``` nginx: [error] init_by_lua error: .../apisix//deps/share/lua/5.1/tinyyaml.lua:641: failed to classify line: 127.0.0.1:9101 stack traceback: [C]: in function 'error' .../apisix//deps/share/lua/5.1/tinyyaml.lua:641: in function 'parsemap' ``` ### Environment * apisix version (cmd: `apisix version`): master * OS:</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat(docs): remove non existing image (#2805)</MESSAGE>
+    <SHA>4d290172146ba6fea372a2e224f6a8947a8fce6c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>doc: fix stream proxy example (#2808)</MESSAGE>
+      <SHA>315bff36f6aea0f03e183d9b280958bfcac951ed</SHA>
+      <PATCHEDFILES>
+        <FILE>doc/stream-proxy.md</FILE>
+        <FILE>doc/zh-cn/stream-proxy.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>docs: fix stream proxy example (#2819) fix #2808</MESSAGE>
+      <SHA>2649d1cf1be38a8530556418e1d8580beebfd1f3</SHA>
+      <PATCHEDFILES>
+        <FILE>doc/stream-proxy.md</FILE>
+        <FILE>doc/zh-cn/stream-proxy.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

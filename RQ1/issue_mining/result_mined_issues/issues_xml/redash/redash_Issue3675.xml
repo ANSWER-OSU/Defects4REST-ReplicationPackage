@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3675</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/3675</ISSUEURL>
+  <TITLE>need to add optional params to render_token_login_page on reset_password?</TITLE>
+  <DESCRIPTION>https://github.com/getredash/redash/blob/master/redash/handlers/authentication.py#L85 ```python @routes.route(org_scoped_rule('/reset/&lt;token&gt;'), methods=['GET', 'POST']) def reset(token, org_slug=None): return render_token_login_page(&quot;reset.html&quot;, org_slug, token) ``` ☝️ should be the following? ```python @routes.route(org_scoped_rule('/reset/&lt;token&gt;'), methods=['GET', 'POST']) def reset(token, org_slug=None): return render_token_login_page(&quot;reset.html&quot;, org_slug, token, False) ``` In our stand-alone env, we could not reset some user's password. redash docker tag was: `redash/redash:7.0.0.b18042`</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>173</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>reduce volatility in embed percy snapshots (#3672)</MESSAGE>
+    <SHA>1b142b33f1ad9c21769741a9371f4b85e601c2cb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>refs https://github.com/getredash/redash/issues/3675 (#3676)</MESSAGE>
+      <SHA>dba7efe030affaf28143f4780a9f316cf93ddc29</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/handlers/authentication.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>refs https://github.com/getredash/redash/issues/3675 (#3676)</MESSAGE>
+      <SHA>8a4fcc84353d2c76018b9ae8699ed2080d8ab25b</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/handlers/authentication.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

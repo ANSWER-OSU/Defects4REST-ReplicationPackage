@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>29115</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/29115</ISSUEURL>
+  <TITLE>API PUT call issue (product extra fields)</TITLE>
+  <DESCRIPTION>### Bug Unexpected behavior of PUT method upon updating product's extra fields ### Dolibarr Version 19.0.1 ### Environment PHP 8.1.27 ### Environment Database MariaDB 10.6.17-MariaDB-cll-lve ### Steps to reproduce the behavior and expected behavior Trying to call a product update through PUT method to update an extra field of the product: 1. Extrafield (checkbox) underlined: API must uncheck the box ![image](https://github.com/Dolibarr/dolibarr/assets/21037425/1875d81d-321c-48c3-b40d-cbd43c45230a) 2. API request body: ![image](https://github.com/Dolibarr/dolibarr/assets/21037425/ea436e65-20b3-492a-98c0-f7e5b7ac5c79) 3. After the call checkbox is unchecked which is right, however, previously set values for extra fields are now gone. NOTE: some of the extra fields didn't lose their values and it seems that those fields having _default value_ defined in extrafield settings don't lose the values, in fact, they **change** to default value from settings, regardless of what was set before or defined in API schema. ![image](https://github.com/Dolibarr/dolibarr/assets/21037425/d0341db0-3d4a-4468-9dbd-863b0b7fd67e) Obviously, standard fields are not affected, they're not changing (unless defined in schema) or loosing the values. ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #29205 from DoliGreece/sonikf-patch-fix-vendor-template-list fix vendor template list default search parameters</MESSAGE>
+    <SHA>74ea1ecd56bbbf52c9f9fda4d2a0c09c5355f7ea</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #29115</MESSAGE>
+      <SHA>650e9b8c2bffd7395164245d6b80a3f25ce93f9f</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/product/class/api_products.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #29237 from JonBendtsen/API_PUT_product_extra_fields Fix #29115 API PUT call issue (product extra fields)</MESSAGE>
+      <SHA>bf007fcaa333556232ff04ee3c35a6f5b608e3e2</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/product/class/api_products.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

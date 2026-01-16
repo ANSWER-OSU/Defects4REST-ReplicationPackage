@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3751</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3751</ISSUEURL>
+  <TITLE>Redis serialization self-referencing loop for SpecificationAttributes</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.20 beta Steps to reproduce the problem: 1. Enable Redis caching 2. In admin panel, edit a product with specification attributes An internal server error occurs: `JsonSerializationException: Self referencing loop detected for property 'SpecificationAttribute' with type 'Castle.Proxies.SpecificationAttributeProxy'. Path '[0].SpecificationAttributeOptions[0]'.` The Models for `SpecificationAttribute` and `SpecificationAttributeOption` refer to each other so when they get serialized it's causing this circular reference error. Locally I added a `[JsonIgnore]` attribute to the `SpecificationAttributeOption`'s `SpecificationAttribute` property, which seems to fix the issue.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#196 Updated some NuGet packages to the latest version</MESSAGE>
+    <SHA>3c4293dd93159571164670e17bebaa80c301047b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3751 Fix bug with SpecificationAttributes caching</MESSAGE>
+      <SHA>5f5938ee8635083fb39d5c7e2522284133acb2c9</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/ProductModelFactory.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2930</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2930</ISSUEURL>
+  <TITLE>In-Memory Scheduled Task Lock</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.00 Steps to reproduce the problem: 1. Without Redis cache... 2. Enqueue email as usual 3. Observe (I use SendGrid's Activity Feed) that some emails are sent more than once Would you accept a PR for an in-process lock, for those who aren't using Redis? https://github.com/nopSolutions/nopCommerce/blob/be46bc279c6b9cba5dc7f49693094a654b1f3ab2/src/Libraries/Nop.Services/Tasks/Task.cs#L136-L148</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add ILocker implementation to MemoryCacheManager</MESSAGE>
+    <SHA>e266f5b5b4037a2c151ddf2a6d9e4ce2841e4600</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2930 Always lock when executing tasks</MESSAGE>
+      <SHA>fe2d14b64073219d4310665f4d5e6444748c31f6</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Tasks/Task.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#2930 Always lock when executing tasks</MESSAGE>
+      <SHA>1713d8e50f853dc4a7179570a2f07bc9d7f869b0</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Tasks/Task.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

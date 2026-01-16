@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>874</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/874</ISSUEURL>
+  <TITLE>Allow multiple targets in notify plugins</TITLE>
+  <DESCRIPTION>Currently we have the slack plugin up and running on our internal drone server. Because of the amount of chatter from drone some teams have decided to relegate the build notifications to a separate channel from the main dev channel. An issue becomes that they can miss a failed build from a release branches because they're not paying attention. For normal workflow they'd want something like ``` yaml notify: slack: webhook_url: 'https://hooks.slack.com/services/...' username: 'drone' channel: '#project-builds' on_started: false on_success: false on_failure: true ``` But on release or master they'd want something like ``` yaml slack: webhook_url: 'https://hooks.slack.com/services/...' username: 'drone' channel: '#project' on_started: false on_success: true on_failure: true when: branch: - master - release* ``` So maybe having something like ``` yaml notify: slack: - channel: &quot;#project-builds&quot; on_failure: true on_started: false on_success: true username: drone webhook_url: &quot;https://hooks.slack.com/services/...&quot; - channel: &quot;#project&quot; on_failure: true on_started: false on_success: true username: drone webhook_url: &quot;https://hooks.slack.com/services/...&quot; when: branch: - master - release* ``` This could probably be applied to other sorts of plugins. For example on a release branch you might want to run run a full suite of tests for a release branch but not on develop as the full suite takes a significant amount of time.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>62</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[UI] Regenerate CODE service based on latest swagger (#870)</MESSAGE>
+    <SHA>7c33e20898edf0131fb4900cb42eeecf92df2669</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: [code-1183]: fix bypass list issue (#874)</MESSAGE>
+      <SHA>1dc6989968c417fbdaa58861c99190c8b608ee56</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/components/BranchProtection/BranchProtectionForm/BranchProtectionForm.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

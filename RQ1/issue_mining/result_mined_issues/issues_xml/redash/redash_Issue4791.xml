@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4791</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/4791</ISSUEURL>
+  <TITLE>Bug: Redshift data source unable to refresh schema</TITLE>
+  <DESCRIPTION>Redash version: 8.0.0+b32245 (a16f551e) Data Source: Redshift Redshift cluster version: 1.0.14436 Error: ![image](https://user-images.githubusercontent.com/14027470/78871303-6983e000-7a3f-11ea-86e0-43e91ed8334d.png) API: `/api/data_sources/1/schema?refresh=true` Response: `{&quot;error&quot;: {&quot;message&quot;: &quot;Error retrieving schema.&quot;, &quot;code&quot;: 2}}` Diagnosis: Manually running the following query: https://github.com/getredash/redash/blob/master/redash/query_runner/pg.py#L323 returns error `Error running query: schema &quot;pg_temp_16&quot; does not exist` Solution: Update https://github.com/getredash/redash/blob/master/redash/query_runner/pg.py#L330 to include `and table_schema NOT LIKE 'pg_%'`</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #3 from getredash/master pull upstream</MESSAGE>
+    <SHA>7ff0c35058346cea35255f99bda86d3eb85839a3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4791 exclude pg_ tables from redshift table schema inspection</MESSAGE>
+      <SHA>3081cfd524eb82987adbaeb32d08c341f377fa34</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/query_runner/pg.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>4791 redshift schema bugfix (#4792) * #4791 exclude pg_ tables from redshift table schema inspection * restrictict only pg_temp</MESSAGE>
+      <SHA>45ea5171cbc2ba495127da0b14a1de7b4a9002ed</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/query_runner/pg.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

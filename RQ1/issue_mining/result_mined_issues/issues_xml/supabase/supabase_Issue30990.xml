@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>30990</ISSUENO>
+  <ISSUEURL>https://github.com/supabase/supabase/issues/30990</ISSUEURL>
+  <TITLE>Local web ui - table editor - Editing an int4 column in the db with one item has no square brackets</TITLE>
+  <DESCRIPTION># Bug report &lt;!-- ⚠️ We receive a lot of bug reports which have already been solved or discussed. If you are looking for help, please try these first: - Docs: https://docs.supabase.com - Discussions: https://github.com/supabase/supabase/discussions - Discord: https://discord.supabase.com Before opening a bug report, please verify the following: --&gt; - [X] I confirm this is a bug with Supabase, not with my own application. - [X] I confirm I have searched the [Docs](https://docs.supabase.com), GitHub [Discussions](https://github.com/supabase/supabase/discussions). ## Describe the bug A clear and concise description of what the bug is. I have a table with an int4[] (integer array) column set to `NOT NULL` and a default of `'{}'::integer[]` In the table editor if I go to edit an existing entry of `[0, 1]` it appears in the input as `[0, 1]` as expected. If I edit an existing entry of `[]` it appears in the input as `[]` as expected. If I edit an exisiting entry of `[1]` it appears just as `1` and If I wanted to say swap it to `0` I have to add `[ ]` around it myself or it errors. Setting it to just `1` works and results in `[1]` This happens with other singular numbers e.g. `[3]` ## To Reproduce Steps to reproduce the behavior, please provide code snippets or a repository: 1. Create a table with an integer array not null with default empty array 2. Create a row with multiple numbers 3. Edit and see it works fine, set the list to just 0 4. go to edit again and see just the number no square brackets 5. go to save and get an error 6. add the square brackets yourself and save successfully ## Expected behavior A clear and concise description of what you expected to happen. Input should have square brackets ## Screenshots If applicable, add screenshots to help explain your problem. ![image](https://github.com/user-attachments/assets/62055cba-1a30-4ec3-a366-f57b905cf64c) ![image](https://github.com/user-attachments/assets/53f9f208-8e33-419f-a29e-be98bb88aab2) ![image](https://github.com/user-attachments/assets/24214e55-ec67-443d-9e13-5c5729fd5f53) ## System information - OS: Linux - Browser: Firefox</DESCRIPTION>
+  <REPONAME>supabase</REPONAME>
+  <TIMEDIFFERENCEDAYS>25</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>deprecated: alert - delete app modal (#31008) now using admonition Co-authored-by: Ivan Vasilov &lt;vasilov.ivan@gmail.com&gt; Co-authored-by: Terry Sutton &lt;saltcod@gmail.com&gt;</MESSAGE>
+    <SHA>ed75f1524330de582e490c77fae39f7cceb8c2f4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: update json editor initial value formatting (#30990)</MESSAGE>
+      <SHA>115953e221e21f3dc07e490ded4d34ff534e191b</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/studio/components/grid/components/editor/JsonEditor.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: update json editor initial value formatting (#30990) (#32513) * fix: update json editor initial value formatting (#30990) * update logic to stringify initialValue before formatting --------- Co-authored-by: Alaister Young &lt;a@alaisteryoung.com&gt;</MESSAGE>
+      <SHA>364f001e6869ceb6fbf1ffa397c64cd70cb84813</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/studio/components/grid/components/editor/JsonEditor.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>309</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/309</ISSUEURL>
+  <TITLE>Condition based automation doesn't work</TITLE>
+  <DESCRIPTION>Node: **v12.22.1** Arch: **x64** Platform: **linux** Docker: **false** Database: **pg** ProjectOnRootDB: **true** RootDB: **pg** PackageVersion: **0.9.37** Steps To Reproduce 1. Go to 'Automations' 2. Click on 'Add new' 3. Enter webhook details and select On condition 4. Click on 'Add filter' 5. Select 'id' as field 'as equal' as operation and enter last id + 1 (for example, if the last row id is 30 enter 31) 6. Click 'Save' and close automation popup 7. Add new row or send API POST request to add new row **Expected behavior** Webhook must be send if the row id is equal as in condition, but it never comes. Only webhooks without condition is working.</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: Wrong count correction in postgres Signed-off-by: Pranav C &lt;61551451+pranavxc@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>6601e922d670b6ab0598b596b576dd5be9014726</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: Postgres hooks params and condition bugs re #309 Signed-off-by: Pranav C &lt;61551451+pranavxc@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>45741c3609d5618ca22ef0a615e26d51b55c787d</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/dataMapper/lib/sql/BaseModelSql.ts</FILE>
+        <FILE>packages/nocodb/src/lib/noco/common/BaseModel.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: Postgres hooks params and condition bugs re #309 Signed-off-by: Pranav C &lt;61551451+pranavxc@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>bd158af4d8a01a6a5a442d8db374dde4e58b86de</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/dataMapper/lib/sql/BaseModelSql.ts</FILE>
+        <FILE>packages/nocodb/src/lib/noco/common/BaseModel.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

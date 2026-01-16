@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>37</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/37</ISSUEURL>
+  <TITLE>Unable to change user role to administrator - token error in database</TITLE>
+  <DESCRIPTION>Changing the role of a user to administrator fails with the following error: `Failed to update user data. meddler.Update: DB error in Exec: column token is not unique`</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fixed output location for .deb file in .drone.yml</MESSAGE>
+    <SHA>cc95546a5b6f9f59730cb54870ec1ac30ecc7a48</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>partial fix to issue #50 and issue #37 to select token from database</MESSAGE>
+      <SHA>088c45941cc3105ef0f400c4455dd816525b2a81</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/database/testing/users_test.go</FILE>
+        <FILE>pkg/database/users.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix Default Branch Creation (#37) While the HEAD is pointed to the correct branch (might not exist), we created the initial files during repo creation still on the master branch (as it's an empty repo and clone by default sets up master when cloning an empty repo)</MESSAGE>
+      <SHA>e423ffda3cf44567a100caa13aba451bd3ec5ae6</SHA>
+      <PATCHEDFILES>
+        <FILE>cli/server/standalone.wire_gen.go</FILE>
+        <FILE>internal/api/controller/repo/controller.go</FILE>
+        <FILE>internal/api/controller/repo/create.go</FILE>
+        <FILE>internal/api/controller/repo/wire.go</FILE>
+        <FILE>internal/api/handler/repo/create.go</FILE>
+        <FILE>internal/api/openapi/resource.go</FILE>
+        <FILE>internal/gitrpc/gitea.go</FILE>
+        <FILE>internal/gitrpc/interface.go</FILE>
+        <FILE>internal/gitrpc/repoService.go</FILE>
+        <FILE>internal/router/api.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge branch 'jobatzil/misc/header' of _OKE5H2PQKOUfzFFDuD4FA/default/CODE/gitness (#37)</MESSAGE>
+      <SHA>5b038a914a972a9315cd434c1e9b8a6e1ea2577f</SHA>
+      <PATCHEDFILES>
+        <FILE>.harness.env</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

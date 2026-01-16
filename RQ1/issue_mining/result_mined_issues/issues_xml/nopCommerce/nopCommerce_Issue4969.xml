@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4969</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4969</ISSUEURL>
+  <TITLE>Redis on UseRedisToStorePluginsInfo and UseRedisToStoreDataProtectionKeys has error</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.30 Steps to reproduce the problem: &gt; When I enable Redis cache functionality, and open UseRedisToStorePluginsInfo and UseRedisToStoreDataProtectionKeys. NopCommerce will report an error on ServiceCollectionExtensions.AddNopDataProtection method on line 184. redisConnectionWrapper is null. ``` //Redis support (used by web farms, Azure, etc). Find more about it at https://azure.microsoft.com/en-us/documentation/articles/cache-dotnet-how-to-use-azure-redis-cache/ &quot;RedisEnabled&quot;: true, //Redis database id; If you need to use a specific redis database, just set its number here. Set empty if should use the different database for each data type (used by default); set -1 if you want to use the default database &quot;RedisDatabaseId&quot;: &quot;&quot;, &quot;RedisConnectionString&quot;: &quot;127.0.0.1:6379,ssl=False&quot;, &quot;UseRedisToStoreDataProtectionKeys&quot;: true, &quot;UseRedisForCaching&quot;: true, //Should we ignore Redis timeout exception? Enabling this setting increases Redis cache stability but may decrease site performance &quot;IgnoreRedisTimeoutException&quot;: false, &quot;UseRedisToStorePluginsInfo&quot;: true, ``` Source: PS №15583</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#4870 Fix IPN error in PayPal Standard plugin</MESSAGE>
+    <SHA>ef14689a45b455a8eb960b146f8b86fbee3ebbeb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4969 Fixed null reference exception on connect to Redis DataBase</MESSAGE>
+      <SHA>7ca60bd16fe843695d1379738e671f489a7546b8</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ServiceCollectionExtensions.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

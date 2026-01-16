@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7746</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/7746</ISSUEURL>
+  <TITLE>bug: If the same configuration is used, different routes will share same limit for `limit-count`, even though they use different plugin_configs</TITLE>
+  <DESCRIPTION>### Current Behavior as the title ### Expected Behavior not share the limit ### Error Logs none ### Steps to Reproduce 1. Create two `plugin_config` with the same configuration ``` /apisix/plugin_configs/1 {&quot;id&quot;:&quot;1&quot;,&quot;plugins&quot;:{&quot;limit-count&quot;:{&quot;count&quot;:3,&quot;key&quot;:&quot;remote_addr&quot;,&quot;policy&quot;:&quot;local&quot;,&quot;rejected_code&quot;:503,&quot;time_window&quot;:60}}} ``` ``` /apisix/plugin_configs/2 {&quot;id&quot;:&quot;2&quot;,&quot;plugins&quot;:{&quot;limit-count&quot;:{&quot;count&quot;:3,&quot;key&quot;:&quot;remote_addr&quot;,&quot;policy&quot;:&quot;local&quot;,&quot;rejected_code&quot;:503,&quot;time_window&quot;:60}}} ``` 2. Create two routes, each using a different `plugin_config` ``` /apisix/routes/1 {&quot;id&quot;:&quot;1&quot;,&quot;plugin_config_id&quot;:&quot;1&quot;,&quot;upstream_id&quot;:&quot;1&quot;,&quot;uris&quot;:[&quot;/get&quot;]} ``` ``` /apisix/routes/2 {&quot;id&quot;:&quot;2&quot;,&quot;plugin_config_id&quot;:&quot;2&quot;,&quot;upstream_id&quot;:&quot;2&quot;,&quot;uris&quot;:[&quot;/anything&quot;]} ``` 4. Visit the route `/get` and you can see that there are 2 remaining left ``` curl 127.0.0.1:9080/get -i ... X-RateLimit-Limit: 3 X-RateLimit-Remaining: 2 ... ``` 5. Visit the route `/anything`, this is only 1 remaining left (should have 2 left) ``` curl 127.0.0.1:9080/anything -i ... X-RateLimit-Limit: 3 X-RateLimit-Remaining: 1 ... ``` ### Environment - APISIX version (run `apisix version`): 2.13.2 - Operating system (run `uname -a`): Darwin - OpenResty / Nginx version (run `openresty -V` or `nginx -V`): 1.19.3.1 - etcd version, if relevant (run `curl http://127.0.0.1:9090/v1/server_info`): 3.4.20 - APISIX Dashboard version, if relevant: - Plugin runner version, for issues related to plugin runners: - LuaRocks version, for installation issues (run `luarocks --version`):</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>docs: add missing priority of the plugins in Plugin Config (#7761)</MESSAGE>
+    <SHA>b0458b8da779b3abca26322bdfad971d54a16beb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix(limit-count): different route with same conf should not share counter (#7750) fix #7746</MESSAGE>
+      <SHA>cdbf33ad4549c8de8fef28acbaddb7d9affb8480</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/limit-count.lua</FILE>
+        <FILE>t/plugin/limit-count3.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(limit-count): different route with same conf should not share counter (#7750) fix #7746</MESSAGE>
+      <SHA>4af7760beae5a8a96eda60133878e84da9080b25</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/limit-count.lua</FILE>
+        <FILE>t/plugin/limit-count3.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(limit-count): different route with same conf should not share counter (#7750) fix #7746</MESSAGE>
+      <SHA>bb04ddfed5137fffea28273a362e02e8adea8dd6</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/limit-count.lua</FILE>
+        <FILE>t/plugin/limit-count3.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(limit-count): different route with same conf should not share counter (#7750) fix #7746</MESSAGE>
+      <SHA>55082f6de4ee1a06db3ff9cfa8b8decd4af1ba43</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/limit-count.lua</FILE>
+        <FILE>t/plugin/limit-count3.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

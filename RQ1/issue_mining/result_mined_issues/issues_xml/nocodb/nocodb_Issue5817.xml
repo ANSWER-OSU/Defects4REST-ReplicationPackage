@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5817</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/5817</ISSUEURL>
+  <TITLE>Bug: [Nest] ERROR [i] Missing refresh token</TITLE>
+  <DESCRIPTION>### Please confirm if bug report does NOT exists already ? - [X] I confirm there is no existing issue for this ### Steps to reproduce ? After updating from previous version to latest version, I get this error in the docker logs: ``` [Nest] 1 - 06/05/2023, 4:43:37 PM ERROR [i] Missing refresh token Error: Missing refresh token at t.NcError.badRequest (/app/code/node_modules/nocodb/dist/bundle.js:1:649372) at k.refreshToken (/app/code/node_modules/nocodb/dist/bundle.js:1:1245325) at j.refreshToken (/app/code/node_modules/nocodb/dist/bundle.js:1:174280) at /app/code/node_modules/@nestjs/core/router/router-execution-context.js:38:29 at process.processTicksAndRejections (node:internal/process/task_queues:95:5) at async /app/code/node_modules/@nestjs/core/router/router-execution-context.js:46:28 at async /app/code/node_modules/@nestjs/core/router/router-proxy.js:9:17 ``` Just open the logon page and check the logging of the docker container. Issue didn't occur in previous versions of nocodb. ### Desired Behavior No error thrown ### Project Details Node: **v18.12.1** Arch: **x64** Platform: **linux** Docker: **true** RootDB: **pg** PackageVersion: **0.108.1** ### Attachments _No response_</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>86</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>chore(renovate): revise commitMessagePrefix</MESSAGE>
+    <SHA>b23bea48201ea6aae6c2b0b3ce76da03b9bd1ccc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>refactor: handle refresh token error gracefully re #5817 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>05adeb3b75a3f6a414b52326e4fc2d311737e781</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/composables/useApi/interceptors.ts</FILE>
+        <FILE>packages/nocodb/src/controllers/users/users.controller.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

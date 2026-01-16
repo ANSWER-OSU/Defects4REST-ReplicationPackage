@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4290</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/4290</ISSUEURL>
+  <TITLE>Occuring 'SSL Connection Error: ASN' if using rds-ca-2019</TITLE>
+  <DESCRIPTION>&lt;!-- We use GitHub only for bug reports Anything else should be posted to https://discuss.redash.io For support, help &amp; questions use https://discuss.redash.io/c/support For feature requests &amp; ideas use https://discuss.redash.io/c/feature-requests **Found a security vulnerability?** Please email security@redash.io to report any security vulnerabilities. We will acknowledge receipt of your vulnerability and strive to send you regular updates about our progress. If you're curious about the status of your disclosure please feel free to email us again. If you want to encrypt your disclosure email, you can use this PGP key. --&gt; ### Issue Summary I got the error below when upgrade rds-certificate and execute query on Redash. `Error running query: SSL connection error: ASN: bad other signature confirmation` I guess that occur because using RDS with rds-ca-2019. I fixed that add key(*1) to 'redash/redash/query_runner/files/rds-combined-ca-bundle.pem' manually. (*1) https://s3.amazonaws.com/rds-downloads/rds-ca-2019-root.pem If this is right solution, may I create the pull-request? refs: AWS: [Using SSL/TLS to Encrypt a Connection to a DB Instance](https://docs.aws.amazon.com/en_us/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html) AWS: [solution about SSL error](https://aws.amazon.com/premiumsupport/knowledge-center/rds-error-2026-ssl-connection/) ### Steps to Reproduce 1. Using RDS with rds-ca-2019. 2. Executing some query on Redash console. ### Technical details: * Redash Version:Redash 5.0.2+b5486 * Browser/OS: Chrome Version 77.0.3865.120 / MacOS * How did you install Redash: AWS EC2 AMI redash-5.0.2-b5486-build2-ap-northeast-1</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>114</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Migrate Table visualization to React Part 2: Editor (#4175) * Migrate table editor to React: skeleton, Grid tab * Columns tab * Cleanup * Columns tab: DnD column sorting * Columns types should be JSX * New Columns tab UI/X * Use Sortable component on Columns tab * Tests: Grid Settings * Tests: Columns Settings * Tests: Editors for Text, Number, Boolean and Date/Time columns * Tests: Editors for Image and Link columns * Minor UI fix * Trigger build * Debounce inputs</MESSAGE>
+    <SHA>7157244eec2632fbcbd9c59b5987a3cefbabfcdb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Update rds-combined-ca-bundle.pem(#4290) Can use rds-ca-2019 and etc `$ curl https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem \ &gt; redash/query_runner/files/rds-combined-ca-bundle.pem`</MESSAGE>
+      <SHA>f551401ee72b541926d737ab5636a3b1e3404416</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/query_runner/files/rds-combined-ca-bundle.pem</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Update rds-combined-ca-bundle.pem(#4290) (#4304) Can use rds-ca-2019 and etc `$ curl https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem \ &gt; redash/query_runner/files/rds-combined-ca-bundle.pem`</MESSAGE>
+      <SHA>263305214ebe8d3cca903579ae96d637154a6fd4</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/query_runner/files/rds-combined-ca-bundle.pem</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Update rds-combined-ca-bundle.pem(#4290) (#4304) Can use rds-ca-2019 and etc `$ curl https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem \ &gt; redash/query_runner/files/rds-combined-ca-bundle.pem`</MESSAGE>
+      <SHA>ae7a5ee444b1971475a185a1b99b0f1913dba389</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/query_runner/files/rds-combined-ca-bundle.pem</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>v8.0.2 (#4650) * Upgrade Snowflake connector Backport to v8 branch of #4567 &amp; #4407. * Upgrade cassandra-driver to speed up Docker build. Backport of #4636. * Update rds-combined-ca-bundle.pem(#4290) (#4304) Can use rds-ca-2019 and etc `$ curl https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem \ &gt; redash/query_runner/files/rds-combined-ca-bundle.pem` * Update version. * Update CHANGELOG. Co-authored-by: Kenji Ichihashi &lt;ichihashi@giftee.co&gt;</MESSAGE>
+      <SHA>a9d7ca439e7067b6703841b2c7e93b34b3368ff7</SHA>
+      <PATCHEDFILES>
+        <FILE>CHANGELOG.md</FILE>
+        <FILE>package-lock.json</FILE>
+        <FILE>package.json</FILE>
+        <FILE>redash/__init__.py</FILE>
+        <FILE>redash/query_runner/files/rds-combined-ca-bundle.pem</FILE>
+        <FILE>requirements_all_ds.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

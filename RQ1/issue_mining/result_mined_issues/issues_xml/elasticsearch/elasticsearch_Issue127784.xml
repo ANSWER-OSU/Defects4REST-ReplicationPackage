@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127784</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/127784</ISSUEURL>
+  <TITLE>[CI] FilesEntitlementsValidationTests testValidationFailForRead failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #8071 / openjdk21_checkpart1_java-fips-matrix](https://gradle-enterprise.elastic.co/s/2bhywurclosho) - [elasticsearch-periodic #8071 / openjdk23_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/rhgj6m4hx4am4) - [elasticsearch-periodic #8071 / openjdk21_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/r5ycdrh3xkgns) - [elasticsearch-periodic #8065 / openjdk23_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/x4zaxsdnzla3s) - [elasticsearch-periodic #8065 / openjdk21_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/myxej4s23t4im) - [elasticsearch-periodic #8065 / openjdk21_checkpart1_java-fips-matrix](https://gradle-enterprise.elastic.co/s/faar3xarhjysc) - [elasticsearch-periodic #8059 / openjdk21_checkpart1_java-fips-matrix](https://gradle-enterprise.elastic.co/s/46nucmmpew4yw) - [elasticsearch-periodic #8059 / openjdk21_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/mq2zqsqftkquk) - [elasticsearch-periodic #8059 / openjdk23_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/p6kq3cwes46ki) - [elasticsearch-periodic #8053 / openjdk21_checkpart1_java-fips-matrix](https://gradle-enterprise.elastic.co/s/s6zcsw6whfnre) **Reproduction Line:** ``` ./gradlew &quot;:libs:entitlement:test&quot; --tests &quot;org.elasticsearch.entitlement.initialization.FilesEntitlementsValidationTests.testValidationFailForWrite&quot; -Dtests.seed=F8E915172A118973 -Dtests.locale=luy-KE -Dtests.timezone=Asia/Qostanay -Druntime.java=21 -Dtests.fips.enabled=true ``` **Applicable branches:** 9.0 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.entitlement.initialization.FilesEntitlementsValidationTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testValidationFailForRead),title:'Test',type:optionsListControl))))) **Failure Message:** ``` junit.framework.AssertionFailedError: Unexpected exception type, expected IllegalArgumentException but got java.security.AccessControlException: access denied (&quot;java.io.FilePermission&quot; &quot;/opt/buildkite-agent/.java/openjdk21/conf&quot; &quot;read&quot;) ``` **Issue Reasons:** - [9.0] 3 consecutive failures in test testValidationFailForRead - [9.0] 5 consecutive failures in step openjdk21_checkpart1_java-fips-matrix - [9.0] 5 consecutive failures in step openjdk23_checkpart1_java-matrix - [9.0] 5 consecutive failures in step openjdk21_checkpart1_java-matrix - [9.0] 15 failures in test testValidationFailForRead (11.8% fail rate in 127 executions) - [9.0] 5 failures in step openjdk21_checkpart1_java-fips-matrix (100.0% fail rate in 5 executions) - [9.0] 5 failures in step openjdk23_checkpart1_java-matrix (100.0% fail rate in 5 executions) - [9.0] 5 failures in step openjdk21_checkpart1_java-matrix (100.0% fail rate in 5 executions) - [9.0] 5 failures in pipeline elasticsearch-periodic (100.0% fail rate in 5 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Prune changelogs after 9.0.1 release</MESSAGE>
+    <SHA>de16e5ab3652123337c4d1949d5f98727e5037db</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Disable SecurityManager in tests SecurityManager is already removed in 9.1 and 8.19, but those changes are too large to backport to 8.18 and 9.0. This commit changes tests there to not run with security manager to avoid security manager specific failures even though release versions only runs with entitlements. closes #127784 closes #127785 closes #127786</MESSAGE>
+      <SHA>f3b4f177d3bde5875938331b56e962a05a3c2007</SHA>
+      <PATCHEDFILES>
+        <FILE>test/framework/src/main/java/org/elasticsearch/bootstrap/BootstrapForTesting.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Disable SecurityManager in tests (#127789) SecurityManager is already removed in 9.1 and 8.19, but those changes are too large to backport to 8.18 and 9.0. This commit changes tests there to not run with security manager to avoid security manager specific failures even though release versions only runs with entitlements. closes #127784 closes #127785 closes #127786</MESSAGE>
+      <SHA>38dcdc39aac12d94ff229378fe9832c9fa7ce179</SHA>
+      <PATCHEDFILES>
+        <FILE>test/framework/src/main/java/org/elasticsearch/bootstrap/BootstrapForTesting.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Disable SecurityManager in tests (#127789) SecurityManager is already removed in 9.1 and 8.19, but those changes are too large to backport to 8.18 and 9.0. This commit changes tests there to not run with security manager to avoid security manager specific failures even though release versions only runs with entitlements. closes #127784 closes #127785 closes #127786</MESSAGE>
+      <SHA>464a03ec87b8502442b8f52d8b9254ced8cbcff4</SHA>
+      <PATCHEDFILES>
+        <FILE>test/framework/src/main/java/org/elasticsearch/bootstrap/BootstrapForTesting.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Disable SecurityManager in tests (#127789) (#127794) SecurityManager is already removed in 9.1 and 8.19, but those changes are too large to backport to 8.18 and 9.0. This commit changes tests there to not run with security manager to avoid security manager specific failures even though release versions only runs with entitlements. closes #127784 closes #127785 closes #127786 Co-authored-by: Elastic Machine &lt;elasticmachine@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>abced4b87a551a3f967cb492ae46ba03f44e66dd</SHA>
+      <PATCHEDFILES>
+        <FILE>test/framework/src/main/java/org/elasticsearch/bootstrap/BootstrapForTesting.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

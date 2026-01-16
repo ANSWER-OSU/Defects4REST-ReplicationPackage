@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18669</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18669</ISSUEURL>
+  <TITLE>Default values for custom_fields are ignored in API when custom_fields section is used</TITLE>
+  <DESCRIPTION>### Deployment Type Self-hosted ### NetBox Version v4.2.3 ### Python Version 3.12 ### Steps to Reproduce 1. Create multiple custom_fields with object type IPAM &gt; Prefix - primary_subnet, type: boolean, required: yes, default value: true - ripe_admin, type: text, required: no, default value: &quot;xxx-RIPE&quot; - ripe_tech, type: text, required:no - ripe_netname, type: text, required: no 2. Create a new prefix using API without custom_fields `{ &quot;prefix&quot;: &quot;10.0.0.0/24&quot;, &quot;status&quot;: &quot;active&quot;, &quot;description&quot;: &quot;Test prefix&quot;, &quot;vlan&quot;: &quot;147&quot;, &quot;is_pool&quot;: false, &quot;tenant&quot;: 6 }` 3. Create a new prefix using API with only &quot;primary_subnet&quot; as custom_field `{ &quot;prefix&quot;: &quot;10.0.0.0/24&quot;, &quot;status&quot;: &quot;active&quot;, &quot;description&quot;: &quot;Test prefix&quot;, &quot;vlan&quot;: &quot;147&quot;, &quot;is_pool&quot;: false, &quot;tenant&quot;: 6, &quot;custom_fields&quot;: { &quot;primary_subnet&quot;: true } }` 4. Create a new prefix using API with only &quot;ripe_netname&quot; as custom_field `{ &quot;prefix&quot;: &quot;10.0.0.0/24&quot;, &quot;status&quot;: &quot;active&quot;, &quot;description&quot;: &quot;Test prefix&quot;, &quot;vlan&quot;: &quot;147&quot;, &quot;is_pool&quot;: false, &quot;tenant&quot;: 6, &quot;custom_fields&quot;: { &quot;ripe_netname&quot;: &quot;test&quot; } }` ### Expected Behavior 1. Custom fields are created 2. Prefix is created with default values for custom_fields primary_subnet and ripe_admin. Other custom_fields are null 3. Prefix is created with supplied value for custom_field primary_subnet, default value for ripe_admin. Other custom_fields are null 4. Prefix is created with default values for custom_fields primary_subnet and ripe_admin. ripe_netname gets the supplied value and ripe_tech remains null ### Observed Behavior As soon as a custom_fields section is available in the POST Body then the default values for all custom_fields are ignored. When I do not send the custom_fields section at all then the default values are used correctly. 1. Custom fields are created (OK) 2. Prefix is created with default values for primary_subnet and ripe_admin (OK) 3. Prefix is created with primary_subnet set to true but other custom_fields are empty -&gt; default value for ripe_admin is ignored 4. Prefix is not created because primary_subnet (required) is not supplied -&gt; default value for primary_subnet is ignored</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>55</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixes #19196: Add Filtering by VLAN Translation Policy to Interface Filter Forms (#19199) * feat(dcim): Add VLAN Translation Policy to Filter Form Introduces support for VLAN Translation Policies in the Interface Filter Form. * feat(virtualization): Add VLAN Translation Policy to Filter Form Introduces support for VLAN Translation Policies in the Interface Filter Form.</MESSAGE>
+    <SHA>cac41cd093b7fdcf96e9525bd7c01b5dad4aaedb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #18669 - Populate custom field default values (#19115)</MESSAGE>
+      <SHA>c108c738aeac419bfeabcd1e49899872c69a0831</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/ipam/forms/model_forms.py</FILE>
+        <FILE>netbox/netbox/models/features.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

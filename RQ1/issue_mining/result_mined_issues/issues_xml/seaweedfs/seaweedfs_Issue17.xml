@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/17</ISSUEURL>
+  <TITLE>Stability of master servers</TITLE>
+  <DESCRIPTION>I'm using weed-fs in production now. Sometimes master server randomly respond with blank line or &quot;no more volumes&quot; error. (even when correct topology in /dir/status) I used 3 master-servers and it caused to even decrease overall stability of the system - sometimes master servers lost sync with each other / unable to promote the leader, and the only way fixing it was removing all master server files, shutting down all master servers and data nodes, then starting master servers and nodes. I'm not quite sure how to investigate this problem, because reproducibility is low - I have no idea how to force master server(s) into unavailable state. Maybe some hardcore unit/integration tests? This issue not allowing me to use weed-fs in production for my new projects and I'm currently migrating to cloud storage, but leaving possibility for migrating back.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>154</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>1.add S3 copy directory function 2.fixed the problem of empty directory when S3 deleted the directory</MESSAGE>
+    <SHA>a99f63cb4d8d1bcbdeba3c735947ca9992914d5c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #17 from chrislusf/master sync</MESSAGE>
+      <SHA>85570f27a0baf1fb7327d047b5b826eda34e652f</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/server.go</FILE>
+        <FILE>weed/filesys/dir_rename.go</FILE>
+        <FILE>weed/server/master_grpc_server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

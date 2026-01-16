@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4365</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/4365</ISSUEURL>
+  <TITLE>ec.decode: no such file or directory</TITLE>
+  <DESCRIPTION>**Describe the bug** Trying to ec.encode and ec.decode a volume, but ec.decode fails. **System Setup** - List the command line to start &quot;weed master&quot;, &quot;weed volume&quot;, &quot;weed filer&quot;, &quot;weed s3&quot;, &quot;weed mount&quot;. ``` /usr/local/bin/weed -logtostderr -v=1 master -mdir=/mnt/data01/meta -ip=10.1.21.23 -defaultReplication=010 -volumeSizeLimitMB 30000 -garbageThreshold 0.001 -peers=10.1.21.23:9333,10.1.21.24:9333,10.1.21.25:9333 /usr/local/bin/weed -logtostderr -v=1 volume -pprof -concurrentUploadLimitMB 99999 -concurrentDownloadLimitMB 99999 -minFreeSpace 50GiB -compactionMBps=500 -port=8080 -mserver=10.1.21.23:9333,10.1.21.24:9333,10.1.21.25:9333 -dir=/mnt/data01/data,/mnt/data02/data -index leveldb -max 0,0 -ip 10.1.21.23 -rack photol-110 -dataCenter v12 ``` - OS version ```Ubuntu 18.04``` - output of `weed version` ```version 30GB 3.44 linux amd64``` **Expected behavior** The volume to be converted from ec to regular volume. **Logs** ``` &gt; ec.encode -volumeId 13228 -collection &quot;photo-large-prod-005&quot; markVolumeReadonly 13228 on 10.1.21.23:8080 ... markVolumeReadonly 13228 on 10.1.21.29:8080 ... markVolumeReadonly 13228 on 10.1.21.25:8080 ... generateEcShards photo-large-prod-005 13228 on 10.1.21.23:8080 ... parallelCopyEcShardsFromSource 13228 10.1.21.23:8080 allocate 13228.[2 6 10] 10.1.21.23:8080 =&gt; 10.1.21.23:8080 allocate 13228.[0 4 8 12] 10.1.21.23:8080 =&gt; 10.1.21.24:8080 allocate 13228.[3 7 11] 10.1.21.23:8080 =&gt; 10.1.21.29:8080 allocate 13228.[1 5 9 13] 10.1.21.23:8080 =&gt; 10.1.21.25:8080 mount 13228.[2 6 10] on 10.1.21.23:8080 copy 13228.[0 4 8 12] 10.1.21.23:8080 =&gt; 10.1.21.24:8080 copy 13228.[3 7 11] 10.1.21.23:8080 =&gt; 10.1.21.29:8080 copy 13228.[1 5 9 13] 10.1.21.23:8080 =&gt; 10.1.21.25:8080 mount 13228.[3 7 11] on 10.1.21.29:8080 I0403 12:01:12.004477 command_ec_common.go:98 10.1.21.23:8080 ec volume 13228 deletes shards [3 7 11] mount 13228.[0 4 8 12] on 10.1.21.24:8080 I0403 12:01:22.365045 command_ec_common.go:98 10.1.21.23:8080 ec volume 13228 deletes shards [0 4 8 12] mount 13228.[1 5 9 13] on 10.1.21.25:8080 I0403 12:01:22.614695 command_ec_common.go:98 10.1.21.23:8080 ec volume 13228 deletes shards [1 5 9 13] unmount 13228.[3 7 11 0 4 8 12 1 5 9 13] from 10.1.21.23:8080 delete 13228.[3 7 11 0 4 8 12 1 5 9 13] from 10.1.21.23:8080 delete volume 13228 from 10.1.21.23:8080 delete volume 13228 from 10.1.21.29:8080 delete volume 13228 from 10.1.21.25:8080 &gt; ec.decode -volumeId 13228 -collection &quot;photo-large-prod-005&quot; -force ec volume 13228 shard locations: map[10.1.21.23:8080:1092 10.1.21.24:8080:4369 10.1.21.25:8080:8738 10.1.21.29:8080:2184] collectEcShards: ec volume 13228 collect shards to 10.1.21.24:8080 from: map[10.1.21.23:8080:1092 10.1.21.24:8080:4369 10.1.21.25:8080:8738 10.1.21.29:8080:2184] copy 13228.[2 6] 10.1.21.23:8080 =&gt; 10.1.21.24:8080 copy 13228.[3 7] 10.1.21.29:8080 =&gt; 10.1.21.24:8080 copy 13228.[1 5 9] 10.1.21.25:8080 =&gt; 10.1.21.24:8080 generateNormalVolume from ec volume 13228 on 10.1.21.24:8080 error: generate normal volume 13228 on 10.1.21.24:8080: rpc error: code = Unknown desc = WriteEcFiles /mnt/data02/data/photo-large-prod-005_13228: open /mnt/data02/data/photo-large-prod-005_13228.ec01: no such file or directory</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Writables inconsistency (#4417) fix: inconsistent read and write permissions between master and volume server Signed-off-by: Wusong Wang &lt;wangwusong@virtaitech.com&gt; Co-authored-by: Wusong Wang &lt;wangwusong@virtaitech.com&gt;</MESSAGE>
+    <SHA>2e240704abd29d74d3dbe3515c22745d83480f38</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>avoid overwriting variables fix https://github.com/seaweedfs/seaweedfs/issues/4365</MESSAGE>
+      <SHA>ff7b6d779e725e6b07b63d12d6c7cebec24fdd57</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/storage/store_ec.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>collect ec shard from multiple locations fix https://github.com/seaweedfs/seaweedfs/issues/4365</MESSAGE>
+      <SHA>0a22eea55df8462d8fdfc206f4995304ddaca5d9</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/volume_grpc_erasure_coding.go</FILE>
+        <FILE>weed/storage/disk_location_ec.go</FILE>
+        <FILE>weed/storage/erasure_coding/ec_decoder.go</FILE>
+        <FILE>weed/storage/store_ec.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

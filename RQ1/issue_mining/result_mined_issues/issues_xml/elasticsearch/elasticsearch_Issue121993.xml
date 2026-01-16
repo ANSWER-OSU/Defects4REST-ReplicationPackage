@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121993</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121993</ISSUEURL>
+  <TITLE>[CI] AggsTimeoutIT testTerms failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6252 / ubuntu-2204_platform-support-unix](https://gradle-enterprise.elastic.co/s/6hgu4vaxvhqi2) - [elasticsearch-periodic-platform-support #6252 / rhel-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/obj2qdyaavrwa) - [elasticsearch-periodic-platform-support #6245 / rhel-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/i3eb7pprk26fg) - [elasticsearch-periodic-platform-support #6245 / windows-2022_checkpart2_platform-support-windows](https://gradle-enterprise.elastic.co/s/l2jqqgubryofk) - [elasticsearch-periodic-platform-support #6238 / oraclelinux-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/pgnmwfihrycmu) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:analytics:javaRestTest&quot; --tests &quot;org.elasticsearch.multiterms.AggsTimeoutIT.testTerms&quot; -Dtests.seed=7BC16BC7F224F -Dtests.locale=rm -Dtests.timezone=Asia/Yakutsk -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.multiterms.AggsTimeoutIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testTerms),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected a map containing nodes: an empty map KT4_lE1RTQWzDdEpXfm_Eg: &lt;unexpected&gt; but was &lt;{transport_address=127.0.0.1:36161, ip=127.0.0.1:36161, roles=[data, data_cold, data_content, data_frozen, data_hot, data_warm, ingest, master, ml, remote_cluster_client, transform], name=test-cluster-0, host=127.0.0.1, attributes={xpack.installed=true, transform.config_version=10.0.0, testattr=test, ml.config_version=12.0.0}, tasks={KT4_lE1RTQWzDdEpXfm_Eg:949={node=KT4_lE1RTQWzDdEpXfm_Eg, headers={}, running_time_in_nanos=12248684933, action=indices:data/read/search, description=indices[deep], search_type[QUERY_THEN_FETCH], source[{&quot;size&quot;:0,&quot;aggregations&quot;:{&quot;agg010&quot;:{&quot;terms&quot;:{&quot;field&quot;:&quot;kwd009&quot;,&quot;size&quot;:10,&quot;min_doc_count&quot;:1,&quot;shard_min_doc_count&quot;:0,&quot;show_term_doc_count_error&quot;:false,&quot;order&quot;:[{&quot;_count&quot;:&quot;desc&quot;},{&quot;_key&quot;:&quot;asc&quot;}]},&quot;aggregations&quot;:{&quot;agg009&quot;:{&quot;terms&quot;:{&quot;field&quot;:&quot;kwd008&quot;,&quot;size&quot;:10,&quot;min_doc_count&quot;:1,&quot;shard_min_doc_count&quot;:0,&quot;show_term_doc_count_error&quot;:false [truncated] ``` **Issue Reasons:** - [8.x] 2 consecutive failures in step rhel-9_platform-support-unix - [8.x] 5 failures in test testTerms (4.0% fail rate in 126 executions) - [8.x] 2 failures in step rhel-9_platform-support-unix (66.7% fail rate in 3 executions) - [8.x] 3 failures in pipeline elasticsearch-periodic-platform-support (100.0% fail rate in 3 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[Test] Unmute MinioSearchableSnapshotsIT (#122014) Tests failures were caused by transient download failure of the Minion Docker image. Closes #121882</MESSAGE>
+    <SHA>7b8f7cca35359e100cb1f19d41bb899e117d798a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Retry timeout tests for aggs The aggs timeout test waits for the agg to return and then double checks that the agg is stopped using the tasks API. We're seeing some failures where the tasks API reports that the agg is still running. I can't reproduce them because computers. This adds two things: 1. Logs the hot_threads so we can see if the query is indeed still running. 2. Retries the _tasks API for a minute. If it goes away soon after the _search returns that's *fine*. If it sticks around for more than a few seconds then the cancel isn't working. We wait for a minute because CI can't be trusted to do anything quickly. Closes #121993</MESSAGE>
+      <SHA>b8b8b0db3849b5a252489fdc1160fb8c9e1f9d25</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/analytics/src/javaRestTest/java/org/elasticsearch/multiterms/AggsTimeoutIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Retry timeout tests for aggs (#122031) The aggs timeout test waits for the agg to return and then double checks that the agg is stopped using the tasks API. We're seeing some failures where the tasks API reports that the agg is still running. I can't reproduce them because computers. This adds two things: 1. Logs the hot_threads so we can see if the query is indeed still running. 2. Retries the _tasks API for a minute. If it goes away soon after the _search returns that's *fine*. If it sticks around for more than a few seconds then the cancel isn't working. We wait for a minute because CI can't be trusted to do anything quickly. Closes #121993</MESSAGE>
+      <SHA>cff329ee4076d206dcb2a0a49d90c5127df34b9e</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/analytics/src/javaRestTest/java/org/elasticsearch/multiterms/AggsTimeoutIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Retry timeout tests for aggs (#122031) The aggs timeout test waits for the agg to return and then double checks that the agg is stopped using the tasks API. We're seeing some failures where the tasks API reports that the agg is still running. I can't reproduce them because computers. This adds two things: 1. Logs the hot_threads so we can see if the query is indeed still running. 2. Retries the _tasks API for a minute. If it goes away soon after the _search returns that's *fine*. If it sticks around for more than a few seconds then the cancel isn't working. We wait for a minute because CI can't be trusted to do anything quickly. Closes #121993</MESSAGE>
+      <SHA>871a489ee33a92e1855360fa137165ca2bb96efb</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/analytics/src/javaRestTest/java/org/elasticsearch/multiterms/AggsTimeoutIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Retry timeout tests for aggs (#122031) The aggs timeout test waits for the agg to return and then double checks that the agg is stopped using the tasks API. We're seeing some failures where the tasks API reports that the agg is still running. I can't reproduce them because computers. This adds two things: 1. Logs the hot_threads so we can see if the query is indeed still running. 2. Retries the _tasks API for a minute. If it goes away soon after the _search returns that's *fine*. If it sticks around for more than a few seconds then the cancel isn't working. We wait for a minute because CI can't be trusted to do anything quickly. Closes #121993</MESSAGE>
+      <SHA>bbc5d1624e20601eb8f7dd61046de03be2ca4042</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/analytics/src/javaRestTest/java/org/elasticsearch/multiterms/AggsTimeoutIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16588</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/16588</ISSUEURL>
+  <TITLE>Merging object does not allow to set a property value to null</TITLE>
+  <DESCRIPTION>### Describe the bug I created a custom part: ``` public class TestContentPart : ContentPart { public int? Minutes { get; set; } } ``` Using a driver I have set the `Minutes` value to a number like `10`. Everything works as expected. However, if I want to set it back to `null` after it was set to `10` the value will not allow setting null. because of this setting https://github.com/OrchardCMS/OrchardCore/blob/3fe9612adb08b03114177a485ecc02e52091030c/src/OrchardCore/OrchardCore.Abstractions/Json/JOptions.cs#L23 ### Orchard Core version main ### To Reproduce Steps to reproduce the behavior: Using the following test ``` [Fact] public void Apply_WhenCalledWithNullProperty_SetThePropertyToNull() { var contentItem = new ContentItem(); contentItem.Apply(new TestContentPart() { Minutes = -15, }); var instance = contentItem.As&lt;TestContentPart&gt;(); Assert.NotNull(instance); Assert.Equal(-15, instance.Minutes); contentItem.Apply(new TestContentPart() { Minutes = null, }); var minutes = (int?)contentItem.Content.TestContentPart.Minutes; Assert.Null(minutes); } ```</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Return services from workflow registration extension methods (#16568) Co-authored-by: Hisham Bin Ateya &lt;hishamco_2007@yahoo.com&gt;</MESSAGE>
+    <SHA>c1f330e005d4f13e333e07b1498dab71f96b1512</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix Json Merge obejcts Fix #16588</MESSAGE>
+      <SHA>e7074c4b36068cbe52482c4d92baa20e46158718</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.Abstractions/Json/Nodes/JObject.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement.Abstractions/ContentExtensions.cs</FILE>
+        <FILE>test/OrchardCore.Tests/ContentManagement/ContentElementTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

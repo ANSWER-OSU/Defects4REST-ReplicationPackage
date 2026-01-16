@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5906</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5906</ISSUEURL>
+  <TITLE>Encoding attachments when sending emails</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40.3 &gt; We upgraded a customer shop from v4.30 to v4.40.3. Now, eMails with attachments (e.g. the &quot;OrderCompleted.CustomerNotification&quot; template) sent from the system get bounced back with the following SMTP Error: &gt; &gt; ``` &gt; Remote Server returned '550 5.6.11 SMTPSEND.BareLinefeedsAreIllegal; message contains bare linefeeds, which cannot be sent via DATA and receiving system does not support BDAT' &gt; ``` &gt; &gt; The problem is the used MailKit NuGet package and the non conform usage of it. &gt; You need to add the bold marked line in the following code. &gt; Then attachments are correctly encoded and the problem is gone. &gt; &gt; ``` &gt; /// &lt;summary&gt; &gt; /// Create an file attachment for the binary data &gt; /// &lt;/summary&gt; &gt; /// &lt;param name=&quot;attachmentFileName&quot;&gt;Attachment file name&lt;/param&gt; &gt; /// &lt;param name=&quot;binaryContent&quot;&gt;The array of unsigned bytes from which to create the attachment stream.&lt;/param&gt; &gt; /// &lt;param name=&quot;cDate&quot;&gt;Creation date and time for the specified file or directory&lt;/param&gt; &gt; /// &lt;param name=&quot;mDate&quot;&gt;Date and time that the specified file or directory was last written to&lt;/param&gt; &gt; /// &lt;param name=&quot;rDate&quot;&gt;Date and time that the specified file or directory was last access to.&lt;/param&gt; &gt; /// &lt;returns&gt;A leaf-node MIME part that contains an attachment.&lt;/returns&gt; &gt; protected MimePart CreateMimeAttachment(string attachmentFileName, byte[] binaryContent, DateTime cDate, DateTime mDate, DateTime rDate) &gt; { &gt; if (!ContentType.TryParse(MimeTypes.GetMimeType(attachmentFileName), out var mimeContentType)) &gt; mimeContentType = new ContentType(&quot;application&quot;, &quot;octet-stream&quot;); &gt; &gt; return new MimePart(mimeContentType) &gt; { &gt; FileName = attachmentFileName, &gt; Content = new MimeContent(new MemoryStream(binaryContent)), &gt; ContentDisposition = new ContentDisposition &gt; { &gt; CreationDate = cDate, &gt; ModificationDate = mDate, &gt; ReadDate = rDate &gt; }, &gt; // Solves: Remote Server returned '550 5.6.11 SMTPSEND.BareLinefeedsAreIllegal; message contains bare linefeeds, which cannot be sent via DATA and receiving system does not support BDAT' &gt; ContentTransferEncoding = ContentEncoding.Base64 &gt; }; &gt; } &gt; ``` Source: https://www.nopcommerce.com/boards/topic/91962/after-upgrade-to-4403-we-get-550-5611-smtpsendbarelinefeedsareillegal-when-sending-emails-with-attac Should we use encoding for all attachments or make it configurable somehow?</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'Zalhera-issue-5846' into develop</MESSAGE>
+    <SHA>741cdebb4b1bc82ad9f87160924d481cafddb61d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5906 Encoding attachments when sending emails</MESSAGE>
+      <SHA>18862b0a008dd967d9caad2e4ddc358b185c76ee</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Messages/EmailSender.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

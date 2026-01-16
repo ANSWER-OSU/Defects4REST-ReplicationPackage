@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18193</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18193</ISSUEURL>
+  <TITLE>Podman import xz compressed rootfs can not save and load to the other machine</TITLE>
+  <DESCRIPTION>### Issue Description podman import xz compressed rootfs can not save and load again. ### Steps to reproduce the issue Steps to reproduce the issue ``` 1. podman import xxx.tar.xz test:latest 2. podman save test:latest -o test.tar 3. podman rmi test:latest 4. podman load -i test.tar ``` ### Describe the results you received ``` [root@localhost podmanupload]# podman load -i test.tar Getting image source signatures Copying blob b4bff416429f [=====================================&gt;] 4.8MiB / 4.9MiB Error: payload does not match any of the supported image formats: * oci: initializing source oci:test.tar:: open test.tar/index.json: not a directory * oci-archive: loading index: open /var/tmp/oci3545856028/index.json: no such file or directory * docker-archive: writing blob: storing blob to file &quot;/var/tmp/storage3899402231/1&quot;: happened during read: Digest did not match, expected sha256:b4bff416429f4b429432f77a9d2395e9cf89f3aa38a5ebe37b7097bfecd3e7b3, got sha256:ce8792ade25e61d4677b53f88bda40ef24473c1c8e3f2420b0906471d017d8e7 * dir: open test.tar/manifest.json: not a directory [root@localhost podmanupload]# ``` ### Describe the results you expected import success ### podman info output ```yaml host: arch: amd64 buildahVersion: 1.30.0-dev cgroupControllers: - cpuset - cpu - cpuacct - blkio - memory - devices - freezer - net_cls - perf_event - net_prio - hugetlb - pids - rdma cgroupManager: systemd cgroupVersion: v1 conmon: package: Unknown path: /usr/local/bin/conmon version: 'conmon version 2.1.7, commit: 9a3af8f438d89ffc176f3c76c164088e64bb6b19' cpuUtilization: idlePercent: 96.73 systemPercent: 0.62 userPercent: 2.65 cpus: 12 databaseBackend: boltdb distribution: distribution: '&quot;openEuler&quot;' version: &quot;22.03&quot; eventLogger: journald hostname: localhost.localdomain idMappings: gidmap: null uidmap: null kernel: 6.1.12 linkmode: dynamic logDriver: journald memFree: 1199435776 memTotal: 7797182464 networkBackend: cni ociRuntime: name: runc package: containerd.io-1.6.18-3.1.el8.x86_64 path: /usr/bin/runc version: |- runc version 1.1.4 commit: v1.1.4-0-g5fd4c4d spec: 1.0.2-dev go: go1.19.6 libseccomp: 2.5.3 os: linux remoteSocket: path: /run/podman/podman.sock security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: false seccompEnabled: true seccompProfilePath: &quot;&quot; selinuxEnabled: false serviceIsRemote: false slirp4netns: executable: /usr/bin/slirp4netns package: slirp4netns-1.2.0-1.oe2203sp1.x86_64 version: |- slirp4netns version 1.2.0 commit: 656041d45cfca7a4176f6b7eed9e4fe6c11e8383 libslirp: 4.7.0 SLIRP_CONFIG_VERSION_MAX: 4 libseccomp: 2.5.3 swapFree: 5832261632 swapTotal: 8472489984 uptime: 352h 43m 20.00s (Approximately 14.67 days) plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan - ipvlan volume: - local registries: {} store: configFile: /usr/share/containers/storage.conf containerStore: number: 0 paused: 0 running: 0 stopped: 0 graphDriverName: overlay graphOptions: {} graphRoot: /var/lib/containers/storage graphRootAllocated: 64378073088 graphRootUsed: 44625469440 graphStatus: Backing Filesystem: extfs Native Overlay Diff: &quot;true&quot; Supports d_type: &quot;true&quot; Using metacopy: &quot;false&quot; imageCopyTmpDir: /var/tmp imageStore: number: 0 runRoot: /run/containers/storage transientStore: false volumePath: /var/lib/containers/storage/volumes version: APIVersion: 4.5.0-dev Built: 1680837502 BuiltTime: Fri Apr 7 11:18:22 2023 GitCommit: a462b37703999185248bc4962be5abc754f99c0d GoVersion: go1.20.2 Os: linux OsArch: linux/amd64 Version: 4.5.0-dev ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details _No response_ ### Additional information Try to seach and locate, it seems like wrong compression algorithm is used in containers/image, result in a wrong diffID saved. But when I try decompress it, import becomes very slow, there may be too many decompressiones during import. https://github.com/containers/image/blob/main/tarball/tarball_src.go#L88</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>691</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #25431 from containers/renovate/github.com-digitalocean-go-qemu-digest fix(deps): update github.com/digitalocean/go-qemu digest to ee9b066</MESSAGE>
+    <SHA>c37a47ae52db2fa5c76cfe0f84c6391147a022ed</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>podman-import only supports gz and tar according to the conversation in #18193, we only support plain tar or gzipped tar as input. Fixes: #18193 Signed-off-by: Brent Baude &lt;bbaude@redhat.com&gt;</MESSAGE>
+      <SHA>9e397d8e4d8d520cf48594c8b5bb126209897486</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-import.1.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>podman-import only supports gz and tar according to the conversation in #18193, we only support plain tar or gzipped tar as input. Fixes: #18193 Signed-off-by: Brent Baude &lt;bbaude@redhat.com&gt;</MESSAGE>
+      <SHA>090dbc4cee29146a25148ca6e497c3574dd99b20</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-import.1.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>podman-import only supports gz and tar according to the conversation in #18193, we only support plain tar or gzipped tar as input. Fixes: #18193 Signed-off-by: Brent Baude &lt;bbaude@redhat.com&gt;</MESSAGE>
+      <SHA>d3c22eb63c3828e14533a1dd6067c4736dc44b00</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-import.1.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

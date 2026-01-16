@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15169</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/15169</ISSUEURL>
+  <TITLE>Removing content item with enabled Amazon S3 storage provider causes exepton in logs</TITLE>
+  <DESCRIPTION>### Describe the bug I have setup of OrchardCore with enabled Amazon S3 storage provider. when I delete any content item in system I see an error related to S3 call in logs. This error does not affect any functionality but looks unnecessary. OrchardCore.Media module has AttachedMediaFieldContentHandler that reacts on content deletion and tries to delete related media files if exists. Call passed through AttachedMediaFieldFileService &gt; DefaultMediaFileStore &gt; AwsFileStorage.TryDeleteDirectoryAsync. TryDeleteDirectoryAsync method first tries to retrieve any objects related to specific path, and then makes call to DeleteObjectsAsync to remove them. But in case if there are no objects exist for removal, DeleteObjectsAsync call still executes (with empty list of objects to delete) and results in an error. ### To Reproduce Steps to reproduce the behavior: 1. Run OC on the latest main commit 2. Set up the site with any recipe 3. Enable the Amazon Media Storage feature and configure it 4. Create any content item. 5. Delete item created on step 4 ### Expected behavior The are no errors in logs. ### Actual behavior I see error in logs: ``` &quot;IContentHandler&quot; thrown from &quot;OrchardCore.Media.Handlers.AttachedMediaFieldContentHandler&quot; by &quot;AmazonS3Exception&quot;&quot;, Amazon.S3.AmazonS3Exception: The XML you provided was not well-formed or did not validate against our published schema Amazon.Runtime.Internal.HttpErrorResponseException: Exception of type 'Amazon.Runtime.Internal.HttpErrorResponseException' was thrown. at Amazon.Runtime.HttpWebRequestMessage.GetResponseAsync(CancellationToken cancellationToken) at Amazon.Runtime.Internal.HttpHandler`1.InvokeAsync[T](IExecutionContext executionContext) at Amazon.Runtime.Internal.RedirectHandler.InvokeAsync[T](IExecutionContext executionContext) at Amazon.Runtime.Internal.Unmarshaller.InvokeAsync[T](IExecutionContext executionContext) at Amazon.S3.Internal.AmazonS3ResponseHandler.InvokeAsync[T](IExecutionContext executionContext) at Amazon.Runtime.Internal.ErrorHandler.InvokeAsync[T](IExecutionContext executionContext) --- End of inner exception stack trace -- at Amazon.Runtime.Internal.HttpErrorResponseExceptionHandler.HandleExceptionStream(IRequestContext requestContext, IWebResponseData httpErrorResponse, HttpErrorResponseException exception, Stream responseStream) at Amazon.Runtime.Internal.HttpErrorResponseExceptionHandler.HandleExceptionAsync(IExecutionContext executionContext, HttpErrorResponseException exception) at Amazon.Runtime.Internal.ExceptionHandler`1.HandleAsync(IExecutionContext executionContext, Exception exception) at Amazon.Runtime.Internal.ErrorHandler.ProcessExceptionAsync(IExecutionContext executionContext, Exception exception) at Amazon.Runtime.Internal.ErrorHandler.InvokeAsync[T](IExecutionContext executionContext) at Amazon.Runtime.Internal.CallbackHandler.InvokeAsync[T](IExecutionContext executionContext) at Amazon.Runtime.Internal.Signer.InvokeAsync[T](IExecutionContext executionContext) at Amazon.Runtime.Internal.EndpointDiscoveryHandler.InvokeAsync[T](IExecutionContext executionContext) at Amazon.Runtime.Internal.EndpointDiscoveryHandler.InvokeAsync[T](IExecutionContext executionContext) at Amazon.Runtime.Internal.CredentialsRetriever.InvokeAsync[T](IExecutionContext executionContext) at Amazon.Runtime.Internal.RetryHandler.InvokeAsync[T](IExecutionContext executionContext) at Amazon.Runtime.Internal.RetryHandler.InvokeAsync[T](IExecutionContext executionContext) at Amazon.Runtime.Internal.CallbackHandler.InvokeAsync[T](IExecutionContext executionContext) at Amazon.Runtime.Internal.CallbackHandler.InvokeAsync[T](IExecutionContext executionContext) at Amazon.S3.Internal.AmazonS3ExceptionHandler.InvokeAsync[T](IExecutionContext executionContext) at Amazon.Runtime.Internal.ErrorCallbackHandler.InvokeAsync[T](IExecutionContext executionContext) at Amazon.Runtime.Internal.MetricsHandler.InvokeAsync[T](IExecutionContext executionContext) at OrchardCore.FileStorage.AmazonS3.AwsFileStore.TryDeleteDirectoryAsync(String path) at OrchardCore.Media.Core.DefaultMediaFileStore.TryDeleteDirectoryAsync(String path) at OrchardCore.Media.Handlers.AttachedMediaFieldContentHandler.RemovedAsync(RemoveContentContext context) at OrchardCore.Modules.InvokeExtensions.InvokeAsync[TEvents,T1](IEnumerable`1 events, Func`3 dispatch, T1 arg1, ILogger logger) ```</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add guidance when connecting to a SQL Server using untrusted cetrificate (#15210)</MESSAGE>
+    <SHA>1f3cc365b6e5b46ce738e0d8bb0975f1a8971552</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Skip DeleteObjectsAsync call if there are no items to delete fixes #15169</MESSAGE>
+      <SHA>b85959b27fd1ba17af13c52f1ff99406f95a44ee</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.FileStorage.AmazonS3/AwsFileStorage.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Skip DeleteObjectsAsync call if there are no items to delete (#15239) * Skip DeleteObjectsAsync call if there are no items to delete fixes #15169 * Formatting --------- Co-authored-by: Zoltán Lehóczky &lt;zoltan.lehoczky@lombiq.com&gt;</MESSAGE>
+      <SHA>a8a31396858a545ca4a62bcee29cfea44d1be824</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.FileStorage.AmazonS3/AwsFileStorage.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Skip DeleteObjectsAsync call if there are no items to delete (#15239) * Skip DeleteObjectsAsync call if there are no items to delete fixes #15169 * Formatting --------- Co-authored-by: Zoltán Lehóczky &lt;zoltan.lehoczky@lombiq.com&gt;</MESSAGE>
+      <SHA>b3888e0a34741189862e6253bc5565d1a06a1233</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.FileStorage.AmazonS3/AwsFileStorage.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

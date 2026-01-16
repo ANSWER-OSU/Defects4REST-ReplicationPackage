@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20808</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/20808</ISSUEURL>
+  <TITLE>prefer podman's installer binary (gvproxy, qemu) over system wide binaries</TITLE>
+  <DESCRIPTION>### Feature request description if I install podman on my computer using installer and have for example an old brew install or any other installation 1. podman will start gvproxy from `/usr/local/bin` folder ``` benoitf 86983 0.0 0.0 409869360 32800 s013 S 11:44AM 0:00.14 /usr/local/bin/gvproxy -listen-qemu unix:///var/folders/_s/rlbw3qg15vx0j6vr4l7kd1hm0000gn/T/podman/qmp_podman-machine-default.sock ``` I would expect that it launches gvproxy from `/opt/podman` folder my `podman` binary comes from `/opt/podman/bin/podman` and in `/opt/podman/bin` there is a gvproxy binary I would expect that it launches it from this `/opt/podman/bin` folder to avoid to mix with other binaries that might not be compliant with the one podman binary expects. 2. podman will start qemu from brew folder and not from /opt/podman for example I have one process which is: ``` /opt/homebrew/bin/qemu-system-aarch64 ``` ```bash /opt/podman/qemu/bin/qemu-system-aarch64 --version QEMU emulator version 8.0.0 Copyright (c) 2003-2022 Fabrice Bellard and the QEMU Project developers ``` ```bash /opt/podman/qemu/bin/qemu-system-aarch64 --version QEMU emulator version 8.1.1 Copyright (c) 2003-2023 Fabrice Bellard and the QEMU Project developers ``` ### Suggest potential solution A clear and concise description of what you want to happen. ### Have you considered any alternatives? A clear and concise description of any alternative solutions or features you've considered. ### Additional context I would have assumed that it would use https://github.com/containers/podman/blob/main/contrib/pkginstaller/package.sh#L10 but it seems it still take my system binaries and not the one provided by the installer</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #20907 from lsm5/v4.8.1-bump V4.8.1 bump</MESSAGE>
+    <SHA>fc78e106261aaa0e64f422a34e1fab43cf5a017e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>bump c/common to v0.57.1 Fixes #20808 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>3c0d66d83da899bbd7a164dcffa2bd28b679ac8d</SHA>
+      <PATCHEDFILES>
+        <FILE>go.mod</FILE>
+        <FILE>go.sum</FILE>
+        <FILE>vendor/github.com/containers/common/pkg/config/config_darwin.go</FILE>
+        <FILE>vendor/github.com/containers/common/pkg/config/default.go</FILE>
+        <FILE>vendor/github.com/containers/common/version/version.go</FILE>
+        <FILE>vendor/modules.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6597</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6597</ISSUEURL>
+  <TITLE>Caching Bug</TITLE>
+  <DESCRIPTION>nopCommerce version: Latest Dev Steps to reproduce the problem: Install and run the app. Navigate back and forth to some categories and products. Just installed the latest dev version. No settings altered. As installed System.NullReferenceException HResult=0x80004003 Message=Object reference not set to an instance of an object. Source=Nop.Core StackTrace: at Nop.Core.Caching.MemoryCacheManager.RemoveByPrefixAsync(String prefix, Object[] prefixParameters) in C:\Streamzy\Working Source\src\Libraries\Nop.Core\Caching\MemoryCacheManager.cs:line 189 at Nop.Web.Infrastructure.Cache.ModelCacheEventConsumer.&lt;HandleEventAsync&gt;d__32.MoveNext() in C:\Streamzy\Working Source\src\Presentation\Nop.Web\Infrastructure\Cache\ModelCacheEventConsumer.cs:line 394 at Nop.Services.Events.EventPublisher.&lt;PublishAsync&gt;d__0`1.MoveNext() in C:\Streamzy\Working Source\src\Libraries\Nop.Services\Events\EventPublisher.cs:line 33 This exception was originally thrown at this call stack: Nop.Core.Caching.MemoryCacheManager.RemoveByPrefixAsync(string, object[]) in MemoryCacheManager.cs Nop.Web.Infrastructure.Cache.ModelCacheEventConsumer.HandleEventAsync(Nop.Core.Events.EntityUpdatedEvent&lt;Nop.Core.Domain.Media.Picture&gt;) in ModelCacheEventConsumer.cs Nop.Services.Events.EventPublisher.PublishAsync&lt;TEvent&gt;(TEvent) in EventPublisher.cs</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#196 Updated TinyMCE package to 5.10.7</MESSAGE>
+    <SHA>e3231e4ee77833d3ba0040c6f6331fce7e8d76cb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6597 Fixed caching bug</MESSAGE>
+      <SHA>97ab1cb1881a24e3f3836b33e8d666d721a6d430</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Caching/CacheKeyManager.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

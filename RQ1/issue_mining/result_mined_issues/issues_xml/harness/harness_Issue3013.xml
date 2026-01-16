@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3013</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/3013</ISSUEURL>
+  <TITLE>[Feature] Missing Vertex For Clone In Local Exec</TITLE>
+  <DESCRIPTION>As a developer, it would be nice not to constantly modify drone yaml on pipelines that have dependency chains to test them locally. ```bash $ drone exec --branch master --event pull_request 2020/08/21 09:08:02 missing vertex ``` Missing vertex errors show up when locally running a pipeline that happens to have a dependency chain (`depends_on`), the server requires the first stage to have a depends on set for the `clone` stage in order to start the dependency chain, while the local exec environment does not perform a clone step (since the code understood to be already present). ```yaml - name: step1 image: user/image:1.0.0 depends_on: - clone ``` It would be great if the `clone` dependency could somehow be understood / ignored when using local exec environments. ### References - https://discourse.drone.io/t/drone-exec-doesnt-execute-multi-machine-pipeline/4127/3 - https://discourse.drone.io/t/missing-vertex-error/3274</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>1596</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [AH-690]: log errors (#3026) * feat: [AH-690]: log errors * fix: [AH-597]: fix layers api for application/vnd.oci.image.manifest.v1+json manifests</MESSAGE>
+    <SHA>eb6af94cbda837be5ecbb379a57b8594be7147bc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: [CDE-498]: Error card changes in the Gitspace Detail screen (#3013) * Resolved PR comments and made UI fixes * Resolved PR comments and made UI fixes * Resolved PR comments and made UI fixes * Resolved PR comments and made UI fixes * Resolved PR comments and made UI fixes * The new swagger file changes * Error card changes</MESSAGE>
+      <SHA>1ec254367ac6f3454c7eeb812c9d80d0ed0c3c00</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/cde-gitness/components/ErrorCard/ErrorCard.module.scss</FILE>
+        <FILE>web/src/cde-gitness/components/ErrorCard/ErrorCard.module.scss.d.ts</FILE>
+        <FILE>web/src/cde-gitness/components/ErrorCard/ErrorCard.tsx</FILE>
+        <FILE>web/src/cde-gitness/constants/index.ts</FILE>
+        <FILE>web/src/cde-gitness/pages/GitspaceDetails/GitspaceDetails.tsx</FILE>
+        <FILE>web/src/cde-gitness/services/index.tsx</FILE>
+        <FILE>web/src/cde-gitness/strings/strings.en.yaml</FILE>
+        <FILE>web/src/framework/strings/stringTypes.ts</FILE>
+        <FILE>web/src/services/cde/index.tsx</FILE>
+        <FILE>web/src/services/cde/swagger.yaml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7339</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7339</ISSUEURL>
+  <TITLE>FooterModel.IsHomePage always returns false if SeoFriendlyUrlsForLanguagesEnabled</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.70 The .IsHomePage property of the FooterModel will always return false if the setting LocalizationSettings.SeoFriendlyUrlsForLanguagesEnabled is set to true. This setting is represented as a checkbox in the General Settings area of the Admin user interface as: &quot;SEO friendly URLs with multiple languages enabled&quot;. The IsHomePage property is set on this line of the CommonModelFactory.PrepareFooterModelAsync() method: `IsHomePage = _webHelper.GetStoreLocation().Equals(_webHelper.GetThisPageUrl(false), StringComparison.OrdinalIgnoreCase)` (side note: if you're wondering why my code does not exactly match the repository, it is because I am using a simple speed boost that can [perform .Equals() string comparisons 654% faster](https://www.nopcommerce.com/en/boards/topic/100767/possible-performance-boost-stringcomparisonordinalignorecase#316062).) In that line above, .GetStoreLocation() will never equal _webHelper.GetThisPageUrl(false) when LocalizationSettings.SeoFriendlyUrlsForLanguagesEnabled is set to true because of the language slug that is injected into the url on only the right-hand expression. Therefore FooterModel .IsHomePage will always return false if SeoFriendlyUrlsForLanguagesEnabled is set to true, regardless of what page the user is on. Expected Behavior: If StoreLocation is &quot;https://site.com&quot;, FooterModel .IsHomePage should return true for the following urls when SeoFriendlyUrlsForLanguagesEnabled is set to false (this works fine): &quot;https://site.com&quot; If StoreLocation is &quot;https://site.com&quot;, FooterModel .IsHomePage should return true for the following urls when SeoFriendlyUrlsForLanguagesEnabled is set to true (this does not work): &quot;https://site.com/en&quot; &quot;https://site.com/fr&quot; &quot;https://site.com/de&quot; Source: https://www.nopcommerce.com/en/boards/topic/100869/footermodel-ishomepage-always-returns-false-if-seofriendlyurlsforlanguagesenabled UPDATE. See PR - https://github.com/nopSolutions/nopCommerce/pull/7367</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>50</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'develop' of https://github.com/nopSolutions/nopCommerce into develop # Conflicts: # src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo480/LocalizationMigration.cs</MESSAGE>
+    <SHA>4a9ac73e9e7fc0f3e366f8ffac00bbdaea0a137a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>﻿#7339 Fixed homepage detection for the FooterModel</MESSAGE>
+      <SHA>40eb18b0c93fa80aa60c6b13468a1d8cb1040442</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Factories/CommonModelFactory.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

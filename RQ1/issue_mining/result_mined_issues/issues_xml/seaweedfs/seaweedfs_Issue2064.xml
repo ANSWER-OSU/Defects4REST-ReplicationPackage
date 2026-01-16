@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2064</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/2064</ISSUEURL>
+  <TITLE>seaweedfs FUSE Mount 新建文件夹出错</TITLE>
+  <DESCRIPTION>seaweedfs 版本：2.47 linux 系统：ubuntu 20.04 samba 版本：4.11.6 将 seaweedfs files 挂载到本地目录后，使用 samba 共享到 windows 下，在 windows 上新建文件夹会出错 右键 -&gt; 新建 -&gt; 文件夹 -&gt; 回车 成功✔ ![image](https://user-images.githubusercontent.com/48195631/117944261-a8b9ea00-b33f-11eb-9b69-069e7fcffe3e.png) 右键 -&gt; 新建 -&gt; 文件夹 -&gt; 更改默认的名称 -&gt; 回车 失败❌ ![image](https://user-images.githubusercontent.com/48195631/117944342-bbccba00-b33f-11eb-87a8-62cb23f2365b.png) ![image](https://user-images.githubusercontent.com/48195631/117944374-c424f500-b33f-11eb-8bb1-e9027829799a.png) 此时在 Linux 中挂载的文件夹中执行 `ls`，会出现： ``` igmainc@A:~/test$ ls ls: 无法访问 'xyz': 没有那个文件或目录 123 新建文件夹 abc xyz ``` samba 的配置文件： ``` [test] comment = Users profiles path = /home/igmainc/test/ guest ok = yes public = yes browseable = yes writable = yes available = yes admin users = igmainc create mask = 0775 directory mask = 0775 force user = root force group = root ``` `weed filer.meta.tail` 的输出： ```json {&quot;directory&quot;:&quot;/&quot;,&quot;eventNotification&quot;:{&quot;newEntry&quot;:{&quot;name&quot;:&quot;新建文件夹&quot;,&quot;isDirectory&quot;:true,&quot;attributes&quot;:{&quot;mtime&quot;:&quot;1620819698&quot;,&quot;fileMode&quot;:2147484141,&quot;crtime&quot;:&quot;1620819698&quot;}},&quot;deleteChunks&quot;:true,&quot;newParentPath&quot;:&quot;/&quot;,&quot;signatures&quot;:[1307535173,1722882382]},&quot;tsNs&quot;:&quot;1620819698856095691&quot;} {&quot;directory&quot;:&quot;/&quot;,&quot;eventNotification&quot;:{&quot;oldEntry&quot;:{&quot;name&quot;:&quot;新建文件夹&quot;,&quot;isDirectory&quot;:true,&quot;attributes&quot;:{&quot;mtime&quot;:&quot;1620819698&quot;,&quot;fileMode&quot;:2147484141,&quot;crtime&quot;:&quot;1620819698&quot;}},&quot;newEntry&quot;:{&quot;name&quot;:&quot;新建文件夹&quot;,&quot;isDirectory&quot;:true,&quot;attributes&quot;:{&quot;mtime&quot;:&quot;1620819698&quot;,&quot;fileMode&quot;:2147484141,&quot;crtime&quot;:&quot;1620819698&quot;},&quot;extended&quot;:{&quot;user.DOSATTRIB&quot;:&quot;AAAEAAQAAABRAAAAEAAAABjGHgkjR9cBGMYeCSNH1wE=&quot;}},&quot;deleteChunks&quot;:true,&quot;newParentPath&quot;:&quot;/&quot;,&quot;signatures&quot;:[1307535173,1722882382]},&quot;tsNs&quot;:&quot;1620819698860744775&quot;} {&quot;directory&quot;:&quot;/&quot;,&quot;eventNotification&quot;:{&quot;newEntry&quot;:{&quot;name&quot;:&quot;789&quot;,&quot;isDirectory&quot;:true,&quot;attributes&quot;:{&quot;mtime&quot;:&quot;1620819698&quot;,&quot;fileMode&quot;:2147484141,&quot;crtime&quot;:&quot;1620819698&quot;},&quot;extended&quot;:{&quot;user.DOSATTRIB&quot;:&quot;AAAEAAQAAABRAAAAEAAAABjGHgkjR9cBGMYeCSNH1wE=&quot;}},&quot;deleteChunks&quot;:true,&quot;newParentPath&quot;:&quot;/&quot;,&quot;signatures&quot;:[1722882382]},&quot;tsNs&quot;:&quot;1620819703672508703&quot;} {&quot;directory&quot;:&quot;/&quot;,&quot;eventNotification&quot;:{&quot;oldEntry&quot;:{&quot;name&quot;:&quot;新建文件夹&quot;,&quot;isDirectory&quot;:true,&quot;attributes&quot;:{&quot;mtime&quot;:&quot;1620819698&quot;,&quot;fileMode&quot;:2147484141,&quot;crtime&quot;:&quot;1620819698&quot;},&quot;extended&quot;:{&quot;user.DOSATTRIB&quot;:&quot;AAAEAAQAAABRAAAAEAAAABjGHgkjR9cBGMYeCSNH1wE=&quot;}},&quot;signatures&quot;:[1722882382]},&quot;tsNs&quot;:&quot;1620819703672550781&quot;} ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>debug</MESSAGE>
+    <SHA>e3f47ddb764b8618569c6b8f2e62b0a3caaaa3e8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ensure proper directory name a fix related to https://github.com/chrislusf/seaweedfs/issues/2064</MESSAGE>
+      <SHA>5a29d284fa5a28470e12020d953e15071100620a</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filesys/dirty_pages_temp_file.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>set renamed item to new directory related to https://github.com/chrislusf/seaweedfs/issues/2064</MESSAGE>
+      <SHA>789465d99e9a14bdd7424d62a5a252e101d14cc5</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filesys/dir_rename.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19471</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/19471</ISSUEURL>
+  <TITLE>rawhide: brq / blkio / loopbackfs / something broken</TITLE>
+  <DESCRIPTION>No clue what. loopbackfs tests are broken on rawhide. [bz2226558](https://bugzilla.redhat.com/show_bug.cgi?id=2226558). This is just a tracking issue for benefit of tracking skipped tests.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>168</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Skip tarball re-inport test in rawhide for CI Ref: #19407 Signed-off-by: Chris Evich &lt;cevich@redhat.com&gt;</MESSAGE>
+    <SHA>822f2f4952cf1c8b81dd024a4e271a55c9ca3e40</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Skip broken/flaky blkio-weight test Ref: https://github.com/containers/podman/issues/19471 Signed-off-by: Chris Evich &lt;cevich@redhat.com&gt;</MESSAGE>
+      <SHA>b69cd8d84ccfde3bbdae001d0e28329f001e4507</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/180-blkio.bats</FILE>
+        <FILE>test/system/280-update.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>CI: reenable tests that are working again - #15074 (&quot;subtree_control&quot; flake). The flake is NOT FIXED, I saw it six months ago on my (non-aarch64) laptop. However, it looks like the frequent-flake-on-aarch64 bug is resolved. I've been testing in #17831 and have not seen it. So, tentatively remove the skip and see what happens. - Closes: #19407 (broken tar, &quot;duplicates of file paths&quot;) All Fedoras now have a fixed tar. Debian DOES NOT, but we're handling that in our build-ci-vm code. I.e., the Debian VM we're using has a working tar even though there's currently a broken tar out in the wild. Added distro-integration tag so we can catch future problems like this in OpenQA. - Closes: #19471 (brq / blkio / loopbackfs in rawhide) Bug appears to be fixed in rawhide, at least in the VMs we're using now. Added distro-integration tag because this test obviously relies on other system stuff. Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>e66413b51b7bb8f7c28a0f8e11f0857db057227e</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/125-import.bats</FILE>
+        <FILE>test/system/180-blkio.bats</FILE>
+        <FILE>test/system/200-pod.bats</FILE>
+        <FILE>test/system/280-update.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

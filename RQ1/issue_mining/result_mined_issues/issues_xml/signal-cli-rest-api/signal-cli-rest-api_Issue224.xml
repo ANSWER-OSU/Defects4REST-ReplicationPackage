@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>224</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/224</ISSUEURL>
+  <TITLE>json-rpc mode doesn't work with existing linked devices</TITLE>
+  <DESCRIPTION>### The problem I created a linked device using native mode, but when I swapped to json-rpc mode and tried to send a message, I received the following error: `{&quot;error&quot;:&quot;Number not registered with JSON-RPC&quot;}%` The docker logs show the following when starting up in json-rpc mode: ``` today at 20:29:26+ set -e today at 20:29:26+ [ -z /home/.local/share/signal-cli ] today at 20:29:26+ usermod -u 1000 signal-api today at 20:29:26usermod: no changes today at 20:29:26+ groupmod -g 998 signal-api today at 20:29:26+ chown 1000:998 -R /home/.local/share/signal-cli today at 20:29:26+ cat today at 20:29:26+ cap_prefix=-cap_ today at 20:29:26+ cat /proc/sys/kernel/cap_last_cap today at 20:29:26+ seq -s ,-cap_ 0 40 today at 20:29:26+ caps=-cap_0,-cap_1,-cap_2,-cap_3,-cap_4,-cap_5,-cap_6,-cap_7,-cap_8,-cap_9,-cap_10,-cap_11,-cap_12,-cap_13,-cap_14,-cap_15,-cap_16,-cap_17,-cap_18,-cap_19,-cap_20,-cap_21,-cap_22,-cap_23,-cap_24,-cap_25,-cap_26,-cap_27,-cap_28,-cap_29,-cap_30,-cap_31,-cap_32,-cap_33,-cap_34,-cap_35,-cap_36,-cap_37,-cap_38,-cap_39,-cap_40 today at 20:29:26+ [ json-rpc = json-rpc ] today at 20:29:26+ /usr/bin/jsonrpc2-helper today at 20:29:26+ service supervisor start today at 20:29:27Starting supervisor: supervisord. today at 20:29:27+ supervisorctl start all today at 20:29:28+ exec setpriv --reuid=1000 --regid=998 --init-groups --inh-caps=-cap_0,-cap_1,-cap_2,-cap_3,-cap_4,-cap_5,-cap_6,-cap_7,-cap_8,-cap_9,-cap_10,-cap_11,-cap_12,-cap_13,-cap_14,-cap_15,-cap_16,-cap_17,-cap_18,-cap_19,-cap_20,-cap_21,-cap_22,-cap_23,-cap_24,-cap_25,-cap_26,-cap_27,-cap_28,-cap_29,-cap_30,-cap_31,-cap_32,-cap_33,-cap_34,-cap_35,-cap_36,-cap_37,-cap_38,-cap_39,-cap_40 signal-cli-rest-api -signal-cli-config=/home/.local/share/signal-cli today at 20:29:28time=&quot;2022-03-03T20:29:28Z&quot; level=info msg=&quot;Started Signal Messenger REST API&quot; today at 20:29:59[GIN] 2022/03/03 - 20:29:59 | 204 | 300.586µs | 192.168.199.105 | POST &quot;/v1/configuration&quot; today at 20:30:09[GIN] 2022/03/03 - 20:30:09 | 400 | 172.809µs | 192.168.199.105 | POST &quot;/v2/send&quot; ``` ### Are you using the latest released version? - [X] Yes ### Have you read the troubleshooting page? - [X] Yes ### What type of installation are you running? signal-cli-rest-api Docker Container ### In which mode are you using the docker container? Native Mode ### What's the architecture of your host system? x86-64 ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>657</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>updated signal-cli to version 0.4.10.1</MESSAGE>
+    <SHA>3433969c5de60ae5c7bde07918f08553eb09d82e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>make json-rpc mode work with linked devices see #224</MESSAGE>
+      <SHA>30341f27c708dae954f4e7bcb65f95139e54fa97</SHA>
+      <PATCHEDFILES>
+        <FILE>src/scripts/jsonrpc2-helper.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>make json-rpc mode work with linked devices see #224</MESSAGE>
+      <SHA>7b69b257683a1eee5a09dc5eb7a4d7c80977c20d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/scripts/jsonrpc2-helper.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

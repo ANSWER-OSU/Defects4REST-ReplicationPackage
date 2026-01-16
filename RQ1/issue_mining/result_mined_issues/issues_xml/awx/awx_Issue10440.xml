@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>10440</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/10440</ISSUEURL>
+  <TITLE>Ad hoc command details does not show the module name</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Feature Idea ##### SUMMARY Launch an ad hoc command that runs the ping module. View the details in the UI. ![Screenshot from 2021-06-14 10-48-57](https://user-images.githubusercontent.com/1385596/121912115-4a957380-ccfe-11eb-95af-fb56623e1a7a.png) At first, I was confused, because I thought I ran the &quot;ping&quot; module, not the &quot;command&quot; or &quot;shell&quot; modules. Then I see that the UI's meaning is that it was an ad hoc _command_. However, the page gives no indication anywhere that I ran the &quot;ping&quot; module. It should also probably show the module arguments. If I run a command that does `echo &quot;Hello world&quot;`, then I need to know: - that I ran the `command` module - the args passed to it (so I know why it printed &quot;Hello world&quot;) Otherwise, there's nothing to connect this job entry with the function of what actually happened.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>30</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #10576 from AlexSCorey/9399-revampAdHocCommandsWorkflow Adds Ad Hoc Preview step and adds workflow similar to prompt on launch SUMMARY This closes #9399 it also introduce the same workflow that prompt on launch uses in the Ad Hoc Commands, where the user to go between steps as they wish. ISSUE TYPE Feature Pull Request COMPONENT NAME UI AWX VERSION ADDITIONAL INFORMATION Reviewed-by: Kersom &lt;None&gt; Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt; Reviewed-by: Sarah Akus &lt;sakus@redhat.com&gt;</MESSAGE>
+    <SHA>8183179850e18c19187963355a81dfdeffe0c9e9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #10510 from AlexSCorey/10440-8660-fix Renders Command Module in job detail view and improves Ad Hoc Commands execution permissions SUMMARY This closes #10440 and #8660. On the job details view we now render the command module name, and the arguments. We also remove the run command button for user that do not have permission to launch a ad hoc command. ISSUE TYPE -enhancement COMPONENT NAME UI AWX VERSION ADDITIONAL INFORMATION Reviewed-by: Kersom &lt;None&gt; Reviewed-by: Sarah Akus &lt;sakus@redhat.com&gt;</MESSAGE>
+      <SHA>e77d297a281f266e1a20fb929d0a054d8f23a7a7</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/components/AdHocCommands/AdHocCommands.js</FILE>
+        <FILE>awx/ui_next/src/components/AdHocCommands/AdHocCommands.test.js</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventoryGroupHosts/InventoryGroupHostList.js</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventoryGroupHosts/InventoryGroupHostList.test.js</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventoryGroups/InventoryGroupsList.js</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventoryGroups/InventoryGroupsList.test.js</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventoryHostGroups/InventoryHostGroupsList.js</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventoryHostGroups/InventoryHostGroupsList.test.js</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventoryHosts/InventoryHostList.js</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventoryHosts/InventoryHostList.test.js</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventoryRelatedGroups/InventoryRelatedGroupList.js</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventoryRelatedGroups/InventoryRelatedGroupList.test.js</FILE>
+        <FILE>awx/ui_next/src/screens/Job/JobDetail/JobDetail.js</FILE>
+        <FILE>awx/ui_next/src/screens/Job/JobDetail/JobDetail.test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>21534</ISSUENO>
+  <ISSUEURL>https://github.com/strapi/strapi/issues/21534</ISSUEURL>
+  <TITLE>useFetchClient only handles json responses</TITLE>
+  <DESCRIPTION>## Bug report ### Describe the bug we are migrating several local admin plugins to strapi5 - which is pretty awesome btw, so many great new apis to work with :heart: we want to download a zip file, which is created on the server. obviously zip files cannot be parsed as json - therfore the new `useFetchClient` with its responseInterceptor takes over, and just returns an empty list without any error https://github.com/strapi/strapi/blob/develop/packages/core/admin/admin/src/utils/getFetchClient.ts#L123 ### Steps to reproduce the behavior 1. use the new useFetchClient 2. return anything than json from a plugin api 3. wonder why you get any empty file ### Expected behavior depending on the content-type, return `text()` / `blob()` or `json()`</DESCRIPTION>
+  <REPONAME>strapi</REPONAME>
+  <TIMEDIFFERENCEDAYS>64</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: loading relations without DP fails after migrating to v5 (#21501) * fix: loading entries without DP * fix: time format * fix: unit test * fix: set published at with db query</MESSAGE>
+    <SHA>d6fc84a40337f30102715ec5439e09a30521375e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: introduce response types for the admin fetchClient fixes #21534</MESSAGE>
+      <SHA>85f4a49fc63e88be9ded1d06d8cbea59968258e6</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/core/admin/admin/src/utils/getFetchClient.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat: introduce response types for the admin fetchClient fixes #21534</MESSAGE>
+      <SHA>ed04dc1f0f58c257fcbc25d9a4e02a10ed5f1da1</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/core/admin/admin/src/utils/getFetchClient.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

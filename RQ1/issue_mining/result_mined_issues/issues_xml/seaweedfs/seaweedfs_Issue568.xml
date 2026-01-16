@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>568</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/568</ISSUEURL>
+  <TITLE>Multi master server setup failure</TITLE>
+  <DESCRIPTION>Hi, Chirslusf. I have encountered a problem when setting up a multi master server cluster according the wiki. I have 3 vm: ``` vm1: 10.100.35.21 vm2: 10.100.35.20 vm3: 10.100.35.22 ``` I start weed master server one by one in below order: ``` vm1: ./weed master -ip 10.100.35.21 -port=9333 -mdir=./master vm2: ./weed master -ip 10.100.35.20 -port=9333 -mdir=./master -peers=10.100.35.21:9333 vm3: ./weed master -ip 10.100.35.22 -port=9333 -mdir=./master -peers=10.100.35.20:9333 ``` And then we can see the log output of each start: ``` vm1: # ./weed master -ip 10.100.35.21 -port=9333 -mdir=./master I0927 15:13:02 14610 file_util.go:20] Folder ./master Permission: -rwxr-xr-x I0927 15:13:02 14610 master_server.go:62] Volume Size Limit is 30000 MB I0927 15:13:02 14610 master.go:87] Start Seaweed Master 0.76 at 0.0.0.0:9333 I0927 15:13:02 14610 raft_server.go:56] Peers Change: [10.100.35.21:9333] =&gt; [] I0927 15:13:02 14610 raft_server.go:98] Initializing new cluster I0927 15:13:02 14610 master_server.go:95] [ 10.100.35.21:9333 ] I am the leader! I0927 15:13:12 14610 raft_server_handlers.go:16] Processing incoming join. Current Leader 10.100.35.21:9333 Self 10.100.35.21:9333 Peers map[] I0927 15:13:12 14610 raft_server_handlers.go:20] Command:{&quot;name&quot;:&quot;10.100.35.20:9333&quot;,&quot;connectionString&quot;:&quot;http://10.100.35.20:9333&quot;} I0927 15:13:12 14610 raft_server_handlers.go:27] join command from Name 10.100.35.20:9333 Connection http://10.100.35.20:9333 vm2: # ./weed master -ip 10.100.35.20 -port=9333 -mdir=./master -peers=10.100.35.21:9333 I0927 15:13:11 3117 file_util.go:20] Folder ./master Permission: -rwxr-xr-x I0927 15:13:11 3117 master_server.go:62] Volume Size Limit is 30000 MB I0927 15:13:11 3117 master.go:87] Start Seaweed Master 0.76 at 0.0.0.0:9333 I0927 15:13:11 3117 raft_server.go:56] Peers Change: [10.100.35.20:9333] =&gt; [10.100.35.21:9333] I0927 15:13:11 3117 raft_server.go:78] Joining cluster: 10.100.35.21:9333 I0927 15:13:12 3117 raft_server.go:166] Attempting to connect to: http://10.100.35.21:9333/cluster/join I0927 15:13:12 3117 raft_server.go:211] Post returned status: 200 I0927 15:13:52 3117 raft_server_handlers.go:16] Processing incoming join. Current Leader 10.100.35.21:9333 Self 10.100.35.20:9333 Peers map[10.100.35.21:9333:0xc42021fa40] I0927 15:13:52 3117 raft_server_handlers.go:20] Command:{&quot;name&quot;:&quot;10.100.35.22:9333&quot;,&quot;connectionString&quot;:&quot;http://10.100.35.22:9333&quot;} I0927 15:13:52 3117 raft_server_handlers.go:27] join command from Name 10.100.35.22:9333 Connection http://10.100.35.22:9333 I0927 15:13:52 3117 raft_server_handlers.go:47] Redirecting to 301 http://10.100.35.21:9333/cluster/join vm3: # ./weed master -ip 10.100.35.22 -port=9333 -mdir=./master -peers=10.100.35.20:9333 I0927 15:13:51 2964 file_util.go:20] Folder ./master Permission: -rwxr-xr-x I0927 15:13:51 2964 master_server.go:62] Volume Size Limit is 30000 MB I0927 15:13:51 2964 master.go:87] Start Seaweed Master 0.76 at 0.0.0.0:9333 I0927 15:13:51 2964 raft_server.go:56] Peers Change: [] =&gt; [10.100.35.20:9333] I0927 15:13:51 2964 raft_server.go:78] Joining cluster: 10.100.35.20:9333 I0927 15:13:52 2964 raft_server.go:166] Attempting to connect to: http://10.100.35.20:9333/cluster/join I0927 15:13:52 2964 raft_server.go:211] Post returned status: 404 404 page not found I0927 15:13:52 2964 raft_server.go:171] Post returned error: 404 page not found I0927 15:13:52 2964 raft_server.go:82] No existing server found. Starting as leader in the new cluster. I0927 15:13:52 2964 master_server.go:95] [ 10.100.35.22:9333 ] I am the leader! ``` It seems that the weed master on vm3 did not handle the 301 redirect to connect to the master(current leader) on vm1. Is this a bug? looking forward to your reply. 3ks.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>248</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>better fix for single master restart without peers changing</MESSAGE>
+    <SHA>70f6740309b12ee3ddbabf7100fb0dcab2c17fe6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #568, avoid many redirects when joining member</MESSAGE>
+      <SHA>2e17b3db2472d43258eebe788489f69388f1ad17</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/raft_server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #568, avoid redirect when joining member</MESSAGE>
+      <SHA>6b6f8b0644197463772f456f76b66abdf94f2c75</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/raft_server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

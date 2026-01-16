@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>88</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/88</ISSUEURL>
+  <TITLE>Handle Docker build returning an error code</TITLE>
+  <DESCRIPTION>## Description Instead of continuing after `docker build` returns a non-zero exit code, now should stop the deployment. ## What happens An example run of what happens now: ``` scifi» now --version now 0.26.0 scifi» now -e DB_URL=@db-url &gt; Deploying ~/Developer/go/src/kisu.club/scifi &gt; Using Node.js 6.9.0 (default) &gt; Ready! https://scifi-bnurmgeuyl.now.sh (copied to clipboard) [4s] &gt; Initializing… &gt; Building &gt; ▲ docker build &gt; ---&gt; Using cache &gt; ---&gt; ab51cc788ac7 &gt; Step 5 : COPY . /go/src/scifi &gt; ---&gt; Using cache &gt; ---&gt; 86c222a09002 &gt; Step 6 : RUN go get -d -v &gt; ---&gt; Running in be379d337348 &gt; github.com/lib/pq (download) &gt; go: missing Git command. See https://golang.org/s/gogetcmd &gt; package github.com/lib/pq: exec: &quot;git&quot;: executable file not found in $PATH &gt; The command 'go get -d -v' returned a non-zero code: 1 &gt; ▲ Storing image &gt; ▲ docker build &gt; ---&gt; f4ef3b6138f0 &gt; Removing intermediate container c3c6d114dc4e &gt; Step 5 : COPY . /go/src/scifi &gt; ---&gt; cd9d38cf7b74 &gt; Removing intermediate container cde385575838 &gt; Step 6 : RUN go get -d -v &gt; ---&gt; Running in a71ef90cb15c &gt; github.com/lib/pq (download) &gt; go: missing Git command. See https://golang.org/s/gogetcmd &gt; package github.com/lib/pq: exec: &quot;git&quot;: executable file not found in $PATH &gt; The command 'go get -d -v' returned a non-zero code: 1 &gt; ▲ Storing image [the build got stuck here I think] ``` It looks like the build falls back to rebuilding the image from scratch if the initial `docker build` fails. If the second build fails too, the deployment seems to hang forever. (The error in this build is that the image doesn't have `git`, but this report probably applies to any Docker build that returns a non-zero exit code.) ## Expected behaviour After `docker build` fails, Now should report the error to the user and stop the deployment.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>73</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>3.4.0</MESSAGE>
+    <SHA>9c1c45caf79412f5ac31ff37e5419491e2d4cf2c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>.nowignore, wildcard event, file array (#88) * Support arrat of `File`s * Respect `.nowignore`</MESSAGE>
+      <SHA>cf206b31f7c28b9f5d6c448221dbd5206856584a</SHA>
+      <PATCHEDFILES>
+        <FILE>package.json</FILE>
+        <FILE>src/index.js</FILE>
+        <FILE>src/now-tools.js</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

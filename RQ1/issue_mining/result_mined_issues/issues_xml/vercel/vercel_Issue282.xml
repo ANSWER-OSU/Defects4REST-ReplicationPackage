@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>282</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/282</ISSUEURL>
+  <TITLE>npm now broken: TypeError: Cannot read property 'current' of undefined</TITLE>
+  <DESCRIPTION>Hi guys! Just started a new project with micro and now. I've installed node v7.5.0 and set up a basic micro function from the micro github page. Everything works fine on localhost. I'm on the point to use now (as I did in several previous projects) but I receive this error when checking the version: ``` bartdeslagmulder:~/workspace (master) $ now -v /home/ubuntu/workspace/node_modules/now/bin/now.js:34 let message = `Update available! ${chalk.red(update.current)} → ${chalk.green(update.latest)} \n` ^ TypeError: Cannot read property 'current' of undefined at Object.&lt;anonymous&gt; (/home/ubuntu/workspace/node_modules/now/bin/now.js:34:54) at Module._compile (module.js:571:32) at Object.Module._extensions..js (module.js:580:10) at Module.load (module.js:488:32) at tryModuleLoad (module.js:447:12) at Function.Module._load (module.js:439:3) at Module.runMain (module.js:605:10) at run (bootstrap_node.js:418:7) at startup (bootstrap_node.js:139:9) at bootstrap_node.js:533:3 ``` Installing now@4.0.1 is working fine for me. Package.json contents: ``` { &quot;name&quot;: &quot;xxx&quot;, &quot;version&quot;: &quot;1.0.1&quot;, &quot;description&quot;: &quot;&quot;, &quot;main&quot;: &quot;src/index.js&quot;, &quot;scripts&quot;: { &quot;deploy&quot;: &quot;npm version patch &amp;&amp; now --alias&quot;, &quot;dev&quot;: &quot;nodemon --exec npm start&quot;, &quot;start&quot;: &quot;micro -p 8080&quot;, &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot; }, &quot;dependencies&quot;: { &quot;micro&quot;: &quot;^6.2.1&quot;, &quot;now&quot;: &quot;^4.1.0&quot; }, &quot;devDependencies&quot;: { &quot;nodemon&quot;: &quot;^1.11.0&quot; } } ``` Already tried removing the node_modules folder and downgrading to Node.js v7.4.0 without success.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now-bash] Only read the `$event` body once (#278) In situations where the handler responds very quickly, the `$event` file path gets deleted before the `_lambda_runtime_body` function can finish its work. So instead, just read that file once and cache it to a variable inside that function. This fixes this issue when the `handler` responds very quickly, causing the `$events` file to be deleted before the multiple `jq` invocations are able to read it: ``` /var/task/.import-cache/runtime.sh: line 78: /tmp/T/tmp.DShzjeah: No such file or directory /var/task/.import-cache/runtime.sh: line 82: /tmp/T/tmp.DShzjeah: No such file or directory ```</MESSAGE>
+    <SHA>e4ed811b53060a2ca48dd4c5d53a35744e237a53</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix static files for latest now/next using target serverless (#282)</MESSAGE>
+      <SHA>f53343d547f28ed35f768dffdbe76fb8d9d956cd</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-next/index.js</FILE>
+        <FILE>packages/now-next/utils.js</FILE>
+        <FILE>test/integration/now-next/index.test.js</FILE>
+        <FILE>test/integration/now-next/monorepo/www/static/test.txt</FILE>
+        <FILE>test/integration/now-next/static-files/next.config.js</FILE>
+        <FILE>test/integration/now-next/static-files/now.json</FILE>
+        <FILE>test/integration/now-next/static-files/package.json</FILE>
+        <FILE>test/integration/now-next/static-files/pages/index.js</FILE>
+        <FILE>test/integration/now-next/static-files/static/test.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

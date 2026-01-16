@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18961</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18961</ISSUEURL>
+  <TITLE>Devices already assigned to a Virtual Chassis addable to new VC upon creation</TITLE>
+  <DESCRIPTION>### Deployment Type Self-hosted ### NetBox Version v4.2.5 ### Python Version 3.12 ### Steps to Reproduce Create a virtual chassis VC1. Assign one or more devices to it. Create virtual chassis VC2. While still at the add form, search for the same member device(s) from step 2. ### Expected Behavior Already assigned devices don't show up in the search or at least an error is shown if you try to save with an already taken object. (the former is the way it works when trying to add already assigned members to a VC _after_ the fact) ### Observed Behavior Objects are reassigned from VC1 to VC2. Any initially designated masters of VC1 are still shown for VC1, even though it now has 0 members.</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>34</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19256 from netbox-community/18959-cable-trace-terminations-ordering Fixes #18959: Preserve ordering of terminations in cable traces</MESSAGE>
+    <SHA>e0b6a31504d03e4a8578a9eb3ed9bfc941cef0f8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #18961: Virtual chassis form should exclude members of other VCs when adding members</MESSAGE>
+      <SHA>2f8936d4932f3fbe7e049953e34ca5b4aaea0bb2</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/dcim/forms/object_create.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #19259 from netbox-community/18961-vc-create-ignore-vc-members Fixes #18961: Virtual chassis form should exclude members of other VCs when adding members</MESSAGE>
+      <SHA>02571130b2d30a31d326433d39662d76fd725d48</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/dcim/forms/object_create.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14756</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14756</ISSUEURL>
+  <TITLE>[low pri] Makefile: bad dependencies on podman-remote</TITLE>
+  <DESCRIPTION>In short: run `make`, then run `make` again, and `podman-remote` gets rebuilt even though it just got built. Reason: https://github.com/containers/podman/blob/d095053b9cda99b009d102c5b595e77b980ee1a0/Makefile#L307-L308 `$(SRCBINDIR)` is `bin`, so the rule is triggering on the mtime of a directory which has just been touched. The rule also depends on `bin/podman`, which seems weird, especially on platforms (Windows, Mac) that only have `podman-remote`. As best I can tell it dates to #9381 (April 2021), but I think something has changed recently because I run `make` a lot, even on fresh-compiled directories, and am pretty sure I would've noticed this earlier. Since Makefiles are fragile, and since I'm flying out for a few days without net access, and since I don't even have access to Windows or Mac systems, I'm not even going to think about touching this. I'm even going to keep quiet with my recommendation. I'll look into it next week if it hasn't been fixed by then.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>24</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14961 from edsantiago/systemd_test_cleanup system tests: new system-service bats file</MESSAGE>
+    <SHA>6d9f34c6301910892f7746dc93b226f7c16f8c2c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Makefile: use order-only prereq for podman-remote podman-remote has a dependency on $(SRCBINDIR), because on Mac and Windows that's a special dir that may not exist. But depending on a directory means depending on its mtime, which changes every time a file in it is updated, which means running 'make' twice in a row will rebuild podman-remote for no good reason. Solution: GNU Make has the concept of &quot;order-only&quot; prerequisites, precisely for this situation. Use it. Since it's an obscure feature, document it. UPDATE: This exposed some nasty duplication wrt podman-remote rules. Clean those up, and add comments to some confusing sections. Fixes: #14756 (Also, drive-by edit to remove a stray misdocumented non-option) Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>10d6586cb7e61417f67ad9e259ef8225cc2710fa</SHA>
+      <PATCHEDFILES>
+        <FILE>Makefile</FILE>
+        <FILE>docs/remote-docs.sh</FILE>
+        <FILE>docs/source/markdown/podman-import.1.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Makefile: use order-only prereq for podman-remote podman-remote has a dependency on $(SRCBINDIR), because on Mac and Windows that's a special dir that may not exist. But depending on a directory means depending on its mtime, which changes every time a file in it is updated, which means running 'make' twice in a row will rebuild podman-remote for no good reason. Solution: GNU Make has the concept of &quot;order-only&quot; prerequisites, precisely for this situation. Use it. Since it's an obscure feature, document it. UPDATE: This exposed some nasty duplication wrt podman-remote rules. Clean those up, and add comments to some confusing sections. Fixes: #14756 (Also, drive-by edit to remove a stray misdocumented non-option) Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>206f11d4fbda23c2dbae8c15014f01809b9bdd68</SHA>
+      <PATCHEDFILES>
+        <FILE>Makefile</FILE>
+        <FILE>docs/remote-docs.sh</FILE>
+        <FILE>docs/source/markdown/podman-import.1.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

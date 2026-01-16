@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6170</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6170</ISSUEURL>
+  <TITLE>Log error details when picture service cannot process an image</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40.3 Steps to reproduce the problem: 1. Installed Nop-Templates and enabled CloudZoom 2. upload my some JPEG Pictures for a Product in admin 3. When the product page I got &quot;We're sorry, an internal error occurred.&quot; 4. When I check log menu in admin following exception was happened. System.NullReferenceException: Object reference not set to an instance of an object. at SevenSpikes.Nop.Plugins.CloudZoom.Components.CloudZoomComponent.GetCloudZoomPictureModelForPictureAsync(ProductDetailsModel productModel, MediaSettings mediaSettings, Picture picture, MemoryStream stream) at SevenSpikes.Nop.Plugins.CloudZoom.Components.CloudZoomComponent.GetCloudZoomPictureModelAsync(ProductDetailsModel productModel, MediaSettings mediaSettings, Picture picture) at SevenSpikes.Nop.Plugins.CloudZoom.Components.CloudZoomComponent.PopulateCloudZoomModelAsync(ProductDetailsModel productModel, CloudZoomModel cloudZoomModel) at SevenSpikes.Nop.Plugins.CloudZoom.Components.CloudZoomComponent.InvokeAsync(String widgetZone, ProductDetailsModel additionalData) at Microsoft.AspNetCore.Mvc.ViewComponents.DefaultViewComponentInvoker.InvokeAsyncCore(ObjectMethodExecutor executor, ViewComponentContext context) 5.I contacted with CloudZoom team with this problem and after they checked it and replied that's caused by Nop PictureService problem. Following is some of CloudZoom source for debugging. ``` private async Task&lt;CloudZoomPictureModel&gt; GetCloudZoomPictureModelForPictureAsync( ProductDetailsModel productModel, MediaSettings mediaSettings, Picture picture, MemoryStream stream) { string smallImageUrl1 = await this._pictureService.GetPictureUrlAsync(((BaseEntity) picture).Id, mediaSettings.ProductDetailsPictureSize, true, (string) null, (PictureType) 1); int pictureWidth = 0; int pictureHeight = 0; if (!string.IsNullOrEmpty(smallImageUrl1)) { try { using (SKBitmap skBitmap = SKBitmap.Decode(await this._pictureService.LoadPictureBinaryAsync(picture))) { pictureWidth = skBitmap.Width; pictureHeight = skBitmap.Height; } } catch (ArgumentException ex) { await EngineContext.Current.Resolve&lt;ILogger&gt;((IServiceScope) null).ErrorAsync(string.Format(&quot;The picture file with id: {0}, URL: {1} appears to be corrupted or damaged.&quot;, (object) ((BaseEntity) picture).Id, (object) smallImageUrl1), (Exception) ex, (Customer) null); } } CloudZoomPictureModel zoomPictureModel1 = new CloudZoomPictureModel(); CloudZoomPictureModel zoomPictureModel2 = zoomPictureModel1; string str1; if (!string.IsNullOrEmpty(picture.AltAttribute)) str1 = picture.AltAttribute; else str1 = string.Format(await this._localizationService.GetResourceAsync(&quot;Media.Product.ImageAlternateTextFormat.Details&quot;), (object) productModel.Name); zoomPictureModel2.AlternateText = str1; CloudZoomPictureModel zoomPictureModel3 = zoomPictureModel1; zoomPictureModel3.FullSizeImageUrl = await this._pictureService.GetPictureUrlAsync(((BaseEntity) picture).Id, 0, true, (string) null, (PictureType) 1); zoomPictureModel1.SmallImageUrl = smallImageUrl1; CloudZoomPictureModel zoomPictureModel4 = zoomPictureModel1; zoomPictureModel4.TinyImageUrl = await this._pictureService.GetPictureUrlAsync(((BaseEntity) picture).Id, mediaSettings.ProductThumbPictureSizeOnProductDetailsPage, true, (string) null, (PictureType) 1); CloudZoomPictureModel zoomPictureModel5 = zoomPictureModel1; string str2; if (!string.IsNullOrEmpty(picture.TitleAttribute)) str2 = picture.TitleAttribute; else str2 = string.Format(await this._localizationService.GetResourceAsync(&quot;Media.Product.ImageLinkTitleFormat.Details&quot;), (object) productModel.Name); zoomPictureModel5.Title = str2; zoomPictureModel1.PictureWidth = pictureWidth; zoomPictureModel1.PictureHeight = pictureHeight; zoomPictureModel1.DefaultRelation = this.GetRelation(&quot;default&quot;, smallImageUrl1); CloudZoomPictureModel zoomPictureModel6 = zoomPictureModel1; string smallImageUrl2 = smallImageUrl1; string pictureUrlAsync = await this._pictureService.GetPictureUrlAsync(((BaseEntity) picture).Id, 0, true, (string) null, (PictureType) 1); zoomPictureModel6.GalleryRelation = this.GetRelation(&quot;gallery&quot;, smallImageUrl2, pictureUrlAsync); CloudZoomPictureModel modelForPictureAsync = zoomPictureModel1; smallImageUrl1 = (string) null; return modelForPictureAsync; } ``` 6. I attached here one picture file causing the problem. When I open the product url and check wwwroot/images/thumbs dir then generating thumbs of this picture are failed. ![1434730](https://user-images.githubusercontent.com/681512/157871235-f97883b0-85c6-4a5b-8ce9-3ed26080550c.jpg)</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>27</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6131 Google Analytics plugin. Update description (#6210)</MESSAGE>
+    <SHA>7b424d7a5807bd4f450afb5ec16f3c037ebdf83d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6170 Added logging of decoding and image processing errors</MESSAGE>
+      <SHA>9ec7c21a54faf1395733dbc1275dd4b48c6a7932</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/ExportImport/ImportManager.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Media/AzurePictureService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Media/IPictureService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Media/PictureService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6170 Fixed tests</MESSAGE>
+      <SHA>00c36e5c8b772eac8a57510f068eebb5648471c0</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Tests/Nop.Tests/BaseNopTest.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

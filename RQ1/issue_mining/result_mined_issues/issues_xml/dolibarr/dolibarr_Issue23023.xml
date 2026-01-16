@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23023</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/23023</ISSUEURL>
+  <TITLE>'off' parameters are erased during a module update</TITLE>
+  <DESCRIPTION>### Bug When disabling, then enabling a module (for example during an update), the on/off constants set on 'off' by the user are re-set on 'on' if it is the default parameter. ### Environment Version tested on v14 and v16. ### Environment OS any ### Environment Web server any ### Environment PHP any ### Environment Database any ### Environment URL(s) _No response_ ### Expected and actual behavior current behavior: When disabling, then enabling a module (for example during an update), the on/off constants that were previously set to 'off' by the user are re-set on 'on' if 'on' is the default parameter. expected behavior: if a parameter has been set to 'OFF' by a user, it should stay on 'OFF' when re-enabling the module, even if the default parameter is 'ON'. ### Steps to reproduce the behavior This behavior can be found on WYSIWYG editor, but **it will also happen on almost any internal or external module where a default value is set to 1**. 1. On a fresh install, we enable WYSIWYG editor. We have the **default** setup: ![image](https://user-images.githubusercontent.com/89838020/204255114-a970327d-e1e4-4370-b7e5-ac6166128033.png) 2. we disable one parameter: ![image](https://user-images.githubusercontent.com/89838020/204255370-e9c81583-4be2-4c1d-a90e-4e39dde6cc67.png) 3. We disable/enable the module 4. The modified parameter has been overridden: ![image](https://user-images.githubusercontent.com/89838020/204255114-a970327d-e1e4-4370-b7e5-ac6166128033.png) ___ Explanations ----------------- This behavior is due to using `dolibarr_del_const()` when setting a parameter to 'OFF'. The const is deleted from table llx_const. When re-enabling the module, an insertion is done because the const does not appear in the table. When setting a parameter to 'OFF', the const value should be set to '0'. On most modules (ex. WYSIWYG editor) the fix must be made on the admin page. If using ajax_constantonoff, the fix must also be made on core/ajax/constantonoff.php file. ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>376</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'develop' of git@github.com:Dolibarr/dolibarr.git into develop</MESSAGE>
+    <SHA>f7d0d825050fae8a7f118bf4c12df8057384f5e4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #23025 from lamrani002/fix_issue_fkEditorModule Fix issue #23023</MESSAGE>
+      <SHA>9945e479e1d7d3a4ca0c20515cc0aa51f74d7036</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/admin/fckeditor.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

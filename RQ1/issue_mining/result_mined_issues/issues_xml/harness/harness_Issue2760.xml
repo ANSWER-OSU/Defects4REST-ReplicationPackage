@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2760</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2760</ISSUEURL>
+  <TITLE>Filtering on cron trigger can't be restarted</TITLE>
+  <DESCRIPTION>A pipeline that has a trigger like: ```yaml trigger: cron: - update-github-pages ``` Will not restart, as the server skips it on the missing cron name criteria. ```json { &quot;commit&quot;: &quot;e4c1c3fd1646f782944f3b6b982349f095d691eb&quot;, &quot;event&quot;: &quot;push&quot;, &quot;level&quot;: &quot;info&quot;, &quot;msg&quot;: &quot;trigger: skipping pipeline, does not match cron job&quot;, &quot;pipeline&quot;: &quot;update-github-pages&quot;, &quot;ref&quot;: &quot;refs/heads/master&quot;, &quot;repo&quot;: &quot;...&quot;, &quot;time&quot;: &quot;2019-07-15T11:22:46Z&quot; } { &quot;commit&quot;: &quot;e4c1c3fd1646f782944f3b6b982349f095d691eb&quot;, &quot;event&quot;: &quot;push&quot;, &quot;level&quot;: &quot;info&quot;, &quot;msg&quot;: &quot;trigger: skipping build, no matching pipelines&quot;, &quot;pipeline&quot;: &quot;update-github-pages&quot;, &quot;ref&quot;: &quot;refs/heads/master&quot;, &quot;repo&quot;: &quot;...&quot;, &quot;time&quot;: &quot;2019-07-15T11:22:46Z&quot; } ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>50</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>added validation plugins</MESSAGE>
+    <SHA>30ca88b9e66b6e12769d4cb65de37d9aef7ea3c6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>copy cron job name when re-startinga build #2760</MESSAGE>
+      <SHA>9ac8aa26c8e36246f3e3943761e17d1cc7e1660c</SHA>
+      <PATCHEDFILES>
+        <FILE>CHANGELOG.md</FILE>
+        <FILE>handler/api/repos/builds/retry.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat: [AH-406]: Added Registry Metrics for OSS (#2760) * [AH-406]: Fixes for review comments * [AH-406]: Added Registry Metrics for OSS</MESSAGE>
+      <SHA>8e4fd70ef0dea491ef2fb2a147848ed277211ba3</SHA>
+      <PATCHEDFILES>
+        <FILE>app/services/metric/metrics.go</FILE>
+        <FILE>app/services/metric/wire.go</FILE>
+        <FILE>cmd/gitness/wire_gen.go</FILE>
+        <FILE>registry/app/store/database.go</FILE>
+        <FILE>registry/app/store/database/artifact.go</FILE>
+        <FILE>registry/app/store/database/registry.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

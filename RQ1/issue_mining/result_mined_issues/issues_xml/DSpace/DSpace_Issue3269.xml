@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3269</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/3269</ISSUEURL>
+  <TITLE>Improve ServiceManager BeanException Logging</TITLE>
+  <DESCRIPTION>**Describe the bug** When the DSpace Service Manager fails to find a bean for any reason, details are not logged by default, making problems difficult to track down. A good example is that reported in https://github.com/DSpace/DSpace/issues/3163 , where @mspalti was able to see the cause of a problem only by temporarily adding a `System.out.println` line in the `DSpaceServiceManager` code. Instead of this, failures to find beans should be logged in the DSpace log so the cause can be tracked down more easily. **Expected behavior** In these situations, a log of at least at WARN level should appear in the DSpace log, with details.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #3241 from 4Science/CST-4060-SortOptionsAreNotReportedInTheProperOrder Sort options are not reported in the proper order</MESSAGE>
+    <SHA>0b3c52d4eedf35343e119a01b55296dc8df67e5b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3269 Log detail when Service Manager can't find bean</MESSAGE>
+      <SHA>9435f70a79860ec14470c0819fa542af84943195</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-services/src/main/java/org/dspace/servicemanager/DSpaceServiceManager.java</FILE>
+        <FILE>dspace/config/log4j2.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3269 Log exception details</MESSAGE>
+      <SHA>0de72692a6e8f0837c272e7621380aa7e982c438</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-services/src/main/java/org/dspace/servicemanager/DSpaceServiceManager.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #3270 from atmire/issue-3269_servicemanager-beanexception-logging Fix #3269 by logging detail when Service Manager can't find a bean</MESSAGE>
+      <SHA>2935c2acf144af7eb73de779233102995d7b4751</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-services/src/main/java/org/dspace/servicemanager/DSpaceServiceManager.java</FILE>
+        <FILE>dspace/config/log4j2.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

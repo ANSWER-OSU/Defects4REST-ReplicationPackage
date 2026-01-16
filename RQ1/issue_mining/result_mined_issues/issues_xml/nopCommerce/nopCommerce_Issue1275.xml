@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1275</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/1275</ISSUEURL>
+  <TITLE>Redis implementation should be async</TITLE>
+  <DESCRIPTION>Contribution: http://www.nopcommerce.com/boards/t/40988/incorrect-redis-client-implementation-in-nop-370-causes-high-cpu-extraneous-threads-general-resource-consumption-slowed-response.aspx also see comment at http://www.nopcommerce.com/boards/t/40988/incorrect-redis-client-implementation-in-nop-370-causes-high-cpu-extraneous-threads-general-resource-consumption-slowed-response.aspx#163901 (reverted code back) also see http://www.nopcommerce.com/boards/t/39414/azure-redis-problem.aspx also see http://www.nopcommerce.com/boards/t/41511/optimization-of-rediscachemanagers-removebypattern-method.aspx Also make it configurable (web.config setting) let's discuss it before implementation also see - https://github.com/nopSolutions/nopCommerce/issues/2287</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>563</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#196 Updated &quot;Microsoft.Web.Redis.RedisSessionStateProvider&quot; third-party library to the latest version</MESSAGE>
+    <SHA>e9c65e7033ea6162cd349f4a88d348102c4ecbc9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#1275 Performance optimization of Redis cache implementation</MESSAGE>
+      <SHA>cd9f8dffae22567d80df0e73f1fefb1eb6a906db</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Caching/IRedisConnectionWrapper.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Caching/RedisCacheManager.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Caching/RedisConnectionWrapper.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Nop.Core.csproj</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/DependencyRegistrar.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#1275 Added async methods to Redis cache implementation</MESSAGE>
+      <SHA>4d6ffdf6e849dd405955396d09d0f240777ab7c2</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Caching/RedisCacheManager.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Rolleback #1275 We decided to roll back the implementation of asynchronous methods for the RedisCacheManager class until the implementation of the full transition to asynchronous methods (tiket #2287)</MESSAGE>
+      <SHA>1249e2610bb4592c7fe29c67bae74c1bf13ab4df</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Caching/RedisCacheManager.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

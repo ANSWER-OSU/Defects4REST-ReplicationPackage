@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127100</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/127100</ISSUEURL>
+  <TITLE>[CI] FieldExtractorIT class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7747 / openjdk21_9.0.1_java-fips-matrix-bwc](https://gradle-enterprise.elastic.co/s/yf63yl24fwd42) - [elasticsearch-pull-request #68256 / 8.19.0_bwc](https://gradle-enterprise.elastic.co/s/ubhx3hsqak4o4) - [elasticsearch-pull-request #68256 / 9.0.1_bwc](https://gradle-enterprise.elastic.co/s/pzftrxh6szd6u) - [elasticsearch-pull-request #68064 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/3i7ajbzkwihzi) - [elasticsearch-pull-request #68064 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/pbzv5vhqapwyy) **Reproduction Line:** ``` undefined ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.mixed.FieldExtractorIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.xpack.esql.qa.mixed.FieldExtractorIT),title:'Test',type:optionsListControl))))) **Failure Message:** ``` undefined ``` **Issue Reasons:** - [main] 5 failures in class org.elasticsearch.xpack.esql.qa.mixed.FieldExtractorIT (0.6% fail rate in 813 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (0.7% fail rate in 275 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Refactor file path resolution for entitlements (#127040) This change refactors the known directory resolution such as modules, plugins, lib, etc. into a PathLookup. This is one of the steps towards allowing unit tests to provide their own PathLookup for resolution so we can enable entitlements there. ES-11584</MESSAGE>
+    <SHA>1234f97031b67e1612b2f2edf27df91f330c150c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ESQL: Rework FieldExtractorIT's pragmas This reworks the way `FieldExtractorIT` requests fields to be loaded. Previously it used pragmas and would skip itself if it wasn't a unit test. This removes that behavior and sends pragmas but also sends the `accept_pragma_risks` option which is used in production releases to allow pragmas - it's especially useful for testing. This *should* make the tests more consistent. Closes #127100</MESSAGE>
+      <SHA>97aa46861fdc9d0343754b8fcb5265aa53bbc3cd</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/qa/server/src/main/java/org/elasticsearch/xpack/esql/qa/rest/FieldExtractorTestCase.java</FILE>
+        <FILE>x-pack/plugin/esql/qa/server/src/main/java/org/elasticsearch/xpack/esql/qa/rest/RestEsqlTestCase.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

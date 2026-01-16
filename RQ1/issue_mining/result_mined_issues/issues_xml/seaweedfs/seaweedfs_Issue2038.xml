@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2038</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/2038</ISSUEURL>
+  <TITLE>Weed mount not showing changes happening on another node</TITLE>
+  <DESCRIPTION>**Describe the bug** I am trying to use seaweedfs as a distributed filesystem. Essentially the seaweedfs mounted folder should more or less be the same on all hosts. Change a file on one server, the changes should be visible on the other server in a a few seconds. In my testing setup it seems like file creation and deletion sync properly but changes to a file don't. The master server sees changes but the other mounts don't see the changes. **System Setup** - List the command line to start &quot;weed master&quot;, &quot;weed volume&quot;, &quot;weed filer&quot;, &quot;weed s3&quot;, &quot;weed mount&quot;. Create the master, filer, and volume server as specified in wiki: https://github.com/chrislusf/seaweedfs/wiki/Directories-and-Files ``` weed server -filer=true ``` Create a mount in server1: ``` mkdir -p /mnt/seaweed weed mount -filer=localhost:8888 -dir=/mnt/seaweed/ -filer.path=/ ``` Create a mount in server2: ``` mkdir -p /mnt/seaweed weed mount -filer=server1ip:8888 -dir=/mnt/seaweed/ -filer.path=/ ``` Create a file on server1: ``` echo &quot;testing&quot; &gt; /mnt/seaweed/testing.txt ``` Edit file on server2: ``` nano /mnt/seaweed/testing.txt insert changes ``` See differences in files on both servers: server2: ``` # cat testing.txt testing testing2 ``` server1: ``` # cat testing.txt testing ``` But if I dig around in the actual master server the changes do appear to be there. ``` curl http://server1:8080/5,3f6f9515ff testing testing2 ``` - OS version ``` lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 18.04.3 LTS Release: 18.04 Codename: bionic ``` - output of `weed version` ``` root@server1:~# weed version version 30GB 2.42 84312e6 linux amd64 ``` - if using filer, show the content of `filer.toml` ``` [leveldb2] # local on disk, mostly for simple single-machine setup, fairly scalable # faster than previous leveldb, recommended. enabled = true dir = &quot;./filerldb2&quot; # directory to store level db files ``` **Expected behavior** The files should be synced eventually. Even if I wait a few minutes, the files never seem to sync up. The only thing that syncs them is unmount and then remounting. Or deleting and creating a new file. It seems like seaweedfs should support this, but let me know if I misunderstood something.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Revert &quot;Merge pull request #2027 from bingoohuang/master&quot; Need to revert because docker image build failed. The docker apk package only has go 1.15.</MESSAGE>
+    <SHA>8f04eba561fd28b54954e4d41c784d16910fd0c3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>mount: fix directory invalidation fix https://github.com/chrislusf/seaweedfs/issues/2038</MESSAGE>
+      <SHA>b4af74c2bb1c33a0003cd5958b3aa1e0fa5b3a61</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filesys/dir.go</FILE>
+        <FILE>weed/filesys/meta_cache/meta_cache.go</FILE>
+        <FILE>weed/filesys/wfs.go</FILE>
+        <FILE>weed/util/bounded_tree/bounded_tree.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

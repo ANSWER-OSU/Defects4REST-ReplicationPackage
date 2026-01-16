@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>355</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/355</ISSUEURL>
+  <TITLE>Add support for managing deadletter (and other) job tables in flowable-admin app</TITLE>
+  <DESCRIPTION>The flowable-admin app does not currently support looking at entries in the job deadletter table (act_ru_deadletter_job) and requeuing them in the job table (act_ru_job) when the underlying reason for the failure has been fixed. Currently we have to do this directly in the database (or using the Java API). It would be very useful if the deadletter queue could be managed directly from the flowable-admin app. Additionally if it was possible to view the underlying stacktrace in the flowable-admin GUI this would be a useful feature, as the server log would not need to be examined. Support may also be needed for the other job tables like act_ru_suspended_job or act_ru_timer_job. But I have not investigated if this is the case when creating this issue. See the forum thread here - https://forum.flowable.org/t/managing-job-deadletter-table-with-flowable-admin-app/479</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Remove remaining odysseus class usage</MESSAGE>
+    <SHA>3c512316bb9e4af7797935f370c8d65b7f4a162a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Added other job types to admin app #355</MESSAGE>
+      <SHA>8f18edf0819d929263fada78b90ae092bfc32aaa</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/ManagementService.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/ManagementServiceImpl.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/asyncexecutor/AbstractAsyncExecutor.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/cmd/DeleteSuspendedJobCmd.java</FILE>
+        <FILE>modules/flowable-rest/src/main/java/org/flowable/rest/service/api/management/DeadLetterJobCollectionResource.java</FILE>
+        <FILE>modules/flowable-rest/src/main/java/org/flowable/rest/service/api/management/JobResource.java</FILE>
+        <FILE>modules/flowable-ui-admin/src/main/java/org/flowable/admin/app/rest/client/JobClientResource.java</FILE>
+        <FILE>modules/flowable-ui-admin/src/main/java/org/flowable/admin/service/engine/JobService.java</FILE>
+        <FILE>modules/flowable-ui-admin/src/main/webapp/i18n/en.json</FILE>
+        <FILE>modules/flowable-ui-admin/src/main/webapp/scripts/job-controllers.js</FILE>
+        <FILE>modules/flowable-ui-admin/src/main/webapp/scripts/jobs-controllers.js</FILE>
+        <FILE>modules/flowable-ui-admin/src/main/webapp/views/job.html</FILE>
+        <FILE>modules/flowable-ui-admin/src/main/webapp/views/jobs.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

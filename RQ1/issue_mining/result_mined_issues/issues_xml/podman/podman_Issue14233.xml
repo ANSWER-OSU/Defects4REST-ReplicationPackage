@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14233</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14233</ISSUEURL>
+  <TITLE>remote pod create - custom user NS broken</TITLE>
+  <DESCRIPTION>&lt;!-- --------------------------------------------------- BUG REPORT INFORMATION --------------------------------------------------- Use the commands below to provide key information from your environment: You do NOT have to include this information if this is a FEATURE REQUEST **NOTE** A large number of issues reported against Podman are often found to already be fixed in more current versions of the project. Before reporting an issue, please verify the version you are running with `podman version` and compare it to the latest release documented on the top of Podman's [README.md](../README.md). If they differ, please update your version of Podman to the latest possible and retry your command before creating an issue. Also, there is a running list of known issues in the [Podman Troubleshooting Guide](https://github.com/containers/podman/blob/main/troubleshooting.md), please reference that page before opening a new issue. If you are filing a bug against `podman build`, please instead file a bug against Buildah (https://github.com/containers/buildah/issues). Podman build executes Buildah to perform container builds, and as such the Buildah maintainers are best equipped to handle these bugs. --&gt; **Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind bug Found while working on https://github.com/containers/podman/pull/14232. `--uidmap` is broken for remote pod-create. ``` [+1219s] # # /var/tmp/go/src/github.com/containers/podman/bin/podman-remote --url unix:/tmp/podman_tmp_jS3o pod create --uidmap 0:200000:5000 --name=8d2tIcAaupPxC6SgoQ012U5EcGgW04 [+1219s] # Error: failed to make pod: must provide at least one UID or GID mapping to configure a user namespace ``` @cdoern, PTAL.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>19</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14338 from vrothberg/flakes system tests: fix flake waiting for container to run</MESSAGE>
+    <SHA>d069ad108246a15b57481afd12ef7ffd5667e1d2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>podman pod create --uidmap patch podmans remote API does not marshal infra's spec due to the fact that if it did, all of those options would be available to the users on the command line. This means we need to manually map &quot;backwards&quot; some container spec items -&gt; pod spec items before calling PodCreate, this was one of them that was forgotten resolves #14233 Signed-off-by: cdoern &lt;cbdoer23@g.holycross.edu&gt; Signed-off-by: cdoern &lt;cdoern@redhat.com&gt;</MESSAGE>
+      <SHA>f728b7b5a7585cef7f8d612ccf54481c3c6eb556</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/specgen/podspecgen.go</FILE>
+        <FILE>test/system/170-run-userns.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>podman pod create --uidmap patch podmans remote API does not marshal infra's spec due to the fact that if it did, all of those options would be available to the users on the command line. This means we need to manually map &quot;backwards&quot; some container spec items -&gt; pod spec items before calling PodCreate, this was one of them that was forgotten resolves #14233 Signed-off-by: cdoern &lt;cbdoer23@g.holycross.edu&gt; Signed-off-by: cdoern &lt;cdoern@redhat.com&gt;</MESSAGE>
+      <SHA>4c52debba2ec4807b57deb704cb8cea941a09be3</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/specgen/podspecgen.go</FILE>
+        <FILE>test/system/170-run-userns.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4458</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/4458</ISSUEURL>
+  <TITLE>awx-manage (de)provision_instance issue</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE Issue with awx-manage provision_instance command (or deprovision_instance) ##### SUMMARY I would like manage my cluster with the below command but this one never ends... bash-4.2# awx-manage deprovision_instance --hostname=myHost Instance Removed /bin/sh: rabbitmqctl: command not found Node deprovisioning may have failed when attempting to remove the RabbitMQ instance myHost from the cluster (changed: True) 2019-08-12 10:59:28,113 DEBUG awx.main.dispatch publish awx.main.tasks.apply_cluster_membership_policies(a982e718-b977-4055-a989-d3e31c4122da, queue=awx_private_queue) sudo -s =&gt; Same result. It's seems to be an issue with RabbitMQ ? ##### ENVIRONMENT * AWX version: 6.1.0 * AWX install method: docker on linux * Ansible version: 2.8.3 * Operating System: Ubuntu 16.04 * Web Browser: Firefox ##### STEPS TO REPRODUCE awx-manage deprovision_instance --hostname=myHost or awx-manage provision_instance --hostname=myHost ##### EXPECTED RESULTS The command must finish correctly to give me the prompt</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #4447 from ryanpetrello/372-master-main-links fixed broken UI links</MESSAGE>
+    <SHA>3ef07ee5f74cc25366daeca3e4c2db23ae997b71</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #4458 from ryanpetrello/fifo-cred-plugin-hang-372 [3.7.2] remove the usage of create_temporary_fifo from credential plugins</MESSAGE>
+      <SHA>c410f1f344dd894f561b8373d232d17f6d0f3f19</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/credential_plugins/aim.py</FILE>
+        <FILE>awx/main/credential_plugins/conjur.py</FILE>
+        <FILE>awx/main/credential_plugins/hashivault.py</FILE>
+        <FILE>awx/main/credential_plugins/plugin.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

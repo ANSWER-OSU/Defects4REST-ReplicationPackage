@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>124103</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/124103</ISSUEURL>
+  <TITLE>[CI] DocsClientYamlTestSuiteIT test {yaml=reference/cat/nodes/line_361} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6878 / windows-2019_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/6lbdldzuwvqwk) - [elasticsearch-periodic-platform-support #6878 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/fmgtzxcw6vhbo) - [elasticsearch-pull-request #61486 / part-1-windows](https://gradle-enterprise.elastic.co/s/rhotb56aj2w6a) - [elasticsearch-periodic-platform-support #6871 / windows-2019_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/fbzurezumfgr2) - [elasticsearch-periodic-platform-support #6871 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/2jterl33q2b2a) - [elasticsearch-pull-request #61413 / part-1-windows](https://gradle-enterprise.elastic.co/s/sxsaauhyn7v76) - [elasticsearch-pull-request #61413 / part-1-windows](https://gradle-enterprise.elastic.co/s/dowj3nyuifpva) - [elasticsearch-periodic-platform-support #6864 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/74r2zkyewocws) - [elasticsearch-periodic-platform-support #6864 / windows-2019_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/gsk4aown5nek6) - [elasticsearch-periodic-platform-support #6857 / windows-2019_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/evw2fg6fjnf4s) **Reproduction Line:** ``` gradlew &quot;:docs:yamlRestTest&quot; --tests &quot;org.elasticsearch.smoketest.DocsClientYamlTestSuiteIT.test {yaml=reference/cat/nodes/line_361}&quot; -Dtests.seed=245967704EFCFB2C -Dtests.locale=rn-BI -Dtests.timezone=ACT -Druntime.java=24 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.smoketest.DocsClientYamlTestSuiteIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Byaml%3Dreference%2Fcat%2Fnodes%2Fline_361%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Failure at [reference/cat/nodes:15]: field [$body] was expected to match the provided regex but didn't Expected: ip \s+heap.percent \s+ram.percent \s+cpu \s+load_1m \s+load_5m \s+load_15m \s+node.role \s+master \s+name\s* 127.0.0.1 \s+\d+ \s+\d+ \s+\d+ \s+(\d+\.\d+( \s+\d+\.\d+ \s+(\d+\.\d+)?)?)? \s+.+ \s+[*] \s+.+\s* but: was &quot;ip heap.percent ram.percent cpu load_1m load_5m load_15m node.role master name\n127.0.0.1 59 39 -1 cdfhilmrstw * node-0\n&quot; ``` **Issue Reasons:** - [8.x] 2 consecutive failures in test test {yaml=reference/cat/nodes/line_361} - [8.x] 8 consecutive failures in step windows-2019_checkpart1_platform-support-windows - [8.x] 9 consecutive failures in step windows-2022_checkpart1_platform-support-windows - [8.x] 9 consecutive failures in step part-1-windows - [8.x] 26 failures in test test {yaml=reference/cat/nodes/line_361} (6.5% fail rate in 401 executions) - [8.x] 8 failures in step windows-2019_checkpart1_platform-support-windows (100.0% fail rate in 8 executions) - [8.x] 9 failures in step windows-2022_checkpart1_platform-support-windows (100.0% fail rate in 9 executions) - [8.x] 9 failures in step part-1-windows (100.0% fail rate in 9 executions) - [8.x] 9 failures in pipeline elasticsearch-periodic-platform-support (100.0% fail rate in 9 executions) - [8.x] 5 failures in pipeline elasticsearch-pull-request (8.6% fail rate in 58 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>add wiz and aws security hub new full posture data streams to kibana_system role permissions (#124074) (#124095)</MESSAGE>
+    <SHA>8b4324bb4626a508c366e431efe7d48a72c075c7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.smoketest.DocsClientYamlTestSuiteIT test {yaml=reference/cat/nodes/line_361} #124103</MESSAGE>
+      <SHA>e47219ef72cc6b1f215dfa0f5857318e740ac41f</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.smoketest.DocsClientYamlTestSuiteIT test {yaml=reference/cat/nodes/line_361} #124103</MESSAGE>
+      <SHA>7baf78c02e43f1b7b9161deba671b73cd00c8b4e</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.smoketest.DocsClientYamlTestSuiteIT test {yaml=reference/cat/nodes/line_361} #124103</MESSAGE>
+      <SHA>67adc88b86b87731127d38ed04e54df2fdf49c39</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Disable queryable built-in feature in docs YAML tests (#124684) The .security index is created asynchronously on a cluster startup. This affects some of the docs YAML tests in a way that they need to account for the existence of the .security index or wait for the index to be created and green. This PR disables the feature for docs YAML tests. Disabling the feature in docs YAML tests will solve the flakiness without affecting the coverage. Resolves https://github.com/elastic/elasticsearch/issues/122343 Resolves https://github.com/elastic/elasticsearch/issues/121748 Resolves https://github.com/elastic/elasticsearch/issues/121611 Resolves https://github.com/elastic/elasticsearch/issues/121345 Resolves https://github.com/elastic/elasticsearch/issues/121338 Resolves https://github.com/elastic/elasticsearch/issues/121337 Resolves https://github.com/elastic/elasticsearch/issues/121288 Resolves https://github.com/elastic/elasticsearch/issues/121287 Resolves https://github.com/elastic/elasticsearch/issues/121867 Resolves https://github.com/elastic/elasticsearch/issues/122335 Resolves https://github.com/elastic/elasticsearch/issues/122681 Resolves https://github.com/elastic/elasticsearch/issues/121976 Resolves https://github.com/elastic/elasticsearch/issues/123094 Resolves https://github.com/elastic/elasticsearch/issues/123192 Resolves https://github.com/elastic/elasticsearch/issues/122983 Resolves https://github.com/elastic/elasticsearch/issues/124671 Resolves https://github.com/elastic/elasticsearch/issues/124103</MESSAGE>
+      <SHA>cac356ae64f3b5c5ee4b0c580e5c0307501831e1</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/build.gradle</FILE>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Disable queryable built-in feature in docs YAML tests (#124684) The .security index is created asynchronously on a cluster startup. This affects some of the docs YAML tests in a way that they need to account for the existence of the .security index or wait for the index to be created and green. This PR disables the feature for docs YAML tests. Disabling the feature in docs YAML tests will solve the flakiness without affecting the coverage. Resolves https://github.com/elastic/elasticsearch/issues/122343 Resolves https://github.com/elastic/elasticsearch/issues/121748 Resolves https://github.com/elastic/elasticsearch/issues/121611 Resolves https://github.com/elastic/elasticsearch/issues/121345 Resolves https://github.com/elastic/elasticsearch/issues/121338 Resolves https://github.com/elastic/elasticsearch/issues/121337 Resolves https://github.com/elastic/elasticsearch/issues/121288 Resolves https://github.com/elastic/elasticsearch/issues/121287 Resolves https://github.com/elastic/elasticsearch/issues/121867 Resolves https://github.com/elastic/elasticsearch/issues/122335 Resolves https://github.com/elastic/elasticsearch/issues/122681 Resolves https://github.com/elastic/elasticsearch/issues/121976 Resolves https://github.com/elastic/elasticsearch/issues/123094 Resolves https://github.com/elastic/elasticsearch/issues/123192 Resolves https://github.com/elastic/elasticsearch/issues/122983 Resolves https://github.com/elastic/elasticsearch/issues/124671 Resolves https://github.com/elastic/elasticsearch/issues/124103</MESSAGE>
+      <SHA>15e94eeff433c38366afa76b66d248cf180a1ebb</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/build.gradle</FILE>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

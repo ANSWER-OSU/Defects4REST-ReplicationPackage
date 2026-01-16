@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17905</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/17905</ISSUEURL>
+  <TITLE>sqlite: podman container commit: container already exists</TITLE>
+  <DESCRIPTION>Seen just now in [f36 rootless sqlite](https://api.cirrus-ci.com/v1/artifact/task/5923828761624576/html/sys-podman-fedora-36-rootless-host-sqlite.log.html#t--00381) ``` $ podman container commit -q c1 Error: more than one result for container &quot;c1&quot;: container already exists ```</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #17896 from willmerae/willmerae-patch-1 [CI:DOCS] minor grammar fix in `--volume` description</MESSAGE>
+    <SHA>f9beb0db09921847c2cd87c846779bfb49e3e654</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Ensure that SQLite state handles name-ID collisions If a container with an ID starting with &quot;db1&quot; exists, and a container named &quot;db1&quot; also exists, and they are different containers - if I run `podman inspect db1` the container named &quot;db1&quot; should be inspected, and there should not be an error that multiple containers matched the name or id &quot;db1&quot;. This was already handled by BoltDB, and now is properly managed by SQLite. Fixes #17905 Signed-off-by: Matt Heon &lt;mheon@redhat.com&gt;</MESSAGE>
+      <SHA>7daab31f1f3afe8828c22656482a7124b40e1f08</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/sqlite_state.go</FILE>
+        <FILE>test/e2e/create_test.go</FILE>
+        <FILE>test/e2e/pod_create_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

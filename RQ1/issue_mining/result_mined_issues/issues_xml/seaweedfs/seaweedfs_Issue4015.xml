@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4015</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/4015</ISSUEURL>
+  <TITLE>[filer] race to remove an empty directory and create an entry with parent directories</TITLE>
+  <DESCRIPTION>**Describe the bug** If a leaf arrives at the time of uploading the file, then the file, then the directory with the file is deleted recursively. Since the newly created directory is currently empty version: ``` 3.32 ``` nginx log: ``` Nov 23, 2022 @ 18:01:08.457 | s3-fast-api/thanos/01GJJ97E75EEWJRN9YM5P0DXNP/chunks/000001 | 200 | 200 | PUT | ingress-default-main-8647798d97-kg8nc | 3.122 Nov 23, 2022 @ 18:01:08.689 | s3-fast-api/thanos/?delimiter=%2F&amp;encoding-type=url&amp;fetch-owner=true&amp;list-type=2&amp;prefix= | 200 | 200 | GET | ingress-default-main-8647798d97-kg8nc | 1.223 ``` seaweed log: ``` Nov 23, 2022 @ 18:01:07.230 | I1123 13:01:07.230080 filer_replication.go:102 add: /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP Nov 23, 2022 @ 18:01:07.230 | I1123 13:01:07.230085 filer_replication.go:112 replicated /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP Nov 23, 2022 @ 18:01:07.774 | I1123 13:01:07.773905 filer_replication.go:112 replicated /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP/chunks Nov 23, 2022 @ 18:01:07.774 | I1123 13:01:07.773883 filer_replication.go:102 add: /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP/chunks Nov 23, 2022 @ 18:01:07.897 | I1123 13:01:07.897070 filer_util.go:65 delete entry /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP/chunks: directory:&quot;/buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP&quot; name:&quot;chunks&quot; is_delete_data:true is_recursive:true ignore_recursive_error:true Nov 23, 2022 @ 18:01:07.897 | I1123 13:01:07.897051 s3api_objects_list_handlers.go:446 deleting empty folder /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP/chunks Nov 23, 2022 @ 18:01:08.193 | I1123 13:01:08.193615 filer_replication.go:100 delete: /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP/chunks Nov 23, 2022 @ 18:01:08.193 | I1123 13:01:08.193622 filer_replication.go:112 replicated /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP/chunks Nov 23, 2022 @ 18:01:08.333 | I1123 13:01:08.333227 filer_replication.go:112 replicated /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP/chunks/000001 Nov 23, 2022 @ 18:01:08.333 | I1123 13:01:08.333183 filer_replication.go:102 add: /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP/chunks/000001 Nov 23, 2022 @ 18:01:08.390 | I1123 13:01:08.390711 filer_util.go:65 delete entry /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP: directory:&quot;/buckets/thanos&quot; name:&quot;01GJJ97E75EEWJRN9YM5P0DXNP&quot; is_delete_data:true is_recursive:true ignore_recursive_error:true Nov 23, 2022 @ 18:01:08.390 | I1123 13:01:08.390685 s3api_objects_list_handlers.go:446 deleting empty folder /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP Nov 23, 2022 @ 18:01:08.638 | I1123 13:01:08.638063 filer_replication.go:100 delete: /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP Nov 23, 2022 @ 18:01:08.638 | I1123 13:01:08.638095 filer_replication.go:112 replicated /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP Nov 23, 2022 @ 18:01:09.701 | I1123 13:01:09.701445 filer_replication.go:112 replicated /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP Nov 23, 2022 @ 18:01:09.701 | I1123 13:01:09.701424 filer_replication.go:102 add: /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP Nov 23, 2022 @ 18:01:11.023 | I1123 13:01:11.023666 filer_replication.go:102 add: /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP/index Nov 23, 2022 @ 18:01:11.023 | I1123 13:01:11.023692 filer_replication.go:112 replicated /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP/index Nov 23, 2022 @ 18:01:12.040 | I1123 13:01:12.040532 filer_replication.go:112 replicated /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP/meta.json Nov 23, 2022 @ 18:01:12.040 | I1123 13:01:12.040519 filer_replication.go:102 add: /buckets/thanos/01GJJ97E75EEWJRN9YM5P0DXNP/meta.json ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[metrics] Add the ability to control bind ip (#4012)</MESSAGE>
+    <SHA>4b0430e71d097c0de1f848b09d7aa8b4a74cb4d7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>avoid deleting newly created empty directories https://github.com/seaweedfs/seaweedfs/issues/4015</MESSAGE>
+      <SHA>361db443d7b81579902bee344c8a427ccbbffdef</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/s3api/s3api_objects_list_handlers.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>avoid deleting newly created empty directories https://github.com/seaweedfs/seaweedfs/issues/4015</MESSAGE>
+      <SHA>04630d80b0e6038afb2e5447136a38c3d356157c</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/s3api/s3api_objects_list_handlers.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

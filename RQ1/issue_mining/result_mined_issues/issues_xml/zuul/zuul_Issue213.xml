@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>213</ISSUENO>
+  <ISSUEURL>https://github.com/Netflix/zuul/issues/213</ISSUEURL>
+  <TITLE>Some containers require RequestWrapper extend ServletRequestWrapper or HttpServletRequestWrapper</TITLE>
+  <DESCRIPTION>WAS Liberty https://github.com/spring-cloud/spring-cloud-netflix/issues/958 See also https://github.com/spring-cloud/spring-cloud-netflix/issues/397 Looks like changing https://github.com/Netflix/zuul/blob/1.x/zuul-core/src/main/java/com/netflix/zuul/http/HttpServletRequestWrapper.java#L58 to `public class HttpServletRequestWrapper extends ServletRequestWrapper implements HttpServletRequest` Would have the desired outcome.</DESCRIPTION>
+  <REPONAME>zuul</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #212 from ghenkes/remove-turbine Remove unused turbine-core dependency</MESSAGE>
+    <SHA>fc9bc71d761a47eb3b77d39b4906f21e5989a615</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Zuul HttpServletRequestWrapper now extends javax HttpServletRequestWrapper. Allows for certain containers that require it to not fail with an exception. fixes gh-213</MESSAGE>
+      <SHA>d5aa760e24d899dcba0daff6151289744059260b</SHA>
+      <PATCHEDFILES>
+        <FILE>zuul-core/src/main/java/com/netflix/zuul/http/HttpServletRequestWrapper.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

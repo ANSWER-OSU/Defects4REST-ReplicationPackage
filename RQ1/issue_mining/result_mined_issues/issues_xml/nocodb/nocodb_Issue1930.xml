@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1930</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/1930</ISSUEURL>
+  <TITLE>Cannot change the column to SingleLineText to LongText</TITLE>
+  <DESCRIPTION>**Please enter the following details** Copy and Paste Project Info - Tutorials: How to check my Project info? ([YouTube Tutorial](https://www.youtube.com/watch?v=AUSNN-RCwhE) or [Documentation](https://docs.nocodb.com/FAQs#how-to-check-my-project-info-)) ``` Docker: true Database: mssql RootDB: mssql ``` or provide the following info ``` NocoDB used as docker : true / false NocoDB version : Database used in NC_DB URL mssql Project was created by clicking : New Project by connecting to external database Database on which spreadsheet is created : mssql ``` I have a column of type nvarchar(max) and i want to insert in it long text, I changed the column from SingleLineText to LongText. The problem is that the length is not editable (see screenshot) &lt;img width=&quot;818&quot; alt=&quot;Screenshot 2022-04-29 at 11 21 17&quot; src=&quot;https://user-images.githubusercontent.com/3995719/165918852-68422635-a301-4f13-982c-a10799c0a9d5.png&quot;&gt; This makes the underlying sql request to fail with: ``` 2022-04-29T09:21:50.937648581Z RequestError: 2022-04-29T09:21:50.937666281Z ALTER TABLE [dbo].[retracted] ALTER COLUMN [Content] nvarchar(); 2022-04-29T09:21:50.937712082Z - Incorrect syntax near ')'. ``` I can take a look this week end, and make a PR</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: use uidt from request on table creation Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+    <SHA>737c2ded65f401a6d617965f34c854b550dcf39f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: allow to edit the length of a nvarchar (mssql). #1930</MESSAGE>
+      <SHA>2b88c3d3c7b7f18d733f24f732b7cfc76e642c54</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb-sdk/src/lib/sqlUi/MssqlUi.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #1938 from titouancreach/fix/1930-allow-edit-length-of-nvarchar fix: allow to edit the length of a nvarchar (mssql). #1930</MESSAGE>
+      <SHA>cf5f6c9e0f15232ee4b3332f9ec94dd44f51c00c</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb-sdk/src/lib/sqlUi/MssqlUi.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

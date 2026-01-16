@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1666</ISSUENO>
+  <ISSUEURL>https://github.com/MobSF/Mobile-Security-Framework-MobSF/issues/1666</ISSUEURL>
+  <TITLE>The Home Views search func query the RecentScansDB by URL, but the models didn't declare it</TITLE>
+  <DESCRIPTION>&lt;!-- ## IMPORTANT --&gt; &lt;!-- Issues are ONLY for reporting BUGS. For support, feature requests, questions, queries, and discussions use our slack channel for limited support. Join MobSF Slack channel: http://tiny.cc/mobsf --&gt; &lt;!-- If you see errors while running setup/run scripts, it is mostly because you haven't installed the required dependencies correctly. You will have to look into the errors and figure out what is causing them and solve them accordingly. Make sure you have installed all the required dependencies and their correct versions as per the latest documentation. If you still find yourself at a dead end, join MobSF Slack channel: http://tiny.cc/mobsf Please do not post support/help request in GitHub issues, doing so will definitely waste our time get them closed without further response. --&gt; ## ENVIRONMENT ``` OS and Version:Windows 10 Python Version:3.8 MobSF Version:3.3 beta ``` ## EXPLANATION OF THE ISSUE ``` MOBSF v3.3 beta When user use the home page's search form , the home view's search func query the RecentScansDB by the attr URL. but the models did't declare the URL portery ``` &lt;!-- If you see errors while running setup/run scripts, join MobSF Slack channel: http://tiny.cc/mobsf to get limited support. --&gt; ## STEPS TO REPRODUCE THE ISSUE ``` 1. upload a apk and start the Static Scan 2. go back to the home page and search the MD5 3. the RecentScanDB table didn't have URL attr ``` ![image](https://user-images.githubusercontent.com/19317774/106939886-d1887d00-675b-11eb-8d23-fd0d61727927.png) ![image](https://user-images.githubusercontent.com/19317774/106940034-fd0b6780-675b-11eb-9fb1-2734f85d3403.png) ## LOG FILE ``` [ERROR] 05/Feb/2021 02:43:41 - Internal Server Error: /search Traceback (most recent call last): File &quot;\venv\lib\site-packages\django\core\handlers\exception.py&quot;, line 47, in inner response = get_response(request) File &quot;\venv\lib\site-packages\django\core\handlers\base.py&quot;, line 181, in _get_response response = wrapped_callback(request, *callback_args, **callback_kwargs) File &quot;\mobsf\MobSF\views\home.py&quot;, line 227, in search return HttpResponseRedirect('/' + db_obj[0].URL) AttributeError: 'RecentScansDB' object has no attribute 'URL' [ERROR] 05/Feb/2021 02:43:41 - &quot;GET /search?md5=&lt;the file md5&gt; HTTP/1.1&quot; 500 80105 ``` &lt;!-- BEFORE POSTING YOUR ISSUE/BUG - These comments won't show up when you submit the issue. - GitHub issues ARE NOT FOR FEATURE REQUESTS, SUPPORT, DISCUSSIONS AND QUESTIONS! - If you have questions, use our slack channel. Join MobSF Slack channel: http://tiny.cc/mobsf - Reproduce issue in the latest master and try to add as much detail as possible. - Search this repository (top of the page) for the issue and it has not been fixed or reported already. - Once you open a bug, you should also provide additional information if requested. - Failure to do so in 25 days will result in closure of the bug without further communication. --&gt;</DESCRIPTION>
+  <REPONAME>Mobile-Security-Framework-MobSF</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'master' into apkid</MESSAGE>
+    <SHA>11a25db69f03ae7f1eb37d71357d6f1bdf3f51ca</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #1666</MESSAGE>
+      <SHA>8d6eac4ff06e2b965450d7f37b0a3c6e45ff772f</SHA>
+      <PATCHEDFILES>
+        <FILE>.github/workflows/mobsf_test.yml</FILE>
+        <FILE>README.md</FILE>
+        <FILE>mobsf/DynamicAnalyzer/views/android/environment.py</FILE>
+        <FILE>mobsf/MobSF/views/home.py</FILE>
+        <FILE>mobsf/StaticAnalyzer/tests.py</FILE>
+        <FILE>mobsf/signatures/exodus_trackers</FILE>
+        <FILE>mobsf/signatures/maltrail-malware-domains.txt</FILE>
+        <FILE>requirements.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

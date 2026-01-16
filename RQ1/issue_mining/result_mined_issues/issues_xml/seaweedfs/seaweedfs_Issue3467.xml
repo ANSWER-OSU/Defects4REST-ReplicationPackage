@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3467</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3467</ISSUEURL>
+  <TITLE>Filer if-modified-since check doesn't fire on &quot;exact&quot;</TITLE>
+  <DESCRIPTION>**Describe the bug** Filer does not return HTTP 304 if the `if-modified-since` value is exact the same as the `Last-Modfied` header **System Setup** - `weed server -dataCenter=$HOSTNAME -ip=$HOSTNAME -master.dir=/meta -master.peers=&quot;app1:9333,app2:9333,app3:9333&quot; -dir=/data -volume.dir.idx=/meta -volume.index=leveldbLarge -volume.max=0 -rack=1 -filer.encryptVolumeData -volume.fileSizeLimitMB=4096 -master.volumeSizeLimitMB=1024 -filer.defaultReplicaPlacement=100 -filer.saveToFilerLimit=4096 -filer&quot;` - Ubuntu Server **Expected behavior** Filer should return 304: Not modified to save bandwidth **Screenshots** ```bash system@app2:~$ curl --head --http1.1 -H 'if-modified-since: Thu, 18 Aug 2022 15:40:16 GMT' 'http://localhost:8888/qr-code.svg' HTTP/1.1 304 Not Modified Last-Modified: Thu, 18 Aug 2022 15:40:15 GMT Server: SeaweedFS Filer 30GB 3.22 Date: Fri, 19 Aug 2022 15:29:42 GMT system@app2:~$ curl --head --http1.1 -H 'if-modified-since: Thu, 18 Aug 2022 15:40:15 GMT' 'http://localhost:8888/qr-code.svg' HTTP/1.1 200 OK Accept-Ranges: bytes Access-Control-Expose-Headers: Content-Disposition Cache-Control: no-cache Content-Disposition: inline; filename=&quot;qr-code.svg&quot; Content-Length: 209510 Content-Type: image/svg+xml Etag: &quot;8ab857fb2ea442f951af494a746b1abf&quot; Last-Modified: Thu, 18 Aug 2022 15:40:15 GMT Server: SeaweedFS Filer 30GB 3.22 Date: Fri, 19 Aug 2022 15:29:50 GMT ``` **Additional context** Filer will say `HTTP/1.1 304 Not Modified` with a value later than it's own `Last-Modified` but this will most likely never be the same in the case of a browser. I was testing via filer web ui in chrome.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>filer: retryable when error is not found</MESSAGE>
+    <SHA>aac45f3e89a2c1704e9f2d19c957d950e7268e2b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Filer if-modified-since check doesn't fire on &quot;exact&quot; #3467 fix https://github.com/seaweedfs/seaweedfs/issues/3467</MESSAGE>
+      <SHA>fdd8c5d5e0a324c5e2f775b4b52fd97da42a0b50</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/filer_server_handlers_read.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Filer if-modified-since check doesn't fire on &quot;exact&quot; #3467 fix https://github.com/seaweedfs/seaweedfs/issues/3467</MESSAGE>
+      <SHA>146144500bb602019b24cd87cce17262baed79b1</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/filer_server_handlers_read.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

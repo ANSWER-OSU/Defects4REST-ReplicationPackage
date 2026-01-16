@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>116974</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/116974</ISSUEURL>
+  <TITLE>[CI] CohereServiceUpgradeIT testCohereEmbeddings {upgradedNodes=1} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5382 / 8.14.3_bwc](https://gradle-enterprise.elastic.co/s/r4zb7qyk4lc6a) - [elasticsearch-periodic #5382 / 8.13.4_bwc](https://gradle-enterprise.elastic.co/s/fgml2dva4ux3g) - [elasticsearch-pull-request #46623 / 8.13.4_bwc](https://gradle-enterprise.elastic.co/s/chicbx5hd7lgk) - [elasticsearch-pull-request #46623 / 8.14.3_bwc](https://gradle-enterprise.elastic.co/s/gc3ysbk2rmqks) - [elasticsearch-periodic #5377 / 8.13.4_bwc](https://gradle-enterprise.elastic.co/s/syv5njuerhgmq) - [elasticsearch-periodic #5372 / 8.13.4_bwc](https://gradle-enterprise.elastic.co/s/tdqogg7xyukjw) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:inference:qa:rolling-upgrade:v8.14.3#bwcTest&quot; -Dtests.class=&quot;org.elasticsearch.xpack.application.CohereServiceUpgradeIT&quot; -Dtests.method=&quot;testCohereEmbeddings {upgradedNodes=1}&quot; -Dtests.seed=1868AB709715B87A -Dtests.bwc=true -Dtests.locale=ta-SG -Dtests.timezone=Europe/Saratov -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.application.CohereServiceUpgradeIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testCohereEmbeddings%20%7BupgradedNodes%3D1%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.IndexOutOfBoundsException: Index: 0, Size: 0 ``` **Issue Reasons:** - [8.x] 2 consecutive failures in step 8.14.3_bwc - [8.x] 4 consecutive failures in step 8.13.4_bwc - [8.x] 6 failures in test testCohereEmbeddings {upgradedNodes=1} (4.2% fail rate in 143 executions) - [8.x] 2 failures in step 8.14.3_bwc (50.0% fail rate in 4 executions) - [8.x] 4 failures in step 8.13.4_bwc (100.0% fail rate in 4 executions) - [8.x] 3 failures in pipeline elasticsearch-periodic (100.0% fail rate in 3 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>64</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.application.CohereServiceUpgradeIT testRerank {upgradedNodes=1} #116973</MESSAGE>
+    <SHA>e1b6990325bf7f9749a214d3647f5e3dd7ac65f5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.application.CohereServiceUpgradeIT testCohereEmbeddings {upgradedNodes=1} #116974</MESSAGE>
+      <SHA>511a24cbfcabc861735f2c4d258777407a796036</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Inference API] Unmute upgrade test (#118666) https://github.com/elastic/elasticsearch/pull/118664 ``` - class: org.elasticsearch.xpack.application.CohereServiceUpgradeIT method: testRerank {upgradedNodes=1} issue: https://github.com/elastic/elasticsearch/issues/116973 - class: org.elasticsearch.xpack.application.CohereServiceUpgradeIT method: testCohereEmbeddings {upgradedNodes=1} issue: https://github.com/elastic/elasticsearch/issues/116974 - class: org.elasticsearch.xpack.application.CohereServiceUpgradeIT method: testCohereEmbeddings {upgradedNodes=2} issue: https://github.com/elastic/elasticsearch/issues/116975 - class: org.elasticsearch.xpack.application.OpenAiServiceUpgradeIT method: testOpenAiEmbeddings {upgradedNodes=1} issue: https://github.com/elastic/elasticsearch/issues/118156 - class: org.elasticsearch.xpack.application.HuggingFaceServiceUpgradeIT method: testElser {upgradedNodes=1} issue: https://github.com/elastic/elasticsearch/issues/118127 - class: org.elasticsearch.xpack.application.OpenAiServiceUpgradeIT method: testOpenAiCompletions {upgradedNodes=1} issue: https://github.com/elastic/elasticsearch/issues/118162 - class: org.elasticsearch.xpack.application.OpenAiServiceUpgradeIT method: testOpenAiCompletions {upgradedNodes=2} issue: https://github.com/elastic/elasticsearch/issues/118163 - class: org.elasticsearch.xpack.application.OpenAiServiceUpgradeIT method: testOpenAiEmbeddings {upgradedNodes=2} issue: https://github.com/elastic/elasticsearch/issues/118204 - class: org.elasticsearch.xpack.application.HuggingFaceServiceUpgradeIT method: testHFEmbeddings {upgradedNodes=1} issue: https://github.com/elastic/elasticsearch/issues/118197 ```</MESSAGE>
+      <SHA>db0d6cebaf0548d686b90fc74a0516aa4cd40f6e</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.application.CohereServiceUpgradeIT testCohereEmbeddings {upgradedNodes=1} #116974</MESSAGE>
+      <SHA>9fee359a484c14bead8319c174704179a0606cf4</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Inference API] Unmute upgrade test (#118666) https://github.com/elastic/elasticsearch/pull/118664 ``` - class: org.elasticsearch.xpack.application.CohereServiceUpgradeIT method: testRerank {upgradedNodes=1} issue: https://github.com/elastic/elasticsearch/issues/116973 - class: org.elasticsearch.xpack.application.CohereServiceUpgradeIT method: testCohereEmbeddings {upgradedNodes=1} issue: https://github.com/elastic/elasticsearch/issues/116974 - class: org.elasticsearch.xpack.application.CohereServiceUpgradeIT method: testCohereEmbeddings {upgradedNodes=2} issue: https://github.com/elastic/elasticsearch/issues/116975 - class: org.elasticsearch.xpack.application.OpenAiServiceUpgradeIT method: testOpenAiEmbeddings {upgradedNodes=1} issue: https://github.com/elastic/elasticsearch/issues/118156 - class: org.elasticsearch.xpack.application.HuggingFaceServiceUpgradeIT method: testElser {upgradedNodes=1} issue: https://github.com/elastic/elasticsearch/issues/118127 - class: org.elasticsearch.xpack.application.OpenAiServiceUpgradeIT method: testOpenAiCompletions {upgradedNodes=1} issue: https://github.com/elastic/elasticsearch/issues/118162 - class: org.elasticsearch.xpack.application.OpenAiServiceUpgradeIT method: testOpenAiCompletions {upgradedNodes=2} issue: https://github.com/elastic/elasticsearch/issues/118163 - class: org.elasticsearch.xpack.application.OpenAiServiceUpgradeIT method: testOpenAiEmbeddings {upgradedNodes=2} issue: https://github.com/elastic/elasticsearch/issues/118204 - class: org.elasticsearch.xpack.application.HuggingFaceServiceUpgradeIT method: testHFEmbeddings {upgradedNodes=1} issue: https://github.com/elastic/elasticsearch/issues/118197 ```</MESSAGE>
+      <SHA>35e9165fc3317a3a5b5bfa5ce5df63c9ba1472d8</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.application.CohereServiceUpgradeIT testCohereEmbeddings {upgradedNodes=1} #116974</MESSAGE>
+      <SHA>271d44781a4b2b0e37941b23c93dd9d9ac3f477f</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>unmute inference upgrade tests (#118882) ``` - class: org.elasticsearch.xpack.application.OpenAiServiceUpgradeIT method: testOpenAiEmbeddings {upgradedNodes=1} issue: https://github.com/elastic/elasticsearch/issues/118156 - class: org.elasticsearch.xpack.application.HuggingFaceServiceUpgradeIT method: testHFEmbeddings {upgradedNodes=1} issue: https://github.com/elastic/elasticsearch/issues/118197 - class: org.elasticsearch.xpack.application.OpenAiServiceUpgradeIT method: testOpenAiCompletions {upgradedNodes=2} issue: https://github.com/elastic/elasticsearch/issues/118163 - class: org.elasticsearch.xpack.application.OpenAiServiceUpgradeIT method: testOpenAiCompletions {upgradedNodes=1} issue: https://github.com/elastic/elasticsearch/issues/118162 - class: org.elasticsearch.xpack.application.HuggingFaceServiceUpgradeIT method: testElser {upgradedNodes=1} issue: https://github.com/elastic/elasticsearch/issues/118127 - class: org.elasticsearch.xpack.application.CohereServiceUpgradeIT method: testCohereEmbeddings {upgradedNodes=1} issue: https://github.com/elastic/elasticsearch/issues/116974 ```</MESSAGE>
+      <SHA>d9f98b81063198b051ff8bf8f56a07f9914e6cfc</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

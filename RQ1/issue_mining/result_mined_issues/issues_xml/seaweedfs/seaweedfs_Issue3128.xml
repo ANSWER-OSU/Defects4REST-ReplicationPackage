@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3128</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3128</ISSUEURL>
+  <TITLE>Volumes not created on pristine fast/slow drive setup</TITLE>
+  <DESCRIPTION>**Describe the bug** no active volumes are generated on a pristine fast/slow disk setup. **System Setup** Master: ``` usr/local/sbin/weed master -ip.bind 0.0.0.0 -ip 10.11.11.182 \ -defaultReplication 000 \ -volumeSizeLimitMB 1024 \ -mdir /srv/data_fast/weed.dei.privat/master \ -volumePreallocate ``` Volume: ``` /usr/local/sbin/weed volume -port 8080 -publicUrl http://weed.dei.privat -max 100 \ -ip.bind 0.0.0.0 -ip 10.11.11.182 \ -mserver 10.11.11.182:9333 \ -disk hdd,ssd -dir /srv/data/weed.dei.privat/volume,/srv/data_fast/weed.dei.privat/volume \ -compactionMBps 30 -minFreeSpace 1 -dataCenter DefaultDataCenter -rack DefaultRack ``` Filer: ``` /usr/local/sbin/weed filer -port 8888 -ip.bind 0.0.0.0 -ip 10.11.11.182 \ -master 10.11.11.182:9333 \ -dataCenter DefaultDataCenter -rack DefaultRack \ -s3 -s3.config=/srv/data/weed.dei.privat/.seaweedfs/s3.json ``` Status-Data: ``` &gt; cluster.ps the cluster has 1 filers * 10.11.11.182:8888 (30GB 3.07 fbd99d53c1e45ef12c49ad1ec043c918f4da94e8) signature: 411477689 &gt; cluster.check Topology volumeSizeLimit:1024 MB hdd(volume:0/100 active:0 free:100 remote:0) ssd(volume:0/100 active:0 free:100 remote:0) error: Need to a hdd disk type! &gt; fs.configure { } &gt; volume.list Topology volumeSizeLimit:1024 MB hdd(volume:0/100 active:0 free:100 remote:0) ssd(volume:0/100 active:0 free:100 remote:0) DataCenter DefaultDataCenter hdd(volume:0/100 active:0 free:100 remote:0) ssd(volume:0/100 active:0 free:100 remote:0) Rack DefaultRack hdd(volume:0/100 active:0 free:100 remote:0) ssd(volume:0/100 active:0 free:100 remote:0) DataNode 10.11.11.182:8080 hdd(volume:0/100 active:0 free:100 remote:0) ssd(volume:0/100 active:0 free:100 remote:0) Disk hdd(volume:0/100 active:0 free:100 remote:0) Disk hdd total size:0 file_count:0 Disk ssd(volume:0/100 active:0 free:100 remote:0) Disk ssd total size:0 file_count:0 DataNode 10.11.11.182:8080 total size:0 file_count:0 Rack DefaultRack total size:0 file_count:0 DataCenter DefaultDataCenter total size:0 file_count:0 total size:0 file_count:0 &gt; ``` - OS version Debian 11 bullseye - output of `weed version` version 30GB 3.07 fbd99d53c1e45ef12c49ad1ec043c918f4da94e8 linux amd64 also on latest 3.06, 30GB - if using filer, show the content of `filer.toml` none **Expected behavior** like in singe volume setup before, Volumes get generated and used. **Additional context** I'm modifying an ansible role to setup a one-host weed-cluster, running in a LXContainer (@proxmox). the filer with 2 mounted host-zfs-drives, with two diff. TAGs. Always removing the old setup before rerun. While using only on drive, everything works as expected. when using two drives, no volumes get created. in the one volume setup, only `/srv/data/weed.dei.privat/volume,` was used. no `-disk` option. two disk setup: first try: -disk ssd,nvme -dir /srv/data/weed.dei.privat/volume,/srv/data_fast/weed.dei.privat/volume according to my misinterpretation of the error message (s.u.) from 'cluster.check': `error: Need to a hdd disk type!`, I changed to: -disk hdd,ssd -dir /srv/data/weed.dei.privat/volume,/srv/data_fast/weed.dei.privat/volume with out effect… Dir-structure on /srv/ ``` tree */weed.dei.* -L 3 data_fast/weed.dei.privat ├── master │ ├── conf │ ├── log │ └── snapshot └── volume └── vol_dir.uuid data/weed.dei.privat ├── filer │ └── filerldb2 │ ├── 00 │ ├── 01 │ ├── 02 │ ├── 03 │ ├── 04 │ ├── 05 │ ├── 06 │ └── 07 └── volume └── vol_dir.uuid ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>3.08</MESSAGE>
+    <SHA>8a49240d64f5e53f119e58b923c3a6b25e85b37b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix error reporting for &quot;Need to a hdd disk type&quot; related to https://github.com/chrislusf/seaweedfs/issues/3128</MESSAGE>
+      <SHA>89948a373b746442e20b51a90b21744c8e6d215c</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/shell/command_cluster_check.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

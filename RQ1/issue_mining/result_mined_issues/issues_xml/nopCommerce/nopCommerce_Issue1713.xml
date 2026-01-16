@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1713</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/1713</ISSUEURL>
+  <TITLE>Multiple XML sitemap files. Google doesn't accept sitemap with urls more than 50k</TITLE>
+  <DESCRIPTION>Max urls count of Sitemap to upload to Google is 50k rows. I would like to see multiple dynamic sitemap.xml files being generated. Currently all products, categories, topics etc are put into the one yourstore.com/sitemap.xml location. Although sitemap files can contain up to 50,000 urls, some people have more than 50,000 urls, but in most cases it better to provide more granularity. By creating multiple sitemaps, google webmaster will provide a better breakdown of sitemaps submitted and you can analyse any poor performing urls (duplicate content etc). Also it's much less load on the server to output smaller files. Example, split products into separate dynamic files with a limit to the number of urls in the file yourstore.com/sitemap-products1.xml (products 0-1000) yourstore.com/sitemap-products2.xml (products 1001-2000) -.-, -.-. yourstore.com/sitemap-category1.xml (categories 1001-2000) Source: http://www.nopcommerce.com/boards/t/33113/multiple-sitemap-xmls.aspx also see https://support.google.com/webmasters/answer/75712?hl=en</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>180</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #2157 from SevenSpikes/order_details_markup_optimization Markup optimizations for order and shipment detail pages</MESSAGE>
+    <SHA>4486dc2ca6e189ecdd1a9bc9db8b05df2f73c1e8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#1713 Multiple XML sitemap files</MESSAGE>
+      <SHA>eb19466b98112ff510257a1beb69e4036c7497f3</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Seo/ISitemapGenerator.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Seo/SitemapGenerator.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/CommonController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/CommonModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/ICommonModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Infrastructure/Cache/ModelCacheEventConsumer.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Infrastructure/RouteProvider.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Web.config</FILE>
+        <FILE>src/Tests/Nop.Web.MVC.Tests/Public/Infrastructure/RoutesTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

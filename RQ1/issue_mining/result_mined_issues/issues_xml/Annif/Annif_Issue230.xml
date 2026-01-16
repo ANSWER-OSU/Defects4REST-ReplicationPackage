@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>230</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/230</ISSUEURL>
+  <TITLE>Vowpal Wabbit regular backend</TITLE>
+  <DESCRIPTION>The Vowpal Wabbit (VW) online learning systems seems promising as a backend for Annif. It could be used in at least two ways: 1. As a basic backend that inputs text and predicts classes/concepts/subjects. 2. As an ensemble backend that intelligently combines results from other backends, similar to PAV. For case 1, the limitation of VW is that while it can perform multiclass and multilabel tasks, internally those tasks will be converted to K (mostly) independent classifiers, where K is the number of classes. When K is large, and there are also many input features, the resulting combinatorial explosion will cause problems despite the inherent scalability in VW. Thus the VW backend would probably work best for classification tasks where there are at most a few thousand classes. Also it would be useful to be able to use the output (concepts with scores) of other backends as input to the VW classifier; that would make it possible to e.g. predict UDC classes based on YSO subjects assigned by other backends. The big attraction of VW, alongside its speed and scalability, is that it is oriented around online learning. So whatever it has been trained on, it can always learn to adapt based on feedback. It would be natural to implement VW support first, when adding support for online learning / feedback to Annif (#225). VW requires a native library to be built, and building it can be difficult in some environments. It should be an optional dependency like voikko (#37) and fastText (#229).</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>42</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #256 from NatLibFi/issue230-vw-multi-input-from-projects vw-multi backend: use input from other projects</MESSAGE>
+    <SHA>131b993834df41c0b56415844752a0caf7a2b0a4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Initial support for online learning in vw_multi backend. Part of #225 and #230</MESSAGE>
+      <SHA>a60c62f064749c44082d6e2dfb2e7917ce64dc52</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/backend/backend.py</FILE>
+        <FILE>annif/backend/vw_multi.py</FILE>
+        <FILE>tests/test_backend_vw_multi.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

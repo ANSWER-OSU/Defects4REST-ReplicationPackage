@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4901</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4901</ISSUEURL>
+  <TITLE>&quot;Reserve inventory&quot; and &quot;BalanceInventory&quot; doesn't work when product have stock in multiple warehouses</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.30+ Steps to reproduce the problem: 1. Place order with product that have the stock in multiple warehouses 2. Reserved quantity isn't added in related warehouse In ProductService.cs -&gt; ReserveInventory(...) method ```csharp //update productInventory instead product UpdateProductWarehouseInventory(productInventory); //UpdateProduct(product); ``` This also applies to ProductService.cs -&gt; BalanceInventory(...) method</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix issue #4830 - ProductService.ProductIsAvailable not working correctly when dateTime argument not specified (#4831) Co-authored-by: Jack Alvrus &lt;jack.alvrus@captiveaire.com&gt; (cherry picked from commit a259258c6dd715069268cc798cd4966a7064e2e4)</MESSAGE>
+    <SHA>b69c5d37487a2edd838b3c2a66e40e0f06aed1b1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4901 Fix stock managment in multiple warehouses</MESSAGE>
+      <SHA>d3b9193898ec728170edce10f9d1a4e17469b74b</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Catalog/ProductService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>969</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/969</ISSUEURL>
+  <TITLE>Database: Refactor utility functions to leverage BoltDB wrappers</TITLE>
+  <DESCRIPTION>The current utility functions could be refactored to take a `*bolt.Tx` instead of `*DB`. This would allow them to be used directly with BoltDB's convenience functions. An example implementation might look like: (from https://github.com/drone/drone/pull/968#issuecomment-91615322) ``` go func (db *DB) InsertBuild(repo string, build *Build) error { return db.Update(func(tx *bolt.Tx) error { err := get(t, bucket, key, v) if err != nil { return err } insert(t, bucket, key, v) if err != nil { return err } return nil }) } func insert(t *bolt.Tx, bucket, key []byte, v interface{}) error { ... } ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>130</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>support update default branch (#973)</MESSAGE>
+    <SHA>29f781201f89257093577f3f56c4e12d4346e2d9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add integration tests for GetRootSpace, CountAll and GetSize spc and repo store methods (#969)</MESSAGE>
+      <SHA>a4d47e12b20a3a2c11608dff2de848210b4c6b76</SHA>
+      <PATCHEDFILES>
+        <FILE>app/store/cache/path.go</FILE>
+        <FILE>app/store/cache/wire.go</FILE>
+        <FILE>app/store/database/repo_test.go</FILE>
+        <FILE>app/store/database/setup_test.go</FILE>
+        <FILE>app/store/database/space_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

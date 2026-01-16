@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5021</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/5021</ISSUEURL>
+  <TITLE>Limit in template doest work with dynamic inventory</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY When I use a dynamic inventory, the template limit doesnt work correctly. If I use a static inventory, everything is working fine ##### ENVIRONMENT * AWX version: 7.0.0.599-1.el7 * AWX install method: rpm from mrmeee * Ansible version: * Operating System: CentOS * Web Browser: Firefox ##### STEPS TO REPRODUCE Use a dynamic inventory in a template and use a limit (select a group) ##### EXPECTED RESULTS Be able to retrieve facts with a dynamic inventory. ##### ACTUAL RESULTS ansible-playbook 2.8.5 config file = /etc/ansible/ansible.cfg configured module search path = ['/var/lib/awx/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules'] ansible python module location = /opt/rh/rh-python36/root/lib/python3.6/site-packages/ansible executable location = /opt/rh/rh-python36/root/bin/ansible-playbook python version = 3.6.3 (default, May 31 2019, 13:05:43) [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)] Using /etc/ansible/ansible.cfg as config file SSH password: setting up inventory plugins host_list declined parsing /tmp/awx_4014_4mxv86b3/tmpztve1_ga as it did not pass it's verify_file() method Parsed /tmp/awx_4014_4mxv86b3/tmpztve1_ga inventory source with script plugin Loading callback plugin awx_display of type stdout, v2.0 from /opt/rh/rh-python36/root/usr/lib/python3.6/site-packages/ansible_runner/callbacks/awx_display.py PLAYBOOK: main.yml ************************************************************* Positional arguments: main.yml verbosity: 5 ask_pass: True remote_user: my_user connection: smart timeout: 10 become_method: sudo tags: ('all',) inventory: ('/tmp/awx_4014_4mxv86b3/tmpztve1_ga',) subset: cmk extra_vars: ('@/tmp/awx_4014_4mxv86b3/env/extravars',) forks: 22 1 plays in main.yml PLAY [all] ********************************************************************* TASK [Gathering Facts] ********************************************************* task path: /tmp/awx_4014_4mxv86b3/project/main.yml:2 fatal: [server01.example.com]: FAILED! =&gt; { &quot;msg&quot;: &quot;the connection plugin '' was not found&quot; } fatal: [server02.example.com]: FAILED! =&gt; { &quot;msg&quot;: &quot;the connection plugin '' was not found&quot; } PLAY RECAP ********************************************************************* server01.example.com : ok=0 changed=0 unreachable=0 failed=1 skipped=0 rescued=0 ignored=0 server02.example.com : ok=0 changed=0 unreachable=0 failed=1 skipped=0 rescued=0 ignored=0 ##### ADDITIONAL INFORMATION &lt;!-- Include any links to sosreport, database dumps, screenshots or other information. --&gt;</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #5051 from AlanCoding/installed_default_40 [4.0] backport - Prefer installer defaults over user-defined global EEs</MESSAGE>
+    <SHA>8c16722480d20da65fcb770d65a7831a323a2791</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #5021 from ansible/perf_requests_log_level log perf of requests at debug level</MESSAGE>
+      <SHA>9b403186653db9adaef057aae89a80f1e0813a01</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/middleware.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>91</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/91</ISSUEURL>
+  <TITLE>Unable to send message to group I am a member of</TITLE>
+  <DESCRIPTION>Hi, My account became deregistered and I went ahead and reregistered it without issue. However now I am unable to send to the group I was a member of. I can list the group fine with `curl -X GET -H &quot;Content-Type: application/json&quot; 'http://127.0.0.1:8080/v1/groups/+10000000000'` returns `[{&quot;name&quot;:&quot;group1 Notifications&quot;,&quot;id&quot;:&quot;group.77777777777777777777777777777777&quot;,&quot;internal_id&quot;:&quot;11111111111111==&quot;,&quot;members&quot;:[&quot;+10000000000&quot;,&quot;+11111111111&quot;,&quot;+12222222222&quot;,&quot;+13333333333&quot;],&quot;blocked&quot;:false,&quot;pending_invites&quot;:[],&quot;pending_requests&quot;:[],&quot;invite_link&quot;:&quot;&quot;}]` When I use the group id above, the call always returns &quot;null&quot; ``` curl -X POST -H &quot;Content-Type: application/json&quot; -d '{&quot;message&quot;: &quot;Ignore test&quot;, &quot;number&quot;: &quot;+10000000000&quot;, &quot;recipients&quot;: [&quot;group.77777777777777777777777777777777&quot;]}' 'http://127.0.0.1:8080/v2/send' ``` `null` In the logs it looks like both the GET and POST calls are getting 20x response ``` [GIN] 2021/02/12 - 03:03:48 | 200 | 160.107µs | 10.42.1.1 | GET &quot;/v1/about&quot; [GIN] 2021/02/12 - 03:03:56 | 201 | 7.721459399s | 10.42.1.1 | POST &quot;/v2/send&quot; ```</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update bug-report.md</MESSAGE>
+    <SHA>39dab6abbe2d9612f90eadc580c81b3692771ad6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Some endpoints return &quot;null&quot; although successful see #91</MESSAGE>
+      <SHA>bd5f568ffc82117fb420ed527e3ab509c17e6c5f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/api/api.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Some endpoints return &quot;null&quot; although successful see #91</MESSAGE>
+      <SHA>3884cbd0f2acdfb54c50e2a4624c572d19e75293</SHA>
+      <PATCHEDFILES>
+        <FILE>src/api/api.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

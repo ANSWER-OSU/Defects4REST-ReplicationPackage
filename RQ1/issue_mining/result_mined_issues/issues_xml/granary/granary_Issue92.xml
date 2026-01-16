@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>92</ISSUENO>
+  <ISSUEURL>https://github.com/snarfed/granary/issues/92</ISSUEURL>
+  <TITLE>Include person tags and venue data</TITLE>
+  <DESCRIPTION>Person tags and venue data appear in the JSON blob on the photo permalinks. To get the actual coordinates of the venue, you can use this URL given a venue ID: `https://www.instagram.com/explore/locations/610388922/` The coordinates are in HTML meta tags: ``` &lt;meta property=&quot;place:location:latitude&quot; content=&quot;37.486662&quot; /&gt; &lt;meta property=&quot;place:location:longitude&quot; content=&quot;-122.228468&quot; /&gt; ```</DESCRIPTION>
+  <REPONAME>granary</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Atom: fix XML validation errors in video HTML. for #93 thanks again for reporting @cleverdevil!</MESSAGE>
+    <SHA>48b27c04ee2e84652ed595e8b1af39b6ec2436e1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>microformats2.object_to_json tag handling: support AS activities as well as objects for #92</MESSAGE>
+      <SHA>0d7c232c1351d2b07a29adcedd2f7b0f461b5542</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/microformats2.py</FILE>
+        <FILE>granary/test/testdata/activity_with_person_tag.as.json</FILE>
+        <FILE>granary/test/testdata/activity_with_person_tag.as.mf2.html</FILE>
+        <FILE>granary/test/testdata/activity_with_person_tag.as.mf2.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>demo UI: add activity id input text box to instagram (scraping) for #92</MESSAGE>
+      <SHA>6eb3dce67e9cf6cdb60c9358db58d79893b965b6</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/templates/index.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>instagram: support shortcode as activity id. for #92 sometimes we can identify shortcodes immediately, sometimes we have to try fetching the (wrongly) base64 converted version and then retry the original on 404.</MESSAGE>
+      <SHA>1a5114c2ece4dfb5761a6185a8af79c42932c2df</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/instagram.py</FILE>
+        <FILE>granary/test/test_instagram.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

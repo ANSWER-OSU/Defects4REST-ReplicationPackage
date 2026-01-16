@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6816</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6816</ISSUEURL>
+  <TITLE>nop-editor tag helper not working with indexed values</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.60.3 **Problem and Solution Description:** During the development of a custom plugin for nopCommerce, we wanted to replace the system for editing &quot;specification attributes&quot;. We encountered an issue while entering the values of specification attributes into RichText editors using indices. **Problem:** We used the nopCommerce tag helper (`&lt;nop-editor&gt;`), which did not properly process indices due to localization issues. As a result, the content did not load correctly into the RichText editor: ```html &lt;nop-editor asp-for=&quot;@Model.SpecificationAttributes[counter].Value&quot; asp-template=&quot;RichEditor&quot; /&gt; ``` In detail, the problem was that the conditions in certain lines of code were not met: ```csharp var pattern = $&quot;{nameof(ILocalizedModel&lt;object&gt;.Locales)}&quot; + @&quot;(?=\[\w+\]\.)&quot;; if (!_htmlHelper.ViewData.ContainsKey(For.Name) &amp;&amp; Regex.IsMatch(For.Name, pattern)) { var prefix = _htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix; var key = string.IsNullOrEmpty(prefix) ? For.Name : $&quot;{prefix}.{For.Name}&quot;; _htmlHelper.ViewData.Add(key, For.Model); } ``` **Solution:** To circumvent this problem, we used a different method to generate the editor: ```csharp @Html.EditorFor(model =&gt; model.SpecificationAttributes[counter].Value, &quot;RichEditor&quot;) ``` This approach uses a different method of generation that correctly handles indices and allows the content to be loaded correctly into the RichText editor.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6815 Fixed typo on the locale in the admin tour</MESSAGE>
+    <SHA>a3d6b7d96ecffc89d15dc1bcf21ff66d593f853a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6816 Fixed problem with indexed values in the nop-editor tag helper</MESSAGE>
+      <SHA>5a3f5dd3f581a8718b5fae22cad1e2999d2e7b7f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/TagHelpers/Admin/NopEditorTagHelper.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>816</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/816</ISSUEURL>
+  <TITLE>bug: should not remove the square brackets of [IPv6] address literal in core.utils.parse_addr</TITLE>
+  <DESCRIPTION>Currently I choice to remove the square brackets because `core.utils.parse_ipv6` doesn't work if the square brackets are kept. However, the OpenResty APIs (tcpsock:connect, balancer.set_current_peer, etc.) require the square brackets in the IPv6 address even though they are used without the port part. Admittedly, it would be better to fix in the OpenResty APIs side, but these APIs are created and widely adopted long time ago... Therefore, to make the IPv6 upstream work, we need to keep the square brackets too. My proposal is modifying `core.utils.parse_addr` not to remove the brackets, and changing `core.utils.parse_ipv6` to accept the brackets. What about your opinion?</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>change: removed useless file copy. (#819)</MESSAGE>
+    <SHA>5931172a681e89b149a94f6eb1d5fbe4b25b3ebe</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>change: don't strip square brackets from the IPv6 The OpenResty APIs require the IPv6 literal wrapped inside a square brackets. Also add tests for IPv6 upstream and update lua-resty-ipmatcher to 0.3. Fix #816.</MESSAGE>
+      <SHA>75a82eb6d572d7df54042116e219a75037273c39</SHA>
+      <PATCHEDFILES>
+        <FILE>lua/apisix/core/utils.lua</FILE>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+        <FILE>t/APISIX.pm</FILE>
+        <FILE>t/core/utils.t</FILE>
+        <FILE>t/node/healthcheck-ipv6.t</FILE>
+        <FILE>t/node/remote-addr-ipv6.t</FILE>
+        <FILE>t/node/upstream-ipv6.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>change: don't strip square brackets from the IPv6 (#822) * change: don't strip square brackets from the IPv6 The OpenResty APIs require the IPv6 literal wrapped inside a square brackets. Also add tests for IPv6 upstream and update lua-resty-ipmatcher to 0.3. Fix #816.</MESSAGE>
+      <SHA>5e85e93eac1e255a4c37476237ca439a98a421f3</SHA>
+      <PATCHEDFILES>
+        <FILE>lua/apisix/core/utils.lua</FILE>
+        <FILE>rockspec/apisix-master-0.rockspec</FILE>
+        <FILE>t/APISIX.pm</FILE>
+        <FILE>t/core/utils.t</FILE>
+        <FILE>t/node/healthcheck-ipv6.t</FILE>
+        <FILE>t/node/remote-addr-ipv6.t</FILE>
+        <FILE>t/node/upstream-ipv6.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

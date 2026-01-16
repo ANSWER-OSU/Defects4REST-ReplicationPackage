@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3380</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3380</ISSUEURL>
+  <TITLE>Product tags count ignores ACL</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.00 Product Tags Count shows same count for all customer roles regardless of the number of products each respective customer role has access to Steps to reproduce the problem: Create 2 products each with the same tag like _'Computer'_ Update one of the products to allow _'Administrator'_ as the only Customer Roles under the Access Control List Navigate to the product page for the product you created that all users can access as both an Administrator and a guest. At the bottom of this page the Product Tags section is rendered with the product tags count next to it which will show **(2)** for all roles because it is calculated regardless of the Customer Role. **If you are viewing this as an Administrator the count is correct.** **If you are viewing this as a guest then the count is incorrect and reflects the total including products your current customer role 'guest' cannot access.**</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>151</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Allow to specify paramters when invoking &quot;QueryFromSql&quot; method</MESSAGE>
+    <SHA>79a7159a051bab7c745c54b9a40b0291b8303d9e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3380 Product tags count ignored product ACL</MESSAGE>
+      <SHA>087e14f0c1e0e090ac61a05bc4390244ea723182</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Catalog/IProductTagService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/NopCatalogDefaults.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/ProductTagService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Install/SqlServer.StoredProcedures.sql</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/ProductModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/ProductModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Infrastructure/Cache/NopModelCacheDefaults.cs</FILE>
+        <FILE>upgradescripts/4.10-4.20 (under development)/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>27173</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/27173</ISSUEURL>
+  <TITLE>Blank page when creating event (action) with a missing required extra field</TITLE>
+  <DESCRIPTION>### Bug If one adds a required extra field to events, then tries to create an event forgetting this field, instead of seeing the pre-filled form they get a blank page. ### Environment Version 17.0.2, 17.0.3 probably all above ### Environment OS Debian 11 ### Environment Web server Apache/2.4.56 (Debian) ### Environment PHP 7.4.33 ### Environment Database 11.1.2-MariaDB ### Environment URL(s) comm/action/card.php ### Expected and actual behavior ## Expected I should see the erroneous form so I can easily complete and resubmit it ## Actual Blank page with an error message alerting me about the missing field ### Steps to reproduce the behavior 1. Add a required extra field to events 2. Create an event omitting to complete this field 3. Blank page ### Attached files The following patch fixes the issue (PR will follow) ```patch diff --git a/htdocs/comm/action/card.php b/htdocs/comm/action/card.php index dab70304d08..7eb5b68db9a 100644 --- a/htdocs/comm/action/card.php +++ b/htdocs/comm/action/card.php @@ -419,7 +419,8 @@ if (empty($reshook) &amp;&amp; $action == 'add') { // Fill array 'array_options' with data from add form $ret = $extrafields-&gt;setOptionalsFromPost(null, $object); if ($ret &lt; 0) { - $error++; + $error++;$donotclearsession = 1; + $action = 'create'; } ```</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix phpstan</MESSAGE>
+    <SHA>b59375fa39b393fa255cfb9311369a89eaeabeb6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX #27173</MESSAGE>
+      <SHA>8b3344300629bd0fb9c7a2e25d365f3d142c33f1</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/comm/action/card.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

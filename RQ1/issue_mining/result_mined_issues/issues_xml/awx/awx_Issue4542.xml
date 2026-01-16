@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4542</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/4542</ISSUEURL>
+  <TITLE>Google Cloud Compute Engine credential type is stripping the json file</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY When a google compute engine credential is created with the json credential file, AWX is stripping some valuable lines. I need those, as I am using gcp_compute_disk module which also requires the service account file to be give as absolute path to the json and instead of giving the file path twice manually, I am using {{ lookup('env','GCP_SERVICE_ACCOUNT_FILE') }} to refer the absolute path to the json, but I am getting error that the lines about email and token_uri are missing. In order to resolve that I was forced to create a custom credential type for uploading the json and use it without stripping. ##### ENVIRONMENT * AWX version: 6.x.x * AWX install method: docker * Ansible version: 2.8.2 * Operating System: Ubuntu 18.04 * Web Browser: Firefox, Chrome ##### STEPS TO REPRODUCE Upload a google json credential to awx and try to use the service_account_file: &quot;{{ lookup('env','GCP_SERVICE_ACCOUNT_FILE') }}&quot; when using the gcp_compute_disk module for example. Your AWX template must be pointed to the gce credential also. ##### EXPECTED RESULTS get the full json and take all needed lines ##### ACTUAL RESULTS gets the json, but it seems the AWX module for gce credenials strips some lines and the file is usable by the gcp_compute_* ansible modules. ##### ADDITIONAL INFORMATION New credential type I've used to get around this is: Input configuration: `fields: - id: gcp_credential_file type: string label: GCP Credential File (JSON) secret: true multiline: true` Injector configuration: `env: GCP_SERVICE_ACCOUNT_FILE: '{{ tower.filename }}' file: template: '{{ gcp_credential_file }}'`</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>653</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #4577 from ryanpetrello/backport-more-callback-receiver-optimizations add a few additional optimizations to the callback receiver</MESSAGE>
+    <SHA>70a903d05cdbc42110bc54d936ec8bb79f2ea06a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #4542 from ryanpetrello/backport-saml-autopopulate-setting add the ability to prevent SAML auto-population behavior</MESSAGE>
+      <SHA>10d662989311ab8036c9941a3f90ef91d17bbfe5</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/settings/defaults.py</FILE>
+        <FILE>awx/sso/conf.py</FILE>
+        <FILE>awx/sso/pipeline.py</FILE>
+        <FILE>awx/sso/tests/functional/test_pipeline.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

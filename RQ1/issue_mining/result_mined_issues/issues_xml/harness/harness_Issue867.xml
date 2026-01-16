@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>867</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/867</ISSUEURL>
+  <TITLE>Error when running drone from deb - 0.3.0-alpha-1423116857</TITLE>
+  <DESCRIPTION>On drone installed via deb on an ubuntu 14.10 machine, deb version 0.3.0-alpha-1423116857, visiting the site results to: ``` 2015/02/05 10:30:53 http: panic serving 127.0.0.1:40439: read /usr/local/bin/droned: bad file descriptor goroutine 36 [running]: net/http.func·011() /usr/local/go/src/pkg/net/http/server.go:1100 +0xb7 runtime.panic(0xa997c0, 0xc20809b500) /usr/local/go/src/pkg/runtime/panic.c:248 +0x18d github.com/GeertJohan/go%2erice.(*Box).MustBytes(0xc208111a10, 0xbf7090, 0xa, 0x0, 0x0, 0x0) /var/cache/drone/src/github.com/GeertJohan/go.rice/box.go:298 +0xc0 main.func·001(0x7f40b6d7ba10, 0xc208044c80, 0xc208108820) /var/cache/drone/src/github.com/drone/drone/server/main.go:133 +0x3d net/http.HandlerFunc.ServeHTTP(0xc2080362a0, 0x7f40b6d7ba10, 0xc208044c80, 0xc208108820) /usr/local/go/src/pkg/net/http/server.go:1235 +0x40 net/http.(*ServeMux).ServeHTTP(0xc208022930, 0x7f40b6d7ba10, 0xc208044c80, 0xc208108820) /usr/local/go/src/pkg/net/http/server.go:1511 +0x1a3 net/http.serverHandler.ServeHTTP(0xc208005c20, 0x7f40b6d7ba10, 0xc208044c80, 0xc208108820) /usr/local/go/src/pkg/net/http/server.go:1673 +0x19f net/http.(*conn).serve(0xc208050980) /usr/local/go/src/pkg/net/http/server.go:1174 +0xa7e created by net/http.(*Server).Serve /usr/local/go/src/pkg/net/http/server.go:1721 +0x313 ``` The same machine used to run an older 0.3.0 alpha just fine. Also tried it on a new machine.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: [code-1183]: fix formatting in merge alert (#868)</MESSAGE>
+    <SHA>30d678b5bd1131edc3f0bd7376fec30a582e09d6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>return user info for rule bypass users (#867)</MESSAGE>
+      <SHA>25d282073dcd498d82ab2e519086a9d07c8ba4d6</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/controller/repo/controller.go</FILE>
+        <FILE>app/api/controller/repo/rule_create.go</FILE>
+        <FILE>app/api/controller/repo/rule_find.go</FILE>
+        <FILE>app/api/controller/repo/rule_list.go</FILE>
+        <FILE>app/api/controller/repo/rule_update.go</FILE>
+        <FILE>app/api/controller/repo/wire.go</FILE>
+        <FILE>app/services/protection/rule_branch.go</FILE>
+        <FILE>app/services/protection/service.go</FILE>
+        <FILE>app/services/protection/set.go</FILE>
+        <FILE>cmd/gitness/wire_gen.go</FILE>
+        <FILE>types/rule.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

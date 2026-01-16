@@ -1,0 +1,150 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>125156</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/125156</ISSUEURL>
+  <TITLE>Downsampling fails if source index contains fields of type passthrough</TITLE>
+  <DESCRIPTION>Downsampling fails if source index contains fields of type passthrough and these fields are configured with `time_series_dimension` to `true`. There are two problems that occur in this case: - The target index that the downsample api tries to creates is with a flattened like mapping (fields with dots) and so the type of the object field is never specified (1). - The downsample api detects all fields with `time_series_dimension` set to `true` as dimension fields. This isn't true as passthrough fields are just container fields. 1: This is a field mapping that the downsample tries to create: ``` &quot;metrics.process.memory.usage&quot;: { &quot;type&quot;: &quot;aggregate_metric_double&quot;, &quot;metrics&quot;: [ &quot;max&quot;, &quot;min&quot;, &quot;value_count&quot;, &quot;sum&quot; ], &quot;default_metric&quot;: &quot;max&quot;, &quot;time_series_metric&quot;: &quot;gauge&quot; }, ``` The `metrics.` is an object field here and but in the mapping that this fields get merged with it is a passthrough object field.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>50</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Remove security manager policy files (#127727) (#127769) Now that security manager is gone, the policy files are no longer needed. This commit removes the server, test and plugin specific policy files Co-authored-by: Elastic Machine &lt;elasticmachine@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>673d59349de43b8ee1cdf9d26d618c906ad5d513</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Change the handling of passthrough dimenensions (#127752) When downsampling an index that has a mapping with passthrough dimensions the downsampling process identifies the wrapper object as a dimension and it fails when it tried to retrieve the type. We did some prework to establish a shared framework in the internalClusterTest. For now it only includes setting up time series data stream helpers and a limited assertion helper for dimensions and metrics. This allows us to setup an internalClusterTest that captures this issue during downsampling in #125156. To fix this we refine the check that determines if a field is dimension, to skip wrapper field. Fixes #125156.</MESSAGE>
+      <SHA>6368ab491df615257479085ba8155009e51ae8b2</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/127752.yaml</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDownsampleDisruptionIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDownsampleIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDriver.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DownsampleIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DownsamplingIntegTestCase.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/ILMDownsampleDisruptionIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/main/java/org/elasticsearch/xpack/downsample/DimensionFieldValueFetcher.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/main/java/org/elasticsearch/xpack/downsample/TimeseriesFieldTypeHelper.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Change the handling of passthrough dimenensions (#127752) When downsampling an index that has a mapping with passthrough dimensions the downsampling process identifies the wrapper object as a dimension and it fails when it tried to retrieve the type. We did some prework to establish a shared framework in the internalClusterTest. For now it only includes setting up time series data stream helpers and a limited assertion helper for dimensions and metrics. This allows us to setup an internalClusterTest that captures this issue during downsampling in #125156. To fix this we refine the check that determines if a field is dimension, to skip wrapper field. Fixes #125156.</MESSAGE>
+      <SHA>e97efd264da004fde53ff1595c8bede0c5733b7e</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/127752.yaml</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDownsampleDisruptionIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDownsampleIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDriver.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DownsampleIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DownsamplingIntegTestCase.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/ILMDownsampleDisruptionIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/main/java/org/elasticsearch/xpack/downsample/DimensionFieldValueFetcher.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/main/java/org/elasticsearch/xpack/downsample/TimeseriesFieldTypeHelper.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Change the handling of passthrough dimenensions (#127752) When downsampling an index that has a mapping with passthrough dimensions the downsampling process identifies the wrapper object as a dimension and it fails when it tried to retrieve the type. We did some prework to establish a shared framework in the internalClusterTest. For now it only includes setting up time series data stream helpers and a limited assertion helper for dimensions and metrics. This allows us to setup an internalClusterTest that captures this issue during downsampling in #125156. To fix this we refine the check that determines if a field is dimension, to skip wrapper field. Fixes #125156.</MESSAGE>
+      <SHA>d7c769e5a5beec61a55043fc48a242d0a46d0240</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/127752.yaml</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDownsampleDisruptionIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDownsampleIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDriver.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DownsampleIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DownsamplingIntegTestCase.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/ILMDownsampleDisruptionIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/main/java/org/elasticsearch/xpack/downsample/DimensionFieldValueFetcher.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/main/java/org/elasticsearch/xpack/downsample/TimeseriesFieldTypeHelper.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Change the handling of passthrough dimenensions (#127752) When downsampling an index that has a mapping with passthrough dimensions the downsampling process identifies the wrapper object as a dimension and it fails when it tried to retrieve the type. We did some prework to establish a shared framework in the internalClusterTest. For now it only includes setting up time series data stream helpers and a limited assertion helper for dimensions and metrics. This allows us to setup an internalClusterTest that captures this issue during downsampling in #125156. To fix this we refine the check that determines if a field is dimension, to skip wrapper field. Fixes #125156.</MESSAGE>
+      <SHA>268ddda4a5669f3aec7a3c7f515437ce2c058723</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/127752.yaml</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDownsampleDisruptionIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDownsampleIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDriver.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DownsampleIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DownsamplingIntegTestCase.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/ILMDownsampleDisruptionIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/main/java/org/elasticsearch/xpack/downsample/DimensionFieldValueFetcher.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/main/java/org/elasticsearch/xpack/downsample/TimeseriesFieldTypeHelper.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[8.19] Change the handling of passthrough dimenensions (#127752) (#127886) * Change the handling of passthrough dimenensions (#127752) When downsampling an index that has a mapping with passthrough dimensions the downsampling process identifies the wrapper object as a dimension and it fails when it tried to retrieve the type. We did some prework to establish a shared framework in the internalClusterTest. For now it only includes setting up time series data stream helpers and a limited assertion helper for dimensions and metrics. This allows us to setup an internalClusterTest that captures this issue during downsampling in #125156. To fix this we refine the check that determines if a field is dimension, to skip wrapper field. Fixes #125156. * Fix backport incompatibilities</MESSAGE>
+      <SHA>3cfa691f86411efc9fce86bc4edd2c3cef366b2f</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/127752.yaml</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDownsampleDisruptionIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDownsampleIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDriver.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DownsampleIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DownsamplingIntegTestCase.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/ILMDownsampleDisruptionIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/main/java/org/elasticsearch/xpack/downsample/DimensionFieldValueFetcher.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/main/java/org/elasticsearch/xpack/downsample/TimeseriesFieldTypeHelper.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Change the handling of passthrough dimenensions (#127752) (#127889) When downsampling an index that has a mapping with passthrough dimensions the downsampling process identifies the wrapper object as a dimension and it fails when it tried to retrieve the type. We did some prework to establish a shared framework in the internalClusterTest. For now it only includes setting up time series data stream helpers and a limited assertion helper for dimensions and metrics. This allows us to setup an internalClusterTest that captures this issue during downsampling in #125156. To fix this we refine the check that determines if a field is dimension, to skip wrapper field. Fixes #125156.</MESSAGE>
+      <SHA>64f3418f9643017ebdfe8d323c1dd8913ec572fd</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/127752.yaml</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDownsampleDisruptionIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDownsampleIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDriver.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DownsampleIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DownsamplingIntegTestCase.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/ILMDownsampleDisruptionIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/main/java/org/elasticsearch/xpack/downsample/DimensionFieldValueFetcher.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/main/java/org/elasticsearch/xpack/downsample/TimeseriesFieldTypeHelper.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Change the handling of passthrough dimenensions (#127752) (#127890) When downsampling an index that has a mapping with passthrough dimensions the downsampling process identifies the wrapper object as a dimension and it fails when it tried to retrieve the type. We did some prework to establish a shared framework in the internalClusterTest. For now it only includes setting up time series data stream helpers and a limited assertion helper for dimensions and metrics. This allows us to setup an internalClusterTest that captures this issue during downsampling in #125156. To fix this we refine the check that determines if a field is dimension, to skip wrapper field. Fixes #125156.</MESSAGE>
+      <SHA>b3b2d12681fb19bc62217d427494d33db9c07f5f</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/127752.yaml</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDownsampleDisruptionIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDownsampleIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDriver.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DownsampleIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DownsamplingIntegTestCase.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/ILMDownsampleDisruptionIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/main/java/org/elasticsearch/xpack/downsample/DimensionFieldValueFetcher.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/main/java/org/elasticsearch/xpack/downsample/TimeseriesFieldTypeHelper.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Change the handling of passthrough dimenensions (#127752) (#127890) When downsampling an index that has a mapping with passthrough dimensions the downsampling process identifies the wrapper object as a dimension and it fails when it tried to retrieve the type. We did some prework to establish a shared framework in the internalClusterTest. For now it only includes setting up time series data stream helpers and a limited assertion helper for dimensions and metrics. This allows us to setup an internalClusterTest that captures this issue during downsampling in #125156. To fix this we refine the check that determines if a field is dimension, to skip wrapper field. Fixes #125156.</MESSAGE>
+      <SHA>a1750c6c21bc344ac8b2cee6645ee4869bf3b3c3</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/127752.yaml</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDownsampleDisruptionIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDownsampleIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDriver.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DownsampleIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DownsamplingIntegTestCase.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/ILMDownsampleDisruptionIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/main/java/org/elasticsearch/xpack/downsample/DimensionFieldValueFetcher.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/main/java/org/elasticsearch/xpack/downsample/TimeseriesFieldTypeHelper.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[8.17] Change the handling of passthrough dimenensions (#127752) (#127890) (#127905) * Change the handling of passthrough dimenensions (#127752) (#127890) When downsampling an index that has a mapping with passthrough dimensions the downsampling process identifies the wrapper object as a dimension and it fails when it tried to retrieve the type. We did some prework to establish a shared framework in the internalClusterTest. For now it only includes setting up time series data stream helpers and a limited assertion helper for dimensions and metrics. This allows us to setup an internalClusterTest that captures this issue during downsampling in #125156. To fix this we refine the check that determines if a field is dimension, to skip wrapper field. Fixes #125156. * Adjust the test to match this version of the code</MESSAGE>
+      <SHA>1d8d1d2cb005ccad7a1cada1bea224b271976aad</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/127752.yaml</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDownsampleDisruptionIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDownsampleIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DataStreamLifecycleDriver.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DownsampleIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/DownsamplingIntegTestCase.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/internalClusterTest/java/org/elasticsearch/xpack/downsample/ILMDownsampleDisruptionIT.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/main/java/org/elasticsearch/xpack/downsample/DimensionFieldValueFetcher.java</FILE>
+        <FILE>x-pack/plugin/downsample/src/main/java/org/elasticsearch/xpack/downsample/TimeseriesFieldTypeHelper.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

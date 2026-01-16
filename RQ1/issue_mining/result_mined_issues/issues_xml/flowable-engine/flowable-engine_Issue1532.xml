@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1532</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/1532</ISSUEURL>
+  <TITLE>Flowable IDM: No longer working with external LDAP after update from 6.4.0 to 6.4.1</TITLE>
+  <DESCRIPTION>We use `flowable-ui-idm-app` configured to connect to an external LDAP provider. After updating from `6.4.0` to `6.4.1` all logins fail with `&quot;status&quot;:500, &quot;error&quot;:&quot;Internal Server Error&quot;, &quot;message&quot;:&quot;There is no PasswordEncoder mapped for the id &quot;null&quot;&quot;, &quot;path&quot;:&quot;/flowable-idm/app/authentication&quot;`. I guess this is a side effect of https://github.com/flowable/flowable-engine/commit/248de5aec346df61be4ccec603dfa58b5a97f6ae (Cleanup Flowable Spring Boot Security Auto configuration). I tried setting `flowable.idm.password-encoder` to `spring_delegating_noop` (or other values), but this property is not used if `flowable.idm.ldap.enabled` is `true`. see: https://github.com/flowable/flowable-engine/blob/eeebfd23af3571741b60e3f663f17c0ecc50a812/modules/flowable-ui-idm/flowable-ui-idm-conf/src/main/java/org/flowable/ui/idm/conf/SecurityConfiguration.java#L79 **Edit:** https://github.com/flowable/flowable-engine/commit/248de5aec346df61be4ccec603dfa58b5a97f6ae really seems to be the cause. I build `flowable-ui-idm-app` version `6.4.1` but replaced the `flowable-spring-boot-autoconfigure` dependency with version `6.4.0` and the error disappeared.</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Make sure that the JDBC connection in the LiquibaseBasedSchemaManager is closed only if an exception occurs</MESSAGE>
+    <SHA>e788fe62c97c5b0186af59ae7ebec0394a7d0763</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Create FlowableAuthenticationProvider in the FlowableLdapAutoConfiguration only if there is no other bean defined The Flowable UI IDM Application defines it's own AuthenticationProvider which lead to having 2 beans and Spring Security sets one automatically only if there is a single bean. In FlowableLdapAutoConfiguration we must define a custom AuthenticationProvider since the default (DaoAuthenticationProvider) from Spring Security uses a Password encoder to perform the matching and we need to use the IdmIdentityService for LDAP Fixes #1532</MESSAGE>
+      <SHA>b21c301c373dd67368059c6ca26fa513803ea10e</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-spring-boot/flowable-spring-boot-starters/flowable-spring-boot-autoconfigure/src/main/java/org/flowable/spring/boot/ldap/FlowableLdapAutoConfiguration.java</FILE>
+        <FILE>modules/flowable-ui-idm/flowable-ui-idm-app/pom.xml</FILE>
+        <FILE>modules/flowable-ui-idm/flowable-ui-idm-app/src/test/java/org/flowable/ui/idm/application/FlowableIdmApplicationDefaultAuthenticationTest.java</FILE>
+        <FILE>modules/flowable-ui-idm/flowable-ui-idm-app/src/test/java/org/flowable/ui/idm/application/FlowableIdmApplicationLdapAuthenticationTest.java</FILE>
+        <FILE>modules/flowable-ui-idm/flowable-ui-idm-app/src/test/resources/application-test-ldap.properties</FILE>
+        <FILE>modules/flowable-ui-idm/flowable-ui-idm-app/src/test/resources/users.ldif</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

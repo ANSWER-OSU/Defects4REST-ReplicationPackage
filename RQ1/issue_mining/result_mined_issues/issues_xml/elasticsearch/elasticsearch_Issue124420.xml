@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>124420</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/124420</ISSUEURL>
+  <TITLE>[CI] PolicyManagerTests testFilesEntitlementsWithExclusive failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6985 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/5l6ct7cymwcs4) - [elasticsearch-periodic-platform-support #6978 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/in5s43y65eysw) - [elasticsearch-periodic-platform-support #6970 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/el3buspvmmvam) - [elasticsearch-periodic-platform-support #6970 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/yzsdr7ycy4ixq) - [elasticsearch-periodic-platform-support #6965 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/22kcseouxn3hs) - [elasticsearch-periodic-platform-support #6951 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/ldv2oyepzdtkg) - [elasticsearch-periodic-platform-support #6943 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/5risyv5o3rnby) - [elasticsearch-periodic-platform-support #6932 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/z7wfzjthkwlbo) - [elasticsearch-periodic-platform-support #6925 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/y7557gkhopvi2) - [elasticsearch-pull-request #61684 / part-1](https://gradle-enterprise.elastic.co/s/n77k5oofvuxos) **Reproduction Line:** ``` gradlew &quot;:libs:entitlement:test&quot; --tests &quot;org.elasticsearch.entitlement.runtime.policy.PolicyManagerTests.testFilesEntitlementsWithExclusive&quot; -Dtests.seed=D4500143087F811E -Dtests.locale=nb-SJ -Dtests.timezone=Asia/Macau -Druntime.java=24 ``` **Applicable branches:** 9.0 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.entitlement.runtime.policy.PolicyManagerTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testFilesEntitlementsWithExclusive),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: (a string containing &quot;Path [/base/test] is already exclusive&quot; and a string containing &quot;[plugin1][test.module1]&quot; and a string containing &quot;[plugin2][test.module2]&quot; and a string containing &quot;cannot add exclusive access&quot;) but: a string containing &quot;Path [/base/test] is already exclusive&quot; was &quot;Path [C:\base\test] is already exclusive to [plugin1][test.module1], cannot add exclusive access for [plugin2][test.module2]&quot; ``` **Issue Reasons:** - [9.0] 9 consecutive failures in step windows-2022_checkpart1_platform-support-windows - [9.0] 12 failures in test testFilesEntitlementsWithExclusive (2.5% fail rate in 482 executions) - [9.0] 9 failures in step windows-2022_checkpart1_platform-support-windows (56.3% fail rate in 16 executions) - [9.0] 3 failures in step part-1 (5.4% fail rate in 56 executions) - [9.0] 8 failures in pipeline elasticsearch-periodic-platform-support (50.0% fail rate in 16 executions) - [9.0] 3 failures in pipeline elasticsearch-pull-request (5.5% fail rate in 55 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>55</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Make NotEntitledException inherit from AccessControlException for compatibility purposes (#124321) Even if the contract for JDK methods using the SecurityManager states that the exception throw is of type SecurityException, many libraries (including our own, apparently!) violates that and use the type actually thrown by SecurityManager, AccessControlException. A prime example is the GCS/CSP libraries. In order to maintain compatibility for them, we need to inherit from the more specific AccessControlException; this is less desirable, as AccessControlException is marked as deprecated for removal alongside the other SecurityManager classes, but we discussed and found this is the best short term solution. More work will be needed -- again, this is a short term solution. Replaces #123984</MESSAGE>
+    <SHA>ab9ec4cf6f76a13582d362a1e2650ab4db36c671</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.entitlement.runtime.policy.PolicyManagerTests testFilesEntitlementsWithExclusive #124420</MESSAGE>
+      <SHA>6f0756a5ee94a24334ee381e89c4d59cc03efd10</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.entitlement.runtime.policy.PolicyManagerTests testFilesEntitlementsWithExclusive #124420</MESSAGE>
+      <SHA>66a3d57a168723e167ecf1ec6cd9a5a59b0520ee</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.entitlement.runtime.policy.PolicyManagerTests testFilesEntitlementsWithExclusive #124420</MESSAGE>
+      <SHA>3f96715db3495a8c8a42acccfe2439e65a7c5d32</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.entitlement.runtime.policy.PolicyManagerTests testFilesEntitlementsWithExclusive #124420</MESSAGE>
+      <SHA>2617e7ee4834f837254fb7d0a9aa9057349f1d47</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.entitlement.runtime.policy.PolicyManagerTests testFilesEntitlementsWithExclusive #124420</MESSAGE>
+      <SHA>f55af1413b1737065f95fea6e6fb1f1b01f62819</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15879</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15879</ISSUEURL>
+  <TITLE>podman auto-update: reject short image names on container creation</TITLE>
+  <DESCRIPTION>`ExecStart` has: ``` ExecStart=/usr/bin/podman run \ --cidfile=%t/%n.ctr-id \ --cgroups=no-conmon \ --rm \ --sdnotify=container \ -d \ --replace \ --name awesome-worker-app \ --label io.containers.autoupdate=registry awesome-worker-app:latest ``` This container is running: ``` $ podman ps CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES 2fbeb5c35c56 localhost/awesome-worker-app:latest 7 minutes ago Up 7 minutes ago awesome-worker-app ``` `auto-update` is checking `docker.io`: ``` $ podman auto-update UNIT CONTAINER IMAGE POLICY UPDATED awesome-worker-app.service 2fbeb5c35c56 (awesome-worker-app) awesome-worker-app:latest registry failed Error: registry auto-updating container &quot;2fbeb5c35c5604996c22518047f33181282473f6f2f8077b8b47cfe3be9d4542&quot;: image check for &quot;awesome-worker-app:latest&quot; failed: reading manifest latest in docker.io/library/awesome-worker-app: errors: denied: requested access to the resource is denied unauthorized: authentication required ``` I know I can fix this using `io.containers.autoupdate=local`. Does it make sense to check `docker.io` for `autoupdate=registry` when the image is referenced as `awesome-worker-app:latest` (and `localhost/awesome-worker-app:latest`)? cc @mheon @rhatdan</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #15911 from yrro/fix-libsubid-detection Fix libsubid detection</MESSAGE>
+    <SHA>17f3756884f2f65a1da753e5b58895dc0b9145e8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>auto-update: validate container image Auto updates using the &quot;registry&quot; policy require container to be created with a fully-qualified image reference. Short names are not supported due the ambiguity of their source registry. Initially, container creation errored out for non FQN images but it seems that Podman has regressed. Fixes: #15879 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>7bc36602f6c407cffdc799ca1b2fc7c00bc4f93b</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_validate.go</FILE>
+        <FILE>libpod/define/autoupdate.go</FILE>
+        <FILE>pkg/autoupdate/autoupdate.go</FILE>
+        <FILE>pkg/autoupdate/autoupdate_test.go</FILE>
+        <FILE>pkg/domain/infra/abi/play.go</FILE>
+        <FILE>test/system/255-auto-update.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

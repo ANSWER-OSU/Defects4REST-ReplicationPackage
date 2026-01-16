@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7524</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/7524</ISSUEURL>
+  <TITLE>JT Survey fancy characters in answer variable name breaks the survey</TITLE>
+  <DESCRIPTION>##### SUMMARY Special characters in the `Answer variable name` field do not allow for the field to be edited later. Feels like it has something to do with the routing URL. ##### STEPS TO REPRODUCE * Create a JT with a survey * Enter `/hello_world` into `Answer variable name` * Save * Edit the survey variable you just created ##### EXPECTED RESULTS To be shown the edit view ##### ACTUAL RESULTS Edit view fails to render (see below) ![image](https://user-images.githubusercontent.com/722880/86285283-530aa200-bbb2-11ea-960a-9f0fae4685fa.png) ![image](https://user-images.githubusercontent.com/722880/86285469-ada3fe00-bbb2-11ea-9b9b-9d7dab900409.png) ``` main.ccc609b2.chunk.js:1 TypeError: Cannot read property 'variable' of undefined at main.ccc609b2.chunk.js:1 at l (runtime.js:45) at Generator._invoke (runtime.js:274) at Generator.forEach.e.&lt;computed&gt; [as next] (runtime.js:97) at r (asyncToGenerator.js:3) at s (asyncToGenerator.js:25) at asyncToGenerator.js:32 at new Promise (&lt;anonymous&gt;) at asyncToGenerator.js:21 at main.ccc609b2.chunk.js:1 ``` `dfdsafds&lt;b&gt;bold&lt;/b&gt;\&quot;&gt;&lt;br&gt;` as `Answer variable name` also fails. But in a different way. Editing the variable shows a blank edit page. The url is https://localhost:8043/next/templates/job_template/8/survey/edit/dfdsafds%3Cb%3Ebold%3C/b%3E/%22%3E%3Cbr%3E ![image](https://user-images.githubusercontent.com/722880/86285586-de843300-bbb2-11ea-99a2-507457ed371b.png)</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>375</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #10490 from shanemcd/downstream-fixes Downstream fixes Reviewed-by: Rebeccah Hunter &lt;rhunter@redhat.com&gt; Reviewed-by: Alan Rominger &lt;arominge@redhat.com&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt; Reviewed-by: Christian Adams &lt;rooftopcellist@gmail.com&gt;</MESSAGE>
+    <SHA>2afa406b7f16971ea83150c326f8e04717b5c14d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Encode/decode question variables Encode/decode question variables See: https://github.com/ansible/awx/issues/7524</MESSAGE>
+      <SHA>804bd840f1300141b041d6b4e97bfaa76290054b</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/screens/Template/Survey/SurveyListItem.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/Survey/SurveyQuestionEdit.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #10504 from nixocio/ui_issue_7524 Encode/decode question variables Encode/decode question variables See: #7524 Reviewed-by: Alex Corey &lt;Alex.swansboro@gmail.com&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+      <SHA>c1913b0d44b5cdc8166a9b0a17c0ef03ff04d3c3</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/screens/Template/Survey/SurveyListItem.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/Survey/SurveyQuestionEdit.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

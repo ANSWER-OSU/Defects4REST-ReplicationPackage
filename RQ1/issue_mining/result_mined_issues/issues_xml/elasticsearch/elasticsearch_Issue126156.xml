@@ -1,0 +1,102 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126156</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126156</ISSUEURL>
+  <TITLE>[ML] Bedrock Cohere does not support InputType, Truncate</TITLE>
+  <DESCRIPTION>This currently returns an error: ``` PUT _inference/text_embedding/multilingual-cohere-v3-search { &quot;service&quot;: &quot;amazonbedrock&quot;, &quot;service_settings&quot;: { &quot;access_key&quot;: &quot;***&quot;, &quot;secret_key&quot;: &quot;***&quot;, &quot;region&quot;: &quot;us-east-1&quot;, &quot;provider&quot;: &quot;Cohere&quot;, &quot;model&quot;: &quot;cohere.embed-multilingual-v3&quot; }, &quot;task_settings&quot;: { &quot;truncate&quot;: &quot;START&quot; } } ``` ``` POST _inference/text_embedding/multilingual-cohere-v3-search { &quot;input&quot;: &quot;The sky above the port was the color of television tuned to a dead channel.&quot;, &quot;input_type&quot;: &quot;search&quot; } ``` Though AWS supports it: https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-embed.html</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add initial esql test benchmark tests (#126224) * Add initial esql test benchmark tests * Fix build-benchmark pipeline * Update gredle profiler</MESSAGE>
+    <SHA>6e4cb8142b9e51ad2be5c32b5daaa575585fd02d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[ML] Bedrock Cohere Task Settings Support Add support for Cohere Task Settings, InputType and Truncate, through the Amazon Bedrock provider integration. Task Settings can now be passed bother during Inference endpoint creation and Inference POST requests. Close #126156</MESSAGE>
+      <SHA>dd5bb0e9ea03b2124171c086ed83c96294cec5ab</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elasticsearch/TransportVersions.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/InferenceNamedWriteablesProvider.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/external/request/amazonbedrock/embeddings/AmazonBedrockCohereEmbeddingsRequestEntity.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/external/request/amazonbedrock/embeddings/AmazonBedrockEmbeddingsEntityFactory.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/external/request/amazonbedrock/embeddings/AmazonBedrockEmbeddingsRequest.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockConstants.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockService.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/embeddings/AmazonBedrockEmbeddingsModel.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/embeddings/AmazonBedrockEmbeddingsTaskSettings.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/cohere/CohereTruncation.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/cohere/embeddings/CohereEmbeddingsTaskSettings.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/external/request/amazonbedrock/embeddings/AmazonBedrockCohereEmbeddingsRequestEntityTests.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockServiceTests.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/services/amazonbedrock/embeddings/AmazonBedrockEmbeddingsModelTests.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/services/amazonbedrock/embeddings/AmazonBedrockEmbeddingsTaskSettingsTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[ML] Bedrock Cohere Task Settings Support (#126493) Add support for Cohere Task Settings and Truncate, through the Amazon Bedrock provider integration. Task Settings can now be passed bother during Inference endpoint creation and Inference POST requests. Close #126156</MESSAGE>
+      <SHA>6c6500ec3b7da2b8c769fb0d751d2019bb0222f5</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/126493.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/TransportVersions.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/InferenceNamedWriteablesProvider.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockConstants.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockService.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/embeddings/AmazonBedrockEmbeddingsModel.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/embeddings/AmazonBedrockEmbeddingsTaskSettings.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/request/embeddings/AmazonBedrockCohereEmbeddingsRequestEntity.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/request/embeddings/AmazonBedrockEmbeddingsEntityFactory.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/request/embeddings/AmazonBedrockEmbeddingsRequest.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/cohere/CohereTruncation.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/cohere/embeddings/CohereEmbeddingsTaskSettings.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockServiceTests.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/services/amazonbedrock/embeddings/AmazonBedrockCohereEmbeddingsRequestEntityTests.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/services/amazonbedrock/embeddings/AmazonBedrockEmbeddingsModelTests.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/services/amazonbedrock/embeddings/AmazonBedrockEmbeddingsTaskSettingsTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[ML] Bedrock Cohere Task Settings Support (#126493) Add support for Cohere Task Settings and Truncate, through the Amazon Bedrock provider integration. Task Settings can now be passed bother during Inference endpoint creation and Inference POST requests. Close #126156</MESSAGE>
+      <SHA>9a1823eb1032a91cc3cd57c590a70af910282e8d</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/126493.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/TransportVersions.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/InferenceNamedWriteablesProvider.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/external/request/amazonbedrock/embeddings/AmazonBedrockCohereEmbeddingsRequestEntity.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/external/request/amazonbedrock/embeddings/AmazonBedrockEmbeddingsEntityFactory.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/external/request/amazonbedrock/embeddings/AmazonBedrockEmbeddingsRequest.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockConstants.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockService.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/embeddings/AmazonBedrockEmbeddingsModel.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/embeddings/AmazonBedrockEmbeddingsTaskSettings.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/cohere/CohereTruncation.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/cohere/embeddings/CohereEmbeddingsTaskSettings.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/external/request/amazonbedrock/embeddings/AmazonBedrockCohereEmbeddingsRequestEntityTests.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockServiceTests.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/services/amazonbedrock/embeddings/AmazonBedrockEmbeddingsModelTests.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/services/amazonbedrock/embeddings/AmazonBedrockEmbeddingsTaskSettingsTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[ML] Bedrock Cohere Task Settings Support (#126493) (#126559) Add support for Cohere Task Settings and Truncate, through the Amazon Bedrock provider integration. Task Settings can now be passed bother during Inference endpoint creation and Inference POST requests. Relate #126156</MESSAGE>
+      <SHA>85b507db4445a2692c96c7f103ff481811888629</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/126493.yaml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/TransportVersions.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/InferenceNamedWriteablesProvider.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/external/request/amazonbedrock/embeddings/AmazonBedrockCohereEmbeddingsRequestEntity.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/external/request/amazonbedrock/embeddings/AmazonBedrockEmbeddingsEntityFactory.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/external/request/amazonbedrock/embeddings/AmazonBedrockEmbeddingsRequest.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockConstants.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockService.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/embeddings/AmazonBedrockEmbeddingsModel.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/amazonbedrock/embeddings/AmazonBedrockEmbeddingsTaskSettings.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/cohere/CohereTruncation.java</FILE>
+        <FILE>x-pack/plugin/inference/src/main/java/org/elasticsearch/xpack/inference/services/cohere/embeddings/CohereEmbeddingsTaskSettings.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/external/request/amazonbedrock/embeddings/AmazonBedrockCohereEmbeddingsRequestEntityTests.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/services/amazonbedrock/AmazonBedrockServiceTests.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/services/amazonbedrock/embeddings/AmazonBedrockEmbeddingsModelTests.java</FILE>
+        <FILE>x-pack/plugin/inference/src/test/java/org/elasticsearch/xpack/inference/services/amazonbedrock/embeddings/AmazonBedrockEmbeddingsTaskSettingsTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

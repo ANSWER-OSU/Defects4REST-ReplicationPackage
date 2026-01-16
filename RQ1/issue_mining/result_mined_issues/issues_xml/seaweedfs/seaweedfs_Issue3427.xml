@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3427</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3427</ISSUEURL>
+  <TITLE>ARM7 - Creating a folder in the filer web interface causes &quot;unaligned 64-bit atomic operation -&quot;</TITLE>
+  <DESCRIPTION>When creating a folder in the filer web interface the server fails with the error: &gt; 2022/08/10 22:59:32 http: panic serving 192.168.1.102:1098: unaligned 64-bit atomic operation goroutine 850 [running]: net/http.(*conn).serve.func1() /usr/local/go/src/net/http/server.go:1850 +0xec panic({0x198e948, 0x2278328}) /usr/local/go/src/runtime/panic.go:890 +0x2ac runtime/internal/atomic.panicUnaligned() /usr/local/go/src/runtime/internal/atomic/unaligned.go:8 +0x24 runtime/internal/atomic.Load64(0x34d0314) /usr/local/go/src/runtime/internal/atomic/atomic_arm.s:280 +0x14 github.com/seaweedfs/seaweedfs/weed/server.(*FilerServer).filerHandler(0x34d02d0, {0x22894a0, 0x10fec0a0}, 0x353b680) **/go/src/github.com/seaweedfs/seaweedfs/weed/server/filer_server_handlers.go:66 +0xa60** net/http.HandlerFunc.ServeHTTP(0x4dfeda0, {0x22894a0, 0x10fec0a0}, 0x353b680) /usr/local/go/src/net/http/server.go:2109 +0x34 net/http.(*ServeMux).ServeHTTP(0x39c6690, {0x22894a0, 0x10fec0a0}, 0x353b680) /usr/local/go/src/net/http/server.go:2487 +0x164 net/http.serverHandler.ServeHTTP({0x35488c0}, {0x22894a0, 0x10fec0a0}, 0x353b680) /usr/local/go/src/net/http/server.go:2947 +0x2f0 net/http.(*conn).serve(0x4b8c0c0, {0x228a298, 0x4f90bb8}) /usr/local/go/src/net/http/server.go:1991 +0x654 created by net/http.(*Server).Serve /usr/local/go/src/net/http/server.go:3102 +0x4e0 **System Setup** - List the command line to start &quot;weed master&quot;, &quot;weed volume&quot;, &quot;weed filer&quot;, &quot;weed s3&quot;, &quot;weed mount&quot;. - Docker Container on ARM7 - version 30GB 3.20 0854171d linux arm</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Refactor for Sync method (#3426)</MESSAGE>
+    <SHA>f8a15da16dc8c94f3e50c4d36af09b9d5f6cc128</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ensure memory is aligned fix https://github.com/seaweedfs/seaweedfs/issues/3427</MESSAGE>
+      <SHA>de839a7d1b771d16b1b39f68b38286acaad105ed</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/mount/page_writer/upload_pipeline.go</FILE>
+        <FILE>weed/server/filer_server.go</FILE>
+        <FILE>weed/util/limiter.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

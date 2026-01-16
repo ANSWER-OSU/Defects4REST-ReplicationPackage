@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>21458</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/21458</ISSUEURL>
+  <TITLE>publish event when there are errors as well</TITLE>
+  <DESCRIPTION>### Feature request description In Podman Desktop we're interested to track failures of people trying to pull images for example. One issue is that while if it's a user that do that inside Podman Desktop we can track the call to the REST API, etc. But quite often, user is starting containers/pulling images from shell scripts, by using some `compose up` commands on the CLI, by the IDE, etc so we don't see any errors. In case of success, we receive events with the name of the image, the id of the image, etc. ### Suggest potential solution I would like to receive pull error events. For example if I pull 'hello', it would send an event like 'pull-error' with image being `quay.io/podman/hello` (FQDN) and the error of why we were not able to pull the image I would expect an error code as well to not really to have to parse error messages. Then, we could for example prompt the user to authenticate to some registries if not done, etc. ### Have you considered any alternatives? N/A ### Additional context We could for example prompt the user to authenticate to some registries depending on the error</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>33</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #21942 from containers/renovate/golang.org-x-tools-0.x fix(deps): update module golang.org/x/tools to v0.19.0</MESSAGE>
+    <SHA>3e1d2ab874f637dba2daf0a933bda621ed4d9eaf</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>properly implement pull-error event status Commit 03f6589f3 added basic support for pull-error event from libimage but it contains several problems: 1. storing the error as error type prevents it from being unmarshalled, thus change it to a string 2. the error was never propagated from the libimage event to the podman event struct 3. the error message was not wired into the cli and API This commit fixes these problems. Fixes #21458 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>9ee96a9569318171793a1ae51a70c6011224fe26</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/common/completion.go</FILE>
+        <FILE>cmd/podman/system/events.go</FILE>
+        <FILE>docs/source/markdown/podman-events.1.md</FILE>
+        <FILE>libpod/events/config.go</FILE>
+        <FILE>libpod/events/events.go</FILE>
+        <FILE>libpod/events/journal_linux.go</FILE>
+        <FILE>libpod/runtime.go</FILE>
+        <FILE>pkg/domain/entities/events.go</FILE>
+        <FILE>test/apiv2/10-images.at</FILE>
+        <FILE>test/system/090-events.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1711</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/1711</ISSUEURL>
+  <TITLE>Bug: query page freezes during frontend results processing</TITLE>
+  <DESCRIPTION>### Issue Summary Results with a large number of rows freeze the page while some kind of frontend processing takes place. The freeze is most noticeable on results with several thousand rows (**very roughly** 5-10 seconds per 1000 rows) during which the page is completely unresponsive, and even occasionally results in &quot;unresponsive script: kill/wait?&quot; messages from the browser. It is less of an issue but still noticeable as a momentary lock-up for results of several hundred rows. ### Steps to Reproduce 1. Create new query that will return &gt; 1000 rows 2. Execute query 3. The freeze appears to happen only after results are returned from the database, during the render phase, or during some post-processing step 4. The freeze happens even on queries that have already run recently and that return cached results 5. The freeze happens on various interactions with the page, eg. showing/hiding the source Example of bug manifestation on demo site: https://demo.redash.io/queries/4291 This was not present on v1.0.0-rc1 (our previous version). Queries returning many thousands of rows displayed near-instantaneously. ### Technical details: * Redash Version: v1.0.1 (previously v1.0.0-rc1 with no issues) * Browser/OS: - Chromium v56.0.2924.76, Ubuntu 16.04 - Firefox v52.0.2, Ubuntu 16.04 - Chrome, Ubuntu 14.04 - Chrome, OSX * How did you install Redash: - Installed via modified provisioning script on Ubuntu 14.04 - But also reproduced on demo site installation I can provide CPU/memory profiles of the page taken with Chromium developer tools, Redash logs, more testing, etc., if any of that would help!</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add changelog entry</MESSAGE>
+    <SHA>08505a2208de755e708f7f968b939a5624d81f9a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix: page freezes when rendering large result set. Closes #1711.</MESSAGE>
+      <SHA>a087fe4bcd15c9a938c13f64594d8a2312c948e4</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/components/dynamic-table/dynamic-table.html</FILE>
+        <FILE>client/app/components/dynamic-table/index.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix: page freezes when rendering large result set. Closes #1711.</MESSAGE>
+      <SHA>ec0d5d0e1cf22cfea4ef3a2a0541bf8a7f9d8318</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/components/dynamic-table/dynamic-table.html</FILE>
+        <FILE>client/app/components/dynamic-table/index.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

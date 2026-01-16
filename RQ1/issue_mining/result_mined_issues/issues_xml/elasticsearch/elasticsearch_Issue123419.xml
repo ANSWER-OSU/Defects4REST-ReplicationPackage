@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>123419</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/123419</ISSUEURL>
+  <TITLE>[CI] IPSyntheticSourceNativeArrayIntegrationTests testSynthesizeArrayIgnoreMalformed failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6668 / release-tests](https://gradle-enterprise.elastic.co/s/v5jdl56ip4oo4) - [elasticsearch-periodic #6662 / release-tests](https://gradle-enterprise.elastic.co/s/w3pnhuh5hmdsc) - [elasticsearch-periodic #6655 / release-tests](https://gradle-enterprise.elastic.co/s/3oh32y5fd6jiq) - [elasticsearch-periodic #6648 / release-tests](https://gradle-enterprise.elastic.co/s/53q56klrfulvu) **Reproduction Line:** ``` ./gradlew &quot;:server:test&quot; --tests &quot;org.elasticsearch.index.mapper.IPSyntheticSourceNativeArrayIntegrationTests.testSynthesizeArrayRandom&quot; -Dtests.seed=C245918E159AA8E9 -Dbuild.snapshot=false -Dtests.jvm.argline=&quot;-Dbuild.snapshot=false&quot; -Dlicense.key=x-pack/license-tools/src/test/resources/public.key -Dtests.locale=teo-Latn-UG -Dtests.timezone=Europe/Bucharest -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.index.mapper.IPSyntheticSourceNativeArrayIntegrationTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testSynthesizeArrayIgnoreMalformed),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: iterable with items [&quot;_id&quot;, &quot;_ignored_source&quot;] in any order but: not matched: &quot;_recovery_source&quot; ``` **Issue Reasons:** - [8.x] 4 consecutive failures in step release-tests - [8.x] 4 failures in test testSynthesizeArrayIgnoreMalformed (2.9% fail rate in 140 executions) - [8.x] 4 failures in step release-tests (100.0% fail rate in 4 executions) - [8.x] 4 failures in pipeline elasticsearch-periodic (100.0% fail rate in 4 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.index.mapper.IPSyntheticSourceNativeArrayIntegrationTests testSynthesizeArrayRandom #123418</MESSAGE>
+    <SHA>e1652af25d6e89fefb071d1d0c0d2c920f738c0b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.index.mapper.IPSyntheticSourceNativeArrayIntegrationTests testSynthesizeArrayIgnoreMalformed #123419</MESSAGE>
+      <SHA>6f2f68ee957450d7d8d061a21710ea210f768acf</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

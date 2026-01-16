@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15430</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15430</ISSUEURL>
+  <TITLE>podman system service uses different syntax to podman-remote for tcp connections</TITLE>
+  <DESCRIPTION>/kind bug **Description** `podman system service` uses an inconsistent syntax for specifying the listen port compared to `podman --remote --connection` and does not error about it properly. **Steps to reproduce the issue:** 1. Try starting a podman system service on a tcp port with the syntax one would expect from the `--connection` syntax: `podman system service tcp://localhost:2375` **Describe the results you received:** The command appears to succeed, but no listening port on `2375` or any other is created. **Describe the results you expected:** The command should either error, explaining that the syntax is invalid, or better, actually work since the same pseudo-path like syntax is supported for remote connections. **Additional information you deem important (e.g. issue happens only occasionally):** **Output of `podman version`:** ``` Version: 3.4.4 API Version: 3.4.4 Go Version: go1.17.3 Built: Thu Jan 1 10:00:00 1970 OS/Arch: linux/amd64 ``` **Output of `podman info`:** ``` host: arch: amd64 buildahVersion: 1.23.1 cgroupControllers: - memory - pids cgroupManager: systemd cgroupVersion: v2 conmon: package: 'conmon: /usr/bin/conmon' path: /usr/bin/conmon version: 'conmon version 2.0.25, commit: unknown' cpus: 16 distribution: codename: jammy distribution: ubuntu version: &quot;22.04&quot; eventLogger: file hostname: will-desktop idMappings: gidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 100000 size: 65536 uidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 100000 size: 65536 kernel: 5.15.0-27-generic linkmode: dynamic logDriver: k8s-file memFree: 34020188160 memTotal: 67362914304 ociRuntime: name: runc package: 'runc: /usr/sbin/runc' path: /usr/sbin/runc version: |- runc version 1.1.0-0ubuntu1 spec: 1.0.2-dev go: go1.17.3 libseccomp: 2.5.3 os: linux remoteSocket: exists: true path: /run/user/1000/podman/podman.sock security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: true seccompEnabled: true seccompProfilePath: /usr/share/containers/seccomp.json selinuxEnabled: false serviceIsRemote: false slirp4netns: executable: /usr/bin/slirp4netns package: 'slirp4netns: /usr/bin/slirp4netns' version: |- slirp4netns version 1.0.1 commit: 6a7b16babc95b6a3056b33fb45b74a6f62262dd4 libslirp: 4.6.1 swapFree: 524283904 swapTotal: 524283904 uptime: 69h 14m 23.56s (Approximately 2.88 days) plugins: log: - k8s-file - none - journald network: - bridge - macvlan volume: - local registries: search: - docker.io store: configFile: /home/will/.config/containers/storage.conf containerStore: number: 43 paused: 0 running: 2 stopped: 41 graphDriverName: overlay graphOptions: overlay.mount_program: Executable: /usr/bin/fuse-overlayfs Package: 'fuse-overlayfs: /usr/bin/fuse-overlayfs' Version: |- fusermount3 version: 3.10.5 fuse-overlayfs: version 1.7.1 FUSE library version 3.10.5 using FUSE kernel interface version 7.31 graphRoot: /home/will/.local/share/containers/storage graphStatus: Backing Filesystem: zfs Native Overlay Diff: &quot;false&quot; Supports d_type: &quot;true&quot; Using metacopy: &quot;false&quot; imageStore: number: 524 runRoot: /run/user/1000/containers volumePath: /home/will/.local/share/containers/storage/volumes version: APIVersion: 3.4.4 Built: 0 BuiltTime: Thu Jan 1 10:00:00 1970 GitCommit: &quot;&quot; GoVersion: go1.17.3 OsArch: linux/amd64 Version: 3.4.4 ``` **Package info (e.g. output of `rpm -q podman` or `apt list podman`):** ``` podman/jammy,now 3.4.4+ds1-1ubuntu1 amd64 [installed] ``` **Have you tested with the latest version of Podman and have you checked the Podman Troubleshooting Guide? (https://github.com/containers/podman/blob/main/troubleshooting.md)** Yes. The command exits, but still displays no error message or explanation as to why. **Additional environment details (AWS, VirtualBox, physical, etc.):** Physical</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #15435 from edsantiago/docs_dedup_disablecontenttrust [CI:DOCS] Man pages: refactor common options: --disable-content-trust</MESSAGE>
+    <SHA>cf9c04ae2b61d1eed32a73aad2172d3455a5a9fa</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix documentation of use of tcp connections Fixes: https://github.com/containers/podman/issues/15430 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>8b1e88bf80b3cd650be04fd397f7b85d355788dd</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-system-service.1.md</FILE>
+        <FILE>test/apiv2/python/rest_api/fixtures/api_testcase.py</FILE>
+        <FILE>test/apiv2/python/rest_api/v1_test_rest_v1_0_0.py</FILE>
+        <FILE>test/system/272-system-connection.bats</FILE>
+        <FILE>test/system/900-ssh.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

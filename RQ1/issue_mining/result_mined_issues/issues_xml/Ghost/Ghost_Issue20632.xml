@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20632</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/20632</ISSUEURL>
+  <TITLE>Dashboard shows posts instead of pages</TITLE>
+  <DESCRIPTION>### Issue Summary When I enter the Dashboard and navigate to Pages, it shows no pages but posts instead. Also when I add new post it also shows up in pages. However if I create and publish a new page it becomes accessible with URL but still not in the list. I got mysql logs, and they show the request comes for posts when I navigate to pages: ``` select `posts`.*, (select count(distinct `members_click_events`.`member_id`) from `members_click_events` inner join `redirects` on `members_click_events`.`redirect_id` = `redirects`.`id` where posts.id = redirects.post_id) as `count__clicks` from `posts` where (`posts`.`status` = 'published' and `posts`.`type` = 'post'); ``` (note the closing `and ``posts``.``type`` = 'post'`, I believe it should be `'page'`). ### Steps to Reproduce 1. Open Dashboard 2. Go to Pages 3. Create and publish new page 4. Go back to Dashboard &gt; Pages No pages are in the list ### Ghost Version 5.88.0 ### Node.js Version 18.17.1 ### How did you install Ghost? Digital Ocean, Ubuntu 22.04.3 LTS ### Database type MySQL 8 ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>v5.88.0</MESSAGE>
+    <SHA>d0db527b8d895965ed6c1bfc8efd2116a6ca7f75</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed loading pages in Admin closes https://github.com/TryGhost/Ghost/issues/20632 - Revert &quot;✨ Improved performance loading the posts list in admin (#20618)&quot;</MESSAGE>
+      <SHA>5bfdc30409887833412923dba710a5f5ba48f3f9</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/app/components/gh-context-menu.js</FILE>
+        <FILE>ghost/admin/app/components/posts-list/context-menu.js</FILE>
+        <FILE>ghost/admin/app/components/posts-list/list.hbs</FILE>
+        <FILE>ghost/admin/app/controllers/posts.js</FILE>
+        <FILE>ghost/admin/app/routes/posts.js</FILE>
+        <FILE>ghost/admin/app/templates/posts.hbs</FILE>
+        <FILE>ghost/admin/app/utils/selection-list.js</FILE>
+        <FILE>ghost/admin/mirage/config/posts.js</FILE>
+        <FILE>ghost/admin/tests/acceptance/content-test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed listing pages in Admin (#20633) closes https://github.com/TryGhost/Ghost/issues/20632 - Revert &quot;✨ Improved performance loading the posts list in admin (#20618)&quot;</MESSAGE>
+      <SHA>8ea1dfb957334da2bf6eb380ba4c6f1022547847</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/app/components/gh-context-menu.js</FILE>
+        <FILE>ghost/admin/app/components/posts-list/context-menu.js</FILE>
+        <FILE>ghost/admin/app/components/posts-list/list.hbs</FILE>
+        <FILE>ghost/admin/app/controllers/posts.js</FILE>
+        <FILE>ghost/admin/app/routes/posts.js</FILE>
+        <FILE>ghost/admin/app/templates/posts.hbs</FILE>
+        <FILE>ghost/admin/app/utils/selection-list.js</FILE>
+        <FILE>ghost/admin/mirage/config/posts.js</FILE>
+        <FILE>ghost/admin/tests/acceptance/content-test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

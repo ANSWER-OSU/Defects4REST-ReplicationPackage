@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4815</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/4815</ISSUEURL>
+  <TITLE>Error in playbook (No action detected)</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY When playing install.yml, ansible returns an error (No action detected in task in check_vars/tasks/main.yml) ##### ENVIRONMENT * Commit: 3282caf * AWX install method: docker on linux Debian 9 * Ansible version: 2.2.1.0 * Operating System: Debian 9.11 (stretch) * Web Browser: irrelevant ##### STEPS TO REPRODUCE ``` cd ~/awx/installer ansible-playbook install.yml -i inventory ``` ##### EXPECTED RESULTS Installation of AWX ##### ACTUAL RESULTS ``` ERROR! no action detected in task. This often indicates a misspelled module name, or incorrect module path. The error appears to have been in '~/awx/installer/roles/check_vars/tasks/main.yml': line 3, column 3, but may be elsewhere in the file depending on the exact syntax problem. The offending line appears to be: --- - include_tasks: check_openshift.yml ^ here The error appears to have been in '~/awx/installer/roles/check_vars/tasks/main.yml': line 3, column 3, but may be elsewhere in the file depending on the exact syntax problem. The offending line appears to be: --- - include_tasks: check_openshift.yml ^ here ```</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #4749 from chrismeyersfsu/sustaining-improve_iso_logging Sustaining improve iso logging</MESSAGE>
+    <SHA>27c424bc70bc32f6bf702de678d76c97703f6a57</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #4815 from chrismeyersfsu/backport_3_8_2-fork-race [3.8.2] backport fork race</MESSAGE>
+      <SHA>d0054a95eceb462ce9cefc01a9c4b16ac96552fc</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/conf/settings.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

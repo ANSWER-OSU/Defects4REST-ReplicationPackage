@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127195</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/127195</ISSUEURL>
+  <TITLE>[CI] SynonymsManagementAPIServiceIT testUpdateRuleWithMaxSynonyms failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7795 / openjdk24_entitlements_false_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/hstugbdfeaguw) - [elasticsearch-pull-request #68912 / part-1](https://gradle-enterprise.elastic.co/s/l74wewcxkl6kk) **Reproduction Line:** ``` ./gradlew &quot;:server:internalClusterTest&quot; --tests &quot;org.elasticsearch.synonyms.SynonymsManagementAPIServiceIT.testUpdateRuleWithMaxSynonyms&quot; -Dtests.seed=A80D8F1B8636FD3F -Dtests.jvm.argline=&quot;-Des.entitlements.enabled=false&quot; -Dtests.locale=en-BS -Dtests.timezone=Australia/Sydney -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.synonyms.SynonymsManagementAPIServiceIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testUpdateRuleWithMaxSynonyms),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: unexpected ``` **Issue Reasons:** - [main] 2 failures in test testUpdateRuleWithMaxSynonyms (1.3% fail rate in 150 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix duplicate strings in SearchHit serialization (#127180) The map key is always the field name. We exploited this fact in the get results but not in search hits, leading to a lot of duplicate strings in many heap dumps. We could do much better here since the names are generally coming out of a know limited set of names, but as a first step lets at least align the get- and search-responses and non-trivial amount of bytes in a number of use-cases. Plus, having a single string instance is faster on lookup etc. and saves on CPU also.</MESSAGE>
+    <SHA>cd609533bf03459b0bff13a069cfcb1b06fc2952</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.synonyms.SynonymsManagementAPIServiceIT testUpdateRuleWithMaxSynonyms #127195</MESSAGE>
+      <SHA>53780fe026ae180f7a4a8418ca04e61795cd1b1f</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

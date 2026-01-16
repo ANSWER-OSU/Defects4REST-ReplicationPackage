@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>21160</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/21160</ISSUEURL>
+  <TITLE>`podman machine start` stuck when running the second time using applehv on macos silicon M2</TITLE>
+  <DESCRIPTION>### Issue Description I'm using podman with the applehv provider (due to issues using qemu and following suggestions of #20776 ) on an M2 mac. Initializing the machine works correctly and starting that initial machine also works including executing the `quay.io/podman/hello` container. When I stop the machine and start it again, the VM gets stuck and cannot be used anymore. Any consecutive try to start it fails/gets stuck Thanks a lot. Happy to provide any additional information you might need. ### Steps to reproduce the issue Steps to reproduce the issue 1. `brew tap cfergeau/crc` 2. `brew install vfkit` 3. `brew install podman` 4. `export CONTAINERS_MACHINE_PROVIDER=applehv` (or add the entry `provider=&quot;applehv&quot;` in the `[machine]` section of `~/.config/containers/containers.conf` which does not make any difference) 5. `podman machine init` 6. `podman machine start` 7. `podman run quay.io/podman/hello` works ✅ using VM TYPE = applehv 8. `podman machine stop` 9. `podman machine start` gets stuck ❌ ### Describe the results you received I'm only able to start and stop podman machine one single time. ### Describe the results you expected I should be able to start and stop podman machine (as often as I like). ### podman info output ```yaml OS: darwin/arm64 provider: applehv version: 4.8.3 macos: sonoma 14.2.1 ``` ### Podman in a container No ### Privileged Or Rootless Rootless ### Upstream Latest Release Yes ### Additional environment details none ### Additional information What I additional noticed and manage to capture is that on the first startup, grub contains one entry and on the second run it contains to entries (not sure though, if this is relevant) #### First run of `podman machine start` ✅ ![010-1st-run-grub-menu](https://github.com/containers/podman/assets/26272469/97ecc110-a426-40dc-be75-a64a61f07823) ##### Grub config for the entry ![011-1st-run-ostree-0-config](https://github.com/containers/podman/assets/26272469/00d8eb16-165d-4d19-af8d-a23e1a9d227c) #### Second run of `podman machine start` ❌ ![020-2nd-run-grub-menu](https://github.com/containers/podman/assets/26272469/78a75cd2-b056-42f7-ac36-ae9f232415ba) ##### Grub config for the entry `ostree:0` ![021-2nd-run-ostree-0-config](https://github.com/containers/podman/assets/26272469/2775a02f-7eba-48b0-9cb8-05ac61fda3ae) ##### Grub config for the entry `ostree:1` ![022-2nd-run-ostree-1-config](https://github.com/containers/podman/assets/26272469/f4e0181d-f909-46f9-bd51-a0d597060a24)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>90</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #21177 from rhatdan/latest Remove --latest from podman CMD --help output</MESSAGE>
+    <SHA>92144024ae0bf8267c87a93ad1246bef84c5e5ad</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>machine/applehv: Switch to NVMe by default This depends on https://github.com/crc-org/vfkit/pull/78 and is an alternative to https://github.com/crc-org/vfkit/pull/76 that I like better for fixing https://github.com/containers/podman/issues/21160 It looks like at least UTM switched to NVMe for Linux guests by default for example. [NO NEW TESTS NEEDED] Signed-off-by: Colin Walters &lt;walters@verbum.org&gt;</MESSAGE>
+      <SHA>1fafff20f54fc6085f3c7a7e2fcf81a179a7b34e</SHA>
+      <PATCHEDFILES>
+        <FILE>go.mod</FILE>
+        <FILE>go.sum</FILE>
+        <FILE>pkg/machine/applehv/config.go</FILE>
+        <FILE>pkg/machine/applehv/machine.go</FILE>
+        <FILE>pkg/machine/applehv/vfkit.go</FILE>
+        <FILE>vendor/github.com/crc-org/vfkit/pkg/config/json.go</FILE>
+        <FILE>vendor/github.com/crc-org/vfkit/pkg/config/virtio.go</FILE>
+        <FILE>vendor/modules.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

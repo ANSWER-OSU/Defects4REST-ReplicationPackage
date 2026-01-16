@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>611</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/611</ISSUEURL>
+  <TITLE>GetGroups should display member UUID if there is no number</TITLE>
+  <DESCRIPTION>### Feature Request In latest Signal versions it's possible to add group members without phone number. In this case member is added as UUID. But `/v1/groups/&lt;NUMBER&gt;` shows empty string for such members: ```json { &quot;name&quot;: &quot;Group Name&quot;, &quot;id&quot;: &quot;group.SomeHashHere&quot;, &quot;internal_id&quot;: &quot;someHashHer&quot;, &quot;members&quot;: [ &quot;+XXXXX&quot;, &quot;&quot;, &quot;+YYYYYYY&quot;, &quot;&quot; ], &quot;blocked&quot;: false, ... } ``` `signal-cli` responses with [member UUID](https://github.com/AsamK/signal-cli/blob/master/src/main/java/org/asamk/signal/commands/ListGroupsCommand.java#L47) in such cases. It would be useful if `signal-cli-rest-api` could return these UUIDs instead of empty strings. Thanks.</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>51</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #612 from ahatius/master Add notify-self-flag support for json-rpc mode</MESSAGE>
+    <SHA>3344268a590d428a52130b207273e2f9bf502634</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>GET groups endpoint: return uuid instead of number in case no number is set see #611</MESSAGE>
+      <SHA>cddf3c166af6a36c25e8d15689ba1488b42c6237</SHA>
+      <PATCHEDFILES>
+        <FILE>src/client/client.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

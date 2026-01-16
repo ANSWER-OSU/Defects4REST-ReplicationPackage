@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126322</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126322</ISSUEURL>
+  <TITLE>[CI] EsqlSpecIT test {rerank.Reranker before a limit SYNC} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #21362 / part3](https://gradle-enterprise.elastic.co/s/du4namn3ypns4) - [elasticsearch-pull-request #66215 / part-3](https://gradle-enterprise.elastic.co/s/lif7tu5vtvkac) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:multi-node:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT&quot; -Dtests.method=&quot;test {rerank.Reranker using another sort order ASYNC}&quot; -Dtests.seed=6362DB869228C967 -Dtests.locale=ru-KG -Dtests.timezone=Australia/West -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Brerank.Reranker%20before%20a%20limit%20SYNC%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Data mismatch: row 0 column 3:a list containing row 0 column 3:0: expected &lt;0.02222&gt; but was &lt;0.02273&gt; row 1 column 3:a list containing row 1 column 3:0: expected &lt;0.01515&gt; but was &lt;0.01493&gt; Actual: book_no:keyword | title:text | author:text | _score:double 4536 | War and Peace (Signet Classics) | [John Hockenberry, Leo Tolstoy, Pat Conroy] | 0.02273 2776 | The Devil and Other Stories (Oxford World's Classics) | Leo Tolstoy | 0.01493 5327 | War and Peace | Leo Tolstoy | 0.03846 Expected: book_no:keyword | title:text | author:text | _score:double 4536 | War and Peace (Signet Classics) | [John Hockenberry, [truncated] ``` **Issue Reasons:** - [main] 2 failures in test test {rerank.Reranker before a limit SYNC} (28.6% fail rate in 7 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT test {rerank.Reranker using multiple fields SYNC} #126320</MESSAGE>
+    <SHA>4a163fad33501cfc6009b9b44a9705563a2d2ccb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT test {rerank.Reranker before a limit SYNC} #126322</MESSAGE>
+      <SHA>d9e3b2079693de499c0d974faee5e952c62009c0</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

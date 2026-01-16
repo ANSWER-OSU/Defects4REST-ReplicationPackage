@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1847</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/1847</ISSUEURL>
+  <TITLE>Migration error from 0.84.16 to 0.90.7 for sqlite3 database</TITLE>
+  <DESCRIPTION>NocoDB used as docker : true NocoDB version : 0.90.7 Database used in NC_DB URL : sqlite3 Project was created by clicking : New Project Database on which spreadsheet is created : sqlite3 OS on which NocoDB is running : Ubuntu 18.04.5 TLS Node.js version if running as node : NA Database version : NA **Steps To Reproduce** 1. docker pull nocodb/nocodb 2. sudo docker-compose stop 3. sudo docker-compose up -d 4. See error: &quot;Cannot GET /&quot; Docker container log file: [2J[0fApp started successfully. Visit -&gt; http://localhost:8080/dashboard Creating REST APIs mysql2 - &gt; &lt;_blabla database name_&gt; Creating REST APIs sqlite3 - &gt; /usr/app/data/noco.db Creating REST APIs sqlite3 - &gt; /usr/app/data/noco.db Creating REST APIs sqlite3 - &gt; /usr/app/data/noco.db Creating REST APIs sqlite3 - &gt; /usr/app/data/noco.db Creating REST APIs sqlite3 - &gt; /usr/app/data/noco.db ┌ Migration from 0080000 to 0090000 failed ────────────────────────────────────┐│ ││ Error ││ ----- ││ TypeError: Cannot read property 'id' of undefined ││ at /usr/src/app/docker/main.js:2:1060056 ││ at async Object.t.default [as handler] ││ (/usr/src/app/docker/main.js:2:1059862) ││ at async Function.upgrade (/usr/src/app/docker/main.js:2:1045212) ││ at async B.init (/usr/src/app/docker/main.js:2:3749) ││ at async /usr/src/app/docker/main.js:2:455689 ││ ││ ││ Please raise an issue in our github by using following link : ││ https://github.com/nocodb/nocodb/issues/new?labels=Type%3A%20Bug&amp;templat ││ e=bug_report.md ││ ││ Or contact us in our Discord community by following link : ││ https://discord.gg/5RgZmkW ( message @o1lab, @pranavxc or @wingkwong ) ││ │└──────────────────────────────────────────────────────────────────────────────┘ TypeError: Cannot read property 'id' of undefined at /usr/src/app/docker/main.js:2:1060056 at async Object.t.default [as handler] (/usr/src/app/docker/main.js:2:1059862) at async Function.upgrade (/usr/src/app/docker/main.js:2:1045212) at async B.init (/usr/src/app/docker/main.js:2:3749) at async /usr/src/app/docker/main.js:2:455689 Expected behaviour: able to log in after the update. Thanks a lot for your help!</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>docs: update screenshots in FAQs Signed-off-by: Wing-Kam Wong &lt;wingkwong.code@gmail.com&gt;</MESSAGE>
+    <SHA>c6d48a9077cf7f6a7e11030e0c20981823b34b89</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: verify model, view and project exist while migrating ui acl re #1847 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>e5e952aec60abc70342e0fb1bce7b563b4d18e20</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/noco/upgrader/jobs/ncProjectUpgraderV2_0090000.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

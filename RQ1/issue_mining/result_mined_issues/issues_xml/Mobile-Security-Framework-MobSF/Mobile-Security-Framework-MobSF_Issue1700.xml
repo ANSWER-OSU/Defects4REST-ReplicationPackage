@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1700</ISSUENO>
+  <ISSUEURL>https://github.com/MobSF/Mobile-Security-Framework-MobSF/issues/1700</ISSUEURL>
+  <TITLE>Dynamic analysis fails if there are two scan for same binary</TITLE>
+  <DESCRIPTION>&lt;!-- ## IMPORTANT --&gt; &lt;!-- Issues are ONLY for reporting BUGS. For support, feature requests, questions, queries, and discussions use our slack channel for limited support. Join MobSF Slack channel: http://tiny.cc/mobsf --&gt; &lt;!-- If you see errors while running setup/run scripts, it is mostly because you haven't installed the required dependencies correctly. You will have to look into the errors and figure out what is causing them and solve them accordingly. Make sure you have installed all the required dependencies and their correct versions as per the latest documentation. If you still find yourself at a dead end, join MobSF Slack channel: http://tiny.cc/mobsf Please do not post support/help request in GitHub issues, doing so will definitely waste our time get them closed without further response. --&gt; ## ENVIRONMENT ``` OS and Version: Linux Python Version: 3.9 MobSF Version: v3.3.4 Beta ``` ## EXPLANATION OF THE ISSUE ``` When there is more than one scan with the same MD5 (same APK scanned twice, etc.), trying to start dynamic analysis fails with the undescriptive `Invalid parameters` message. The cause seems to be this code to get the package name from MD5. Django OR throws a `MultipleObjectsReturned` exception which is being silently swallowed. https://github.com/MobSF/Mobile-Security-Framework-MobSF/blob/master/mobsf/DynamicAnalyzer/views/android/operations.py#L31-L38 ``` Suggested fix: 1. Don't use the MD5, but the DB ID to refer to scans. 2. (quick fix) Change `get_package_name()` to return package name even if more than one matching record (should be the same for equal package hashes) &lt;!-- If you see errors while running setup/run scripts, join MobSF Slack channel: http://tiny.cc/mobsf to get limited support. --&gt; ## STEPS TO REPRODUCE THE ISSUE ``` 1. Scan the same APK twice 2. Try to start dynamic analysis from static analysis page ``` ## LOG FILE ``` Paste the contents of mobsf/debug.log here or attach the log file. ``` &lt;!-- BEFORE POSTING YOUR ISSUE/BUG - These comments won't show up when you submit the issue. - GitHub issues ARE NOT FOR FEATURE REQUESTS, SUPPORT, DISCUSSIONS AND QUESTIONS! - If you have questions, use our slack channel. Join MobSF Slack channel: http://tiny.cc/mobsf - Reproduce issue in the latest master and try to add as much detail as possible. - Search this repository (top of the page) for the issue and it has not been fixed or reported already. - Once you open a bug, you should also provide additional information if requested. - Failure to do so in 25 days will result in closure of the bug without further communication. --&gt;</DESCRIPTION>
+  <REPONAME>Mobile-Security-Framework-MobSF</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>New support page</MESSAGE>
+    <SHA>2d58a211d85449c3075e25865a7e5afe3c20d74c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>HOTFIX: Fixes #1699, #1700</MESSAGE>
+      <SHA>091b860e448bbab8166a68437c68614247d251be</SHA>
+      <PATCHEDFILES>
+        <FILE>mobsf/DynamicAnalyzer/views/android/tests_frida.py</FILE>
+        <FILE>mobsf/DynamicAnalyzer/views/android/tests_xposed.py</FILE>
+        <FILE>mobsf/MalwareAnalyzer/views/MalwareDomainCheck.py</FILE>
+        <FILE>mobsf/MobSF/settings.py</FILE>
+        <FILE>mobsf/StaticAnalyzer/views/android/db_interaction.py</FILE>
+        <FILE>mobsf/StaticAnalyzer/views/ios/db_interaction.py</FILE>
+        <FILE>mobsf/StaticAnalyzer/views/windows/db_interaction.py</FILE>
+        <FILE>mobsf/signatures/exodus_trackers</FILE>
+        <FILE>mobsf/signatures/maltrail-malware-domains.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

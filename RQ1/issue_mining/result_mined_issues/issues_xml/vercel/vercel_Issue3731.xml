@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3731</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/3731</ISSUEURL>
+  <TITLE>trailingSlash feature parity between now and serve</TITLE>
+  <DESCRIPTION>Hello, I'm not sure if this i a legit issue, but I can see that `zeit-cli` consumes the `serve-handler` package and I was under the impression that `now dev` used serve under the hood, but I might be out on a whim here. The Serve README also says: &gt; Once it's time to push your site to production, we recommend using ZEIT Now. Anyhow, there is an inconsistency when using the `trailingSlash` option in `now` deployments. It boils down to: 1. Now will redirect files (eg /style.css) to trailing slash. Serve does not. 2. Now redirects with a 308 status, Serve redirects with a 301 status. (this is less of an issue just a noted difference) I've setup a reproducible test-case here: https://github.com/danielstocks/trailing-slash-experiments. So my question is: Is this by design or can it be considered a bug? Thanks in advance</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Publish Stable - now@17.0.1</MESSAGE>
+    <SHA>deacdfc47c96450e88ccb77adb6c949b9d8679df</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-routing-utils] Change behavior of `trailingSlash: true` redirects (#3745) This PR changes the behavior of `trailingSlash: true` after we received feedback that files should not be redirected with a trailing slash. This matches the behavior of `serve` and `serve-handler`. ### Examples * `/index.html` =&gt; serve * `/assets/style.css` =&gt; serve * `/assets` =&gt; redirect to `/assets/` * `/assets/style` =&gt; redirect to `/assets/style/` ### Additional In order to avoid duplicate content, this PR also adds redirects to files without a trailing slash. * `/about.html/` =&gt; redirect to `/about.html` * `/assets/style.css/` =&gt; redirect to `/assets/style.css` Fixes #3731</MESSAGE>
+      <SHA>adf31c3fcc0cdf225f350d7b5d09bd8f90f7fec4</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-cli/test/dev/integration.js</FILE>
+        <FILE>packages/now-routing-utils/src/superstatic.ts</FILE>
+        <FILE>packages/now-routing-utils/test/superstatic.spec.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

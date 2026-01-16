@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>125536</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/125536</ISSUEURL>
+  <TITLE>[CI] StatementParserTests testInvalidJoinPatterns failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7209 / single-processor-node-tests](https://gradle-enterprise.elastic.co/s/aouf47unlg6se) - [elasticsearch-periodic-platform-support #7231 / opensuse-leap-15_platform-support-unix](https://gradle-enterprise.elastic.co/s/lsyur4nn2vz26) - [elasticsearch-periodic-platform-support #7231 / rhel-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/j6qjn2ggu25fo) - [elasticsearch-periodic-platform-support #7231 / debian-12_platform-support-unix](https://gradle-enterprise.elastic.co/s/x7jmc3dbuxofq) - [elasticsearch-periodic-platform-support #7231 / oraclelinux-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/frthyfadxf2tg) - [elasticsearch-periodic-platform-support #7231 / rhel-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/qshye6eo6fuuu) - [elasticsearch-periodic-platform-support #7231 / ubuntu-2404_platform-support-unix](https://gradle-enterprise.elastic.co/s/ihybbp4fkocli) - [elasticsearch-periodic-platform-support #7231 / sles-15_platform-support-unix](https://gradle-enterprise.elastic.co/s/j46o6ehdiq4s6) - [elasticsearch-periodic-platform-support #7231 / almalinux-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/vmzjfafljkgtm) - [elasticsearch-periodic-platform-support #7231 / amazonlinux-2023_platform-support-aws](https://gradle-enterprise.elastic.co/s/jwklahg5ytwtq) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:test&quot; --tests &quot;org.elasticsearch.xpack.esql.parser.StatementParserTests.testInvalidJoinPatterns&quot; -Dtests.seed=40CE02365A6C686B -Dtests.locale=ln-AO -Dtests.timezone=America/Monterrey -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.parser.StatementParserTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testInvalidJoinPatterns),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: a string containing &quot;mismatched input '::' expecting {&lt;EOF&gt;, '|', ',', 'metadata'}&quot; but: was &quot;line 1:162: mismatched input '-11:00}}&gt;::data' expecting {DEV_CHANGE_POINT, 'enrich', 'dissect', 'eval', 'grok', 'limit', 'sort', 'stats', 'where', DEV_INLINESTATS, DEV_FORK, 'lookup', DEV_JOIN_LEFT, DEV_JOIN_RIGHT, DEV_LOOKUP, 'mv_expand', 'drop', 'keep', DEV_INSIST, DEV_RRF, 'rename'}&quot; ``` **Issue Reasons:** - [main] 13 failures in test testInvalidJoinPatterns (26.5% fail rate in 49 executions) - [main] 2 failures in step part-3 (8.7% fail rate in 23 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (8.7% fail rate in 23 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[docs] More updates for docs-assembler (#125509) * update docset.yml, add reference/toc.yml, update reference/elasticsearch/index.md * Update docs/docset.yml * add index.md</MESSAGE>
+    <SHA>162763bd133658f64ed0a607bf3d7a77a73ee520</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.parser.StatementParserTests testInvalidJoinPatterns #125536</MESSAGE>
+      <SHA>bab9edc23266025edf25d3432f6c20f9af08419d</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

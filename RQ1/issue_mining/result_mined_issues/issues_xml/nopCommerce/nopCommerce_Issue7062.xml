@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7062</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7062</ISSUEURL>
+  <TITLE>GetProductCategoriesByProductIdAsync caching problem</TITLE>
+  <DESCRIPTION>nopCommerce version: develop Steps to reproduce the problem: Product had 4 categories, but only 3 were returned when I used the GetProductCategoriesByProductIdAsync method. I realized that the fourth category was unpublished, so I republished it. However, the GetProductCategoriesByProductIdAsync method didn't work correctly until the entire cache was cleared because the ProductCategoriesByProductCacheKey used by the method was not defined in the CategoryCacheEventConsumer. I extended the CategoryCacheEventConsumer in my plugin and attempted to clean the ProductCategoriesByProductCacheKey there. However, it requires a prefix with a productId, and since there is no productId prefix, I couldn't define it. Could you add a prefix without a productId to the CategoryCacheEventConsumer?</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7063 Fix incorrect display of subtotal in mini shopping cart</MESSAGE>
+    <SHA>f513c8e899cc26b11275d5d2363110707f378749</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7062 Fixed caching problem on GetProductCategoriesByProductIdAsync method</MESSAGE>
+      <SHA>e314929cd3d01f0d02453f86dc6ee22d52f94d33</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Catalog/Caching/CategoryCacheEventConsumer.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/NopCatalogDefaults.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>32339</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/32339</ISSUEURL>
+  <TITLE>Incoherence in loan payment management</TITLE>
+  <DESCRIPTION>### Bug On module loan (htdocs/loan/list.php) , deleting a payment causes issues : 1. The bank line still exists after deleting the payment. Should it still exist, or should it be deleted with the payment loan ? 2. The bank line is not linked to the payment anymore, but is still linked to the loan. As a consequence : - on the loan screen, the payment is not shown - but, if the line is reconciliated, the loan can't be deleted. Moreover, no error is displayed (see PR #32338). The user has no clue on what is going on. Even if there was an error, the user can't navigate from the loan to the faulty bank line, so they can't fix the problem. ### Dolibarr Version 18.0, develop ### Environment PHP any ### Environment Database any ### Steps to reproduce the behavior and expected behavior ## To reproduce - create a loan - create a payment for this loan. - Observe that this has created a bank line. (expected behavior) - delete the payment - navigate to the bank line. - Observe that it is still linked to the loan - navigate to the loan. - Observe that there is no payment shown, so the user can't navigate to the related bank line. - Try to delete it. - Observe that it can't be deleted. ## Expected behavior I think that, when we delete a payment loan, the related bank line should be also deleted. And if the bank line is reconciliated, one should not be able to delete the payment. ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>30</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Rename file</MESSAGE>
+    <SHA>3c22179183b44f991b7437afbcdd57c44ab22881</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX #32339 Delete a loan settlement is partial</MESSAGE>
+      <SHA>d9be3efa90a081f6b5c3c64c1e3a36d3432cb2f4</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/loan/class/paymentloan.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>FIX #32339 Delete a loan settlement is partial</MESSAGE>
+      <SHA>39fe6c20b61df23e14eba9664ad886cdc5aa95c1</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/loan/class/paymentloan.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #32624 from aspangaro/19fix32339 FIX #32339 Delete a loan settlement is partial</MESSAGE>
+      <SHA>ee8dbf225b00a099a0eaf2f65bf3e8791fa99328</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/loan/class/paymentloan.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #32346 from aspangaro/18_fixloanpayment FIX #32339 Delete a loan settlement is partial</MESSAGE>
+      <SHA>1fa3b63fdc7ff1bf3aec1a06fa14f8de71078229</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/loan/class/paymentloan.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

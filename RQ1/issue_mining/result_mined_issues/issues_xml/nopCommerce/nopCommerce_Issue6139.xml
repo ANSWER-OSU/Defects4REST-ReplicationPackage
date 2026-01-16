@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6139</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6139</ISSUEURL>
+  <TITLE>After upgrading from v4.40 to v4.50 cannot access data in schemas other than dbo</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.50 Steps to reproduce the problem: We have several schemas in he database, all mapped via the NopEntityBuilder&lt;T&gt; implementation. e.g. ``` using FluentMigrator.Builders.Create.Table; using IntegrationQueues.Core.Domain; using Nop.Data.Mapping.Builders; using PurplePiranha.FluentMigrator.Extensions; namespace IntegrationQueues.Data.Builders { public class IncomingMessageBuilder : NopEntityBuilder&lt;IncomingMessage&gt; { public override void MapEntity(CreateTableExpressionBuilder table) { table .InSchema(IntegrationQueuesDataDefaults.DatabaseSchemaName) .WithColumn(nameof(IncomingMessage.ReceivedCommandId)).AsGuid().NotNullable().Unique() .WithColumn(nameof(IncomingMessage.ReceivedCommandName)).AsString(50).NotNullable() .WithColumn(nameof(IncomingMessage.ReceivedCommandPayload)).AsStringMax().NotNullable() .WithColumn(nameof(IncomingMessage.ReceivedAtUtc)).AsDateTime().NotNullable() .WithColumn(nameof(IncomingMessage.AcknowledgeCommandId)).AsGuid().Nullable() .WithColumn(nameof(IncomingMessage.AcknowledgedAtUtc)).AsDateTime().Nullable() .WithColumn(nameof(IncomingMessage.AcknowledgeIdOrStatus)).AsInt32().Nullable() .WithColumn(nameof(IncomingMessage.DebugText)).AsStringMax() ; } } } ``` Since upgrading, NopCommerce fails to resolve the schema and throws the following exception: `Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'IncomingMessage'.` I have tried recreating the table in the default dbo schema and it is accessible. Note: This is using MsSqlDataProvider</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>39</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Updates in the readme file</MESSAGE>
+    <SHA>117c6b95db202e634da0003dd7f96b84a4030873</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #6140 from purplepiranha/bugfix-db-schema #6139 Added support for database schemas</MESSAGE>
+      <SHA>77fee96c29249d23052e401e3c89687bbbe471ff</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Data/DataProviders/BaseDataProvider.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Mapping/FluentMigratorMetadataReader.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Mapping/NopEntityDescriptor.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

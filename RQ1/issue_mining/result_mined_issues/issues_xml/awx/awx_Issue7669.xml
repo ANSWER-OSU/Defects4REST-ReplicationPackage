@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7669</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/7669</ISSUEURL>
+  <TITLE>Add support for convergence any/all on workflow nodes</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Feature Idea ##### SUMMARY In old tower we added this field: &lt;img width=&quot;1673&quot; alt=&quot;Screen Shot 2020-07-20 at 1 18 32 PM&quot; src=&quot;https://user-images.githubusercontent.com/9889020/87966675-99ee0800-ca8b-11ea-8d50-95041afa2e41.png&quot;&gt; We'll need to add the same field to the workflow node wizard in ui_next.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>258</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9720 from Spredzy/rename_to_controller Rename ansible-tower file to automation-controller Reviewed-by: Shane McDonald &lt;me@shanemcd.com&gt;</MESSAGE>
+    <SHA>3964d7aa20ab2641228e66eee1749279163bb763</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9737 from jlmitch5/workflowConvergence workflow convergence Satisfies #7669 This adds the ability to set convergence from any nodes (default) to all nodes to the workflow feature. Specifically: There is an additional convergence dropdown located on the bottom of the first &quot;node type&quot; step for all node types: This field defaults to &quot;Any&quot; on add node and whatever the api has the field set to on edit node. It resets to any if you change the node type dropdown (even on edit when changing and then changing back to the original type...I can update that point depending on what UX is preferred). tvo created a new link explicitly to the explanation in documentation of what the convergence setting does here, and I link to it in the help popover shown in the screenshot below. Consistent with the old UI, When &quot;All&quot; is selected, a small tab is displayed with the label &quot;ALL&quot; in the node visualizer. &quot;Any&quot; nodes do not get any sort of tab. A slight tweak compared to the old ui...I set the tab's border and background to be the same color as the border of the node to create a consistent look for the node across various states and confirmed this behavior was good with @trahman73 OLD: NEW: Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt; Reviewed-by: John Hill &lt;johill@redhat.com&gt;</MESSAGE>
+      <SHA>941e99018a0d37a58d20519753aff437914754f1</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/components/Workflow/workflowReducer.js</FILE>
+        <FILE>awx/ui_next/src/screens/Job/WorkflowOutput/WorkflowOutputNode.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/WorkflowJobTemplateVisualizer/Modals/NodeModals/NodeAddModal.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/WorkflowJobTemplateVisualizer/Modals/NodeModals/NodeAddModal.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/WorkflowJobTemplateVisualizer/Modals/NodeModals/NodeEditModal.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/WorkflowJobTemplateVisualizer/Modals/NodeModals/NodeEditModal.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/WorkflowJobTemplateVisualizer/Modals/NodeModals/NodeModal.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/WorkflowJobTemplateVisualizer/Modals/NodeModals/NodeModal.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/WorkflowJobTemplateVisualizer/Modals/NodeModals/NodeTypeStep/NodeTypeStep.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/WorkflowJobTemplateVisualizer/Modals/NodeModals/NodeTypeStep/NodeTypeStep.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/WorkflowJobTemplateVisualizer/Modals/NodeModals/NodeTypeStep/useNodeTypeStep.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/WorkflowJobTemplateVisualizer/Modals/NodeModals/NodeViewModal.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/WorkflowJobTemplateVisualizer/Modals/NodeModals/useWorkflowNodeSteps.js</FILE>
+        <FILE>awx/ui_next/src/screens/Template/WorkflowJobTemplateVisualizer/Visualizer.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/WorkflowJobTemplateVisualizer/Visualizer.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/WorkflowJobTemplateVisualizer/VisualizerNode.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

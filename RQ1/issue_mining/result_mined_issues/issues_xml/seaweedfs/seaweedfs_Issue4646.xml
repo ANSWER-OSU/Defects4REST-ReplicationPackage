@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4646</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/4646</ISSUEURL>
+  <TITLE>[shell] volume 1415 replication 100 is not well placed [0xc001bed030 0xc001beed00]</TITLE>
+  <DESCRIPTION>If the replica ended up in the same DC, then you need to move the volume, and not delete it ``` volume 1415 replication 100 is not well placed [0xc001bed030 0xc001beed00] deleting volume 1415 from fast-volume-2.s3-fast-volume.service.dcvcs.consul:8080 ... I0707 07:03:47.225710 volume_layout.go:226 volume 1415 does not have enough copies I0707 07:03:47.225724 volume_layout.go:231 volume 1415 remove from writable I0707 07:03:47.225732 volume_layout.go:383 Volume 1415 becomes unwritable I0707 07:03:47.227073 volume_grpc_client_to_master.go:210 volume server fast-volume-2.s3-fast-volume.service.dcvcs.consul:8080 deletes volume 1415 I0707 07:03:47.226889 store.go:526 DeleteVolume 1415 ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>82</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>refactor</MESSAGE>
+    <SHA>2a578b9033b2de12aeb49ae88a694d2510085665</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: logger place msg https://github.com/seaweedfs/seaweedfs/issues/4646</MESSAGE>
+      <SHA>61d8f30a7529425945a85b232a62564c8fbddf0a</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/shell/command_volume_fix_replication.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

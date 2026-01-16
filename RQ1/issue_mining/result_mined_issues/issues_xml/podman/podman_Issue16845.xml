@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16845</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16845</ISSUEURL>
+  <TITLE>Description of pull option in command line help for run command doesn't contain allowed values</TITLE>
+  <DESCRIPTION>**Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind feature **Description** When using the `podman run` command, I wanted to know how to set the pull policy, so I tried to look it up using `podman run --help`. However the output for this option doesn't contain all the possible values (see below), contrary to the output of other options such as sdnotify. So I had to look it up in the documentation, where it was thankfully described. **Steps to reproduce the issue:** 1. Run the following command: $ podman run --help 2. Look for the description of the pull option **Describe the results you received:** Among other option descriptions, the following was printed for the pull option: &gt; --pull string Pull image policy (default &quot;missing&quot;) The description in the documentation of podman lists all possible values, but as you can see, the command line help does not. **Describe the results you expected:** When using docker as a comparison (sorry), the following is printed there: &gt; --pull string Pull image before running (&quot;always&quot;|&quot;missing&quot;|&quot;never&quot;) (default &quot;missing&quot;) I expected something similar for podman. Other options that can have multiple possible values list them all. Suggestion for the description of the pull option: &gt; --pull string Pull image policy (&quot;always&quot;|&quot;missing&quot;|&quot;never&quot;|&quot;newer&quot;) (default &quot;missing&quot;) **Additional information you deem important (e.g. issue happens only occasionally):** - **Output of `podman version`:** ``` Client: Podman Engine Version: 4.3.1 API Version: 4.3.1 Go Version: go1.19.2 Built: Fri Nov 11 16:01:27 2022 OS/Arch: linux/amd64 ``` **Output of `podman info`:** I don't think that's relevant here. **Package info (e.g. output of `rpm -q podman` or `apt list podman` or `brew info podman`):** ``` $ rpm -q podman podman-4.3.1-1.fc37.x86_64 ``` **Have you tested with the latest version of Podman and have you checked [the Podman Troubleshooting Guide](https://github.com/containers/podman/blob/main/troubleshooting.md)?** Yes **Additional environment details (AWS, VirtualBox, physical, etc.):** Fedora 37 default installation</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #16697 from rhatdan/pod stop reporting errors removing containers that don't exist</MESSAGE>
+    <SHA>a55bdfaf104e256ac76ee23b0fb0ee576e88516d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>create/pull --help: list pull policies [NO NEW TESTS NEEDED] Fixes: #16845 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>46b7d8d1e09e45ab704013f1c9ad88c3cd21ceaf</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/common/create.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

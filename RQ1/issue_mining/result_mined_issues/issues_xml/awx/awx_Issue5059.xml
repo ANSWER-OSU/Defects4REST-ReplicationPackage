@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5059</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/5059</ISSUEURL>
+  <TITLE>Host cannot be registered with tower-cli</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY The host cannot be registered with tower-cli. However, json can be registered with the same account from RESTAPI UI ##### ENVIRONMENT * AWX version: 8.0.0(devel) * AWX install method: docker on linux * Ansible version: 2.8.5 * Operating System: CentOS 7.7.1908 * Web Browser: ##### STEPS TO REPRODUCE run a `tower-cli host create -n 111.111.111.112 -i 5 --description &quot;&quot; --enabled true` ##### EXPECTED RESULTS Host is registered ##### ACTUAL RESULTS ``` tower-cli host create -n 111.111.111.112 -i 5 --description &quot;&quot; --enabled true --variables &quot;&quot; *** DETAILS: Checking for an existing record. ********************************* GET https://xxx.xxx.jp/api/v2/hosts/ Params: [('inventory', 5), ('name', u'111.111.111.112')] *** DETAILS: Writing the record. ********************************************** POST https://xxx.xxx.jp/api/v2/hosts/ Data: {'description': u'', 'variables': u'', 'enabled': True, 'inventory': 5, 'name': u'111.111.111.112'} Error: You don't have permission to do that (HTTP 403). ``` awx_web log ``` 2019-10-22 03:36:05,226 INFO awx.api.authentication User nakacya performed a GET to /api/v2/hosts/ through the API using OAuth 2 token 2. [pid: 173|app: 0|req: 19/70] IP_ADDRESS () {40 vars in 629 bytes} [Tue Oct 22 03:36:05 2019] GET /api/v2/hosts/?inventory=5&amp;name=111.111.111.112 =&gt; generated 52 bytes in 95 msecs (HTTP/1.1 200) 8 headers in 236 bytes (1 switches on core 0) 3.113.97.58 - - [22/Oct/2019:03:36:05 +0000] &quot;GET /api/v2/hosts/?inventory=5&amp;name=111.111.111.112 HTTP/1.1&quot; 200 52 &quot;-&quot; &quot;python-requests/2.6.0 CPython/2.7.5 Linux/3.10.0-1062.1.2.el7.x86_64&quot; &quot;-&quot; 2019-10-22 03:36:05,316 INFO awx.api.authentication User nakacya performed a POST to /api/v2/hosts/ through the API using OAuth 2 token 2. 2019-10-22 03:36:05,321 WARNING awx.api.generics status 403 received by user nakacya attempting to access /api/v2/hosts/ from IP_Address 2019-10-22 03:36:05,349 WARNING django.request Forbidden: /api/v2/hosts/ 2019-10-22 03:36:05,349 WARNING django.request Forbidden: /api/v2/hosts/ [pid: 175|app: 0|req: 33/71] 3.113.97.58 () {44 vars in 645 bytes} [Tue Oct 22 03:36:05 2019] POST /api/v2/hosts/ =&gt; generated 63 bytes in 79 msecs (HTTP/1.1 403) 8 headers in 243 bytes (1 switches on core 0) 3.113.97.58 - - [22/Oct/2019:03:36:05 +0000] &quot;POST /api/v2/hosts/ HTTP/1.1&quot; 403 63 &quot;-&quot; &quot;python-requests/2.6.0 CPython/2.7.5 Linux/3.10.0-1062.1.2.el7.x86_64&quot; &quot;- ``` ##### ADDITIONAL INFORMATION Host registration from WebUI is no problem json can be registered with the same account from REST API UI</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #5050 from ansible/ui_issue_385 Linkify credentials on JobTemplate and Organization Details</MESSAGE>
+    <SHA>ba60a2073687cc60843a71d9b16b1fa80c50418e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #5059 from AlexSCorey/10407-fix Updates Smart Inventory Detail after Edit Save</MESSAGE>
+      <SHA>7195b7d93541446006139a867c5e0d16c6303473</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/screens/Inventory/SmartInventory.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

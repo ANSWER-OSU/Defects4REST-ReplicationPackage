@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9055</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/9055</ISSUEURL>
+  <TITLE>bug: If `allow_admin` contains 127.0.0.0/24, requests from other ips without adminKey are allowed by default</TITLE>
+  <DESCRIPTION>### Current Behavior If `allow_admin` contains 127.0.0.0/24, requests from other ips without the admin key are allowed by default. https://github.com/apache/apisix/blob/27535e9831b303ef721046bd51e471abb0be9c13/apisix/cli/ops.lua#L190 ### Expected Behavior Only requests from 127.0.0.0/24 without adminKey are allowed. Otherwise, they should be banned if the admin key isn't configured in `config.yaml`. ### Error Logs _No response_ ### Steps to Reproduce 1. use the config below: ``` deployment: admin: allow_admin: - 0.0.0.0/0 - 127.0.0.0/24 admin_key: # empty ``` 2. Requests from other ips without adminKey are allowed. ### Environment - APISIX version (run `apisix version`): 3.2.0 - Operating system (run `uname -a`): Ubuntu 18.04 - OpenResty / Nginx version (run `openresty -V` or `nginx -V`): - etcd version, if relevant (run `curl http://127.0.0.1:9090/v1/server_info`): - APISIX Dashboard version, if relevant: - Plugin runner version, for issues related to plugin runners: - LuaRocks version, for installation issues (run `luarocks --version`):</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>16</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ci: fix low disk space error when loading saved docker images (#9080)</MESSAGE>
+    <SHA>513b3f6b1955fc4ed4e62d5f1fe82743b807ad22</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix(cli): fix allow_admin bug(#9055)</MESSAGE>
+      <SHA>3037a3e749a2dbfd47291a7e42e07a0c6465a446</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ops.lua</FILE>
+        <FILE>t/cli/test_admin.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

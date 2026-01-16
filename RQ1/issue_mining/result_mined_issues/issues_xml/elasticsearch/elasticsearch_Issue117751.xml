@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117751</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/117751</ISSUEURL>
+  <TITLE>[CI] MultiClusterSpecIT test {scoring.QstrWithFieldAndScoringSortedEval} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5135 / 8.18.0_bwc](https://gradle-enterprise.elastic.co/s/jhwrofyngnahg) - [elasticsearch-periodic #5129 / openjdk17_8.18.0_java-matrix-bwc](https://gradle-enterprise.elastic.co/s/rcluggfk2qs5e) - [elasticsearch-periodic #5129 / openjdk21_8.18.0_java-matrix-bwc](https://gradle-enterprise.elastic.co/s/zvoojnjlowl3a) - [elasticsearch-periodic #5123 / openjdk17_8.18.0_java-matrix-bwc](https://gradle-enterprise.elastic.co/s/wcwkaejcnmvoi) - [elasticsearch-pull-request #44014 / 8.18.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/s6s236iqmpaeo) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:multi-clusters:v8.18.0#bwcTest&quot; -Dtests.class=&quot;org.elasticsearch.xpack.esql.ccq.MultiClusterSpecIT&quot; -Dtests.method=&quot;test {scoring.QstrWithFieldAndScoringSortedEval}&quot; -Dtests.seed=A7D0F80D73A91D07 -Dtests.bwc=true -Dtests.locale=ki-KE -Dtests.timezone=Etc/GMT+2 -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.ccq.MultiClusterSpecIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Bscoring.QstrWithFieldAndScoringSortedEval%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Data mismatch: row 1 column 0:a list containing row 1 column 0:0: expected &quot;7140&quot; but was &quot;2714&quot; row 1 column 1:a list containing row 1 column 1:0: expected &quot;The Lord of the Rings Poster Collection: Six Paintings by Alan Lee (No. 1)&quot; but was &quot;Return of the King Being the Third Part of The Lord of the Rings&quot; row 2 column 0:a list containing row 2 column 0:0: expected &quot;2714&quot; but was &quot;7140&quot; row 2 column 1:a list containing row 2 column 1:0: expected &quot;Return of the King Being the Third Part of The Lord of the Rings&quot; but was &quot;The Lord of the Rings Poster Collection: Six Paintings by Alan Lee (No. 1)&quot; ``` **Issue Reasons:** - [8.x] 5 failures in test test {scoring.QstrWithFieldAndScoringSortedEval} (14.3% fail rate in 35 executions) - [8.x] 2 failures in step openjdk17_8.18.0_java-matrix-bwc (66.7% fail rate in 3 executions) - [8.x] 3 failures in pipeline elasticsearch-periodic (100.0% fail rate in 3 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>37</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add _field_names disabling to archival index tests (#117703) Disabling the &quot;_field_names&quot; field in mappings was possible until 8.x and now issues a deprecation warning. We need to maintain the ability to read these mappings for archival indices so this change adds this case to one of the index mappings in tests and checks for the deprecation warning for it.</MESSAGE>
+    <SHA>2226d6cbfa434206826207da46e95969fc77776c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.ccq.MultiClusterSpecIT test {scoring.QstrWithFieldAndScoringSortedEval} #117751</MESSAGE>
+      <SHA>b7c38a1451d13fa7402ff7055231451f43ac3ac6</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

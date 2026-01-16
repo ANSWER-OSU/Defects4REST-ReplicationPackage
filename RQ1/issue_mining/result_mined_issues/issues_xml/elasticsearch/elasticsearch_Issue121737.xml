@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121737</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121737</ISSUEURL>
+  <TITLE>[CI] ReindexDatastreamIndexTransportActionIT class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6317 / rhel-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/ooi5zzkny72oe) - [elasticsearch-pull-request #56097 / part-2](https://gradle-enterprise.elastic.co/s/k3r5gdz6xm76e) - [elasticsearch-pull-request #55686 / part-2](https://gradle-enterprise.elastic.co/s/ycmctwuz54ct4) - [elasticsearch-intake #17562 / part2](https://gradle-enterprise.elastic.co/s/4yr57lhiexer2) - [elasticsearch-periodic #6251 / encryption-at-rest](https://gradle-enterprise.elastic.co/s/5ojsgntdsmhsu) - [elasticsearch-pull-request #55650 / part-2](https://gradle-enterprise.elastic.co/s/vc57bqkd5keja) - [elasticsearch-pull-request #55646 / part-2](https://gradle-enterprise.elastic.co/s/47vu63ba6siaq) - [elasticsearch-intake #17536 / part2](https://gradle-enterprise.elastic.co/s/j72rmpqawfanm) - [elasticsearch-pull-request #55589 / part-2](https://gradle-enterprise.elastic.co/s/wivmifyvsjlbk) - [elasticsearch-periodic-platform-support #6233 / opensuse-leap-15_platform-support-unix](https://gradle-enterprise.elastic.co/s/mpokid4hylnd2) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:migrate:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.migrate.action.ReindexDatastreamIndexTransportActionIT.testMissingSourceIndex&quot; -Dtests.seed=D491E9037A79861A -Dtests.locale=ff-Latn-LR -Dtests.timezone=Africa/Kigali -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.migrate.action.ReindexDatastreamIndexTransportActionIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.xpack.migrate.action.ReindexDatastreamIndexTransportActionIT),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: All incoming requests on node [node_s2] should have finished. Expected 0 bytes for requests in-flight but got 298 bytes; pending tasks [[]] ``` **Issue Reasons:** - [main] 26 failures in class org.elasticsearch.xpack.migrate.action.ReindexDatastreamIndexTransportActionIT (2.9% fail rate in 910 executions) - [main] 2 failures in step rhel-9_platform-support-unix (11.1% fail rate in 18 executions) - [main] 3 failures in step part2 (2.3% fail rate in 131 executions) - [main] 14 failures in step part-2 (4.9% fail rate in 284 executions) - [main] 2 failures in step release-tests (12.5% fail rate in 16 executions) - [main] 4 failures in pipeline elasticsearch-periodic-platform-support (20.0% fail rate in 20 executions) - [main] 4 failures in pipeline elasticsearch-periodic (20.0% fail rate in 20 executions) - [main] 3 failures in pipeline elasticsearch-intake (2.3% fail rate in 131 executions) - [main] 14 failures in pipeline elasticsearch-pull-request (4.9% fail rate in 284 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[ML] Change format for Unified Chat error responses (#121396) Unified Chat Completion error responses now forward code, type, and param to in the response payload. `reason` has been renamed to `message`. Notes: - `XContentFormattedException` is a `ChunkedToXContent` so that the REST listener can call `toXContentChunked` to format the output structure. By default, the structure forwards to our existing ES exception structure. - `UnifiedChatCompletionException` will override the structure to match the new unified format. - The Rest, Transport, and Stream handlers all check the exception to verify it is a UnifiedChatCompletionException. - OpenAI response handler now reads all the fields in the error message and forwards them to the user. - In the event that a `Throwable` is a `Error`, we rethrow it on another thread so the JVM can catch and handle it. We also stop surfacing the JVM details to the user in the error message (but it's still logged for debugging purposes).</MESSAGE>
+    <SHA>ad00113f235dc3771e2b118b5c31b61fd7bfe253</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.migrate.action.ReindexDatastreamIndexTransportActionIT org.elasticsearch.xpack.migrate.action.ReindexDatastreamIndexTransportActionIT #121737</MESSAGE>
+      <SHA>b440e06c85436cdef391f8796b8a7a643d2e8d45</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.migrate.action.ReindexDatastreamIndexTransportActionIT org.elasticsearch.xpack.migrate.action.ReindexDatastreamIndexTransportActionIT #121737</MESSAGE>
+      <SHA>a1563669524182d3e573a94a39f3ec77d333b6fa</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

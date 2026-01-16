@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24661</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/24661</ISSUEURL>
+  <TITLE>Start and end date of contract lines not available in API anymore</TITLE>
+  <DESCRIPTION>### Bug In version 17 the contract start and end dates of contract lines are not exposed in the API anymore but are [cleaned before](https://github.com/Dolibarr/dolibarr/blob/b1e62d729754b94d8a50a83f1903ef3197a061e7/htdocs/contrat/class/api_contracts.class.php#L664). ### Environment Version 17.0.1 ### Environment OS _No response_ ### Environment Web server _No response_ ### Environment PHP _No response_ ### Environment Database _No response_ ### Environment URL(s) /api/index.php/contracts/93 ### Expected and actual behavior Until version 16, start and end dates of individual contract lines were included in the API response in the fields `date_start`, `date_start_real`, `date_end` and `date_end_real`. This was apparently changed in d597eb8 when the legacy field names were permanently removed. I would expect that the dates continue to be sent in the API as they are not particularly sensitive. ### Steps to reproduce the behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>33</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>FIX Missing token in ajax call</MESSAGE>
+    <SHA>67e8851a4e6cf0373b8015360074e623325a75b7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>NEW: Manage Position (Rank) on Contract Lines</MESSAGE>
+      <SHA>d597eb820299994496435d0293557f6b1c7a5182</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/contrat/card.php</FILE>
+        <FILE>htdocs/contrat/class/api_contracts.class.php</FILE>
+        <FILE>htdocs/contrat/class/contrat.class.php</FILE>
+        <FILE>htdocs/core/ajax/row.php</FILE>
+        <FILE>htdocs/install/upgrade2.php</FILE>
+        <FILE>htdocs/langs/en_US/install.lang</FILE>
+        <FILE>htdocs/modulebuilder/template/class/myobject.class.php</FILE>
+        <FILE>htdocs/modulebuilder/template/myobject_card.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #24916 from FHenry/17_24661 fix: #24661 Contract API class must return lines date</MESSAGE>
+      <SHA>935a730fbc7972e2a63aa524dacd16885f62b478</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/contrat/class/api_contracts.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

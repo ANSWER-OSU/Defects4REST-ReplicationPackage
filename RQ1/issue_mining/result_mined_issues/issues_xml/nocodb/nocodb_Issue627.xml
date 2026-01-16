@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>627</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/627</ISSUEURL>
+  <TITLE>Email address used for authentication should be case-insensitive</TITLE>
+  <DESCRIPTION>The email address field used for sign up / sign in / reset password is not marked at type=&quot;email&quot;. Since it's not marked as an email field browsers will sometimes automatically capitalize the first letter when typed (as opposed to auto-fill). The email address used in sign up / sign in is treated as case sensitive. These two things combined create friction for new users and less technical users. My ideal is that both these fields would be marked as type=&quot;email&quot; and emails would be treated as case insensitive. If just one of the two are implemented it would improve user experience. According to RFC 1035 the bit before the @ sign may be case sensitive and the part after the @ sign is not case sensitive. In practice, email addresses are considered case insensitive. For example, Gmail (one of the largest email providers) treats email addresses as case insensitive. please provide the following details : (details not provided are unknown, I don't see the option to copy project info as shown in the YouTube video) NocoDB version : 0.11.39 Database used in NC_DB URL : pg **Steps To Reproduce** 1. Using Safari on MacOS open a private window (browsers learn what fields are email addresses, opening a private window creates a window in which it has not yet learned that the field is an email address and will therefore capitalize the first letter) 2. navigate to sign in, sign up, or forgot password 3. start typing an email address with a period in it such as first.last@gmail.com 4. Safari will capitalize the first letter once the period is typed. **Expected behavior** Email addresses should not be automatically capitalized.</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>16</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>chore(cypress): cypress docker compose update Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+    <SHA>a49b5021ca2eaad47d1e1c3269971e911b8ca53d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: convert email to lower case to avoid case sensitivity re #627 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>f81c4072be7e590b21842b2176656d58176dfa00</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/noco/rest/RestAuthCtrl.ts</FILE>
+        <FILE>packages/nocodb/src/lib/noco/rest/RestAuthCtrlEE.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: convert email to lower case to avoid case sensitivity re #627 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>6c38537eb0dad6e86e876c475b56594802cc96d6</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/noco/rest/RestAuthCtrl.ts</FILE>
+        <FILE>packages/nocodb/src/lib/noco/rest/RestAuthCtrlEE.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

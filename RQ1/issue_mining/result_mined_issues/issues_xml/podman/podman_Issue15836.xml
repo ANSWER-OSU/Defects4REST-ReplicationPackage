@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15836</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15836</ISSUEURL>
+  <TITLE>Fix in #15242 gets confused by environment variables containing '='</TITLE>
+  <DESCRIPTION>See #15415 / #15415. @cdoern Thanks for this, but it seems to get confused by environment variables with '=' in the value: ``` [vagrant@foreman-vagrant ~]$ podman run --name env_ctr -e ENV_TEST=12=3 alpine printenv ENV_TEST 12=3 [vagrant@foreman-vagrant ~]$ podman container clone env_ctr 8af8ca0674fe2a1ba78992d319210ce1caa46fd0f8fa050b2c1d924aa8c80da6 [vagrant@foreman-vagrant ~]$ podman start -a env_ctr-clone [vagrant@foreman-vagrant ~]$ ``` I'm guessing this [string.Split(entry, &quot;=&quot;)](https://github.com/containers/podman/pull/15415/commits/53369aaa1575caa652461d3671713577fa0ac291#diff-a3bf936f915d0a9eb0f45ae46355a8ade507b2516c37bf9c9f7d1ae8be55b73eR359) should be [string.SplitN(entry, &quot;=&quot;, 2)](https://github.com/containers/podman/commit/361eb42619b2bccaf4fa7bb342dee779f72a512d#diff-688294d2a07f1d5aa5afe0db41e55097fb8de2f5f9a38537564cbad54bad4136R45)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #15833 from containers/dependabot/go_modules/github.com/coreos/go-systemd/v22-22.4.0 build(deps): bump github.com/coreos/go-systemd/v22 from 22.3.2 to 22.4.0</MESSAGE>
+    <SHA>8f76bc2d739657cf4394cb4d08f314011ba08dab</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>podman container clone env patch podman container clone was failing when env variables had multiple `=` in them. Switch split to splitn resolves #15836 Signed-off-by: Charlie Doern &lt;cdoern@redhat.com&gt;</MESSAGE>
+      <SHA>049b1088456cb34a3f3b012e3d228ca154a796c5</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/specgen/generate/container.go</FILE>
+        <FILE>test/e2e/container_clone_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

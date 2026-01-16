@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>26195</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/26195</ISSUEURL>
+  <TITLE>FIX - Add project with thirdparties when modify various payement</TITLE>
+  <DESCRIPTION>### Bug When we create an various payement, we are able to select all the projects validated, but when it is create, if we modify the various payement to modify/add a project, we can't have all the projects. [card.zip](https://github.com/Dolibarr/dolibarr/files/12879829/card.zip) ### Environment Version 17.0.1 ### Environment OS Linux dolibarr 5.4.0-146-generic #163-Ubuntu SMP Fri Mar 17 18:26:02 UTC 2023 x86_64 ### Environment Web server Apache/2.4.41 (Ubuntu) ### Environment PHP 7.2.34-18+ubuntu20 ### Environment Database MySQL or MariaDB 5.5.5-10.3.38-MariaDB-0ubuntu0.20.04.1 ### Environment URL(s) https://transantico.srv01.gpca.fr/compta/bank/various_payment/card.php ### Expected and actual behavior When we create an various payement, we are able to select all the projects validated, but when it is create, if we modify the various payement to modify/add a project, we can't have all the projects but only projects which haven't thirdparties affected (it had a filtrer SQL to the selector of projects in the modify form). ### Steps to reproduce the behavior #FIX modify the line 572 : &quot;$morehtmlref .= $formproject-&gt;select_projects(0, $object-&gt;fk_project, 'projectid', $maxlength, 0, 1, 0, 1, 0, 0, '', 1);&quot; in the file /compta/bank/various_payement/card.php by the line &quot;$morehtmlref .= $formproject-&gt;select_projects(-1, $object-&gt;fk_project, 'projectid', $maxlength, 0, 1, 0, 1, 0, 0, '', 1);&quot; =&gt; Change the first parameter of the function select_projects() by -1 to be able to select all projects ### Attached files ![image](https://github.com/Dolibarr/dolibarr/assets/147707369/5e28b398-a946-4fbf-a090-a476e0ae0241)</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #22475 from atm-kevin/FIX_Enable_Negative_Qty_In_Propal FIX : Propal's negative quantities</MESSAGE>
+    <SHA>e2d3404651a138b572d4596b0b780d7f0879bb74</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX #26195 - Various payment - List of project excluded those assigned to third parties</MESSAGE>
+      <SHA>0058e2dd4ae8199954a5aed58457a6749beb2f82</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/compta/bank/various_payment/card.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>FIX #26195 - Various payment - List of project excluded those assigned to third parties (#26222)</MESSAGE>
+      <SHA>95a15ae6f99e18ee88e2ef3e30e419a7fbf0ea76</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/compta/bank/various_payment/card.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

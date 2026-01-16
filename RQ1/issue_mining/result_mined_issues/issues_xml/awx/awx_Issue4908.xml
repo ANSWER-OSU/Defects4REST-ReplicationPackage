@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4908</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/4908</ISSUEURL>
+  <TITLE>adhoc commands run by container group don't cleanup job pod in k8s/openshift cluster</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY &lt;!-- Briefly describe the problem. --&gt; This is a known issue of #4189 that will be resolved in follow up PR. Currently with the feature if you run an `ad_hoc_command` that gets deployed to a ContainerGroup, the job will run in a pod on the cluster but the pod is never cleaned up after the job runs or is canceled. ##### STEPS TO REPRODUCE &lt;!-- Please describe exactly how to reproduce the problem. --&gt; 1) create a working Container Group 2) Create an organization 3) Assign Container Group to organization as only instance group 4) Create inventory + one host (localhost is fine) 5) launch ad hoc command against host 6) see that job is spawned and runs 7) watch to see pod is never cleaned up ##### EXPECTED RESULTS &lt;!-- What did you expect to happen when running the steps above? --&gt; Job runs + is cleaned up ##### ACTUAL RESULTS &lt;!-- What actually happened? --&gt; no clean up of pod ##### ADDITIONAL INFORMATION &lt;!-- Include any links to sosreport, database dumps, screenshots or other information. --&gt; This also happens for canceled ad hoc commands</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>17</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>properly set execution_node for project and inv updates run &quot;in k8s&quot; see: https://github.com/ansible/awx/issues/4907</MESSAGE>
+    <SHA>802931b59d5207155c9c490fcb0f603df7b60751</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>clean up pods for all k8s execution, not just playbook runs see: https://github.com/ansible/awx/issues/4908</MESSAGE>
+      <SHA>d1ec1b0a1b6fc87badc22c6deb1f52b044e22dfc</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>clean up pods for all k8s execution, not just playbook runs see: https://github.com/ansible/awx/issues/4908</MESSAGE>
+      <SHA>9bc29e087fc80c3be9d11651db7cdf2d9ada7500</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

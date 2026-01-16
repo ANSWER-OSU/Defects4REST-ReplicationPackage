@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>197</ISSUENO>
+  <ISSUEURL>https://github.com/strapdata/elassandra/issues/197</ISSUEURL>
+  <TITLE>Deletion of a List element removes the document on ES</TITLE>
+  <DESCRIPTION>**Elassandra version**: 5.5.0.16 The problem occurs from a table with a compound key and a list of UDTs. When you remove an element from the list, the entire document is removed from the ES. **Steps to reproduce**: 1. Given the UDT ```sql CREATE TYPE type_test ( id text ); ``` 2. The table ```sql CREATE TABLE table_test ( id1 text, id2 text, list list&lt;frozen&lt;type_test&gt;&gt;, PRIMARY KEY (id1, id2) ); ``` 3. The ES index mapping ```json { &quot;settings&quot;: { &quot;keyspace&quot;: &quot;ks_test&quot; }, &quot;mappings&quot;: { &quot;table_test&quot;: { &quot;discover&quot;: &quot;.*&quot; } } } ``` 4. Insert a row into the table: ```sql UPDATE table_test SET list = list + [{ id:'foo'}] where id1='1' and id2='2'; UPDATE table_test SET list = list + [{ id:'bar'}] where id1='1' and id2='2'; ``` 5. Search the document on ES: ```shell get ks_test/_search?pretty=true ``` ```json { &quot;took&quot; : 4, &quot;timed_out&quot; : false, &quot;_shards&quot; : { &quot;total&quot; : 1, &quot;successful&quot; : 1, &quot;failed&quot; : 0 }, &quot;hits&quot; : { &quot;total&quot; : 1, &quot;max_score&quot; : 1.0, &quot;hits&quot; : [ { &quot;_index&quot; : &quot;ks_test&quot;, &quot;_type&quot; : &quot;table_test&quot;, &quot;_id&quot; : &quot;[\&quot;1\&quot;,\&quot;2\&quot;]&quot;, &quot;_score&quot; : 1.0, &quot;_source&quot; : { &quot;id2&quot; : &quot;2&quot;, &quot;id1&quot; : &quot;1&quot;, &quot;list&quot; : [ { &quot;id&quot; : &quot;foo&quot; }, { &quot;id&quot; : &quot;bar&quot; } ] } } ] } } ``` 6. Now, remove one of the elements: ```sql UPDATE table_test SET list = list - [{ id:'bar'}] where id1='1' and id2='2'; ``` 7. Do the search again: ```shell get ks_test/_search?pretty=true ``` ```json { &quot;took&quot; : 0, &quot;timed_out&quot; : false, &quot;_shards&quot; : { &quot;total&quot; : 1, &quot;successful&quot; : 1, &quot;failed&quot; : 0 }, &quot;hits&quot; : { &quot;total&quot; : 0, &quot;max_score&quot; : null, &quot;hits&quot; : [ ] } } ``` **Notes** 1. if you reinsert the removed element and search again, the document is returned like in the step 5 2. the problem doesn't occurs on a table with only one key (partition key)</DESCRIPTION>
+  <REPONAME>elassandra</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix support for range partition deletion</MESSAGE>
+    <SHA>45d3fe4d30f41dc29696bf7006d3510a88570dca</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #197 Deletion of a List element removes the document on ES</MESSAGE>
+      <SHA>972fd014d1ee74988126d0a3d3c1459c300d4e34</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/elassandra/source/mapping.rst</FILE>
+        <FILE>server/src/main/java/org/elassandra/index/ElasticSecondaryIndex.java</FILE>
+        <FILE>server/src/test/java/org/elassandra/CompactionTests.java</FILE>
+        <FILE>server/src/test/java/org/elassandra/CqlTypesTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #197 Deletion of a List element removes the document on ES</MESSAGE>
+      <SHA>026799c32624d920aa5459e0ed012636cc2848bb</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elassandra/index/ElasticSecondaryIndex.java</FILE>
+        <FILE>server/src/test/java/org/elassandra/CqlTypesTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

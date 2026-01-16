@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19848</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/19848</ISSUEURL>
+  <TITLE>[MacOS] inotify instance limit reached</TITLE>
+  <DESCRIPTION>### Discussed in https://github.com/containers/podman/discussions/19847 &lt;div type='discussions-op-text'&gt; &lt;sup&gt;Originally posted by **valeriano-manassero** September 4, 2023&lt;/sup&gt; This happens a lot on my dev instances especially using `kind` clusters. It's pretty easy to solve it doing `podman machine ssh` and then `echo fs.inotify.max_user_instances=524288 | sudo tee -a /etc/sysctl.conf &amp;&amp; sudo sysctl -p` There's a way to force this setup in vm by podman itself during `init`?&lt;/div&gt;</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19835 from Juneezee/refactor/redundant-nil-check Remove redundant nil checks in system connection remove</MESSAGE>
+    <SHA>9bcab496e742a2d75af86eae56a6cb053ce8188d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>machine: increase max number of inotify instances increase the number of inotify instances to 524288 instead of using the default value of 128. Closes: https://github.com/containers/podman/issues/19848 [NO NEW TESTS NEEDED] Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>681b6db3f3416274c88bd508bf169c06892a387a</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/machine/ignition.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

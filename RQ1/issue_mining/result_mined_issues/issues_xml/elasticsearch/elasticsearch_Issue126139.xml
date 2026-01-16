@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126139</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126139</ISSUEURL>
+  <TITLE>[CI] GenerativeIT test failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7413 / almalinux-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/xpzw2wkyghg76) - [elasticsearch-periodic-platform-support #7413 / rocky-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/dluzpio7wkiz4) - [elasticsearch-pull-request #65917 / part-3](https://gradle-enterprise.elastic.co/s/lyug77tygqkue) - [elasticsearch-pull-request #65913 / part-3](https://gradle-enterprise.elastic.co/s/66wg57ns7iub2) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:single-node:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.qa.single_node.GenerativeIT.test&quot; -Dtests.seed=CFE3FB5D9710EFCD -Dtests.locale=ha-GH -Dtests.timezone=Asia/Brunei -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.single_node.GenerativeIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: query: from languages_lookup_non_unique_ke*,no_mapping_sample_data* | limit 9180 | eval `language_code` = -2657316569294869309, jtdeY = -706707837, country = 850667825, `country.keyword` = -5713135059288987047, country.keyword = false, language_code = 6745982913013275940, zod = -3119129993057472970, rQNNd = 769646083, language_code = &quot;vvdHygIqHqV&quot;, language_name = -1851577784 | sort language_code ASC NULLS FIRST, jtdeY ASC NULLS LAST, language_name DESC NULLS FIRST| rename jtdeY as language_code | lookup join languages_lookup on language_code | rename `country` AS uGhif, language_code AS `rQNNd` | mv_expand `country.keyword`| rename language_name as message | lookup join message_types_lookup on message | rename `uGhif` AS ectad | dissect message &quot;%{zod}&quot; | dissect message &quot;%{xSULx} %{type}&quot;| rename zod as message | lookup join message_types_lookup on message | mv_expand country.keyword | mv_expand `message` | grok message &quot;%{WORD:SPJey} %{WORD:kgyEp} %{WORD:z [truncated] ``` **Issue Reasons:** - [main] 4 failures in test test (5.1% fail rate in 79 executions) - [main] 2 failures in step part-3 (4.9% fail rate in 41 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (4.9% fail rate in 41 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ES-125727 Fix for [CI] ReindexDataStreamTransportActionIT testAlreadyUpToDateDataStream failing (#126123)</MESSAGE>
+    <SHA>d816845251c4c9006590a8882371831d93d852d2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.single_node.GenerativeIT test #126139</MESSAGE>
+      <SHA>fcd7c9f9f589f0e5d37d7c50e60c4555b1bf9165</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.single_node.GenerativeIT test #126139</MESSAGE>
+      <SHA>b9342c277599adb735e6a339a6896a79bae0725a</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1147</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/1147</ISSUEURL>
+  <TITLE>Bitbucket Oauth2 integration</TITLE>
+  <DESCRIPTION>Bitbucket now supports oauth2 (including cloning a repository with an access_token) which is really good news. These tokens expire after just 1 hour before needing to be refreshed, which is probably also good news from a security perspective, however, we need to figure out how this impacts our overall system design. First, and most importantly, we need to verify that multiple valid access tokens can exist at the same time for a single user. Or stated another way, refreshing an access token doesn't revoke all existing, un-expired access token. **EDIT** I have verified that this won't be an issue! Creating a new token **does not** invalidate existing tokens Second, we need to figure out what happens if we dispatch a job and the token expires before the job is started. Our workers don't have access to the database to refresh and persist a new access token. Ideally Bitbucket would have offline tokens that don't require refresh (like Google, GitHub, etc), but I didn't see an option in their docs. If multiple access tokens can exist simultaneously, however, this is much less of an issue since we can just force refresh before scheduling a job. If a job takes longer than an hour, this is probably still an issue ... so we'll need to find a way around it.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>47</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>re-added `/api/hook` for gitlab</MESSAGE>
+    <SHA>e5065da88855bdbbbcea20eccaa16ce8344ab36d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>some initial work on #1147 to enable Bitbucket with oauth2</MESSAGE>
+      <SHA>75cca2807da79dc85e5b37d3228f72f38904365d</SHA>
+      <PATCHEDFILES>
+        <FILE>remote/bitbucket/bitbucket.go</FILE>
+        <FILE>remote/bitbucket/client.go</FILE>
+        <FILE>remote/bitbucket/types.go</FILE>
+        <FILE>remote/remote.go</FILE>
+        <FILE>vendor/github.com/bugagazavr/go-gitlab-client/util.go</FILE>
+        <FILE>vendor/github.com/bugagazavr/go-gitlab-client/util_test.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/AUTHORS</FILE>
+        <FILE>vendor/golang.org/x/oauth2/CONTRIBUTING.md</FILE>
+        <FILE>vendor/golang.org/x/oauth2/CONTRIBUTORS</FILE>
+        <FILE>vendor/golang.org/x/oauth2/LICENSE</FILE>
+        <FILE>vendor/golang.org/x/oauth2/README.md</FILE>
+        <FILE>vendor/golang.org/x/oauth2/bitbucket/bitbucket.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/client_appengine.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/clientcredentials/clientcredentials.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/clientcredentials/clientcredentials_test.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/example_test.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/facebook/facebook.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/github/github.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/google/appengine.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/google/appengine_hook.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/google/appenginevm_hook.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/google/default.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/google/example_test.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/google/google.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/google/google_test.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/google/jwt.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/google/sdk.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/google/sdk_test.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/internal/oauth2.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/internal/oauth2_test.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/internal/token.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/internal/token_test.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/internal/transport.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/jws/jws.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/jwt/example_test.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/jwt/jwt.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/jwt/jwt_test.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/linkedin/linkedin.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/oauth2.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/oauth2_test.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/odnoklassniki/odnoklassniki.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/paypal/paypal.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/token.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/token_test.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/transport.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/transport_test.go</FILE>
+        <FILE>vendor/golang.org/x/oauth2/vk/vk.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

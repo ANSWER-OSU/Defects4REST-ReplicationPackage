@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8706</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/8706</ISSUEURL>
+  <TITLE>solr-upgrade-statistics-6x - Not committing last batch in certain scenarios</TITLE>
+  <DESCRIPTION>**Describe the bug** In DSpace 6.4 and 7.5, running CLI `/dspace/bin/dspace solr-upgrade-statistics-6x` does not commit the last batch if the total size is a even multiple of the batch size. **To Reproduce** Steps to reproduce the behavior: 1. Have a statistics core with over 100 items with legacy ids left to migrate 2. /dspace/bin/dspace solr-upgrade-statistics-6x -n 100 -b 10 3. 90 items will have changed in Solr and the TOTAL report will show 90 fewer legacy items. **Expected behavior** There should be 100 items changed. **Related work** Have a one-character PR, about to submit.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #8701 from TexasDigitalLibrary/DS-4493 DS-4493: prevent empty string assignment for language variable</MESSAGE>
+    <SHA>164b449c44723eb64169acf47005bec936906296</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Off-by-one in solr-upgrade-statistics-6x #8706</MESSAGE>
+      <SHA>39e4ed67abdc52dae2c8faf1923fdb994e681f03</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/util/SolrUpgradePre6xStatistics.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #8707 from shorock/iss-8706 Off-by-one in solr-upgrade-statistics-6x #8706</MESSAGE>
+      <SHA>b68f03b845a64de6ff88cb011d5040843104468c</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/util/SolrUpgradePre6xStatistics.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

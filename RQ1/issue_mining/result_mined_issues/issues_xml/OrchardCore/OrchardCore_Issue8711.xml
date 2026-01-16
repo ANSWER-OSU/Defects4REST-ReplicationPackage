@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8711</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/8711</ISSUEURL>
+  <TITLE>Duplicate SQL Running in MSSQLSERVER creating the site</TITLE>
+  <DESCRIPTION>### Describe the bug When I create an orchard site with SQL Server it seems to be running T-SQL DDL Twice ### To Reproduce Create an orchardcore site, with Azure Storage Shell (that part probably irrelevant). Create a SQL Server database, role and contained user like so: ```SQL /* EXEC sp_configure 'show advanced', 1 GO RECONFIGURE GO EXEC sp_configure 'contained database authentication', 1 GO RECONFIGURE GO */ /* USE MASTER; ALTER DATABASE orchard SET OFFLINE WITH ROLLBACK IMMEDIATE; ALTER DATABASE orchard SET ONLINE; DROP DATABASE orchard; GO */ CREATE DATABASE orchard; ALTER DATABASE orchard SET CONTAINMENT=PARTIAL; GO USE orchard; GO CREATE ROLE orchard_www; CREATE USER www WITH PASSWORD = '*************************; ALTER USER [www] WITH DEFAULT_SCHEMA = dbo; ALTER ROLE [orchard_www] ADD MEMBER [www]; GRANT SELECT, INSERT, UPDATE, DELETE ON DATABASE::orchard TO [orchard_www]; GRANT ALTER ON SCHEMA::dbo TO [orchard_www]; GRANT CREATE TABLE, REFERENCES TO [orchard_www]; ``` Begin a profiler or extended events session to look at DDL and user errors. Run `dotnet watch run ` in a terminal and hit up &lt;https://localhost:5001&gt;. Create a site with a SQL Server backend ### Expected behavior No errors in profile. ### Actual behavior The following tables created: ![image](https://user-images.githubusercontent.com/146930/109568411-e0d9bc80-7ab4-11eb-9441-45306b8761d6.png) But also the following errors indicating T-SQL is being run twice: ``` The operation failed because an index or statistics with name 'IX_Dimension' already exists on table 'Identifiers'. There is already an object named 'Identifiers' in the database. ```</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Specify target framework for vs code publish tasks (#8703)</MESSAGE>
+    <SHA>8ba72e224d15c72d8bf075970a93e6e68ef9d7ba</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Update Dependencies.props Fixes #8711</MESSAGE>
+      <SHA>3063155e3cc5f12a2ef7e6e02d2bfaa515adf3e3</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Build/Dependencies.props</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Update Dependencies.props (#8714) Fixes #8711</MESSAGE>
+      <SHA>7f1b7eae95588edcdd43df5d8ff61b2b507c5961</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Build/Dependencies.props</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

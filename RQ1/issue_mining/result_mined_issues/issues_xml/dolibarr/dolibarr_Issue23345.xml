@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23345</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/23345</ISSUEURL>
+  <TITLE>[API] - Get shipment return DB informations</TITLE>
+  <DESCRIPTION>### Bug The call {{host}}/api/index.php/shipments?sortfield=t.rowid&amp;sortorder=ASC&amp;limit=100 responds each line with Db information !! This is a security issue!! The respond contains ... ... &quot;lines&quot;: [ { &quot;origin_line_id&quot;: &quot;2719&quot;, &quot;fk_origin_line&quot;: &quot;2719&quot;, &quot;fk_expedition&quot;: &quot;638&quot;, &quot;qty&quot;: &quot;1&quot;, &quot;qty_shipped&quot;: &quot;1&quot;, &quot;fk_product&quot;: &quot;127&quot;, &quot;detail_batch&quot;: [ ... &quot;db&quot;: { &quot;db&quot;: { ... }, &quot;type&quot;: &quot;mysqli&quot;, ... ### Environment Version 16.0.3 ### Environment OS Debian ### Environment Web server Apache/2.4.38 (Debian) ### Environment PHP 7.3.31-1~deb10u2 ### Environment Database MariaDB 5.5.5-10.3.36-MariaDB-0+deb10u2 ### Environment URL(s) /api/index.php/shipments ### Expected and actual behavior _No response_ ### Steps to reproduce the behavior curl -X GET --header 'Accept: application/json' --header 'DOLAPIKEY: {passkey}' '{host}/api/index.php/shipments/{id}' where id is a shipment which include product with a serial number ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Clean setup</MESSAGE>
+    <SHA>e02aa8ab60c3992fc7adfe9aab799d9f9e8af55e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix issue #23345</MESSAGE>
+      <SHA>e80425ec75d11f76abbc09c2f67cf98a89ca4b94</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/expedition/class/api_shipments.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #23378 from Je2fb/develop Fix issue #23345 and create an api for multicurrencies</MESSAGE>
+      <SHA>fc9a4df8450d0d26f3151b585d581071567bda4d</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/functions2.lib.php</FILE>
+        <FILE>htdocs/expedition/class/api_shipments.class.php</FILE>
+        <FILE>htdocs/multicurrency/class/api_multicurrencies.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix issue #23345</MESSAGE>
+      <SHA>e7b8955dcfdbedd8b6319caf3557762554ef0f39</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/expedition/class/api_shipments.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

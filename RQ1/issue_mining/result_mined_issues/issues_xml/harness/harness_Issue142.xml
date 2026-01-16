@@ -1,0 +1,83 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>142</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/142</ISSUEURL>
+  <TITLE>Error pulling MongoDB</TITLE>
+  <DESCRIPTION>What can be the reason for this? I have drone and docker daemons running. I have successfully pulled images from the docker registry but it seems drone can't find them. ``` bash user@ci-server:~$ docker run -i -t ubuntu /bin/bash root@5b831ad6b38f:/# ``` `/etc/init/docker.conf` contains this line as it solved another error &quot;no dial 0.0.0.0:4243&quot;: ``` bash DOCKER_OPTS=&quot;-H 0.0.0.0:4243 -H unix:///var/run/docker.sock -d&quot; ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add parent_id column to the pullreq_activities DB table (#143)</MESSAGE>
+    <SHA>f14731455ddb21ac26f0edcbce72823825fed33a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[Webhook] Add API and DB Basics (#142) This change introduces: - webhook type / store / controller / handler - webhookExecution type / store / controller / handler - foreign key fix for sqlite3</MESSAGE>
+      <SHA>44ec7ceb07d1198827b814f5cd21eeace6e46086</SHA>
+      <PATCHEDFILES>
+        <FILE>.harness.env</FILE>
+        <FILE>.local.env</FILE>
+        <FILE>cli/server/harness.wire.go</FILE>
+        <FILE>cli/server/harness.wire_gen.go</FILE>
+        <FILE>cli/server/standalone.wire.go</FILE>
+        <FILE>cli/server/standalone.wire_gen.go</FILE>
+        <FILE>internal/api/controller/webhook/common.go</FILE>
+        <FILE>internal/api/controller/webhook/controller.go</FILE>
+        <FILE>internal/api/controller/webhook/create.go</FILE>
+        <FILE>internal/api/controller/webhook/delete.go</FILE>
+        <FILE>internal/api/controller/webhook/find.go</FILE>
+        <FILE>internal/api/controller/webhook/find_execution.go</FILE>
+        <FILE>internal/api/controller/webhook/list.go</FILE>
+        <FILE>internal/api/controller/webhook/list_executions.go</FILE>
+        <FILE>internal/api/controller/webhook/update.go</FILE>
+        <FILE>internal/api/controller/webhook/wire.go</FILE>
+        <FILE>internal/api/handler/webhook/create.go</FILE>
+        <FILE>internal/api/handler/webhook/delete.go</FILE>
+        <FILE>internal/api/handler/webhook/find.go</FILE>
+        <FILE>internal/api/handler/webhook/find_execution.go</FILE>
+        <FILE>internal/api/handler/webhook/list.go</FILE>
+        <FILE>internal/api/handler/webhook/list_executions.go</FILE>
+        <FILE>internal/api/handler/webhook/update.go</FILE>
+        <FILE>internal/api/request/webhook.go</FILE>
+        <FILE>internal/router/api.go</FILE>
+        <FILE>internal/router/wire.go</FILE>
+        <FILE>internal/store/database/migrate/postgres/0007_create_table_webhooks.up.sql</FILE>
+        <FILE>internal/store/database/migrate/postgres/0008_create_index_webhooks_repo_id.up.sql</FILE>
+        <FILE>internal/store/database/migrate/postgres/0008_create_index_webhooks_space_id.up.sql</FILE>
+        <FILE>internal/store/database/migrate/postgres/0009_create_table_webhook_executions.up.sql</FILE>
+        <FILE>internal/store/database/migrate/postgres/0010_create_index_webhook_executions_webhook_id.up.sql</FILE>
+        <FILE>internal/store/database/migrate/sqlite/0007_create_table_webhooks.up.sql</FILE>
+        <FILE>internal/store/database/migrate/sqlite/0008_create_index_webhooks_repo_id.up.sql</FILE>
+        <FILE>internal/store/database/migrate/sqlite/0008_create_index_webhooks_space_id.up.sql</FILE>
+        <FILE>internal/store/database/migrate/sqlite/0009_create_table_webhook_executions.up.sql</FILE>
+        <FILE>internal/store/database/migrate/sqlite/0010_create_index_webhook_executions_webhook_id.up.sql</FILE>
+        <FILE>internal/store/database/store.go</FILE>
+        <FILE>internal/store/database/webhook.go</FILE>
+        <FILE>internal/store/database/webhook_execution.go</FILE>
+        <FILE>internal/store/database/wire.go</FILE>
+        <FILE>internal/store/store.go</FILE>
+        <FILE>types/check/error.go</FILE>
+        <FILE>types/config.go</FILE>
+        <FILE>types/enum/webhook.go</FILE>
+        <FILE>types/webhook.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix Linting errors (#142)</MESSAGE>
+      <SHA>06067d4f6c72af4b81544812c9b5bd8f81f6b09a</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/gitness/wire_gen.go</FILE>
+        <FILE>gitrpc/internal/gitea/commit.go</FILE>
+        <FILE>internal/api/controller/check/check_report.go</FILE>
+        <FILE>internal/api/controller/check/controller.go</FILE>
+        <FILE>internal/api/controller/check/wire.go</FILE>
+        <FILE>internal/api/controller/pullreq/pr_state.go</FILE>
+        <FILE>internal/api/controller/repo/delete.go</FILE>
+        <FILE>internal/api/controller/space/delete.go</FILE>
+        <FILE>internal/api/openapi/principals.go</FILE>
+        <FILE>internal/api/usererror/translate.go</FILE>
+        <FILE>internal/store/database/util.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

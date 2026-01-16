@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>473</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/473</ISSUEURL>
+  <TITLE>Master process crashed after 10 months smooth running</TITLE>
+  <DESCRIPTION>@chrislusf Could you help me to find out the problem? ENV: production version: 0.71.beta source tree: https://github.com/chrislusf/seaweedfs/tree/d0dbf6d2eafc0a8758427870a8536f2fe1b82cc6 start args: ``` nohup ./weed master -ip=&quot;0.0.0.0&quot; -defaultReplication=&quot;000&quot; -mdir=&quot;./meta&quot; &amp; nohup ./weed volume -max=9999 -mserver=&quot;localhost:9333&quot; -dir=&quot;./data/v1&quot; -port=5083 -ip=&quot;x.x.x.x&quot; -dataCenter=&quot;dc1&quot; -rack=&quot;rack1&quot; &amp; ``` **the weed server serv 1TB small files, and the master process crashed suddenly, but the volume works well.** crash logs: ``` I0322 17:36:49 18067 volume_layout.go:193] Volume 129 has 0 replica, less than required 1 I0322 17:36:49 18067 volume_layout.go:169] Volume 129 becomes unwritable panic: runtime error: invalid memory address or nil pointer dereference [signal 0xb code=0x1 addr=0xa8 pc=0x8388fe] goroutine 12 [running]: panic(0xc7bb40, 0xc8200100f0) /opt/dev/go/src/runtime/panic.go:481 +0x3e6 github.com/chrislusf/seaweedfs/weed/topology.(*Topology).UnRegisterDataNode(0xc8201a02a0, 0xc8203b23c0) /opt/dev/gowork/src/github.com/chrislusf/seaweedfs/weed/topology/topology_event_handling.go:65 +0x4ae github.com/chrislusf/seaweedfs/weed/topology.(*Topology).StartRefreshWritableVolumes.func3(0xc8201a02a0) /opt/dev/gowork/src/github.com/chrislusf/seaweedfs/weed/topology/topology_event_handling.go:38 +0x3ac created by github.com/chrislusf/seaweedfs/weed/topology.(*Topology).StartRefreshWritableVolumes /opt/dev/gowork/src/github.com/chrislusf/seaweedfs/weed/topology/topology_event_handling.go:42 +0x91 ``` related codes: ``` func (t *Topology) UnRegisterDataNode(dn *DataNode) { for _, v := range dn.GetVolumes() { glog.V(0).Infoln(&quot;Removing Volume&quot;, v.Id, &quot;from the dead volume server&quot;, dn) vl := t.GetVolumeLayout(v.Collection, v.ReplicaPlacement, v.Ttl) vl.SetVolumeUnavailable(dn, v.Id) } dn.UpAdjustVolumeCountDelta(-dn.GetVolumeCount()) dn.UpAdjustActiveVolumeCountDelta(-dn.GetActiveVolumeCount()) dn.UpAdjustMaxVolumeCountDelta(-dn.GetMaxVolumeCount()) dn.Parent().UnlinkChildNode(dn.Id()) } ``` **It seems that the dn.Parent() is nil, and cased by my disk issue? or any reasons ?**</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>85</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>301 is reported as 404 for http post fix https://github.com/chrislusf/seaweedfs/issues/512</MESSAGE>
+    <SHA>1fb74dff6d3ee18a36cb2fe389c3668b18ead065</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>stop when dn.parent is nil fix https://github.com/chrislusf/seaweedfs/issues/473</MESSAGE>
+      <SHA>105ed1490145b107011c35452cae3aef9215aa70</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/topology/topology_event_handling.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

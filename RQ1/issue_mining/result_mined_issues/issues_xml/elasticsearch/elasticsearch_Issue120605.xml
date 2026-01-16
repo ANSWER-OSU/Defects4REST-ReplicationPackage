@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120605</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120605</ISSUEURL>
+  <TITLE>[CI] BulkByScrollUsesAllScrollDocumentsAfterConflictsIntegTests testReindex failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #16169 / part1](https://gradle-enterprise.elastic.co/s/6irylryfzrwto) - [elasticsearch-pull-request #51880 / part-1](https://gradle-enterprise.elastic.co/s/63jhqfez2jjly) **Reproduction Line:** ``` ./gradlew &quot;:modules:reindex:internalClusterTest&quot; --tests &quot;org.elasticsearch.index.reindex.BulkByScrollUsesAllScrollDocumentsAfterConflictsIntegTests.testReindex&quot; -Dtests.seed=C09F3CF4FA7A86FB -Dtests.locale=mgh-MZ -Dtests.timezone=Pacific/Kwajalein -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.index.reindex.BulkByScrollUsesAllScrollDocumentsAfterConflictsIntegTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testReindex),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: &lt;1&gt; but: was &lt;0&gt; ``` **Issue Reasons:** - [main] 2 failures in test testReindex (1.0% fail rate in 201 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>23</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Remove the ability to read frozen indices (#120108) This won't be supported in 9.0. In 8.18+ we report a `CRITICAL` deprecation warning telling users to unfreeze any frozen indices (see https://github.com/elastic/elasticsearch/pull/119879). ES-9736 #comment Removed frozen engine registration from the plugin in https://github.com/elastic/elasticsearch/pull/120108</MESSAGE>
+    <SHA>50c3b25d7265bac47fac863db884fbc831f1d34e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.index.reindex.BulkByScrollUsesAllScrollDocumentsAfterConflictsIntegTests testReindex #120605</MESSAGE>
+      <SHA>ebed385b84187017bb6c3031e2e0ef2fdaa4016a</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

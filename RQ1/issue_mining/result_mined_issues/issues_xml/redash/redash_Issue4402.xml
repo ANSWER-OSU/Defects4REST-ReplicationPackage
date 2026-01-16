@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4402</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/4402</ISSUEURL>
+  <TITLE>Minor Salesforce runner fix</TITLE>
+  <DESCRIPTION>&lt;!-- We use GitHub only for bug reports Anything else should be posted to https://discuss.redash.io For support, help &amp; questions use https://discuss.redash.io/c/support For feature requests &amp; ideas use https://discuss.redash.io/c/feature-requests **Found a security vulnerability?** Please email security@redash.io to report any security vulnerabilities. We will acknowledge receipt of your vulnerability and strive to send you regular updates about our progress. If you're curious about the status of your disclosure please feel free to email us again. If you want to encrypt your disclosure email, you can use this PGP key. --&gt; ### Issue Summary A Security Token isn't required in all SFDC environments - depending on configuration. See [here](https://help.salesforce.com/articleView?id=000331668&amp;type=1&amp;mode=1) for more information. ### Steps to Reproduce 1. Add Salesforce as a data source where a token isn't required (and cannot be generated) 2. Cannot proceed without required field ### Technical details: https://github.com/getredash/redash/blob/be56035bd6d9856361edc6b23d30a38c8f2d2be2/redash/query_runner/salesforce.py#L81 Just remove `token` from the `required` list. Seemed like it'd be faster to create an issue than submit a PR for such a small change</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>1365</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix inconsistent Sankey behavior (#5286) * added type casting to coerce number string into nuber * Merge branch 'master' into fix-inconsistent=sankey-behavior * typed map viz options * Partially typed what was possible * reworked data coercion * improved MapOptionsType types * readaqueted sankey rows so as to allow strings again</MESSAGE>
+    <SHA>7d33af434320dc37e3587cb43f1ecf22188ffb4e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix issue #4402. Removed token from the required list.</MESSAGE>
+      <SHA>1662acfaeb7cd3ddeb28db1934ab43ba972f27df</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/query_runner/salesforce.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #4402. Removed token from the required list. (#5354) * Fix issue #4402. Removed token from the required list. * Update redash/query_runner/salesforce.py Co-authored-by: Jay Chung &lt;zhongjiajie955@gmail.com&gt; * Update redash/query_runner/salesforce.py --------- Co-authored-by: Justin Clift &lt;justin@postgresql.org&gt; Co-authored-by: Jay Chung &lt;zhongjiajie955@gmail.com&gt;</MESSAGE>
+      <SHA>105cc427e52a7d1c78257accc724db0c9144047a</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/query_runner/salesforce.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

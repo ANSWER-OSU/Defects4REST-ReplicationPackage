@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3856</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/3856</ISSUEURL>
+  <TITLE>REST API responses with null value for UUID variable types</TITLE>
+  <DESCRIPTION>**Describe the bug** The REST API method `flowable-rest/service/query/historic-variable-instances` returns null as value of variable of type `uuid` ``` { &quot;id&quot;: &quot;85077ed6-d62c-11ee-ae20-86c5a61b31b3&quot;, &quot;processInstanceId&quot;: &quot;827254fd-d62c-11ee-ae20-86c5a61b31b3&quot;, &quot;processInstanceUrl&quot;: &quot;http://test-server/flowable-rest/service/history/historic-process-instances/827254fd-d62c-11ee-ae20-86c5a61b31b3&quot;, &quot;taskId&quot;: null, &quot;executionId&quot;: &quot;827254fd-d62c-11ee-ae20-86c5a61b31b3&quot;, &quot;variable&quot;: { &quot;name&quot;: &quot;animalId&quot;, &quot;type&quot;: &quot;uuid&quot;, &quot;value&quot;: null, //&lt;-------- here is unexpected null &quot;scope&quot;: &quot;global&quot; } }, ``` **Expected behavior** The UUID variable value should be serialized as string like ``` &quot;value&quot;: &quot;201d919d-9974-4813-8628-ae815f311678&quot;, ``` **Code** /flowable-rest/src/main/java/org/flowable/rest/service/api/RestResponseFactory.java method `createRestVariable` is searching for a convertor list of `variableConverters`. But there is no variable converter for variable type `org.flowable.variable.service.impl.types.UUIDType` so the createRestVariable returns a RestVariable with null value. **Additional context** Problem was reproduced on Flowable 6.8.0, but I checked the sources and it exists on main branch too. Would be nice to have a fix in next 7.0.x release as we are going to upgrade to that version soon. I am going to provide a Pull request for the fix soon.</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>175</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix bug in CmmnRuntimeService#getVariable when used in nested command context, where during looping a wrongly cached variable instance is returned. More specifically: the iteration order of the hashmap changes depending on the amount of variables stored during the same transaction.</MESSAGE>
+    <SHA>dc2b970df94f52556f2f29972ee3819f360dd345</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Support UUID value type in flowable-rest API (#3856)</MESSAGE>
+      <SHA>bd41ba87dcd2d0534813874e7214816d53264ac9</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-common-rest/src/main/java/org/flowable/common/rest/variable/UUIDRestVariableConverter.java</FILE>
+        <FILE>modules/flowable-rest/src/main/java/org/flowable/rest/service/api/RestResponseFactory.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Support UUID value type in flowable-rest API (#3856)</MESSAGE>
+      <SHA>57733fec79a8cee75cc4708c303ae88888c56f85</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-common-rest/src/main/java/org/flowable/common/rest/variable/UUIDRestVariableConverter.java</FILE>
+        <FILE>modules/flowable-rest/src/main/java/org/flowable/rest/service/api/RestResponseFactory.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Support UUID value type in flowable-rest API (#3856)</MESSAGE>
+      <SHA>964bba64b68ca43c70e6e0b4949282d0f2fcd609</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-cmmn-rest/src/main/java/org/flowable/cmmn/rest/service/api/CmmnRestResponseFactory.java</FILE>
+        <FILE>modules/flowable-dmn-rest/src/main/java/org/flowable/dmn/rest/service/api/DmnRestResponseFactory.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Support UUID value type in flowable-rest API (#3856)</MESSAGE>
+      <SHA>3c0bf9c16df67af8a872d9fae3451292135865be</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-cmmn-engine/src/test/java/org/flowable/cmmn/test/runtime/CaseInstanceQueryImplTest.java</FILE>
+        <FILE>modules/flowable-cmmn-rest/src/main/java/org/flowable/cmmn/rest/service/api/CmmnRestResponseFactory.java</FILE>
+        <FILE>modules/flowable-cmmn-rest/src/test/java/org/flowable/cmmn/rest/service/api/runtime/CaseInstanceVariableResourceTest.java</FILE>
+        <FILE>modules/flowable-cmmn-rest/src/test/java/org/flowable/cmmn/rest/service/api/runtime/TaskVariablesCollectionResourceTest.java</FILE>
+        <FILE>modules/flowable-common-rest/src/main/java/org/flowable/common/rest/variable/UUIDRestVariableConverter.java</FILE>
+        <FILE>modules/flowable-dmn-rest/src/main/java/org/flowable/dmn/rest/service/api/DmnRestResponseFactory.java</FILE>
+        <FILE>modules/flowable-rest/src/main/java/org/flowable/rest/service/api/RestResponseFactory.java</FILE>
+        <FILE>modules/flowable-rest/src/test/java/org/flowable/rest/service/api/runtime/ProcessInstanceVariableResourceTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

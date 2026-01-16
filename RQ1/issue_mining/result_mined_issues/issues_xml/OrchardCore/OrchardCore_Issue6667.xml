@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6667</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/6667</ISSUEURL>
+  <TITLE>OrchardCore.Forms Checkboxes Not Maintaining State Upon Re-Displaying Page After Validation Error</TITLE>
+  <DESCRIPTION>I brought up an issue last month regarding Workflow validation of a Checkbox List that I was trying to create. See https://github.com/OrchardCMS/OrchardCore/issues/6472. Basically, although I could set up a Workflow to validate this Checkbox List, the problem was that the values of the individual checkboxes were not being maintained when the form was re-displayed if there were other validation errors on the page I attempted to use the OrchardCore.Forms Input with the type set to &quot;Checkbox&quot;. I used the same name for two checkboxes, making it into a &quot;List&quot; I assume, but they each had different values (lists have the same &quot;name&quot;, but different &quot;values). I then hooked up a Workflow Validate Form Field Task to the Checkbox name to make it required. I am getting the same behavior. If neither checkbox is checked, I get the appropriate model error. But if one or both of the checkboxes is checked, and another field on the form generates an error, then upon the page being re-displayed both checkboxes do not maintain their state of being checked. I suspect the same problem will occur with a radio button, but have not confirmed. Not sure if this is intended, a bug, or just a missing feature. Thanks.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>329</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Negative Role Condition Evaluator (#9329)</MESSAGE>
+    <SHA>e8c8553dec2d383ad0d053ae694db8c28c1f2bd5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Maintain checkbox/radio input state on re-displaying a form after validation errors. Fixes #6667</MESSAGE>
+      <SHA>22adc662d677fbb5dd894fd5bf32b5d6a675d5be</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Forms/Views/Items/InputPart.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

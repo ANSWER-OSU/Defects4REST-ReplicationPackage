@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19829</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/19829</ISSUEURL>
+  <TITLE>Cannot start rootless containers via docker-compose</TITLE>
+  <DESCRIPTION>### Issue Description Since commit https://github.com/systemd/systemd/commit/ce7de0ba8ef355c5119e7dffc46e075b257dc90d systemd user instance runs with reduced oom_score_adj. This is a PITA for podman and rootless containers because they may fail to start because they cannot set oom_score_adj = 0 (lower than the default 100) and they treat it fatally. ### Steps to reproduce the issue Steps to reproduce the issue 1. Have a 'docker-compose.yml` 2. docker-compose up -d 3. watch ``` Creating standalone_postgres_1 ... error ERROR: for standalone_postgres_1 Cannot start service postgres: runc: [conmon:d]: failed to write to /proc/self/oom_score_adj: Permission denied time=&quot;2023-09-01T13:52:07+02:00&quot; level=fatal msg=&quot;nsexec[29507]: failed to update /proc/self/oom_score_adj: Permission denied&quot; time=&quot;2023-09-01T13:52:07+02:00&quot; level=error msg=&quot;runc create failed: unable to start container process: can't get final child's PID from pipe: EOF&quot;: OCI permission denied ERROR: for postgres Cannot start service postgres: runc: [conmon:d]: failed to write to /proc/self/oom_score_adj: Permission denied time=&quot;2023-09-01T13:52:07+02:00&quot; level=fatal msg=&quot;nsexec[29507]: failed to update /proc/self/oom_score_adj: Permission denied&quot; time=&quot;2023-09-01T13:52:07+02:00&quot; level=error msg=&quot;runc create failed: unable to start container process: can't get final child's PID from pipe: EOF&quot;: OCI permission denied ERROR: Encountered errors while bringing up the project. ERROR: for standalone_postgres_1 Cannot start service postgres: runc: runc create failed: unable to start container process: can't get final child's PID from pipe: EOF: OCI runtime error ERROR: for postgres Cannot start service postgres: runc: runc create failed: unable to start container process: can't get final child's PID from pipe: EOF: OCI runtime error ERROR: Encountered errors while bringing up the project. ``` ### Describe the results you received First service of docker-compose definition fails to start. ### Describe the results you expected All service container start. ### podman info output ```yaml host: arch: amd64 buildahVersion: 1.31.2 cgroupControllers: - cpu - memory - pids cgroupManager: systemd cgroupVersion: v2 conmon: package: conmon-2.1.7-2.2.x86_64 path: /usr/bin/conmon version: 'conmon version 2.1.7, commit: unknown' cpuUtilization: idlePercent: 96.81 systemPercent: 1.91 userPercent: 1.28 cpus: 16 databaseBackend: boltdb distribution: distribution: '&quot;opensuse-tumbleweed&quot;' version: &quot;20230828&quot; eventLogger: journald freeLocks: 1960 hostname: blackpad idMappings: gidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 100000 size: 65536 uidmap: - container_id: 0 host_id: 1000 size: 1 - container_id: 1 host_id: 100000 size: 65536 kernel: 6.4.11-1-default linkmode: dynamic logDriver: journald memFree: 322260992 memTotal: 15442173952 networkBackend: cni networkBackendInfo: backend: cni dns: {} package: |- cni-1.1.2-2.5.x86_64 cni-plugins-1.1.1-2.5.x86_64 path: /usr/libexec/cni ociRuntime: name: runc package: runc-1.1.8-1.2.x86_64 path: /usr/bin/runc version: |- runc version 1.1.8 commit: v1.1.8-0-g82f18fe0e44a spec: 1.0.2-dev go: go1.21.0 libseccomp: 2.5.4 os: linux pasta: executable: &quot;&quot; package: &quot;&quot; version: &quot;&quot; remoteSocket: exists: true path: /run/user/1000/podman/podman.sock security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: true seccompEnabled: true seccompProfilePath: /etc/containers/seccomp.json selinuxEnabled: false serviceIsRemote: false slirp4netns: executable: /usr/bin/slirp4netns package: slirp4netns-1.2.1-1.1.x86_64 version: |- slirp4netns version 1.2.1 commit: unknown libslirp: 4.7.0 SLIRP_CONFIG_VERSION_MAX: 5 libseccomp: 2.5.4 swapFree: 4303159296 swapTotal: 4304732160 uptime: 3h 57m 4.00s (Approximately 0.12 days) plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan - ipvlan volume: - local registries: search: - registry.opensuse.org - registry.suse.com - docker.io store: configFile: /home/mkoutny/.config/containers/storage.conf containerStore: number: 79 paused: 0 running: 0 stopped: 79 graphDriverName: overlay graphOptions: {} graphRoot: /home/mkoutny/.local/share/containers/storage graphRootAllocated: 505639653376 graphRootUsed: 206388285440 graphStatus: Backing Filesystem: btrfs Native Overlay Diff: &quot;true&quot; Supports d_type: &quot;true&quot; Using metacopy: &quot;false&quot; imageCopyTmpDir: /var/tmp imageStore: number: 36 runRoot: /run/user/1000/containers transientStore: false volumePath: /home/mkoutny/.local/share/containers/storage/volumes version: APIVersion: 4.6.1 Built: 1692144000 BuiltTime: Wed Aug 16 02:00:00 2023 GitCommit: &quot;&quot; GoVersion: go1.21.0 Os: linux OsArch: linux/amd64 Version: 4.6.1 ``` ### Podman in a container No ### Privileged Or Rootless Rootless ### Upstream Latest Release No ### Additional environment details ``` &gt; env|grep DOCK DOCKER_BUILDKIT=0 DOCKER_HOST=unix:///run/user/1000/podman/podman.sock ``` ### Additional information I suspect the [fix](https://github.com/containers/podman/commit/164b64ea3baa8502a23fc0c7674f4a7e60507aa0) is not effective because docker-compose explicitly synthesizes explicit `&quot;OomScoreAdj&quot;: 0`. I find it better to treat failure to set `oom_score_adj` as a soft error (report a warning, don't fail the container start, it's only a hint, it won't ensure QoS afterall).</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19835 from Juneezee/refactor/redundant-nil-check Remove redundant nil checks in system connection remove</MESSAGE>
+    <SHA>9bcab496e742a2d75af86eae56a6cb053ce8188d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>linux, rootless: clamp oom_score_adj if it is too low when running rootless, if the specified oom_score_adj for the container process is lower than the current value, clamp it to the current value and print a warning. Closes: https://github.com/containers/podman/issues/19829 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>8b4a79a744ac3fd176ca4dc0e3ae40f75159e090</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/options/oom-score-adj.md</FILE>
+        <FILE>pkg/specgen/generate/oci_linux.go</FILE>
+        <FILE>test/system/030-run.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>linux, rootless: clamp oom_score_adj if it is too low when running rootless, if the specified oom_score_adj for the container process is lower than the current value, clamp it to the current value and print a warning. Closes: https://github.com/containers/podman/issues/19829 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt; (cherry picked from commit 8b4a79a744ac3fd176ca4dc0e3ae40f75159e090)</MESSAGE>
+      <SHA>93d9c6bb48d4b0e9969db92a7bf6ecd97ce1c6fa</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/options/oom-score-adj.md</FILE>
+        <FILE>pkg/specgen/generate/oci_linux.go</FILE>
+        <FILE>test/system/030-run.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>linux, rootless: clamp oom_score_adj if it is too low when running rootless, if the specified oom_score_adj for the container process is lower than the current value, clamp it to the current value and print a warning. Closes: https://github.com/containers/podman/issues/19829 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt; (cherry picked from commit 8b4a79a744ac3fd176ca4dc0e3ae40f75159e090)</MESSAGE>
+      <SHA>0c79c3e3c5eb3169c3e7cc3b56706a7471fa70f6</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/options/oom-score-adj.md</FILE>
+        <FILE>pkg/specgen/generate/oci_linux.go</FILE>
+        <FILE>test/system/030-run.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

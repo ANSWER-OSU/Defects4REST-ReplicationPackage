@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127063</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/127063</ISSUEURL>
+  <TITLE>[CI] EsqlSpecIT test {rrf.SimpleRrf ASYNC} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7739 / ubuntu-2204_platform-support-unix](https://gradle-enterprise.elastic.co/s/pr4lsmjvqpkys) - [elasticsearch-intake #21957 / part3](https://gradle-enterprise.elastic.co/s/wddbleeuxehzc) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:single-node:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.qa.single_node.EsqlSpecIT&quot; -Dtests.method=&quot;test {rrf.SimpleRrf ASYNC}&quot; -Dtests.seed=92E84B4D784905FD -Dtests.locale=nmg-CM -Dtests.timezone=America/Louisville -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.single_node.EsqlSpecIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Brrf.SimpleRrf%20ASYNC%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected a map containing lt_1d: &lt;0&gt; lt_10s: &lt;0&gt; gt_1d: &lt;0&gt; lt_1h: &lt;0&gt; lt_100ms: expected &lt;54&gt; but was &lt;55&gt; lt_10ms: &lt;10&gt; lt_1m: &lt;0&gt; lt_10h: &lt;0&gt; lt_10m: &lt;0&gt; lt_1s: expected &lt;7&gt; but was &lt;6&gt; ``` **Issue Reasons:** - [main] 2 failures in test test {rrf.SimpleRrf ASYNC} (0.6% fail rate in 309 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[Entitlements] Validation checks on paths (#126852) With this PR we restrict the paths we allow access to, forbidding plugins to specify/request entitlements for reading or writing to specific protected directories. I added this validation to EntitlementInitialization, as I wanted to fail fast and this is the earliest occurrence where we have all we need: PathLookup to resolve relative paths, policies (for plugins, server, agents) and the Paths for the specific directories we want to protect. Relates to ES-10918</MESSAGE>
+    <SHA>69f6520b0c2cdb42e099e1c529c16e4b6cdc81f2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.single_node.EsqlSpecIT test {rrf.SimpleRrf ASYNC} #127063</MESSAGE>
+      <SHA>70d46d675b990d0c7d78e49b88e83e4520ef2936</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

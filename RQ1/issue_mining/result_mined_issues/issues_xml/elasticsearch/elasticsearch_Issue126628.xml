@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126628</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126628</ISSUEURL>
+  <TITLE>[CI] IndexShardTests testReentrantEngineReadLockAcquisitionInRefreshListener failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #21656 / part1](https://gradle-enterprise.elastic.co/s/cjjgvgyfp4yr6) - [elasticsearch-pull-request #67355 / part-1](https://gradle-enterprise.elastic.co/s/vukx5vqzjuulm) - [elasticsearch-pull-request #67351 / part-1](https://gradle-enterprise.elastic.co/s/vgwskf4voo3rs) - [elasticsearch-pull-request #67353 / part-1](https://gradle-enterprise.elastic.co/s/xgocliawpv37g) **Reproduction Line:** ``` ./gradlew &quot;:server:test&quot; --tests &quot;org.elasticsearch.index.shard.IndexShardTests.testReentrantEngineReadLockAcquisitionInRefreshListener&quot; -Dtests.seed=F4A2389381739651 -Dtests.locale=en-RW -Dtests.timezone=America/Indiana/Knox -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.index.shard.IndexShardTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testReentrantEngineReadLockAcquisitionInRefreshListener),title:'Test',type:optionsListControl))))) **Failure Message:** ``` com.carrotsearch.randomizedtesting.UncaughtExceptionError: Captured an uncaught exception in thread: Thread[id=3062, name=Thread-520, state=RUNNABLE, group=TGRP-IndexShardTests] ``` **Issue Reasons:** - [main] 4 failures in test testReentrantEngineReadLockAcquisitionInRefreshListener (7.5% fail rate in 53 executions) - [main] 3 failures in step part-1 (7.3% fail rate in 41 executions) - [main] 3 failures in pipeline elasticsearch-pull-request (7.5% fail rate in 40 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[DOCS] Add node specifications to API conventions (#126571) Co-authored-by: shainaraskas &lt;58563081+shainaraskas@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>627e3099f6584756aca0879d1962282b3943061a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.index.shard.IndexShardTests testReentrantEngineReadLockAcquisitionInRefreshListener #126628</MESSAGE>
+      <SHA>94e8eb008cc502b71ef35f89dcab5256046a1876</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Fix IndexShardTests.testReentrantEngineReadLockAcquisitionInRefreshListener I suspect the test resets/closes the reference manager between the refresh and the retrieval of the segment generation after the refresh. By executing segmentGenerationAfterRefresh while holding the engine reset lock we make sure there are no concurrent engine resets meanwhile. In the future, we should also ensure that IndexShard.refresh() uses withEngine. Closes #126628</MESSAGE>
+      <SHA>c4239ac34355beaddbb2d9e57a408caa8e5d2a54</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/engine/InternalEngine.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/index/shard/IndexShardTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI] Fix IndexShardTests.testReentrantEngineReadLockAcquisitionInRefreshListener (#126685) I suspect the test resets/closes the reference manager between the refresh and the retrieval of the segment generation after the refresh. By executing segmentGenerationAfterRefresh while holding the engine reset lock we make sure there are no concurrent engine resets meanwhile. In the future, we should also ensure that IndexShard.refresh() uses withEngine. Closes #126628</MESSAGE>
+      <SHA>f57be54001678b26926b76771da76b48ea528fa9</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/engine/InternalEngine.java</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/index/shard/IndexShardTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

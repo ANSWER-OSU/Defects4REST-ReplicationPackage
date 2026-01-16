@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>806</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/806</ISSUEURL>
+  <TITLE>Result variable in sub process is scoped in the parent execution</TITLE>
+  <DESCRIPTION>When using `resultVariable` in a service task it is set on the execution. This is all good until we use a multi instance sub process, then the variable is overwritten by the different executions.</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'master' into rest_properties # Conflicts: # modules/flowable-idm-engine/src/main/resources/org/flowable/idm/db/create/flowable.db2.create.identity.sql # modules/flowable-idm-engine/src/main/resources/org/flowable/idm/db/create/flowable.h2.create.identity.sql # modules/flowable-idm-engine/src/main/resources/org/flowable/idm/db/create/flowable.hsql.create.identity.sql # modules/flowable-idm-engine/src/main/resources/org/flowable/idm/db/create/flowable.mssql.create.identity.sql # modules/flowable-idm-engine/src/main/resources/org/flowable/idm/db/create/flowable.mysql.create.identity.sql # modules/flowable-idm-engine/src/main/resources/org/flowable/idm/db/create/flowable.mysql55.create.identity.sql # modules/flowable-idm-engine/src/main/resources/org/flowable/idm/db/create/flowable.oracle.create.identity.sql # modules/flowable-idm-engine/src/main/resources/org/flowable/idm/db/create/flowable.postgres.create.identity.sql # modules/flowable-idm-engine/src/main/resources/org/flowable/idm/db/upgrade/flowable.db2.upgradestep.6210.to.6300.identity.sql # modules/flowable-idm-engine/src/main/resources/org/flowable/idm/db/upgrade/flowable.mssql.upgradestep.6210.to.6300.identity.sql # modules/flowable-idm-engine/src/main/resources/org/flowable/idm/db/upgrade/flowable.mysql.upgradestep.6210.to.6300.identity.sql # modules/flowable-idm-engine/src/main/resources/org/flowable/idm/db/upgrade/flowable.mysql55.upgradestep.6210.to.6300.identity.sql # modules/flowable-idm-engine/src/main/resources/org/flowable/idm/db/upgrade/flowable.oracle.upgradestep.6210.to.6300.identity.sql # modules/flowable-idm-engine/src/main/resources/org/flowable/idm/db/upgrade/flowable.postgres.upgradestep.6210.to.6300.identity.sql # modules/flowable-ui-admin/flowable-ui-admin-conf/pom.xml # modules/flowable-ui-idm/flowable-ui-idm-conf/src/main/java/org/flowable/app/conf/Bootstrapper.java # modules/flowable-ui-modeler/flowable-ui-modeler-conf/pom.xml</MESSAGE>
+    <SHA>b92d3fecf99c6f5e9f64c5a1154dec3a6d8e6ef7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add support for saving result variable in the local scope #806</MESSAGE>
+      <SHA>378cf47329db833b83bed67fe8d17f885298266b</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/userguide/src/en/bpmn/ch07b-BPMN-Constructs.adoc</FILE>
+        <FILE>modules/flowable-bpmn-converter/src/main/java/org/flowable/bpmn/constants/BpmnXMLConstants.java</FILE>
+        <FILE>modules/flowable-bpmn-converter/src/main/java/org/flowable/bpmn/converter/ServiceTaskXMLConverter.java</FILE>
+        <FILE>modules/flowable-bpmn-model/src/main/java/org/flowable/bpmn/model/ServiceTask.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/ServiceTaskExpressionActivityBehavior.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/parser/factory/DefaultActivityBehaviorFactory.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/examples/bpmn/servicetask/ExpressionServiceTaskTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/standalone/validation/DefaultProcessValidatorTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/validation/invalidProcess.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/examples/bpmn/servicetask/ExpressionServiceTaskTest.testSetServiceLocalScopedResultWithParallelMultiInstance.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/examples/bpmn/servicetask/ExpressionServiceTaskTest.testSetServiceResultWithParallelMultiInstance.bpmn20.xml</FILE>
+        <FILE>modules/flowable-json-converter/src/main/java/org/flowable/editor/constants/StencilConstants.java</FILE>
+        <FILE>modules/flowable-json-converter/src/main/java/org/flowable/editor/language/json/converter/ServiceTaskJsonConverter.java</FILE>
+        <FILE>modules/flowable-process-validation/src/main/java/org/flowable/validation/validator/Problems.java</FILE>
+        <FILE>modules/flowable-process-validation/src/main/java/org/flowable/validation/validator/impl/ServiceTaskValidator.java</FILE>
+        <FILE>modules/flowable-ui-admin/flowable-ui-admin-rest/src/main/java/org/flowable/admin/app/rest/client/modelinfo/bpmn/ServiceTaskInfoMapper.java</FILE>
+        <FILE>modules/flowable-ui-modeler/flowable-ui-modeler-logic/src/main/java/org/flowable/app/service/editor/mapper/ServiceTaskInfoMapper.java</FILE>
+        <FILE>modules/flowable-ui-modeler/flowable-ui-modeler-logic/src/main/resources/stencilset_bpmn.json</FILE>
+        <FILE>modules/flowable-ui-task/flowable-ui-task-logic/src/main/java/org/flowable/app/service/editor/mapper/ServiceTaskInfoMapper.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add support for saving result variable in the local scope #806 (#812)</MESSAGE>
+      <SHA>6b4202c94e0bbc79925853c3cfa5419ac1049a1d</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/userguide/src/en/bpmn/ch07b-BPMN-Constructs.adoc</FILE>
+        <FILE>modules/flowable-bpmn-converter/src/main/java/org/flowable/bpmn/constants/BpmnXMLConstants.java</FILE>
+        <FILE>modules/flowable-bpmn-converter/src/main/java/org/flowable/bpmn/converter/ServiceTaskXMLConverter.java</FILE>
+        <FILE>modules/flowable-bpmn-model/src/main/java/org/flowable/bpmn/model/ServiceTask.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/behavior/ServiceTaskExpressionActivityBehavior.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/parser/factory/DefaultActivityBehaviorFactory.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/examples/bpmn/servicetask/ExpressionServiceTaskTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/java/org/flowable/standalone/validation/DefaultProcessValidatorTest.java</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/engine/test/validation/invalidProcess.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/examples/bpmn/servicetask/ExpressionServiceTaskTest.testSetServiceLocalScopedResultWithParallelMultiInstance.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/test/resources/org/flowable/examples/bpmn/servicetask/ExpressionServiceTaskTest.testSetServiceResultWithParallelMultiInstance.bpmn20.xml</FILE>
+        <FILE>modules/flowable-json-converter/src/main/java/org/flowable/editor/constants/StencilConstants.java</FILE>
+        <FILE>modules/flowable-json-converter/src/main/java/org/flowable/editor/language/json/converter/ServiceTaskJsonConverter.java</FILE>
+        <FILE>modules/flowable-process-validation/src/main/java/org/flowable/validation/validator/Problems.java</FILE>
+        <FILE>modules/flowable-process-validation/src/main/java/org/flowable/validation/validator/impl/ServiceTaskValidator.java</FILE>
+        <FILE>modules/flowable-ui-admin/flowable-ui-admin-rest/src/main/java/org/flowable/admin/app/rest/client/modelinfo/bpmn/ServiceTaskInfoMapper.java</FILE>
+        <FILE>modules/flowable-ui-modeler/flowable-ui-modeler-logic/src/main/java/org/flowable/app/service/editor/mapper/ServiceTaskInfoMapper.java</FILE>
+        <FILE>modules/flowable-ui-modeler/flowable-ui-modeler-logic/src/main/resources/stencilset_bpmn.json</FILE>
+        <FILE>modules/flowable-ui-task/flowable-ui-task-logic/src/main/java/org/flowable/app/service/editor/mapper/ServiceTaskInfoMapper.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

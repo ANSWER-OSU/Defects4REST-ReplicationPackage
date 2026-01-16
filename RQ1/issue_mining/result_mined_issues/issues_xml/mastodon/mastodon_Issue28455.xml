@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>28455</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/28455</ISSUEURL>
+  <TITLE>The summary for converted ActivityPub objects must be treated as html according to the ActivityStreams specification</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem 1. Retrieve a non-note object like an `Event` from with a HTML summary. 2. The resulting post will not be rendered/converted as HTML but as plain text. ### Expected behaviour The summary should be treated as HTML by default. ### Actual behaviour The summary is treated as plain text. The following Screenshot shows what a event received from Gancio then looks like. ![Screenshot_from_2023-12-20_01-20-36](https://github.com/mastodon/mastodon/assets/99024746/d9472d8a-2e0c-4648-b1e5-574428110565) ### Detailed description The feature introduced in https://github.com/mastodon/mastodon/pull/9823 is basically a great one, without Mastodon implementing custom renderings for ActivityPub objects like `Event` it has basic support for them. The actual convertion likely takes place here: https://github.com/mastodon/mastodon/blob/2463b53363a621c1e18223bda5c47a663707a22c/app/lib/activitypub/activity/create.rb#L371-L373. The [ActivityStreams vocabulary specification](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-summary) states that &gt; **Summary**: A natural language summarization of the object encoded as HTML. This will cause interoperability issues with future Gancio, Mobilizon and WordPress ActivityPub releases. Altough the ActivityPub spec does not mention it, one might also think of accepting custom `MediaType` for the summary, to handle both plain/text and HTML summaries. See https://framagit.org/les/gancio/-/issues/321#note_2038846 ### Mastodon instance All ### Mastodon version Since https://github.com/mastodon/mastodon/pull/9823 ### Technical details _No response_</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>284</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Enable Rails 7.1 Marshalling format (#28609)</MESSAGE>
+    <SHA>5a6d533c5390832f86c3352af0f6023f9ad07156</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>For converted object types treat the summary (spoiler_text) as HTML Solves https://github.com/mastodon/mastodon/issues/28455</MESSAGE>
+      <SHA>717f01034007a9b9099589bc1838c58578a12650</SHA>
+      <PATCHEDFILES>
+        <FILE>app/lib/activitypub/activity/create.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Converted object types summary (spoiler text) is treated as HTML. Solves https://github.com/mastodon/mastodon/issues/28455</MESSAGE>
+      <SHA>2e7b916a4c85a2a4e50f1ab9ee530e9ab00ed0cc</SHA>
+      <PATCHEDFILES>
+        <FILE>app/lib/activitypub/activity/create.rb</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

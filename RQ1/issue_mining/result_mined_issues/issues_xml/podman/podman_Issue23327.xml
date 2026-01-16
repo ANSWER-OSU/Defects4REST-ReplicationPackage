@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23327</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23327</ISSUEURL>
+  <TITLE>Another race: completion: no such container/pod</TITLE>
+  <DESCRIPTION>Seeing this on 100% of my laptop runs, parallelized, in the completion test: ``` # [08:17:33.191977368] $ bin/podman __completeNoDesc container clone # [08:17:35.303772119] [Debug] [Error] could not find container 434f172ce4e01a95e0a982202771b1f44d59ee77011cf30b4a68ca42695ca789 pod (id 9cf7f239db729a452efd4aa3504cb2affada2dd0744506d0d2e2f5aee0f9eef0) in state: no such pod ``` or ``` # [08:29:09.423573500] $ bin/podman pod stats --no-stream --format {{&quot;\n&quot;}} # [08:29:10.813740865] Error: no pod with ID cfae61793335459d1500f57b642f1303aaf09e749056cf215daa06879e510243 found in database: no such pod ``` or ``` # [08:37:46.860673870] $ bin/podman __completeNoDesc container start arg arg # [08:37:48.074021817] [Debug] [Error] could not find container d8fe9ff54a9252cc6dc3edd3b860fff2dd454e04b850c441abf72e172605fe15 pod (id d4cd52d0e48caf07e968178f5dd21f01c3acaf6c180c06b11e76927d0124ea88) in state: no such pod ``` I have not yet found a reproducer (other than running parallel bats tests)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>podman ps: fix racy pod name query The pod name was queried without holding the container lock, thus it was possible that the pod was deleted in the meantime and podman just failed with &quot;no such pod&quot; as the errors.Is() check matched the wrong error. Move it into the locked code this should prevent anyone from removing the pod while the container is part of it. Also fix the returned error, there is no reason to special case one specific error just wrap any error here so callers at least know where it happened. However this is not good enough because the batch doesn't update the state which means it see everything before the container was locked. In this case it might be possible the ctr and pod was already removed so let the caller skip both ctr and pod removed errors. Fixes #23282 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+    <SHA>e1caf80e814a2e0ed026706f0a16371ca40dbc26</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>podman pod stats: fix pod rm race If a pod is removed when calling podman pod stats there is a race where the command might fail with no such pod. This is not a user error, like the ps/ls command skip it and move to the next one. Fixes #23327 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>182224defbb4a2bf08a40dd6a7f3b1e158067c2e</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/infra/abi/pods_stats.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

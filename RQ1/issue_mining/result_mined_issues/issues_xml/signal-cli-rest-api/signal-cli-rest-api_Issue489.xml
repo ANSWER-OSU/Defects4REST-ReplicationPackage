@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>489</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/489</ISSUEURL>
+  <TITLE>0.142-dev: Unable to start in json-rpc mode</TITLE>
+  <DESCRIPTION>### The problem When switching to this latest dev image tag, the log output shows the following: ``` signal | + [ json-rpc = json-rpc ] signal | + /usr/bin/jsonrpc2-helper signal | time=&quot;2024-02-23T08:23:22Z&quot; level=info msg=&quot;Updated jsonrpc2.yml&quot; … signal | time=&quot;2024-02-23T08:23:23Z&quot; level=info msg=&quot;Started Signal Messenger REST API&quot; signal | time=&quot;2024-02-23T08:23:23Z&quot; level=error msg=&quot;Couldn't read data for number &lt;multi-account&gt;: EOF. Is the number properly registered?&quot; signal | [GIN] 2024/02/23 - 08:23:52 | 500 | 99.92µs | 172.18.0.10 | GET &quot;/v1/accounts&quot; ``` Response to `GET /v1/accounts` is ```json { &quot;error&quot;: &quot;Couldn't get list of accounts: write tcp 127.0.0.1:44624-\u003e127.0.0.1:6001: write: broken pipe&quot; } ``` The updated `jsonrpc2.yml` reads ```yaml config: &lt;multi-account&gt;: tcp_port: 6001 fifo_pathname: /tmp/sigsocket1 ``` ### Are you using the latest released version? - [ ] Yes ### Have you read the troubleshooting page? - [X] Yes ### What type of installation are you running? signal-cli-rest-api Docker Container ### In which mode are you using the docker container? JSON-RPC Mode ### What's the architecture of your host system? arm64 ### Additional information Only one account is registered in the configuration of the instance.</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>updated golang.org/x/net to v0.17.0 in order fix potential security vulnerability</MESSAGE>
+    <SHA>05f6434630d617c67528131a05882dd49304c7e2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>removed JAVA_HOME env variable from supervisor configuration * not needed and is causing some problems since we switched from the eclipse-temurin to the ubuntu base image. see #489</MESSAGE>
+      <SHA>08dc98eac2a137d32d21bc739981d4533d97f026</SHA>
+      <PATCHEDFILES>
+        <FILE>src/scripts/jsonrpc2-helper.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

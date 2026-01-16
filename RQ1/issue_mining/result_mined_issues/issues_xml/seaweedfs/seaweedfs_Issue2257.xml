@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2257</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/2257</ISSUEURL>
+  <TITLE>Filer locationPrefix configure does not exec replication</TITLE>
+  <DESCRIPTION>**Describe the bug** When apply fs.configure on locationPrefix, replication rule does not exec - WEED places volumes in the same datacenter, regardless of the replication rule At the same time, TTL and volumeGrowthCount work correctly ``` &gt; fs.configure { &quot;locations&quot;: [ { &quot;locationPrefix&quot;: &quot;/buckets/test&quot;, &quot;replication&quot;: &quot;100&quot;, &quot;ttl&quot;: &quot;600&quot;, &quot;volumeGrowthCount&quot;: 2 } ] } ``` syslog: ``` seaweedfs-master[26839]: volume_layout.go:362] Volume 109 becomes writable seaweedfs-master[26839]: volume_growth.go:235] Created Volume 109 on topo:dc2:0:&lt;ip node1&gt;:8080 seaweedfs-master[26839]: volume_layout.go:362] Volume 110 becomes writable seaweedfs-master[26839]: volume_growth.go:235] Created Volume 110 on topo:dc2:0:&lt;ip node1&gt;:8080 volume.list: DataCenter dc2 hdd(volume:6/1771 active:6 free:1765 remote:0) Rack 0 hdd(volume:6/1771 active:6 free:1765 remote:0) volume id:109 size:22777781424 collection:&quot;test&quot; file_count:6022 delete_count:6 deleted_byte_count:950374 version:3 ttl:1281 modified_at_second:1628858635 volume id:110 size:22676154832 collection:&quot;test&quot; file_count:5959 delete_count:3 deleted_byte_count:12142 version:3 ttl:1281 modified_at_second:1628858635 ``` **System Setup** node1 ``` /usr/local/bin/weed master /usr/local/bin/weed volume -dir=/var/spool/weed/vol -max=0 -mserver=stor:9333 -port=8080 -dataCenter dc2 -rack 0 /usr/local/bin/weed filer /usr/local/bin/weed s3 -config=/etc/seaweedfs/config.json ``` node2: ``` /usr/local/bin/weed volume -dir=/var/spool/weed/vol -max=0 -mserver=stor:9333 -port=8080 -dataCenter dc1 -rack 0 ``` (`stor` ip present in /etc/hosts file) ``` # weed version version 30GB 2.61 3afbf040 linux amd64 Debian GNU/Linux 10 (buster) #/etc/seaweedfs/filer.toml [filer.options] recursive_delete = true [postgres2] enabled = true createTable = &quot;&quot;&quot; CREATE TABLE IF NOT EXISTS &quot;%s&quot; ( dirhash BIGINT, name VARCHAR(65535), directory VARCHAR(65535), meta bytea, PRIMARY KEY (dirhash, name) ); &quot;&quot;&quot; hostname = &quot;stor&quot; port = 5432 username = &quot;filer&quot; password = &quot;seaweed&quot; database = &quot;weed&quot; schema = &quot;&quot; sslmode = &quot;disable&quot; connection_max_idle = 100 connection_max_open = 100 connection_max_lifetime_seconds = 0 # if insert/upsert failing, you can disable upsert or update query syntax to match your RDBMS syntax: enableUpsert = true upsertQuery = &quot;&quot;&quot;INSERT INTO &quot;%[1]s&quot; (dirhash,name,directory,meta) VALUES($1,$2,$3,$4) ON CONFLICT (dirhash,name) DO UPDATE SET meta = EXCLUDED.meta WHERE &quot;%[1]s&quot;.meta != EXCLUDED.meta&quot;&quot;&quot; ``` **Expected behavior** Weed places one volume in datacenter dc1 with one replica in dc2 **Additional context** weed check volumeGrowthCount needed: ``` &gt; fs.configure -locationPrefix=/buckets/test -replication=111 -volumeGrowthCount=2 -apply -ttl 5 error: volumeGrowthCount 2 should be devided by replication copy count 4 ``` when set volumeGrowthCount=4, Weed places 4 volume, without replica(with any replication value - 111/100/110)</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix</MESSAGE>
+    <SHA>0c66b173a4b50dd4589fa16a521d52060cbe5c16</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Filer locationPrefix configure does not exec replication #2257 fix https://github.com/chrislusf/seaweedfs/issues/2257</MESSAGE>
+      <SHA>7937db52e1a6b8be0e04da0b2ed9d62284fa2698</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/master.go</FILE>
+        <FILE>weed/command/server.go</FILE>
+        <FILE>weed/server/filer_server_handlers_write.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5277</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/5277</ISSUEURL>
+  <TITLE>request help: Can strict mode be supported and cannot be started when there is an error in configuration</TITLE>
+  <DESCRIPTION>### Issue description 昨天我们这边因为配置文件中的discovery缩进错误，导致eureka服务发现不可用，所有基于eureka的服务全部503，但是APISIX是正常启动且没有报错日志。 ![image](https://user-images.githubusercontent.com/9711651/137831489-779dd74e-12b7-43f4-afad-be056029f6ba.png) 想问下有没有可能支持配置下严格模式，当检测配置有误的时候则阻止启动，比如这个场景下，APISIX能否获悉配置了eureka服务发现的上游，而配置文件里面却没有discovery配置，此时应该报错并阻止启动。 因为在K8S里面部署，新的pod无法启动就不会影响现网。 以上，不知道有没有比较好的解决办法。 ### Environment - apisix version (cmd: `apisix version`): 2.10.0 - OS (cmd: `uname -a`): centos-docker</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>42</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>docs: update admin ip example node ip (#5603)</MESSAGE>
+    <SHA>12b3fac3cef09347aeae1c41baaa7095c8c8ab5c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat(discovery): check schema before starting Fix https://github.com/apache/apisix/issues/5277 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>379e52790c48dfc81f21ec49cd29a2deddff3c30</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ops.lua</FILE>
+        <FILE>apisix/discovery/consul_kv/init.lua</FILE>
+        <FILE>apisix/discovery/consul_kv/schema.lua</FILE>
+        <FILE>apisix/discovery/dns/init.lua</FILE>
+        <FILE>apisix/discovery/dns/schema.lua</FILE>
+        <FILE>apisix/discovery/eureka/init.lua</FILE>
+        <FILE>apisix/discovery/eureka/schema.lua</FILE>
+        <FILE>apisix/discovery/nacos/init.lua</FILE>
+        <FILE>apisix/discovery/nacos/schema.lua</FILE>
+        <FILE>docs/en/latest/discovery.md</FILE>
+        <FILE>docs/zh/latest/discovery.md</FILE>
+        <FILE>t/cli/test_validate_config.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat(discovery): check schema before starting Fix https://github.com/apache/apisix/issues/5277 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>d6db69935af3a3a6d5e1809bc3d502951f338815</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ops.lua</FILE>
+        <FILE>apisix/discovery/consul_kv/init.lua</FILE>
+        <FILE>apisix/discovery/consul_kv/schema.lua</FILE>
+        <FILE>apisix/discovery/dns/init.lua</FILE>
+        <FILE>apisix/discovery/dns/schema.lua</FILE>
+        <FILE>apisix/discovery/eureka/init.lua</FILE>
+        <FILE>apisix/discovery/eureka/schema.lua</FILE>
+        <FILE>apisix/discovery/nacos/init.lua</FILE>
+        <FILE>apisix/discovery/nacos/schema.lua</FILE>
+        <FILE>docs/en/latest/discovery.md</FILE>
+        <FILE>docs/zh/latest/discovery.md</FILE>
+        <FILE>t/cli/test_validate_config.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat(discovery): check schema before starting Fix https://github.com/apache/apisix/issues/5277 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>f44457aa9b5626eb86741827160ef2ee7552441b</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ops.lua</FILE>
+        <FILE>apisix/discovery/consul_kv/init.lua</FILE>
+        <FILE>apisix/discovery/consul_kv/schema.lua</FILE>
+        <FILE>apisix/discovery/dns/init.lua</FILE>
+        <FILE>apisix/discovery/dns/schema.lua</FILE>
+        <FILE>apisix/discovery/eureka/init.lua</FILE>
+        <FILE>apisix/discovery/eureka/schema.lua</FILE>
+        <FILE>apisix/discovery/nacos/init.lua</FILE>
+        <FILE>apisix/discovery/nacos/schema.lua</FILE>
+        <FILE>docs/en/latest/discovery.md</FILE>
+        <FILE>docs/zh/latest/discovery.md</FILE>
+        <FILE>t/cli/test_validate_config.sh</FILE>
+        <FILE>t/discovery/dns/sanity.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

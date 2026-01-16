@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17026</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/17026</ISSUEURL>
+  <TITLE>[Bug]: aarch64-darwin: podman installed from nixpkgs uses wrong path for edk2-aarch64-code.fd</TITLE>
+  <DESCRIPTION>### Issue Description podman 4.3.1 installed via nixpkgs, I get an error about the path to `edk2-aarch64-code.fd` upon `podman machine start`. Several prior related issues and PRs: - https://github.com/containers/podman/issues/12379 - https://github.com/containers/podman/issues/13394 - https://github.com/NixOS/nixpkgs/issues/169118 - https://github.com/NixOS/nixpkgs/pull/163015 - https://github.com/containers/podman/issues/12379 It looks like the current code requires minimal changes to work with nixpkgs -- just resolve the symlink to the real location of qemu in the nix path and everything works. ### Steps to reproduce the issue Steps to reproduce the issue 1. `nix shell nixpkgs#podman` 2. podman machine init 3. podman machine start ### Describe the results you received Error about path to `edk2-aarch64-code.fd` (sorry, now getting [a different error about the socket](https://github.com/containers/podman/issues/16163) -- will update this with the error output after a reboot). UPDATE: ```console $ podman machine start Starting machine &quot;podman-machine-default&quot; Waiting for VM ... Error: qemu exited unexpectedly with exit code 1, stderr: qemu-system-aarch64: -drive file=edk2-aarch64-code.fd,if=pflash,format=raw,readonly=on: Could not open 'edk2-aarch64-code.fd': No such file or directory ``` ### Describe the results you expected Podman starts ### podman info output ```shell $ podman --version podman version 4.3.1 `podman info` gives an error ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release No ### Additional environment details MacOS 13.1, nixpkgs 22.11 ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>107</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #17383 from cevich/revert_emergency_fix [CI:BUILD] Cirrus: Fix GraphQL ownerRepository:null error</MESSAGE>
+    <SHA>93a36687ab12a867efc246a63b29d7d4470c0e33</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Resolve symlink path for qemu directory if possible Fixes https://github.com/containers/podman/issues/17026 Fixes https://github.com/NixOS/nixpkgs/issues/169118 [NO NEW TESTS NEEDED] Related: https://github.com/NixOS/nixpkgs/pull/163015 Signed-off-by: Nathan Henrie &lt;nate@n8henrie.com&gt;</MESSAGE>
+      <SHA>6b6458916eaa51f0dbbcfeccd740706697697ad3</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/machine/qemu/options_darwin_arm64.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Resolve symlink path for qemu directory if possible Fixes https://github.com/containers/podman/issues/17026 Fixes https://github.com/NixOS/nixpkgs/issues/169118 [NO NEW TESTS NEEDED] Related: https://github.com/NixOS/nixpkgs/pull/163015 Signed-off-by: Nathan Henrie &lt;nate@n8henrie.com&gt;</MESSAGE>
+      <SHA>a1cc3733b10fac655090df63ddece908caee2e19</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/machine/qemu/options_darwin_arm64.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

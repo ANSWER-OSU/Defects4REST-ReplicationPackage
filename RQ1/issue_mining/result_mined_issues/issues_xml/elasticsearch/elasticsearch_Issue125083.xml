@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>125083</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/125083</ISSUEURL>
+  <TITLE>[CI] DataStreamAndIndexLifecycleMixingTests testGetDataStreamResponse failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #20280 / part2](https://gradle-enterprise.elastic.co/s/2tumknx6ewud4) - [elasticsearch-pull-request #63107 / part-2](https://gradle-enterprise.elastic.co/s/diq7sg256b5bw) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:ilm:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.ilm.DataStreamAndIndexLifecycleMixingTests.testGetDataStreamResponse&quot; -Dtests.seed=C6EF1926138857C0 -Dtests.locale=sd-Deva -Dtests.timezone=Indian/Mahe -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.ilm.DataStreamAndIndexLifecycleMixingTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testGetDataStreamResponse),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.ArrayIndexOutOfBoundsException: Index 2 out of bounds for length 2 ``` **Issue Reasons:** - [main] 2 failures in test testGetDataStreamResponse (1.1% fail rate in 187 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add ModelRegistryMetadata to Cluster State (#121106) This commit integrates `MinimalServiceSettings` (introduced in #120560) into the cluster state for all registered models in the `ModelRegistry`. These settings allow consumers to access configuration details without requiring asynchronous calls to retrieve full model configurations. To ensure consistency, the cluster state metadata must remain synchronized with the models in the inference index. If a mismatch is detected during startup, the master node performs an upgrade to load all model settings from the index.</MESSAGE>
+    <SHA>270ec538c9442d244ffc7583d14bb02a80223407</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ilm.DataStreamAndIndexLifecycleMixingTests testGetDataStreamResponse #125083</MESSAGE>
+      <SHA>9f76a7f32d0e0f7425ee4fa812cfa2028c9f7a24</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix data stream retrieval in `DataStreamAndIndexLifecycleMixingTests` These tests had the potential to fail when two consecutive GET data streams requests would hit two different nodes, where one node already had the cluster state that contained the new backing index and the other node didn't yet. Caused by #122852 Fixes #124837 Fixes #124849 Fixes #124850 Fixes #124886 Fixes #125083</MESSAGE>
+      <SHA>0e560b435695573ce7d88d0fd95b784f382af55b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/ilm/src/internalClusterTest/java/org/elasticsearch/xpack/ilm/DataStreamAndIndexLifecycleMixingTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix data stream retrieval in `DataStreamAndIndexLifecycleMixingTests` (#125609) These tests had the potential to fail when two consecutive GET data streams requests would hit two different nodes, where one node already had the cluster state that contained the new backing index and the other node didn't yet. Caused by #122852 Fixes #124837 Fixes #124849 Fixes #124850 Fixes #124886 Fixes #125083</MESSAGE>
+      <SHA>3d9a7abb843c4b0160ee71ed4fd091632206b629</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/ilm/src/internalClusterTest/java/org/elasticsearch/xpack/ilm/DataStreamAndIndexLifecycleMixingTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ilm.DataStreamAndIndexLifecycleMixingTests testGetDataStreamResponse #125083</MESSAGE>
+      <SHA>95a1eb480da35f887a521076df36cc6589fb31c2</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix data stream retrieval in `DataStreamAndIndexLifecycleMixingTests` (#125609) These tests had the potential to fail when two consecutive GET data streams requests would hit two different nodes, where one node already had the cluster state that contained the new backing index and the other node didn't yet. Caused by #122852 Fixes #124837 Fixes #124849 Fixes #124850 Fixes #124886 Fixes #125083</MESSAGE>
+      <SHA>09f1fa059efe177991bce8ae398487f994405949</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/ilm/src/internalClusterTest/java/org/elasticsearch/xpack/ilm/DataStreamAndIndexLifecycleMixingTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

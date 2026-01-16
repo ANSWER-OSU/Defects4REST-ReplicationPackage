@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8152</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/8152</ISSUEURL>
+  <TITLE>RDFConsumer creates unnecessary second Context</TITLE>
+  <DESCRIPTION>**Describe the bug** If you activate the RDFConsumer in DSpace 6 and finish a submission, you run into an Internal Server Error. The log shows: ``` org.hibernate.exception.GenericJDBCException: could not execute statement ... Caused by: org.postgresql.util.PSQLException: ERROR: current transaction is aborted, commands ignored until end of transaction block ... Caused by: org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint &quot;doi_doi_key&quot; Detail: Key (doi)=(10.7968/tlc.wi-test.0003/20) already exists. ``` The RDFConsumer creates a new Context in `READ_ONLY` mode and aborts that context later. Unfortunately another running context seem to be aborted as well. The easy fix here is to change RDFConsumer, to store the previous `Context.Mode`, set it to `READ_ONLY` and restore it once its work is done. The more complex solution would be to determine why both instances of `org.dspace.core.Context` are being aborted. I don't know if the same bug occurs in DSpace 7, but the code exists there as well. **Expected behavior** Being able to submit an item when the RDFConsumer is activated (added to event.dispatcher.default.consumers). **Related work** PR is in preparation.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[maven-release-plugin] prepare for next development iteration</MESSAGE>
+    <SHA>18c524170af708196bce9673ef3e186bdcd9caff</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Remove unneccessary second Context in RDFConsumer fixes #8152</MESSAGE>
+      <SHA>dcd434ded039189e68d17659d5bd82bfe4dbd65d</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/rdf/RDFConsumer.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Remove unneccessary second Context in RDFConsumer fixes #8152</MESSAGE>
+      <SHA>f0a6b51f34a075818c1fec55ef98c25b421bff4f</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/rdf/RDFConsumer.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

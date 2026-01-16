@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4694</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/4694</ISSUEURL>
+  <TITLE>Slow transactions in requests made with OAuth2 tokens hold open per-request row exclusive locks</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY 1. Create an OAuth2.0 token. 2. Run a request that results in an especially time consuming database transaction. For example, to simulate a slow query, this code diff makes an HTTP GET request to `/api/` _very_ slow: ```diff diff --git a/awx/api/views/root.py b/awx/api/views/root.py index 922041c8b..711907f8d 100644 --- a/awx/api/views/root.py +++ b/awx/api/views/root.py @@ -50,6 +50,8 @@ class ApiRootView(APIView): def get(self, request, format=None): ''' List supported API versions ''' + for x in Instance.objects.raw('SELECT id, pg_sleep(30) FROM main_instance'): + print(x) v2 = reverse('api:api_v2_root_view', kwargs={'version': 'v2'}) data = OrderedDict() data['description'] = _('AWX REST API') ``` ```shell ~curl -sk -H 'Authorization: Bearer TOKEN' 'https://awx.example.org/api/' ``` 3. Observe that step 2 takes 30 seconds. During this time, an exclusive row lock is held on the row for that OAuth2.0 token: ```sql SELECT t.relname,l.locktype,page,virtualtransaction,pid,mode,granted FROM pg_locks l, pg_stat_all_tables t WHERE l.relation=t.relid ORDER BY relation ASC; main_oauth2accesstoken | relation | | 5/99223 | 20896 | RowExclusiveLock | t ``` 4. Simultaneously, perform an HTTP request on a *different* unrelated API endpoint using the *same* OAuth2.0 token: ```shell ~curl -sk -H 'Authorization: Bearer TOKEN' 'https://awx.example.org/api/v2/settings/' ``` Observe the second request _does not_ complete until the first request completes.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #4687 from AlexSCorey/4685-LookUpPluralization Adds proper pluralization to Look Up modal empty state Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>edb7ddb9ae1c928754b330cba286b795eeb2f8f1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>move the oauth2 last_used update to the bottom of the request this avoids acquiring a row lock (and holding it for the duration of transactions that include a very slow query) see: https://github.com/ansible/awx/issues/4694</MESSAGE>
+      <SHA>e2547352b102cfcb25c18c9bec655246a4ba0307</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/authentication.py</FILE>
+        <FILE>awx/main/middleware.py</FILE>
+        <FILE>awx/main/models/oauth.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>move the oauth2 last_used update to the bottom of the request this avoids acquiring a row lock (and holding it for the duration of transactions that include a very slow query) see: https://github.com/ansible/awx/issues/4694</MESSAGE>
+      <SHA>9bc796a1f144dda93b4f334c55b52ac2ca64f262</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/authentication.py</FILE>
+        <FILE>awx/main/middleware.py</FILE>
+        <FILE>awx/main/models/oauth.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>move the oauth2 last_used update to the bottom of the request this avoids acquiring a row lock (and holding it for the duration of transactions that include a very slow query) see: https://github.com/ansible/awx/issues/4694</MESSAGE>
+      <SHA>efbade82f2876708ec0792c6ea3ca4ac00cd8159</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/authentication.py</FILE>
+        <FILE>awx/main/middleware.py</FILE>
+        <FILE>awx/main/models/oauth.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

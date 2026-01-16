@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14184</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14184</ISSUEURL>
+  <TITLE>Need timeout bump in containerignore-filtering-embedded-etc test</TITLE>
+  <DESCRIPTION>``` Remote build .containerignore filtering embedded directory (#13535) [It] /var/tmp/go/src/github.com[/containers/podman/test/e2e/build_test.go:499](https://github.com/containers/podman/blob/349e349f16ecab824ed98542293d119320aee9af/test/e2e/build_test.go#L499) Timed out after 1.001s. Expected process to exit. It did not. /var/tmp/go/src/github.com[/containers/podman/test/e2e/build_test.go:532](https://github.com/containers/podman/blob/349e349f16ecab824ed98542293d119320aee9af/test/e2e/build_test.go#L532) ``` (Looks to me like `Eventually()` is defaulting to 1s, which seems low) ### Podman build [It] Remote build .containerignore filtering embedded directory (#13535) * fedora-35 : int remote fedora-35 root host [remote] * PR #14180 * [05-10 12:00](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/4614483497713664/html/int-remote-fedora-35-root-host.log.html#t--Remote-build--containerignore-filtering-embedded-directory---13535---1) * [05-10 12:00](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/4614483497713664/html/int-remote-fedora-35-root-host.log.html#t--Remote-build--containerignore-filtering-embedded-directory---13535---2) * [05-10 12:00](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/4614483497713664/html/int-remote-fedora-35-root-host.log.html#t--Remote-build--containerignore-filtering-embedded-directory---13535---3) * PR #13908 * [04-25 16:15](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/6028366682783744/html/int-remote-fedora-35-root-host.log.html#t--Remote-build--containerignore-filtering-embedded-directory---13535---1) * [04-25 16:15](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/6028366682783744/html/int-remote-fedora-35-root-host.log.html#t--Remote-build--containerignore-filtering-embedded-directory---13535---2) * [04-25 16:15](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/6028366682783744/html/int-remote-fedora-35-root-host.log.html#t--Remote-build--containerignore-filtering-embedded-directory---13535---3) * PR #13844 * [04-13 10:52](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/6070543597174784/html/int-remote-fedora-35-root-host.log.html#t--Remote-build--containerignore-filtering-embedded-directory---13535---1) * [04-13 10:52](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/6070543597174784/html/int-remote-fedora-35-root-host.log.html#t--Remote-build--containerignore-filtering-embedded-directory---13535---2) * PR #13841 * [04-12 12:18](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/6332884226146304/html/int-remote-fedora-35-root-host.log.html#t--Remote-build--containerignore-filtering-embedded-directory---13535---1) * [04-12 12:18](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/6332884226146304/html/int-remote-fedora-35-root-host.log.html#t--Remote-build--containerignore-filtering-embedded-directory---13535---2) * [04-12 12:18](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/6332884226146304/html/int-remote-fedora-35-root-host.log.html#t--Remote-build--containerignore-filtering-embedded-directory---13535---3) * PR #13641 * [04-14 05:44](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/5320239050129408/html/int-remote-fedora-35-root-host.log.html#t--Remote-build--containerignore-filtering-embedded-directory---13535---1) * [04-14 05:44](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/5320239050129408/html/int-remote-fedora-35-root-host.log.html#t--Remote-build--containerignore-filtering-embedded-directory---13535---2) * [04-14 05:44](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/5320239050129408/html/int-remote-fedora-35-root-host.log.html#t--Remote-build--containerignore-filtering-embedded-directory---13535---3) Also seen last week in [treadmill PR](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/5105045082472448/html/int-remote-fedora-35-root-host.log.html#t--Remote-build--containerignore-filtering-embedded-directory-13535---1)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>30</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14220 from Luap99/resolvconf use resolvconf package from c/common/libnetwork</MESSAGE>
+    <SHA>b4c981893de2e2c5b0b6163961d6699098f5c1ae</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix Remote filtering embedded directory test Fixes #14184 Docs: https://onsi.github.io/gomega/#making-asynchronous-assertions Signed-off-by: Chris Evich &lt;cevich@redhat.com&gt;</MESSAGE>
+      <SHA>80d5a00bb49e36cc9b33f81fca40257bfe0259a0</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/build_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix Remote filtering embedded directory test Fixes #14184 Docs: https://onsi.github.io/gomega/#making-asynchronous-assertions Signed-off-by: Chris Evich &lt;cevich@redhat.com&gt;</MESSAGE>
+      <SHA>3eee4585ef9068212fc4b34aa611d082601dc97c</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/build_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

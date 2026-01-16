@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1101</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/1101</ISSUEURL>
+  <TITLE>request help: is the worker_rlimit_core too small?</TITLE>
+  <DESCRIPTION>https://github.com/apache/incubator-apisix/blob/master/bin/apisix#L98 Currently we configure the `worker_rlimit_core` to 500MiB, which may be big enough for normal situation, but might truncate the core file in some cases. The size of the core file is equal to the memory used by LuaJIT + Nginx + shared memory among workers, which could be larger than 500MiB. IMHO, it'd be better to limit the core size to 4GiB under 32 bits platform, and 16GiB elsewhere.</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feature: make the number of file is as configurable as the connections. (#1098)</MESSAGE>
+    <SHA>fda20d99d55d91905622b9d780e4dce79d128e76</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feature: increase the default size of the core file Close #1101.</MESSAGE>
+      <SHA>21f2290fb0619a3b25f99049eab94bf952d9ed6b</SHA>
+      <PATCHEDFILES>
+        <FILE>bin/apisix</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feature: increase the default size of the core file (#1105) Close #1101.</MESSAGE>
+      <SHA>abcd1973120fc67bbe7f0c43c08e349d2cf9dcad</SHA>
+      <PATCHEDFILES>
+        <FILE>bin/apisix</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feature: increase the default size of the core file (#1105) Close #1101.</MESSAGE>
+      <SHA>f05b5da2cebeeb1f1e443432805312043a821b98</SHA>
+      <PATCHEDFILES>
+        <FILE>bin/apisix</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

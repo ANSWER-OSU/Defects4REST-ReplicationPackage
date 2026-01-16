@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7313</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7313</ISSUEURL>
+  <TITLE>Issue with prices when adding a new product to an order in the admin area</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.70 Steps to reproduce the problem: For some languages, when trying to add a new item to an existing order in the admin area, decimal prices are multiplied Source: https://www.nopcommerce.com/en/boards/topic/100611/issue-after-upgrading-from-4601-to-latest-4704-when-adding-a-new-item-to-an-order This issue is similar to issue #6060</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '4.70-bug-fixes' into develop</MESSAGE>
+    <SHA>020f7571c2f37beedc33c8bfb04ab53565623c1b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix issue with prices when adding a new product to an order in the admin area Fixes #7313 Update `OrderService` class to handle decimal prices correctly for different languages. * Modify `InsertOrderItemAsync` and `UpdateOrderItemAsync` methods to ensure proper handling of unit prices and total prices. * Add a method `EnsureProperHandlingOfPrices` in `OrderItem` class to handle decimal values correctly. * Update `AddProductToOrderModel` class to handle decimal prices correctly. * Add a method `EnsureProperHandlingOfOrderTotals` in `Order` class to ensure that order totals are calculated correctly for different languages.</MESSAGE>
+      <SHA>f342d64c95ffe16f45e78c14c16ffdba4e3fa25d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Orders/Order.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Domain/Orders/OrderItem.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Orders/AddProductToOrderModel.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#7313 Fixed parsing of prices and rental dates when adding a product to an order</MESSAGE>
+      <SHA>993f2d1e034a9223afa6be6a8f0afd21ac9a430b</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/OrderController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Order/_ProductAddRentalInfo.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

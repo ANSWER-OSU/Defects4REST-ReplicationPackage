@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5815</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/5815</ISSUEURL>
+  <TITLE>bug: using nacos for service discovery, no support for spring cloud programs?</TITLE>
+  <DESCRIPTION>### Issue description [error] 47#47: *117481 upstream prematurely closed connection while reading response header from upstream ### Environment - apisix version (cmd: `apisix version`): - OS (cmd: `uname -a`): - OpenResty / Nginx version (cmd: `nginx -V` or `openresty -V`): - etcd version, if have (cmd: run `curl http://127.0.0.1:9090/v1/server_info` to get the info from server-info API): - apisix-dashboard version, if have: - the plugin runner version, if the issue is about a plugin runner (cmd: depended on the kind of runner): - luarocks version, if the issue is about installation (cmd: `luarocks --version`): ### Steps to reproduce 使用spring cloud grpc程序注册到nacos中，port在meta data中gRPC_port=xxxx ### Actual result 502 Bad Gateway openresty ### Error log [error] 47#47: *117481 upstream prematurely closed connection while reading response header from upstream, client: 172.18.0.1 ### Expected result _No response_</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>chore(deps): bump actions/setup-go from 2.1.4 to 2.1.5 (#5880) Co-authored-by: dependabot[bot] &lt;49699333+dependabot[bot]@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>3c0b374808903388f5facc081dbdb2db672c7c69</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix:#5815 upstream support nacos2.xx</MESSAGE>
+      <SHA>03a3691f32e25e5e4bedbc023a050219c0149a8b</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/discovery/nacos/init.lua</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix:#5815 adjust judgment conditions</MESSAGE>
+      <SHA>2cbdf30aa311eebf1b0fa72a76882fe0dc65ae6e</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/discovery/nacos/init.lua</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix:#5815 add doc link</MESSAGE>
+      <SHA>8c4a2b0cfc298985c8b6416d9a0290261db7501a</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/discovery/nacos/init.lua</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

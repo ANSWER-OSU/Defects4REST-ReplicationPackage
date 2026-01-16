@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>11547</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/11547</ISSUEURL>
+  <TITLE>Auto Register generic IDisplayManager for framework</TITLE>
+  <DESCRIPTION>### Is your feature request related to a problem? Please describe. In OC framework, to add display manager, we configure services for each type as below eg ```cs services.AddScoped&lt;IDisplayManager&lt;MenuItem&gt;, DisplayManager&lt;MenuItem&gt;&gt;(); services.AddScoped&lt;IDisplayManager&lt;User&gt;, DisplayManager&lt;User&gt;&gt;(); ``` It seems redundant code to resolve services for `DisplayManager` for given type ### Describe the solution you'd like Orchard builder should register generic display manager resolver as below similar to what its already done for `Documents` [here](https://github.com/OrchardCMS/OrchardCore/blob/339d74b251b53393dd510f8ad3027aa17d78500d/src/OrchardCore/OrchardCore.Infrastructure/Documents/OrchardCoreBuilderExtensions.cs#L18) ```cs services.AddScoped(typeof(IDisplayManager&lt;&gt;), typeof(DisplayManager&lt;&gt;)); ```</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>40</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix UI issue on Security module (#11735)</MESSAGE>
+    <SHA>8465fbb4b37a4a52d684c22e0afaeae17cdde8d9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Auto register IDisplayManager&lt;T&gt; for T on AddTheming Fixes: #11547</MESSAGE>
+      <SHA>522493427f6b542c744d80cbe2670043ad2b4e5d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.AdminMenu/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.AuditTrail/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Contents/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Deployment/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.OpenId/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Queries/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Rules/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Settings/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Shortcodes/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Sitemaps/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Users/Startup.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement/OrchardCoreBuilderExtensions.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Auto register IDisplayManager&lt;T&gt; for T on AddTheming (#11756) Fixes: #11547</MESSAGE>
+      <SHA>0e91be6a681adee89f60e2cb33b0345599e1a0a1</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.AdminMenu/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.AuditTrail/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Contents/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Deployment/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.OpenId/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Queries/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Rules/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Settings/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Shortcodes/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Sitemaps/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Users/Startup.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.DisplayManagement/OrchardCoreBuilderExtensions.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

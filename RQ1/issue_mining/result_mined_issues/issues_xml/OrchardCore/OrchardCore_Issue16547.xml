@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16547</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/16547</ISSUEURL>
+  <TITLE>Add a way to automatically add a part to a content type</TITLE>
+  <DESCRIPTION>### Is your feature request related to a problem? Please describe. If we look at the implementation of the [Admin Dashboard](https://docs.orchardcore.net/en/latest/reference/modules/AdminDashboard/), we'll notice that the user has to specify a `DashboardWidget ` Sterotype in addition to attaching `DashboardPart` part. I think there should be a way to allow us to inject a driver automatically based on conditions (for example stereotype). ### Describe the solution you'd like I think we should add a way &quot;maybe options&quot; that would allow us to specify which part to attach and when. So we can say attach X part to Y content type everytime &quot;no optional&quot;. User's can't remove it, but user can change it's position as needed. This will simplify the steps on user need to do for this kind of scenario. Maybe we can add event handling to the content definition manager where we can auto inject a part directly when loading/updating a content type of X stereotype (or any other custom logic). The add a new option to the content part definition &quot;IsRemovable&quot; for the UI.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>82</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Adding thanks template and improved the bug and feature request templates (#16900)</MESSAGE>
+    <SHA>9b48e25b87a45fc3ed4156ee452cbad06389116f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Auto Attach the DashboardPart to content types with DashboardWidget stereotype Fix #16547</MESSAGE>
+      <SHA>8cc594af6adf61a4a7961151d1c5f800ea68a86f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.AdminDashboard/Migrations.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.AdminDashboard/Services/DashboardPartContentTypeDefinitionHandler.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.AdminDashboard/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.ContentTypes/Controllers/AdminController.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.ContentTypes/Services/ContentDefinitionService.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.ContentTypes/Views/Admin/Edit.cshtml</FILE>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement.Abstractions/Metadata/Builders/ContentTypePartDefinitionBuilder.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement.Abstractions/Metadata/Settings/ContentSettings.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement/ContentDefinitionManager.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement/OrchardCore.ContentManagement.csproj</FILE>
+        <FILE>src/OrchardCore/OrchardCore.ContentTypes.Abstractions/Events/IContentDefinitionHandler.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.ContentTypes.Abstractions/Events/LoadedContentPartFieldContext.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.ContentTypes.Abstractions/Events/LoadedContentTypeContext.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.ContentTypes.Abstractions/Events/LoadedContentTypePartContext.cs</FILE>
+        <FILE>src/docs/reference/modules/AdminDashboard/README.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18363</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18363</ISSUEURL>
+  <TITLE>cant create vm mac-address via api</TITLE>
+  <DESCRIPTION>### Deployment Type Self-hosted ### Triage priority N/A ### NetBox Version v4.2.1 ### Python Version 3.10 ### Steps to Reproduce 1. create an interface on a vm 2. attempt to use the api to create a mac address linked to the interface id (curl example from swagger) ``` curl -X 'POST' \ 'https://netbox.dev.domain/api/dcim/mac-addresses/' \ -H 'accept: application/json' \ -H 'Content-Type: application/json' \ -H 'X-CSRFTOKEN:{removed}' \ -d '{ &quot;mac_address&quot;: &quot;BC:24:11:7E:0E:BF&quot;, &quot;assigned_object_type&quot;: &quot;virtualization.vminterface&quot;, &quot;assigned_object_id&quot;: 1 }' ``` ### Expected Behavior mac address gets created ### Observed Behavior 400 response: ``` Error: Bad Request Response body Download { &quot;assigned_object_id&quot;: [ &quot;This field cannot be null.&quot; ] } ```</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update source translation strings</MESSAGE>
+    <SHA>4090afbf241dec57a4a5a19d63a4b283946feb8a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #18363: Fix assignment of MAC addresses to interfaces via REST API</MESSAGE>
+      <SHA>91562b205a0eaadf7c8db969a819a11d48c07a84</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/dcim/api/serializers_/devices.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #18363: Fix assignment of MAC addresses to interfaces via REST API (#18367) * Fixes #18363: Fix assignment of MAC addresses to interfaces via REST API * Add missing API &amp; view tests</MESSAGE>
+      <SHA>b12c8c880f77acb5dac4e95c237a2cb654e72e6d</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/dcim/api/serializers_/devices.py</FILE>
+        <FILE>netbox/dcim/tests/test_api.py</FILE>
+        <FILE>netbox/dcim/tests/test_views.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #18363: Fix assignment of MAC addresses to interfaces via REST API (#18367) * Fixes #18363: Fix assignment of MAC addresses to interfaces via REST API * Add missing API &amp; view tests</MESSAGE>
+      <SHA>02e8637270ef3744763ee8b5daf922b93757f784</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/dcim/api/serializers_/devices.py</FILE>
+        <FILE>netbox/dcim/tests/test_api.py</FILE>
+        <FILE>netbox/dcim/tests/test_views.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #18363: Fix assignment of MAC addresses to interfaces via REST API (#18367) * Fixes #18363: Fix assignment of MAC addresses to interfaces via REST API * Add missing API &amp; view tests</MESSAGE>
+      <SHA>dfd9b06d6c072ca6bcba71964798ee798e92b293</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/dcim/api/serializers_/devices.py</FILE>
+        <FILE>netbox/dcim/tests/test_api.py</FILE>
+        <FILE>netbox/dcim/tests/test_views.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

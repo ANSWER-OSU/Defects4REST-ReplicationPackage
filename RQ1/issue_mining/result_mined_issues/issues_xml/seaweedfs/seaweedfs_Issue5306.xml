@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5306</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/5306</ISSUEURL>
+  <TITLE>panic: unaligned 64-bit atomic operation in weed mount on arm when reading a file</TITLE>
+  <DESCRIPTION>**Describe the bug** - Running a cluster of 3 arm and 2 arm64 nodes. The issue only happens on arm. - `weed mount` crashes when reading a file. - It does not crash when writing a file, reading or writing directories. **System Setup** - Command line: `weed mount -filer=peer2:8888 -dir=/mnt/weed` - OS version: Debian 12 (armbian) - output of `weed version`: `version 30GB 3.62 59b8af99b0aca1b9e88fec7b5f27c7d15e5e8604 linux arm` - Server command line: ``` weed server -ip=peer2 -dir=/mnt/disk/weed -master.peers=peer2:9333,peer3:9333,peer4:9333,peer5:9333,peer1:9333 -filer ``` **Expected behavior** Obviously, no panic. **Screenshots** ``` weed-client.sh[22296]: panic: unaligned 64-bit atomic operation weed-client.sh[22296]: goroutine 112 [running]: weed-client.sh[22296]: runtime/internal/atomic.panicUnaligned() weed-client.sh[22296]: /usr/local/go/src/runtime/internal/atomic/unaligned.go:8 +0x24 weed-client.sh[22296]: runtime/internal/atomic.Store64(0x3db0894, 0x17b3dfd71c975816) weed-client.sh[22296]: /usr/local/go/src/runtime/internal/atomic/atomic_arm.s:291 +0x14 weed-client.sh[22296]: github.com/seaweedfs/seaweedfs/weed/filer.(*SingleChunkCacher).startCaching(0x3db0840) weed-client.sh[22296]: /github/workspace/weed/filer/reader_cache.go:183 +0x3c8 weed-client.sh[22296]: created by github.com/seaweedfs/seaweedfs/weed/filer.(*ReaderCache).ReadChunkAt in goroutine 1 weed-client.sh[22296]: /github/workspace/weed/filer/reader_cache.go:117 +0x3ec ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: fs verify error counter (#5261)</MESSAGE>
+    <SHA>6181aa7594a7f8459910807e581d84adb2ab44c6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix unaligned 64-bit atomic operation in weed mount on arm when reading a file fix #5306</MESSAGE>
+      <SHA>e94d3e83ccd82f83d910ad50b1511c5f82eb19e9</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filer/reader_cache.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix unaligned 64-bit atomic operation in weed mount on arm when readi… (#5308) fix unaligned 64-bit atomic operation in weed mount on arm when reading a file fix #5306</MESSAGE>
+      <SHA>32cb9b3276eb2b99cb541ae30a2c9376caabf1f0</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filer/reader_cache.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

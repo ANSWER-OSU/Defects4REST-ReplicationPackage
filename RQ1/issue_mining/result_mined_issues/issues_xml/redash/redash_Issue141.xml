@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>141</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/141</ISSUEURL>
+  <TITLE>rd-timer causes $digest to be called every second</TITLE>
+  <DESCRIPTION>On views where we use `rd-timer` directive, it causes the `$digest` to be called every second which impacts performance. We should at least change it to call `$digest` only when it's visible, and also consider to avoid calling `$digest` at all.</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #139 from erans/master Added support for running scripts as queries</MESSAGE>
+    <SHA>8c80e99d3bef4902ae2536f036fab8e0d1c419cb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #141: prevent the timer directive call digest loop every second By using setInterval &amp; $scope.$digest instead of $timeout which uses $scope.$apply, which in turn calls $rootScope.$digest.</MESSAGE>
+      <SHA>93f87f0922e5d1969e1ec96b31b9ac442af510d3</SHA>
+      <PATCHEDFILES>
+        <FILE>rd_ui/app/scripts/directives.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #147 from EverythingMe/fix_141_digest_called_every_second Fix #141: prevent the timer directive call digest loop every second</MESSAGE>
+      <SHA>afb1b3f16f4739e69786e40e6ba15e46d4481e94</SHA>
+      <PATCHEDFILES>
+        <FILE>rd_ui/app/scripts/directives.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #141: prevent the timer directive call digest loop every second By using setInterval &amp; $scope.$digest instead of $timeout which uses $scope.$apply, which in turn calls $rootScope.$digest.</MESSAGE>
+      <SHA>76ce8b087657577baa4dfd45e0fac1acc7277300</SHA>
+      <PATCHEDFILES>
+        <FILE>rd_ui/app/scripts/directives.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #147 from EverythingMe/fix_141_digest_called_every_second Fix #141: prevent the timer directive call digest loop every second</MESSAGE>
+      <SHA>3bedfe75a8ae28fd2002900dccd61d8009ae1693</SHA>
+      <PATCHEDFILES>
+        <FILE>rd_ui/app/scripts/directives.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #141 from alison985/m6_replay_non_athena bug fix and data_scanned for 3 more query_runners</MESSAGE>
+      <SHA>58b40a99a73110237280ce93bd1eb4dee3481be0</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/pages/alerts-list/index.js</FILE>
+        <FILE>client/app/pages/queries/query.html</FILE>
+        <FILE>redash/query_runner/big_query.py</FILE>
+        <FILE>redash/query_runner/google_spreadsheets.py</FILE>
+        <FILE>redash/query_runner/url.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

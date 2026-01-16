@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6483</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/6483</ISSUEURL>
+  <TITLE>Anyone using filer.backup to Backblaze?</TITLE>
+  <DESCRIPTION>I've only run a few tests, and it doesn't work at all: `rclone copy check-mk-agent_2.2.0p7-1_all.deb swfs://fusion/jojo123.deb ` creates in SeaweedFS S3: `4014608 fusion/jojo123.deb/check-mk-agent_2.2.0p7-1_all.deb ` However, this is not transferred to Backblaze at all, and filer.backup runs in an endless loop without actually transferring any files. In the Backblaze web interface, new versions appear, but with 0 bytes. A regular folder with a few files is transferred correctly, but as soon as it is deleted: ``` I0129 06:35:53.566797 filer_sync.go:400 received directory:&quot;/buckets/fusion/test&quot; event_notification:{old_entry:{name:&quot;Makefile&quot; chunks:{file_id:&quot;27,0ee10df041af&quot; size:386 modified_ts_ns:1738131080610984468 e_tag:&quot;qkbIClPKS/CL6xsneBiEtQ==&quot; fid:{volume_id:27 file_key:3809 cookie:233849263} is_compressed:true} attributes:{file_size:386 mtime:1738131080 file_mode:432 crtime:1738131080 md5:&quot;\xaaF\xc8\nS\xcaK\xf0\x8b\xeb\x1b'x\x18\x84\xb5&quot;} extended:{key:&quot;X-Amz-Meta-Mtime&quot; value:&quot;1677147934.399210909&quot;}} signatures:69815396} ts_ns:1738132501654339938 E0129 06:35:53.672744 filer_pb_tail.go:97 process directory:&quot;/buckets/fusion/test&quot; event_notification:{old_entry:{name:&quot;Makefile&quot; chunks:{file_id:&quot;27,0ee10df041af&quot; size:386 modified_ts_ns:1738131080610984468 e_tag:&quot;qkbIClPKS/CL6xsneBiEtQ==&quot; fid:{volume_id:27 file_key:3809 cookie:233849263} is_compressed:true} attributes:{file_size:386 mtime:1738131080 file_mode:432 crtime:1738131080 md5:&quot;\xaaF\xc8\nS\xcaK\xf0\x8b\xeb\x1b'x\x18\x84\xb5&quot;} extended:{key:&quot;X-Amz-Meta-Mtime&quot; value:&quot;1677147934.399210909&quot;}} signatures:69815396} ts_ns:1738132501654339938: b2_download_file_by_name: 404: File with such name does not exist. ``` And nothing gets deleted at all. Why are such features implemented if they are apparently not tested at all? How is this supposed to be used in a production environment to store serious data? Please don't take this the wrong way—SeaweedFS is a very interesting project, but anything related to file handling should be extremely robust.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>return error on invalid action in PutUserPolicy (#6482)</MESSAGE>
+    <SHA>7c3a0ed8747fafbf0f5bfb3ab3c9249d4a2115ea</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix from ensure() before actual deletion, within the b2 client library fix https://github.com/seaweedfs/seaweedfs/issues/6483</MESSAGE>
+      <SHA>33ba88df9cbf1b8ca086e02e6cb09918279a4ca4</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/replication/sink/b2sink/b2_sink.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

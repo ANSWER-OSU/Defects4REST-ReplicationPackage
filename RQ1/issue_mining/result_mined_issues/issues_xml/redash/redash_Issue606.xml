@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>606</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/606</ISSUEURL>
+  <TITLE>Need to upgrade redis-py</TITLE>
+  <DESCRIPTION>Hey. When we run Redash on AWS it installs fine. If you try to install on other cloud providers (DO + Vultr), the installation results in a login page where after logging in, it returns a &quot;internal server error&quot;. It's seems to be the same type of error seen in a previous google group post https://groups.google.com/forum/#!topic/redash-users/pVJDUYneuY0 Log is attached. 2015-10-11 08:19:44 [20649] [INFO] Starting gunicorn 18.0 2015-10-11 08:19:44 [20649] [INFO] Listening at: http://127.0.0.1:5000 (20649) 2015-10-11 08:19:44 [20649] [INFO] Using worker: sync 2015-10-11 08:19:44 [20672] [INFO] Booting worker with pid: 20672 2015-10-11 08:19:44 [20673] [INFO] Booting worker with pid: 20673 2015-10-11 08:19:44 [20674] [INFO] Booting worker with pid: 20674 2015-10-11 08:19:44 [20675] [INFO] Booting worker with pid: 20675 [2015-10-11 08:19:45,872][PID:20673][WARNING][redash.query_runner.hive_ds] Missing dependencies. Please install pyhive. [2015-10-11 08:19:45,885][PID:20672][WARNING][redash.query_runner.hive_ds] Missing dependencies. Please install pyhive. [2015-10-11 08:19:45,885][PID:20672][WARNING][redash.query_runner.hive_ds] You can use pip: pip install pyhive [2015-10-11 08:19:45,886][PID:20673][WARNING][redash.query_runner.hive_ds] You can use pip: pip install pyhive [2015-10-11 08:19:45,975][PID:20674][WARNING][redash.query_runner.hive_ds] Missing dependencies. Please install pyhive. [2015-10-11 08:19:45,993][PID:20674][WARNING][redash.query_runner.hive_ds] You can use pip: pip install pyhive [2015-10-11 08:19:46,035][PID:20675][WARNING][redash.query_runner.hive_ds] Missing dependencies. Please install pyhive. [2015-10-11 08:19:46,044][PID:20675][WARNING][redash.query_runner.hive_ds] You can use pip: pip install pyhive [2015-10-11 08:19:46,356][PID:20673][WARNING][google_oauth] No Google Apps domain defined, all Google accounts allowed. [2015-10-11 08:19:46,359][PID:20672][WARNING][google_oauth] No Google Apps domain defined, all Google accounts allowed. [2015-10-11 08:19:46,433][PID:20674][WARNING][google_oauth] No Google Apps domain defined, all Google accounts allowed. [2015-10-11 08:19:46,495][PID:20675][WARNING][google_oauth] No Google Apps domain defined, all Google accounts allowed. [2015-10-11 08:20:10,253][PID:20674][ERROR][redash.wsgi] Exception on /login [POST] Traceback (most recent call last): File &quot;/usr/local/lib/python2.7/dist-packages/flask/app.py&quot;, line 1817, in wsgi_app response = self.full_dispatch_request() File &quot;/usr/local/lib/python2.7/dist-packages/flask/app.py&quot;, line 1477, in full_dispatch_request rv = self.handle_user_exception(e) File &quot;/usr/local/lib/python2.7/dist-packages/flask_restful/**init**.py&quot;, line 251, in error_router return original_handler(e) File &quot;/usr/local/lib/python2.7/dist-packages/flask/app.py&quot;, line 1381, in handle_user_exception reraise(exc_type, exc_value, tb) File &quot;/usr/local/lib/python2.7/dist-packages/flask/app.py&quot;, line 1475, in full_dispatch_request rv = self.dispatch_request() File &quot;/usr/local/lib/python2.7/dist-packages/flask/app.py&quot;, line 1461, in dispatch_request return self.view_functions[rule.endpoint](**req.view_args) File &quot;/opt/redash/current/redash/controllers.py&quot;, line 90, in login login_user(user, remember=remember) File &quot;/usr/local/lib/python2.7/dist-packages/flask_login.py&quot;, line 687, in login_user user_logged_in.send(current_app._get_current_object(), user=_get_user()) File &quot;/usr/local/lib/python2.7/dist-packages/blinker/base.py&quot;, line 267, in send for receiver in self.receivers_for(sender)] File &quot;/opt/redash/current/redash/authentication.py&quot;, line 86, in log_user_logged_in record_event.delay(event) File &quot;/usr/local/lib/python2.7/dist-packages/celery/app/task.py&quot;, line 453, in delay return self.apply_async(args, kwargs) File &quot;/usr/local/lib/python2.7/dist-packages/celery/app/task.py&quot;, line 555, in apply_async *_dict(self._get_exec_options(), *_options) File &quot;/usr/local/lib/python2.7/dist-packages/celery/app/base.py&quot;, line 351, in send_task reply_to=reply_to or self.oid, *_options File &quot;/usr/local/lib/python2.7/dist-packages/celery/app/amqp.py&quot;, line 305, in publish_task *_kwargs File &quot;/usr/local/lib/python2.7/dist-packages/kombu/messaging.py&quot;, line 172, in publish routing_key, mandatory, immediate, exchange, declare) File &quot;/usr/local/lib/python2.7/dist-packages/kombu/connection.py&quot;, line 436, in _ensured return fun(_args, *_kwargs) File &quot;/usr/local/lib/python2.7/dist-packages/kombu/messaging.py&quot;, line 177, in _publish channel = self.channel File &quot;/usr/local/lib/python2.7/dist-packages/kombu/messaging.py&quot;, line 194, in _get_channel channel = self._channel = channel() File &quot;/usr/local/lib/python2.7/dist-packages/kombu/utils/__init__.py&quot;, line 422, in **call** value = self.**value** = self.**contract**() File &quot;/usr/local/lib/python2.7/dist-packages/kombu/messaging.py&quot;, line 209, in &lt;lambda&gt; channel = ChannelPromise(lambda: connection.default_channel) File &quot;/usr/local/lib/python2.7/dist-packages/kombu/connection.py&quot;, line 756, in default_channel self.connection File &quot;/usr/local/lib/python2.7/dist-packages/kombu/connection.py&quot;, line 741, in connection self._connection = self._establish_connection() File &quot;/usr/local/lib/python2.7/dist-packages/kombu/connection.py&quot;, line 696, in _establish_connection conn = self.transport.establish_connection() File &quot;/usr/local/lib/python2.7/dist-packages/kombu/transport/virtual/__init__.py&quot;, line 809, in establish_connection self._avail_channels.append(self.create_channel(self)) File &quot;/usr/local/lib/python2.7/dist-packages/kombu/transport/virtual/__init__.py&quot;, line 791, in create_channel channel = self.Channel(connection) File &quot;/usr/local/lib/python2.7/dist-packages/kombu/transport/redis.py&quot;, line 429, in **init** self.Client = self._get_client() File &quot;/usr/local/lib/python2.7/dist-packages/kombu/transport/redis.py&quot;, line 825, in _get_client 'You have {0.__version__}'.format(redis)) VersionMismatch: Redis transport requires redis-py versions 2.10.0 or later. You have 2.7.5</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>120</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add data source health monitoring via an extension. Refs: #379, #415</MESSAGE>
+    <SHA>da09b7f089625480104f31ec66f0c0623250ce15</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Use production build of react when deployed (fixes #606)</MESSAGE>
+      <SHA>614ca83bea7c813eefff5daa975727055370220a</SHA>
+      <PATCHEDFILES>
+        <FILE>webpack.config.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Use production build of react when deployed (fixes #606)</MESSAGE>
+      <SHA>f8a596dd9c3b1dcf3f32d9bdeb9f7203c53e4db8</SHA>
+      <PATCHEDFILES>
+        <FILE>webpack.config.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Use production build of react when deployed (fixes #606)</MESSAGE>
+      <SHA>f1dfa264e456cb9e52d6297654635f3e8ffefeee</SHA>
+      <PATCHEDFILES>
+        <FILE>webpack.config.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Use production build of react when deployed (fixes #606)</MESSAGE>
+      <SHA>64d333428e162c7aca1a46dc7a10af5081a413cd</SHA>
+      <PATCHEDFILES>
+        <FILE>webpack.config.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Use production build of react when deployed (fixes #606)</MESSAGE>
+      <SHA>b3b69eb9ddac0736d9565e66dcef351435fca3cd</SHA>
+      <PATCHEDFILES>
+        <FILE>webpack.config.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Use production build of react when deployed (fixes #606)</MESSAGE>
+      <SHA>d3ebc467aa7daaf286d4935353012b0621645825</SHA>
+      <PATCHEDFILES>
+        <FILE>webpack.config.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

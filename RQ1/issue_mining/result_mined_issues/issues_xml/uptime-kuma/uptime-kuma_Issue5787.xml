@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5787</ISSUENO>
+  <ISSUEURL>https://github.com/louislam/uptime-kuma/issues/5787</ISSUEURL>
+  <TITLE>Use CLI to reset passwords allows for the setting of weak passwords</TITLE>
+  <DESCRIPTION>### I have found these related issues/pull requests I am unable to find any related issues/pull requests ### ️ Security Policy - [x] I have read and agree to Uptime Kuma's [Security Policy](https://github.com/louislam/uptime-kuma/security/policy). ### Description When users **log in for the first time or reset their passwords on the web interface**, the system will check the password to ensure it is strong. This is designed to prevent the use of overly simplistic passwords. However, during password **reset via the CLI(npm runeset-password)**, this crucial validation step is skipped. As a result, **users are able to set weak passwords**, which presents a significant security vulnerability. In one of my test cases, I set the password as &quot;1&quot;. Surprisingly, it bypassed all checks and the password was successfully reset, clearly demonstrating the existing flaw in the CLI password reset process. ``` root@7e7791690b13:/app# npm run reset-password &gt; uptime-kuma@2.0.0-beta.2-nightly-20250419062800 reset-password &gt; node extra/reset-password.js == Uptime Kuma Reset Password Tool == Connecting the database 2025-04-20T07:44:41+00:00 [SERVER] INFO: Data Dir: ./data/ 2025-04-20T07:44:41+00:00 [DB] INFO: Database Type: sqlite Found user: happy New Password: 1 Confirm New Password: 1 Connecting to ws://localhost:3001 to disconnect all other socket clients Logged in. Password reset successfully. 2025-04-20T07:44:44+00:00 [DB] INFO: Closing the database 2025-04-20T07:44:46+00:00 [DB] INFO: Database closed Finished. ``` Furthermore, for enhanced security and privacy, I recommend that user - entered passwords be masked and displayed as * instead of showing the actual characters. ### Reproduction steps Run `npm run reset-password` and set a weak password ### Expected behavior When a weak password is entered, users should be prompted and a failure feedback should be provided. ### Actual Behavior Password reset successfully. ### Uptime-Kuma Version uptime-kuma@2.0.0-beta.2-nightly-20250419062800 ### Operating System and Arch Ubuntu 22.04 ### Browser Microsoft Edge135.0.3179.73 ### ️ Deployment Environment - **Runtime Environment**: - Docker: `27.5.1-1`, build `9f9e4058019a37304dc6572ffcbb409d529b59d8` - Docker Compose: Version `v2.34.0` - **Database**: - SQLite: Embedded - **Database Storage**: - **Filesystem**: ext4 ### Relevant log output ```bash session root@7e7791690b13:/app# npm run reset-password &gt; uptime-kuma@2.0.0-beta.2-nightly-20250419062800 reset-password &gt; node extra/reset-password.js == Uptime Kuma Reset Password Tool == Connecting the database 2025-04-20T07:44:41+00:00 [SERVER] INFO: Data Dir: ./data/ 2025-04-20T07:44:41+00:00 [DB] INFO: Database Type: sqlite Found user: happy New Password: 1 Confirm New Password: 1 Connecting to ws://localhost:3001 to disconnect all other socket clients Logged in. Password reset successfully. 2025-04-20T07:44:44+00:00 [DB] INFO: Closing the database 2025-04-20T07:44:46+00:00 [DB] INFO: Database closed Finished. ```</DESCRIPTION>
+  <REPONAME>uptime-kuma</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix(dashboard): prevent y-overlapping of tags by adding a gap #5773 (#5774) Co-authored-by: Frank Elsinga &lt;frank@elsinga.de&gt;</MESSAGE>
+    <SHA>8d8e3e5a8e78030b8ffbe258dc872b8bea234390</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: Check when resetting the password in CLI (#5787)</MESSAGE>
+      <SHA>85c1088c88abe3ffcd2142dfb663b7dc983df2c0</SHA>
+      <PATCHEDFILES>
+        <FILE>extra/reset-password.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: Check when resetting the password in CLI (#5787)</MESSAGE>
+      <SHA>b75e107b222cc46ddf049c5a56a0b8d1403b2a1a</SHA>
+      <PATCHEDFILES>
+        <FILE>extra/reset-password.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: Check when resetting the password in CLI (#5787) - Throw an exception when using arguments to reset to a weak password. - When entering a weak password interactively, require re-entry on the first attempt.</MESSAGE>
+      <SHA>6eeee0e98a03243c13d32ae9b1e4ff8206ca3c2f</SHA>
+      <PATCHEDFILES>
+        <FILE>extra/reset-password.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

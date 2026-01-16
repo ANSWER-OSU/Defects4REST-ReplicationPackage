@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8557</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/8557</ISSUEURL>
+  <TITLE>DSpace 5 and 6 handle server doesn't start after JDK 8 update</TITLE>
+  <DESCRIPTION>**Describe the bug** After updating to ``` openjdk version &quot;1.8.0_352&quot; OpenJDK Runtime Environment (build 1.8.0_352-b08) OpenJDK 64-Bit Server VM (build 25.352-b08, mixed mode) ``` or ``` openjdk version &quot;1.8.0_352&quot; OpenJDK Runtime Environment Corretto-8.352.08.1 (build 1.8.0_352-b08) OpenJDK 64-Bit Server VM Corretto-8.352.08.1 (build 25.352-b08, mixed mode) ``` The handle-server script no longer starts, probably due to [JDK-8287132 - Retire Runtime.runFinalizersOnExit so that it always throws UOE](https://bugs.openjdk.org/browse/JDK-8287132) **To Reproduce** Steps to reproduce the behavior: 1. Update the system packaged JDK 8 (Coretto and RHEL-packaged openjdk confirmed) 2. Try to start handle-server script 3. (Startup error message) ``` 2022/10/26 03:04:46 CEST&quot; 25 Started new run. java.lang.UnsupportedOperationException at java.lang.Runtime.runFinalizersOnExit(Runtime.java:287) at java.lang.System.runFinalizersOnExit(System.java:1059) at net.handle.server.Main.initialize(Main.java:124) at net.handle.server.Main.main(Main.java:75) Shutting down... ```` The reported errors in the mailing lists looks like DSpace 5 installations, but the handle server dependency looks the same in the DSpace 6 pom.xml, so probably also applies there? **Expected behavior** Normal startup of handle-server **KNOWN WORKAROUNDS** Either of these options will work, but neither is ideal: * Downgrade OpenJDK 8 to a version _prior to_ 1.8.0.352 (which is where this change was made) * Use OpenJDK 7 (which is no longer supported) **Related work** https://bugs.openjdk.org/browse/JDK-8287132 https://groups.google.com/g/dspace-community/c/B-865GtF93A</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>241</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[maven-release-plugin] prepare for next development iteration</MESSAGE>
+    <SHA>1145ee3c3203d43070fe0874f2f60c08489b30ee</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>GH-8557: handle server test for DS5</MESSAGE>
+      <SHA>ff975de494a0f48dd069cc92e5079284660f0b61</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/pom.xml</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/handle/HandlePlugin.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/handle/MultiRemoteDSpaceRepositoryHandlePlugin.java</FILE>
+        <FILE>dspace-xmlui/pom.xml</FILE>
+        <FILE>dspace/bin/make-handle-config</FILE>
+        <FILE>pom.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>GH-8557: Test running dependencies for DSpace 6</MESSAGE>
+      <SHA>8667b43ba9307345a228d9f165b84555c8a27d29</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/pom.xml</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/handle/HandlePlugin.java</FILE>
+        <FILE>dspace-xmlui/pom.xml</FILE>
+        <FILE>dspace/bin/make-handle-config</FILE>
+        <FILE>pom.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

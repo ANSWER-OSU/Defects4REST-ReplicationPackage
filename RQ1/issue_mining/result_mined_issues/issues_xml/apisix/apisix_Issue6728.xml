@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6728</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/6728</ISSUEURL>
+  <TITLE>bug: Can not access opentelemetry header in ext-plugin-pre-req plugin</TITLE>
+  <DESCRIPTION>### Current Behavior opentelemetry propagation header will be inject here by `carrier_new` https://github.com/apache/apisix/blob/38663991c189c3c0d00ab48bcc9664142fabb170/apisix/plugins/opentelemetry.lua#L304-L305 which call https://github.com/yangxikun/opentelemetry-lua/blob/3f8e88aa31046d1fd4e8b1a51af9b5f2044514ca/lib/opentelemetry/trace/propagation/carrier.lua#L14-L16 ```lua function _M.set(self, name, val) ngx.req.set_header(name, val) end ``` This header seems not be able to access during the later `ext-plugin-pre-req` golang plugin Filter I want to do some RPC calls in the go plugin with tracing, so I need to access this header ### Expected Behavior opentelemetry conext should be propagated to the next plugin ### Error Logs _No response_ ### Steps to Reproduce 1. Run APISIX with docker image 2. Configure plugins `opentelemetry` and `ext-plugin-pre-req` on 3. Access opentelemetry tace header in golang plugin ``` trace := r.Header().Get(&quot;traceparent&quot;) ``` 4. trace is empty ### Environment - APISIX version (2.13.0): - Operating system (centos`): - Plugin runner version, for issues related to plugin runners: dee7fa0167af0ed8cdcd87d4321a43b194f2a7ed</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>docs(zh): fix links to OpenTelemetry specification (#6712)</MESSAGE>
+    <SHA>78c1aff2e91f3bcf34d4ab414934913d30d3a2b6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: need to invalidate req hdr cache properly Fix #6728 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>3371f17bfc32f97a043e03dc70c840a4cb21deff</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/request.lua</FILE>
+        <FILE>t/plugin/ext-plugin/http-req-call.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: need to invalidate req hdr cache properly Fix #6728 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>bb8dea2c1f0394fbed168008bc5e83d22033cb59</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/request.lua</FILE>
+        <FILE>t/plugin/ext-plugin/http-req-call.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

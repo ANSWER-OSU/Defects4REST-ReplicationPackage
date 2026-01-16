@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126995</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126995</ISSUEURL>
+  <TITLE>[CI] AsyncSearchActionIT testMaxResponseSize failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7721 / ubuntu-2404-aarch64_checkpart2_platform-support-arm](https://gradle-enterprise.elastic.co/s/mkg4v64azax3g) - [elasticsearch-periodic #7699 / openjdk21_checkpart2_java-fips-matrix](https://gradle-enterprise.elastic.co/s/gfgdptmn2ofjm) - [elasticsearch-pull-request #68434 / part-2](https://gradle-enterprise.elastic.co/s/6djdyo5wkvwa6) - [elasticsearch-pull-request #68409 / part-2](https://gradle-enterprise.elastic.co/s/dxbemrhg242y6) - [elasticsearch-periodic-platform-support #7672 / windows-2022_checkpart2_platform-support-windows](https://gradle-enterprise.elastic.co/s/dojovrfxfbnkg) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:async-search:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.search.AsyncSearchActionIT.testMaxResponseSize&quot; -Dtests.seed=F6C57135883BF80C -Dtests.locale=pl-Latn-PL -Dtests.timezone=Europe/Samara -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.search.AsyncSearchActionIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testMaxResponseSize),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: an empty collection but: &lt;[LEAK: ByteBuf.release() was not called before it's garbage-collected. See https://netty.io/wiki/reference-counted-objects.html for more information. Recent access records: #1: org.elasticsearch.transport.netty4.WrappedByteBuf.release(WrappedByteBuf.java:1028) org.elasticsearch.transport.netty4.TrashingByteBuf.release(TrashingByteBuf.java:37) org.elasticsearch.transport.netty4.Netty4Utils$ByteBufRefCounted.decRef(Netty4Utils.java:172) org.elasticsearch.common.bytes.ReleasableBytesReference.close(ReleasableBytesReference.java:98) org.elasticsearch.transport.InboundPipeline.releasePendingBytes(InboundPipeline.java:145) org.elasticsearch.transport.InboundPipeline.doHandleBytes(InboundPipeline.java:97) org.elasticsearch.transport.InboundPipeline.handleBytes(InboundPipeline.java:69) org.elasticsearch.transport.netty4.Netty4MessageInboundHandler.channelRead(Netty4MessageInboundHandler.java:54) io.netty.channel.Abst [truncated] ``` **Issue Reasons:** - [main] 5 failures in test testMaxResponseSize (1.1% fail rate in 468 executions) - [main] 2 failures in step part-2 (1.0% fail rate in 204 executions) - [main] 2 failures in pipeline elasticsearch-periodic-platform-support (22.2% fail rate in 9 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (1.0% fail rate in 204 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.search.AsyncSearchActionIT testDeleteCancelRunningTask #126994</MESSAGE>
+    <SHA>2de225a0487a9472c707ab4175b8b4d0c58009e5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.search.AsyncSearchActionIT testMaxResponseSize #126995</MESSAGE>
+      <SHA>316ec175d955b2640ba8ac1ec78696f9788e17e7</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

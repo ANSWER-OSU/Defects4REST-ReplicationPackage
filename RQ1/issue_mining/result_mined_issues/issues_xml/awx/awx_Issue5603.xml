@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5603</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/5603</ISSUEURL>
+  <TITLE>Remove Scan option from Job Type field of JT Creation form</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY ![image](https://user-images.githubusercontent.com/7514801/71848879-e6dd3480-308d-11ea-9e3f-19445d404986.png) ##### ENVIRONMENT - Tower version: 3.6.2 - AWX install method: yolo #8062: Instance URL - https://ec2-54-85-222-225.compute-1.amazonaws.com - Ansible version: 2.10.0.dev0 - Operating System: Mac Mojave 10.14.6 - Web Browser: Version 79.0.3945.88 (Official Build) (64-bit) ##### STEPS TO REPRODUCE 1. Click **Templates** 2. Select **[+]** &gt; **Job Template** 3. In **Job Type** field, select **Scan** ##### EXPECTED RESULTS Only see two options from the **Job Type** field: **Run** and **Check** only. ##### ACTUAL RESULTS See **Job Type** field contains: **Run**, **Check**, and **Scan**. ##### ADDITIONAL INFORMATION Scan jobs are no longer supported starting with Ansible Tower 3.2.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #5448 from ryanpetrello/remove-computed-group-and-host-fields remove computed inventory fields from Host and Group Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>6d075b8874e7a352596b7b23caea1ce96db237b9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>remove JobTemplate.job_type = 'scan' see: https://github.com/ansible/awx/issues/5603</MESSAGE>
+      <SHA>f79b6d3708fbe27921586c7566f8d94b718ee3df</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/migrations/0104_v370_cleanup_old_scan_jts.py</FILE>
+        <FILE>awx/main/models/jobs.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Scan jobs have been removed, clean up old refs see https://github.com/ansible/awx/issues/5603</MESSAGE>
+      <SHA>1e796076f55f81a3cc7864efeb03db3b03312112</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tests/functional/api/test_job_runtime_params.py</FILE>
+        <FILE>awx/main/tests/unit/test_access.py</FILE>
+        <FILE>awx_collection/plugins/modules/tower_job_launch.py</FILE>
+        <FILE>awxkit/awxkit/api/pages/job_templates.py</FILE>
+        <FILE>awxkit/awxkit/api/resources.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

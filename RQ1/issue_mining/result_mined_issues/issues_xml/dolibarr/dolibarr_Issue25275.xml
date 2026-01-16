@@ -1,0 +1,99 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>25275</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/25275</ISSUEURL>
+  <TITLE>Migration 12.0 - 13.0 forget tms update field for emailcollector</TITLE>
+  <DESCRIPTION>### Bug Here is the problem, detected on dolibarr 17.0 but &quot;old&quot; install updated from version &lt; 12 ``` sql=INSERT INTO llx_emailcollector_emailcollector (entity, ref, label, description, source_directory, date_creation, fk_user_creat, status) VALUES (1, 'Collect_Ticket_Requests', 'Exemple de collecte de d\'email pour ticket (premier message uniquement)', 'Collectez les e-mails qui correspondent &amp;agrave; certaines r&amp;egrave;gles et cr&amp;eacute;ez automatiquement un ticket (Module Ticket doit &amp;ecirc;tre activ&amp;eacute;) avec les informations de l\'e-mail. Vous pouvez utiliser ce collecteur si vous fournissez une assistance par e-mail, ainsi votre demande de ticket sera automatiquement g&amp;eacute;n&amp;eacute;r&amp;eacute;e. Activez &amp;eacute;galement Collect_Responses pour collecter les r&amp;eacute;ponses de votre client directement sur la vue du ticket (vous devez r&amp;eacute;pondre depuis Dolibarr).', 'INBOX', '2023-07-05 11:21:39', 1, 0) DoliDBMysqli::query SQL Error message: DB_ERROR_1364 Field 'tms' doesn't have a default value ``` ### Environment Version _No response_ ### Environment OS _No response_ ### Environment Web server _No response_ ### Environment PHP _No response_ ### Environment Database _No response_ ### Environment URL(s) _No response_ ### Expected and actual behavior There is a problem on migration database from 12 to 13 on llx_emailcollector_emailcollector table: dolibarr 12 ``` .../... tms timestamp, .../... ``` dolibarr 13 ``` .../... tms timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, .../... ``` and there is no ALTER on migration sql file ### Steps to reproduce the behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #24432 from atm-quentin/FIX_filter_on_consumption_contact FIX filter missing id on consumption contact card</MESSAGE>
+    <SHA>8e2d2ac70f088ee4e9c48cdc6c6c989a36d3465a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix #25275: tms default timestamp</MESSAGE>
+      <SHA>3477930db22192460caa314b2a5311085f045fa9</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/install/mysql/migration/12.0.0-13.0.0.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix #25275: tms default timestamp</MESSAGE>
+      <SHA>e6e915a5f1aad0d168fd41243af42c63d768aea4</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/install/mysql/migration/13.0.0-14.0.0.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix #25275: tms default timestamp</MESSAGE>
+      <SHA>770ecceea0c1ac6f84662b56a793d5d8be01ee76</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/install/mysql/migration/14.0.0-15.0.0.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix #25275: tms default timestamp</MESSAGE>
+      <SHA>72de19dd292dab505a7be0c5702ea6faae9480cc</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/install/mysql/migration/15.0.0-16.0.0.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix #25275: tms default timestamp</MESSAGE>
+      <SHA>5d26fa875768e67c1d4d7cc28ff7697276462a83</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/install/mysql/migration/16.0.0-17.0.0.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix #25275: tms default timestamp</MESSAGE>
+      <SHA>2e0b2e28de5e5cb55ba629b3e190b2c8e8a55b79</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/install/mysql/migration/17.0.0-18.0.0.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #25280 from rycks/14.0_add_emailcollector_tms fix #25275: tms default timestamp</MESSAGE>
+      <SHA>6cd4b2c7dad4083222199ef10d4523191e64eb47</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/install/mysql/migration/13.0.0-14.0.0.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #25281 from rycks/15.0_add_emailcollector_tms fix #25275: tms default timestamp</MESSAGE>
+      <SHA>72c64d4a1fc9ac40d63a3a73610a826bcdb32772</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/install/mysql/migration/14.0.0-15.0.0.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #25278 from rycks/13.0_add_emailcollector_tms fix #25275: tms default timestamp</MESSAGE>
+      <SHA>316838afb30e06ecc5e190cbd24316d642057ab7</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/install/mysql/migration/12.0.0-13.0.0.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #25282 from rycks/16.0_add_emailcollector_tms fix #25275: tms default timestamp</MESSAGE>
+      <SHA>ee4ccdc05a150038069521d19673939cb53f52c8</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/install/mysql/migration/15.0.0-16.0.0.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #25283 from rycks/17.0_add_emailcollector_tms fix #25275: tms default timestamp</MESSAGE>
+      <SHA>a892b2cff9efed9f04fb08f526bae4cf8103b419</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/install/mysql/migration/16.0.0-17.0.0.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #25284 from rycks/18.0_add_emailcollector_tms fix #25275: tms default timestamp</MESSAGE>
+      <SHA>3e26cb3a1b9225ce6ca36a4ce52ccee791a3f42c</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/install/mysql/migration/17.0.0-18.0.0.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

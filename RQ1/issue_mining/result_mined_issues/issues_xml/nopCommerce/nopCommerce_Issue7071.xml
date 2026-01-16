@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7071</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7071</ISSUEURL>
+  <TITLE>Do not validate model when changing password in admin area</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.60 &gt; When attempting to change a customer's password in the backend, a bug has been identified. If you try to click on &quot;change password&quot; in the customers backend with an empty required field, such as &quot;Company Name,&quot; the page simply refreshes without altering the password, and no error message is displayed. It leads to confusion as users might expect a notification regarding the missing information. &gt; &gt; However, upon providing the necessary information in the required field and then attempting to change the password, the operation is successful, and a green success message is displayed as expected. &gt; &gt; Additionally, when attempting to save the customer without making any changes, the system correctly displays an error message, indicating a discrepancy in behavior when compared to the password change scenario. &gt; &gt; This inconsistency in error handling poses a usability and feedback challenge for users. The expected behavior is to receive an error message when attempting to change the password with a missing required field, similar to the behavior observed when saving the customer without any changes, or to be able to change the password without the need to check for required fields. &gt; &gt; Please investigate and address this issue promptly to ensure a seamless and reliable user experience. Source: https://www.nopcommerce.com/boards/topic/98673/issue-with-password-change-in-backend-when-required-field-eg-company-name-is-empty We already do it for EmailAccount password. Also, let's map a password from the entity to the model, but hide it by *, like for EmailAccount.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>63</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7118 Fixed connection closing when executing database commands</MESSAGE>
+    <SHA>c2759fa5e9c735fb4dd6f219e661c10be85f5b68</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7071 Removed customer model validation when changing password</MESSAGE>
+      <SHA>9c10580c37984890575cd96bccf6c12dca199e0d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/CustomerController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

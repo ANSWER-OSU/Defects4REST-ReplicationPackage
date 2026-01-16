@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117088</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/117088</ISSUEURL>
+  <TITLE>[CI] FullClusterRestartIT testNewReplicasTimeSeriesMode {cluster=UPGRADED} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #13106 / 8.17.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/4hrmypgpjyfmu) - [elasticsearch-intake #13106 / 9.0.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/a2fp4wcglxizo) - [elasticsearch-intake #13106 / 8.16.1_bwc-snapshots](https://gradle-enterprise.elastic.co/s/3ej2i3sp4dygg) - [elasticsearch-periodic #4944 / 8.0.1_bwc](https://gradle-enterprise.elastic.co/s/2flf62ewrzvx6) - [elasticsearch-pull-request #42094 / 8.0.1_bwc](https://gradle-enterprise.elastic.co/s/4dsscw4p7a3m6) - [elasticsearch-pull-request #42084 / 8.0.1_bwc](https://gradle-enterprise.elastic.co/s/bfelmtyt2veru) **Reproduction Line:** ``` ./gradlew &quot;:qa:full-cluster-restart:v8.17.0#bwcTest&quot; -Dtests.class=&quot;org.elasticsearch.upgrades.FullClusterRestartIT&quot; -Dtests.method=&quot;testNewReplicasTimeSeriesMode {cluster=UPGRADED}&quot; -Dtests.seed=BC6BF23C9901B969 -Dtests.bwc=true -Dtests.locale=mni-Beng -Dtests.timezone=IST -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.upgrades.FullClusterRestartIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testNewReplicasTimeSeriesMode%20%7Bcluster%3DUPGRADED%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.client.ResponseException: method [PUT], host [http://[::1]:35813], URI [/testnewreplicastimeseriesmode/_settings], status line [HTTP/1.1 404 Not Found] {&quot;error&quot;:{&quot;root_cause&quot;:[{&quot;type&quot;:&quot;index_not_found_exception&quot;,&quot;reason&quot;:&quot;no such index [testnewreplicastimeseriesmode]&quot;,&quot;index_uuid&quot;:&quot;_na_&quot;,&quot;resource.type&quot;:&quot;index_or_alias&quot;,&quot;resource.id&quot;:&quot;testnewreplicastimeseriesmode&quot;,&quot;index&quot;:&quot;testnewreplicastimeseriesmode&quot;}],&quot;type&quot;:&quot;index_not_found_exception&quot;,&quot;reason&quot;:&quot;no such index [testnewreplicastimeseriesmode]&quot;,&quot;index_uuid&quot;:&quot;_na_&quot;,&quot;resource.type&quot;:&quot;index_or_alias&quot;,&quot;resource.id&quot;:&quot;testnewreplicastimeseriesmode&quot;,&quot;index&quot;:&quot;testnewreplicastimeseriesmode&quot;},&quot;status&quot;:404} ``` **Issue Reasons:** - [main] 3 consecutive failures in step 8.0.1_bwc - [main] 6 failures in test testNewReplicasTimeSeriesMode {cluster=UPGRADED} (0.9% fail rate in 689 executions) - [main] 3 failures in step 8.0.1_bwc (100.0% fail rate in 3 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (1.6% fail rate in 128 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.upgrades.FullClusterRestartIT testNewReplicasTimeSeriesMode {cluster=OLD} #117087</MESSAGE>
+    <SHA>231ebaf777b707083848d65042237683ad41c27d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.upgrades.FullClusterRestartIT testNewReplicasTimeSeriesMode {cluster=UPGRADED} #117088</MESSAGE>
+      <SHA>3b3ea209959dc221a13ab6ece2fecab24de18fae</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

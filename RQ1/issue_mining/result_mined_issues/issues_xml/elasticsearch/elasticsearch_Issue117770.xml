@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117770</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/117770</ISSUEURL>
+  <TITLE>[CI] MixedClusterEsqlSpecIT test {stats.GroupByAlias SYNC} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5117 / 8.12.2_bwc](https://gradle-enterprise.elastic.co/s/7ybazqcn5pdc6) - [elasticsearch-periodic #5105 / 8.12.2_bwc](https://gradle-enterprise.elastic.co/s/7q36du4kibfoo) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:mixed-cluster:v8.12.2#javaRestTest&quot; -Dtests.class=&quot;org.elasticsearch.xpack.esql.qa.mixed.MixedClusterEsqlSpecIT&quot; -Dtests.method=&quot;test {stats.GroupByAlias SYNC}&quot; -Dtests.seed=357D36FF8C7ED9EC -Dtests.bwc=true -Dtests.locale=bem -Dtests.timezone=Atlantic/South_Georgia -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.mixed.MixedClusterEsqlSpecIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Bstats.GroupByAlias%20SYNC%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected more data but no more entries found after [1] Data mismatch: row 0 column 0:a list containing row 0 column 0:0: expected &lt;1.419999&gt; but was &lt;1.409999&gt; row 0 column 1:a list containing row 0 column 1:0: expected &quot;1&quot; but was &quot;null&quot; ``` **Issue Reasons:** - [8.x] 2 failures in test test {stats.GroupByAlias SYNC} (1.9% fail rate in 104 executions) - [8.x] 2 failures in step 8.12.2_bwc (50.0% fail rate in 4 executions) - [8.x] 2 failures in pipeline elasticsearch-periodic (50.0% fail rate in 4 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>ESQL: Enable CATEGORIZE tests on non-snapshot builds (#117881) (#117885)</MESSAGE>
+    <SHA>d5ba0a30900af44b4eb8fa61aabaaaa6c52392f7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix layout when aggregating with aliases (#117832) Fix https://github.com/elastic/elasticsearch/issues/117770 Fix https://github.com/elastic/elasticsearch/issues/117784 https://github.com/elastic/elasticsearch/pull/117699 made changes to how we plan aggregations which were supposed to only trigger when a query contained a `CATEGORIZE`, but accidentally changed a code path that seems to only be required for interoperability with pre-8.13 nodes. Because of this, we didn't notice failing tests until the periodic bwc tests ran. The code this PR fixes addresses situations where `Aggregate` plan nodes contained _aliases inside the aggregates_. On `main` and `8.x`, this is effectively an illegal state: since https://github.com/elastic/elasticsearch/pull/104958, aliases in the aggregates become `Eval` nodes before and after the `Aggregate` node. But here, on 8.x, we'll just fix this code path so that it behaves exactly as before https://github.com/elastic/elasticsearch/pull/117699. If this passes the full-bwc test, I plan to forward-port this by removing the obsolete code path on `main`.</MESSAGE>
+      <SHA>ca48c3762818e79fd644ebaa908288bb234abe05</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/stats.csv-spec</FILE>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/version.csv-spec</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/planner/AbstractPhysicalOperationProviders.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

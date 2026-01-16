@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18717</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18717</ISSUEURL>
+  <TITLE>DCIM Interface: ObjectChange missing for deleted untagged VLANs</TITLE>
+  <DESCRIPTION>### Deployment Type NetBox Cloud (demo), Self-hosted ### NetBox Version v4.2.0 (demo.netbox.dev) &amp; v4.1.11 (locally) ### Python Version 3.11 ### Steps to Reproduce 1. Have an Device with an Interface 2. Have two VLANs: A &amp; B 3. Set Device Interface mode to &quot;tagged&quot; 4. Add VLAN A as untagged VLAN to Interface 5. Add VLAN B as tagged VLAN to Interface 6. Delete VLAN B 7. Delete VLAN A ### Expected Behavior Interface ObjectChange `update` for each VLAN deletion: 1. `tagged_vlans` to empty list 2. `untagged_vlan` to `null`/`None` ### Observed Behavior Only one Interface ObjectChange `update` is created for VLAN deletion: `tagged_vlans`. No Interface ObjectChange is created for `untagged_vlan` when related VLAN is deleted. According to Interface Changelog the Interface still has an `untagged_vlan` when in fact it does not exist anymore.</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>59</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixes #17676: Fix support for module bay creation when bulk importing module types (#19311)</MESSAGE>
+    <SHA>e1b2b4b5365c091029371bb7eb9b922c9f90ef37</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes: #18717 - On delete signal handling, manually save the related object in a ManyToOneRel to trigger a change record (#19308) * On delete signal handling, manually save the related object in a ManyToOneRel to trigger a change record * Only set remote field to None if null=True on the relation</MESSAGE>
+      <SHA>bee004fc0c925c7c366b93b458c6e5e8800803b3</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/core/signals.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

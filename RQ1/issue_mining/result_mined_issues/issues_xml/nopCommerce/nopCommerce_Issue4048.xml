@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4048</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4048</ISSUEURL>
+  <TITLE>ModelPrepared event for actions with Json result</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.20 Steps to reproduce the problem: 1. Inherit a class from IConsumer&lt;ModelPreparedEvent&lt;BaseNopModel&gt;&gt; interface and implement it with some dummy code. 2. In the browser go to /Admin/Order/List 3. Add a break point on HandleEvent(ModelPreparedEvent&lt;BaseNopModel&gt; eventMessage) of class in step 1 4. Click search The consumer will not get hit when OrderListModel is returned by the action. The reason is because 'PublishModelEventsFilter' is not considering JsonResult when checking 'context'. I tried to implement a filter in my own plugin and catch 'OrderListModel' when it is executed but the problem is that the model is transformed to Anonymous type by 'BaseController.Json&lt;T&gt;()' method before it is processed by the filter so the original type (OrderListModel) is no longer available. Is it possible to remove the Anonymous usage in 'BaseController.Json' method? It would be preferred to use a generic type of original model. Of course, the better solution would be to add support for 'ModelPreparedEvent' on actions using Json results also..</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>811</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5310 Fixed problem with compile Theme's views</MESSAGE>
+    <SHA>26ae137d9013d1e1703ad5f60c861b648ffdae81</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4048 Added Publishing ModelPrepared event for actions with Json result</MESSAGE>
+      <SHA>015e4630123859ae46b32c3fdf0b8a143ab94ab5</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Controllers/BaseController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Models/BaseNopModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Models/BasePagedListModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/PublishModelEventsAttribute.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

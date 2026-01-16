@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16383</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16383</ISSUEURL>
+  <TITLE>podman-remote wait: fails with read /proc/N/cgroup: no such process</TITLE>
+  <DESCRIPTION>Seen just now in [remote f36-aarch64 root](https://api.cirrus-ci.com/v1/artifact/task/4878370822422528/html/sys-remote-fedora-36-aarch64-root-host.log.html). Almost certainly a flake: ``` [+0098s] not ok 53 podman --noout run should print output ... # podman-remote --noout run -d --name test quay.io/libpod/testimage:20221018 echo hi # podman-remote wait test Error: read /proc/14628/cgroup: no such process [ rc=125 (** EXPECTED 0 **) ] ``` My flake logs find one other instance, [September 14 in f36 rootless](https://api.cirrus-ci.com/v1/artifact/task/5532259007594496/html/sys-remote-fedora-36-rootless-host.log.html#t--00175), but that one is preceded by other errors. This one, no prior indications of failure.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #16496 from anjannath/bump-qemu pkginstaller: bump Qemu to version 7.1.0</MESSAGE>
+    <SHA>43cef625b53d7046401920c52dddc0a692f4da55</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>libpod: treat ESRCH from /proc/PID/cgroup as ENOENT when reading from the /proc/$PID/cgroup file, treat ESRCH in the same way as ENOENT since the kernel returns ESRCH if the file was opened correctly but the target process exited before the open could be performed. Closes: https://github.com/containers/podman/issues/16383 [NO NEW TESTS NEEDED] it is a race condition that is difficult to reproduce. Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>36f8dfaa0d7541039096097010881cfb34e8dc91</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

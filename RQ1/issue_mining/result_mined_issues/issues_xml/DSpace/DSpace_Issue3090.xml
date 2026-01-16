@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3090</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/3090</ISSUEURL>
+  <TITLE>Bitstream format cannot be retrieved if you don't have read rights on the file</TITLE>
+  <DESCRIPTION>**Describe the bug** When you make a file private (or add an embargo to it) and you aren't logged in (or if you are logged in but without read rights to the file) the format of the file isn't displayed on the full item view page. This is because the format endpoint doesn't allow you to retrieve the format if you don't have read rights to the file. The url that is being used for that request is: &gt; /server/api/core/bitstreams/{id}/format **To Reproduce** Steps to reproduce the behavior: 1. Upload a file to an item 2. Add an embargo to it, or make it admin only by removing the anonymous read rights 3. Go to the full item view page &amp; the format won't be there **Expected behavior** The format should be able to be displayed even if you don't have read rights to the actual file.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>70</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merged in task/glam7/GLAM-871 (pull request #3083) [GLAM-871] add ability to set input form for collections using migrate-entitiy script Approved-by: Vincenzo Mecca</MESSAGE>
+    <SHA>a0bb7f37258a5040fb48874a64a4c47d347ec920</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merged in task/glam7/GLAM-869 (pull request #3090) GLAM-869 Approved-by: Francesco Pio Scognamiglio</MESSAGE>
+      <SHA>93145cc374fc35380fcce4ce63cfcf4bfa4a7020</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace/config/modules/authority.cfg</FILE>
+        <FILE>dspace/config/registries/dublin-core-types.xml</FILE>
+        <FILE>dspace/config/registries/glam-types.xml</FILE>
+        <FILE>dspace/etc/migration/itemMetadataMigration/metadatamapping.csv</FILE>
+        <FILE>dspace/etc/migration/itemMetadataMigration/migrate_metadata.sql</FILE>
+        <FILE>dspace/etc/migration/itemMetadataMigration/updateMetadataQueryCreator.ktr</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

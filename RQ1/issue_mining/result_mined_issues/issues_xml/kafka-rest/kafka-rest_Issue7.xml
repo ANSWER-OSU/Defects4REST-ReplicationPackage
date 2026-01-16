@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7</ISSUENO>
+  <ISSUEURL>https://github.com/confluentinc/kafka-rest/issues/7</ISSUEURL>
+  <TITLE>Clean shutdown</TITLE>
+  <DESCRIPTION>The proxy should handle SIGTERM properly, waiting for outstanding requests to finish while ignoring any new incoming requests. Jetty has some support for doing this: http://docs.codehaus.org/display/JETTY/How+to+gracefully+shutdown although given the long timeouts for produce and consume requests, this needs to be handled carefully.</DESCRIPTION>
+  <REPONAME>kafka-rest</REPONAME>
+  <TIMEDIFFERENCEDAYS>19</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update and rename KafkaRestConfiguration to use io.confluent.common conventions.</MESSAGE>
+    <SHA>38b3c21da2942a53e4ce841dae61365c6b2b2565</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Use rest-utils shutdown hook to shutdown cleanly when possible. Fixes #7.</MESSAGE>
+      <SHA>6f932eafad5c265f2c8836ce4f13cf00d003d694</SHA>
+      <PATCHEDFILES>
+        <FILE>src/main/java/io/confluent/kafkarest/ConsumerManager.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/KafkaRestApplication.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/Main.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/MetadataObserver.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/ProducerPool.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #8 from confluentinc/clean-shutdown Use rest-utils shutdown hook to shutdown cleanly when possible. Fixes #7...</MESSAGE>
+      <SHA>97086585fbf21694e0c9affe38af25d62686c09c</SHA>
+      <PATCHEDFILES>
+        <FILE>src/main/java/io/confluent/kafkarest/ConsumerManager.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/KafkaRestApplication.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/Main.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/MetadataObserver.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/ProducerPool.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #7 from mapr/mapr-25082 MAPR-25082 Exclude test jars from classpath</MESSAGE>
+      <SHA>bf8464e4a08dd8f0adfa537cdeb05636929d6e75</SHA>
+      <PATCHEDFILES>
+        <FILE>bin/kafka-rest-run-class</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

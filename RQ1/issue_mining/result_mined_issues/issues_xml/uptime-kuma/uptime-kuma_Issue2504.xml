@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2504</ISSUENO>
+  <ISSUEURL>https://github.com/louislam/uptime-kuma/issues/2504</ISSUEURL>
+  <TITLE>MSSQL concurrent connections to multiple servers interfere with each other</TITLE>
+  <DESCRIPTION>### ⚠️ Please verify that this bug has NOT been raised before. - [X] I checked and didn't find similar issue ### ️ Security Policy - [X] I agree to have read this project [Security Policy](https://github.com/louislam/uptime-kuma/security/policy) ### Description Attempting to monitor multiple SQL servers, and have been receiving odd messages, **intermittently**. Have changed the connection strings multiple times to verify that everything connects properly, and when clicking 'Save', the connection succeeds. Errors received: 'Database [Database] does not exist. Make sure that the name is entered correctly.' (after putting _USE Database;_ into the query) 'Invalid object name 'Table'.' (without _USE Database;_ in the query) The head scratching part was that multiple servers would start having this issue simultaneously, and then they would all clear. Changing the timeout period did not have an effect. Increasing the 'retries' would cause the servers to all go yellow (Pending) for a while, and then after ONE failure they would all go green and start working again. Increasing the retries would simply increase the yellow/pending period, they would still return to green after one red/failure. The giveaway was one period when there was an actual network disruption, one monitor showed a failure to connect -- to different monitor's SQL server address! Well no wonder you can't find the database and table, you're looking on the wrong server! The connection pool is sending queries out to any active connection, not necessarily the correct one. Resetting the connections, which is done when clicking 'save' on the configuration or presumably when a server errors out, gets them going again for a while until the next mix-up. Digging through I have found some documentation on Node.js mssql which refers to common connection pools and a confirmation of my thought on StackOverflow here: https://stackoverflow.com/questions/64254145/node-js-mssql-multiple-concurrent-connections-to-sql-servers-interfering-with-ea The relevant Node MSSQL documentation is here: https://www.npmjs.com/package/mssql#advanced-pool-management _Advanced Pool Management_ _For some use-cases you may want to implement your own connection pool management, rather than using the global connection pool. Reasons for doing this include:_ _Supporting connections to multiple databases_ I unfortunately don't have the skill to merge the code together right now for a fix, but the page above includes a function that was built to check the connection pool for the proper connection string, and if present use that, but if not create a new connection. ### Reproduction steps Add SQL monitors that link to multiple different servers which do not share identical database and table names. ### Expected behavior Each SQL server is monitored separately and returns 'up' when the server is up. ### Actual Behavior Servers (multiple at one time) would simultaneously fail with 'object not found' or 'database does not exist'. The queries do not appear to be going out through their respective connections, but to random or otherwise incorrect connections to the wrong server. ### Uptime-Kuma Version 1.18.5 ### Operating System and Arch Ubuntu 20.04 amd64 ### Browser Chrome 108.0.5359.124 ### Docker Version Docker 20.10.17 ### NodeJS Version _No response_ ### Relevant log output _No response_</DESCRIPTION>
+  <REPONAME>uptime-kuma</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #2513 from louislam/revert-2433-mathias/Auth-case-insensitive-login Revert &quot;Auth: Case insensitive login check on username&quot;</MESSAGE>
+    <SHA>28c329102065aa16f4526c78d23d8acb01dcb977</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #2504</MESSAGE>
+      <SHA>39ac9b887e0fbf98b0c53d1c37b75383d6458ecf</SHA>
+      <PATCHEDFILES>
+        <FILE>server/util-server.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

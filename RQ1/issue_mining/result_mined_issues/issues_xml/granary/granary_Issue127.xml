@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127</ISSUENO>
+  <ISSUEURL>https://github.com/snarfed/granary/issues/127</ISSUEURL>
+  <TITLE>Instagram dates do not include timezone offset</TITLE>
+  <DESCRIPTION>It looks like Granary is displaying dates from Instagram feeds as UTC, but then not including the timezone offset. (I'm using the Instagram to HTML conversion). It should either explicitly set the `+0000` or `Z` offset if it's converting to UTC, or if it knows the local time then set that offset instead. (XRay looks up the timezone for the photo's location and converts it to a local time, but you might not want to do that.)</DESCRIPTION>
+  <REPONAME>granary</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>update tests to handle brevity v0.2.16 specifically kylewm/brevity#12 (thanks kyle!)</MESSAGE>
+    <SHA>6cbc8f5f1d7cc96ef1487b089b2e99c6cb189cd5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>atom timestamps: fully convert to RFC 3339 for snarfed/granary#126, snarfed/granary#127</MESSAGE>
+      <SHA>bf134f322fcdfc476412cbbee21b646111971e97</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/atom.py</FILE>
+        <FILE>granary/test/test_atom.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>update tests for unix timestamps always in UTC for snarfed/webutil@36e35e80aa6197b24021e21e5299cb1f1096afee and #127</MESSAGE>
+      <SHA>75d41ee79b7e88cad4b65a48632d0f060a184146</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/test/test_atom.py</FILE>
+        <FILE>granary/test/test_flickr.py</FILE>
+        <FILE>granary/test/test_instagram.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

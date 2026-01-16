@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>572</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/572</ISSUEURL>
+  <TITLE>Not receiving messages in json-rpc mode with 0.86</TITLE>
+  <DESCRIPTION>### The problem I'm using json-rpc mode and receiving messages in Node-RED using websocket, with the following address: [ws://1315902c-signal-messenger:8080/v1/receive/XXXXXXXXXX](url) Also sending messages from Node-RED at [http://1315902c-signal-messenger:8080/v2/send](url) Everything works very well in 0.85. After updating to 0.86, messages are still being sent successfully, but Node-RED stops receiving messages, either after a few seconds or after the first message. I realize this isn't much information to go on, but I'm not sure what to look at to help diagnose the issue. Let me know. In the meantime, I've just rolled back to 0.85. ### Are you using the latest released version? - [X] Yes ### Have you read the troubleshooting page? - [X] Yes ### What type of installation are you running? Home Assistant Signal Addon ### In which mode are you using the docker container? JSON-RPC Mode ### What's the architecture of your host system? x86-64 ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #570 from ksangers/master For reverse proxies, add SWAGGER_HOST environment variable support</MESSAGE>
+    <SHA>a6624c5dee6f07d5eb8e8f7182d8bdec9c16d4a1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fixed deadlock in Websocket write * properly unlock mutex to avoid deadlock see #572</MESSAGE>
+      <SHA>f3289395ae503ec6c236219a10e8d96a4eecce0d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/api/api.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fixed deadlock in json-rpc mode * properly unlock mutex to avoid deadlock see #572</MESSAGE>
+      <SHA>e6ff51e3d80b33b32669184f9dbfd4b412a8e7aa</SHA>
+      <PATCHEDFILES>
+        <FILE>src/api/api.go</FILE>
+        <FILE>src/client/jsonrpc2.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117935</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/117935</ISSUEURL>
+  <TITLE>[CI] RequestIndexFilteringIT testFieldExistsFilter_KeepWildcard failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #13828 / part3](https://gradle-enterprise.elastic.co/s/choueuro62vjk) - [elasticsearch-intake #13829 / part3](https://gradle-enterprise.elastic.co/s/madbtpu4cc4dg) - [elasticsearch-intake #13826 / part3](https://gradle-enterprise.elastic.co/s/ljjshvykcqhh4) - [elasticsearch-periodic #5192 / openjdk23_checkpart3_java-matrix](https://gradle-enterprise.elastic.co/s/x6epoam5rdydo) - [elasticsearch-periodic #5192 / openjdk21_checkpart3_java-matrix](https://gradle-enterprise.elastic.co/s/y55qly7o5ffoa) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:single-node:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.qa.single_node.RequestIndexFilteringIT.testFieldExistsFilter_KeepWildcard&quot; -Dtests.seed=9AD698AC75638D94 -Dtests.locale=dsb -Dtests.timezone=America/Adak -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.single_node.RequestIndexFilteringIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testFieldExistsFilter_KeepWildcard),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected a map containing columns: a list containing 0: a map containing name: &quot;@timestamp&quot; type: &quot;date&quot; 1: a map containing name: &quot;id1&quot; type: &quot;integer&quot; 2: expected a map but was &lt;missing&gt; values: &lt;[]&gt; took: &lt;13&gt; ``` **Issue Reasons:** - [main] 2 consecutive failures in test testFieldExistsFilter_KeepWildcard - [main] 2 consecutive failures in step part3 - [main] 2 consecutive failures in pipeline elasticsearch-intake - [main] 5 failures in test testFieldExistsFilter_KeepWildcard (13.9% fail rate in 36 executions) - [main] 3 failures in step part3 (33.3% fail rate in 9 executions) - [main] 3 failures in pipeline elasticsearch-intake (33.3% fail rate in 9 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.esql.plugin.ClusterRequestTests testFallbackIndicesOptions #117937</MESSAGE>
+    <SHA>99d75bd42936cbe3c72474f3f6740f54f4de403c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.single_node.RequestIndexFilteringIT testFieldExistsFilter_KeepWildcard #117935</MESSAGE>
+      <SHA>dfef1b479a560bc3cef3f58a3b1d93bef5d599c6</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.multi_node.RequestIndexFilteringIT testFieldExistsFilter_KeepWildcard #117935</MESSAGE>
+      <SHA>447c4dc89c512229387457bd7d0b39a9cb8d75db</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5607</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5607</ISSUEURL>
+  <TITLE>ACL rules for the multi-factor authentication</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40 &gt; I'm trying to figure out how to setup Multi-factor authentication for admins only and I'm having a hard time finding info on this. I did find the setting to enforce it for all users but also don't see how to setup a source for it. Source: https://www.nopcommerce.com/boards/topic/90742/multi-factor-authentication-setup So, we have [&quot;ForceMultifactorAuthentication&quot;](https://github.com/nopSolutions/nopCommerce/blob/master/src/Libraries/Nop.Core/Domain/Customers/MultiFactorAuthenticationSettings.cs#L28) setting, which requires all registered users to use multifactor authentication when enabled. It would be better to change this setting to permission (let's name it &quot;Multifactor Authentication&quot;), which will allow control of who needs multifactor authentication to be used. In migration, we should apply the new permission to all roles (except Guests) if the setting was enabled, and only to Admin if disabled, then remove that setting.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>450</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '4.50-bug-fixes' into develop</MESSAGE>
+    <SHA>37c5207dfeef41a086d3ed51cb62c6921be76bba</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5607 ACL rules for the multi-factor authentication</MESSAGE>
+      <SHA>3c4c7f86c4d85feab9d7d9ed40f219ba24fc007b</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Data/Migrations/UpgradeTo460/DataMigration.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/CustomerRegistrationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Security/StandardPermissionProvider.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo460/LocalizationMigration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/ForceMultiFactorAuthenticationAttribute.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/CustomerController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/CustomerModelFactory.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3497</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/3497</ISSUEURL>
+  <TITLE>[dev] Now dev fails to serve api functions when used with Gridsome</TITLE>
+  <DESCRIPTION>Following the [Gridsome example project](https://github.com/zeit/now-examples/blob/master/gridsome) and executing `now dev` will lunch the Gridsome Dev mode but the Now api functions will be ignored. A solution is to remove the `dev` script from the package.json, but it is not clear then if its a bug or a missconfiguration as the documentation and the example encourages setting the script.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>67</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now-cli] Remove &quot;Serving all files as static&quot; message (#3901)</MESSAGE>
+    <SHA>4b6143c2933788ebccde2a47d87bb9036a25897b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-cli] Prevent framework from clearing console in `now dev` (#3903) When running a framework like Create React App or Gridsome, the console gets cleared. This prevented the user from seeing the message printed from `now dev` which is typically `http://localhost:3000`. Instead the user would see the framework's URL such as `http://localhost:54684`. See #3497 for an example. The solution is to change the child process to pipe stdout/stderr. Since most frameworks detect [`process.stdout.isTTY`](https://github.com/facebook/create-react-app/blob/7e6d6cd05f3054723c8b015c813e13761659759e/packages/react-scripts/scripts/start.js#L141-L143) before clearing the console, this will solve the problem. I was also able to intercept stdout to replace the framework's port with the `now dev` port and I think this will also help prevent confusion. I also had to set `FORCE_COLOR=1` to avoid losing ANSI colors. - Related to https://github.com/facebook/create-react-app/issues/2495 - Fixes #3497</MESSAGE>
+      <SHA>5a1012fb0fa57e0a1d24ac71eff806ce7b666d45</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-cli/src/util/dev/server.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

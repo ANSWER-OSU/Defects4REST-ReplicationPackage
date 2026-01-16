@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1172</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/1172</ISSUEURL>
+  <TITLE>Limit the first and last name length</TITLE>
+  <DESCRIPTION>If you register a user with too long first and last names (say 10,000 symbols each), and the mailing service is enabled for the site, the registration completes but throws a DB exception. What happens is that the `Nop.Web.Controllers.CustomerController.Register()` action completes the registration successfully and writes all properties to the database. But then, the `Nop.Services.Messages.QueuedEmailService` tries to populate the **To:** field of the email and crashes. The limit of the **To:** field is 500 characters and this is what throws the DB exception. **Steps to reproduce:** 1. Make sure the cart has sending emails enabled 2. Register a user with long first and last names 3. Observe the exception **Improvement suggestion:** Add more validations while registering or editing names. If there are some other actions which lead to adding first and last names, validate them too. Let's limit first and last names to 200 chars (no need for localization). Do it for registration page, customer info page, addresses (used during checkout) Similar to #99</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>33</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mpore source code comments</MESSAGE>
+    <SHA>08f80e9303680f5c657650d2b0b7f11a32e0b595</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#1172 Ensure name of email recipients to 300 chars</MESSAGE>
+      <SHA>a84c89ea2dd8b325b893ce79559674c71b8d15a1</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Messages/WorkflowMessageService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

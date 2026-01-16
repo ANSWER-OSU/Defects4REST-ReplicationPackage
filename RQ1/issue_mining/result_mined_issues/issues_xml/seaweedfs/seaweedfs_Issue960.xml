@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>960</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/960</ISSUEURL>
+  <TITLE>how to start filer</TITLE>
+  <DESCRIPTION>I use this command to start filer: docker run -d -p 8888:8888 --name fs-filer --restart=always -v /data/weedfs/filer:/data -e WEED_IP=$smartIp --add-host=mysql:$smartIp registry.cn-hangzhou.aliyuncs.com/joywise-iedu/seaweedfs:1.33 filer -master=&quot;$smartIp:9333&quot; -port=8888 Cause an error: I0515 06:09:16 1 filer_server.go:103] Reading : Config File &quot;security&quot; Not Found in &quot;[/ /root/.seaweedfs /etc/seaweedfs]&quot; I0515 06:09:16 1 filer_server.go:103] Reading /etc/seaweedfs/filer.toml: While parsing config: (14, 11): keys cannot contain new lines I0515 06:09:16 1 filer_server.go:103] Reading : Config File &quot;notification&quot; Not Found in &quot;[/ /root/.seaweedfs /etc/seaweedfs]&quot; I0515 06:09:16 1 leveldb_store.go:37] filer store dir: ./filerdb I0515 06:09:16 1 file_util.go:19] Folder ./filerdb Permission: -rwxr-xr-x I0515 06:09:16 1 configuration.go:26] Configure filer for leveldb I0515 06:09:16 1 filer.go:131] Start Seaweed Filer 30GB 1.33 at 10.10.23.22:8888 F0515 06:09:16 1 filer.go:137] Filer listener error: listen tcp 10.10.23.22:8888: bind: cannot assign requested address goroutine 1 [running]: github.com/chrislusf/seaweedfs/weed/glog.stacks(0xc0005a2a00, 0xc0004180e0, 0x7c, 0xd3) /home/travis/gopath/src/github.com/chrislusf/seaweedfs/weed/glog/glog.go:767 +0xb1 github.com/chrislusf/seaweedfs/weed/glog.(*loggingT).output(0x262fac0, 0xc000000003, 0xc0001bd960, 0x25ab9c1, 0x8, 0x89, 0x0) /home/travis/gopath/src/github.com/chrislusf/seaweedfs/weed/glog/glog.go:718 +0x2d9 github.com/chrislusf/seaweedfs/weed/glog.(*loggingT).printf(0x262fac0, 0x3, 0x16b6085, 0x18, 0xc000465de8, 0x1, 0x1) /home/travis/gopath/src/github.com/chrislusf/seaweedfs/weed/glog/glog.go:656 +0x14e github.com/chrislusf/seaweedfs/weed/glog.Fatalf(...) /home/travis/gopath/src/github.com/chrislusf/seaweedfs/weed/glog/glog.go:1149 github.com/chrislusf/seaweedfs/weed/command.(*FilerOptions).startFiler(0x262f700) /home/travis/gopath/src/github.com/chrislusf/seaweedfs/weed/command/filer.go:137 +0x50c github.com/chrislusf/seaweedfs/weed/command.runFiler(0x261bd60, 0xc00003a230, 0x0, 0x0, 0x0) /home/travis/gopath/src/github.com/chrislusf/seaweedfs/weed/command/filer.go:82 +0x4b main.main() /home/travis/gopath/src/github.com/chrislusf/seaweedfs/weed/weed.go:67 +0x2fe</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>avoid switching master node if same ip and host name fix https://github.com/chrislusf/seaweedfs/issues/955</MESSAGE>
+    <SHA>017d0957c3af96506dc9ab47b52c9f10db367c58</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>skip setting ip address for filer related to https://github.com/chrislusf/seaweedfs/issues/960</MESSAGE>
+      <SHA>dd4ef58d9937168007d8501f56dab8347b50c1d6</SHA>
+      <PATCHEDFILES>
+        <FILE>docker/entrypoint.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

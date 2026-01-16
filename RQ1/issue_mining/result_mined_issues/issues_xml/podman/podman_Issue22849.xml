@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>22849</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/22849</ISSUEURL>
+  <TITLE>podman exec [mandatory command?]</TITLE>
+  <DESCRIPTION>### Issue Description At https://docs.podman.io/en/latest/markdown/podman-exec.1.html the synopsis is: &gt; podman exec [options] container [command [arg …]] &gt; podman container exec [options] container [command [arg …]] For me this means that the `command` argument is optional. The webpage does not say what is the default command, if `command` does not follow `exec`. So I thought it will be the Containerfile’s `ENTRYPOINT`. But it is not: ``` $ podman exec -ti uuu Error: must provide a non-empty command to start an exec session: invalid argument ``` The problem report is that the synopsys at the aforementioned web page, and the synopsis printed by `podman exec --help` wrongly suggest, that COMMAND is optional, by putting it between square brackets. ### Steps to reproduce the issue Not applicable. ### Describe the results you received Describe the results you received ### Describe the results you expected Not applicable. ### podman info output ```yaml podman 5.0.3 on darwin/amd64. ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details Additional environment details ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>84</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23670 from mheon/fix_stop_and_rmi Fix `podman stop` and `podman run --rmi`</MESSAGE>
+    <SHA>43fe3ebaf3403ac402cbe1e9e4d58c2d567c659a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>command is not optional to podman exec Fixes: https://github.com/containers/podman/issues/22849 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>29071ac4988623cedd8c23ab57e24bc1736a12ef</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/containers/exec.go</FILE>
+        <FILE>docs/source/markdown/podman-exec.1.md.in</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

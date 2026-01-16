@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>27942</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/27942</ISSUEURL>
+  <TITLE>Wrong Salary folder/files in Export Accounting</TITLE>
+  <DESCRIPTION>### Bug When exporting source document files linked to PaymentSalary are invalid when ID of PaymentSalary is different of ID of Salary In file /compta/accounting-files.php around line 342, $subdir is made with $objd-&gt;id `$subdir .= ($subdir ? '/' : '').dol_sanitizeFileName($objd-&gt;id);` This is wrong because $subdir should use ID of Salary and in $objd-&gt;id we got ID of PaymentSalary ### Environment Version &gt;=18 for sure ### Environment OS _No response_ ### Environment Web server _No response_ ### Environment PHP _No response_ ### Environment Database _No response_ ### Environment URL(s) _No response_ ### Expected and actual behavior Files displayed should be those linked to Salary of PaymentSalary ### Steps to reproduce the behavior Example configuration : Salary ID 1 with PayementSalary ID 2 Salary ID 2 with file linked Export source document with payments salary In the result table you will have Payment 2 (linked to Salary 1) displayed with file of Salary 2 (which is wrong) ### Attached files ![image](https://github.com/Dolibarr/dolibarr/assets/109668929/e6e74a86-da3b-4dd2-9e9f-23fd685f8e05) ![image](https://github.com/Dolibarr/dolibarr/assets/109668929/deb7685c-af71-4570-9bde-2b42b9e508f0) ![image](https://github.com/Dolibarr/dolibarr/assets/109668929/b2c6f43b-5ae0-4b82-aa0d-413693246e43)</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>375</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #27904 from rycks/14.0_fix_zero_could_be_a_value_into_conf_global_key fix #27883 : zero could be a value stored</MESSAGE>
+    <SHA>662ab450370a680f3c310c9bc4177a7623348df0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX #27942 Accounting files export - Wrong document return for salaries</MESSAGE>
+      <SHA>16a044d5ae775c77946511dd0057976f6989acc8</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/compta/accounting-files.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

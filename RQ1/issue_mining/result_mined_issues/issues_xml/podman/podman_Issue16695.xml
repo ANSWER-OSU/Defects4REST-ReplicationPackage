@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16695</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16695</ISSUEURL>
+  <TITLE>CI: ubi8 considered harmful (the &quot;0x3c&quot; bug)</TITLE>
+  <DESCRIPTION>The redhat registry is unreliable. We see these flakes in podman frequently: ```console # podman [options] pull registry.access.redhat.com/ubi8-minimal Trying to pull registry.access.redhat.com/ubi8-minimal:latest... time=&quot;2022-11-28T22:25:14Z&quot; level=warning msg=&quot;Signature \&quot;https://access.redhat.com/webassets/docker/content/sigstore/ubi8-minimal@sha256=2db613439c1708842f3fd6104a6b7b831f1f9b1c223c225101649e6bc4ae2983/signature-7\&quot; has Content-Type \&quot;text/html\&quot;, unexpected for a signature&quot; Error: copying system image from manifest list: Source image rejected: parsing signature https://access.redhat.com/webassets/docker/content/sigstore/ubi8-minimal@sha256=2db613439c1708842f3fd6104a6b7b831f1f9b1c223c225101649e6bc4ae2983/signature-7: unrecognized signature format, starting with binary 0x3c ``` We already [fixed buildah to not use it](https://github.com/containers/buildah/pull/4397). And we keep adding workarounds elsewhere for registry bugs. It's time to just give up. Some recent failure logs: ### int podman fedora-36 root container: unknown failure * fedora-36 : int podman fedora-36 root container * PR #16659 * [11-28 17:25](https://api.cirrus-ci.com/v1/artifact/task/6076614555992064/html/int-podman-fedora-36-root-container.log.html) ### int podman fedora-37 rootless host: unknown failure * fedora-37 : int podman fedora-37 rootless host * PR #16659 * [11-28 17:21](https://api.cirrus-ci.com/v1/artifact/task/5513664602570752/html/int-podman-fedora-37-rootless-host.log.html) * PR #13808 * [11-18 08:31](https://api.cirrus-ci.com/v1/artifact/task/4540235697618944/html/int-podman-fedora-37-rootless-host.log.html)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>39</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #17002 from containers/dependabot/go_modules/test/tools/golang.org/x/tools-0.5.0 Bump golang.org/x/tools from 0.4.0 to 0.5.0 in /test/tools</MESSAGE>
+    <SHA>609df3ec329a4abf1415518e6888caa0664642cd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>e2e tests: stop using UBI images Red Hat registry is too unreliable. (As of this writing in January 2023, quay.io is not much better, but this is a new flake. Ubi has been flaking for a year or more). Instead of UBI, use the new systemd-image added to system tests in #16814. Since this reduces the number of cached images, a few unrelated tests (image count) need to be tweaked. And, sigh, Fedora systemd colorizes boot messages by default, causing a failure where we don't see an expected Reached Target message. I don't want to rely on ASCII formatting codes, so I've updated the build-systemd-image script so it disables systemd colors, and have built a new systemd-image:20230106. Made a few small usability improvements to the script as well. Closes: #16695 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>e82045f73c44772425dffefaa7cda77d972e13e9</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/benchmarks_test.go</FILE>
+        <FILE>test/e2e/config_amd64.go</FILE>
+        <FILE>test/e2e/config_arm64.go</FILE>
+        <FILE>test/e2e/images_test.go</FILE>
+        <FILE>test/e2e/rmi_test.go</FILE>
+        <FILE>test/e2e/run_selinux_test.go</FILE>
+        <FILE>test/e2e/systemd_test.go</FILE>
+        <FILE>test/system/build-systemd-image</FILE>
+        <FILE>test/system/helpers.bash</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

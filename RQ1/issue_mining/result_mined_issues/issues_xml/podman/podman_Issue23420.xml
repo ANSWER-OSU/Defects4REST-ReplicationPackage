@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23420</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23420</ISSUEURL>
+  <TITLE>Podman build fails buildah 124 bud-preserve-subvolumes and 136 bud-volume-perms</TITLE>
+  <DESCRIPTION>### Issue Description After vendoring Buildah v1.37 into the Podman v5.2 release branch, these tests failed: Failed tests (2): 124 bud-preserve-subvolumes 136 bud-volume-perms and they were included a couple weeks ago in Buildah via this PR: https://github.com/containers/buildah/pull/5604. In particular, this commit in the PR tweaked the two tests that are failing: https://github.com/containers/buildah/commit/a7098c776a7fda585358c91496d35ce690ea9fb7 Both tests had the new `--compat-volumes` option added to them. ### Steps to reproduce the issue See description ### Describe the results you received Test failures ### Describe the results you expected happy tests ### podman info output ```yaml If you are unable to run podman info for any reason, please provide the podman version, operating system and its version and the architecture you are running. ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details Additional environment details ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[v5.2] update buildah-bud buildah-tests.diff When trying to vendor Buildah v1.37.0, all kinds of mayhem ensued. I followed https://github.com/containers/podman/tree/main/test/buildah-bud and the result was this diff file. I'm not sure if this is right, and as I'm in a very deep dark corner of the project that I've not been in before, I'll ask @edsantiago to throw the life ring if necessary. Signed-off-by: tomsweeneyredhat &lt;tsweeney@redhat.com&gt;</MESSAGE>
+    <SHA>afc1a832e4b0829aafa6983ca42ca6bf25bf652d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[v5.2] skip compat-volume tests The two tests modified for the --compat-volumes option seem to be failing. See https://github.com/containers/podman/issues/23420 Adding them to the skip list to make progress. Signed-off-by: tomsweeneyredhat &lt;tsweeney@redhat.com&gt;</MESSAGE>
+      <SHA>ba17217c9faa817279818250c1d54233ce6fc653</SHA>
+      <PATCHEDFILES>
+        <FILE>test/buildah-bud/apply-podman-deltas</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

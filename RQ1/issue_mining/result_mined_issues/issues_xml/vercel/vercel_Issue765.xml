@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>765</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/765</ISSUEURL>
+  <TITLE>Secret being set incorrectly</TITLE>
+  <DESCRIPTION>_From @captDaylight on August 8, 2017 14:6_ setting a secret with: `now secrets add email_pass &quot;u5wV@#om$cLwAZC&amp;mmlB3*2ly&amp;Mm8bkv@54JOZ4N&quot;` is getting the secret passed to my app as: `u5wV@#om&amp;mmlB3*2ly&amp;Mm8bkv@54JOZ4N` I'll put them one on top of each other to inspect them easier, first the original and then the output. ``` u5wV@#om$cLwAZC&amp;mmlB3*2ly&amp;Mm8bkv@54JOZ4N u5wV@#om&amp;mmlB3*2ly&amp;Mm8bkv@54JOZ4N ``` I fixed this by changing the value to only numbers and letters, but I imagine this is unexpected behavior. _Copied from original issue: zeit/now#45_</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>69</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Use typescript esnext target (#756)</MESSAGE>
+    <SHA>12244133f8b0f5bf3f99a159e2fe323d62f35d0d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-node] Yarn workspaces transpilation &amp; typescript dependenci… (#765) * tests transpilation of yarn workspaces up until @now/node@0.7.4-canary.28 this used to work out of the box * tests that typescript workspaces are properly compiled * update node-file-trace, symlink handling * update node-file-trace, use index.ts in package.json main * remove logging!</MESSAGE>
+      <SHA>cd700b01cc7bb2981a65881a87d57f959c39b68b</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-node/package.json</FILE>
+        <FILE>packages/now-node/src/index.ts</FILE>
+        <FILE>packages/now-node/test/fixtures/41-yarn-workspaces-transpilation/api/index.js</FILE>
+        <FILE>packages/now-node/test/fixtures/41-yarn-workspaces-transpilation/api/package.json</FILE>
+        <FILE>packages/now-node/test/fixtures/41-yarn-workspaces-transpilation/now.json</FILE>
+        <FILE>packages/now-node/test/fixtures/41-yarn-workspaces-transpilation/package.json</FILE>
+        <FILE>packages/now-node/test/fixtures/41-yarn-workspaces-transpilation/packages/lib/babel.config.js</FILE>
+        <FILE>packages/now-node/test/fixtures/41-yarn-workspaces-transpilation/packages/lib/hash/index.js</FILE>
+        <FILE>packages/now-node/test/fixtures/41-yarn-workspaces-transpilation/packages/lib/index.js</FILE>
+        <FILE>packages/now-node/test/fixtures/41-yarn-workspaces-transpilation/packages/lib/package.json</FILE>
+        <FILE>packages/now-node/test/fixtures/41-yarn-workspaces-transpilation/yarn.lock</FILE>
+        <FILE>packages/now-node/test/fixtures/42-yarn-workspaces-typescript-dep/api/index.js</FILE>
+        <FILE>packages/now-node/test/fixtures/42-yarn-workspaces-typescript-dep/api/package.json</FILE>
+        <FILE>packages/now-node/test/fixtures/42-yarn-workspaces-typescript-dep/now.json</FILE>
+        <FILE>packages/now-node/test/fixtures/42-yarn-workspaces-typescript-dep/package.json</FILE>
+        <FILE>packages/now-node/test/fixtures/42-yarn-workspaces-typescript-dep/packages/lib/hash/index.ts</FILE>
+        <FILE>packages/now-node/test/fixtures/42-yarn-workspaces-typescript-dep/packages/lib/index.ts</FILE>
+        <FILE>packages/now-node/test/fixtures/42-yarn-workspaces-typescript-dep/packages/lib/package.json</FILE>
+        <FILE>packages/now-node/test/fixtures/42-yarn-workspaces-typescript-dep/packages/lib/tsconfig.json</FILE>
+        <FILE>packages/now-node/test/fixtures/42-yarn-workspaces-typescript-dep/tsconfig.json</FILE>
+        <FILE>packages/now-node/test/fixtures/42-yarn-workspaces-typescript-dep/yarn.lock</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

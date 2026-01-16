@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>103</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/103</ISSUEURL>
+  <TITLE>No serializer found for class org.asamk.signal.json.JsonSyncMessage and no properties discovered to create BeanSerializer</TITLE>
+  <DESCRIPTION>On /receive { error: &quot;WARN ReceiveCommand - &quot;--json&quot; option has been deprecated, please use the global &quot;--output=json&quot; instead. Failed to send/receive message (Assertion): com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer found for class org.asamk.signal.json.JsonGroupInfo and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: java.util.HashMap[&quot;envelope&quot;]-&gt;org.asamk.signal.json.JsonMessageEnvelope[&quot;dataMessage&quot;]-&gt;org.asamk.signal.json.JsonDataMessage[&quot;groupInfo&quot;]) java.lang.AssertionError: com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer found for class org.asamk.signal.json.JsonGroupInfo and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: java.util.HashMap[&quot;envelope&quot;]-&gt;org.asamk.signal.json.JsonMessageEnvelope[&quot;dataMessage&quot;]-&gt;org.asamk.signal.json.JsonDataMessage[&quot;groupInfo&quot;]) at org.asamk.signal.JsonWriter.write(JsonWriter.java:32) at org.asamk.signal.JsonReceiveMessageHandler.handleMessage(JsonReceiveMessageHandler.java:37) at org.asamk.signal.manager.Manager.receiveMessages(Manager.java:1782) at org.asamk.signal.commands.ReceiveCommand.handleCommand(ReceiveCommand.java:168) at org.asamk.signal.App.handleLocalCommand(App.java:211) at org.asamk.signal.App.init(App.java:169) at org.asamk.signal.Main.main(Main.java:43) Caused by: com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer found for class org.asamk.signal.json.JsonGroupInfo and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: java.util.HashMap[&quot;envelope&quot;]-&gt;org.asamk.signal.json.JsonMessageEnvelope[&quot;dataMessage&quot;]-&gt;org.asamk.signal.json.JsonDataMessage[&quot;groupInfo&quot;]) at com.fasterxml.jackson.databind.SerializerProvider.reportBadDefinition(SerializerProvider.java:1191) at com.fasterxml.jackson.databind.DatabindContext.reportBadDefinition(DatabindContext.java:313) at com.fasterxml.jackson.databind.ser.impl.UnknownSerializer.failForEmpty(UnknownSerializer.java:71) at com.fasterxml.jackson.databind.ser.impl.UnknownSerializer.serialize(UnknownSerializer.java:33) at com.fasterxml.jackson.databind.ser.BeanPropertyWriter.serializeAsField(BeanPropertyWriter.java:727) at com.fasterxml.jackson.databind.ser.std.BeanSerializerBase.serializeFields(BeanSerializerBase.java:719) at com.fasterxml.jackson.databind.ser.BeanSerializer.serialize(BeanSerializer.java:155) at com.fasterxml.jackson.databind.ser.BeanPropertyWriter.serializeAsField(BeanPropertyWriter.java:727) at com.fasterxml.jackson.databind.ser.std.BeanSerializerBase.serializeFields(BeanSerializerBase.java:719) at com.fasterxml.jackson.databind.ser.BeanSerializer.serialize(BeanSerializer.java:155) at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:722) at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:643) at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:33) at com.fasterxml.jackson.databind.ser.DefaultSerializerProvider._serialize(DefaultSerializerProvider.java:480) at com.fasterxml.jackson.databind.ser.DefaultSerializerProvider.serializeValue(DefaultSerializerProvider.java:319) at com.fasterxml.jackson.databind.ObjectMapper._configAndWriteValue(ObjectMapper.java:3906) at com.fasterxml.jackson.databind.ObjectMapper.writeValue(ObjectMapper.java:3202) at org.asamk.signal.JsonWriter.write(JsonWriter.java:29) ... 6 more If you use an Oracle JRE please check if you have unlimited strength crypto enabled, see README &quot; }</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>988</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>added possiblity to trigger builds remotely</MESSAGE>
+    <SHA>bdf5627b51a05b62c66b932dd33b2cf6c155daa7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>use &quot;--output=json&quot; instead of &quot;--json&quot; when calling signal-cli receive * --json is deprecated see #103</MESSAGE>
+      <SHA>03c0cac9720aaf614b3861507a4c06bbce310165</SHA>
+      <PATCHEDFILES>
+        <FILE>src/api/api.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>use &quot;--output=json&quot; instead of &quot;--json&quot; when calling signal-cli receive * --json is deprecated see #103</MESSAGE>
+      <SHA>9b10e274b562658726325c9a9602b7b764272751</SHA>
+      <PATCHEDFILES>
+        <FILE>src/api/api.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

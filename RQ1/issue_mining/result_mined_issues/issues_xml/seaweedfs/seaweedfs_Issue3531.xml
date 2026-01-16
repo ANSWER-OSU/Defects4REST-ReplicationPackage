@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3531</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3531</ISSUEURL>
+  <TITLE>About async backups</TITLE>
+  <DESCRIPTION>### Discussed in https://github.com/seaweedfs/seaweedfs/discussions/3529 &lt;div type='discussions-op-text'&gt; &lt;sup&gt;Originally posted by **lewisl9029** August 26, 2022&lt;/sup&gt; I just set up async backups to S3 in my dev environment following the instructions here: https://github.com/seaweedfs/seaweedfs/wiki/Async-Backup A few things I wanted to discuss: 1. Seeing a bunch of logs with the error `completeMultipartUpload resources/JTLtLXSjjlP3nN4tjbNfpCYzrF08EcSVCHbpa8XrUJE: EntityTooSmall: Your proposed upload is smaller than the minimum allowed size` at the end. Full log looks like this: ``` E0827 00:27:41.569969 filer_pb_tail.go:79 process directory:&quot;/resources&quot; event_notification:{new_entry:{name:&quot;JTLtLXSjjlP3nN4tjbNfpCYzrF08EcSVCHbpa8XrUJE&quot; chunks:{file_id:&quot;7,226b3fb24ef9&quot; size:4194304 mtime:1661135791927660085 e_tag:&quot;Bpp6x011IEhwtTl6OWbgew==&quot; fid:{volume_id:7 file_key:8811 cookie:1068650233}} chunks:{file_id:&quot;3,226ccbf95a37&quot; offset:4194304 size:525967 mtime:1661135791855596419 e_tag:&quot;5hzWkEk2zhUhh/SKQaCm7w==&quot; fid:{volume_id:3 file_key:8812 cookie:3422116407}} attributes:{file_size:4720271 mtime:1661135791 file_mode:432 crtime:1661135791 mime:&quot;application/json&quot; md5:&quot;&gt;T{[\xde4\xabȍ\n\x8d\x0c\xf6T$\xd7&quot;} extended:{key:&quot;Seaweed-Meta&quot; value:&quot;{\&quot;headers\&quot;:{\&quot;cache-control\&quot;:\&quot;public, max-age=31536000, immutable\&quot;,\&quot;content-type\&quot;:\&quot;application/json\&quot;}}&quot;}} delete_chunks:true new_parent_path:&quot;/resources&quot; signatures:-2011343073} ts_ns:1661135791928717585: [reflame-storage-backup-development] completeMultipartUpload resources/JTLtLXSjjlP3nN4tjbNfpCYzrF08EcSVCHbpa8XrUJE: EntityTooSmall: Your proposed upload is smaller than the minimum allowed size ``` Here's a zip with the file in the log: [JTLtLXSjjlP3nN4tjbNfpCYzrF08EcSVCHbpa8XrUJE.zip](https://github.com/seaweedfs/seaweedfs/files/9437048/JTLtLXSjjlP3nN4tjbNfpCYzrF08EcSVCHbpa8XrUJE.zip) Happy to turn this into an issue if it looks like a valid bug? 2. In my seaweed cluster I'm using a `Seaweed-meta` header to store a bunch of json metadata for each file, but in the s3 backup, I'm not seeing anything in S3 metadata except Content-Type: ![image](https://user-images.githubusercontent.com/6934200/187008116-f6db44af-ed2a-4d38-90f0-e4fc73c11b0b.png) Are the Seaweed- headers backed up somewhere in s3 as well? 3. How should I go about testing a restore from the async s3 backup, to make sure it works as expected and document the process for when I need to do this in production? Haven't been able to find any docs around this. Cheers!&lt;/div&gt;</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>make CodeQL happy</MESSAGE>
+    <SHA>e93de617def5cf20983e8526c02a979097a884b1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>s3 sink use s3 upload manager fix https://github.com/seaweedfs/seaweedfs/issues/3531</MESSAGE>
+      <SHA>a667015f8e14febb8b5da61844c6b2de21c0c35b</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/replication/sink/s3sink/s3_sink.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

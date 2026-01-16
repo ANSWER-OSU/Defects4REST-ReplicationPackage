@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18949</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18949</ISSUEURL>
+  <TITLE>The TenantType in GraphQL is missing the contacts property</TITLE>
+  <DESCRIPTION>### Deployment Type Self-hosted ### NetBox Version v4.2.5 ### Python Version 3.10 ### Steps to Reproduce 1. Create a tenant (assuming ID 1) 2. Create a contact (assuming with name &quot;John&quot;) 3. Add a contact assignment to the tenant 4. Execute the GraphQL query: ```graphql query { tenant(id: 1) { contacts { contact { name } } } } ``` ### Expected Behavior Query returns: ```json { &quot;data&quot;: { &quot;tenant&quot;: { &quot;contacts&quot;: [ { &quot;contact&quot;: { &quot;name&quot;: &quot;John&quot; } } ] } } } ``` ### Observed Behavior Query returns contacts on TenantType does not exist: ```json { &quot;data&quot;: null, &quot;errors&quot;: [ { &quot;message&quot;: &quot;Cannot query field 'contacts' on type 'TenantType'. Did you mean 'comments'?&quot;, &quot;locations&quot;: [ { &quot;line&quot;: 3, &quot;column&quot;: 5 } ] } ] } ```</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update source translation strings</MESSAGE>
+    <SHA>7db0765ed2bf7098bab17cb71e389ffbfde34ceb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #18949: Add missing GraphQL ContactsMixin in types with ContactAssignments</MESSAGE>
+      <SHA>b1d014b5206494cd94c058f6e365bea63eca2eba</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/circuits/graphql/types.py</FILE>
+        <FILE>netbox/ipam/graphql/types.py</FILE>
+        <FILE>netbox/tenancy/graphql/types.py</FILE>
+        <FILE>netbox/virtualization/graphql/types.py</FILE>
+        <FILE>netbox/vpn/graphql/types.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

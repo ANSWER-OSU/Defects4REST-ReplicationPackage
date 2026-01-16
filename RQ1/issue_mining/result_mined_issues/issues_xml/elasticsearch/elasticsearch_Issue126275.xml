@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126275</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126275</ISSUEURL>
+  <TITLE>ESQL: silently empty result in case of missing index instead of ValidationException</TITLE>
+  <DESCRIPTION>Applies to main, 8.x doesn't reproduce this. Reproducer: ``` curl -u elastic:password -HContent-Type:application/json 'localhost:9200/test/_doc?refresh' -d ' {&quot;foo&quot;: 1} ' curl -u elastic-admin:elastic-password -H &quot;Content-Type: application/json&quot; 'localhost:9200/_query?format=txt' -d' { &quot;query&quot;: &quot;from test&quot; }' foo --------------- 1 curl -u elastic-admin:elastic-password -H &quot;Content-Type: application/json&quot; 'localhost:9200/_query?format=txt' -d ' { &quot;query&quot;: &quot;from test, missingindex&quot; }' foo --------------- ``` Notice how the inclusion of `missingindex` in the index pattern causes the query to silently return an empty result. On 8.x, this (correctly) returns a verification exception.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.test.rest.XPackRestIT test {p0=ml/start_data_frame_analytics/Test start classification analysis when the dependent variable cardinality is too low} #126299</MESSAGE>
+    <SHA>a58d8e09f3b484a4a54551e475ace36b2e1a6a1d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ESQL: Revert &quot;Allow partial results by default in ES|QL (#125060)&quot; (#126286) This reverts commit 81555cc9d95c75c563edc1d3d8fdeb6c6512e41d from https://github.com/elastic/elasticsearch/pull/125060. Fix https://github.com/elastic/elasticsearch/issues/126275 @idegtiarenko and I investigated and believe this needs reverting: silently dropping results from the query response in case any index is missing can lead to real problems if users don't spot their mistake. I'm also not sure if all the results will get dropped, or only from some nodes/shards/clusters, meaning that this might be hard to spot by users if only some results get dropped. The main PR has no transport version bump, no new ESQL capability, and was merged 15h ago - so it should be safe to just revert it. I noticed there was a linked Serverless PR on the original PR, but it merely disabled some obsolete tests on Serverless and doesn't require reverting itself.</MESSAGE>
+      <SHA>8f38b13059ed39a7dbea63c525479e30b94c772c</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/125060.yaml</FILE>
+        <FILE>docs/changelog/126286.yaml</FILE>
+        <FILE>docs/release-notes/breaking-changes.md</FILE>
+        <FILE>test/external-modules/esql-heap-attack/src/javaRestTest/java/org/elasticsearch/xpack/esql/heap_attack/Clusters.java</FILE>
+        <FILE>x-pack/plugin/build.gradle</FILE>
+        <FILE>x-pack/plugin/esql/qa/security/src/javaRestTest/java/org/elasticsearch/xpack/esql/EsqlSecurityIT.java</FILE>
+        <FILE>x-pack/plugin/esql/qa/server/multi-clusters/src/javaRestTest/java/org/elasticsearch/xpack/esql/ccq/EsqlRestValidationIT.java</FILE>
+        <FILE>x-pack/plugin/esql/qa/server/multi-clusters/src/javaRestTest/java/org/elasticsearch/xpack/esql/ccq/RequestIndexFilteringIT.java</FILE>
+        <FILE>x-pack/plugin/esql/qa/server/single-node/src/javaRestTest/java/org/elasticsearch/xpack/esql/qa/single_node/RestEsqlIT.java</FILE>
+        <FILE>x-pack/plugin/esql/qa/server/src/main/java/org/elasticsearch/xpack/esql/qa/rest/EsqlRestValidationTestCase.java</FILE>
+        <FILE>x-pack/plugin/esql/qa/server/src/main/java/org/elasticsearch/xpack/esql/qa/rest/RequestIndexFilteringTestCase.java</FILE>
+        <FILE>x-pack/plugin/esql/qa/server/src/main/java/org/elasticsearch/xpack/esql/qa/rest/RestEsqlTestCase.java</FILE>
+        <FILE>x-pack/plugin/esql/src/internalClusterTest/java/org/elasticsearch/xpack/esql/action/AbstractCrossClusterTestCase.java</FILE>
+        <FILE>x-pack/plugin/esql/src/internalClusterTest/java/org/elasticsearch/xpack/esql/action/AbstractEsqlIntegTestCase.java</FILE>
+        <FILE>x-pack/plugin/esql/src/internalClusterTest/java/org/elasticsearch/xpack/esql/action/CrossClusterCancellationIT.java</FILE>
+        <FILE>x-pack/plugin/esql/src/internalClusterTest/java/org/elasticsearch/xpack/esql/action/ManyShardsIT.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/plugin/EsqlPlugin.java</FILE>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/CrossClusterEsqlRCS1MissingIndicesIT.java</FILE>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/RemoteClusterSecurityEsqlIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: Revert &quot;Allow partial results by default in ES|QL (#125060)&quot; (#126286) This reverts commit 81555cc9d95c75c563edc1d3d8fdeb6c6512e41d from https://github.com/elastic/elasticsearch/pull/125060. Fix https://github.com/elastic/elasticsearch/issues/126275 @idegtiarenko and I investigated and believe this needs reverting: silently dropping results from the query response in case any index is missing can lead to real problems if users don't spot their mistake. I'm also not sure if all the results will get dropped, or only from some nodes/shards/clusters, meaning that this might be hard to spot by users if only some results get dropped. The main PR has no transport version bump, no new ESQL capability, and was merged 15h ago - so it should be safe to just revert it. I noticed there was a linked Serverless PR on the original PR, but it merely disabled some obsolete tests on Serverless and doesn't require reverting itself.</MESSAGE>
+      <SHA>1616db632c71d1769bb8e06183a436fce0a41688</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/125060.yaml</FILE>
+        <FILE>docs/changelog/126286.yaml</FILE>
+        <FILE>docs/release-notes/breaking-changes.md</FILE>
+        <FILE>test/external-modules/esql-heap-attack/src/javaRestTest/java/org/elasticsearch/xpack/esql/heap_attack/Clusters.java</FILE>
+        <FILE>x-pack/plugin/build.gradle</FILE>
+        <FILE>x-pack/plugin/esql/qa/security/src/javaRestTest/java/org/elasticsearch/xpack/esql/EsqlSecurityIT.java</FILE>
+        <FILE>x-pack/plugin/esql/qa/server/multi-clusters/src/javaRestTest/java/org/elasticsearch/xpack/esql/ccq/EsqlRestValidationIT.java</FILE>
+        <FILE>x-pack/plugin/esql/qa/server/multi-clusters/src/javaRestTest/java/org/elasticsearch/xpack/esql/ccq/RequestIndexFilteringIT.java</FILE>
+        <FILE>x-pack/plugin/esql/qa/server/single-node/src/javaRestTest/java/org/elasticsearch/xpack/esql/qa/single_node/RestEsqlIT.java</FILE>
+        <FILE>x-pack/plugin/esql/qa/server/src/main/java/org/elasticsearch/xpack/esql/qa/rest/EsqlRestValidationTestCase.java</FILE>
+        <FILE>x-pack/plugin/esql/qa/server/src/main/java/org/elasticsearch/xpack/esql/qa/rest/RequestIndexFilteringTestCase.java</FILE>
+        <FILE>x-pack/plugin/esql/qa/server/src/main/java/org/elasticsearch/xpack/esql/qa/rest/RestEsqlTestCase.java</FILE>
+        <FILE>x-pack/plugin/esql/src/internalClusterTest/java/org/elasticsearch/xpack/esql/action/AbstractCrossClusterTestCase.java</FILE>
+        <FILE>x-pack/plugin/esql/src/internalClusterTest/java/org/elasticsearch/xpack/esql/action/AbstractEsqlIntegTestCase.java</FILE>
+        <FILE>x-pack/plugin/esql/src/internalClusterTest/java/org/elasticsearch/xpack/esql/action/CrossClusterCancellationIT.java</FILE>
+        <FILE>x-pack/plugin/esql/src/internalClusterTest/java/org/elasticsearch/xpack/esql/action/ManyShardsIT.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/plugin/EsqlPlugin.java</FILE>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/CrossClusterEsqlRCS1MissingIndicesIT.java</FILE>
+        <FILE>x-pack/plugin/security/qa/multi-cluster/src/javaRestTest/java/org/elasticsearch/xpack/remotecluster/RemoteClusterSecurityEsqlIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121366</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121366</ISSUEURL>
+  <TITLE>[CI] AddIndexBlockRollingUpgradeIT testAddBlock {upgradedNodes=3} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #16936 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/pj6rjalerhs6y) - [elasticsearch-intake #16934 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/2rlryjp76rosk) - [elasticsearch-intake #16932 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/mkbb5lcdfj3r6) **Reproduction Line:** ``` ./gradlew &quot;:qa:rolling-upgrade:v8.19.0#bwcTest&quot; -Dtests.class=&quot;org.elasticsearch.upgrades.AddIndexBlockRollingUpgradeIT&quot; -Dtests.method=&quot;testAddBlock {upgradedNodes=1}&quot; -Dtests.seed=9DE645285488F16E -Dtests.bwc=true -Dtests.locale=jgo -Dtests.timezone=Asia/Manila -Druntime.java=23 ``` **Applicable branches:** 9.0 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.upgrades.AddIndexBlockRollingUpgradeIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testAddBlock%20%7BupgradedNodes%3D3%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.RuntimeException: An error occurred while checking cluster 'test-cluster' status. ``` **Issue Reasons:** - [9.0] 3 consecutive failures in step 8.19.0_bwc-snapshots - [9.0] 3 failures in test testAddBlock {upgradedNodes=3} (5.8% fail rate in 52 executions) - [9.0] 3 failures in step 8.19.0_bwc-snapshots (18.8% fail rate in 16 executions) - [9.0] 3 failures in pipeline elasticsearch-intake (25.0% fail rate in 12 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.upgrades.AddIndexBlockRollingUpgradeIT testAddBlock {upgradedNodes=2} #121365</MESSAGE>
+    <SHA>b4054994f9e1fee111d2c518f8644e61ebfc7a22</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.upgrades.AddIndexBlockRollingUpgradeIT testAddBlock {upgradedNodes=3} #121366</MESSAGE>
+      <SHA>4de3392e96461819aa8b8473eb8166197f71b674</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

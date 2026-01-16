@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>125752</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/125752</ISSUEURL>
+  <TITLE>[CI] TimeSeriesDataStreamsIT class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7280 / debian-12_platform-support-unix](https://gradle-enterprise.elastic.co/s/ovrdqoueoz6bg) - [elasticsearch-pull-request #64585 / part-5](https://gradle-enterprise.elastic.co/s/t3rwh5ugyi6du) **Reproduction Line:** ``` undefined ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.ilm.TimeSeriesDataStreamsIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.xpack.ilm.TimeSeriesDataStreamsIT),title:'Test',type:optionsListControl))))) **Failure Message:** ``` undefined ``` **Issue Reasons:** - [main] 2 failures in class org.elasticsearch.xpack.ilm.TimeSeriesDataStreamsIT (0.6% fail rate in 357 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Use a custom cache record for EnterpriseResponse (#125809)</MESSAGE>
+    <SHA>d12a662a986d2256bf9153c92be4104a3f9e0e91</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Properly fix data stream retrieval in TimeSeriesDataStreamsIT This test could still fail by consecutive API calls hitting different nodes with different versions of the cluster state. Follow-up of #125621 Relates #125752 (but doesn't close it, as that issue includes two different failures)</MESSAGE>
+      <SHA>d606763301369a6723ef1d1af660e3d02c8326e3</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/ilm/qa/multi-node/src/javaRestTest/java/org/elasticsearch/xpack/ilm/TimeSeriesDataStreamsIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Properly fix data stream retrieval in TimeSeriesDataStreamsIT (#125815) This test could still fail by consecutive API calls hitting different nodes with different versions of the cluster state. Follow-up of #125621 Fixes #125752</MESSAGE>
+      <SHA>fd6ae3dfae11e17fd679f37d3242824c08499920</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/ilm/qa/multi-node/src/javaRestTest/java/org/elasticsearch/xpack/ilm/TimeSeriesDataStreamsIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

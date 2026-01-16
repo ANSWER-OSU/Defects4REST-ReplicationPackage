@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7406</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7406</ISSUEURL>
+  <TITLE>Discount update is interrupted by an error when there is no vendor binding</TITLE>
+  <DESCRIPTION>nopCommerce version: develop Steps to reproduce the problem: When saving an instance of the entity &quot;discount&quot; the application returns an error: &gt; Microsoft.Data.SqlClient.SqlException (0x80131904): The UPDATE statement conflicted with the FOREIGN KEY constraint &quot;FK_Discount_VendorId_Vendor_Id&quot;. The conflict occurred in database &quot;nopCommerce_develop&quot;, table &quot;dbo.Vendor&quot;, column 'Id'. &gt; &gt; Page URL: /Admin/Discount/Edit/2 There is no binding to vendors: ![image](https://github.com/user-attachments/assets/043d3e53-32ff-40af-8e60-2cd661f8e6d3) Related to #7241</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7412 Widgets.Swiper. Use Newtonsoft.Json for JSON Serialize and Deserialize</MESSAGE>
+    <SHA>93c9e45953d10e3d971314420672774ea7348eca</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7406 #7241 Fixed saving discount without linking to vendor</MESSAGE>
+      <SHA>bd0d94a5b99bdc131854a8e2d9bc8edb06d59abb</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Discounts/Discount.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/DiscountModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Discounts/DiscountModel.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

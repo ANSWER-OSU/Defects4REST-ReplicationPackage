@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1937</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/1937</ISSUEURL>
+  <TITLE>Making the LanguagePackImport Stored Procedure more versatile (contribution)</TITLE>
+  <DESCRIPTION>We, at Nop-Templates, decided to make some optimization changes to our plugins. One of our goals, doing that, was to improve the speed of the initial load. We targeted the importing the resources into the database. We wanted to import all resources to the database when installing a Nop-Templates plugin and adding only the missing resources on application start. Until now we have done that by parsing the XML files and inserting them, while checking if exists, into the database but we found out that this is a slow process. After doing some research we found out that using stored procedure for this would be much faster. Since you already have similar stored procedure we tried to use it but we ran into an issue since we need an additional small check. We altered your procedure in order for it to fit our needs. The stored procedure we created differs little from the one already existing in nopCommerce (LanguagePackImport) but we have added a third parameter - UpdateExistingResources, that is set by default to be true. This parameter is checked before adding resources into the database: If UpdateExistingResources is set to true you would update all the resources. If UpdateExistingResources is set to false you will only add the resources that are non-existent in the database(missing resources). Since our stored procedure differs very little from the one in nopCommerce responsible for the resources import to the database we would like to suggest to you to include the changes we made into the LanguagePackImport procedure. Not only will those changes not affect the existing functionality of the stored procedure but they will give vendors, like ourselves, the opportunity to use it for their products. Here is the altered procedure: CREATE PROCEDURE [dbo].[LanguagePackImport] ( @LanguageId int, @XmlPackage xml, @UpdateExistingResources bit ) AS BEGIN IF EXISTS(SELECT * FROM [Language] WHERE [Id] = @LanguageId) BEGIN CREATE TABLE #LocaleStringResourceTmp ( [LanguageId] [int] NOT NULL, [ResourceName] [nvarchar](200) NOT NULL, [ResourceValue] [nvarchar](MAX) NOT NULL ) INSERT INTO #LocaleStringResourceTmp (LanguageID, ResourceName, ResourceValue) SELECT @LanguageId, nref.value('@Name', 'nvarchar(200)'), nref.value('Value[1]', 'nvarchar(MAX)') FROM @XmlPackage.nodes('//Language/LocaleResource') AS R(nref) DECLARE @ResourceName nvarchar(200) DECLARE @ResourceValue nvarchar(MAX) DECLARE cur_localeresource CURSOR FOR SELECT LanguageID, ResourceName, ResourceValue FROM #LocaleStringResourceTmp OPEN cur_localeresource FETCH NEXT FROM cur_localeresource INTO @LanguageId, @ResourceName, @ResourceValue WHILE @@FETCH_STATUS = 0 BEGIN IF (EXISTS (SELECT 1 FROM [LocaleStringResource] WHERE LanguageID=@LanguageId AND ResourceName=@ResourceName) ) BEGIN IF (@UpdateExistingResources = 1) BEGIN UPDATE [LocaleStringResource] SET [ResourceValue]=@ResourceValue WHERE LanguageID=@LanguageId AND ResourceName=@ResourceName END END ELSE BEGIN INSERT INTO [LocaleStringResource] ( [LanguageId], [ResourceName], [ResourceValue] ) VALUES ( @LanguageId, @ResourceName, @ResourceValue ) END FETCH NEXT FROM cur_localeresource INTO @LanguageId, @ResourceName, @ResourceValue END CLOSE cur_localeresource DEALLOCATE cur_localeresource DROP TABLE #LocaleStringResourceTmp END END Source: http://www.nopcommerce.com/boards/t/45380/making-the-languagepackimport-stored-procedure-more-versatile.aspx</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'develop' of https://github.com/nopSolutions/nopCommerce into develop</MESSAGE>
+    <SHA>210f03f09510d3720a6a41ea0e18954486ee08ef</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#1937 Added &quot;UpdateExistingResources&quot; parameter to &quot;ImportResourcesFromXml&quot; method</MESSAGE>
+      <SHA>3b19b81f781fae141c2bf42213e15dca026e2f8a</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Localization/ILocalizationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Localization/LocalizationService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Install/SqlServer.StoredProcedures.sql</FILE>
+        <FILE>upgradescripts/3.80-the next version/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7205</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7205</ISSUEURL>
+  <TITLE>Fix validation of pickup point lat/lon fields in the admin area</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.70 Steps to reproduce the problem: &gt; When using the Hungarian language, the Latitude and Longitude fields in the PickupInStore module do not accept decimal values correctly. The decimal separator in Hungarian locale is a comma (,), but the validation expects a period (.), which causes validation failures specifically for these fields. Behavior: Switching the application language to English (en-US) resolves the issue, and the Latitude and Longitude inputs validate as expected. Switching back to Hungarian reintroduces the problem only for these specific fields. Reproduction Steps: Set the application language to Hungarian. Navigate to the PickupInStore configuration. Attempt to input decimal values for Latitude and Longitude. Observe that the validation fails due to the expected decimal separator being a period instead of a comma. Additional Context: This issue did not occur in version 4.60.5 with the same server settings. The problem started appearing from version 4.70.0 onwards. Other decimal fields in different parts of the application do not exhibit this issue; it seems to be isolated to the PickupInStore Latitude and Longitude fields. &gt; Given these details, it seems like the validation for these specific fields might still be using the server locale (en-us) rather than the application locale (hu-HU) when rendering and validating these fields. This discrepancy might be causing the validation issues with decimal inputs in the Hungarian language. &gt; Could you please provide guidance on how to ensure that the PickupInStore module respects the Hungarian locale settings for decimal input validation without modifying the core nopCommerce settings? Any advice or direction would be greatly appreciated. Source: https://www.nopcommerce.com/en/boards/topic/99120/decimal-validation-issue-in-nopcommerce-470#312808</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7193 Fixed incorrect using of Combination.OveriddenPrice as AdditionalCharge in some cases</MESSAGE>
+    <SHA>c172f6f587ecd7a0df69867bb2d7c5b7d01bdfd6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7205 Fixed validation of pickup point lat/lon fields in the admin area</MESSAGE>
+      <SHA>5dbb50d20b606aeb0ac267b1f2366108c9dc0a53</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Pickup.PickupInStore/Models/StorePickupPointModel.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Pickup.PickupInStore/Views/_CreateOrUpdate.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#7205 Fixed precision of pickup point lat/lon fields</MESSAGE>
+      <SHA>4e3c91a7828a810c655bd6753c4e7fda6ab7b224</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Pickup.PickupInStore/Data/Mapping/StorePickupPointBuilder.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Pickup.PickupInStore/Data/Migrations/LonLatUpdateMigration.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Pickup.PickupInStore/Data/Migrations/SchemaMigration.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Pickup.PickupInStore/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18392</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18392</ISSUEURL>
+  <TITLE>Virtual Machine wrongfully inheriting config context from site's location</TITLE>
+  <DESCRIPTION>### Deployment Type NetBox Cloud ### Triage priority N/A ### NetBox Version v4.2.0 ### Python Version 3.10 ### Steps to Reproduce Diagram for reference when reproducing: ![Screenshot 2025-01-14 at 10 36 24 AM](https://github.com/user-attachments/assets/2c1b4eeb-1636-4ec6-82a8-47cec3503916) STEPS: 1. New Site &quot;A1&quot; 2. New Location &quot;L1 - prod&quot; (linked to site &quot;A1&quot;) 3. New Location &quot;L2 - lab&quot; (linked to site &quot;A1&quot;) 4. New Config Context &quot;A1-config&quot; Location: &quot;L1 - prod&quot; Data: ```json { &quot;site_name&quot;: &quot;A1 - prod&quot; } ``` 5. New Config Context &quot;A1-lab-config&quot; Location: &quot;L2 - lab&quot; Data: ```json { &quot;site_name&quot;: &quot;A1 - lab&quot; } ``` 6. New VM &quot;A1-prod-vm&quot; (linked to site &quot;A1&quot;, no location because VMs cant have locations) 7. Check rendered config context of VM &quot;A1-prod-vm&quot; ![Screenshot 2025-01-14 at 10 33 54 AM](https://github.com/user-attachments/assets/f87f1abb-7355-4370-a01a-7f8580bff2f1) **First question:** How does the VM have a rendered config context **but no source config contexts**? **Second question:** How is the VM getting a **location based** config context when the VM doesn't have a location? **Third question (optional):** Why is the VM getting specifically the LAB config context in this senario? For background, i first tried this in a v3.7.3 deployment then tried it in the v4.2.0 community demo and found the same issue. Found when we saw all our prod vms using a lab config context. ### Expected Behavior The VM shouldn't have any data in its config context ### Observed Behavior 1. The VM has data in the config context 2. The VM's config context doesn't show where it got the source config from</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Closes #18425: Remove the triage priority field from GitHub issue templates</MESSAGE>
+    <SHA>4a13664e0f68701d4aacc9fefe82038f1cb7ea22</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #18392: Exclude config contexts assigned to locations for VMs</MESSAGE>
+      <SHA>879762fc1db5cab74a29dd86d33f367858b08f97</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/extras/querysets.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #18392: Exclude config contexts assigned to locations for VMs</MESSAGE>
+      <SHA>5b9210dfa5f9288a55686c86e582f65dea0386de</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/extras/querysets.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #18392: Exclude config contexts assigned to locations for VMs</MESSAGE>
+      <SHA>a0c1eae68b8ace51d75a54343b774520ea9294d0</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/extras/querysets.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #18392: Exclude config contexts assigned to locations for VMs</MESSAGE>
+      <SHA>8cc9a5af5ef329e8dd9434bc9ddf6510fef5be8a</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/extras/querysets.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

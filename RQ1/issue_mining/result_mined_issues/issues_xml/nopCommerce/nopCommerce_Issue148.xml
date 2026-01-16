@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>148</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/148</ISSUEURL>
+  <TITLE>Performance. Optimize cache implementation (remove only appropriate records from cache when some event is triggered)</TITLE>
+  <DESCRIPTION>Currently when we cache prices or any models, then we remove all records from the cache (when some event occur). But why not removing only an updated item? For example, there's no need to remove all cached product prices if actually only one product is updated we sometimes it's almost not possible. for example, PRODUCTS_ALSO_PURCHASED_IDS_KEY. We can remove keys of the current products ({0} parameter). But we should understand that we current product could be part of some other PRODUCTS_ALSO_PURCHASED_IDS_KEY Actually there's no need to implement it for all entities. We should do it just for entities that could have a lot of records (thousands). For example, anything related to products also see http://www.nopcommerce.com/boards/t/43931/increase-performance-in-addloacles.aspx#174309</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>292</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Source code typo fixed</MESSAGE>
+    <SHA>60bffe97a79af14d79ab2b5f6f62e11a3bdf6a19</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#148 Performance. We should remove only appropriate records from cache when some event is triggered (not all ones)</MESSAGE>
+      <SHA>8d80419544f3eb678741acb769e8db1ebedec5f6</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Infrastructure/Cache/ModelCacheEventConsumer.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#148 Performance. We should remove only appropriate records from cache when some event is triggered (not all ones)</MESSAGE>
+      <SHA>9c43c8b42c8c86f4f2333a5f30fd18d0805fbd62</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Infrastructure/Cache/ModelCacheEventConsumer.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#148 Performance. We should remove only appropriate records from cache when some event is triggered (not all ones)</MESSAGE>
+      <SHA>cd9623f70873d5c83c4bfd7bc12260d6803dade6</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Administration/Controllers/ProductController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Infrastructure/Cache/ModelCacheEventConsumer.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#148 Further changes on &quot;Performance. We should remove only appropriate records from cache when some event is triggered (not all ones)&quot;</MESSAGE>
+      <SHA>bef112c6b050c087b11fcd5a0258b1a86381e53e</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Infrastructure/Cache/ModelCacheEventConsumer.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18768</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18768</ISSUEURL>
+  <TITLE>e2e: &quot;HTTP if one registry&quot; test looks like a NOP</TITLE>
+  <DESCRIPTION>The &quot;podman search doesn't attempt HTTP if one registry is not listed as insecure&quot; test looks like a NOP, it always spits out: ``` podman [options] search my-alpine Error: 2 errors occurred: * couldn't search registry &quot;localhost:33859&quot;: pinging container registry localhost:33859: Get &quot;http://localhost:33859/v2/&quot;: dial tcp [::1]:33859: connect: connection refused * couldn't search registry &quot;localhost:6000&quot;: pinging container registry localhost:6000: Get &quot;https://localhost:6000/v2/&quot;: dial tcp [::1]:6000: connect: connection refused ``` The first number, 33859, is a random port **but we never start a registry on that port** The second number, 6000, is a constant, and ditto. The test passes because it simply looks for the presence of the substring &quot;error&quot;. I suspect the intention was to check for something like &quot;server gave HTTP response to HTTPS client&quot;, but this code has too many levels of indirection for me to be able to understand. Someone more familiar with this test file needs to figure it out.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>62</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18756 from Luap99/tz libpod: fix timezone handling</MESSAGE>
+    <SHA>a7e23d341d92d4e731db855dda4c795268275301</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>e2e: GetPort(): safer allocation of random ports Intented to fix an obscure, unlikely race condition in which (I think) two parallel jobs called GetPort() and were assigned the same port. Also, add actual proper testing to two HTTP-registry tests, and Skip a third that's a waste of cycles (filed #18768) Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>28934897e3cf0cc0874b8ff5e69933cd8baaf35e</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/common_test.go</FILE>
+        <FILE>test/e2e/search_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>CI: e2e: remove useless test Remove &quot;HTTP if one registry&quot; test. It is a NOP, has been skipped for two months, and nobody knows what its original purpose was. Closes: #18768 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>a8974d4a3e829d68698a43d64e91e4bb9679292e</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/search_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

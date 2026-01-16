@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3208</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3208</ISSUEURL>
+  <TITLE>Copy References to Output Directory in PlugIns with Nuget Packages</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.10 Steps to reproduce the problem: 1. Add new .net core project with all nopCommerce project changes, eg PostBuild step &amp; update output directory to nop.web/plugins 2. Add Nuget reference to IdentityServer4 2.2.0 3. Build and notice the plugins/&lt;myPlugin&gt;/ dir contains the plugin assembly but not the IdentityServer4.dll, this assembly however is in the package store c:\users\&lt;username&gt;\.nuget\packages\IdentityServer4\... 4. Run the app and you will receive an assembly not found error page. If I copy the dll from the nuget package into the root of my project and mark it as content and copy things work as long as I copy all its dependencies too. If I use &lt;CopyLocalLockFileAssemblies&gt;true&lt;/CopyLocalLockFileAssemblies&gt; this works too but a ton of assemblies get dumped into my plugin directory. The ClearPluginAssemblies.proj does not really work other than to remove a few nop assemblies as all the package references come from the user's package store. Basically I need to understand the best workflow to develop a plugin with a Nuget package reference and then understand how to properly deploy such plugin on nopCommerce 4.10.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>96</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'issue-2932-Refactoring-GenerateAllCombinations' into develop</MESSAGE>
+    <SHA>f850576cd9adadbb0135a939ae0a305d701f6f57</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3208 Added possibilite and instructions to copy NuGet references to output directory</MESSAGE>
+      <SHA>591cda3ba4f7efdac6291fc814fed652b359f8ee</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.DiscountRules.CustomerRoles/Nop.Plugin.DiscountRules.CustomerRoles.csproj</FILE>
+        <FILE>src/Plugins/Nop.Plugin.DiscountRules.CustomerRoles/Notes.txt</FILE>
+        <FILE>src/Plugins/Nop.Plugin.ExchangeRate.EcbExchange/Nop.Plugin.ExchangeRate.EcbExchange.csproj</FILE>
+        <FILE>src/Plugins/Nop.Plugin.ExchangeRate.EcbExchange/Notes.txt</FILE>
+        <FILE>src/Plugins/Nop.Plugin.ExternalAuth.Facebook/Nop.Plugin.ExternalAuth.Facebook.csproj</FILE>
+        <FILE>src/Plugins/Nop.Plugin.ExternalAuth.Facebook/Notes.txt</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.CheckMoneyOrder/Nop.Plugin.Payments.CheckMoneyOrder.csproj</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.CheckMoneyOrder/Notes.txt</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.Manual/Nop.Plugin.Payments.Manual.csproj</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.Manual/Notes.txt</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalStandard/Nop.Plugin.Payments.PayPalStandard.csproj</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalStandard/Notes.txt</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.Square/Nop.Plugin.Payments.Square.csproj</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.Square/Notes.txt</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.Square/RestSharp.dll</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.Square/Square.Connect.dll</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.Worldpay/Nop.Plugin.Payments.Worldpay.csproj</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.Worldpay/Notes.txt</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Pickup.PickupInStore/Nop.Plugin.Pickup.PickupInStore.csproj</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Pickup.PickupInStore/Notes.txt</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.FixedByWeightByTotal/Nop.Plugin.Shipping.FixedByWeightByTotal.csproj</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.FixedByWeightByTotal/Notes.txt</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/Nop.Plugin.Shipping.UPS.csproj</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/Notes.txt</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.FixedOrByCountryStateZip/Nop.Plugin.Tax.FixedOrByCountryStateZip.csproj</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.FixedOrByCountryStateZip/Notes.txt</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Nop.Plugin.Widgets.GoogleAnalytics.csproj</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.GoogleAnalytics/Notes.txt</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.NivoSlider/Nop.Plugin.Widgets.NivoSlider.csproj</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.NivoSlider/Notes.txt</FILE>
+        <FILE>src/Presentation/Nop.Web/Nop.Web.csproj</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Removed redundant parameters from executing Clear Plugin Assemblies function (#3208)</MESSAGE>
+      <SHA>47294bbdc5cfcce34886da7261aefc19e356fb7e</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Payments.Square/Nop.Plugin.Payments.Square.csproj</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

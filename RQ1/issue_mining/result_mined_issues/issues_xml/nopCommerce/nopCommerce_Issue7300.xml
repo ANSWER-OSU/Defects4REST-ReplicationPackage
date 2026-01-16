@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7300</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7300</ISSUEURL>
+  <TITLE>The ExportManager.GetLimitedToStoresAsync method raise an exception when StoreMapping contains deleted store</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.60+ After closing the #5096 ticket the Store entity became an ISoftDeletedEntity. Therefore, entities are no longer deleted from the database, which means that cascade deletion from the StoreMapping table does not work, and it can now contain seemingly invalid records, which is why exporting products throws a system.NullReferenceException exception. see details on [this topic](https://www.nopcommerce.com/en/boards/topic/100583/error-object-reference-not-set-to-an-instance-of-an-object)</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7298 Added permission check to visit the Move Topic page on the forums</MESSAGE>
+    <SHA>48f60e1aacf8195390121d16b6c35fb6f5b5111c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7300 Fixed problem with the exporting product which has a mapping to deleted store</MESSAGE>
+      <SHA>06f06d0d4266d56d050e059a3a79fca02f4f5357</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/ExportImport/ExportManager.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

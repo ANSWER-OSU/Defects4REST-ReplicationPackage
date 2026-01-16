@@ -1,0 +1,69 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2903</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2903</ISSUEURL>
+  <TITLE>Detected accuracy problems on cron jobs with &quot;@every XX&quot; with XX period time</TITLE>
+  <DESCRIPTION>Hi to all drone followers. First I would like to be grateful with drone owners and collaborators for this great software. As previously discused in https://discourse.drone.io/t/triggered-builds-by-cron-have-high-deviation-against-expected-time/6612/4 , we have detected some accuracy problems with builds triggered from cron with expressions `@every XX` ( continuous period without no important where it exact begins) The 2 main discussion issues was. ## Accumulated delay on jobs needed to have a stable cadence (with acceptance of some jitter) it could be a problem as there is lack of data. **With current drone version** ![image](https://user-images.githubusercontent.com/5883405/72604755-d2b1f680-391b-11ea-8e91-acd28202f44b.png) En the previous image cron jobs should be triggered each 10min but all cron-jobs has been accumulating time until bypass one period **Expected** ![image](https://user-images.githubusercontent.com/5883405/72604826-eeb59800-391b-11ea-867a-c6fe29119dc9.png) This is the expected behaviour, where there is one execution on each time bucket ## job alignment Right now drone changes the triggering time depending on the DRONE_CRON_INTERVAL if drone-server (for maintenance or for incidence) has been stopped more than one &quot;XX period&quot; on restart all cron jobs will be triggered first at the same time. This fact could have impact on not much efficient resource consumption distributión and could overload runner system. Could be interesting if Drone could maintain the cron deploy initial time by the end user ( this is like delegate resource load distribucion on the end user ) , instead of changing it with this dangerous behaviour</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>re-use config and convert plugin clients</MESSAGE>
+    <SHA>f1dd01e50c4eae3e7d5151f4f81a32e90d584ff9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fixes #2903 accumulated delay and cron jobs alignement</MESSAGE>
+      <SHA>ce84a223f22a45202b75a0187c02bf991cf8d4d8</SHA>
+      <PATCHEDFILES>
+        <FILE>core/cron.go</FILE>
+        <FILE>store/cron/cron.go</FILE>
+        <FILE>trigger/cron/cron.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fixes #2903 accumulated delay and cron jobs alignement</MESSAGE>
+      <SHA>6cbdc7b2a03682f2aeac3274aca6d2c9a27f43b2</SHA>
+      <PATCHEDFILES>
+        <FILE>core/cron.go</FILE>
+        <FILE>handler/api/repos/crons/create_test.go</FILE>
+        <FILE>store/cron/cron.go</FILE>
+        <FILE>trigger/cron/cron.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fixes #2903 accumulated delay and cron jobs alignement</MESSAGE>
+      <SHA>166b6f058546bbd039f6a58effcbb6d418a28716</SHA>
+      <PATCHEDFILES>
+        <FILE>core/cron.go</FILE>
+        <FILE>handler/api/repos/crons/create_test.go</FILE>
+        <FILE>store/cron/cron.go</FILE>
+        <FILE>trigger/cron/cron.go</FILE>
+        <FILE>trigger/cron/cron_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fixes #2903 accumulated delay and cron jobs alignement</MESSAGE>
+      <SHA>86517960de158b248ea26e8b2a8b4484af47fa84</SHA>
+      <PATCHEDFILES>
+        <FILE>core/cron.go</FILE>
+        <FILE>go.mod</FILE>
+        <FILE>handler/api/repos/crons/create_test.go</FILE>
+        <FILE>store/cron/cron.go</FILE>
+        <FILE>trigger/cron/cron.go</FILE>
+        <FILE>trigger/cron/cron_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fixes #2903 accumulated delay and cron jobs alignement</MESSAGE>
+      <SHA>0786bcf148288250a0bac872f9cce34c013a885c</SHA>
+      <PATCHEDFILES>
+        <FILE>core/cron.go</FILE>
+        <FILE>go.mod</FILE>
+        <FILE>handler/api/repos/crons/create_test.go</FILE>
+        <FILE>store/cron/cron.go</FILE>
+        <FILE>trigger/cron/cron.go</FILE>
+        <FILE>trigger/cron/cron_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

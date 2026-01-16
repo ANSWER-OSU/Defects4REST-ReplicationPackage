@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19092</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/19092</ISSUEURL>
+  <TITLE>Regression: Bulk Edit fails to update Scope when using ContentTypeChoiceField (HTMX)</TITLE>
+  <DESCRIPTION>### Deployment Type Self-hosted ### NetBox Version main (v4.2.7) ### Python Version 3.10 ### Steps to Reproduce 1. Create a Site named `Site1` 2. Create a Prefix `10.0.0.0/16` with: - *Scope Type*: `Site` - *Scope*: `Site1` 3. Navigate to *IPAM → Prefixes* (PrefixListView) 4. Select the prefix `10.0.0.0/16` using the checkbox (✅) 5. Click *Edit Selected* to initiate a bulk edit 6. In the bulk edit form: - Change the *Scope Type* dropdown to `Location` (or any other valid choice) - Attempt to select a *Scope* from the corresponding dropdown ### Expected Behavior - After selecting a *Scope Type*, the *Scope* dropdown should become active and list the available objects of the selected type. ### Observed Behavior - The *Scope Type* field gets reset to `None` - The *Scope* field remains disabled - This effectively prevents setting a *Scope* during bulk edits --- When performing bulk edits on models utilizing a `ContentTypeChoiceField` (typically for `GenericForeignKey` fields), the dynamic behavior of the *Scope* field is broken. Specifically, selecting a *Scope Type* fails to properly enable and populate the corresponding *Scope* field. This is a recent regression, which is included in the upcoming **v4.2.7** patch release. **Regression Introduced By** Commit: [`12231ad`](https://github.com/netbox-community/netbox/commit/12231ad71a36f7cd4a727806284ef1228510ea8a) Pull Request: [#18997](https://github.com/netbox-community/netbox/pull/18997) Select all with bulk edit only changes the currently visible objects Related Issue: [#18964](https://github.com/netbox-community/netbox/issues/18964) The function of selecting all devices fails.</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update source translation strings</MESSAGE>
+    <SHA>92317248a36c0c57ecfde97d9690cad35fe47d81</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #19092: scope type selection lost when editing multiple/all objects</MESSAGE>
+      <SHA>c03072f45be7db43a6f7d4526b8a3758d583cae9</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/netbox/views/generic/bulk_views.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #19092: scope type selection lost when editing multiple/all objects (#19102)</MESSAGE>
+      <SHA>30208549ba2c33bfc91431857c0b4670d18b456c</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/netbox/views/generic/bulk_views.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

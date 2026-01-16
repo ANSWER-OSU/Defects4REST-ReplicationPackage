@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2492</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/2492</ISSUEURL>
+  <TITLE>When i &quot;mkdir /dfs/buckets/newbucket&quot;, remote s3 will create many &quot;newbucket-xxxx&quot; buckets.</TITLE>
+  <DESCRIPTION>## System setup Same as: #2465 ## Info: /fastdfs : Mount of &quot;Local Weed&quot; /dfs: Mount of &quot;Remote Weed&quot; ## Describe the bug When: &gt; mkdir /fastdfs/buckets/newbucket/ (**On Local Server**) I got ❌: &gt; ll /dfs/buckets/ (**On Remote Server**) ```shell drwxrwxrwx 1 root root 0 Dec 5 23:40 newbucket-1317 drwxrwxrwx 1 root root 0 Dec 5 23:40 newbucket-1521 drwxrwxrwx 1 root root 0 Dec 5 23:40 newbucket-2486 drwxrwxrwx 1 root root 0 Dec 5 23:40 newbucket-2595 drwxrwxrwx 1 root root 0 Dec 5 23:40 newbucket-2863 drwxrwxrwx 1 root root 0 Dec 5 23:40 newbucket-3108 drwxrwxrwx 1 root root 0 Dec 5 23:40 newbucket-3293 drwxrwxrwx 1 root root 0 Dec 5 23:40 newbucket-4312 drwxrwxrwx 1 root root 0 Dec 5 23:40 newbucket-4410 drwxrwxrwx 1 root root 0 Dec 5 23:40 newbucket-5927 drwxrwxrwx 1 root root 0 Dec 5 23:40 'newbucket- 633' drwxrwxrwx 1 root root 0 Dec 5 23:40 newbucket-8048 drwxrwxrwx 1 root root 0 Dec 5 23:40 newbucket-8791 drwxrwxrwx 1 root root 0 Dec 5 23:40 newbucket-9973 ```` ## Expected behavior When: &gt; mkdir /fastdfs/buckets/newbucket/ (**On Local Server**) I want ✅: &gt; ll /dfs/buckets/ (**On Remote Server**) ```shell drwxr-xr-x 1 root root 0 Dec 5 23:40 newbucket ``` ### Some logs ``` I1205 23:40:10 15824 filer_remote_gateway_buckets.go:97] create bucket newbucket-2595 I1205 23:40:10 15824 filer_remote_gateway_buckets.go:97] create bucket newbucket-3108 I1205 23:40:10 15824 filer_remote_gateway_buckets.go:97] create bucket newbucket-1317 I1205 23:40:10 15824 filer_remote_gateway_buckets.go:97] create bucket newbucket-4410 I1205 23:40:10 15824 filer_remote_gateway_buckets.go:97] create bucket newbucket-2863 I1205 23:40:10 15824 filer_remote_gateway_buckets.go:97] create bucket newbucket-9973 I1205 23:40:10 15824 filer_remote_gateway_buckets.go:97] create bucket newbucket- 633 I1205 23:40:10 15824 filer_remote_gateway_buckets.go:97] create bucket newbucket-1521 I1205 23:40:10 15824 filer_remote_gateway_buckets.go:97] create bucket newbucket-3293 I1205 23:40:10 15824 filer_remote_gateway_buckets.go:97] create bucket newbucket-2486 I1205 23:40:10 15824 filer_remote_gateway_buckets.go:97] create bucket newbucket-8048 I1205 23:40:10 15824 filer_remote_gateway_buckets.go:97] create bucket newbucket-8791 I1205 23:40:10 15824 filer_remote_gateway_buckets.go:97] create bucket newbucket-5927 ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>adjust randomized bucket name</MESSAGE>
+    <SHA>42d97a34422b74f0e88b5fa439779a517acecded</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>avoid creating the same bucket with a different randomized name related to https://github.com/chrislusf/seaweedfs/issues/2492</MESSAGE>
+      <SHA>c146c76d1061c85a4ea4651e0538bb39219fedbb</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/filer_remote_gateway_buckets.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

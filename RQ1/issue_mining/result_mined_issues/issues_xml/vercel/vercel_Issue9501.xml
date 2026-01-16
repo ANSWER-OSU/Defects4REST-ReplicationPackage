@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9501</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/9501</ISSUEURL>
+  <TITLE>Vercel dev cannot handle requests to Edge functions with CloudFlare Tunnel</TITLE>
+  <DESCRIPTION>### Discussed in https://github.com/vercel/vercel/discussions/9500 &lt;div type='discussions-op-text'&gt; &lt;sup&gt;Originally posted by **PonomareVlad** February 22, 2023&lt;/sup&gt; ### Summary Vercel CLI outputs this error on every request: ``` Unhandled rejection: Failed to parse URL from https,http://***.trycloudflare.com/: Invalid URL: https,http://***.trycloudflare.com/ ``` Where `***` is some randomly generated domain from [CloudFlare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/do-more-with-tunnels/trycloudflare/) ### Additional information Steps to reproduce: 1. Install Vercel CLI `28.12.4` 2. Install [CloudFlare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/do-more-with-tunnels/trycloudflare/) (`cloudflared`) 3. Make any [Edge function](https://vercel.com/docs/concepts/functions/edge-functions) ([or get example from repo](https://github.com/PonomareVlad/lit-ssr-vercel/tree/edge)) 4. Run `vercel dev` (should work perfect on `localhost` origin) 5. Run `cloudflared tunnel --url http://localhost:3000` 6. After opening tunnel URL from console (ends with `.trycloudflare.com`) 7. You will see `FUNCTION_INVOCATION_FAILED` in browser 8. And this error in Vercel CLI output: `... Failed to parse URL from https,http://***.trycloudflare.com/ ...` ### Example https://github.com/PonomareVlad/lit-ssr-vercel/tree/edge&lt;/div&gt;</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>22</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[docs] Improve docs for `@vercel/next` no pages built message (#9494) After many hours of debugging, I tracked down that having an old Node version (eg 14.x) listed in your Vercel project settings can result in the build step failing with a confusing and unhelpful error message &quot;`@vercel/next` No Serverless Pages Built&quot;. Note that this is a case where it &quot;can&quot; cause it to fail, including with NextJS 13.1.6 and Vercel CLI 28.16.2, but it is not guaranteed to fail. I have six NextJS projects. They have identical next.config.js, tsconfig.json, eslintrc.js, and .gitignore files, and other than a few seemingly non-critical dependencies they have identical package.json files. Four of the six consistently built and deployed in the cloud without issue. Two consistently failed to build in the cloud. All built successfully locally including using vercel build locally, and all would vercel deploy --prebuilt successfully. Switching all the vercel cloud project settings from Node 14.x to Node 18.x enabled all the projects to build and deploy successfully in the vercel cloud without needing local vercel build and local vercel deploy --prebuilt steps. --------- Co-authored-by: Steven &lt;steven@ceriously.com&gt;</MESSAGE>
+    <SHA>10bc74904ca246df30449c742d2c9d38218df3b5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Handling multi-protocol in Edge Functions (#9501) This is proposal to fix #9501</MESSAGE>
+      <SHA>7271c8959ff1fd08653790694172dbcfc0d62bae</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/node/src/edge-functions/edge-handler-template.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[node] Handle multi-protocol in Edge Functions (#9502) Co-authored-by: Chris Barber &lt;chris.barber@vercel.com&gt; Co-authored-by: Sean Massa &lt;EndangeredMassa@gmail.com&gt; fix #9501</MESSAGE>
+      <SHA>af7b34aa45e04021c757bd71e1f67b59d2b687b6</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/node/src/edge-functions/edge-handler-template.js</FILE>
+        <FILE>packages/node/test/unit/edge-functions/edge-handler-template.test.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

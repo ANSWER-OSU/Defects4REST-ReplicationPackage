@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5194</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/5194</ISSUEURL>
+  <TITLE>docs: Optimize the sample configuration of prometheus job</TITLE>
+  <DESCRIPTION>### Improved or typo fixed. Now the sample configuration of prometheus job is as follows: ```yaml scrape_configs: - job_name: &quot;apisix&quot; metrics_path: &quot;/apisix/prometheus/metrics&quot; static_configs: - targets: [&quot;127.0.0.1:9091&quot;] ``` Such a configuration will inherit the `scrape_interval` in the global configuration of prometheus. At the same time, the minimum time window of the `rate` function in the grafana dashboard provided is 30s. `sum(rate(apisix_bandwidth{instance=~&quot;$instance&quot;}[30s])) by (type)` Based on the above two points, if the `scrape_interval` in the user's prometheus global configuration is greater than 15s, the `rate` function may not calculate the result at some point in time, causing the dashboard to be unavailable. The ingress nginx project has a similar PR: https://github.com/kubernetes/ingress-nginx/pull/2884 ### Solution Specify `scrape_interval` in the sample configuration ```yaml scrape_configs: - job_name: &quot;apisix&quot; scrape_interval: 15s metrics_path: &quot;/apisix/prometheus/metrics&quot; static_configs: - targets: [&quot;127.0.0.1:9091&quot;] ```</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>chore: Bump build-tools version to v2.4.0 (#5190)</MESSAGE>
+    <SHA>872da378c93cc480e016033dc258b7dd346e0782</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>docs: Optimize the sample configuration of prometheus job #5194</MESSAGE>
+      <SHA>41ab65ddb0a533355973646f5070b68f65b8dc70</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/en/latest/plugins/prometheus.md</FILE>
+        <FILE>docs/zh/latest/plugins/prometheus.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>docs: Optimize the sample configuration of prometheus job #5194</MESSAGE>
+      <SHA>ff53f802694054d9a2aa1f35e5142bc822c8dddc</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/en/latest/plugins/prometheus.md</FILE>
+        <FILE>docs/zh/latest/plugins/prometheus.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

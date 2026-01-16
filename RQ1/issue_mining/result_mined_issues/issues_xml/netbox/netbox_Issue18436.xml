@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18436</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18436</ISSUEURL>
+  <TITLE>Unassigning MAC Address from interface does not reset primary mac address</TITLE>
+  <DESCRIPTION>### Deployment Type Self-hosted ### NetBox Version v4.2.2 ### Python Version 3.12 ### Steps to Reproduce 1. Create a device (device1) (any device type) 2. Create an interface (eth1) (any type) 3. Create a MAC address (AA:AB:CC:DD:EE:FF) and assign it to the device1 and interface eth1 4. Go to interface eth1 on device1 and edit the device 5. Assign the MAC address AA:AB:CC:DD:EE:FF as the primary MAC address 6. Go to the MAC address view and select the AA:AB:CC:DD:EE:FF address 7. Unassign it from the selected interface ### Expected Behavior The primary mac address of the interface should be set to NULL / reset ### Observed Behavior The primary mac address of the interface still shows AA:AB:CC:DD:EE:FF</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update source translation strings</MESSAGE>
+    <SHA>d11deb66788c35ccb50eccdbd6bd2518733e2801</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes: #18436 - Prevent unassigning mac address when primary on an interface</MESSAGE>
+      <SHA>277acd3a3198da87f4e87816bf497be6b66e528e</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/dcim/models/devices.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #18445 from netbox-community/18436-fix-unassign-mac-with-primary Fixes: #18436 - Prevent unassigning mac address when primary on an interface</MESSAGE>
+      <SHA>e02ae72f0cf83fe35c42d58848e6c53013f2f989</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/dcim/forms/model_forms.py</FILE>
+        <FILE>netbox/dcim/models/devices.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

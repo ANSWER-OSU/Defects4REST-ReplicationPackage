@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4074</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/4074</ISSUEURL>
+  <TITLE>S3 Gateway fails to start when installed via Helm</TITLE>
+  <DESCRIPTION>**Describe the bug** Installing Seaweed on Kubernetes using Helm chart fails to start the S3 Gateway. This is because the S3 gateway command is binding to localhost when it should be listening on all interfaces. **System Setup** Installing from latest master (at time of this issue) version of charts using a k3s cluster (v1.26.0+k3s1). **Expected Behaviour** S3 Gateway should start and be accessible from other pods either via Service or directly hitting the Pod.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>unlock before submitting the uploading jobs</MESSAGE>
+    <SHA>f7beba8515ddfc138f7d068207baa0765c03ec0c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #4074: S3 Gateway fails to start when installed via Helm</MESSAGE>
+      <SHA>84500c049779e812bd018fcdf947fbf49601301d</SHA>
+      <PATCHEDFILES>
+        <FILE>k8s/helm_charts2/templates/s3-deployment.yaml</FILE>
+        <FILE>k8s/helm_charts2/values.yaml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes 4074: S3 Gateway fails to start when installed via Helm (#4075) Fixes #4074: S3 Gateway fails to start when installed via Helm Co-authored-by: Naden &lt;naden@harana.com&gt;</MESSAGE>
+      <SHA>27d187eed9285af234e0eafbf97450080f91cb2d</SHA>
+      <PATCHEDFILES>
+        <FILE>k8s/helm_charts2/templates/s3-deployment.yaml</FILE>
+        <FILE>k8s/helm_charts2/values.yaml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

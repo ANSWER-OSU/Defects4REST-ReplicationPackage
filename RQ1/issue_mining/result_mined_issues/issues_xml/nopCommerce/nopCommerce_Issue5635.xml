@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5635</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5635</ISSUEURL>
+  <TITLE>RoxyFilemanProvider has hard dependencies on NopFileProvider</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.3 We are currently working on implementing Azure Storage as the underlying provider for INopFileProvider; however, I have concerns about how this will affect RoxyFilemanProvider (and potentially other services) as it makes strong assumptions about the INopFileProvider provided by the IoC container. For example, here is GetFileInfo(): ``` /// &lt;summary&gt;Locate a file at the given path.&lt;/summary&gt; /// &lt;param name=&quot;subpath&quot;&gt;Relative path that identifies the file.&lt;/param&gt; /// &lt;returns&gt;The file information. Caller must check Exists property.&lt;/returns&gt; public IFileInfo GetFileInfo(string subpath) { var pictureService = EngineContext.Current.Resolve&lt;IPictureService&gt;(); if (_physicalFileProvider.GetFileInfo(subpath).Exists || !pictureService.StoreInDb) return _physicalFileProvider.GetFileInfo(subpath); var fileProvider = EngineContext.Current.Resolve&lt;INopFileProvider&gt;() as NopFileProvider; var roxyFilemanService = EngineContext.Current.Resolve&lt;IRoxyFilemanService&gt;(); var virtualPath = fileProvider?.GetVirtualPath(fileProvider.GetDirectoryName(_physicalFileProvider.GetFileInfo(subpath).PhysicalPath)); roxyFilemanService.FlushImagesOnDisk(virtualPath); return _physicalFileProvider.GetFileInfo(subpath); } ``` This method gets an INopFileProvider from the EngineContext but just assumes it is the NopFileProvider and that the provider is using the physical filesystem. From the little bit that I have read, this is primarily used with ckEditor, so if we aren't using ckEditor to upload files I am hoping this won't be an issue for our use-case but I am curious if this is the right approach for implementing Azure Storage as the underlying file provider and if there are any other concerns taking this approach.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Changed version and add new update migrations</MESSAGE>
+    <SHA>ddcc7fa9ae54acacad1aab6e16dcccc32e84d364</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Removing anti-pattern cast; (#5629) If this needs to be a specific implementation of `INopFileProvider`, that specific implementation should be fetched instead of assuming the type returned from the IoC container. Also, the cast appears to be redundant as GetVirtualPath() is available on `INopFileProvider` anyways. Fix for #5635</MESSAGE>
+      <SHA>a172c5da4df199496a2daaf880a87ce95609fb53</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Media/RoxyFileman/RoxyFilemanProvider.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

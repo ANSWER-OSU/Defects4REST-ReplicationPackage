@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8481</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/8481</ISSUEURL>
+  <TITLE>bug: the configuration of the plugin bound to the service is not updated</TITLE>
+  <DESCRIPTION>### Discussed in https://github.com/apache/apisix/discussions/8475 &lt;div type='discussions-op-text'&gt; &lt;sup&gt;Originally posted by **MekelCon** December 7, 2022&lt;/sup&gt; Version info: APISIX 3.0.0 I try to use route, grouped inside a service using the Admin API. I created the service **A** with a **plugin config 1**: ` { &quot;plugins&quot; : { &quot;pluginX&quot; : { // plugin config 1 } } .... } ` Then i PUT my route **Foo** with service_id A as reference : ` { &quot;service_id&quot; : &quot;A&quot; .... } ` Later when I update the Service A with a new config **plugin config 2**: ` { &quot;plugins&quot; : { &quot;pluginX&quot; : { // plugin config 2 } } .... } ` I expected the new plugin configuration to be up to date when calling again the route **Foo** but i appear it is not the case, the config 1 still apply. I have to PUT again one of my sub route to make it up to date with latest service plugin config. Is it a normal behavior ? Am i doing or expecting something wrong ? Thank you for your help.&lt;/div&gt;</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: sync conf via gRPC (#8450)</MESSAGE>
+    <SHA>5822eca9a28ff7b92dc7fc0431281eb62dd60ba8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: the plugins bound on the service use the latest configuration (#8482) Fixes https://github.com/apache/apisix/issues/8481</MESSAGE>
+      <SHA>4694685c60f1c4db57c9d3920b90567ae9e32e5c</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugin.lua</FILE>
+        <FILE>t/node/consumer-plugin.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: the plugins bound on the service use the latest configuration (#8482) Fixes https://github.com/apache/apisix/issues/8481 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>4a3cf5977a6ef016d9713d1cebb14b2e957df599</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugin.lua</FILE>
+        <FILE>t/node/consumer-plugin.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: the plugins bound on the service use the latest configuration (#8482) Fixes https://github.com/apache/apisix/issues/8481 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>e9a24d721b62977e35836fc2b300d699048ca239</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugin.lua</FILE>
+        <FILE>t/node/consumer-plugin.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

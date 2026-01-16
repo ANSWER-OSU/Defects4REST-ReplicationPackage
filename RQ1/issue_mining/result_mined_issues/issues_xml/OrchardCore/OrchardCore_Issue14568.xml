@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14568</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/14568</ISSUEURL>
+  <TITLE>Adding a field with no type using the content definition manager throws null exception.</TITLE>
+  <DESCRIPTION>### Describe the bug When adding a field without specifiying the type of the field to the `ContentDefinitionManager` a null exception is thrown. ### To Reproduce Run the following migration ``` public class TestMigration : DataMigration { private readonly IContentDefinitionManager _contentDefinitionManager; public TestMigration(IContentDefinitionManager contentDefinitionManager) =&gt; _contentDefinitionManager = contentDefinitionManager; public int Create() { _contentDefinitionManager.AlterPartDefinition(&quot;UserStoryInfoPart&quot;, part =&gt; part .WithDisplayName(&quot;User Story Info Part&quot;) .WithField(&quot;Description&quot;, part =&gt; part //.OfType(&quot;TextField&quot;) // without defining the type, we get a null exception. .WithEditor(&quot;TextArea&quot;) ) ); return 1; } } ``` ### Expected behavior Maybe an exception that is more description instead of a null exception.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Cleanup ReCaptcha services (#14333) Co-authored-by: Sébastien Ros &lt;sebastienros@gmail.com&gt;</MESSAGE>
+    <SHA>e228e452311fe16e74eaddcee1376c8b9662df8f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Throw descriptive exception when a field is added with no type. Fix #14568</MESSAGE>
+      <SHA>8c04909b66840332746ddbee3d896a3258470ac7</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement/ContentDefinitionManager.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

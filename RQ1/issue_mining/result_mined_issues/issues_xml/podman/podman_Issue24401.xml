@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24401</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/24401</ISSUEURL>
+  <TITLE>[Quadlet] Pod units are always started regardless of the content of [Install]</TITLE>
+  <DESCRIPTION>### Issue Description I'm not really sure this is a bug or not, as I doubt you can really do what I wanted to do with k8s pods. When adding a unit to a pod, Quadlet generates `Wants=` dependencies in the pod service unit on top of the ordering (`Before=`) statements. This starts the container unit with the pod unit regardless of how the container is configured in the `[Install]` section. I was looking at having a setup where multiple containers, that should have a shared IPC namespace (hence the pod), start depending on if some systemd target are pulled in at boot. Here's an example that sort of matches what I've been trying to do: - `multi-user.target`: `app.pod` - `production.target`: `app.container` - `dev.target`: `logging.container` But in this example, the `logging` container is always started with the pod, regardless of the state of the dev target. ### Steps to reproduce the issue Steps to reproduce the issue 1. Create a `my.pod` with `WantedBy=default.target` 2. Create an empty `other.target` that isn't started 3. Create a container unit with `Pod=my.pod` and either `WantedBy=other.target`, or no `[Install]` section at all ### Describe the results you received Container starts regardless of its `[Install]` section. ### Describe the results you expected The container should follow its `[Install]` section, and not get started unless `other.target` is started. Ordering requirements should still work in case the pod and container starts. ### podman info output Running podman version 5.2.2 on Centos 9 stream on an amd64 machine. ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details _No response_ ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #24423 from Luap99/debug-23913 Instrument cleanup tracer to log weird volume removal flake</MESSAGE>
+    <SHA>de990415a2457ebedc07afe86f079e842fa1ba0a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add key to control if a container starts with its pod By default today, the container is always started if its pod is also started. This prevents to create custom with systemd where containers in a pod could be started through their `[Install]` section. We add a key `StartWithPod=`, enabled by default, that enables one to disable that behavior. This prevents the pod service from changing the state of the container service. Fixes #24401 Signed-off-by: Farya L. Maerten &lt;me@ltow.me&gt;</MESSAGE>
+      <SHA>70336f0fdb61319977ba125a7ee54cbf321b6dfe</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/quadlet/main.go</FILE>
+        <FILE>docs/source/markdown/podman-systemd.unit.5.md</FILE>
+        <FILE>pkg/systemd/quadlet/quadlet.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add key to control if a container can get started by its pod By default today, the container is always started if its pod is also started. This prevents to create custom with systemd where containers in a pod could be started through their `[Install]` section. We add a key `StartWithPod=`, enabled by default, that enables one to disable that behavior. This prevents the pod service from changing the state of the container service. Fixes #24401 Signed-off-by: Farya L. Maerten &lt;me@ltow.me&gt;</MESSAGE>
+      <SHA>8254113ab812daabc52aa0b9989e3a553bccafeb</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/quadlet/main.go</FILE>
+        <FILE>docs/source/markdown/podman-systemd.unit.5.md</FILE>
+        <FILE>pkg/systemd/quadlet/quadlet.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add key to control if a container can get started by its pod By default today, the container is always started if its pod is also started. This prevents to create custom with systemd where containers in a pod could be started through their `[Install]` section. We add a key `StartWithPod=`, enabled by default, that enables one to disable that behavior. This prevents the pod service from changing the state of the container service. Fixes #24401 Signed-off-by: Farya L. Maerten &lt;me@ltow.me&gt;</MESSAGE>
+      <SHA>341bee22f6e891435de9608e0372248b078417b7</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/quadlet/main.go</FILE>
+        <FILE>docs/source/markdown/podman-systemd.unit.5.md</FILE>
+        <FILE>pkg/systemd/quadlet/quadlet.go</FILE>
+        <FILE>test/e2e/quadlet/startwithpod.pod</FILE>
+        <FILE>test/e2e/quadlet/startwithpod_no.container</FILE>
+        <FILE>test/e2e/quadlet/startwithpod_yes.container</FILE>
+        <FILE>test/e2e/quadlet_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add key to control if a container can get started by its pod By default today, the container is always started if its pod is also started. This prevents to create custom with systemd where containers in a pod could be started through their `[Install]` section. We add a key `StartWithPod=`, enabled by default, that enables one to disable that behavior. This prevents the pod service from changing the state of the container service. Fixes #24401 Signed-off-by: Farya L. Maerten &lt;me@ltow.me&gt;</MESSAGE>
+      <SHA>2597eeae7001812fdc2417ca7f879bacea524ddc</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/quadlet/main.go</FILE>
+        <FILE>docs/source/markdown/podman-systemd.unit.5.md</FILE>
+        <FILE>pkg/systemd/quadlet/quadlet.go</FILE>
+        <FILE>test/e2e/quadlet/startwithpod.pod</FILE>
+        <FILE>test/e2e/quadlet/startwithpod_no.container</FILE>
+        <FILE>test/e2e/quadlet/startwithpod_yes.container</FILE>
+        <FILE>test/e2e/quadlet_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

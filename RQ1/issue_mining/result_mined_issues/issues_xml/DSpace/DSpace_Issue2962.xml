@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2962</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/2962</ISSUEURL>
+  <TITLE>CORS policy issue when retrieving bitstream through Angular</TITLE>
+  <DESCRIPTION>**Describe the bug** During the implementation of the Angular counterpart of the [scripts and processes output](https://github.com/DSpace/DSpace/pull/2934), @MarieVerdonck noticed the following error when retrieving the output bitstream through a GET call of the relevant `process._links.output.href` link &gt;Access to XMLHttpRequest at 'http://localhost:8080/server/api/core/bitstreams/fd4bf164-a876-486d-95a6-d9f24cb23700/content?authentication-token=eyJhbGciOiJIUzI1NiJ9.eyJlaWQiOiJjZDgyNGE2MS05NWJlLTRlMTYtYmNjZC01MWZlYTI2NzA3ZDAiLCJzZyI6W10sImV4cCI6MTU5OTcyNzMzOH0.s3EVCgQjjw1dLq2auJnDCzhb6ze59LxDYgEeX6tHHw0' from origin 'http://localhost:4000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. This LOOKS to be CORS related at a first glance, but might need additional investigation as well. **Request** ``` curl --location --request GET 'http://localhost:8080/server/api/core/bitstreams/fd4bf164-a876-486d-95a6-d9f24cb23700/content' \ --header 'Authorization: Bearer {{currentAccessToken}}' ``` **Response headers:** ![Screenshot 2020-09-10 at 11 31 53](https://user-images.githubusercontent.com/11884252/92738652-6b4e2880-f37c-11ea-9abc-d5be9ff5b2ac.png) This might be solvable if the CORS headers are properly set through the REST Api, it might also have another underlying issue that is not readily apparent. **To Reproduce** Steps to reproduce the behaviour: 1. Setup [REST PR](https://github.com/DSpace/DSpace/pull/2934) 2. Setup [Angular PR](https://github.com/DSpace/dspace-angular/pull/827) 3. Make sure to trigger a script that keeps output in a file. 4. Try to download that particular output bitstream **Expected behaviour** The bitstream should be properly 'downloaded', no CORS error should be logged, and the information of the logs should be shown in the UI **Related work** https://github.com/DSpace/DSpace/pull/2934 https://github.com/DSpace/dspace-angular/pull/827</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>27</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merged in task/dspace-cris-2023_02_x/DSC-1940 (pull request #2807) [DSC-1940] Adapt permission for audits Approved-by: Andrea Barbasso</MESSAGE>
+    <SHA>4c666a38ee016b79c91473a660c1634c910443a5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merged in task/dspace-cris-2023_02_x/DSC-1997 (pull request #2962) Task/dspace cris 2023 02 x/DSC-1997 Approved-by: Vincenzo Mecca</MESSAGE>
+      <SHA>2eb6108edcc424f91e958dc6b1f904285edcd50f</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/content/SiteServiceImpl.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/content/dao/SiteDAO.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/content/dao/impl/SiteDAOImpl.java</FILE>
+        <FILE>dspace-api/src/main/java/org/dspace/content/service/SiteService.java</FILE>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/configuration/ActuatorConfiguration.java</FILE>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/health/EPersonGroupHealthIndicator.java</FILE>
+        <FILE>dspace-server-webapp/src/main/java/org/dspace/app/rest/health/SiteHealthIndicator.java</FILE>
+        <FILE>dspace-server-webapp/src/test/java/org/dspace/app/rest/HealthIndicatorsIT.java</FILE>
+        <FILE>dspace-server-webapp/src/test/java/org/dspace/app/rest/health/EPersonGroupHealthIndicatorTest.java</FILE>
+        <FILE>dspace-server-webapp/src/test/java/org/dspace/app/rest/health/SiteHealthIndicatorTest.java</FILE>
+        <FILE>dspace-server-webapp/src/test/java/org/dspace/app/rest/link/search/HealthIndicatorMatcher.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

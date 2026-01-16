@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>913</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/913</ISSUEURL>
+  <TITLE>ER_TOO_LONG_IDENT on LinkToAnotherRecord on MySQL</TITLE>
+  <DESCRIPTION>**Please enter the following details** Node: **v12.22.6** Arch: **x64** Platform: **linux** Docker: **true** Database: **mysql2** ProjectOnRootDB: **true** RootDB: **mysql2** PackageVersion: **0.84.1** **Steps To Reproduce** 1. Create a table &quot;MyFirstTable&quot; 2. Create another table &quot;MySecondTableWithLongerName&quot; 3. Create a ManyToMany LinkToAnotherRecord column from MyFirstTable to MySecondTableWithLongerName From there, either it shows a success message, or there are both a success and error message. In either cases, no new column was created. Here the logs ``` db-nocodb-1 | Error: alter table `nc_vqxf__my_first_table` add constraint `nc_vqxf__my_first_table_nc_vqxf__my_second_table_with_longer_name_id_foreign` foreign key (`nc_vqxf__my_second_table_with_longer_name_id`) references `nc_vqxf__my_second_table_with_longer_name` (`id`) on update NO ACTION on delete NO ACTION - Identifier name 'nc_vqxf__my_first_table_nc_vqxf__my_second_table_with_longer_name_id_foreign' is too long db-nocodb-1 | at Packet.asError (/usr/src/app/node_modules/mysql2/lib/packets/packet.js:722:17) db-nocodb-1 | at Query.execute (/usr/src/app/node_modules/mysql2/lib/commands/command.js:28:26) db-nocodb-1 | at Connection.handlePacket (/usr/src/app/node_modules/mysql2/lib/connection.js:456:32) db-nocodb-1 | at PacketParser.onPacket (/usr/src/app/node_modules/mysql2/lib/connection.js:85:12) db-nocodb-1 | at PacketParser.executeStart (/usr/src/app/node_modules/mysql2/lib/packet_parser.js:75:16) db-nocodb-1 | at Socket.&lt;anonymous&gt; (/usr/src/app/node_modules/mysql2/lib/connection.js:92:25) db-nocodb-1 | at Socket.emit (events.js:314:20) db-nocodb-1 | at Socket.EventEmitter.emit (domain.js:483:12) db-nocodb-1 | at addChunk (_stream_readable.js:297:12) db-nocodb-1 | at readableAddChunk (_stream_readable.js:272:9) { db-nocodb-1 | code: 'ER_TOO_LONG_IDENT', db-nocodb-1 | errno: 1059, db-nocodb-1 | sqlState: '42000', db-nocodb-1 | sqlMessage: &quot;Identifier name 'nc_vqxf__my_first_table_nc_vqxf__my_second_table_with_longer_name_id_foreign' is too long&quot;, db-nocodb-1 | sql: 'alter table `nc_vqxf__my_first_table` add constraint `nc_vqxf__my_first_table_nc_vqxf__my_second_table_with_longer_name_id_foreign` foreign key (`nc_vqxf__my_second_table_with_longer_name_id`) references `nc_vqxf__my_second_table_with_longer_name` (`id`) on update NO ACTION on delete NO ACTION' db-nocodb-1 | } ``` **Expected behavior** Creating LinkToAnotherRecord columns on two tables with slightly long names should be possible on MySQL. I don't know if that's a hard limitation on the technology, in which case it should probably be explained somewhere in the doc. In any case, I think those names are not particularly long, I often use NameOfTable_Translations for translated content.</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: handle LOG formula function in MSSQL same as other databases re #949 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+    <SHA>1664124310c7cc16b0cd562187bda57e611f9529</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: populate random foreign key constraint name, m2m relation creation bug fix re #913 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>a5cb850e759ad9396ad618233f652ff3a83d879c</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/components/project/spreadsheet/components/pagination.vue</FILE>
+        <FILE>packages/nocodb/src/lib/noco/meta/NcMetaMgr.ts</FILE>
+        <FILE>packages/nocodb/src/lib/sqlMgr/SqlMgr.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

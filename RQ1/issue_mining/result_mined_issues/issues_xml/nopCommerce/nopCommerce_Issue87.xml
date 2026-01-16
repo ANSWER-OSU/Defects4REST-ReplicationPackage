@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>87</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/87</ISSUEURL>
+  <TITLE>Performance optimization. Slow when we have thousands of discounts</TITLE>
+  <DESCRIPTION>It's quite slow when we have a lot of discounts (e.g. 1,000) because all of them are loaded for each HTTP request Source: http://www.nopcommerce.com/boards/t/36657/discount.aspx But the only way to fix it is to add some kind of serialized clone of discount (for caching). And then use it in &quot;GetAllDiscounts&quot; and &quot;ValidateDiscount&quot; methods of DiscountService. IMHO it'll make source code looks ugly and more complex to maintain and understand. We should find a better solution</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>292</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Source code typo fixed</MESSAGE>
+    <SHA>2104a3f52396cb2ffed367e3e59e8942ee9c86d6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#87 Performance optimization. Cache discounts between requests. Previously we loaded all discounts for each HTTP request</MESSAGE>
+      <SHA>33d0a733559127b1dd8d4831e944873337378642</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Catalog/Cache/PriceCacheEventConsumer.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/IPriceCalculationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/PriceCalculationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Discounts/Cache/DiscountEventConsumer.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Discounts/Cache/DiscountRequirementEventConsumer.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Discounts/DiscountExtensions.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Discounts/DiscountForCaching.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Discounts/DiscountService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Discounts/IDiscountService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Nop.Services.csproj</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/IOrderTotalCalculationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderProcessingService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderTotalCalculationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/UpdateOrderParameters.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.Fedex/FedexComputationMethod.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/UPSComputationMethod.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/DependencyRegistrar.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/CheckoutController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/ShoppingCartController.cs</FILE>
+        <FILE>src/Tests/Nop.Services.Tests/Catalog/PriceCalculationServiceTests.cs</FILE>
+        <FILE>src/Tests/Nop.Services.Tests/Discounts/DiscountExtensionsTests.cs</FILE>
+        <FILE>src/Tests/Nop.Services.Tests/Discounts/DiscountServiceTests.cs</FILE>
+        <FILE>src/Tests/Nop.Services.Tests/Orders/OrderTotalCalculationServiceTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#87 Further changes on &quot;Performance optimization. Cache discounts between requests. Previously we loaded all discounts for each HTTP request&quot;</MESSAGE>
+      <SHA>6026d062f87f48b44b52ee5e9107efb7739e2e52</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Catalog/Cache/PriceCacheEventConsumer.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/PriceCalculationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Discounts/Cache/DiscountEventConsumer.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Discounts/DiscountExtensions.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.Fedex/Description.txt</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.UPS/Description.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#87 Further changes on &quot;Performance optimization. Cache discounts between requests. Previously we loaded all discounts for each HTTP request&quot;</MESSAGE>
+      <SHA>5178384dabd500a70148dda9347aa2887d52233a</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Infrastructure/Cache/ModelCacheEventConsumer.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

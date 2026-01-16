@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121872</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121872</ISSUEURL>
+  <TITLE>[CI] FileAccessTreeTests testForwardSlashes failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6252 / windows-2019_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/gd6y32zy63xow) - [elasticsearch-periodic-platform-support #6252 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/2lp4qwlqixt6q) - [elasticsearch-periodic-platform-support #6245 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/wvxioa4wnmsny) - [elasticsearch-periodic-platform-support #6245 / windows-2019_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/njnbdnn3vlxk4) - [elasticsearch-periodic-platform-support #6238 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/sqxycjn7dz5r2) - [elasticsearch-periodic-platform-support #6238 / windows-2019_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/t4scbzf6vii3a) - [elasticsearch-periodic-platform-support #6231 / windows-2019_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/gf7rgfqietmjq) - [elasticsearch-periodic-platform-support #6231 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/j43ae5sbwusvi) - [elasticsearch-periodic-platform-support #6224 / windows-2019_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/wwpat23xfp7le) - [elasticsearch-periodic-platform-support #6224 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/6qxnfi77ipc2e) **Reproduction Line:** ``` gradlew &quot;:libs:entitlement:test&quot; --tests &quot;org.elasticsearch.entitlement.runtime.policy.FileAccessTreeTests.testForwardSlashes&quot; -Dtests.seed=21A7FE2958B0F2D6 -Dtests.locale=ses-ML -Dtests.timezone=Asia/Thimbu -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.entitlement.runtime.policy.FileAccessTreeTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testForwardSlashes),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.nio.file.InvalidPathException: Illegal char &lt; &gt; at index 1: m ``` **Issue Reasons:** - [8.x] 6 consecutive failures in step windows-2019_checkpart1_platform-support-windows - [8.x] 6 consecutive failures in step windows-2022_checkpart1_platform-support-windows - [8.x] 12 failures in test testForwardSlashes (4.2% fail rate in 288 executions) - [8.x] 6 failures in step windows-2019_checkpart1_platform-support-windows (100.0% fail rate in 6 executions) - [8.x] 6 failures in step windows-2022_checkpart1_platform-support-windows (100.0% fail rate in 6 executions) - [8.x] 6 failures in pipeline elasticsearch-periodic-platform-support (100.0% fail rate in 6 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add a parameter to describe the lambda in a transformedMatch matcher (#122013)</MESSAGE>
+    <SHA>3ed5f73600764a919cef7516c2e398c46ca59541</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Remove assertion about theoretical path separators The only real path separators are either forward or back slash. Trying to use something else like newline fails to even parse as a path on windows. This commit removes testing of other separators. closes #121872</MESSAGE>
+      <SHA>749893384639d832e9d1d3299438b9e13badb183</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/runtime/policy/FileAccessTreeTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Remove assertion about theoretical path separators (#122069) The only real path separators are either forward or back slash. Trying to use something else like newline fails to even parse as a path on windows. This commit removes testing of other separators. closes #121872</MESSAGE>
+      <SHA>86f91d36efecb00559ceeed19fc4d3ea60b121be</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/runtime/policy/FileAccessTreeTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Remove assertion about theoretical path separators (#122069) The only real path separators are either forward or back slash. Trying to use something else like newline fails to even parse as a path on windows. This commit removes testing of other separators. closes #121872</MESSAGE>
+      <SHA>6a02e3346b9aa95078fe223345418b3df0be41e7</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/runtime/policy/FileAccessTreeTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Remove assertion about theoretical path separators (#122069) The only real path separators are either forward or back slash. Trying to use something else like newline fails to even parse as a path on windows. This commit removes testing of other separators. closes #121872</MESSAGE>
+      <SHA>87d66acdacca1e248c956cf4aa7675a2e357fc7a</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/runtime/policy/FileAccessTreeTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Remove assertion about theoretical path separators (#122069) The only real path separators are either forward or back slash. Trying to use something else like newline fails to even parse as a path on windows. This commit removes testing of other separators. closes #121872</MESSAGE>
+      <SHA>743e5d4c817fa447fe3a852d22461bc95bf000df</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/runtime/policy/FileAccessTreeTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Remove assertion about theoretical path separators (#122069) (#122088) The only real path separators are either forward or back slash. Trying to use something else like newline fails to even parse as a path on windows. This commit removes testing of other separators. closes #121872</MESSAGE>
+      <SHA>d880246a35bc66f7be4c92efdbb0d23faa15bbae</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/runtime/policy/FileAccessTreeTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Remove assertion about theoretical path separators (#122069) (#122090) The only real path separators are either forward or back slash. Trying to use something else like newline fails to even parse as a path on windows. This commit removes testing of other separators. closes #121872</MESSAGE>
+      <SHA>03774c7ac791b9e5691975dc771991c9b4d188bb</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/runtime/policy/FileAccessTreeTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Remove assertion about theoretical path separators (#122069) (#122089) The only real path separators are either forward or back slash. Trying to use something else like newline fails to even parse as a path on windows. This commit removes testing of other separators. closes #121872</MESSAGE>
+      <SHA>1570577ef122a54a48e19438558077208f19cc51</SHA>
+      <PATCHEDFILES>
+        <FILE>libs/entitlement/src/test/java/org/elasticsearch/entitlement/runtime/policy/FileAccessTreeTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

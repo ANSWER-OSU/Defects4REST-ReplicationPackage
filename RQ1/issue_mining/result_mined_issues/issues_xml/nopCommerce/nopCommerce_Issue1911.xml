@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1911</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/1911</ISSUEURL>
+  <TITLE>Do not require &quot;shipment tracker&quot; to have an active shipping rate computation provider</TITLE>
+  <DESCRIPTION>Well, I guess I never noticed, but it appears that still &quot;Tracking won't work with SD&quot;. It's because when using Shipping Director, it is supposed to be the only ACTIVE shipping provider (rate calc method). That's because otherwise duplicate methods would appear to customer since SD can conditionally call other shipping rate plugins to get their methods. However, when getting a tracker, the core code is checking to see if the rate calc method is active... The offending ;) code is in (3.80) \Libraries\Nop.Services\Shipping\Tracking\ShipmentExtensions.cs var shippingRateComputationMethod = shippingService.LoadShippingRateComputationMethodBySystemName(shipment.Order.ShippingRateComputationMethodSystemName); if (shippingRateComputationMethod != null &amp;&amp; shippingRateComputationMethod.PluginDescriptor.Installed &amp;&amp; shippingRateComputationMethod.IsShippingRateComputationMethodActive(shippingSettings)) return shippingRateComputationMethod.ShipmentTracker; I don't see any downside to allowing Tracking when a shipping provider is not active. Even if not using SD, a store owner may have had a provider active in the past, and then decides to no longer use it; they should still be able to track prior orders. Source: http://www.nopcommerce.com/boards/t/37036/shippingservice-sets-the-systemname-please-change-to-do-that-conditionally.aspx#179484</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>69</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#1698 Rich Editor. Allow to edit text and background color.</MESSAGE>
+    <SHA>53088fe8ac8620a79e5cdd6fa4a721b42e380fe9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#1911 Do not require &quot;shipment tracker&quot; to have an active shipping rate computation provider</MESSAGE>
+      <SHA>476d8e9573390bb04eb7a4b306cb1d792498877a</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Shipping/Tracking/ShipmentExtensions.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

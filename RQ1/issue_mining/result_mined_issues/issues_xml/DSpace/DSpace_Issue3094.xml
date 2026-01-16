@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3094</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/3094</ISSUEURL>
+  <TITLE>Poor support for IPv6</TITLE>
+  <DESCRIPTION>**Describe the bug** `org.dspace.statistics.util.DnsLookup` explicitly does not handle IPv6 addresses. This was filling up the log with error messages and throwing `NullPointerException`s when recording access events. `org.dspace.statistics.util.IPTable` also explicitly does not handle IPv6 addresses. It was throwing `IPFormatException`s when an IPv6 address was added or checked. All of this was obscuring the cause of a problem with logging in from a dual-stacked host (which is a separate issue). **To Reproduce** Steps to reproduce the behavior: 1. Ensure that `jwt.login.token.include.ip = true` 2. Log in via IPv6. **Expected behavior** IPv6 addresses are accepted without problems.</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>57</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #3085 from tdonohue/fix_oai_bean_issues Fix issues with OAI accidentally loading the wrong ConfigurationService</MESSAGE>
+    <SHA>a5fba068610ea83559782b25fe5e05bdac60f797</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Better support IPv6 by using standard JRE lookup methods. #3094 Also avoid NPE when there is no current user.</MESSAGE>
+      <SHA>12376df5e3ca6824176309c5e09d7a0bf2604d6d</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/statistics/SolrLoggerServiceImpl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Work-around: treat IPv6 address as non-match, not format error. #3094 Also improve documentation. This class should be reworked to properly support IPv6.</MESSAGE>
+      <SHA>dcd9d2e9a5fc1488fddbfdec1c927b05af76e604</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/statistics/util/IPTable.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add tests. #3094</MESSAGE>
+      <SHA>654412eb889df486d63e51aa390baef10c53b045</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/test/java/org/dspace/statistics/util/IPTableTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Satisfy checkstyle. #3094</MESSAGE>
+      <SHA>945ee9af7696fd7bc1de4cbd5850e7aad8527725</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/test/java/org/dspace/statistics/util/IPTableTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Move exception case to a separate test method. #3094 This now properly shows that querying an IPv6 address does not raise an exception.</MESSAGE>
+      <SHA>75aa37dfb6ebd532bf4f8924dd025d42dfd14372</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/test/java/org/dspace/statistics/util/IPTableTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Restore Locale lost while merging with 'main'. #3094</MESSAGE>
+      <SHA>c2a1287771757541c46517b3142769add9d9a6b6</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/statistics/SolrLoggerServiceImpl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

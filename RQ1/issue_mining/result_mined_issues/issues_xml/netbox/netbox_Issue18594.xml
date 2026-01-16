@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18594</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18594</ISSUEURL>
+  <TITLE>Cannot Sort By asn_count Column For Sites Table And Providers View Table</TITLE>
+  <DESCRIPTION>### Deployment Type Self-hosted ### NetBox Version V4.2.0 ### Python Version 3.10 ### Steps to Reproduce 1) Add the ‘ASN Count’ Column as an available/default column for the Sites table 2) Click the ‘ASN Count’ column to sort the table by ASN Count 3) Refresh the page When doing this, I get the error: `&lt;class 'django.core.exceptions.FieldError'&gt; Cannot resolve keyword 'count' into field. Choices are: asn, bookmarks, comments, created, custom_field_data, description, device_count, id, journal_entries, last_updated, providers, rir, rir_id, sites, subscriptions, tagged_items, tags, tenant, tenant_id ` ### Expected Behavior It would sort the table based upon ASN Count value ### Observed Behavior It fails and can’t load the Sites Table. I also tested and verified this is an issue that occurs with the online demo system (demo.netbox.dev), so it isnt a customization or something special with my setup that is causing this.</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update source translation strings</MESSAGE>
+    <SHA>57ef44706a7cfb1abb3aac1f49206ae216f2bba8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #18594: asn_count sort in Sites list (#18634) * Fixes #18594: asn_count sort in Sites list * Fixes similar issue in `circuits.views.ProviderListView` Thanks @bctiemann for point this out!</MESSAGE>
+      <SHA>2a44affd03ae13daeaf3d22ffcadea87b653d95d</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/circuits/tables/providers.py</FILE>
+        <FILE>netbox/circuits/views.py</FILE>
+        <FILE>netbox/dcim/tables/sites.py</FILE>
+        <FILE>netbox/dcim/views.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #18594: asn_count sort in Sites list (#18634) * Fixes #18594: asn_count sort in Sites list * Fixes similar issue in `circuits.views.ProviderListView` Thanks @bctiemann for point this out!</MESSAGE>
+      <SHA>ad2898e92d8cdff4cea8024e2b9df0876996ee61</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/circuits/tables/providers.py</FILE>
+        <FILE>netbox/circuits/views.py</FILE>
+        <FILE>netbox/dcim/tables/sites.py</FILE>
+        <FILE>netbox/dcim/views.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

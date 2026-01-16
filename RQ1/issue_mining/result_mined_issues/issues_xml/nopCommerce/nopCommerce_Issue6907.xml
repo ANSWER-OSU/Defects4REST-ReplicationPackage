@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6907</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6907</ISSUEURL>
+  <TITLE>Prefer ReadFormAsync over Request.Form</TITLE>
+  <DESCRIPTION>Use `HttpContext.Request.ReadFormAsync` instead of [`HttpContext.Request.Form`](https://github.com/search?q=repo%3AnopSolutions%2FnopCommerce%20Request.Form&amp;type=code). HttpContext.Request.Form uses [sync over async](https://devblogs.microsoft.com/pfxteam/should-i-expose-synchronous-wrappers-for-asynchronous-methods/) and can lead to thread pool starvation. https://learn.microsoft.com/en-us/aspnet/core/fundamentals/best-practices?view=aspnetcore-7.0#prefer-readformasync-over-requestform</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6896 Marked the RoxyFilemanFileProvider.FileMove method as a virtual</MESSAGE>
+    <SHA>1c0b2fa94eb9d85f431a508249640c2d598b3408</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6907 Use ReadFormAsync method instead of Request.Form</MESSAGE>
+      <SHA>b9c00bb8ba94238c92de97a6fb5d2d350d88bddb</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Http/Extensions/HttpRequestExtensions.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.Manual/Components/PaymentManualViewComponent.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.Avalara/Services/EventConsumer.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.What3words/Services/EventConsumer.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Controllers/BaseController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Controllers/FormValueRequiredAttribute.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/NotNullValidationMessageAttribute.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/ParameterBasedOnFormNameAndValueAttribute.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/ParameterBasedOnFormNameAttribute.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/PublishModelEventsAttribute.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/SaveSelectedTabsAttribute.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/ValidateCaptchaAttribute.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/ValidateHoneypotAttribute.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/ModelBinding/Binders/CustomPropertiesModelBinder.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/CommonController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/DownloadController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/PictureController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/ProductController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/RoxyFilemanController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/ReturnRequestController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/ShoppingCartController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6907 Next changes on Use ReadFormAsync method instead of Request.Form</MESSAGE>
+      <SHA>de749d8d2ae5442a303d6ff8a586587861e9e21d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Http/Extensions/HttpRequestExtensions.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/CustomerService.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.Manual/Components/PaymentManualViewComponent.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.FixedByWeightByTotal/Services/ShippingByWeightByTotalService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Controllers/FormValueRequiredAttribute.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/CheckDiscountCouponAttribute.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/CheckLanguageSeoCodeAttribute.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/HttpsRequirementAttribute.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/SaveIpAddressAttribute.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/SaveLastActivityAttribute.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/SaveLastVisitedPageAttribute.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/SaveSelectedTabsAttribute.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/WwwRequirementAttribute.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6893 #6907 Increased versions in plugins</MESSAGE>
+      <SHA>f326deaf2e5c111c5c836ce30b861541a12e9b67</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Payments.Manual/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Pickup.PickupInStore/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.FixedByWeightByTotal/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.Avalara/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.FixedOrByCountryStateZip/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.What3words/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

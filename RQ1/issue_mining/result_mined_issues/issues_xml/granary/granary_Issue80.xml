@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>80</ISSUENO>
+  <ISSUEURL>https://github.com/snarfed/granary/issues/80</ISSUEURL>
+  <TITLE>Don't convert newlines to &lt;br&gt; when input is HTML</TITLE>
+  <DESCRIPTION>Specifically when converting HTML to Atom, the feed ends up with extra `&lt;br&gt;` around the existing `&lt;p&gt;`.</DESCRIPTION>
+  <REPONAME>granary</REPONAME>
+  <TIMEDIFFERENCEDAYS>28</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>github: create(): convert links and images to markdown fixes snarfed/bridgy#794</MESSAGE>
+    <SHA>0b94583f42d63587bc7b9d5f5130148298072911</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>mf2: remember HTML content, keep newlines, don't translate to &lt;br&gt; for #130, also re #80. i highly suspect this will cause a regression somewhere, but i'm not quite sure where yet. :/</MESSAGE>
+      <SHA>6260e32a1b4864e1b27f78719b864899a1389791</SHA>
+      <PATCHEDFILES>
+        <FILE>README.md</FILE>
+        <FILE>granary/microformats2.py</FILE>
+        <FILE>granary/test/test_atom.py</FILE>
+        <FILE>granary/test/test_microformats2.py</FILE>
+        <FILE>granary/test/testdata/repost.as-from-mf2.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>atom: switch from white-space: pre to converting newlines to &lt;br&gt;s ...because some feed readers follow it too strictly and don't even line wrap, eg https://forum.newsblur.com/t/android-cant-read-line-pre-formatted-lines/6116 re: #80</MESSAGE>
+      <SHA>0ac54362ae10e30b7137a3fa405c9fba8e75dc4b</SHA>
+      <PATCHEDFILES>
+        <FILE>README.md</FILE>
+        <FILE>granary/atom.py</FILE>
+        <FILE>granary/microformats2.py</FILE>
+        <FILE>granary/tests/test_microformats2.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

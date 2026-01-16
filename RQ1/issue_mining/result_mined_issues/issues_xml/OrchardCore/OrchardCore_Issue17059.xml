@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17059</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/17059</ISSUEURL>
+  <TITLE>External Authentication Feature is causing an infinite redirect.</TITLE>
+  <DESCRIPTION>### Describe the bug When a user login from external provider, but creating the account fails we redirect them back to the login page. But if the &quot;Use external provider for login&quot; settings is set, the user will be caught in an infinite loop redirecting back and fourth. ### Orchard Core version 2.1 ### To Reproduce &lt;!-- Steps to reproduce the behavior: 1. Enable external provider feature 2. In Security &gt;&gt; User Registration &gt;&gt; check &quot;Disable new external registration&quot; 3. In Security &gt;&gt; User Login &gt;&gt; Click on the External Login tab. Enable &quot;Use external provider for login&quot; options. 4. Try to login with a new user that does not exists on the local site using the external provider. ### Expected behavior We should see an error not causing an infinite loop.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix redirect</MESSAGE>
+    <SHA>87d75cff9b1552fed7f5b711f0b0d61918f6d161</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #17059</MESSAGE>
+      <SHA>eb5e19cf26c3c422dbd1571f84be1505a356c9ed</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Users/Controllers/ExternalAuthenticationsController.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Users/Services/ExternalLoginFormEvents.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

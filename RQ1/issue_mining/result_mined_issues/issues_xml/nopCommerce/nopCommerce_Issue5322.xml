@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5322</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5322</ISSUEURL>
+  <TITLE>XSS issue in the &quot;discountcode&quot; parameter</TITLE>
+  <DESCRIPTION>The vulnerability is a reflected XSS in the discountcode URL parameter. If an invalid discount code is entered, the value is reflected directly in the response without HTML encoding. This was tested on Google Chrome, Firefox and Edge with a fresh install of nopCommerce. I have attached a screenshot of the PoC. The cause of the issue is the following line: https://github.com/nopSolutions/nopCommerce/blob/879275b29724da0b407212e1b51fcad4836322ab/src/Presentation/Nop.Web.Framework/Mvc/Filters/CheckDiscountCouponAttribute.cs#L134 which uses the String.format() function without sanitising the user input. The same code exists in the 4.3.0 release tag as well: https://github.com/nopSolutions/nopCommerce/blob/9f6002d71f088fd27f247ce0741d05039883b12d/src/Presentation/Nop.Web.Framework/Mvc/Filters/CheckDiscountCouponAttribute.cs#L132 Let me know if you require additional information. ![xss_poc](https://user-images.githubusercontent.com/5019111/107185702-fac33a80-69f3-11eb-9765-a0be14d9546d.png)</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Some minor fixes</MESSAGE>
+    <SHA>c903ef72e9cbf69a36c9f69300e1b7b4ac0909c1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5322 Fixed XSS issue in the &quot;discountcode&quot; parameter</MESSAGE>
+      <SHA>f35d311202a18aab3c13aa9435d2f745e02bcc16</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/CheckDiscountCouponAttribute.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#5322 Fixed XSS issue in the &quot;discountcode&quot; parameter</MESSAGE>
+      <SHA>4b3f10162f52afb04a31079268ce69fef16c2efd</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/CheckDiscountCouponAttribute.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

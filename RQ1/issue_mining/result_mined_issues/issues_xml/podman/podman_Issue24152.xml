@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24152</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/24152</ISSUEURL>
+  <TITLE>podman info fails: Error: parse &quot;[::]:2376&quot;: first path segment in URL cannot contain colon</TITLE>
+  <DESCRIPTION>### Issue Description Running `podman info` remote via TCP fails with: Error: parse &quot;[::]:2376&quot;: first path segment in URL cannot contain colon The HTTP request is: ``` GET /v5.2.3/libpod/info HTTP/1.1 Host: d User-Agent: Go-http-client/1.1 ``` The response is: ``` HTTP/1.1 500 Internal Server Error Api-Version: 1.41 Content-Type: application/json Libpod-Api-Version: 5.2.3 Server: Libpod/5.2.3 (linux) X-Reference-Id: 0xc000630010 Date: Thu, 03 Oct 2024 18:01:27 GMT Content-Length: 154 {&quot;cause&quot;:&quot;first path segment in URL cannot contain colon&quot;,&quot;message&quot;:&quot;parse \&quot;[::]:2376\&quot;: first path segment in URL cannot contain colon&quot;,&quot;response&quot;:500} ``` ### Steps to reproduce the issue Steps to reproduce the issue 1. Make podman listen on TCP via systemd socket activation. Aka append the `podman.socket` unit with ``` [Socket] ListenStream= ListenStream=2376 ``` 2. Execute HTTP request with `echo &quot;GET /v5.2.3/libpod/info HTTP/1.1\nHost: d\n\n&quot; | nc -C localhost 2376` ### Describe the results you received HTTP 500 and error `parse &quot;[::]:2376&quot;: first path segment in URL cannot contain colon` ### Describe the results you expected A proper info result. ### podman info output ```yaml The request `podman info` does itself fail. * Debian 13 * Podman 5.2.3 ``` ### Podman in a container No ### Privileged Or Rootless Privileged ### Upstream Latest Release No ### Additional environment details Additional environment details ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Makefile: fix ginkgo FOCUS option This fixes a regression that causes the FOCUS option to not work correctly as the --silence-skips is passes to --focus not as extra option. Fixes 23f256349b (&quot;Makefile - silence skipped tests when focusing on a file&quot;) Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+    <SHA>e2e1996c6a2a95723824017c7526c13a89393901</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>server: fix url parsing in info When we are activated by systemd the code assumed that we had a valid URL which was not the case so it failed to parse the URL which causes the info call to fail all the time. This fixes two problems first add the schema to the systemd activated listener URL so it can be parsed correctly but second simply do not parse it as url as all we care about in the info call is if it is unix and the file path exists. Fixes #24152 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>45df3940720918d1393462e3dcaaf06fb14789ab</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/system/service_abi.go</FILE>
+        <FILE>pkg/domain/infra/abi/system.go</FILE>
+        <FILE>test/e2e/systemd_activate_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

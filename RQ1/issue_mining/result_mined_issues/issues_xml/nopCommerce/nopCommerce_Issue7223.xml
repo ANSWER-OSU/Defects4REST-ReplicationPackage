@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7223</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7223</ISSUEURL>
+  <TITLE>Add index to [Customer].[Deleted] column</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.7 Steps to reproduce the problem: - If you have a particular large customer database (2 million rows for me did the trick) - The following query times out when browsing to /Admin ``` SELECT Count(*) FROM ( SELECT DISTINCT [c_1].[Id], [c_1].[CustomerGuid], [c_1].[Username], [c_1].[Email], [c_1].[FirstName], [c_1].[LastName], [c_1].[Gender], [c_1].[DateOfBirth], [c_1].[Company], [c_1].[StreetAddress], [c_1].[StreetAddress2], [c_1].[ZipPostalCode], [c_1].[City], [c_1].[County], [c_1].[CountryId], [c_1].[StateProvinceId], [c_1].[Phone], [c_1].[Fax], [c_1].[VatNumber], [c_1].[VatNumberStatusId], [c_1].[TimeZoneId], [c_1].[CustomCustomerAttributesXML], [c_1].[CurrencyId], [c_1].[LanguageId], [c_1].[TaxDisplayTypeId], [c_1].[EmailToRevalidate], [c_1].[AdminComment], [c_1].[IsTaxExempt], [c_1].[AffiliateId], [c_1].[VendorId], [c_1].[HasShoppingCartItems], [c_1].[RequireReLogin], [c_1].[FailedLoginAttempts], [c_1].[CannotLoginUntilDateUtc], [c_1].[Active], [c_1].[Deleted], [c_1].[IsSystemAccount], [c_1].[SystemName], [c_1].[LastIpAddress], [c_1].[CreatedOnUtc], [c_1].[LastLoginDateUtc], [c_1].[LastActivityDateUtc], [c_1].[RegisteredInStoreId], [c_1].[BillingAddress_Id], [c_1].[ShippingAddress_Id] FROM [Customer] [c_1] INNER JOIN [Customer_CustomerRole_Mapping] [y] ON [c_1].[Id] = [y].[Customer_Id] WHERE [y].[CustomerRole_Id] IN (3) AND [c_1].[Deleted] = 0 ) [t1] ``` - I was able to solve this issue (the timeout) by indexing &quot;Deleted&quot; - I was unable to find evidence that &quot;Deleted&quot; was indexed in previous versions of nopcommerce in any way.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7183 Enabled transit time on UPS plugin</MESSAGE>
+    <SHA>3e107909f532deda3b4ebd8d02156512bebd428b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7223 Added index to Customer.Deleted column</MESSAGE>
+      <SHA>c36330388f8a29e3a34bcb9143e369b02e4f96af</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Data/Migrations/Installation/Indexes.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/UpgradeTo480/AddIndexesMigration.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

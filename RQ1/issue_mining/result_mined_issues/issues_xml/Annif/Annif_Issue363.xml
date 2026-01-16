@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>363</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/363</ISSUEURL>
+  <TITLE>Use LMDB to store vectors in nn_ensemble</TITLE>
+  <DESCRIPTION>When the `nn_ensemble` backend is trained, it sends all documents through the source projects and aggregates their suggestion vectors in memory. This can take up a significant amount of RAM. For example, with three YSO based source projects, I could only train a NN ensemble with 8k documents on a machine with 16GB RAM - any larger training set leads to an out of memory situation. If we instead streamed the vectors to a LMDB database, and then read them back from the LMDB in batches, the backend could scale to much larger training data sets. An additional benefit would be that the LMDB could be retained on disk, so that another training run could be made using the same documents but different hyperparameters (this would require implementing the `--cached` option - see #342), without having to process the documents again, so it would be much faster. LMDB seems to be ideal for this as it is very fast and supports streaming style operations both for reading and writing. It will introduce an additional dependency, though.</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>60</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #379 from NatLibFi/issue377-pav-sparse-vectors Use sparse vectors in PAV backend</MESSAGE>
+    <SHA>21d92bfbddd2b8ba895925b2d3a7ccdb69a519e2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Use LMDB and sparse vectors in nn_ensemble backend, instead of aggregating large vectors in RAM (#363)</MESSAGE>
+      <SHA>a845cbfd201571bd80f7e8977f4b9edb10c06e00</SHA>
+      <PATCHEDFILES>
+        <FILE>.travis.yml</FILE>
+        <FILE>annif/backend/nn_ensemble.py</FILE>
+        <FILE>setup.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

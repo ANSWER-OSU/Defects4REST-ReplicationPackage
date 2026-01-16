@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>123451</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/123451</ISSUEURL>
+  <TITLE>[CI] CrossClusterQueryWithPartialResultsIT testOneRemoteClusterPartial failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6632 / ubuntu-2004-aarch64_checkpart3_platform-support-arm](https://gradle-enterprise.elastic.co/s/d4lhfvwub2dwq) - [elasticsearch-periodic-platform-support #6569 / almalinux-8-aarch64_checkpart3_platform-support-arm](https://gradle-enterprise.elastic.co/s/4blyzc6fnfodw) - [elasticsearch-intake #18541 / part3](https://gradle-enterprise.elastic.co/s/pzljumvbuh4oc) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.esql.action.CrossClusterQueryWithPartialResultsIT.testOneRemoteClusterPartial&quot; -Dtests.seed=9379329E74F537E7 -Dtests.locale=en-VI -Dtests.timezone=Etc/GMT-4 -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.action.CrossClusterQueryWithPartialResultsIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testOneRemoteClusterPartial),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: null ``` **Issue Reasons:** - [main] 3 failures in test testOneRemoteClusterPartial (0.3% fail rate in 918 executions) - [main] 2 failures in pipeline elasticsearch-periodic-platform-support (11.8% fail rate in 17 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add JDK 24 release candidate to toolchain resolver (#123321)</MESSAGE>
+    <SHA>0dafc9974e6aa792b8b80fe2a679bcc2a94ad30b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.CrossClusterQueryWithPartialResultsIT testOneRemoteClusterPartial #123451</MESSAGE>
+      <SHA>1e8262170ed339d8f2ebdc6de6fd581adb40096d</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Handle exceptions when register compute group (#123438) If the parent task is canceled, registering the compute group task might throw a TaskCancelledException, so the listener won't be notified. Closes #123216 Closes #123101 Closes #123451</MESSAGE>
+      <SHA>a320809843ffd366a7fba3dad10f41c70d508c66</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/plugin/ClusterComputeHandler.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/plugin/ComputeService.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/plugin/DataNodeComputeHandler.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Handle exceptions when register compute group (#123438) (#123897) If the parent task is canceled, registering the compute group task might throw a TaskCancelledException, so the listener won't be notified. Closes #123216 Closes #123101 Closes #123451</MESSAGE>
+      <SHA>22b5597a5021b69ef1fd4d2cd95abc7d849f06fa</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/plugin/ClusterComputeHandler.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/plugin/ComputeService.java</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/plugin/DataNodeComputeHandler.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Unmute CrossClusterQueryWithPartialResultsIT tests (#123943) Closes #123451 Closes #123101</MESSAGE>
+      <SHA>796cfcefc8a79f453348bf1173949e7159032d05</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

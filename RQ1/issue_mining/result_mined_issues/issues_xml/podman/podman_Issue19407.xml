@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19407</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/19407</ISSUEURL>
+  <TITLE>tar 1.35.1 (rawhide): podman import, with modified tar: duplicates of file paths not supported</TITLE>
+  <DESCRIPTION>Reproducer (copy/paste/run): ```bash #!/bin/bash i=quay.io/libpod/testimage:20221018 bin/podman create --name a $i bin/podman export -o /tmp/a.tar a tar --delete -f /tmp/a.tar home/podman/pause bin/podman import /tmp/a.tar b ``` (I used podman-from-source for convenience, but also fails with podman-4.5-from-rpm). Import barfs with: ``` e31ce32f59ee1840830d534efa2fa4f38473b2e56c7410834523a5c554b1719a Getting image source signatures Copying blob 51098d81131b done | Error: writing blob: adding layer with blob &quot;sha256:51098d81131bac1a1a8539c68e4389e15fe1a800e4922eecd9cb11b0f51d9386&quot;: processing tar file(): duplicates of file paths not supported ``` tar-1.35-1.fc39.x86_64, works perfectly fine with 1.34-8.fc39 Almost certainly a `tar` bug, not podman, but (1) tracking here because it is blocking #18612, and (2) I have no idea what podman is doing with tar, or how to write a tar reproducer. I leave that to someone familiar with `podman import`.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>19</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add support for confined users The original SELinux support in Docker and Podman does not follow the default SELinux rules for how label transitions are supposed to be handled. Containers always switch their user and role to system_u:system_r, rather then maintain the collers user and role. For example unconfined_u:unconfined_r:container_t:s0:c1,c2 Advanced SELinux administrators want to confine users but still allow them to create containers from their role, but not allow them to launch a privileged container like spc_t. This means if a user running as container_user_u:container_user_r:container_user_t:s0 Ran a container they would get container_user_u:container_user_r:container_t:s0:c1,c2 If they run a privileged container they would run it with: container_user_u:container_user_r:container_user_t:s0 If they want to force the label they would get an error podman run --security-opt label=type:spc_t ... Should fail. Because the container_user_r can not run with the spc_t. SELinux rules would also prevent the user from forcing system_u user and the sytem_r role. Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt; Signed-off-by: Chris Evich &lt;cevich@redhat.com&gt;</MESSAGE>
+    <SHA>5b7dce8a3d440f8b137df8f91fba2676a7dcba37</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Skip tarball re-inport test in rawhide for CI Ref: #19407 Signed-off-by: Chris Evich &lt;cevich@redhat.com&gt;</MESSAGE>
+      <SHA>822f2f4952cf1c8b81dd024a4e271a55c9ca3e40</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/125-import.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>CI: reenable tests that are working again - #15074 (&quot;subtree_control&quot; flake). The flake is NOT FIXED, I saw it six months ago on my (non-aarch64) laptop. However, it looks like the frequent-flake-on-aarch64 bug is resolved. I've been testing in #17831 and have not seen it. So, tentatively remove the skip and see what happens. - Closes: #19407 (broken tar, &quot;duplicates of file paths&quot;) All Fedoras now have a fixed tar. Debian DOES NOT, but we're handling that in our build-ci-vm code. I.e., the Debian VM we're using has a working tar even though there's currently a broken tar out in the wild. Added distro-integration tag so we can catch future problems like this in OpenQA. - Closes: #19471 (brq / blkio / loopbackfs in rawhide) Bug appears to be fixed in rawhide, at least in the VMs we're using now. Added distro-integration tag because this test obviously relies on other system stuff. Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>e66413b51b7bb8f7c28a0f8e11f0857db057227e</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/125-import.bats</FILE>
+        <FILE>test/system/180-blkio.bats</FILE>
+        <FILE>test/system/200-pod.bats</FILE>
+        <FILE>test/system/280-update.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

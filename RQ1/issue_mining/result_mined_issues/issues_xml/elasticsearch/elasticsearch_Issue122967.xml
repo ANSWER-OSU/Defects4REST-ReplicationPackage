@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122967</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122967</ISSUEURL>
+  <TITLE>ESQL: `iterations` in profile/task status lies</TITLE>
+  <DESCRIPTION>### Elasticsearch Version all ### Installed Plugins _No response_ ### Java Version _bundled_ ### OS Version all ### Problem Description The `iterations` field is not trustworthy in ESQL's profile output. If the driver doesn't have to yield we report the status every second. And we report `iter` new iterations. And then the next second we report another `iter + n` iterations where `n` is however many iterations we made in a second. So the reported `iterations` is accurate for short queries, but for those longer than a second it's a vast, vast, vast overestimate. ### Steps to Reproduce Use `tasks` API with ESQL. ### Logs (if relevant) _No response_</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Minor DocValuesDocReader cleanup (#123619) The instance members can be private, all final, and SearchLookup is unused.</MESSAGE>
+    <SHA>46fc7de3fbc6c1963758e5a3eeea2ee9ce4d7ecd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ESQL: Fix Driver status iterations and cpuTime (#123290) Fixes https://github.com/elastic/elasticsearch/issues/122967 When the Driver reported status, if the &quot;report at least every X time&quot; report was triggered, it was re-adding the same iterations and cpuTime again, as it wasn't clearing it before the next iteration. Now, there are separated variables for the last updated iterations and reported time.</MESSAGE>
+      <SHA>e8b01ff7c0de20396b8f375050bb2fdf195d3b80</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/123290.yaml</FILE>
+        <FILE>x-pack/plugin/esql/compute/src/main/java/org/elasticsearch/compute/operator/Driver.java</FILE>
+        <FILE>x-pack/plugin/esql/compute/src/test/java/org/elasticsearch/compute/operator/DriverTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: Fix Driver status iterations and cpuTime (#123290) Fixes https://github.com/elastic/elasticsearch/issues/122967 When the Driver reported status, if the &quot;report at least every X time&quot; report was triggered, it was re-adding the same iterations and cpuTime again, as it wasn't clearing it before the next iteration. Now, there are separated variables for the last updated iterations and reported time.</MESSAGE>
+      <SHA>6976054e4710a952c590380b74e0a59bce34086c</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/123290.yaml</FILE>
+        <FILE>x-pack/plugin/esql/compute/src/main/java/org/elasticsearch/compute/operator/Driver.java</FILE>
+        <FILE>x-pack/plugin/esql/compute/src/test/java/org/elasticsearch/compute/operator/DriverTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: Fix Driver status iterations and cpuTime (#123290) Fixes https://github.com/elastic/elasticsearch/issues/122967 When the Driver reported status, if the &quot;report at least every X time&quot; report was triggered, it was re-adding the same iterations and cpuTime again, as it wasn't clearing it before the next iteration. Now, there are separated variables for the last updated iterations and reported time.</MESSAGE>
+      <SHA>d68b97048a38a9adf39eb8832aaeabb27f094f6d</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/123290.yaml</FILE>
+        <FILE>x-pack/plugin/esql/compute/src/main/java/org/elasticsearch/compute/operator/Driver.java</FILE>
+        <FILE>x-pack/plugin/esql/compute/src/test/java/org/elasticsearch/compute/operator/DriverTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: Fix Driver status iterations and cpuTime (#123290) (#123698) Fixes https://github.com/elastic/elasticsearch/issues/122967 When the Driver reported status, if the &quot;report at least every X time&quot; report was triggered, it was re-adding the same iterations and cpuTime again, as it wasn't clearing it before the next iteration. Now, there are separated variables for the last updated iterations and reported time.</MESSAGE>
+      <SHA>2d86f8b0a3d066d4d88603131b85f23279672836</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/123290.yaml</FILE>
+        <FILE>x-pack/plugin/esql/compute/src/main/java/org/elasticsearch/compute/operator/Driver.java</FILE>
+        <FILE>x-pack/plugin/esql/compute/src/test/java/org/elasticsearch/compute/operator/DriverTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>925</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/925</ISSUEURL>
+  <TITLE>instance urls only link to the same instance</TITLE>
+  <DESCRIPTION>hi, i have a simple micro app. just save the serverStartTime and show it. ``` global.serverStartTime = new Date().getTime() module.exports = (req, res) =&gt; { res.end('serverStartTime:' + global.serverStartTime) } setInterval(() =&gt; { console.log('serverStartTime:' + global.serverStartTime) }, 5000) ``` and i scaled it to 3 instances, so i expected 3 instances urls link to different server instances and show different serverStartTime. (because 3 instances started at different time) here are instances urls ``` micro-time-qjxyomjsfq.now.sh 3 READY 7h - micro-time-qjxyomjsfq-d2992830d580b2722adcde6b.now.sh - micro-time-qjxyomjsfq-302c22d080d6ab88084ab081.now.sh - micro-time-qjxyomjsfq-3c85f55f2459c9af31af0695.now.sh ``` open https://micro-time-qjxyomjsfq-d2992830d580b2722adcde6b.now.sh/ - shows `serverStartTime:1507739307039` open https://micro-time-qjxyomjsfq-302c22d080d6ab88084ab081.now.sh - shows `serverStartTime:1507739307039` open https://micro-time-qjxyomjsfq-3c85f55f2459c9af31af0695.now.sh/ - shows `serverStartTime:1507739307039` that means 3 instances urls only link to the same server instance and i check the logs `now logs micro-time-qjxyomjsfq-d2992830d580b2722adcde6b.now.sh` - show `serverStartTime:1507739278104` `now logs micro-time-qjxyomjsfq-302c22d080d6ab88084ab081.now.sh` - show `serverStartTime:1507739307039` `now logs micro-time-qjxyomjsfq-3c85f55f2459c9af31af0695.now.sh` - show `serverStartTime:1507739308767` the logs are corrent. but the instance urls not.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Publish - @now/go@0.5.10 - @now/next@0.6.0 - @now/node@0.12.6 - @now/python@0.2.15 - @now/static-build@0.9.7</MESSAGE>
+    <SHA>71c297de32c4980cc42fc3721c34a7d751249878</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-next] Use more appropriate semver comparisons (#925)</MESSAGE>
+      <SHA>9aabd26fda4d4878faa4c709a45cb137c7cf2702</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-next/src/create-serverless-config.ts</FILE>
+        <FILE>packages/now-next/src/index.ts</FILE>
+        <FILE>packages/now-next/test/fixtures/02-firebase/pages/nested/moar/[dynamic_fb].js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

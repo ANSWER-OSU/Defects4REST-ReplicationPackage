@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8967</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/8967</ISSUEURL>
+  <TITLE>Recipe enabling a module throws `SqliteException: SQLite Error 1: 'no such table: WorkflowTypeIndex'.`</TITLE>
+  <DESCRIPTION>### Describe the bug Getting this exception when executing a recipe that enables the `OrchardCore.Workflows.Http` module. Orchard version `1.0.0-rc2-15907` ### To Reproduce Steps to reproduce the behavior: 1. Run our codebase: https://github.com/StatCan/StatCan.OrchardCore 2. Setup the site with the `HackathonTheme` setup recipe using SQLite 3. Go to the admin site and execute the `Contact form example` recipe from the Recipes admin page 4. Exception occurs. All requests fail. 5. Restart the site 6. Exception is gone but recipe did not fully complete 7. Run the `Contact form example` recipe a second time 8. Executes properly ### Expected behavior No exception is thrown when the recipe enables the `OrchardCore.Workflows.Http` module. Here is the recipe: https://github.com/StatCan/StatCan.OrchardCore/blob/056ccbf797d5e9ab79883e602e9bac149dfb4e99/src/Modules/StatCan.OrchardCore.VueForms/Recipes/ContactForm.recipe.json#L17 Setup recipe: https://github.com/StatCan/StatCan.OrchardCore/blob/5249e65dd61eeb1406b8db356773827d6a7071ef/src/Themes/HackathonTheme/Recipes/hackathon.setup.recipe.json#L11 /cc @jtkech</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixes #9039 View Buffer OutOfRangeException (#9062)</MESSAGE>
+    <SHA>dbb566a07cae64b8713f488add45f41e52b22b8c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #8785 #8967 #9064 Use DeferredTask in ContentStep (#9046)</MESSAGE>
+      <SHA>3df1b7bc744b1c5cd9810ccc976167711070d27e</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.ContentFields/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Contents/Recipes/ContentStep.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Workflows/Http/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Themes/TheComingSoonTheme/Recipes/comingsoon.recipe.json</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Abstractions/Extensions/ExtensionEntry.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Abstractions/Extensions/Features/CompositeFeaturesProvider.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Abstractions/Extensions/Features/FeatureEntry.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Abstractions/Extensions/Features/IFeatureInfo.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Abstractions/Extensions/Features/InternalFeatureInfo.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Abstractions/Extensions/IExtensionInfo.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Abstractions/Extensions/IExtensionManager.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Abstractions/Extensions/InternalExtensionInfo.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Abstractions/Extensions/NotFoundExtensionInfo.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Abstractions/Modules/Manifest/FeatureAttribute.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Abstractions/Modules/RequireFeaturesAttribute.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Abstractions/Shell/Scope/ShellScope.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.ResourceManagement/ResourceDictionary.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore/Extensions/ExtensionInfo.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore/Extensions/ExtensionManager.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore/Extensions/Features/FeatureInfo.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore/Extensions/Features/FeaturesProvider.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore/Extensions/Features/TypeFeatureProvider.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore/Shell/Builders/CompositionStrategy.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore/Shell/ShellStateUpdater.cs</FILE>
+        <FILE>test/OrchardCore.Tests/Apis/Lucene/LuceneQueryTests.cs</FILE>
+        <FILE>test/OrchardCore.Tests/DisplayManagement/Decriptors/DefaultShapeTableManagerTests.cs</FILE>
+        <FILE>test/OrchardCore.Tests/Shell/ShellContainerFactoryTests.cs</FILE>
+        <FILE>test/OrchardCore.Tests/Stubs/StubExtensionManager.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

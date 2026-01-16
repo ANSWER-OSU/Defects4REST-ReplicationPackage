@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17657</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/17657</ISSUEURL>
+  <TITLE>Consider not messing with namespaces and clone(2) in 'version'</TITLE>
+  <DESCRIPTION>### Issue Description `podman version` ends up doing various things with namespaces (at least user) and the `clone(2)` system call that sometimes end up with an `EPERM` in various build environments like Fedora's. It might be worth short circuiting those because ultimately it's just returning some relatively simple metadata. The background is that Toolbx recently [switched](https://github.com/containers/toolbox/pull/840) to using [Cobra](https://github.com/spf13/cobra) to generate the shell completions instead of static hand-written ones. This means that `toolbox completion ...` is run during the Toolbx build, and for various not-so-important reasons the start-up code in `toolbox(1)` calls `podman version`. ### Steps to reproduce the issue Try to build Toolbx [0.0.99.4](https://github.com/containers/toolbox/releases/tag/0.0.99.4) for Fedora 36 or 37 in the Fedora build system ### Describe the results you received When building Toolbx [0.0.99.4](https://github.com/containers/toolbox/releases/tag/0.0.99.4) in the Fedora build system, the `podman version` invocation hits an `EPERM` on both Fedora 36 and 37 (but works fine on F38 and F39/Rawhide). [Here](https://koji.fedoraproject.org/koji/taskinfo?taskID=98076586) is a scratch build with `toolbox --verbose completion ...` and `strace --follow-forks podman version` sprinkled in the right places. Note that there are three `toolbox completion ...` invocations there, so everything is repeated three times. Looking closely at the [strace output](https://kojipkgs.fedoraproject.org//work/tasks/6610/98076610/build.log) in the build log, you will see: ``` [pid 1066178] geteuid() = 1000 [pid 1066178] getegid() = 425 [pid 1066178] clone(child_stack=NULL, flags=CLONE_NEWNS|CLONE_NEWUSER|SIGCHLD) = -1 EPERM (Operation not permitted) [pid 1066178] write(2, &quot;cannot clone: Operation not perm&quot;..., 38cannot clone: Operation not permitted ... ... [pid 1066178] write(2, &quot;Error: cannot re-exec process\n&quot;, 30Error: cannot re-exec process ) = 30 ``` My understanding is that this is coming from `becomeRootInUserNS()` in [pkg/rootless/rootless.go](https://github.com/containers/podman/blob/main/pkg/rootless/rootless.go), which calls `reexec_in_user_namespace` in [pkg/rootless/rootless_linux.c](https://github.com/containers/podman/blob/main/pkg/rootless/rootless_linux.c), where the `clone(2)` is. So far, I see that the Fedora 36 and 37 build environment is inside a `chroot(2)`, while on Fedora 38 and 39 it's inside `systemd-nspawn(1)`, and `glibc-2.36-9.fc37` versus `glibc-2.37-1.fc38.x86_64`. I don't see any differences in `libseccomp`. ### Describe the results you expected `podman version` shouldn't encounter an `EPERM` and return the Podman version. ### podman info output *One would have to run `podman info` on the Fedora build system, so I am skipping it.* podman-4.4.1-3.fc37; Fedora 37 on `aarch64`, `ppc64le`, `s390x` and `x86_64` Similarly, on Fedora 36, which also includes `armv7hl`. ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details A `chroot(2)` created by Mock 3.5 as part of the Fedora 36 and 37 build environment. ### Additional information I will try to work around this by avoiding the `podman version` call in Toolbx when generating the shell completions.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>cmd: drop special handling for &quot;scp&quot; Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+    <SHA>2860d55c97fe2742fef2bc7f2c20725797ed2888</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>cmd: do not require userns for &quot;version&quot; Closes: https://github.com/containers/podman/issues/17657 [NO NEW TESTS NEEDED] Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>0498ce3a569900301591cf09dc84c86e0bc9fe81</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/system/version.go</FILE>
+        <FILE>pkg/rootless/rootless_linux.c</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

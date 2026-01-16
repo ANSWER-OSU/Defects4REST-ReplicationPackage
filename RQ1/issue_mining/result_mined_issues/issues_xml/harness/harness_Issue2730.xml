@@ -1,0 +1,81 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2730</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2730</ISSUEURL>
+  <TITLE>Trigger section is missing in jsonnet output if it only contains cron filter</TITLE>
+  <DESCRIPTION>Here's my drone.jsonnet ``` [ { kind: &quot;pipeline&quot;, name: &quot;main&quot;, steps: [ { name: &quot;test&quot;, image: &quot;alpine&quot;, command: [&quot;uname&quot;,&quot;-a&quot;] } ], trigger: { cron: [&quot;weekly&quot;] }, } ] ``` Output from `drone jsonnet --stream --stdout`: ``` --- kind: pipeline name: main platform: os: linux arch: amd64 steps: - name: test image: alpine command: - uname - -a ... ``` The whole `trigger` section is missing. After changing `trigger` to: ``` trigger: { event: [&quot;push&quot;], cron: [&quot;weekly&quot;] } ``` section shows up with both filters: ``` trigger: cron: - weekly event: - push ``` **drone version 1.1.0**</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>46</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [CODE-2318]: Update error message in case of forbidden (#2780) * feat: [CODE-2318]: update error logic to be translate in controller * Merge branch 'main' into akp/CODE-2318 * feat: [CODE-2318]: update error logic to be translate in controller * feat: [CODE-2318]: remove nested error handling * feat: [CODE-2318]: Update error message in case of forbidden</MESSAGE>
+    <SHA>fd848b1e154bdbfc27aab448d888d2c16cc22530</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: [CODE-2292]: Add API for space level webhook creation (#2730) * Merge remote-tracking branch 'origin/main' into dd/webhooks-space * Move webphookpreprocessor to webhook controller * Merge remote-tracking branch 'origin/main' into dd/webhooks-space * Merge branch 'main' into dd/webhooks-space * Add webhookpreprocessor service * Add WebhookParentInfo type and refactor webhook svc and store to use it * Introduce webhookpreprocessor service * Add space webhooks * Refactor handlers to use custom fn params * Move everything webhook service related to webhook service * Remove webhook parent info type * Add webhook execution count * Add space webhooks</MESSAGE>
+      <SHA>b002a60b02f3bdb5ca70e7e97af863321d3fdd42</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/controller/webhook/controller.go</FILE>
+        <FILE>app/api/controller/webhook/find.go</FILE>
+        <FILE>app/api/controller/webhook/find_execution.go</FILE>
+        <FILE>app/api/controller/webhook/preprocessor.go</FILE>
+        <FILE>app/api/controller/webhook/repo_create.go</FILE>
+        <FILE>app/api/controller/webhook/repo_delete.go</FILE>
+        <FILE>app/api/controller/webhook/repo_find.go</FILE>
+        <FILE>app/api/controller/webhook/repo_find_execution.go</FILE>
+        <FILE>app/api/controller/webhook/repo_list.go</FILE>
+        <FILE>app/api/controller/webhook/repo_list_executions.go</FILE>
+        <FILE>app/api/controller/webhook/repo_retrigger_execution.go</FILE>
+        <FILE>app/api/controller/webhook/repo_update.go</FILE>
+        <FILE>app/api/controller/webhook/retrigger_execution.go</FILE>
+        <FILE>app/api/controller/webhook/space_create.go</FILE>
+        <FILE>app/api/controller/webhook/space_delete.go</FILE>
+        <FILE>app/api/controller/webhook/space_find.go</FILE>
+        <FILE>app/api/controller/webhook/space_find_execution.go</FILE>
+        <FILE>app/api/controller/webhook/space_list.go</FILE>
+        <FILE>app/api/controller/webhook/space_list_executions.go</FILE>
+        <FILE>app/api/controller/webhook/space_retrigger_execution.go</FILE>
+        <FILE>app/api/controller/webhook/space_update.go</FILE>
+        <FILE>app/api/controller/webhook/wire.go</FILE>
+        <FILE>app/api/handler/webhook/repo_create.go</FILE>
+        <FILE>app/api/handler/webhook/repo_delete.go</FILE>
+        <FILE>app/api/handler/webhook/repo_find.go</FILE>
+        <FILE>app/api/handler/webhook/repo_find_execution.go</FILE>
+        <FILE>app/api/handler/webhook/repo_list.go</FILE>
+        <FILE>app/api/handler/webhook/repo_list_executions.go</FILE>
+        <FILE>app/api/handler/webhook/repo_retrigger_execution.go</FILE>
+        <FILE>app/api/handler/webhook/repo_update.go</FILE>
+        <FILE>app/api/handler/webhook/space_create.go</FILE>
+        <FILE>app/api/handler/webhook/space_delete.go</FILE>
+        <FILE>app/api/handler/webhook/space_find.go</FILE>
+        <FILE>app/api/handler/webhook/space_find_execution.go</FILE>
+        <FILE>app/api/handler/webhook/space_list.go</FILE>
+        <FILE>app/api/handler/webhook/space_list_executions.go</FILE>
+        <FILE>app/api/handler/webhook/space_retrigger_execution.go</FILE>
+        <FILE>app/api/handler/webhook/space_update.go</FILE>
+        <FILE>app/api/openapi/webhook.go</FILE>
+        <FILE>app/api/usererror/translate.go</FILE>
+        <FILE>app/router/api.go</FILE>
+        <FILE>app/services/migrate/webhook.go</FILE>
+        <FILE>app/services/webhook/common.go</FILE>
+        <FILE>app/services/webhook/create.go</FILE>
+        <FILE>app/services/webhook/delete.go</FILE>
+        <FILE>app/services/webhook/events.go</FILE>
+        <FILE>app/services/webhook/execution.go</FILE>
+        <FILE>app/services/webhook/list.go</FILE>
+        <FILE>app/services/webhook/ownership.go</FILE>
+        <FILE>app/services/webhook/service.go</FILE>
+        <FILE>app/services/webhook/trigger.go</FILE>
+        <FILE>app/services/webhook/update.go</FILE>
+        <FILE>app/services/webhook/wire.go</FILE>
+        <FILE>app/store/database.go</FILE>
+        <FILE>app/store/database/webhook.go</FILE>
+        <FILE>app/store/database/webhook_execution.go</FILE>
+        <FILE>cmd/gitness/wire.go</FILE>
+        <FILE>cmd/gitness/wire_gen.go</FILE>
+        <FILE>errors/status.go</FILE>
+        <FILE>types/webhook.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

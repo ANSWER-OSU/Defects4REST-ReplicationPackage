@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1523</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/1523</ISSUEURL>
+  <TITLE>No logging output when using default journald logging driver</TITLE>
+  <DESCRIPTION>For obvious reasons Drone fails to log output when using the journald driver in docker by default. However, it is possible in docker to specify logging driver per-container - so if this mode of operation is not supported, sensible default behavior for drone would be to force all containers to start with `log-driver=json`.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>464</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>bump pipeline runner to support network_mode</MESSAGE>
+    <SHA>eed03a58036c5029af1b4bf347d2ac6f5746bf21</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fixes #1523 to ensure json-file driver</MESSAGE>
+      <SHA>ee793f13cac4b178385388d96d52b5c60f1eb370</SHA>
+      <PATCHEDFILES>
+        <FILE>.drone.yml</FILE>
+        <FILE>.github/issue_template.md</FILE>
+        <FILE>server/rpc.go</FILE>
+        <FILE>vendor/github.com/cncd/pipeline/pipeline/backend/docker/convert.go</FILE>
+        <FILE>vendor/github.com/cncd/pipeline/pipeline/frontend/yaml/compiler/cacher.go</FILE>
+        <FILE>vendor/github.com/cncd/pipeline/pipeline/frontend/yaml/compiler/compiler.go</FILE>
+        <FILE>vendor/github.com/cncd/pipeline/pipeline/frontend/yaml/compiler/convert.go</FILE>
+        <FILE>vendor/github.com/cncd/pipeline/pipeline/frontend/yaml/compiler/option.go</FILE>
+        <FILE>vendor/vendor.json</FILE>
+        <FILE>version/version.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>enable globals (#2091) * fixes #1523 to ensure json-file driver * added environment * inject globals</MESSAGE>
+      <SHA>dab3f0a9f947f6f3b0cb9e3cceaab52e6d2ca49a</SHA>
+      <PATCHEDFILES>
+        <FILE>model/environ.go</FILE>
+        <FILE>server/build.go</FILE>
+        <FILE>server/hook.go</FILE>
+        <FILE>server/rpc.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>bump version number [ci skip] (#2092) * fixes #1523 to ensure json-file driver * added environment * inject globals * bump version</MESSAGE>
+      <SHA>fdc07c6985e7e1b89a89a8753c873248a654d170</SHA>
+      <PATCHEDFILES>
+        <FILE>.drone.yml</FILE>
+        <FILE>version/version.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

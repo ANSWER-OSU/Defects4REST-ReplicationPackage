@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>357</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/357</ISSUEURL>
+  <TITLE>fastText training file incorrectly generated</TITLE>
+  <DESCRIPTION>While looking at ways to optimize the `fasttext` backend code, I noticed that the code that generates the training file is inconsistent, in particular on [this line](https://github.com/NatLibFi/Annif/blob/master/annif/backend/fasttext.py#L101): doc_subjects[text] = [project.subjects.by_uri(uri) for uri in doc.uris] Here `doc_subjects` is a defaultdict where values are initialized to empty set objects. But in the above code the set gets overwritten by a list. The consequence is that if there are several documents in the training data having the same title (or nearly so), only the subjects of the last one of them will end up in the train file while others are silently discarded. The obvious fix (and the original intent of the code) is to use `.update()` to collect the union of the subjects into the set, but I will have to verify that it doesn't adversely affect the quality of the fastText model before making the change. Another possibility is to keep all the documents with the same title as separate entries in the train file, so that each of them has (potentially) their own set of subjects.</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>182</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #409 from NatLibFi/CSCfi-issue290-upgrade-fasttext Upgrade fastText to official version 0.9.2</MESSAGE>
+    <SHA>1b561cb37665bdb867a08ff0795888767987af3a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Don't attempt to merge similar documents when creating fasttext train file. Fixes #357</MESSAGE>
+      <SHA>7e40eff1e5c2855e4191f497d6ac6c5f9d08a60a</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/backend/fasttext.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

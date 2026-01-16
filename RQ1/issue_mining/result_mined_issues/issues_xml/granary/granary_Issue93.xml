@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>93</ISSUENO>
+  <ISSUEURL>https://github.com/snarfed/granary/issues/93</ISSUEURL>
+  <TITLE>atom validation errors</TITLE>
+  <DESCRIPTION>evidently the atom we emit doesn't always validate. e.g. converting scraped instagram to atom gives us these errors from https://validator.w3.org/feed/ : ``` line 16, column 28: updated must be an RFC-3339 date-time: 2016-05-31T16:21:12 [help] &lt;updated&gt;2016-05-31T16:21:12&lt;/updated&gt; line 74, column 32: published must be an RFC-3339 date-time: 2016-05-31T16:21:12 (24 occurrences) [help] &lt;published&gt;2016-05-31T16:21:12&lt;/published&gt; line 75, column 30: updated must be an RFC-3339 date-time: 2016-05-31T16:21:12 (24 occurrences) [help] &lt;updated&gt;2016-05-31T16:21:12&lt;/updated&gt; line 80, column 4: Undefined entry element: georss:featureName (11 occurrences) [help] &lt;georss:featureName&gt;U.S. Citizenship and Immigration Services&lt;/georss:fe ... ``` thanks @cleverdevil for reporting!</DESCRIPTION>
+  <REPONAME>granary</REPONAME>
+  <TIMEDIFFERENCEDAYS>556</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>release notes for REST API caching</MESSAGE>
+    <SHA>97d7412638d627dcfb717d3b8329545c9b64902f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Atom: fix XML validation errors in video HTML. for #93 thanks again for reporting @cleverdevil!</MESSAGE>
+      <SHA>48b27c04ee2e84652ed595e8b1af39b6ec2436e1</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/microformats2.py</FILE>
+        <FILE>granary/test/test_microformats2.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>atom: make timestamps complete RFC 3339 to fix validation for #93, snarfed/instagram#3</MESSAGE>
+      <SHA>0e732ddf82fb120c4f66a66fb2089637f37d5b6c</SHA>
+      <PATCHEDFILES>
+        <FILE>granary/atom.py</FILE>
+        <FILE>granary/test/test_atom.py</FILE>
+        <FILE>granary/test/test_instagram.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

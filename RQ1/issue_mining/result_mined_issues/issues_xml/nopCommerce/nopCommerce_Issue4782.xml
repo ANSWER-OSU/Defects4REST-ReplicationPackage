@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4782</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4782</ISSUEURL>
+  <TITLE>Ensure no exception is thrown when we have duplicated locale names</TITLE>
+  <DESCRIPTION>If you have a language resource with the same key (there is no constraint in the database to ensure unique keys) then nopCommerce 4.30 will throw an exception because of this code assuming the resource name is unique: ``` var lsNamesList = _lsrRepository.Table .Where(lsr =&gt; lsr.LanguageId == language.Id) .ToDictionary(lsr =&gt; lsr.ResourceName, lsr =&gt; lsr); ``` Source: https://www.nopcommerce.com/en/boards/topic/80047/nopcommerce-430-bug-fixes-and-improvements/page/6#264900</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '4.30-bug-fixes' into develop</MESSAGE>
+    <SHA>ea58d0a886eb1f784370f120d66efdc252d25c6a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4782 Ensure no exception is thrown when we have duplicated locale names (#4816) Co-authored-by: Roman Gherman &lt;roman.gherman@infigosoftware.com&gt;</MESSAGE>
+      <SHA>eb63d66b31fa02481d76cc314facdf40d2a60439</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Localization/LocalizationService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#4782 Ensure no exception is thrown when we have duplicated locale names (#4816) Co-authored-by: Roman Gherman &lt;roman.gherman@infigosoftware.com&gt;</MESSAGE>
+      <SHA>a17cbd0b11862638a5fb721a61ba0ceffa7e32d4</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Localization/LocalizationService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

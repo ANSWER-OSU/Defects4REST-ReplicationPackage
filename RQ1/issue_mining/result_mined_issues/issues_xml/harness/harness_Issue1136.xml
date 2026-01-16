@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1136</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/1136</ISSUEURL>
+  <TITLE>0.4 don't work build</TITLE>
+  <DESCRIPTION>remote - gitlab run like ``` git pull origin 0.4-database &amp;&amp; make all sudo DOCKER_HOST=&quot;unix:///var/run/docker.sock&quot; SERVER_ADDR=&quot;:8084&quot; REMOTE_DRIVER=&quot;gitlab&quot; REMOTE_CONFIG=&quot;http://gitlab.local/?client_id={client}&amp;client_secret={sec}&quot; ./bin/drone ``` .drone.yml ``` build: image: golang commands: - go get - go build - go test ``` error log ``` panic: runtime error: invalid memory address or nil pointer dereference [signal 0xb code=0x1 addr=0x0 pc=0x404241] goroutine 16 [running]: runtime.panic(0x706920, 0x8f7f73) /usr/local/go/src/pkg/runtime/panic.c:279 +0xf5 main.createClone(0xc20804c200, 0x0, 0x0) /home/brad/gocode/src/github.com/drone/drone/cmd/drone-build/main.go:119 +0x411 main.main() /home/brad/gocode/src/github.com/drone/drone/cmd/drone-build/main.go:40 +0x18a goroutine 17 [runnable]: runtime.MHeap_Scavenger() /usr/local/go/src/pkg/runtime/mheap.c:507 runtime.goexit() /usr/local/go/src/pkg/runtime/proc.c:1445 goroutine 18 [runnable]: bgsweep() /usr/local/go/src/pkg/runtime/mgc0.c:1976 runtime.goexit() /usr/local/go/src/pkg/runtime/proc.c:1445 goroutine 19 [runnable]: runfinq() /usr/local/go/src/pkg/runtime/mgc0.c:2606 runtime.goexit() /usr/local/go/src/pkg/runtime/proc.c:1445 ``` ![image](https://cloud.githubusercontent.com/assets/1614346/9268815/6a5c2b56-426b-11e5-90cb-9b2dd2d5a462.png)</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: [code-1648]: add timeout state for import repo (#1135)</MESSAGE>
+    <SHA>ac7ac5e881a444407ae1fafff7429844d1fff1c3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: [code-1663]: add error message on submit btn (#1136)</MESSAGE>
+      <SHA>00f58fd08e6a62e887a1d66d2c565dfb737d41eb</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/components/MarkdownEditorWithPreview/MarkdownEditorWithPreview.tsx</FILE>
+        <FILE>web/src/framework/strings/stringTypes.ts</FILE>
+        <FILE>web/src/i18n/strings.en.yaml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

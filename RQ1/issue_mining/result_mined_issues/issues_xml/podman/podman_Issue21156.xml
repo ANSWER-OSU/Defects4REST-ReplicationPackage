@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>21156</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/21156</ISSUEURL>
+  <TITLE>Podman --gpus all support instead of --devices nvidia.com/gpu=all for compability</TITLE>
+  <DESCRIPTION>### Feature request description We have as a company been trying to adapt podman for many usages recently especially for Machine Learning side. Datalore and Prefect is just two of them and in both cases we hitting the wall on attaching GPUs to the container. Both of these application are dedicated to get used with Docker but we managed to get them run with podman for their base server, but they also access to the `docker.sock` which is `podman.sock` we mount and they spawn their own containers on demand to run some tasks. That's where we hit the wall, these applications are hardcoded to send API commands in a way that docker understands on how to bind GPUs to the container but podman has no idea because it uses a different run arguments for that purpose. This is really a thing that prevents us using it and I imagine it should be an easy fix to make podman understand `--gpus all` is exactly same thing as `--devices nvidia.com/gpu=all `. ### Suggest potential solution If podman can consider `--gpus all` same as `--devices nvidia.com/gpu=all ` it will be solving toto many problems. ### Have you considered any alternatives? Yes I tried everything, in datalore local agents, gives you option to append run arguments so local agents can get used, but weirdly external agents doesn't give you that option and sends `--gpus all` hardcoded and I don't want to wait for this development on their side. ### Additional context Add any other context or screenshots about the feature request here.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>26</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #21232 from ashley-cui/vfkitport Assign separate ports for each appleHV machine</MESSAGE>
+    <SHA>e06abd1840684df35927b53768769b58e423497e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Make --gpus work with nvidia gpus Somewhat documented here: https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html https://stackoverflow.com/questions/25185405/using-gpu-from-a-docker-container Fixes: https://github.com/containers/podman/issues/21156 Don't have access to nvidia GPUS, relying on contributor testing. Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>46cfc9858fcbcb46c6a2f8831e58e5308b519777</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/common/create.go</FILE>
+        <FILE>cmd/podman/containers/run.go</FILE>
+        <FILE>docs/source/markdown/options/gpus.md</FILE>
+        <FILE>docs/source/markdown/podman-create.1.md.in</FILE>
+        <FILE>docs/source/markdown/podman-pod-clone.1.md.in</FILE>
+        <FILE>docs/source/markdown/podman-pod-create.1.md.in</FILE>
+        <FILE>docs/source/markdown/podman-run.1.md.in</FILE>
+        <FILE>pkg/domain/entities/pods.go</FILE>
+        <FILE>pkg/specgenutil/specgen.go</FILE>
+        <FILE>test/e2e/run_device_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4927</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4927</ISSUEURL>
+  <TITLE>Extract getting &quot;lang pattern&quot; into separate function to avoid code duplication</TITLE>
+  <DESCRIPTION>This code is duplicated in plugins ``` var pattern = string.Empty; if (DataSettingsManager.DatabaseIsInstalled) { var localizationSettings = endpointRouteBuilder.ServiceProvider.GetRequiredService&lt;LocalizationSettings&gt;(); if (localizationSettings.SeoFriendlyUrlsForLanguagesEnabled) { var langservice = endpointRouteBuilder.ServiceProvider.GetRequiredService&lt;ILanguageService&gt;(); var languages = langservice.GetAllLanguages().ToList(); pattern = &quot;{language:lang=&quot; + languages.FirstOrDefault().UniqueSeoCode + &quot;}/&quot;; } } ``` Consider extending RouteProviders form a BaseRouteProvider and extracting the code above into a protected method</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>58</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'caching-customers-by-system-names' into develop</MESSAGE>
+    <SHA>f8f414926cfff323f739a5484b4efa5495775a59</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4927 Extract getting &quot;lang pattern&quot; into separate function to avoid code duplication (#4959) * Extract getting &quot;lang pattern&quot; into separate function to avoid code duplication * Fix route provider Co-authored-by: Maksym Badii &lt;maksym.badii@pwc.com&gt;</MESSAGE>
+      <SHA>f01042963d1a3a0ce0ccf87cdd767aec4c1461bb</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Infrastructure/BaseRouteProvider.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Infrastructure/GenericUrlRouteProvider.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Infrastructure/RouteProvider.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

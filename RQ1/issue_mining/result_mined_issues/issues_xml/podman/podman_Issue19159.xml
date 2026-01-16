@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19159</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/19159</ISSUEURL>
+  <TITLE>New podman pod remove API error message is less detailed</TITLE>
+  <DESCRIPTION>### Issue Description In 4.6.0-rc1 the `libpods/pod` DELETE endpoint's error message changed to: ![image](https://github.com/containers/podman/assets/67428/09887439-128b-42be-92bb-7b9da3b92dcf) From: ![image](https://github.com/containers/podman/assets/67428/8dd91399-3241-451e-8ef2-c7ee13b38979) The new error message does not include anything about it being unable delete running/paused containers. ### Steps to reproduce the issue Steps to reproduce the issue ``` [root@fedora-testing-127-0-0-2-2201 ~]# podman pod ps POD ID NAME STATUS CREATED INFRA ID # OF CONTAINERS 64ec75433156 brave_solomon Running 24 minutes ago c168e97d7e68 2 [root@fedora-testing-127-0-0-2-2201 ~]# curl -X DELETE -s -g --no-buffer --unix-socket /run/podman/podman.sock 'http://localhost/v1.12/libpod/pods/64ec75433156' {&quot;cause&quot;:&quot;removing pod containers&quot;,&quot;message&quot;:&quot;not all containers could be removed from pod 64ec754331564082b0ccbf078268d701ad009a415ad1dfdaca64425cbe8d8821: removing pod containers&quot;,&quot;response&quot;:500} ``` ### Describe the results you received See above :) ### Describe the results you expected I'm wondering if the error should inform that the container is running/paused so requires force to be removed. ### podman info output ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details Additional environment details ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19207 from Luap99/mv-dns netavark: macvlan networks keep custom nameservers</MESSAGE>
+    <SHA>cd58306a811b34c920479a933123b4ac9df0f614</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix container errors not being sent via pod removal API When I reworked pod removal to provide more detailed errors (including per-container errors, not just a single multierror with all errors squashed), I made it part of the struct returned by the REST API and assumed that would be enough to get errors through to clients. Unfortunately, in case of an overarching error removing the pod (as any error with any container would cause), we don't send the response struct that would include the container errors - we just send a standardized REST error. We could work around this with custom, potentially backwards incompatible error handling for the REST pod delete endpoint, or we could just do what was done before, and package up all the errors in a multierror to send to the other side. Of those options, the multierror seems far simpler. Fixes #19159 Signed-off-by: Matt Heon &lt;mheon@redhat.com&gt;</MESSAGE>
+      <SHA>2b2c4453f1baeeac4639dc1baf85fb841dde8e00</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/libpod/pods.go</FILE>
+        <FILE>test/apiv2/40-pods.at</FILE>
+        <FILE>test/system/200-pod.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix container errors not being sent via pod removal API When I reworked pod removal to provide more detailed errors (including per-container errors, not just a single multierror with all errors squashed), I made it part of the struct returned by the REST API and assumed that would be enough to get errors through to clients. Unfortunately, in case of an overarching error removing the pod (as any error with any container would cause), we don't send the response struct that would include the container errors - we just send a standardized REST error. We could work around this with custom, potentially backwards incompatible error handling for the REST pod delete endpoint, or we could just do what was done before, and package up all the errors in a multierror to send to the other side. Of those options, the multierror seems far simpler. Fixes #19159 Signed-off-by: Matt Heon &lt;mheon@redhat.com&gt;</MESSAGE>
+      <SHA>7b3d47c3b9998e04b970f73a83fbf427906c8058</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/api/handlers/libpod/pods.go</FILE>
+        <FILE>test/apiv2/40-pods.at</FILE>
+        <FILE>test/system/200-pod.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

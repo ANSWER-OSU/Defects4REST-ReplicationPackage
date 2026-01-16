@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3622</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3622</ISSUEURL>
+  <TITLE>Prevent a credit card bruteforce</TITLE>
+  <DESCRIPTION>Otherwise, it can be used to run a script to trigger the credit card payment (CC entered on nopCommerce website) over and over again, trying 1,000’s of different cards until they got one to work. We should also add way to prevent placement of a new order. We already have &quot;orderSettings.MinimumOrderPlacementInterval&quot; setting but it doesn't help because it's used when an order is saved in database. In our case it's not placed until CC is correct More details at premium support ticket 14797</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'develop' of https://github.com/nopSolutions/nopCommerce into develop</MESSAGE>
+    <SHA>363a847e0766faab181703e17145cd7809a03fc6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3622 Prevent a credit card bruteforce for payment methods when credit card is entered on a store website (no redirection). We should not add any custom security logic. It should be done on a payment gateway side. We already pass &quot;Order GUID&quot; with each payment attempt. So it should be enough for any gateway to validate any bruteforce attack. The issue is that previously re-generated &quot;Order GUID&quot; for each payment attempt. We should persist it between payment attempts.</MESSAGE>
+      <SHA>85d55663df20cee40818cca72acc20fc5cc1f7f7</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Payments/PaymentSettings.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Installation/CodeFirstInstallationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderProcessingService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Payments/ProcessPaymentRequest.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/CheckoutController.cs</FILE>
+        <FILE>upgradescripts/4.10-4.20 (under development)/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3622 Move method to services</MESSAGE>
+      <SHA>794a6344f6600159455cc2963f45de3832717578</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Payments/IPaymentService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Payments/PaymentService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/CheckoutController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

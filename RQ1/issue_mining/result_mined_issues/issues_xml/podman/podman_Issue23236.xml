@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>23236</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/23236</ISSUEURL>
+  <TITLE>RFE: expose sqliteOptionBusyTimeout as config or env variable.</TITLE>
+  <DESCRIPTION>### Feature request description A clear and concise description of what the feature request is about. We are executing several stress tests against podman with [engine-stressor](https://github.com/containers/engine-stressor) and depending of the tuning/settings in the system with stress-ng tool we start seeing the famous &quot;**save transaction: database is locked**&quot; Would be nice to have a way to increase/decreate **sqliteOptionBusyTimeout** to see if that affects the system without the need to recompile the libpod. On top that, it worth mentioning that changing that value should not corrupt the database itself. I could offer help to implement such mechanism but better listen the team how they would like to drive this request. Reference: https://github.com/containers/podman/blob/b3afb8fc39c8d2186474da79c3b88522ee251a22/libpod/sqlite_state.go#L45 Thanks Douglas ### Suggest potential solution A clear and concise description of what you want to happen. Add such option into config? Env variable? ### Have you considered any alternatives? A clear and concise description of any alternative solutions or features you've considered. Rebuild manually podman/libpod ### Additional context Add any other context or screenshots about the feature request here. Doing stress test against podman to a automobile certification which uses podman as container engine.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23357 from Luap99/pod-stats-err podman pod stats: fix race when ctr process exits</MESSAGE>
+    <SHA>d62ef3fb212255a50563d9b8f69f684199f2da9e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>libpod: add hidden env to set sqlite timeout Some users want to experiment with different timeout values. Fixes #23236 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>b6b61a6a49ca5f8ffd42a43eb0d18dd1eab3aecb</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/sqlite_state.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

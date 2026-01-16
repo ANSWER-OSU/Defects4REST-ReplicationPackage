@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>26844</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/26844</ISSUEURL>
+  <TITLE>BANK, Account statements : loose linked files if change Ref.</TITLE>
+  <DESCRIPTION>### Bug If we change or correct the reference name of an Account statement on the Bank account, the linked files were not available anymore. But if we change back the ref for the previous name, the files will be refund. ### Environment Version 18.03 ### Environment OS _No response_ ### Environment Web server Debian GNU/Linux 8.11 (jessie) ### Environment PHP 8.1.22 ### Environment Database MariaDB 10.4.18 ### Environment URL(s) _No response_ ### Expected and actual behavior We expect that the attached files were all the time available independently of the ref name. ### Steps to reproduce the behavior 1. On the 'Bank entries' make a 'reconcile' with few of your entries and use the value '20231113' 2. On the 'Account statement' open the statement '20231113' and upload an attached file ex. 'EXTRACT_20231112.pdf' 3. On the 'Account statement' edit the statement '20231113' and change the name of it for '20231112' Now you can check back the attached file of the account statement '20231112' and there is no attached file.. But if you change back the ref for '20231113' and check again, the attached file will be back. ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix hidden phpstan error (#26889)</MESSAGE>
+    <SHA>0f0d0e44fd4264bdca97d5b67c8b599bfb1f69df</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX linked files when change ref issue #26844 (#26873) * fix linked files when change ref * update fullpath in table * escape filepath in sql request * fix cast id * Update line.php * Update line.php * Update errors.lang * Update line.php --------- Co-authored-by: Laurent Destailleur &lt;eldy@destailleur.fr&gt;</MESSAGE>
+      <SHA>15bf064c610341d16a8953cd8bfc90012d3845b4</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/compta/bank/line.php</FILE>
+        <FILE>htdocs/langs/en_US/errors.lang</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

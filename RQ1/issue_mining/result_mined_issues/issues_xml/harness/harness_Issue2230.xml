@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2230</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2230</ISSUEURL>
+  <TITLE>optimize repository synchronization process</TITLE>
+  <DESCRIPTION>When syncing a large number of repositories it can take many seconds. During this time period additional http requests from the same user could result in duplicate synchronizations. This can be resolved by immediately setting the user synchronization date. The change to the relevant [sections of code](https://github.com/drone/drone/blob/ec6016062bd1d7d702c5edf383eb0728df33dbdd/server/user.go#L69:L83) would roughly look like this: ```diff + user.Synced = time.Now().Unix() + store.FromContext(c).UpdateUser(user) sync := syncer{ remote: remote.FromContext(c), store: store.FromContext(c), perms: store.FromContext(c), } if err := sync.Sync(user); err != nil { logrus.Debugf(&quot;sync error: %s: %s&quot;, user.Login, err) - } else { - logrus.Debugf(&quot;sync complete: %s&quot;, user.Login) - user.Synced = time.Now().Unix() - } ``` In addition we should optimize the automatic synchronization process to immediately return the repository list prior to synchronization (this means the list could be slightly stale) and then perform the synchronization async in the background.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>408</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [CDE-163]: Moving dir creation and deletion to infra provider. Refactoring gitspace env variables. Renaming unprovisioning to deprovisioning. (#2231) * feat: [CDE-163]: Moving dir creation and deletion to infra provider. Refactoring gitspace env variables. Renaming unprovisioning to deprovisioning.</MESSAGE>
+    <SHA>6e516183fd653405f5b8e5331178f38226bef93a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: [CDE-142]: gitspace count query optimization (#2230) * feat: [CDE-142]: gitspace count query optimization * feat: [CDE-142]: gitspace count query optimization</MESSAGE>
+      <SHA>b7e720c220f1cf262dbb0f4dc843ba5c0e2bc644</SHA>
+      <PATCHEDFILES>
+        <FILE>.local.env</FILE>
+        <FILE>app/api/controller/gitspace/create.go</FILE>
+        <FILE>app/api/controller/space/list_gitspaces.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

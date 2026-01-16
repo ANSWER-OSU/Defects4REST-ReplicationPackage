@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6672</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/6672</ISSUEURL>
+  <TITLE>errors when reading uncached files from cloud drive</TITLE>
+  <DESCRIPTION>When I'm reading an uncached file from remote volumes via fuse (weed mount), the returned file is the correct size but contain all 0's. Reading it a 2nd time or cache the file beforehand using remote.cache fixes the problem. Also using curl to retrieve the uncached file from a filer has no problems either. The following patch fixes the problem but I'm not sure it's an acceptable solution. ``` diff --git a/weed/mount/filehandle_read.go b/weed/mount/filehandle_read.go index a609c97cc..ce5f96341 100644 --- a/weed/mount/filehandle_read.go +++ b/weed/mount/filehandle_read.go @@ -89,7 +89,7 @@ func (fh *FileHandle) downloadRemoteEntry(entry *LockedEntry) error { return fmt.Errorf(&quot;CacheRemoteObjectToLocalCluster file %s: %v&quot;, fileFullPath, err) } - entry.SetEntry(resp.Entry) + fh.SetEntry(resp.Entry) fh.wfs.metaCache.InsertEntry(context.Background(), filer.FromPbEntry(request.Directory, resp.Entry)) ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>sync pb</MESSAGE>
+    <SHA>9d8b975ff99938149a45d39b6afedf8d132fdf49</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>errors when reading uncached files from cloud drive fix https://github.com/seaweedfs/seaweedfs/issues/6672</MESSAGE>
+      <SHA>e51b0d5c53fbe617081fd78218a684162c5c623f</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/mount/filehandle_read.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>errors when reading uncached files from cloud drive (#6674) fix https://github.com/seaweedfs/seaweedfs/issues/6672</MESSAGE>
+      <SHA>528702d30b05b83642affb0dabb09926357d1f10</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/mount/filehandle_read.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

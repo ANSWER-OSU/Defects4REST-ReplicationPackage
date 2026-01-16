@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18</ISSUENO>
+  <ISSUEURL>https://github.com/k8ssandra/management-api-for-apache-cassandra/issues/18</ISSUEURL>
+  <TITLE>Unix Socket and TCP socket driver conflict</TITLE>
+  <DESCRIPTION>`ERROR [nioEventLoopGroup-3-4] 2020-05-29 09:56:16,269 NodeOpsResources.java:240 - Error when executing request java.lang.IllegalArgumentException: Multiple entries with same key: 1c59a723-4cc4-4f16-bc07-d9b29d3eeedc=Node(endPoint=/10.244.217.176:0, hostId=1c59a723-4cc4-4f16-bc07-d9b29d3eeedc, hashCode=172d302f) and 1c59a723-4cc4-4f16-bc07-d9b29d3eeedc=Node(endPoint=/tmp/cassandra.sock, hostId=1c59a723-4cc4-4f16-bc07-d9b29d3eeedc, hashCode=44592dc4) at com.datastax.oss.driver.shaded.guava.common.collect.ImmutableMap.conflictException(ImmutableMap.java:215) at com.datastax.oss.driver.shaded.guava.common.collect.ImmutableMap.checkNoConflict(ImmutableMap.java:209) at com.datastax.oss.driver.shaded.guava.common.collect.RegularImmutableMap.checkNoConflictInKeyBucket(RegularImmutableMap.java:147) at com.datastax.oss.driver.shaded.guava.common.collect.RegularImmutableMap.fromEntryArray(RegularImmutableMap.java:110) at com.datastax.oss.driver.shaded.guava.common.collect.ImmutableMap$Builder.build(ImmutableMap.java:393) at com.datastax.oss.driver.internal.core.metadata.InitialNodeListRefresh.compute(InitialNodeListRefresh.java:81) at com.datastax.oss.driver.internal.core.metadata.MetadataManager.apply(MetadataManager.java:508) at com.datastax.oss.driver.internal.core.metadata.MetadataManager$SingleThreaded.refreshNodes(MetadataManager.java:328) at com.datastax.oss.driver.internal.core.metadata.MetadataManager$SingleThreaded.access$1700(MetadataManager.java:293) at com.datastax.oss.driver.internal.core.metadata.MetadataManager.lambda$refreshNodes$1(MetadataManager.java:166) at java.util.concurrent.CompletableFuture.uniApply(CompletableFuture.java:616) at java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:591) at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:456) at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:164) at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:472) at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:387) at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:989) at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) at java.lang.Thread.run(Thread.java:748) INFO [nioEventLoopGroup-2-1] 2020-05-29 09:56:16,269 Cli.java:573 - address=/10.50.50.82:60720 url=/api/v0/probes/readiness status=500 Internal Server Error`</DESCRIPTION>
+  <REPONAME>management-api-for-apache-cassandra</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>CDB-34 Added Docker files and scripts to make the management API work with Astra-flavoured OSS distributions. (#15)</MESSAGE>
+    <SHA>1a225f99f91863673b074b3c1a9c1d2d9cd79ecd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #18 filter out tcp nodeInfo when connected over unix-socket</MESSAGE>
+      <SHA>88583fb547da8ff16564dbe4dc018afa372bd3bc</SHA>
+      <PATCHEDFILES>
+        <FILE>management-api-agent/src/main/java/com/datastax/mgmtapi/interceptors/CassandraDaemonInterceptor.java</FILE>
+        <FILE>management-api-server/src/main/java/com/datastax/mgmtapi/UnixSocketCQLAccess.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

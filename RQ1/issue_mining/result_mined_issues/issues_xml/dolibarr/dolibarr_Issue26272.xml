@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>26272</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/26272</ISSUEURL>
+  <TITLE>FK violation when merging companies with Reception objects attached</TITLE>
+  <DESCRIPTION>### Bug When merging two companies with existing Reception object attached, the following error happens ``` ERROR: 23503: update or delete on table 'llx_societe' violates foreign key constraint 'fk_reception_fk_soc' on table 'llx_reception' DETAIL: Key (rowid)=(822) is still referenced from table 'llx_reception'. SCHEMA NAME: public TABLE NAME: llx_reception CONSTRAINT NAME: fk_reception_fk_soc LOCATION: ri_ReportViolation, ri_triggers.c:2797 Echec de la fusion de 2 enregistrements. Demande annulée. ``` Indeed the lists are not accounting Reception: - https://github.com/Dolibarr/dolibarr/blob/268812fa3c014c3426842ac39984aa7f6e57ada1/htdocs/societe/card.php#L293C19-L293C19 - https://github.com/Dolibarr/dolibarr/blob/268812fa3c014c3426842ac39984aa7f6e57ada1/htdocs/societe/class/api_thirdparties.class.php#L437 And thus the associated reception are not handled. ### Environment Version 17.0.2 ### Environment OS _No response_ ### Environment Web server _No response_ ### Environment PHP _No response_ ### Environment Database _No response_ ### Environment URL(s) _No response_ ### Expected and actual behavior Expected behaviour: The companies should be merged and Reception objects from the deleted company should be reassigned to the resulting merged company. Actual behaviour: Red alert with the following error: ``` ERROR: 23503: update or delete on table 'llx_societe' violates foreign key constraint 'fk_reception_fk_soc' on table 'llx_reception' DETAIL: Key (rowid)=(822) is still referenced from table 'llx_reception'. SCHEMA NAME: public TABLE NAME: llx_reception CONSTRAINT NAME: fk_reception_fk_soc LOCATION: ri_ReportViolation, ri_triggers.c:2797 Echec de la fusion de 2 enregistrements. Demande annulée. ``` ### Steps to reproduce the behavior Create two companies, create a Reception objects assigned to the company that will be deleted, and try merging the companies. ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>societe: api_thirdparties: use Societe::mergeCompany()</MESSAGE>
+    <SHA>ffbc49bbff3a19fe364f20e32620bf12171fa6e9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>societe: fix issue when merging companies When a Societe object is merged against another, its related objects are supposed to reference the new Societe object so that the databse doesn't raise foreign key errors. The list references the objects that need to be transformed, and Reception objects weren't part of this list. Fix #26272</MESSAGE>
+      <SHA>1d3dc923bbef7acc59dc80d6c13319110942467b</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/societe/class/societe.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ReceptionTest: check company merge hook Before a Societe object is destroyed from the database, every object referencing the FK should be destroyed or should reference another object. In the case of two companies being merged, the case arises and Reception objects need to be moved to the new company. This commit brings a non-regression test for this case. Refs #26272</MESSAGE>
+      <SHA>247b58184ee009cbe5c40e38952b6193e35bed7f</SHA>
+      <PATCHEDFILES>
+        <FILE>test/phpunit/ReceptionTest.php</FILE>
+        <FILE>test/phpunit/SocieteTest.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>societe: fix issue when merging companies When a Societe object is merged against another, its related objects are supposed to reference the new Societe object so that the databse doesn't raise foreign key errors. The list references the objects that need to be transformed, and Reception objects weren't part of this list. Fix #26272</MESSAGE>
+      <SHA>49d17e55dbd348673b27097ac998d29181aee4a2</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/societe/class/societe.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ReceptionTest: check company merge hook Before a Societe object is destroyed from the database, every object referencing the FK should be destroyed or should reference another object. In the case of two companies being merged, the case arises and Reception objects need to be moved to the new company. This commit brings a non-regression test for this case. Refs #26272</MESSAGE>
+      <SHA>f93947d0f9be160bda859646ef24c57db1016b46</SHA>
+      <PATCHEDFILES>
+        <FILE>test/phpunit/ReceptionTest.php</FILE>
+        <FILE>test/phpunit/SocieteTest.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ReceptionTest: check company merge hook Before a Societe object is destroyed from the database, every object referencing the FK should be destroyed or should reference another object. In the case of two companies being merged, the case arises and Reception objects need to be moved to the new company. This commit brings a non-regression test for this case. Refs #26272</MESSAGE>
+      <SHA>49dc3e7dded03566c3aa4e2e4afe13389ed6b5f0</SHA>
+      <PATCHEDFILES>
+        <FILE>test/phpunit/ReceptionTest.php</FILE>
+        <FILE>test/phpunit/SocieteTest.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>societe: fix issue when merging companies When a Societe object is merged against another, its related objects are supposed to reference the new Societe object so that the databse doesn't raise foreign key errors. The list references the objects that need to be transformed, and Reception objects weren't part of this list. Fix #26272</MESSAGE>
+      <SHA>f6c6f0e5cf670af14593825c91f12d29ea46e2a4</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/societe/class/societe.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ReceptionTest: check company merge hook Before a Societe object is destroyed from the database, every object referencing the FK should be destroyed or should reference another object. In the case of two companies being merged, the case arises and Reception objects need to be moved to the new company. This commit brings a non-regression test for this case. Refs #26272</MESSAGE>
+      <SHA>faf63af4bcad0edc8aba6eaeb467d856d98fd0bb</SHA>
+      <PATCHEDFILES>
+        <FILE>test/phpunit/ReceptionTest.php</FILE>
+        <FILE>test/phpunit/SocieteTest.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>QUAL Refactor merging companies and fix #26272 with Reception objects (#26320) * societe: add missing model_pdf field The field is used by the class but wasn't declared. * societe: expose Societe::mergeCompany The code is directly copied from societe/card.php with as less changes as possible. The original code came from deb91ad7c17490934c988b36823a21ba03354733. * societe: remove fields from property copy $phone_pro and $fk_project are not existing for societe. This was added from deb91ad7c17490934c988b36823a21ba03354733. * SocieteTest: test the merge functionality This test is a simple smoke test to check that the mergeCompany() will work correctly on simple case and actually merge the details of the company. More complex deduplication pattern with objects referencing the deleted Societe object, will be written for each of the different object class in their respective test file. * societe: card: use the new mergeCompany function Since the code is almost the same, there should be no differences in behaviour right now. * societe: api_thirdparties: use Societe::mergeCompany() * societe: fix issue when merging companies When a Societe object is merged against another, its related objects are supposed to reference the new Societe object so that the databse doesn't raise foreign key errors. The list references the objects that need to be transformed, and Reception objects weren't part of this list. Fix #26272 * ReceptionTest: check company merge hook Before a Societe object is destroyed from the database, every object referencing the FK should be destroyed or should reference another object. In the case of two companies being merged, the case arises and Reception objects need to be moved to the new company. This commit brings a non-regression test for this case. Refs #26272 * Update societe.class.php --------- Co-authored-by: Laurent Destailleur &lt;eldy@destailleur.fr&gt;</MESSAGE>
+      <SHA>c3b3840f080b5ad7ff46c6286b9c3c748a974933</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/societe/card.php</FILE>
+        <FILE>htdocs/societe/class/api_thirdparties.class.php</FILE>
+        <FILE>htdocs/societe/class/societe.class.php</FILE>
+        <FILE>test/phpunit/ReceptionTest.php</FILE>
+        <FILE>test/phpunit/SocieteTest.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

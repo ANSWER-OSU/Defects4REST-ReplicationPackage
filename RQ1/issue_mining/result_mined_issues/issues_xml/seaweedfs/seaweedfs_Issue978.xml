@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>978</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/978</ISSUEURL>
+  <TITLE>weed mount不能读取已有文件</TITLE>
+  <DESCRIPTION>linux版本3.10.0-327.el7.x86_64，CentOS Linux release 7.2.1511；seaweedfs版本1.35; fuse版本fuse-2.9.2-11.el7.x86_64 1. 运行master、volume、filer 2. 通过filer上传一些文件 3. 运行weed mount，在mount的文件夹中可以看到第2步上传的文件，但不能读取文件内容，也不能chmod修改权限，都是报“Permission denied”错误；如果在操作系统中拷贝、移动文件到mount目录中，则可以读取等操作</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>1.42</MESSAGE>
+    <SHA>3f851feb59d9ffc80ac366222435eb54f98456ad</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>mount: add umask option related to https://github.com/chrislusf/seaweedfs/issues/978</MESSAGE>
+      <SHA>5956dfd08d690ee67bcd4a7f5730785f7a6df201</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/mount.go</FILE>
+        <FILE>weed/command/mount_std.go</FILE>
+        <FILE>weed/filesys/dir.go</FILE>
+        <FILE>weed/filesys/dir_link.go</FILE>
+        <FILE>weed/filesys/filehandle.go</FILE>
+        <FILE>weed/filesys/wfs.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

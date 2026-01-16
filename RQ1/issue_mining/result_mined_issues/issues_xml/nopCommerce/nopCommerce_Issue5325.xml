@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5325</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5325</ISSUEURL>
+  <TITLE>NopTabsTagHelper - You can no longer add a class attribute to a tab</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40 develop Found an issue in the NopTabsTagHelper class. You can no longer add a class attribute to a tab. The application returns an error InvalidOperationException: The collection already contains an entry with key 'class'. That's due to the fact that you've added the followin line in the NopTabsTagHelper.cs line 263: tabTitle.AddCssClass(&quot;nav-item&quot;); and after that on line 284 you do this: if (context.AllAttributes.ContainsName(&quot;class&quot;)) tabTitle.Attributes.Add(&quot;class&quot;, context.AllAttributes[&quot;class&quot;].Value.ToString()); However, there is already a class key in the dictionary which results in the error mentioned above. Source: https://www.nopcommerce.com/en/boards/topic/90152/nopcommerce-440-bug-fixes-and-improvements/page/2#280810</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'develop' of https://github.com/nopSolutions/nopCommerce into develop</MESSAGE>
+    <SHA>75a46dfbe0b766211143ea946cf26aa4ecc22803</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5325 Added ability to add a CSS class to the list of CSS classes in the tag &quot;nop-tab&quot;</MESSAGE>
+      <SHA>30d0f4288037109888998c165d71211d0fca9f46</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/TagHelpers/Admin/NopTabsTagHelper.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

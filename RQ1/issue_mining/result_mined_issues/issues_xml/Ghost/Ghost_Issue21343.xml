@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>21343</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/21343</ISSUEURL>
+  <TITLE>Quirky search behavior</TITLE>
+  <DESCRIPTION>### Issue Summary I'm seeing some not-quite-right behavior from the sodo-search package, but having trouble coming up with a simple repro case. Here's what I've got: Run a search for 'fitness' at https://goodvibeswellness.com/ Scroll down. There are posts that actually match 'fitness', but the ui seems to get stuck with a bunch of posts that just match 'F' at the top. I can reproduce it for this site's content (when exported and imported locally), using sodo-search 1.3, and also 1.1. (That probably rules out the CJK changes being to blame.) I cannot reproduce it with another site running search at 1.1, nor on another site running search @1.3. Leaving this here in case anyone else is seeing something similar. ![image](https://github.com/user-attachments/assets/193e392e-7bd8-467d-adfd-a2aad089e801) ### Steps to Reproduce see above ### Ghost Version search 1.1-1.3 ### Node.js Version varies ### How did you install Ghost? local &amp; ghost pro ### Database type MySQL 8 ### Browser &amp; OS version chrome, windows 10 ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Not storing icons and thumbnails in case of mention (#21424) Ref https://linear.app/ghost/issue/ENG-1662/incoming-recommendations-get-deleted-if-the-metadata-icon-fails-to https://linear.app/ghost/issue/ENG-904/bookmark-card-hot-linking-favicons</MESSAGE>
+    <SHA>84473dd0949dd9356def31e51892a2b391c680bf</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed search state bug &amp; missing last result (#21417) closes #21343 This fixes an issue in sodo-search where early results (for example, matching the first letter typed in the search box) would get &quot;stuck&quot; in the display, due to failure to update state (or actually, lacking state). Converted PostItems to a component, and gave paginatedPosts state. I also fixed an undocumented bug where the last search result didn't appear, due to an error in with slice's register.</MESSAGE>
+      <SHA>967cf2309122b84c858d6b3d38ac4550453ecae4</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/sodo-search/src/components/PopupModal.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed search state bug &amp; missing last result (#21417) closes #21343 This fixes an issue in sodo-search where early results (for example, matching the first letter typed in the search box) would get &quot;stuck&quot; in the display, due to failure to update state (or actually, lacking state). Converted PostItems to a component, and gave paginatedPosts state. I also fixed an undocumented bug where the last search result didn't appear, due to an error in with slice's register.</MESSAGE>
+      <SHA>c8b44e95bc7a0142651a4df113fe29c1637c2ec2</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/sodo-search/src/components/PopupModal.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

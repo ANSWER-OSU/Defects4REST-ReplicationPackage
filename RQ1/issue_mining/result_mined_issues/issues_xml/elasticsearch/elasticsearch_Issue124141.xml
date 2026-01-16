@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>124141</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/124141</ISSUEURL>
+  <TITLE>[CI] QueryPhaseTimeoutTests testScorerTimeoutTerms failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #19479 / part1](https://gradle-enterprise.elastic.co/s/b233quyczq3am) - [elasticsearch-periodic-platform-support #6780 / opensuse-leap-15_platform-support-unix](https://gradle-enterprise.elastic.co/s/4hu2zg7gk4qmm) **Reproduction Line:** ``` ./gradlew &quot;:server:test&quot; --tests &quot;org.elasticsearch.search.query.QueryPhaseTimeoutTests.testScorerTimeoutPoints&quot; -Dtests.seed=FC34D732AE5ADC5A -Dtests.locale=und -Dtests.timezone=Europe/Madrid -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.search.query.QueryPhaseTimeoutTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testScorerTimeoutTerms),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: expected:&lt;2048&gt; but was:&lt;2399&gt; ``` **Issue Reasons:** - [main] 2 failures in test testScorerTimeoutTerms (0.9% fail rate in 213 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.search.query.QueryPhaseTimeoutTests testScorerTimeoutPoints #124140</MESSAGE>
+    <SHA>8a28b51c574fb7ec5e7c239ec28141af25d7b50b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.search.query.QueryPhaseTimeoutTests testScorerTimeoutTerms #124141</MESSAGE>
+      <SHA>f534fc3ccf06174ba2248f9e01d5eda9d42462ff</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.search.query.QueryPhaseTimeoutTests testScorerTimeoutTerms #124141</MESSAGE>
+      <SHA>2a23d0d61eac654506ba9d1bfbd6c7484f1dbabe</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

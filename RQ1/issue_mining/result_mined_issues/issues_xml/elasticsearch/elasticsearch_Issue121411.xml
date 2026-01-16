@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121411</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121411</ISSUEURL>
+  <TITLE>[CI] EsqlSpecIT class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6754 / ubuntu-2004-aarch64_checkpart3_platform-support-arm](https://gradle-enterprise.elastic.co/s/uvdn5b2hblrkg) - [elasticsearch-periodic-platform-support #6733 / ubuntu-2404-aarch64_checkpart3_platform-support-arm](https://gradle-enterprise.elastic.co/s/vcszrn4rusae4) **Reproduction Line:** ``` undefined ``` **Applicable branches:** 8.18 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT),title:'Test',type:optionsListControl))))) **Failure Message:** ``` undefined ``` **Issue Reasons:** - [8.18] 2 failures in class org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT (1.7% fail rate in 119 executions) - [8.18] 2 failures in pipeline elasticsearch-periodic-platform-support (50.0% fail rate in 4 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>32</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.security.CoreWithSecurityClientYamlTestSuiteIT test {yaml=cat.aliases/40_hidden/Test cat aliases output with a visible index with a hidden alias} #121128</MESSAGE>
+    <SHA>7743380509369f2afccca208201d21b7d872702e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT #121411</MESSAGE>
+      <SHA>e7c1ee1a707c7fe4510b22395174fecb992c2bdf</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Unmute EsqlSpecIT for more logging Tracked at #121411</MESSAGE>
+      <SHA>03d31f5512e86ed86e08e6db02528743be659042</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/translog/TranslogWriter.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Unmute EsqlSpecIT for more logging (#121500) Tracked at #121411</MESSAGE>
+      <SHA>25c300a1e1d7f40061a951857cb589b13598fc95</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/translog/TranslogWriter.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

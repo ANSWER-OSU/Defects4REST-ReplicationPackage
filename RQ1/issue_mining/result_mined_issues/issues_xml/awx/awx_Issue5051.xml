@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5051</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/5051</ISSUEURL>
+  <TITLE>AWX Does Not Update User Object Permissions When LDAP User Flags By Group Is Removed</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Feature Request ##### SUMMARY A user was wondering how AWX handles a change in LDAP Team Mapping (e.g. If the `is_superuser` mapping is removed, does AWX update the user objects?). I observed the following: If the `LDAP User Flags by Group` is removed, pre-existing users in AWX do not update according to the changes made. ##### STEPS TO REPRODUCE &lt;!-- Please describe exactly how to reproduce the problem. --&gt; 1. Create a LDAP connection from AWX. 2. Specify a `LDAP User Flags by Group` parameter. 3. Login with a LDAP user and verify its creation within AWX. 4. Verify the user has the proper permissions. 5. Change the `LDAP User Flags by Group` to no longer reflect the user. ##### EXPECTED RESULTS &lt;!-- What did you expect to happen when running the steps above? --&gt; I would expect the user object within AWX to update itself based on the LDAP mapping specified. ##### ACTUAL RESULTS &lt;!-- What actually happened? --&gt; It looks like the user object has to be manually updated in order for the permissions to update. If `is_superuser` is granted to many users in a LDAP group and the mapping has to change, this could be an undesired behavior.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>272</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #5059 from AlexSCorey/10407-fix Updates Smart Inventory Detail after Edit Save</MESSAGE>
+    <SHA>7195b7d93541446006139a867c5e0d16c6303473</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #5051 from AlanCoding/installed_default_40 [4.0] backport - Prefer installer defaults over user-defined global EEs</MESSAGE>
+      <SHA>8c16722480d20da65fcb770d65a7831a323a2791</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tests/functional/utils/test_execution_environments.py</FILE>
+        <FILE>awx/main/utils/execution_environments.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

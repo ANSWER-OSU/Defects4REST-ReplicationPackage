@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>318</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/318</ISSUEURL>
+  <TITLE>Handle missing or invalid path input for commands</TITLE>
+  <DESCRIPTION>A full traceback is shown for trying to e.g. train on a nonexistent path: ``` $ annif train tfidf-fi nonexistent_path ... File &quot;/home/local/jmminkin/git/Annif/annif/corpus/document.py&quot;, line 65, in documents with opener(self.path) as tsvfile: FileNotFoundError: [Errno 2] No such file or directory: 'nonexistent_path' ``` Similarly for trying to train without a path: ``` $ annif train tfidf-fi ... File &quot;/home/local/jmminkin/git/Annif/annif/cli.py&quot;, line 53, in open_documents docs = open_doc_path(paths[0]) IndexError: tuple index out of range ``` The first case could be resolved by adding `exists=True` argument to `type=click.Path()`. This (at least alone) does not work in the second case, for which maybe `required=True` could be used, but the [Note on Non-Empty Variadic Arguments](https://click.palletsprojects.com/en/7.x/arguments/) should be considered. Similar tracebacks arise when using: - train - learn - eval - optimize For some reason `index` behaves differently: - It gives proper error when not given a path: ``` $ annif index tfidf-fi Usage: annif index [OPTIONS] PROJECT_ID DIRECTORY Try &quot;annif index --help&quot; for help. Error: Missing argument &quot;DIRECTORY&quot;. ``` - It does not produce any output or error with nonexistent path: ``` $ annif index tfidf-fi nonexistent $ ```</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>38</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Adapt to PR #313</MESSAGE>
+    <SHA>aa813d142a543a640b2db955a4d6e4431bf8bfc5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Let Click handle nonexistent files (issue #318)</MESSAGE>
+      <SHA>ec3cc2c2b15ff801456f3a43200bec68e89b1762</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/corpus/document.py</FILE>
+        <FILE>tests/test_corpus.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9504</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/9504</ISSUEURL>
+  <TITLE>Update awx-manage inventory_import to use an Execution Environment</TITLE>
+  <DESCRIPTION>This is one of the things we missed in https://github.com/ansible/awx/pull/8030. I originally thought this was going to be easy to resolve, but I was wrong. My first intuition was to use ansible-runner's ability to execute arbitrary commands. There are multiple problems with this idea: - Ansible Runner [sends stderr to stdout](https://github.com/ansible/ansible-runner/issues/96) - We parse json returned by `ansible-inventory`. By default, Ansible sends all verbose output to stdout. We use [`ANSIBLE_VERBOSE_TO_STDERR`](https://github.com/ansible/awx/blob/devel/awx/main/constants.py#L29) to get around this. - Ansible Runner invokes `ansible-inventory` (either locally or via podman) - `ansible-inventory` is no longer installed directly on the control plan. - We could call `podman run` directly, but this would only work on VM based installations. The next thought-hop might be to consider using Receptor for this. This is not currently possible because we did not build the new `transmit` / `worker` / `process` code with the use case in mind where we point `ansible-inventory` to a file / directory provided by the user. These are the options I have been able to identify, in order of my preference: - Remove `ansible-manage inventory_import` completely. - Update `ansible-manage inventory_import` to call `ansible-inventory` via `podman`. This would only work on VM-based installations. - Explore what would be needed to support submitting this as a task via Receptor.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9344 from mabashian/5990-translate-start-node Mark start node for translation Reviewed-by: John Hill &lt;johill@redhat.com&gt; https://github.com/unlikelyzero</MESSAGE>
+    <SHA>f10bf4c0674ef891b6650b1232993f620678ac5d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9505 from shanemcd/inventory_import-podman Update inventory_import to run inside of an EE Option 2 identified in #9504 Reviewed-by: Ryan Petrello &lt;None&gt;</MESSAGE>
+      <SHA>a52f050f446dcb12245d38e757aac4c558b7ff10</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/management/commands/inventory_import.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3279</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3279</ISSUEURL>
+  <TITLE>SelectBillingAddress method exception</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.1 In SelectBillingAddress method of checkout controller we face with an exception if address.Country is null. The code which cause an exception is: `if (_shippingSettings.ShipToSameAddress &amp;&amp; shipToSameAddress &amp;&amp; _shoppingCartService.ShoppingCartRequiresShipping(cart) &amp;&amp; address.Country.AllowsShipping)` We think that checking for address.Country != null is missing. Source: https://www.nopcommerce.com/boards/t/55331/selectbillingaddress-method-exception.aspx</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#3283 Fixed links to the pages of blog and news management</MESSAGE>
+    <SHA>19fbdd5a2764213bfdcf3c5000aec3c46760eb71</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3279 Added validation check for Contry field in address when this option enabled in setting</MESSAGE>
+      <SHA>aca944bceadbd4e2b031f2ecd72bfd8589f01a51</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Common/AddressService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/CheckoutController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#3279 By default shipping is available if the country is not specified in the customer adress setting</MESSAGE>
+      <SHA>346020dc1bd2361fc5974f5f76bddd0490e97e17</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Controllers/CheckoutController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

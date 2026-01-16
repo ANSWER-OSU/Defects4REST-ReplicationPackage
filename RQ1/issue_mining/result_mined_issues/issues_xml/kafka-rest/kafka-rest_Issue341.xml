@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>341</ISSUENO>
+  <ISSUEURL>https://github.com/confluentinc/kafka-rest/issues/341</ISSUEURL>
+  <TITLE>Consumer read takes long time with multiple consumers in consumer group</TITLE>
+  <DESCRIPTION>A fundamental issue is seen with REST Proxy. Suppose if we create two consumer instances under the same consumer group, read call is taking longer time with calls with subsequent instance. Steps to reproduce: 1. Create my_consumer_instance1 and my_consumer_instance2 under my_json_consumer1: curl -H &quot;Content-Type: application/vnd.kafka.v2+json&quot; -d '{&quot;name&quot;: &quot;my_consumer_instance1&quot;, &quot;format&quot;: &quot;json&quot;, &quot;auto.offset.reset&quot;: &quot;earliest&quot;}' http://localhost:8082/consumers/my_json_consumer1 curl -H &quot;Content-Type: application/vnd.kafka.v2+json&quot; -d '{&quot;name&quot;: &quot;my_consumer_instance2&quot;, &quot;format&quot;: &quot;json&quot;, &quot;auto.offset.reset&quot;: &quot;earliest&quot;}' http://localhost:8082/consumers/my_json_consumer1 2. Subscribe both the instances to topic test1: curl -H &quot;Content-Type: application/vnd.kafka.v2+json&quot; -d '{&quot;topics&quot;:[&quot;test1&quot;]}' http://localhost:8082/consumers/my_json_consumer1/instances/my_consumer_instance1/subscription curl -H &quot;Content-Type: application/vnd.kafka.v2+json&quot; -d '{&quot;topics&quot;:[&quot;test1&quot;]}' http://localhost:8082/consumers/my_json_consumer1/instances/my_consumer_instance2/subscription 3. Read the message from my_consumer_instance1 several times and we will get responses back: curl -X GET -H &quot;Accept: application/vnd.kafka.json.v2+json&quot; http://localhost:8082/consumers/my_json_consumer1/instances/my_consumer_instance1/records 4. Read the message from my_consumer_instance2 and the call will hang. It will take around 8 minutes to get a response back: curl -X GET -H &quot;Accept: application/vnd.kafka.json.v2+json&quot; http://localhost:8082/consumers/my_json_consumer1/instances/my_consumer_instance2/records 5. Again read the message from my_consumer_instance1 and the call will hang. It will take some time to get a response back: curl -X GET -H &quot;Accept: application/vnd.kafka.json.v2+json&quot; http://localhost:8082/consumers/my_json_consumer1/instances/my_consumer_instance1/records</DESCRIPTION>
+  <REPONAME>kafka-rest</REPONAME>
+  <TIMEDIFFERENCEDAYS>1672</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Bump Confluent to 6.0.7-SNAPSHOT, Kafka to 6.0.7-SNAPSHOT</MESSAGE>
+    <SHA>2975d5934da34e5db43a7cf2269784cf2b002293</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix(#341): Remove deadlock when rebalancing by multiple consumer instances (#942) * Fix: Remove deadlock when rebalancing by multiple consumer instances Split the KafkaConsumerState instance lock into two locks - a KafkaConsumerState instance lock and a KafkaConsumerState::expiration instance member lock. * Wrap the primitive member(expiration) with Object to synchronize correctly * Add a separate final object for synchronizing expiration field * Change the type of expirationLock from Long to Object</MESSAGE>
+      <SHA>095582d7ce95fae26f3487b4426cc86e412d1b92</SHA>
+      <PATCHEDFILES>
+        <FILE>kafka-rest/src/main/java/io/confluent/kafkarest/v2/KafkaConsumerState.java</FILE>
+        <FILE>kafka-rest/src/test/java/io/confluent/kafkarest/v2/KafkaConsumerManagerTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix(#341): Remove deadlock when rebalancing by multiple consumer instances (#942) * Fix: Remove deadlock when rebalancing by multiple consumer instances Split the KafkaConsumerState instance lock into two locks - a KafkaConsumerState instance lock and a KafkaConsumerState::expiration instance member lock. * Wrap the primitive member(expiration) with Object to synchronize correctly * Add a separate final object for synchronizing expiration field * Change the type of expirationLock from Long to Object</MESSAGE>
+      <SHA>d2f5affd2b3830027ccf1e9160da9d5af13631c3</SHA>
+      <PATCHEDFILES>
+        <FILE>kafka-rest/src/main/java/io/confluent/kafkarest/v2/KafkaConsumerState.java</FILE>
+        <FILE>kafka-rest/src/test/java/io/confluent/kafkarest/v2/KafkaConsumerManagerTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Backport &quot;Fix(#341): Remove deadlock when rebalancing by multiple consumer instances (#942)&quot; to 5.4.x (#1026) * Fix: Remove deadlock when rebalancing by multiple consumer instances Split the KafkaConsumerState instance lock into two locks - a KafkaConsumerState instance lock and a KafkaConsumerState::expiration instance member lock. * Wrap the primitive member(expiration) with Object to synchronize correctly * Add a separate final object for synchronizing expiration field * Change the type of expirationLock from Long to Object Co-authored-by: merrygoround-of-life &lt;merrygoroundof@naver.com&gt;</MESSAGE>
+      <SHA>3a8d2345c09b2c36bd380172e94edd63c42c3f12</SHA>
+      <PATCHEDFILES>
+        <FILE>kafka-rest/src/main/java/io/confluent/kafkarest/v2/KafkaConsumerState.java</FILE>
+        <FILE>kafka-rest/src/test/java/io/confluent/kafkarest/v2/KafkaConsumerManagerTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6885</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6885</ISSUEURL>
+  <TITLE>Invoice item name overflow</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.60.4 Steps to reproduce the problem: When the product has a longer name, overflows the invoice line and that item happens to fall on a page break, it creates a second line item. ![image](https://github.com/nopSolutions/nopCommerce/assets/17554977/1d5fa1a6-b2d7-4522-9242-2eb5d59d11b4) It can be fixed to look correct: ![image](https://github.com/nopSolutions/nopCommerce/assets/17554977/c884276c-cb1e-403e-8316-4319ff8525f6) the ComposeProducts function can be changed to fix this: ```cs foreach (var product in Source.Products) { table.Cell().Element(CellStyle).Element(productContainer =&gt; { productContainer.Column(pColumn =&gt; { pColumn.Item().Text(product.Name); foreach (var attribute in product.ProductAttributes) pColumn.Item().DefaultTextStyle(s =&gt; s.Italic().FontSize(9)).Text(attribute); }); }); if (Source.ShowSkuInProductList) table.Cell().Element(CellStyle).Text(product.Sku); if (Source.ShowVendorInProductList) table.Cell().Element(CellStyle).Text(product.VendorName); table.Cell().Element(CellStyle).AlignRight().Text(product.Price); table.Cell().Element(CellStyle).AlignRight().Text(product.Quantity); table.Cell().Element(CellStyle).AlignRight().Text(product.Total); static IContainer CellStyle(IContainer container) { return container.BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingVertical(5).ShowEntire(); //add ShowEntire() here so that it isn't broken up on page break } } ``` Adding ShowEntire() to the local CellStyle function should prevent any line item overflows from being broken up on page break.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6853 Add three options for gender(#6866)</MESSAGE>
+    <SHA>40f9693060dd8e728a78bd90e275ca79425a5ff6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Prevent Page break on line item overflow #6885</MESSAGE>
+      <SHA>05fb51ec74e8ac4694d618366ef38219ea8fc195</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Common/Pdf/InvoiceDocument.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#6885 Prevent Page break on line item overflow (#6886)</MESSAGE>
+      <SHA>feaf9bc189f7ec4fcbb178aa1232263d6d52b208</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Common/Pdf/InvoiceDocument.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

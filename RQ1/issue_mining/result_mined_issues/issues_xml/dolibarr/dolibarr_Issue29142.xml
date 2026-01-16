@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>29142</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/29142</ISSUEURL>
+  <TITLE>Rang gets arbitrary numbers when Invoice is created from massaction ''BILL ORDERS' button</TITLE>
+  <DESCRIPTION>### Bug Rang gets arbitrary numbers like 0,1 or 1,3,5,7 instead of 1,2,3,4 when Invoice is created from massaction ''BILL ORDERS' button ### Dolibarr Version 18,19+ ### Environment PHP all ### Environment Database MariaDB/MySQLi ### Steps to reproduce the behavior and expected behavior Create 2 orders for the same customer and validate them Press ''BILL ORDERS' button in third party's customer tab Redirection to commande/list.php?socid=2&amp;search_billed=0&amp;autoselectall=1 happens There choose massaction &quot;bill orders&quot; and press confirm ![1](https://github.com/Dolibarr/dolibarr/assets/93765174/78da2fca-5102-4976-a1ac-9161dfd48c1f) In the update screen choose yes for Create one invoice per third party (otherwise, one invoice per selected object) and finally press ''BILL ORDERS' button for the last time ![2](https://github.com/Dolibarr/dolibarr/assets/93765174/af041b61-1959-44f0-87d7-7b83e3eb7bb1) Generated invoice rang numbers are arbitrary ![3](https://github.com/Dolibarr/dolibarr/assets/93765174/8d18273a-6580-4bd4-9cb7-f0d9b38c3790) ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>FIX bad search on _ char in like when Debugbar is on</MESSAGE>
+    <SHA>1e3edf151024915fbd2d2abf5c39884f9ef265b3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #29148 from DoliGreece/sonikf-patch-fix-rang fix #29142</MESSAGE>
+      <SHA>abe92c8732e1ab53651c15d3cba821764f3a43b9</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/commande/list.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

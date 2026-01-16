@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>804</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/804</ISSUEURL>
+  <TITLE>Benchmark ... &quot;compression&quot; aspect unclear.</TITLE>
+  <DESCRIPTION>**Describe the bug (feature?)** When running a benchmark (weed 1.15) the storage result is clearly &quot;compressed&quot; data. But the documentation claims: ``` [root@korora-01 v_1_15]# ./weed help benchmark Usage: weed benchmark -server=localhost:9333 -c=10 -n=100000 benchmark on an empty SeaweedFS file system. Two tests during benchmark: 1) write lots of small files to the system 2) read the files out The file content is mostly zero, but no compression is done. .. ``` So either - the code is not creating &quot;uncompressible&quot; data - the help text is ambiguous about the meaning of &quot;no compression is done&quot;. **System Setup** I start a master: ``` ./weed master -volumeSizeLimitMB=10 -defaultReplication=000 -ip 192.168.1.31 -mdir /var/zones/seaweed-m01/data ``` a volume ``` ./weed volume -mserver=192.168.1.31:9333 -max=150 -port=8080 -dataCenter=dc1 -rack=rackA -ip 192.168.1.31 -dir /var/zones/seaweed-v01/data ``` and then run the benchmark ``` ./weed benchmark -master=&quot;192.168.1.31:9333&quot; -c=16 -size=1024000 -n=10000 ``` Which runs as expected. **Expected behavior** If I want to benchmark the system read/write IO performance I want to have &quot;no compression is done&quot; feature .. otherwise I would be testing the CPUs compression/decompression speed. With the above settings I would expect ... 10000 * 1 MB = 10 GB of data in the storage. But I see: ``` [root@korora-01 data]# ls -la total 10720 drwxr-xr-x. 2 root root 4096 Dec 27 17:24 . drwxr-xr-x. 3 root root 18 Dec 21 01:03 .. -rw-r--r--. 1 root root 1545048 Dec 27 17:26 benchmark_1.dat -rw-r--r--. 1 root root 22912 Dec 27 17:26 benchmark_1.idx -rw-r--r--. 1 root root 1521288 Dec 27 17:26 benchmark_2.dat -rw-r--r--. 1 root root 22560 Dec 27 17:26 benchmark_2.idx -rw-r--r--. 1 root root 1493424 Dec 27 17:26 benchmark_3.dat -rw-r--r--. 1 root root 22144 Dec 27 17:26 benchmark_3.idx -rw-r--r--. 1 root root 1600376 Dec 27 17:26 benchmark_4.dat -rw-r--r--. 1 root root 23728 Dec 27 17:26 benchmark_4.idx -rw-r--r--. 1 root root 1559296 Dec 27 17:26 benchmark_5.dat -rw-r--r--. 1 root root 23120 Dec 27 17:26 benchmark_5.idx -rw-r--r--. 1 root root 1503064 Dec 27 17:26 benchmark_6.dat -rw-r--r--. 1 root root 22288 Dec 27 17:26 benchmark_6.idx -rw-r--r--. 1 root root 1567888 Dec 27 17:26 benchmark_7.dat -rw-r--r--. 1 root root 23248 Dec 27 17:26 benchmark_7.idx [root@korora-01 data]# du -sk . 10720 . ``` only about 10 MB of stored data. Since all 10000 files have been written (according to the ID log file) the files are compressed .. which can be confirmed by checking the data: ``` [root@korora-01 v_1_15]# ./weed export -limit 10 -dir /var/zones/seaweed-v01/data -volumeId 1 -collection benchmark key name size gzip mime modified ttl deleted 1,0f2f6dae19 . 1031 true 2018-12-27T17:24:56 false 1,19196d8240 . 1031 true 2018-12-27T17:24:56 false 1,2a375165dd . 1031 true 2018-12-27T17:24:56 false 1,23806f4708 . 1031 true 2018-12-27T17:24:56 false 1,2d37824cd4 . 1031 true 2018-12-27T17:24:56 false 1,386297bd30 . 1029 true 2018-12-27T17:24:56 false .. ``` **Additional context** Perhaps it makes sense to allow both options for the benchmark ... compressed and uncompressed storage ... in order to allow testing both behaviors. But if CPU compression should be the test target then the test data needs to represent the &quot;final&quot; test data way better than &quot;all zero&quot; or &quot;all random&quot;. So in the current form it seems to me more plausible to have &quot;no compression is done&quot; apply to the volume servers storage behavior. I would assume that this should be achievable if the data uploaded was marked as &quot;gzip&quot; content.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>avoid gzipping files without file extensions fix https://github.com/chrislusf/seaweedfs/issues/804</MESSAGE>
+    <SHA>d3660ffce8ec38f8017216bca2e77c0362328c72</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>avoid gzip benchmark data related to https://github.com/chrislusf/seaweedfs/issues/804</MESSAGE>
+      <SHA>2a19511ba848913402b77c2f120ef583b7530a79</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/benchmark.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

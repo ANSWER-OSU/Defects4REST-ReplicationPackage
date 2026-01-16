@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>775</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/775</ISSUEURL>
+  <TITLE>Nocodb mysql connection timeout</TITLE>
+  <DESCRIPTION>We are running nocodb in a container, connecting to an AWS Serverless MySQL database. The database automatically pauses after 10 minutes of inactivity and starts up when new connections come in. The problem is that it takes about 1 minute to start up, so that first connection needs to wait a long time. When we restart the Nocodb container while the database is paused, the app fails to start with the following message: ``` | 2021-11-15T14:39:34.396-05:00 | ║ EXCEPTION OCCURED!! in MysqlClient @ createDatabaseIfNotExists ║ | 2021-11-15T14:39:34.396-05:00 | ║ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ║ | 2021-11-15T14:39:34.396-05:00 | ║ MESSAGE: ║ | 2021-11-15T14:39:34.396-05:00 | ║ connect ETIMEDOUT ║ | 2021-11-15T14:39:34.396-05:00 | ║ ║ | 2021-11-15T14:39:34.396-05:00 | ║ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ║ | 2021-11-15T14:39:34.396-05:00 | ║ CODE: ║ | 2021-11-15T14:39:34.396-05:00 | ║ ETIMEDOUT ║ | 2021-11-15T14:39:34.396-05:00 | ║ ║ | 2021-11-15T14:39:34.396-05:00 | ║ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ║ | 2021-11-15T14:39:34.396-05:00 | ║ STACK: ║ | 2021-11-15T14:39:34.396-05:00 | ║ Error: connect ETIMEDOUT ║ | 2021-11-15T14:39:34.396-05:00 | ║ at Connection._handleTimeoutError (/usr/src/app/node_modules/mysql2/lib/connection.js:189:17) ║ | 2021-11-15T14:39:34.396-05:00 | ║ at listOnTimeout (internal/timers.js:554:17) ║ | 2021-11-15T14:39:34.396-05:00 | ║ at processTimers (internal/timers.js:497:7) ║ | 2021-11-15T14:39:34.396-05:00 | ║ ║ | 2021-11-15T14:39:34.396-05:00 | ║ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ║ | 2021-11-15T14:39:34.396-05:00 | ``` I'm assuming it just times out after 10s (or whatever the default connection timeout is), before the database has had a chance to start. We've tried adding these two parameters to our `NC_DB` connection string, but it didn't make any difference: `&amp;connectTimeout=90000&amp;acquireTimeout=90000` Is there any way to increase that initial connection timeout, or make nocodb retry a few times?</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>654</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>refactor: increase knex default connection timeout values Signed-off-by: Raju Udava &lt;86527202+dstala@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>405a83b01d2ec29b6357c23ae937eb9e9481336a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix : setting timeouts to one minute in db connections. re: #775 Signed-off-by: Naveen MR &lt;oof1lab@gmail.com&gt;</MESSAGE>
+      <SHA>a7b290653d898d12afd10e4993f71181d276a4e5</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/components/createOrEditProject.vue</FILE>
+        <FILE>packages/nocodb/src/__tests__/noco/NcConfigFactory.test.ts</FILE>
+        <FILE>packages/nocodb/src/lib/utils/NcConfigFactory.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

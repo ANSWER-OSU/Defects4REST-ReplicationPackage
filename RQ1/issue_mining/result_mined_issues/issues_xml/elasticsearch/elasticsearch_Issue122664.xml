@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122664</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122664</ISSUEURL>
+  <TITLE>[CI] PolicyParserTests testParseFiles failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6476 / windows-2019_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/xx62pb2uqy5du) - [elasticsearch-periodic-platform-support #6476 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/etymhcy6zdmhu) - [elasticsearch-periodic-platform-support #6469 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/yvwrsqhxiyyok) - [elasticsearch-periodic-platform-support #6469 / windows-2019_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/7zkhqba3leksy) - [elasticsearch-periodic-platform-support #6462 / windows-2019_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/mw4u5bzcysdfw) - [elasticsearch-periodic-platform-support #6462 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/uiuqjvvz4vhzk) - [elasticsearch-periodic-platform-support #6455 / windows-2019_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/ugghxuxo57mb6) - [elasticsearch-periodic-platform-support #6455 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/csmk7j2oq7hk6) **Reproduction Line:** ``` gradlew &quot;:libs:entitlement:test&quot; --tests &quot;org.elasticsearch.entitlement.runtime.policy.PolicyParserTests.testPolicyBuilderOnExternalPlugin&quot; -Dtests.seed=AAA5143AABFFFBAD -Dtests.locale=fr-RE -Dtests.timezone=Europe/Simferopol -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.entitlement.runtime.policy.PolicyParserTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testParseFiles),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.entitlement.runtime.policy.PolicyParserException: [2:5] policy parsing error for [test-policy.yaml] in scope [entitlement-module-name] for entitlement type [files]: 'path' [/test/path/to/file] must be absolute ``` **Issue Reasons:** - [8.x] 4 consecutive failures in step windows-2019_checkpart1_platform-support-windows - [8.x] 4 consecutive failures in step windows-2022_checkpart1_platform-support-windows - [8.x] 8 failures in test testParseFiles (5.3% fail rate in 152 executions) - [8.x] 4 failures in step windows-2019_checkpart1_platform-support-windows (100.0% fail rate in 4 executions) - [8.x] 4 failures in step windows-2022_checkpart1_platform-support-windows (100.0% fail rate in 4 executions) - [8.x] 4 failures in pipeline elasticsearch-periodic-platform-support (100.0% fail rate in 4 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.entitlement.runtime.policy.PolicyParserTests testPolicyBuilderOnExternalPlugin #122663</MESSAGE>
+    <SHA>16173a52f49160a7904f791f3c59f867f9772d24</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.entitlement.runtime.policy.PolicyParserTests testParseFiles #122664</MESSAGE>
+      <SHA>07845751004b3b688bd373746471ab4a956513b7</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

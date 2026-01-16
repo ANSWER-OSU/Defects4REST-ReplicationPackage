@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2593</ISSUENO>
+  <ISSUEURL>https://github.com/louislam/uptime-kuma/issues/2593</ISSUEURL>
+  <TITLE>[Improvement] Support TLS Expiry alerts also for CA certs in cert chain</TITLE>
+  <DESCRIPTION>### ⚠️ Please verify that this feature request has NOT been suggested before. - [X] I checked and didn't find similar feature request ### ️ Feature Request Type Other ### Feature description Currently only the first certificate within the certificate chain is checked and alerted for expiry but not the other (signing) certificates within the chain. When monitoring the certificate expiry days, not only the first (server) certificate should be evaluated but also all certificates within the certificate chain (each issuer certificate) and then alerted separately. This raises the awareness for sys admins for required ca-chain modifications/replacements. ### ✔️ Solution See provided pull request. ### ❓ Alternatives _No response_ ### Additional Context Last november we had a situation where an intermediate CA certificate expired (QuoVadis Global SSL ICA G3) despite the fact that the signed server certificate still was valid for 10 more month. This is a rather unusual situation and even more complicated to analyze and understand.</DESCRIPTION>
+  <REPONAME>uptime-kuma</REPONAME>
+  <TIMEDIFFERENCEDAYS>136</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fallback to `/bin/ping` if `ping` is not found</MESSAGE>
+    <SHA>d9f12a6376804e269fcf0d665859f090d0b5575f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[#2593] during certificate evaluation also set the cert type for improved notifications</MESSAGE>
+      <SHA>f6d0f28b3a4611336cfdddbc43b8ed2b61404ae7</SHA>
+      <PATCHEDFILES>
+        <FILE>server/util-server.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[#2593] renamed the method `sendCertNotification` to better represent what id does. Evaluate certificate expiry from all certs in chain. Send a separate notification for every cert in chain, including cert type and CN.</MESSAGE>
+      <SHA>a21a47de933222fb6abc1823e48602239a5a502e</SHA>
+      <PATCHEDFILES>
+        <FILE>server/model/monitor.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

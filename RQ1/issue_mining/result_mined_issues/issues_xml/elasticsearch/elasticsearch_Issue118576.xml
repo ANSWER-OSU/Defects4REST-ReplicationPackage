@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118576</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118576</ISSUEURL>
+  <TITLE>[CI] XPackRestIT test {p0=migrate/20_reindex_status/Test Reindex With Existing Data Stream} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #5335 / rocky-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/4ib3dz7po6ixs) - [elasticsearch-pull-request #45909 / part-3](https://gradle-enterprise.elastic.co/s/il5bfgscmmn5m) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:yamlRestTest&quot; --tests &quot;org.elasticsearch.xpack.test.rest.XPackRestIT.test {p0=migrate/10_reindex/Test Reindex With Existing Data Stream}&quot; -Dtests.seed=7D507427B4658437 -Dtests.locale=gl-Latn-ES -Dtests.timezone=Europe/Volgograd -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.test.rest.XPackRestIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Bp0%3Dmigrate%2F20_reindex_status%2FTest%20Reindex%20With%20Existing%20Data%20Stream%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Failure at [migrate/10_reindex:88]: got unexpected warning header [ 299 Elasticsearch-8.18.0-c11d28f1df40b7be8d90005a91ee7bc22052c5c1 &quot;index template [my-template1] has index patterns [my-data-stream*] matching patterns from existing older templates [global] with patterns (global =&gt; [*]); this template [my-template1] will take precedence during new index creation&quot; ] ``` **Issue Reasons:** - [8.x] 2 failures in test test {p0=migrate/20_reindex_status/Test Reindex With Existing Data Stream} (1.3% fail rate in 159 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>21</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.test.rest.XPackRestIT test {p0=migrate/10_reindex/Test Reindex With Existing Data Stream} #118575</MESSAGE>
+    <SHA>ae263fa22df3dd3bea87a7d14535b90dc76556b4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.test.rest.XPackRestIT test {p0=migrate/20_reindex_status/Test Reindex With Existing Data Stream} #118576</MESSAGE>
+      <SHA>83283a0a5acb5cd0267401e922889cf0cc4ca4f1</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

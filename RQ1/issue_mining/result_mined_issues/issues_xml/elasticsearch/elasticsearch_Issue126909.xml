@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126909</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126909</ISSUEURL>
+  <TITLE>[CI] GoogleCloudStorageBlobStoreRepositoryTests testSnapshotWithLargeSegmentFiles failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7681 / concurrent-search-tests](https://gradle-enterprise.elastic.co/s/5tmxlnoup4nme) - [elasticsearch-periodic #7681 / openjdk21_entitlements_true_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/m62ksafqh3dea) - [elasticsearch-periodic #7681 / openjdk23_entitlements_false_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/jf2uupzpnlhk6) - [elasticsearch-periodic-platform-support #7703 / almalinux-8-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/sm3gqdx4763jo) - [elasticsearch-periodic #7681 / encryption-at-rest](https://gradle-enterprise.elastic.co/s/abp7ree5ecils) - [elasticsearch-periodic-platform-support #7703 / ubuntu-2004-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/halp3bizgspnq) - [elasticsearch-periodic-platform-support #7703 / rhel-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/z6ljmkgrvjqre) - [elasticsearch-periodic-platform-support #7703 / ubuntu-2004_platform-support-unix](https://gradle-enterprise.elastic.co/s/pplp6bcfhdnn2) - [elasticsearch-periodic-platform-support #7703 / opensuse-leap-15_platform-support-unix](https://gradle-enterprise.elastic.co/s/3cg6gmp2jc4fa) - [elasticsearch-periodic-platform-support #7703 / rocky-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/ugkdndorvu4wi) **Reproduction Line:** ``` ./gradlew &quot;:modules:repository-gcs:internalClusterTest&quot; --tests &quot;org.elasticsearch.repositories.gcs.GoogleCloudStorageBlobStoreRepositoryTests.testSnapshotWithLargeSegmentFiles&quot; -Dtests.seed=8CB6452F0DF728DA -Dtests.locale=kok-Latn -Dtests.timezone=Asia/Atyrau -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.repositories.gcs.GoogleCloudStorageBlobStoreRepositoryTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testSnapshotWithLargeSegmentFiles),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: a value greater than &lt;0&gt; but: &lt;0&gt; was equal to &lt;0&gt; ``` **Issue Reasons:** - [main] 32 failures in test testSnapshotWithLargeSegmentFiles (16.9% fail rate in 189 executions) - [main] 14 failures in step part-1 (18.2% fail rate in 77 executions) - [main] 4 failures in step part1 (21.1% fail rate in 19 executions) - [main] 14 failures in pipeline elasticsearch-pull-request (19.4% fail rate in 72 executions) - [main] 4 failures in pipeline elasticsearch-intake (21.1% fail rate in 19 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.repositories.gcs.GoogleCloudStorageBlobStoreRepositoryTests testWriteFileMultipleOfChunkSize #126908</MESSAGE>
+    <SHA>9d92cce824d714e2e99173298467116cb9548f28</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.repositories.gcs.GoogleCloudStorageBlobStoreRepositoryTests testSnapshotWithLargeSegmentFiles #126909</MESSAGE>
+      <SHA>0a842620b9b8ed83877b9e41e2f9c6c218c36cbd</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

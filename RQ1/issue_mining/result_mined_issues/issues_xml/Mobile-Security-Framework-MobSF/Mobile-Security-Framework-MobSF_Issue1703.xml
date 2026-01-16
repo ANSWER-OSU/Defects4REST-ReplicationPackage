@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1703</ISSUENO>
+  <ISSUEURL>https://github.com/MobSF/Mobile-Security-Framework-MobSF/issues/1703</ISSUEURL>
+  <TITLE>IPA analysis error: AttributeError: 'str' object has no attribute 'get'</TITLE>
+  <DESCRIPTION>## ENVIRONMENT ``` OS and Version: Linux-5.4.0-kali4-amd64-x86_64-with-glibc2.29 Python Version: the one from docker - docker run -it --name mobsf -p 8000:8000 -v /root/.MobSF:/root/.MobSF opensecurity/mobile-security-framework-mobsf:latest MobSF Version: Mobile Security Framework v3.3.5 Beta ``` ## EXPLANATION OF THE ISSUE I upload an IPA to MobSF, expect the report, get an immediate crash due to the following bug: ``` [INFO] 23/Mar/2021 11:55:02 - Extracting IPA [INFO] 23/Mar/2021 11:55:02 - Unzipping [INFO] 23/Mar/2021 11:55:02 - Get Files, BIN Plist -&gt; XML, and Normalize [INFO] 23/Mar/2021 11:55:02 - iOS Info.plist Analysis Started [INFO] 23/Mar/2021 11:55:02 - Finding Info.plist in iOS Binary [INFO] 23/Mar/2021 11:55:02 - Checking Permissions [INFO] 23/Mar/2021 11:55:02 - Checking for Insecure Connections [ERROR] 23/Mar/2021 11:55:02 - Reading from Info.plist Traceback (most recent call last): File &quot;/root/Mobile-Security-Framework-MobSF/mobsf/StaticAnalyzer/views/ios/plist_analysis.py&quot;, line 122, in plist_analysis plist_info['inseccon'] += check_transport_security(plist_obj_) File &quot;/root/Mobile-Security-Framework-MobSF/mobsf/StaticAnalyzer/views/ios/app_transport_security.py&quot;, line 12, in check_transport_security if ats_dict.get('NSAllowsArbitraryLoads'): AttributeError: 'str' object has no attribute 'get' [ERROR] 23/Mar/2021 11:55:02 - Error Perfroming Static Analysis Traceback (most recent call last): File &quot;/root/Mobile-Security-Framework-MobSF/mobsf/StaticAnalyzer/views/ios/static_analyzer.py&quot;, line 116, in static_analyzer_ios app_dict['appstore'] = app_search(infoplist_dict.get('id')) AttributeError: 'NoneType' object has no attribute 'get' [ERROR] 23/Mar/2021 11:55:02 - 'NoneType' object has no attribute 'get' [ERROR] 23/Mar/2021 11:55:02 - Internal Server Error: /static_analyzer_ios/ ``` ## STEPS TO REPRODUCE THE ISSUE ``` 1. Start latest MobSF from docker - docker run -it --name mobsf -p 8000:8000 -v /root/.MobSF:/root/.MobSF 2. Upload IPA 3. Observe the crash in the terminal ``` ## LOG FILE see stack trace above, the contents of debug.log are identical</DESCRIPTION>
+  <REPONAME>Mobile-Security-Framework-MobSF</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>HOTFIX: Fixes #1699, #1700</MESSAGE>
+    <SHA>091b860e448bbab8166a68437c68614247d251be</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>HOTFIX: Fixes #1703 IPA ATS Analysis</MESSAGE>
+      <SHA>da1dbeb448f78493ad14a23585e0b93ef1747f73</SHA>
+      <PATCHEDFILES>
+        <FILE>mobsf/StaticAnalyzer/views/ios/app_transport_security.py</FILE>
+        <FILE>mobsf/signatures/maltrail-malware-domains.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

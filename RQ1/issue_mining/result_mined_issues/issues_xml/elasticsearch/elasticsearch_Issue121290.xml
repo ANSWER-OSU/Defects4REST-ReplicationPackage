@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121290</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121290</ISSUEURL>
+  <TITLE>[CI] CoreWithSecurityClientYamlTestSuiteIT test {yaml=indices.get_alias/10_basic/Get aliases via /*/_alias/} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6074 / ubuntu-2404-aarch64_checkpart4_platform-support-arm](https://gradle-enterprise.elastic.co/s/ydjsmfe46owzu) - [elasticsearch-pull-request #53493 / part-4](https://gradle-enterprise.elastic.co/s/s3ekgm2kfegpw) - [elasticsearch-pull-request #53066 / part-4](https://gradle-enterprise.elastic.co/s/zendjucdbvdys) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:qa:core-rest-tests-with-security:yamlRestTest&quot; --tests &quot;org.elasticsearch.xpack.security.CoreWithSecurityClientYamlTestSuiteIT&quot; -Dtests.method=&quot;test {yaml=indices.get_alias/10_basic/Get aliases via /*/_alias/}&quot; -Dtests.seed=A1761FC5D9EC3FEB -Dtests.locale=se-SE -Dtests.timezone=America/Indiana/Indianapolis -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.security.CoreWithSecurityClientYamlTestSuiteIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Byaml%3Dindices.get_alias%2F10_basic%2FGet%20aliases%20via%20%2F*%2F_alias%2F%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Failure at [indices.get_alias/10_basic:102]: got unexpected warning header [ 299 Elasticsearch-9.0.0-6e471eaaf3d2f1b1ced256fade12d09c9a66cf76 &quot;this request accesses system indices: [.security-7], but in a future major version, direct access to system indices will be prevented by default&quot; ] ``` **Issue Reasons:** - [main] 3 failures in test test {yaml=indices.get_alias/10_basic/Get aliases via /*/_alias/} (0.5% fail rate in 652 executions) - [main] 2 failures in step part-4 (0.7% fail rate in 302 executions) - [main] 2 failures in pipeline elasticsearch-pull-request (0.7% fail rate in 295 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Remove outdated reference to internal semantic text format (#121276) The semantic text format was updated in #119183. This commit removes the last remaining reference to the old format from the documentation to ensure consistency.</MESSAGE>
+    <SHA>fb3c6666632cb3c92b98ad4ce5b96be79391b76a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.security.CoreWithSecurityClientYamlTestSuiteIT test {yaml=indices.get_alias/10_basic/Get aliases via /*/_alias/} #121290</MESSAGE>
+      <SHA>07b4461538a7f67b5511bb85d775729bb360f70d</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Disable queryable built-in roles feature for core and datastream YAML tests Resolves https://github.com/elastic/elasticsearch/issues/121536 Resolves https://github.com/elastic/elasticsearch/issues/121513 Resolves https://github.com/elastic/elasticsearch/issues/121484 Resolves https://github.com/elastic/elasticsearch/issues/121478 Resolves https://github.com/elastic/elasticsearch/issues/121290 Resolves https://github.com/elastic/elasticsearch/issues/121246 Resolves https://github.com/elastic/elasticsearch/issues/121242 Resolves https://github.com/elastic/elasticsearch/issues/121238 Resolves https://github.com/elastic/elasticsearch/issues/121186 Resolves https://github.com/elastic/elasticsearch/issues/121131 Resolves https://github.com/elastic/elasticsearch/issues/121130 Resolves https://github.com/elastic/elasticsearch/issues/121128 Resolves https://github.com/elastic/elasticsearch/issues/121014 Resolves https://github.com/elastic/elasticsearch/issues/120965 Resolves https://github.com/elastic/elasticsearch/issues/120920 Resolves https://github.com/elastic/elasticsearch/issues/120890</MESSAGE>
+      <SHA>0644dbf64e8ace7ba312e6c653ccfbc2e005f01d</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/data-streams/src/yamlRestTest/java/org/elasticsearch/datastreams/DataStreamsClientYamlTestSuiteIT.java</FILE>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/qa/core-rest-tests-with-security/src/yamlRestTest/java/org/elasticsearch/xpack/security/CoreWithSecurityClientYamlTestSuiteIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120772</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120772</ISSUEURL>
+  <TITLE>[CI] FieldCapabilitiesIT class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #16322 / part1](https://gradle-enterprise.elastic.co/s/m27izf33q3jp2) - [elasticsearch-periodic #5907 / openjdk23_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/4jp2xosxicf4c) **Reproduction Line:** ``` ./gradlew &quot;:server:internalClusterTest&quot; --tests &quot;org.elasticsearch.search.fieldcaps.FieldCapabilitiesIT.testWithIndexAlias&quot; -Dtests.seed=3AFB1816D73129EB -Dtests.locale=fr-MA -Dtests.timezone=SystemV/YST9YDT -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.search.fieldcaps.FieldCapabilitiesIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.search.fieldcaps.FieldCapabilitiesIT),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: All incoming requests on node [node_s3] should have finished. Expected 0 bytes for requests in-flight but got 140 bytes; pending tasks [[{ &quot;node&quot; : &quot;node_s3&quot;, &quot;id&quot; : 12, &quot;type&quot; : &quot;persistent&quot;, &quot;action&quot; : &quot;health-node[c]&quot;, &quot;status&quot; : { &quot;state&quot; : &quot;STARTED&quot; }, &quot;description&quot; : &quot;id=health-node&quot;, &quot;start_time&quot; : &quot;2025-01-24T06:55:51.190Z&quot;, &quot;start_time_in_millis&quot; : 1737701751190, &quot;running_time&quot; : &quot;8m&quot;, &quot;running_time_in_nanos&quot; : 480963077095, &quot;cancellable&quot; : true, &quot;cancelled&quot; : false, &quot;parent_task_id&quot; : &quot;cluster:2&quot;, &quot;headers&quot; : { } }]] ``` **Issue Reasons:** - [main] 2 failures in class org.elasticsearch.search.fieldcaps.FieldCapabilitiesIT (0.2% fail rate in 906 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[Entitlements] Enable native access based on policies (#120638)</MESSAGE>
+    <SHA>81a934843139596001c700f2ff90ca327a452a8d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.search.fieldcaps.FieldCapabilitiesIT org.elasticsearch.search.fieldcaps.FieldCapabilitiesIT #120772</MESSAGE>
+      <SHA>7b47ba9ccaca3bc96b2acecf81e9d9ec6c716dd8</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix relocation targets in FieldCapabilitiesIT (#121606) The test failed because we tried to move a shard to a node that already has a copy. This change prevents that from happening. Closes #119280 Closes #120772</MESSAGE>
+      <SHA>54ecd5733561e793c7d5f82970b9982391fdd9c2</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/internalClusterTest/java/org/elasticsearch/search/fieldcaps/FieldCapabilitiesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix relocation targets in FieldCapabilitiesIT (#121606) The test failed because we tried to move a shard to a node that already has a copy. This change prevents that from happening. Closes #119280 Closes #120772</MESSAGE>
+      <SHA>c8d9383e96ee6de762d277a8dd181222deda6633</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/internalClusterTest/java/org/elasticsearch/search/fieldcaps/FieldCapabilitiesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix relocation targets in FieldCapabilitiesIT (#121606) The test failed because we tried to move a shard to a node that already has a copy. This change prevents that from happening. Closes #119280 Closes #120772</MESSAGE>
+      <SHA>11e1bc4a20dec8bfba69880644ce83db443eed57</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/internalClusterTest/java/org/elasticsearch/search/fieldcaps/FieldCapabilitiesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix relocation targets in FieldCapabilitiesIT (#121606) (#121622) The test failed because we tried to move a shard to a node that already has a copy. This change prevents that from happening. Closes #119280 Closes #120772</MESSAGE>
+      <SHA>e140e3be9757ea2521a6fcfdb7ef346d7b0adae3</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/internalClusterTest/java/org/elasticsearch/search/fieldcaps/FieldCapabilitiesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix relocation targets in FieldCapabilitiesIT (#121606) The test failed because we tried to move a shard to a node that already has a copy. This change prevents that from happening. Closes #119280 Closes #120772</MESSAGE>
+      <SHA>6685736408331667c35cb29f72f990d47a6fd1e3</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/internalClusterTest/java/org/elasticsearch/search/fieldcaps/FieldCapabilitiesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix relocation targets in FieldCapabilitiesIT (#121606) (#121623) The test failed because we tried to move a shard to a node that already has a copy. This change prevents that from happening. Closes #119280 Closes #120772</MESSAGE>
+      <SHA>571246037f224bb9d45e8f46256ab0832e385181</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/internalClusterTest/java/org/elasticsearch/search/fieldcaps/FieldCapabilitiesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix relocation targets in FieldCapabilitiesIT (#121606) (#121624) The test failed because we tried to move a shard to a node that already has a copy. This change prevents that from happening. Closes #119280 Closes #120772</MESSAGE>
+      <SHA>f472ecfd3507496c57b7c33803d606428de1e175</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/internalClusterTest/java/org/elasticsearch/search/fieldcaps/FieldCapabilitiesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

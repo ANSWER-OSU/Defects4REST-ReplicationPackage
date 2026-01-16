@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18286</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18286</ISSUEURL>
+  <TITLE>[e2e] podman push to local registry with authorization: connection refused</TITLE>
+  <DESCRIPTION>Noticing this one lately in my skip-retries PR: ``` podman push to local registry with authorization ... # podman [options] run -d -p 5000:5000 [....] quay.io/libpod/registry:2.8 [wait for it to come up, which it seems to do just fine] # podman [options] push --tls-verify=true --format=v2s2 --creds=podmantest:test quay.io/libpod/alpine:latest localhost:5000/tlstest Getting image source signatures Copying blob sha256:03901b4a2ea88eeaad62dbe59b072b28b6efa00491962b8741081c5df50c65e0 time=&quot;2023-04-20T01:06:27Z&quot; level=warning msg=&quot;Failed, retrying in 1s ... (1/3). Error: trying to reuse blob sha256:03901b4a2ea88eeaad62dbe59b072b28b6efa00491962b8741081c5df50c65e0 at destination: pinging container registry localhost:5000: Get \&quot;https://localhost:5000/v2/\&quot;: dial tcp [::1]:5000: connect: connection refused&quot; ``` The test is one of those badly-written ones that just check for `ExitWithError()` with no string check (it should check for &quot;x509: certificate signed by unknown authority&quot; here) so this step actually passes; the test doesn't fail until several steps later. The use of `:5000` makes me suspect a collision, but if that were the case (1) I would see other tests flaking with a `5000` port, and (2) I would expect to see a different error than `connection refused`? Have tried to look into this but gotten nowhere. Filing for future followup. ### Podman push [It] podman push to local registry with authorization * debian-12 : int podman debian-12 root host sqlite * [04-11 07:59](https://api.cirrus-ci.com/v1/artifact/task/6633733470552064/html/int-podman-debian-12-root-host-sqlite.log.html#t--podman-push-to-local-registry-with-authorization--1) * fedora-37 : int podman fedora-37 root container sqlite * [04-19 21:20](https://api.cirrus-ci.com/v1/artifact/task/6418865408704512/html/int-podman-fedora-37-root-container-sqlite.log.html#t--podman-push-to-local-registry-with-authorization--1) * fedora-37 : int podman fedora-37 root host boltdb * [04-19 17:33](https://api.cirrus-ci.com/v1/artifact/task/4844648603058176/html/int-podman-fedora-37-root-host-boltdb.log.html#t--podman-push-to-local-registry-with-authorization--1)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>124</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18342 from edsantiago/aardvarks_are_slow Netavark userns test: give aardvark time to come up</MESSAGE>
+    <SHA>846e7aa21bc747240d6f70543adca85520f75ef7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>e2e cleanup: push with auth: add error checks Add actual tests (for expected errors, not just exit-status) to the &quot;push to local registry with authorization&quot; test. As it is now, if the registry is unreachable, the test passes a number of steps and only fails later, with a misleading diagnostic. Followup to, but does not fix, #18286 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>a027bf10214e39795e9c0da8d53bdc153c899f78</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/push_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

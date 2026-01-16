@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15572</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/15572</ISSUEURL>
+  <TITLE>Content shape alternate targeting a specific item with ContentItemId</TITLE>
+  <DESCRIPTION>### Is your feature request related to a problem? Please describe. You can override the `Content` shape of a given content item with the `Content__[Id]` alternate, which is added in [`OrchardCore.Contents.Shapes`](https://github.com/OrchardCMS/OrchardCore/blob/d524386b2f792f35773324ae482247e80a944266/src/OrchardCore.Modules/OrchardCore.Contents/Shapes.cs#L37). This is useful, but since it uses `ContentItem.Id`, i.e. the numeric ID of the item in the DB, it's not portable: an override will only apply with one specific DB, and if you move the content item (like import it) to another DB, it won't. ### Describe the solution you'd like Add a new alternate, `Content__[ContentItemId]`, that uses the alphanumeric and portable `ContentItem.ContentItemId`. Also document it under https://docs.orchardcore.net/en/latest/docs/reference/modules/Templates/#content-templates. We can keep the current alternate for backward compatibility, but it shouldn't really be used, so let's keep it undocumented. ### Describe alternatives you've considered Changing the existing alternate, but that would be a breaking change.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>272</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Rename Method in MinimalAPI (#15594)</MESSAGE>
+    <SHA>1e3874dd56eaf0b6f0df68b248f4aa0255878582</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix Taxonomy Serialization Fix #15614 Fix #15572</MESSAGE>
+      <SHA>6cf614cc23f1e8c19036e58c63c521defa174314</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Taxonomies/Controllers/AdminController.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.ContentManagement.Abstractions/ContentItemConverter.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

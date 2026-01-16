@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>20563</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/20563</ISSUEURL>
+  <TITLE>--db-backend considered harmful</TITLE>
+  <DESCRIPTION>Yikes. I realize `--db-backend` is undocumented, but in the post-#20318 world it is actively dangerous to use it: ```console # podman system reset -f # podman info --format '{{.Host.DatabaseBackend}}' sqlite ! OK so far. Run a container. # bin/podman run -d -q quay.io/libpod/testimage:20221018 top aaf4adf79792650449cd5ef21309db7c506cf347a448da53665426f7b12639cd # bin/podman ps CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES aaf4adf79792 quay.io/libpod/testimage:20221018 top 23 seconds ago Up 24 seconds competent_galois ! OK so far. Now run just one command with boltdb: # podman --db-backend=boltdb info --format '{{.Host.DatabaseBackend}}' boltdb ! Boom. We are now in a completely unusable state forevermore. # bin/podman ps CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES # podman info --format '{{.Host.DatabaseBackend}}' boltdb &lt;-------- it got stuck! ! You can check out any time you like but you can never leave # bin/podman system reset -f ERRO[0000] no container with name or ID &quot;...&quot; found: no such container ERRO[0000] image used by ....: image is in use by a container: consider listing external containers and force-removing image ! (works with --db-backend=sqlite but that may not be obvious) ``` Reason: https://github.com/containers/podman/blob/0cd20090b2243160bc42dfe0928d4383d8777b20/libpod/runtime.go#L320 Discussion: oof. I don't know. This is a real tough one. How should podman distinguish between: 1. boltdb file exists and is real 2. boltdb file exists but is bogus I tentatively suggest that if *both* boltdb and sqlite files exist, *and* there is no explicit command-line (or c.conf?) setting, podman should bail with a fatal error. Bonus points for providing instructions with a command-line way to fix: ``` podman: You have both boltdb and sqlite databases. This can lead to disaster! podman: please pick one (sqlite or boltdb), then run podman --db-backend=YOUR-CHOICE magic-command-that-wipes-the-other ``` Another option (possibly in addition to the above): `podman --db-backend=boltdb` will check if an sqlite file already exists, and if so (waves hands): * warn? * create a state file, `.boltdb-is-bogus`, that gets checked in `runtime.go`? * use a different filename for the boltdb file, such that `--db-backend` is explicitly different from the created-by-default file? There are more snags I'm thinking of right now, but I haven't thought them through yet. This is enough for now.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>154</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #20591 from containers/renovate/github.com-spf13-cobra-1.x fix(deps): update module github.com/spf13/cobra to v1.8.0</MESSAGE>
+    <SHA>886f932b0a0faf13ffc033267e9c506fad5ecc65</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>systests: add a last-minute check for db backend This will only fail if someone ever adds a system test that runs podman with &quot;--db-backend boltdb&quot;, which nobody should ever do, but this is a cheap way to make sure it never happens. See #20563 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>92cd7b25f29db3f04791c09505a00c1bad2f1bd6</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/005-info.bats</FILE>
+        <FILE>test/system/999-final.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7502</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7502</ISSUEURL>
+  <TITLE>Zettle plugin. Error trying to delete non-existing setting</TITLE>
+  <DESCRIPTION>``` FluentMigrator.Runner.Processors.SqlServer.SqlServer2016Processor[1003] ALTER TABLE [dbo].[ZettleRecord] ADD [ExternalUuid] NVARCHAR(255) Unhandled exception. System.ArgumentNullException: Value cannot be null. (Parameter 'entity') at System.ArgumentNullException.Throw(String paramName) at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName) at Nop.Data.EntityRepository`1.DeleteAsync(TEntity entity, Boolean publishEvent) at Nop.Services.Configuration.SettingService.DeleteSettingAsync(Setting setting) at Nop.Plugin.Misc.Zettle.Data.InventoryBalanceMigration.Up() at System.Threading.Tasks.Task.&lt;&gt;c.&lt;ThrowAsync&gt;b__128_1(Object state) at System.Threading.QueueUserWorkItemCallback.Execute() at System.Threading.ThreadPoolWorkQueue.Dispatch() at System.Threading.PortableThreadPool.WorkerThread.WorkerThreadStart() ``` &gt; I think the code is just not accounting for the possibility that the old setting does not exists. &gt; ``` &gt; var setting = await _settingService.GetSettingAsync(...) &gt; ``` &gt; I.e., it should check for null, and not call the delete. Source: https://www.nopcommerce.com/boards/topic/101677/error-upgrading-from-4606-to-the-latest-4802</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Increased minor version number</MESSAGE>
+    <SHA>192b6f20b9c684bcee5650e69a90202804dd4fae</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7502 Zettle plugin. Error trying to delete non-existing setting</MESSAGE>
+      <SHA>fefba756324423fa125aad4549cdd5917e4eedc4</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Zettle/Data/InventoryBalanceMigration.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Zettle/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>930</ISSUENO>
+  <ISSUEURL>https://github.com/Jigsaw-Code/outline-server/issues/930</ISSUEURL>
+  <TITLE>Server creation in RTL locales results in mojibake server names</TITLE>
+  <DESCRIPTION>![Screenshot from 2021-06-21 16-57-58](https://user-images.githubusercontent.com/191945/122827722-ba819c00-d2b2-11eb-912c-b57fea76b43e.png) I expect this is happening because the DigitalOcean droplet &quot;user_data&quot; field is not fully unicode-safe. (The Outline server creation request appears to be well-formed.) It's possible that DigitalOcean is taking the JSON value in UTF-16 and piping it directly to bash, which expects UTF-8.</DESCRIPTION>
+  <REPONAME>outline-server</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #927 from Jigsaw-Code/bemasc-fix-release Fix electron-builder release builds</MESSAGE>
+    <SHA>f05dfe54d1b0575c2e8331da83a0f22d4ae29f56</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Escape unicode characters in the server name Also includes safer bash quoting of the other environment variables. Fixes #930</MESSAGE>
+      <SHA>e4e4f2f6fb174583d8c4ecacfc47f8e11f334231</SHA>
+      <PATCHEDFILES>
+        <FILE>src/server_manager/web_app/digitalocean_account.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

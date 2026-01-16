@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3416</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/3416</ISSUEURL>
+  <TITLE>[now dev] @now/python builder exited with SIGKILL</TITLE>
+  <DESCRIPTION>Hi, I tried to run `now dev` on my Digital Ocean VPS and this error happened with Python lambdas. I don't know exactly why. - OS Fedora 30 - `now` v16.6.3 - Debug log: ``` &gt; [debug] [2019-12-12T11:38:03.970Z] Error: Builder exited with SIGKILL before sending build result at ChildProcess.onExit (/usr/lib/node_modules/now/dist/index.js:2:3462594) at ChildProcess.emit (events.js:203:15) at ChildProcess.EventEmitter.emit (domain.js:448:20) at Process.ChildProcess._handle.onexit (internal/child_process.js:248:12) ``` However, it doesn't happen with my Manjaro installation. Do you know what may be the cause and how to fix it? Thank you!</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>55</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now-cli] Add renewal price to `now domains inspect` (#3401) Adds `Renewal Price` to `now domains inspect` command if the domain was bought with ZEIT.</MESSAGE>
+    <SHA>751b1665367f16c1d3d52ad62ff9323bfc0b1ff0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-cli] Remove dead link to max lambda size (#3418) We used to have a default `maxLambdaSize` and allow the user to increase to 50 MB. However, this is no longer true. Today, the `maxLambdaSize` for every function is 50 MB and is not configurable, it's a hard limit. This PR removes the dead link to avoid confusion like in Issue #3416.</MESSAGE>
+      <SHA>5fdc55f3fb3b4752f5db290016c0fe80a17dd6a4</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-cli/src/util/errors-ts.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now-python] Add `excludeFiles` config option (#3712) This PR adds a `config.excludeFiles` pattern for `@now/python` that defaults to `node_modules/**` for users who are using a Node.js SSG frontend with Python APIs backend. If the user chooses, they can override to any glob pattern such as `{.cache,node_modules}/**`. Related to #2830 Related to #3416</MESSAGE>
+      <SHA>340f7db68ac4dc7734d08211e93b734e7945a40d</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-build-utils/src/fs/glob.ts</FILE>
+        <FILE>packages/now-build-utils/src/index.ts</FILE>
+        <FILE>packages/now-build-utils/src/types.ts</FILE>
+        <FILE>packages/now-python/src/index.ts</FILE>
+        <FILE>packages/now-python/test/fixtures/25-exclude-files/api/no.py</FILE>
+        <FILE>packages/now-python/test/fixtures/25-exclude-files/api/yes.py</FILE>
+        <FILE>packages/now-python/test/fixtures/25-exclude-files/ignoreme/first.txt</FILE>
+        <FILE>packages/now-python/test/fixtures/25-exclude-files/ignoreme/second.txt</FILE>
+        <FILE>packages/now-python/test/fixtures/25-exclude-files/now.json</FILE>
+        <FILE>packages/now-python/test/fixtures/25-exclude-files/requirements.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

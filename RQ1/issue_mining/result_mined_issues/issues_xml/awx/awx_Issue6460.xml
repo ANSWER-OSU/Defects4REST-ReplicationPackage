@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6460</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6460</ISSUEURL>
+  <TITLE>Unable to save any forms</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY &lt;!-- Briefly describe the problem. --&gt; I'm unable to save any forms in AWX 9.3.0. When I try to click on the save button to create a new sample project or add LDAP authencatication I have a status code 504. And the form is never saved. ##### ENVIRONMENT * AWX version: 9.3.0 * AWX install method: docker on linux * Ansible version: 2.9.5 * Operating System: CentOS 7.7 * Web Browser: Chrome and Chrome in private ##### STEPS TO REPRODUCE &lt;!-- Please describe exactly how to reproduce the problem. --&gt; Create a new project sample and click save ##### EXPECTED RESULTS &lt;!-- What did you expect to happen when running the steps above? --&gt; The form should be saved ##### ACTUAL RESULTS &lt;!-- What actually happened? --&gt; Failed to create new project. POST returned status: 504 ##### ADDITIONAL INFORMATION &lt;!-- Include any links to sosreport, database dumps, screenshots or other information. --&gt; In the logs I can see : `awx_web | 2020/03/27 14:23:31 [error] 122#0: *47 upstream timed out (110: Connection timed out) while reading response header from upstream, client: 10.204.35.76, server: _, request: &quot;GET /websocket/ HTTP/1.1&quot;, upstream: &quot;http://127.0.0.1:8051/websocket/&quot;, host: &quot;myserver:82&quot; ` And in the browser console I have : ``` Failed to load resource: the server responded with a status of 504 (Gateway Time-out) WebSocket connection to 'ws://myserver:82/websocket/' failed: WebSocket opening handshake timed out ```</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Changing check for all in awx.awx.export (#13854) (#6455) Co-authored-by: John Westcott IV &lt;32551173+john-westcott-iv@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>a7c38ac643dc8da771dea30326f0d293129a29e8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Allow importing licenses missing a &quot;usage&quot; attr (#6460) Co-authored-by: Pablo N. Hess &lt;phess@redhat.com&gt;</MESSAGE>
+      <SHA>3503d8a97d12c78707852d44f67390b0cc4fcfb4</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/utils/licensing.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

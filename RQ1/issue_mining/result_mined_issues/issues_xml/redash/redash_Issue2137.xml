@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2137</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/2137</ISSUEURL>
+  <TITLE>Case insensitive parameters in Redash query result cache</TITLE>
+  <DESCRIPTION>### Issue Summary Redash may display wrong results for query with case sensitive parameter. It looks like results cache is ignoring param letters size. ### Steps to Reproduce 1. Create a query with global text parameter. 2. Create dashboard with visualization for this query. 3. Open dashboard with parameter set to lowercase letter for example 'test' 4. Open dashboard on a new tab with parameter 'TEST'. In the last step you should receive visualization for parameter 'test' even when parameter value is set to 'TEST' I have been able to reproduce this scenario on demo.redash.io. To reproduce do: 1. Open link: http://demo.redash.io/dashboard/ma_dashboard?p_dashboard_name=test You should see rows from dashboard table with name `test` 2. Open link: http://demo.redash.io/dashboard/ma_dashboard?p_dashboard_name=Test You should see rows from dashboard table with name `test` even when parameter `dashboard_name` is set to `Test`. After refreshing visualization result changed to proper one. ### Technical details: * Redash Version: 3.0.0+b3134 * Browser/OS: Chrome/Firefox/Opera * How did you install Redash: used demo.redash.io</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>2047</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Embed view becomes flex. (#4422) Co-authored-by: Shinsuke Nara &lt;shinsuke.nara@muraoka-design.com&gt; Co-authored-by: Justin Clift &lt;justin@postgresql.org&gt;</MESSAGE>
+    <SHA>02d128e7aee83d08a8188ea3e9291a4665925c67</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Give query case sensitive treatment in query hash Generating the query hash from the query text with no lowercasing of the query text allows case-sensitive parameter values in the dashboard to have different cache entries. Fixes #2137</MESSAGE>
+      <SHA>59e6099177a33121a9bb69a7a5da12da7090d24a</SHA>
+      <PATCHEDFILES>
+        <FILE>migrations/versions/1038c2174f5d_make_case_insensitive_hash_of_query_text.py</FILE>
+        <FILE>redash/utils/__init__.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Give query case sensitive treatment in query hash (#4254) Generating the query hash from the query text with no lowercasing of the query text allows case-sensitive parameter values in the dashboard to have different cache entries. Fixes #2137</MESSAGE>
+      <SHA>c8516d38a7d3ee1622f84834bf27424a1468f8dc</SHA>
+      <PATCHEDFILES>
+        <FILE>migrations/versions/1038c2174f5d_make_case_insensitive_hash_of_query_text.py</FILE>
+        <FILE>redash/utils/__init__.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Give query case sensitive treatment in query hash (#4254) Generating the query hash from the query text with no lowercasing of the query text allows case-sensitive parameter values in the dashboard to have different cache entries. Fixes #2137</MESSAGE>
+      <SHA>306a412d7b057e6d74c1bd7f41fc6182fb111cb7</SHA>
+      <PATCHEDFILES>
+        <FILE>migrations/versions/1038c2174f5d_make_case_insensitive_hash_of_query_text.py</FILE>
+        <FILE>redash/utils/__init__.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Give query case sensitive treatment in query hash (#4254) Generating the query hash from the query text with no lowercasing of the query text allows case-sensitive parameter values in the dashboard to have different cache entries. Fixes #2137</MESSAGE>
+      <SHA>2083bf8b86cfabfc568e808d641fde8eb75038fa</SHA>
+      <PATCHEDFILES>
+        <FILE>migrations/versions/1038c2174f5d_make_case_insensitive_hash_of_query_text.py</FILE>
+        <FILE>redash/utils/__init__.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

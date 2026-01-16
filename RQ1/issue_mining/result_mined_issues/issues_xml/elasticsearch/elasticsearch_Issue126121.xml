@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>126121</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/126121</ISSUEURL>
+  <TITLE>[CI] KeywordFieldBlockLoaderTests testBlockLoader {preference=Params[syntheticSource=false, preference=DOC_VALUES]} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7391 / openjdk23_entitlements_true_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/xarsbt5q6ihte) - [elasticsearch-periodic #7391 / concurrent-search-tests](https://gradle-enterprise.elastic.co/s/kjyfwnztbn76u) - [elasticsearch-periodic #7391 / openjdk24_entitlements_true_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/6ipertsjy4hlw) - [elasticsearch-pull-request #65943 / part-1](https://gradle-enterprise.elastic.co/s/2w5kzufszuds4) - [elasticsearch-intake #21189 / part1](https://gradle-enterprise.elastic.co/s/urppjnkoemx7a) - [elasticsearch-pull-request #65936 / part-1](https://gradle-enterprise.elastic.co/s/ivjggkgoy4io4) - [elasticsearch-pull-request #65927 / part-1](https://gradle-enterprise.elastic.co/s/w4ot6lkaniss2) - [elasticsearch-pull-request #65927 / part-1](https://gradle-enterprise.elastic.co/s/3kv6onyhszxgm) - [elasticsearch-pull-request #65919 / part-1-fips](https://gradle-enterprise.elastic.co/s/gqhglsewypaaa) - [elasticsearch-pull-request #65905 / part-1](https://gradle-enterprise.elastic.co/s/t4za2bsi7khlm) **Reproduction Line:** ``` ./gradlew &quot;:server:test&quot; --tests &quot;org.elasticsearch.index.mapper.blockloader.KeywordFieldBlockLoaderTests.testBlockLoader {preference=Params[syntheticSource=false, preference=DOC_VALUES]}&quot; -Dtests.seed=F9B9BC7C3CF81C55 -Dtests.jvm.argline=&quot;-Des.entitlements.enabled=true&quot; -Dtests.locale=en-GI -Dtests.timezone=Australia/Darwin -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.index.mapper.blockloader.KeywordFieldBlockLoaderTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testBlockLoader%20%7Bpreference%3DParams%5BsyntheticSource%3Dfalse%2C%20preference%3DDOC_VALUES%5D%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: expected:&lt;[[65 4b 65 5a 57 6a 6f 54 4a 59 48], [54 53 52 4b 66 72 52 57 77 6e 59 4b 4b 41 6c 47 49 47 48 73 53 41 47 4c 46 77 57 77 4c 4f 61 65 46 6f 4f 4f 74 4c 70 6f 54 41], [56 76 70 78 73 4a 6a 70 48 78 66 56 6f 54 61 77 6d 74 62 6d 41 6a 66 53 58 70 72 56 50 48 56 57 77 6b 44]]&gt; but was:&lt;[[54 53 52 4b 66 72 52 57 77 6e 59 4b 4b 41 6c 47 49 47 48 73 53 41 47 4c 46 77 57 77 4c 4f 61 65 46 6f 4f 4f 74 4c 70 6f 54 41], [56 76 70 78 73 4a 6a 70 48 78 66 56 6f 54 61 77 6d 74 62 6d 41 6a 66 53 58 70 72 56 50 48 56 57 77 6b 44], [65 4b 65 5a 57 6a 6f 54 4a 59 48]]&gt; ``` **Issue Reasons:** - [main] 2 consecutive failures in step checkpart1_release-tests - [main] 15 failures in test testBlockLoader {preference=Params[syntheticSource=false, preference=DOC_VALUES]} (13.6% fail rate in 110 executions) - [main] 7 failures in step part-1 (11.7% fail rate in 60 executions) - [main] 2 failures in step part1 (12.5% fail rate in 16 executions) - [main] 2 failures in step checkpart1_release-tests (100.0% fail rate in 2 executions) - [main] 8 failures in pipeline elasticsearch-pull-request (14.5% fail rate in 55 executions) - [main] 2 failures in pipeline elasticsearch-intake (12.5% fail rate in 16 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.search.sort.GeoDistanceIT testDistanceSortingWithUnmappedField #126118</MESSAGE>
+    <SHA>eeac1a7a3481d1c3fbfd293234c5066e49b4a798</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.index.mapper.blockloader.KeywordFieldBlockLoaderTests testBlockLoader {preference=Params[syntheticSource=false, preference=DOC_VALUES]} #126121</MESSAGE>
+      <SHA>04e25ad20018cfc739adc9abc0b5f7023ff1821b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.index.mapper.blockloader.KeywordFieldBlockLoaderTests testBlockLoader {preference=Params[syntheticSource=false, preference=DOC_VALUES]} #126121</MESSAGE>
+      <SHA>6a8574e80ab275b183e49b0f441e2148e57fdf9b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

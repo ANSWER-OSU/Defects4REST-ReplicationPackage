@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14699</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14699</ISSUEURL>
+  <TITLE>tests: stop harassing fubar.com</TITLE>
+  <DESCRIPTION>There are many instances of `server.fubar.com` in the tests. I'm sure this is intended as `no-such-host`, but there is an actual A record for this. It is a genuine live system. In `system connection test` this usage is uncomfortable but harmless: there is no actual connection. In [image scp](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/5977150636425216/html/int-podman-fedora-36-root-host.log.html#t--podman-image-scp-with-proper-connection--1) there is an actual attempt to `scp`, which the server owner could, quite rightly, see as an attack. @cdoern please make it a priority to fix this ASAP. I would also encourage you to fix system connection tests as well, simply as much-needed cleanup. (As a bonus, this will give us back 30-40 seconds).</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14608 from edsantiago/logformatter_new_url logformatter: link to logs using Cirrus API</MESSAGE>
+    <SHA>8e88abda85f7bf44b6857ad5d62c8ef58206fce5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix system connection and scp testing podman image scp and podman system connection tests were querying an existing website during testing. Change to a URL that will never exist given an improper domain extension also just generally clean up a few things in both scp and connection testing resolves #14699 Signed-off-by: Charlie Doern &lt;cdoern@redhat.com&gt;</MESSAGE>
+      <SHA>ad78d239dd2591b88fddbf025600170f70d38e85</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/image_scp_test.go</FILE>
+        <FILE>test/e2e/system_connection_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

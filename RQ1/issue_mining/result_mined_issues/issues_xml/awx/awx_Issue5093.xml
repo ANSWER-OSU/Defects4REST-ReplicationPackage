@@ -1,0 +1,114 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5093</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/5093</ISSUEURL>
+  <TITLE>[AWXKIT] Unable to provide extra_vars when launching workflow_job_template</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY Using the AWXKIT CLI tool `awx` it is not possible to provide extra parameters like `scm_branch` or `extra_vars` when launching a workflow_job_template. ##### ENVIRONMENT * AWX version: 8.0.0 * AWX install method: docker on linux * Ansible version: 2.7.10 (Client) * Operating system: macOS Mojave ##### STEPS TO REPRODUCE Installed AWX 8.0.0 and created a workflow `sample_workflow`, which * has survey enabled: &quot;Ask for `foobar`&quot; * prompt for SCM branch when launching workflow Installed AWXKIT: ```pip install &quot;https://github.com/ansible/awx/archive/8.0.0.tar.gz#egg=awxkit&amp;subdirectory=awxkit&quot;``` Tried to launch workflow: ```awx workflow_job_templates launch sample_workflow``` Result: ```{&quot;variables_needed_to_start&quot;: [&quot;'foobar' value missing&quot;]}``` Tried to extend request by using same parameter as for `tower-cli`: ```awx workflow_job_templates launch sample_workflow -e '{&quot;foobar&quot;: 12345}'``` After enabling debug output `awx` threw a warning, that `-e` is an `unrecognized argument`. Tried various arguments like * `--extra_vars` * `--extra-vars` * `-extra_vars` * ... Same result. ##### EXPECTED RESULTS CLI tool should ask for missing configuration items like `extra_vars`, `scm_branch`, or at least provide documentation on how to launch this special kind of workflow_job_templates. ##### ACTUAL RESULTS See &quot;Steps to reproduce&quot;</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>71</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #5140 from ryanpetrello/downstream-hardening merge a variety of downstream bug fixes Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>8cb7b388dc122859756645f39f16a609c97d23e5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>properly parse CLI arguments for launch endpoints see: https://github.com/ansible/awx/issues/5093</MESSAGE>
+      <SHA>59cf7db711ee5207e62b286a88b2b864c75b43df</SHA>
+      <PATCHEDFILES>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>properly parse CLI arguments for launch endpoints see: https://github.com/ansible/awx/issues/5093</MESSAGE>
+      <SHA>992011c5c649d22e3b440a3bf85512cf4781d8de</SHA>
+      <PATCHEDFILES>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>properly parse CLI arguments for launch endpoints see: https://github.com/ansible/awx/issues/5093</MESSAGE>
+      <SHA>1d109ee2184a954d9b69bebee91403be4350f333</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/metadata.py</FILE>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>properly parse CLI arguments for launch endpoints see: https://github.com/ansible/awx/issues/5093</MESSAGE>
+      <SHA>a28fe2832f44ab5c2cbfee0d273cdea1b14d7b6b</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/metadata.py</FILE>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>properly parse CLI arguments for launch endpoints see: https://github.com/ansible/awx/issues/5093</MESSAGE>
+      <SHA>723d00287a6c68cc5775736589c3121c55af8bf1</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/metadata.py</FILE>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>properly parse CLI arguments for launch endpoints see: https://github.com/ansible/awx/issues/5093</MESSAGE>
+      <SHA>abf68fcbf3c4a0de97fcb3994147d1cea350fae6</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/metadata.py</FILE>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>properly parse CLI arguments for launch endpoints see: https://github.com/ansible/awx/issues/5093</MESSAGE>
+      <SHA>b1747e6b2e582c262315acdaea28c9fb238d3456</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/metadata.py</FILE>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>properly parse CLI arguments for launch endpoints see: https://github.com/ansible/awx/issues/5093</MESSAGE>
+      <SHA>756af86aba4a39d45d3652878d3102ada314d9b6</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/metadata.py</FILE>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>properly parse CLI arguments for launch endpoints see: https://github.com/ansible/awx/issues/5093</MESSAGE>
+      <SHA>6e3ef56eac97f5ebcd5f1dea0c6cb0d422ef689d</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/metadata.py</FILE>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+        <FILE>awxkit/test/cli/test_options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>properly parse CLI arguments for launch endpoints see: https://github.com/ansible/awx/issues/5093</MESSAGE>
+      <SHA>c882cda58678e9509cdb398ea8ed46a4d33b8efd</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/metadata.py</FILE>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+        <FILE>awxkit/awxkit/cli/options.py</FILE>
+        <FILE>awxkit/test/cli/test_options.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Make safe variable duplications for rename (#5093) * Make safe variable duplications to controller * Back out some changes to be smarter * Update test to new vars</MESSAGE>
+      <SHA>a8083296e62695e207a16c2e54a1c5413ee5c7ef</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/models/inventory.py</FILE>
+        <FILE>awx/main/tests/functional/models/test_inventory.py</FILE>
+        <FILE>awx_collection/plugins/inventory/controller.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

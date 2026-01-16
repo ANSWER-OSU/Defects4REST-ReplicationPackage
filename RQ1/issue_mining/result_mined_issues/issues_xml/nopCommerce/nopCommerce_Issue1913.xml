@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1913</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/1913</ISSUEURL>
+  <TITLE>Do not use TinyMCE for message templates and campaigns</TITLE>
+  <DESCRIPTION>How about usage of standard multiline textbox? It's more clear and readable for editors Furthermore, it has some limitations (e.g. https://github.com/nopSolutions/nopCommerce/issues/169)</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>27</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#1850 Ensure that special chars are not encoded (rich editor). For example, ä should NOT become &quot;&amp;auml;&quot;. Otherwise, database searches become impossible when words contain a character of this kind.</MESSAGE>
+    <SHA>6791dc4798ebde36fdd376954d126d6173314b4d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#1913 Use standard textarea instead TinyMCE for message templates, campaigns and queued qmails</MESSAGE>
+      <SHA>0ef266bdb9cdad88a51b9acd4899c44416979600</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Installation/CodeFirstInstallationService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Views/Campaign/_CreateOrUpdate.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Views/MessageTemplate/_CreateOrUpdate.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Views/QueuedEmail/_CreateOrUpdate.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#1913 Return to use TinyMCE editor for queued emails</MESSAGE>
+      <SHA>78e41fbe487eb108a5113bfad439a04f4334e912</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Administration/Views/QueuedEmail/_CreateOrUpdate.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#1913 Add line feeds to new message templates</MESSAGE>
+      <SHA>abb93abed6bac926fde6015af1c58a4be3644177</SHA>
+      <PATCHEDFILES>
+        <FILE>upgradescripts/3.80-the next version/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

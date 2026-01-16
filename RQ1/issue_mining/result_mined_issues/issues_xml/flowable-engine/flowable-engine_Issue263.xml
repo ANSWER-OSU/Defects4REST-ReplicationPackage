@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>263</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/263</ISSUEURL>
+  <TITLE>Postgres UI applications problem</TITLE>
+  <DESCRIPTION>Hello. When i started working with h2 database in ui applications like task, admin everything was fine. Unfortunately, when i changed default database to postgres i could not make applications to work. I can see that engine created tables though. I placed jdbc postgres driver also. I think i made all correct. My logs from Tomcat: 23-Feb-2017 11:04:17.784 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive C:\BSB\Program Files\apache-tomcat-8.5.5\webapps\flowable-idm.war 23-Feb-2017 11:04:17.784 WARNING [localhost-startStop-1] org.apache.catalina.startup.SetContextPropertiesRule.begin [SetContextPropertiesRule]{Context} Setting property 'debug' to '100' did not find a matching property. 23-Feb-2017 11:04:20.234 SEVERE [localhost-startStop-1] org.apache.catalina.core.StandardContext.startInternal One or more listeners failed to start. Full details will be found in the appropriate container log file 23-Feb-2017 11:04:20.234 SEVERE [localhost-startStop-1] org.apache.catalina.core.StandardContext.startInternal Context [/flowable-idm] startup failed due to previous errors Finally my flowable-ui-app.properties file: datasource.driver=org.postgresql.Driver datasource.url=jdbc:postgresql://localhost:5432/sp?currentSchema=flowable datasource.username=flowable datasource.password=flowable By the way. You also can see that engine creates tables in two different schemas in &quot;flowable&quot; and &quot;public&quot;. I hope you will fix bugs. ![flowable postgres](https://cloud.githubusercontent.com/assets/20530024/23257465/2d0016fa-f9ee-11e6-9814-3eb65ee608e5.png)</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix #259: delete model logic fixed</MESSAGE>
+    <SHA>8af6f543697573723d77091e39c5c6ceb52df9bd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Moved to new Liquibase version and reverted the schema change + cleaned up slf4j-log4j dependency scope</MESSAGE>
+      <SHA>d094a5dd2f5ec91888cca0a20a65a8cba998ac4a</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-common-rest/pom.xml</FILE>
+        <FILE>modules/flowable-content-engine/pom.xml</FILE>
+        <FILE>modules/flowable-content-engine/src/main/java/org/flowable/content/engine/impl/db/DbSqlSession.java</FILE>
+        <FILE>modules/flowable-dmn-engine/pom.xml</FILE>
+        <FILE>modules/flowable-dmn-engine/src/main/java/org/flowable/dmn/engine/DmnEngineConfiguration.java</FILE>
+        <FILE>modules/flowable-dmn-json-converter/pom.xml</FILE>
+        <FILE>modules/flowable-form-engine/pom.xml</FILE>
+        <FILE>modules/flowable-form-engine/src/main/java/org/flowable/form/engine/FormEngineConfiguration.java</FILE>
+        <FILE>modules/flowable-form-json-converter/pom.xml</FILE>
+        <FILE>modules/flowable-jms-spring-executor/pom.xml</FILE>
+        <FILE>modules/flowable-secure-javascript/pom.xml</FILE>
+        <FILE>modules/flowable-spring-boot/flowable-spring-boot-starters/flowable-spring-boot-starter-basic/pom.xml</FILE>
+        <FILE>modules/flowable-spring-boot/flowable-spring-boot-starters/flowable-spring-boot-starter-rest-api/pom.xml</FILE>
+        <FILE>modules/flowable-ui-common/pom.xml</FILE>
+        <FILE>modules/flowable-ui-common/src/main/java/org/flowable/app/service/idm/RemoteIdmService.java</FILE>
+        <FILE>modules/flowable-ui-common/src/main/java/org/flowable/app/service/idm/RemoteIdmServiceImpl.java</FILE>
+        <FILE>modules/flowable-ui-idm/flowable-ui-idm-conf/pom.xml</FILE>
+        <FILE>modules/flowable-ui-task/flowable-ui-task-app/pom.xml</FILE>
+        <FILE>modules/flowable-ui-task/flowable-ui-task-conf/pom.xml</FILE>
+        <FILE>modules/flowable5-compatibility-test/pom.xml</FILE>
+        <FILE>modules/flowable5-compatibility-testdata/pom.xml</FILE>
+        <FILE>modules/flowable5-test/pom.xml</FILE>
+        <FILE>pom.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

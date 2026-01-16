@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3044</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3044</ISSUEURL>
+  <TITLE>[performance] don't load appsettings.json again</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.00 appsettings.json file is already loaded and registered when call WebHost.CreateDefaultBuilder() Here's the source code: In Startup.cs, Startup method, we load the settings file: ```c# public Startup(IHostingEnvironment environment) { //create configuration Configuration = new ConfigurationBuilder() .SetBasePath(environment.ContentRootPath) .AddJsonFile(&quot;appsettings.json&quot;, optional: false, reloadOnChange: true) .AddEnvironmentVariables() .Build(); } ``` but the appsettings.json is already loaded when create default web host builder (Program.cs) ```c# public static void Main(string[] args) { var host = WebHost.CreateDefaultBuilder(args) .UseKestrel(options =&gt; options.AddServerHeader = false) .UseStartup&lt;Startup&gt;() .Build(); host.Run(); } ``` in CreateDefaultBuilder（https://github.com/aspnet/MetaPackages.git) we can find this: ```c# .ConfigureAppConfiguration((hostingContext, config) =&gt; { var env = hostingContext.HostingEnvironment; config.AddJsonFile(&quot;appsettings.json&quot;, optional: true, reloadOnChange: true) .AddJsonFile($&quot;appsettings.{env.EnvironmentName}.json&quot;, optional: true, reloadOnChange: true); if (env.IsDevelopment()) { var appAssembly = Assembly.Load(new AssemblyName(env.ApplicationName)); if (appAssembly != null) { config.AddUserSecrets(appAssembly, optional: true); } } config.AddEnvironmentVariables(); if (args != null) { config.AddCommandLine(args); } }) ``` In WebHostBuilder.cs code (https://github.com/aspnet/Hosting/blob/1f5379e38d201d329e28b50ecd080e999d274678/src/Microsoft.AspNetCore.Hosting/WebHostBuilder.cs): ```c# var builder = new ConfigurationBuilder() .SetBasePath(_hostingEnvironment.ContentRootPath) .AddConfiguration(_config); foreach (var configureAppConfiguration in _configureAppConfigurationBuilderDelegates) { configureAppConfiguration(_context, builder); } var configuration = builder.Build(); services.AddSingleton&lt;IConfiguration&gt;(configuration); ``` **So, the default config file appsettings.json is already registerd** Steps to reproduce the problem: in Startup.cs, we can use the config directly: ```c# public IConfiguration Configuration { get; } #region Ctor public Startup(IConfiguration config) { //create configuration Configuration = config; } ```</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#2828 Minor change related to default values</MESSAGE>
+    <SHA>330d2b2224ba037222136c40974a01e4d463940f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3044 Refactoring. Removed the code that is executed in WebHost.CreateDefaultBuilder method from Nop.Web.Startup class</MESSAGE>
+      <SHA>47daca289c7160cf21b138eb9b06361479299b36</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Infrastructure/IEngine.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Infrastructure/INopStartup.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Infrastructure/NopEngine.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Pickup.PickupInStore/Infrastructure/PluginDbStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Shipping.FixedByWeightByTotal/Infrastructure/PluginDbStartup.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.FixedOrByCountryStateZip/Infrastructure/PluginDbStartup.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/AuthenticationStartup.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/ErrorHandlerStartup.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ServiceCollectionExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/NopCommonStartup.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/NopDbStartup.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/NopMvcStartup.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Startup.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

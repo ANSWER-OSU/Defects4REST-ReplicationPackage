@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5273</ISSUENO>
+  <ISSUEURL>https://github.com/hummingbot/hummingbot/issues/5273</ISSUEURL>
+  <TITLE>KuCoin : Could not fetch new trading fees from Kucoin. Filling log file and too many API calls</TITLE>
+  <DESCRIPTION>**Describe the bug** Upgraded two robots to Ubuntu 22.04 LTS and Hummingbot 1.3.0 , when I start the robot, the robot creates trades on KuCoin but then starts spamming the log file and API every second with the message &quot;WARNING - Could not fetch new trading fees from Kucoin. Check network connection.&quot;. It says &quot;Check network connection&quot; but the network connection is working fine. Then a few lines up it says invalid KC-API-SIGN, yet the robot successfully made orders on KuCoin. When left running, this behavior leads to a full log file and a temporary ban on the KuCoin API. Other projects are having similar issues it looks like: https://github.com/mscheetz/KuCoinApi.Net/issues/13 https://github.com/mscheetz/KuCoinApi.Net/issues/10 **Steps To Reproduce** - Set up a Docker robot with - Ubuntu 22.04 LTS VPS - Snap Docker - Hummingbot 1.3.0 - API Connect to KuCoin - Liquidity Mining strategy - 5 coinpairs - start - observe that the robot creates 5 to 10 orders - observe the robot throwing the warning message - observe the log file filling up rapidly - let run for 24 hours - observe a rate limit temporary ban on the KuCoin API **Screenshots** ![image](https://user-images.githubusercontent.com/10052587/166113851-bbed3e27-a1f8-4228-9fce-003973c8f6d4.png) **Release version** 1.3.0 **Attachments** // Please attach your config file and log file to help us debug. It would be difficult for us to help you without those! `Traceback (most recent call last): File &quot;/home/hummingbot/hummingbot/connector/exchange/kucoin/kucoin_exchange.py&quot;, line 767, in _trading_fees_polling_loop await self._update_trading_fees() File &quot;/home/hummingbot/hummingbot/connector/exchange/kucoin/kucoin_exchange.py&quot;, line 817, in _update_trading_fees resp = await self._api_request( File &quot;/home/hummingbot/hummingbot/connector/exchange/kucoin/kucoin_exchange.py&quot;, line 946, in _api_request return await web_utils.api_request( File &quot;/home/hummingbot/hummingbot/connector/exchange/kucoin/kucoin_web_utils.py&quot;, line 107, in api_request raise IOError(f&quot;The request to Kucoin failed. Error: {error_response}. Request: {request}&quot;) OSError: The request to Kucoin failed. Error: {&quot;code&quot;:&quot;400005&quot;,&quot;msg&quot;:&quot;Invalid KC-API-SIGN&quot;}. Request: RESTRequest(method=GET, url='https://api.kucoin.com/api/v1/trade-fees', endpoint_url=None, params={'symbols': 'ALGO-USDT,AVAX-USDT,DAO-USDT,FEAR-USDT'}, data=None, headers={'Content-Type': 'application/x-www-form-urlencoded'}, is_auth_required=True, throttler_limit_id='/api/v1/trade-fees') 2022-04-30 14:23:29,906 - 1 - hummingbot.connector.exchange.kucoin.kucoin_exchange - WARNING - Could not fetch new trading fees from Kucoin. Check network connection. ` **Optional: your discord username:** Bhagavate bilala#6332</DESCRIPTION>
+  <REPONAME>hummingbot</REPONAME>
+  <TIMEDIFFERENCEDAYS>73</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #5268 from CoinAlpha/feature/sc-26096/update-default-config-details-for-avalanche Check for node API key when starting a strategy that uses gateway</MESSAGE>
+    <SHA>ad280a9aa2a81d39fd012b24eecb6b7721b34974</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>hummingbot#5273 include fix from https://github.com/MementoRC/hummingbot/blob/55e9d7256228d8a6cc15c3ba3a3208d59db359ed/hummingbot/connector/exchange/kucoin/kucoin_exchange.py#L807-L826</MESSAGE>
+      <SHA>635970808d4e7683b88298f6ac384d18835c2337</SHA>
+      <PATCHEDFILES>
+        <FILE>hummingbot/connector/exchange/kucoin/kucoin_exchange.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

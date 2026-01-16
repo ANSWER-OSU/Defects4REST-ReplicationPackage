@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>22132</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/22132</ISSUEURL>
+  <TITLE>`github.com/docker/docker/api/types.Info` is deprecated and is removed in docker v26</TITLE>
+  <DESCRIPTION>### Issue Description podman v5.0.0 uses a deprecated field in here https://github.com/containers/podman/blob/aaa6dc3cc6a670fd707e3188097207af5be4bd31/pkg/api/handlers/types.go#L77 it is removed in docker v26 ### Steps to reproduce the issue Steps to reproduce the issue 1. Upgrade to docker v26 2. Perform the build ### Describe the results you received The build fails with ``` github.com/containers/podman/v5/pkg/api/handlers /root/go/pkg/mod/github.com/containers/podman/v5@v5.0.0/pkg/api/handlers/types.go:77:9: undefined: docker.Info ``` ### Describe the results you expected Build succeeds. ### podman info output ```yaml podman v5.0.0 ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details Additional environment details ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #22182 from cfergeau/vfkit-debug applehv: Print vfkit logs in --log-level debug</MESSAGE>
+    <SHA>57583767051bf0652ef6df2ad5720ed0b9b2cfad</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix reference to deprecated types.Info upstream docker folks deprecated types.Info in favor of system.Info. fixes #22132 and #22117 Signed-off-by: Brent Baude &lt;bbaude@redhat.com&gt;</MESSAGE>
+      <SHA>ffb8b2dc36bd6ee77428945263dc855a25dd7519</SHA>
+      <PATCHEDFILES>
+        <FILE>go.mod</FILE>
+        <FILE>go.sum</FILE>
+        <FILE>pkg/api/handlers/compat/info.go</FILE>
+        <FILE>pkg/api/handlers/types.go</FILE>
+        <FILE>vendor/github.com/docker/docker/api/common.go</FILE>
+        <FILE>vendor/github.com/docker/docker/api/swagger.yaml</FILE>
+        <FILE>vendor/github.com/docker/docker/api/types/backend/backend.go</FILE>
+        <FILE>vendor/github.com/docker/docker/api/types/client.go</FILE>
+        <FILE>vendor/github.com/docker/docker/api/types/container/config.go</FILE>
+        <FILE>vendor/github.com/docker/docker/api/types/image/opts.go</FILE>
+        <FILE>vendor/github.com/docker/docker/api/types/mount/mount.go</FILE>
+        <FILE>vendor/github.com/docker/docker/api/types/registry/registry.go</FILE>
+        <FILE>vendor/github.com/docker/docker/api/types/types.go</FILE>
+        <FILE>vendor/github.com/docker/docker/api/types/types_deprecated.go</FILE>
+        <FILE>vendor/github.com/docker/docker/api/types/versions/README.md</FILE>
+        <FILE>vendor/github.com/docker/docker/api/types/volume/cluster_volume.go</FILE>
+        <FILE>vendor/github.com/docker/docker/client/distribution_inspect.go</FILE>
+        <FILE>vendor/github.com/docker/docker/client/image_create.go</FILE>
+        <FILE>vendor/github.com/docker/docker/client/image_import.go</FILE>
+        <FILE>vendor/github.com/docker/docker/client/image_list.go</FILE>
+        <FILE>vendor/github.com/docker/docker/client/image_pull.go</FILE>
+        <FILE>vendor/github.com/docker/docker/client/image_push.go</FILE>
+        <FILE>vendor/github.com/docker/docker/client/image_remove.go</FILE>
+        <FILE>vendor/github.com/docker/docker/client/interface.go</FILE>
+        <FILE>vendor/github.com/docker/docker/pkg/homedir/homedir.go</FILE>
+        <FILE>vendor/github.com/docker/docker/pkg/homedir/homedir_unix.go</FILE>
+        <FILE>vendor/github.com/docker/docker/pkg/homedir/homedir_windows.go</FILE>
+        <FILE>vendor/github.com/docker/docker/pkg/namesgenerator/names-generator.go</FILE>
+        <FILE>vendor/github.com/docker/docker/pkg/system/image_os_deprecated.go</FILE>
+        <FILE>vendor/github.com/moby/docker-image-spec/LICENSE</FILE>
+        <FILE>vendor/github.com/moby/docker-image-spec/specs-go/v1/image.go</FILE>
+        <FILE>vendor/modules.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

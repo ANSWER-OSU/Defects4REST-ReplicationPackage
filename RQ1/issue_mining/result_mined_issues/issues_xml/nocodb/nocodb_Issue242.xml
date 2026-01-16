@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>242</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/242</ISSUEURL>
+  <TITLE>Consider dropping the requirement for specific characters in passwords</TITLE>
+  <DESCRIPTION>The current sign up form requires &quot;Atleast (sic) 8 letters with one Uppercase, one number and one special letter&quot;. [Per NIST](https://pages.nist.gov/800-63-3/sp800-63b.html), requiring specific character types in a password is not recommended (emphasis mine): &gt; __Verifiers SHOULD NOT impose other composition rules (e.g., requiring mixtures of different character types or prohibiting consecutively repeated characters) for memorized secrets.__ Verifiers SHOULD NOT require memorized secrets to be changed arbitrarily (e.g., periodically). However, verifiers SHALL force a change if there is evidence of compromise of the authenticator. I think the present requirement actually lowers the entropy of resulting passwords by effectively making them shorter (it's harder to remember a short `p@ssw0rd`-style password than a longer `passphrases are better`-style one). ![Screenshot 2021-06-07 at 09-58-56 Sign Up Noco](https://user-images.githubusercontent.com/479389/120975976-8cf90680-c77a-11eb-9afc-e9a492a6e8ae.png)</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>493</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #241 from nocodb/fix/docs-misc-fix-3 Docs misc bug fixes</MESSAGE>
+    <SHA>13d803f3e3e89cb086c604ea1d9b7e81d248913e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #242 from nocodb/fix/optimisation-trail Disabled meta population for cloud and meta projects, to improve project creation speed</MESSAGE>
+      <SHA>27dfcff701f0aceb24ffc2284c33df9485df557e</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/components.d.ts</FILE>
+        <FILE>packages/nc-gui/pages/[projectType]/[projectId]/index/index.vue</FILE>
+        <FILE>packages/nc-gui/pages/ws/[workspaceId]/[[projectType]]/[projectId]/index/index.vue</FILE>
+        <FILE>packages/nocodb/src/lib/services/project.svc.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

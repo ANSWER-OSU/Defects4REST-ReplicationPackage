@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3882</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3882</ISSUEURL>
+  <TITLE>[volume] panic: runtime error: makeslice: len out of range</TITLE>
+  <DESCRIPTION>**Describe the bug** panic on start ``` panic: runtime error: makeslice: len out of range goroutine 1488 [running]: github.com/seaweedfs/seaweedfs/weed/storage/needle.(*Needle).ReadNeedleMeta(0xc0001519b0, {0x2d0dfb0, 0xc0006cecc0}, 0xfdd920, 0x0, 0x3) /go/src/github.com/seaweedfs/seaweedfs/weed/storage/needle/needle_read_page.go:52 +0x159 github.com/seaweedfs/seaweedfs/weed/storage.(*Volume).readNeedleMetaAt(0xc0027f7180, 0xc0001518f8?, 0xfdd920, 0xfb269a?) /go/src/github.com/seaweedfs/seaweedfs/weed/storage/volume_read.go:87 +0xce github.com/seaweedfs/seaweedfs/weed/storage.(*Store).ReadVolumeNeedleMetaAt(0x12?, 0x24ef200?, 0xc007ebebe0?, 0xc000151a78?, 0xb547e4?) /go/src/github.com/seaweedfs/seaweedfs/weed/storage/store.go:419 +0x47 github.com/seaweedfs/seaweedfs/weed/server.(*VolumeServer).ReadNeedleMeta(0xc0006d4b40, {0xc007ebebe0?, 0x535ac6?}, 0xc007ebebe0) /go/src/github.com/seaweedfs/seaweedfs/weed/server/volume_grpc_read_write.go:41 +0xde github.com/seaweedfs/seaweedfs/weed/pb/volume_server_pb._VolumeServer_ReadNeedleMeta_Handler({0x2665420?, 0xc0006d4b40}, {0x2d02ee0, 0xc007ede8a0}, 0xc00077cbd0, 0x0) /go/src/github.com/seaweedfs/seaweedfs/weed/pb/volume_server_pb/volume_server_grpc.pb.go:1262 +0x170 google.golang.org/grpc.(*Server).processUnaryRPC(0xc000402780, {0x2d12640, 0xc006ff21a0}, 0xc007bfd9e0, 0xc0000a8e10, 0x3faa020, 0x0) /go/pkg/mod/google.golang.org/grpc@v1.50.0/server.go:1318 +0xb2b google.golang.org/grpc.(*Server).handleStream(0xc000402780, {0x2d12640, 0xc006ff21a0}, 0xc007bfd9e0, 0x0) /go/pkg/mod/google.golang.org/grpc@v1.50.0/server.go:1659 +0xa2f google.golang.org/grpc.(*Server).serveStreams.func1.2() /go/pkg/mod/google.golang.org/grpc@v1.50.0/server.go:955 +0x98 created by google.golang.org/grpc.(*Server).serveStreams.func1 /go/pkg/mod/google.golang.org/grpc@v1.50.0/server.go:953 +0x28a ``` After run `volume.fschk -verify` https://github.com/seaweedfs/seaweedfs/pull/3879 is [line](https://github.com/seaweedfs/seaweedfs/blob/64e75a286ee619893c50ed900adddbd914a5ac43/weed/storage/needle/needle_read_page.go#L52) `metaSlice := make([]byte, int(metaSize))` **System Setup** ```3.32```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>build(deps): bump docker/setup-buildx-action from 2.0.0 to 2.2.0 (#3876) Bumps [docker/setup-buildx-action](https://github.com/docker/setup-buildx-action) from 2.0.0 to 2.2.0. - [Release notes](https://github.com/docker/setup-buildx-action/releases) - [Commits](https://github.com/docker/setup-buildx-action/compare/dc7b9719a96d48369863986a06765841d7ea23f6...c74574e6c82eeedc46366be1b0d287eff9085eb6) --- updated-dependencies: - dependency-name: docker/setup-buildx-action dependency-type: direct:production update-type: version-update:semver-minor ... Signed-off-by: dependabot[bot] &lt;support@github.com&gt; Signed-off-by: dependabot[bot] &lt;support@github.com&gt; Co-authored-by: dependabot[bot] &lt;49699333+dependabot[bot]@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>7e9c53bb5e99a153d2b0893f271413cb74c6debe</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ReadNeedleMeta panic occurred https://github.com/seaweedfs/seaweedfs/issues/3882</MESSAGE>
+      <SHA>e8ca0458b2eb7035225f31a89be2858c366c7ce8</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/storage/needle/needle_read_page.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>skip reading needle if size is invalid related to https://github.com/seaweedfs/seaweedfs/issues/3882</MESSAGE>
+      <SHA>e3ea544d40bf4ad86fce6e5911a3902c66b040b8</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/storage/needle/needle_read.go</FILE>
+        <FILE>weed/storage/needle/needle_read_page.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ReadNeedleMeta recovery panic occurred (#3883) ReadNeedleMeta panic occurred https://github.com/seaweedfs/seaweedfs/issues/3882</MESSAGE>
+      <SHA>452202f35b9e16bf00cdaf995a6e347eda367ce2</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/storage/needle/needle_read_page.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

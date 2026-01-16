@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120482</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120482</ISSUEURL>
+  <TITLE>[CI] FileSettingsServiceTests testInvalidJSON failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #16057 / part1](https://gradle-enterprise.elastic.co/s/eymp6k7tykuji) - [elasticsearch-pull-request #51498 / part-1-fips](https://gradle-enterprise.elastic.co/s/lwpv24sa62okm) - [elasticsearch-periodic-platform-support #5927 / sles-15_platform-support-unix](https://gradle-enterprise.elastic.co/s/oz4fcusmfdeya) - [elasticsearch-periodic-platform-support #5927 / rocky-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/mqd5tzg45h5sw) **Reproduction Line:** ``` ./gradlew &quot;:server:test&quot; --tests &quot;org.elasticsearch.reservedstate.service.FileSettingsServiceTests.testInvalidJSON&quot; -Dtests.seed=1305FC3681068953 -Dtests.locale=ar-IL -Dtests.timezone=Etc/GMT-1 -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** No **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.reservedstate.service.FileSettingsServiceTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testInvalidJSON),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.mockito.exceptions.misusing.UnfinishedStubbingException: Unfinished stubbing detected here: -&gt; at org.elasticsearch.reservedstate.service.FileSettingsServiceTests.testInvalidJSON(FileSettingsServiceTests.java:312) E.g. thenReturn() may be missing. Examples of correct stubbing: when(mock.isOk()).thenReturn(true); when(mock.isOk()).thenThrow(exception); doThrow(exception).when(mock).someVoidMethod(); Hints: 1. missing thenReturn() 2. you are trying to stub a final method, which is not supported 3. you are stubbing the behaviour of another mock inside before 'thenReturn' instruction is completed ``` **Issue Reasons:** - [main] 4 failures in test testInvalidJSON (23.5% fail rate in 17 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>81</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.entitlement.qa.EntitlementsAllowedIT testCheckActionWithPolicyPass {pathPrefix=allowed_nonmodular actionName=create_ldap_cert_store} #120423</MESSAGE>
+    <SHA>f16a308253bdd73ea21ca140a606f6a69b1e8fb5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.reservedstate.service.FileSettingsServiceTests testInvalidJSON #120482</MESSAGE>
+      <SHA>15a83a05d8445220d78512d244c2f3dadb8fcfef</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

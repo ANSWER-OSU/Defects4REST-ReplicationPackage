@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2424</ISSUENO>
+  <ISSUEURL>https://github.com/WP-API/WP-API/issues/2424</ISSUEURL>
+  <TITLE>Mixed Usage of path formatting when calling rest_url for add_link</TITLE>
+  <DESCRIPTION>We are utilizing the `rest_url` filter for WordPress.com and encountered an issue with our logic, specifically around link results for the users endpoint. It seems there is varying usage of the `path` param passed to `rest_url()` in the endpoint logic. In most cases, there is a leading slash used in the path parameter [#](https://github.com/WP-API/WP-API/blob/develop/lib/endpoints/class-wp-rest-users-controller.php#L547), but in other cases there is not [#](https://github.com/WP-API/WP-API/blob/03d3708d06f6ac9f9a6ff8e2be9af62123fdbc8b/lib/endpoints/class-wp-rest-taxonomies-controller.php#L152). So in our filter for `rest_url` we have to sniff out if a path has a leading slash or not - not the end of the world, but it might be nice to have a consistent standard in the core endpoints when calling `rest_url()` for links.</DESCRIPTION>
+  <REPONAME>WP-API</REPONAME>
+  <TIMEDIFFERENCEDAYS>132</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge remote-tracking branch 'refs/remotes/WP-API/develop' into develop</MESSAGE>
+    <SHA>73d3cc93c3f6650881720ed15563cd0806522024</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2424-mixed-usage-of-rest-url Should fix #2424, however, after writing a unit test it doesn't appear to matter whether the '/' is there or not as get_rest_url adds a leading slash regardless as far as I can tell.</MESSAGE>
+      <SHA>5f351d6c45600fcc8f3123df84fd62d30c90f3dd</SHA>
+      <PATCHEDFILES>
+        <FILE>lib/endpoints/class-wp-rest-attachments-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-comments-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-post-statuses-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-posts-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-revisions-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-terms-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-users-controller.php</FILE>
+        <FILE>tests/class-wp-test-rest-controller-testcase.php</FILE>
+        <FILE>tests/test-rest-categories-controller.php</FILE>
+        <FILE>tests/test-rest-tags-controller.php</FILE>
+        <FILE>tests/test-rest-users-controller.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #2428 from BE-Webdesign/#2424-mixed-usage-of-rest-url #2424 mixed usage of rest url</MESSAGE>
+      <SHA>9cb8702bcb6498b928e50f183da26e83ab166ed0</SHA>
+      <PATCHEDFILES>
+        <FILE>lib/endpoints/class-wp-rest-attachments-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-comments-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-post-statuses-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-posts-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-revisions-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-terms-controller.php</FILE>
+        <FILE>lib/endpoints/class-wp-rest-users-controller.php</FILE>
+        <FILE>tests/class-wp-test-rest-controller-testcase.php</FILE>
+        <FILE>tests/test-rest-categories-controller.php</FILE>
+        <FILE>tests/test-rest-tags-controller.php</FILE>
+        <FILE>tests/test-rest-users-controller.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

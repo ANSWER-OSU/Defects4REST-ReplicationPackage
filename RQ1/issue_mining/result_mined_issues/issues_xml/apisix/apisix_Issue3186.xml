@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3186</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/3186</ISSUEURL>
+  <TITLE>Cannot parse DNS IPv6 address</TITLE>
+  <DESCRIPTION># Improve Docs Continue with #3184 I got an error of &quot;local DNS is empty&quot; when I try to deploy a APISIX pod. I specified DNS resolver as IPv6 address. ## Please describe which part of docs should be improved or typo fixed Source code with the error: https://github.com/apache/apisix/blob/924a30db36268ee1d7fab255ddebfc23a7110314/apisix/cli/ops.lua ``` local dns_resolver = sys_conf[&quot;dns_resolver&quot;] if not dns_resolver or #dns_resolver == 0 then local dns_addrs, err = local_dns_resolver(&quot;/etc/resolv.conf&quot;) if not dns_addrs then util.die(&quot;failed to import local DNS: &quot;, err, &quot;\n&quot;) end if #dns_addrs == 0 then util.die(&quot;local DNS is empty\n&quot;) end sys_conf[&quot;dns_resolver&quot;] = dns_addrs end ``` DNS address is not read because local_dns_resolver function doesn't parse IPv6 address. We can see the regex. https://github.com/apache/apisix/blob/924a30db36268ee1d7fab255ddebfc23a7110314/apisix/cli/ops.lua ``` local function local_dns_resolver(file_path) local file, err = io_open(file_path, &quot;rb&quot;) if not file then return false, &quot;failed to open file: &quot; .. file_path .. &quot;, error info:&quot; .. err end local dns_addrs = {} for line in file:lines() do local addr, n = line:gsub(&quot;^nameserver%s+(%d+%.%d+%.%d+%.%d+)%s*$&quot;, &quot;%1&quot;) if n == 1 then table_insert(dns_addrs, addr) end end file:close() return dns_addrs end ``` I hope this improvement could be applied, thanks. ## Describe the solution you'd like Add a regex for IPv6 DNS resolver.</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>refactor: no need to provide two common files under http/ (#3183) Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+    <SHA>3b69b644a49b9b6edd6fdcfaf9bfe1463ddaf252</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat(cli): parse IPv6 resolver address Fix #3186. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>4083e5e6c0c003296c6cbb637011184ee97f11b8</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ops.lua</FILE>
+        <FILE>t/cli/cli.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat(cli): parse IPv6 resolver address (#3187) Fix #3186. Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>cc884f120790f618cd5ee361a699914e4fd5ae34</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/cli/ops.lua</FILE>
+        <FILE>t/cli/cli.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

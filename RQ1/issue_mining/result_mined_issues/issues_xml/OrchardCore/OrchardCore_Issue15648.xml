@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15648</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/15648</ISSUEURL>
+  <TITLE>docker build failed</TITLE>
+  <DESCRIPTION>### Describe the bug ### To Reproduce Steps to reproduce the behavior: 1. Go to 'the root folder of cms.web' 2. docker build --build-arg TARGETOS=linux -t linuxoc . 3. See error /app/OrchardCore/Directory.Build.props(3,3): error MSB4019: The imported project &quot;/Directory.Build.props&quot; was not found. Confirm that the expression in the Import declaration &quot;../../Directory.Build.props&quot; is correct, and that the file exists on disk. [/app/OrchardCore/OrchardCore.Application.Cms.Targets/OrchardCore.Application.Cms.Targets.csproj] 24.28 /app/OrchardCore/Directory.Build.props(3,3): error MSB4019: The imported project &quot;/Directory.Build.props&quot; was not found. Confirm that the expression in the Import declaration &quot;../../Directory.Build.props&quot; is correct, and that the file exists on disk. [/app/OrchardCore/OrchardCore.AuditTrail.Abstractions/OrchardCore.AuditTrail.Abstractions.csproj] 24.29 /app/OrchardCore.Modules/Directory.Build.props(3,3): error MSB4019: The imported project &quot;/Directory.Build.props&quot; was not found. Confirm that the expression in the Import declaration &quot;../../Directory.Build.props&quot; is correct, and that the file exists on disk. [/app/OrchardCore.Modules/OrchardCore.Autoroute/OrchardCore.Autoroute.csproj] 24.29 /app/OrchardCore.Modules/Directory.Build.props(3,3): error MSB4019: The imported project &quot;/Directory.Build.props&quot; was not found. Confirm that the expression in the Import declaration &quot;../../Directory.Build.props&quot; is correct, and that the file exists on disk. [/app/OrchardCore.Modules/OrchardCore.Alias/OrchardCore.Alias.csproj] 24.29 /app/OrchardCore/Directory.Build.props(3,3): error MSB4019: The imported project &quot;/Directory.Build.props&quot; was not found. Confirm that the expression in the Import declaration &quot;../../Directory.Build.props&quot; is correct, and that the file exists on disk. [/app/OrchardCore/OrchardCore.Admin.Abstractions/OrchardCore.Admin.Abstractions.csproj] ### Expected behavior A clear and concise description of what you expected to happen. 4 because file Directory.Build.props under first OrchardCore is outside src which could not be copied to /app by this COPY ./src /app</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>15</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix ConcurrencyException with Sitemaps when saving two content items at once (#15777)</MESSAGE>
+    <SHA>9b7468b9ddd869bb9a11bdbc1fecfd30cf2a1355</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix Dockerfile to allow successful build Fix #15648</MESSAGE>
+      <SHA>096f79808aae47d9b9b11a27b8dacea04ed35c16</SHA>
+      <PATCHEDFILES>
+        <FILE>.dockerignore</FILE>
+        <FILE>Dockerfile</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6615</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6615</ISSUEURL>
+  <TITLE>Filter products by store not working</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.6.2 Steps to reproduce the problem: 1. Admin Panel &gt;&gt; Catalog &gt;&gt; Products 2. In the search page select a store &amp; hit search the products don't filter by store When I debugged the code I had noticed the following conditions: if (!showHidden) { //apply store mapping constraints productsQuery = await _storeMappingService.ApplyStoreMapping(productsQuery, storeId); //apply ACL constraints var customer = await _workContext.GetCurrentCustomerAsync(); productsQuery = await _aclService.ApplyAcl(productsQuery, customer); } I think apply store mapping constraints must be outside the if condition.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'parshan2-develop-emaildirectreply' into develop # Conflicts: # src/Libraries/Nop.Services/Messages/WorkflowMessageService.cs</MESSAGE>
+    <SHA>e1548045ff7a60f592bc51ffef7835d62951daec</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6615 Fixed filtering products by store</MESSAGE>
+      <SHA>b0cd05bc68ece37e0ccb3f7a3e0fef376458356c</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Catalog/ProductService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

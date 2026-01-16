@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>473</ISSUENO>
+  <ISSUEURL>https://github.com/HTTP-APIs/hydrus/issues/473</ISSUEURL>
+  <TITLE>Docker compose container not building</TITLE>
+  <DESCRIPTION>### I'm submitting a - [x] bug report. - [ ] feature request. ### Current Behaviour: &lt;!-- Describe about the bug --&gt; The `docker-compose` command gives error, ``` Running command git clone -q https://github.com/HTTP-APIs/hydra-python-core /tmp/pip-install-2n02rlfc/hydra-python-core fatal: unable to access 'https://github.com/HTTP-APIs/hydra-python-core/': server certificate verification failed. CAfile: none CRLfile: none ERROR: Command errored out with exit status 128: git clone -q https://github.com/HTTP-APIs/hydra-python-core /tmp/pip-install-2n02rlfc/hydra-python-core Check the logs for full command output. ERROR: Service 'hydrus_server' failed to build: The command '/bin/sh -c pip install -U pip &amp;&amp; pip install --upgrade pip setuptools &amp;&amp; pip install -r requirements.txt &amp;&amp; rm -rf *' returned a non-zero code: 1 ```` and hydrus does not serve the api. Screenshot for reference: ![image](https://user-images.githubusercontent.com/43701530/82672694-50856600-9c5e-11ea-95c6-c2ff1e514fe7.png) **NOTE**: This happens only on develop branch and not master branch. ### Expected Behaviour: &lt;!-- Describe what will happen if bug is removed --&gt; The `docker-compose` command should have executed without any errors, and the hydrus server should serve the api. ### Steps to reproduce: &lt;!-- If you can then please provide the steps to reproduce the bug --&gt; * clone the repo * git checkout develop * docker-compose up --build ### Do you want to work on this issue? &lt;!-- yes/no --&gt; Yes</DESCRIPTION>
+  <REPONAME>hydrus</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Regenerate the examples/drones/doc.py (#472) The code was using the old hydrus api. Update it.</MESSAGE>
+    <SHA>39ad8582a43b01ae28bbf71a926e618fe48dcf46</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX: docker-compose was failing with SSL error (#474) Using the previous base image, tiangolo/uwsgi-nginx-flask, gave error with server certificate verification. Refer https://github.com/tiangolo/uwsgi-nginx-flask-docker/issues/181 for more details. Also, switched base image from python3.8 to python3.6 as psycopg2 as error on building on python3.8. Refer https://github.com/psycopg/psycopg2/issues/858 for more details. Closes #473</MESSAGE>
+      <SHA>fc43733b137032cbb0e5ddf67f36bd8a7fe9ebea</SHA>
+      <PATCHEDFILES>
+        <FILE>Dockerfile</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

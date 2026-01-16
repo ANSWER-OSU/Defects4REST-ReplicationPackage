@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>178</ISSUENO>
+  <ISSUEURL>https://github.com/strapdata/elassandra/issues/178</ISSUEURL>
+  <TITLE>Partitioned index - Date formatting error</TITLE>
+  <DESCRIPTION>Hello, I'm trying to use the &quot;partitioned index&quot; (http://elassandra.readthedocs.io/en/v5.5.0.9/mapping.html#partitioned-index) but it seems it doesn't work. Elassandra 5.5.0.9 (Elasticsearch 5.5.0, Cassandra 3.11.1.2, JVM 1.8.0_152) To use the &quot;partitioned index&quot;, I create an elasticsearch template : ``` curl -XPOST 'http://localhost:9200/_template/partitioned-index-test-template' -d '{ &quot;template&quot;: &quot;partitioned-index-test-*&quot;, &quot;settings&quot;: { &quot;keyspace&quot;: &quot;partitioned_index_keyspace&quot;, &quot;index.partition_function&quot;: &quot;toDayIndex partitioned-index-test-{0,date,yyyy.MM.dd} timefield&quot;, &quot;index.partition_function_class&quot;: &quot;org.elassandra.index.MessageFormatPartitionFunction&quot; }, &quot;mappings&quot;: { &quot;test&quot;: { &quot;properties&quot;: { &quot;timefield&quot;: { &quot;type&quot;: &quot;date&quot; }, &quot;textfield&quot;: { &quot;type&quot;: &quot;text&quot; }}}}}' ``` When I POST the first document in an index named &quot;partitioned-index-test-2018.03.21&quot; ``` curl -XPOST 'http://localhost:9200/partitioned-index-test-2018.03.21/test' -d '{ &quot;timefield&quot;: &quot;2018-03-21T12:17:12.00Z&quot;, &quot;textfield&quot;: &quot;My text field&quot; }' ``` the new elasticsearch index is well created, and there is a new row in my cassandra table. **But there is no document in the elasticsearch index**, and I can read this error in logs ``` java.lang.RuntimeException: Cannot format given Object as a Date for ks: partitioned_index_keyspace, table: test at org.apache.cassandra.db.ColumnFamilyStore.apply(ColumnFamilyStore.java:1357) at org.apache.cassandra.db.Keyspace.applyInternal(Keyspace.java:623) at org.apache.cassandra.db.Keyspace.apply(Keyspace.java:467) at org.apache.cassandra.db.Mutation.apply(Mutation.java:227) at org.apache.cassandra.db.Mutation.apply(Mutation.java:232) at org.apache.cassandra.db.Mutation.apply(Mutation.java:241) at org.apache.cassandra.service.StorageProxy$8.runMayThrow(StorageProxy.java:1408) at org.apache.cassandra.service.StorageProxy$LocalMutationRunnable.run(StorageProxy.java:2647) at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) at org.apache.cassandra.concurrent.AbstractLocalAwareExecutorService$FutureTask.run(AbstractLocalAwareExecutorService.java:162) at org.apache.cassandra.concurrent.SEPWorker.run(SEPWorker.java:109) at java.lang.Thread.run(Thread.java:748) Caused by: java.lang.IllegalArgumentException: Cannot format given Object as a Date at java.text.DateFormat.format(DateFormat.java:310) at java.text.Format.format(Format.java:157) at java.text.MessageFormat.subformat(MessageFormat.java:1322) at java.text.MessageFormat.format(MessageFormat.java:865) at java.text.Format.format(Format.java:157) at org.elassandra.index.MessageFormatPartitionFunction.format(MessageFormatPartitionFunction.java:34) at org.elassandra.index.ElasticSecondaryIndex$ImmutableMappingInfo$ImmutablePartitionFunction.indexName(ElasticSecondaryIndex.java:1010) at org.elassandra.index.ElasticSecondaryIndex$ImmutableMappingInfo.targetIndices(ElasticSecondaryIndex.java:1241) at org.elassandra.index.ElasticSecondaryIndex$ImmutableMappingInfo$RowcumentIndexer$Rowcument.index(ElasticSecondaryIndex.java:1871) at org.elassandra.index.ElasticSecondaryIndex$ImmutableMappingInfo$SkinnyRowcumentIndexer$SkinnyRowcument.index(ElasticSecondaryIndex.java:1447) at org.elassandra.index.ElasticSecondaryIndex$ImmutableMappingInfo$SkinnyRowcumentIndexer.flush(ElasticSecondaryIndex.java:1483) at org.elassandra.index.ElasticSecondaryIndex$ImmutableMappingInfo$RowcumentIndexer.finish(ElasticSecondaryIndex.java:1598) at org.apache.cassandra.index.SecondaryIndexManager$WriteTimeTransaction.commit(SecondaryIndexManager.java:983) at org.apache.cassandra.db.partitions.AtomicBTreePartition.addAllWithSizeDelta(AtomicBTreePartition.java:181) at org.apache.cassandra.db.Memtable.put(Memtable.java:284) at org.apache.cassandra.db.ColumnFamilyStore.apply(ColumnFamilyStore.java:1339) ... 11 common frames omitted ``` Before looking for a potentially bug, I develop my own very simple partition function. Modify my template and re create all from scratch (and restart elassandra of course). **Now, when I push new documents, there is no errors, but still no documents in the Elasticsearch index.** So I add a log message (with slf4j) at the entrance of my partition function. ``` @Override public String format(String pattern, Object... args) { logger.info(&quot;CUSTOM MESSAGE TO TRACE EXECUTION&quot;); return pattern + &quot;2018.03.21&quot;; } ``` With this new version, the first time I push a document, **I can see my log message**. But the message **appears randomly** on each new documents. Anyway, **still no document in my Elasticsearch index**, but every document exists in the cassandra table. Did am I the only guy using this feature ? Could you please help me ? Is it a bug, or did I use it in the wrong way ?</DESCRIPTION>
+  <REPONAME>elassandra</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>update doc for index.replication</MESSAGE>
+    <SHA>41d866274347973dfb877967c416952a53b8c8ca</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix #178 add package name to function class if needed</MESSAGE>
+      <SHA>6aa0bde395a09049458733574ac052d6ed8eb0cb</SHA>
+      <PATCHEDFILES>
+        <FILE>core/src/main/java/org/elasticsearch/cluster/metadata/IndexMetaData.java</FILE>
+        <FILE>core/src/test/java/org/elassandra/PartitionedIndexTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix #178 add package name to function class if needed</MESSAGE>
+      <SHA>a8542fea2393f2ccd18e553c8a491c254b4b93d9</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/main/java/org/elasticsearch/cluster/metadata/IndexMetaData.java</FILE>
+        <FILE>server/src/test/java/org/elassandra/PartitionedIndexTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

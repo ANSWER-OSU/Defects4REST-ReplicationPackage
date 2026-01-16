@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>117591</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/117591</ISSUEURL>
+  <TITLE>[CI] FileSettingsServiceTests testStopWorksInMiddleOfProcessing failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #5044 / sles-15_platform-support-unix](https://gradle-enterprise.elastic.co/s/a6nctirglnxxs) - [elasticsearch-pull-request #43083 / part-1](https://gradle-enterprise.elastic.co/s/jqoke2n4vll7q) - [elasticsearch-pull-request #42612 / part-1](https://gradle-enterprise.elastic.co/s/p65rwt56y2ig2) - [elasticsearch-pull-request #42568 / part-1](https://gradle-enterprise.elastic.co/s/iqyjqbiyngji2) **Reproduction Line:** ``` ./gradlew &quot;:server:test&quot; --tests &quot;org.elasticsearch.reservedstate.service.FileSettingsServiceTests.testStopWorksInMiddleOfProcessing&quot; -Dtests.seed=8B345834FF0F6BFA -Dtests.locale=fr -Dtests.timezone=Pacific/Gambier -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** No observed failures in 1081 runs. **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.reservedstate.service.FileSettingsServiceTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testStopWorksInMiddleOfProcessing),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.mockito.exceptions.verification.TooManyActualInvocations: fileSettingsHealthIndicatorService.changeOccurred(); Wanted 1 time: -&gt; at org.elasticsearch.reservedstate.service.FileSettingsServiceTests.testStopWorksInMiddleOfProcessing(FileSettingsServiceTests.java:401) But was 2 times: -&gt; at org.elasticsearch.reservedstate.service.FileSettingsService.processFileOnServiceStart(FileSettingsService.java:160) -&gt; at org.elasticsearch.reservedstate.service.FileSettingsService.processFileChanges(FileSettingsService.java:149) ``` **Issue Reasons:** - [main] 4 failures in test testStopWorksInMiddleOfProcessing (0.4% fail rate in 959 executions) - [main] 3 failures in step part-1 (0.7% fail rate in 401 executions) - [main] 3 failures in pipeline elasticsearch-pull-request (0.8% fail rate in 398 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add `@UpdateForV10` annotation to `allow_insecure_settings` (#117571) This hasn't really been necessary since reloadable secure settings landed in 7.0. It's been deprecated for a long time and the last known user has agreed to stop using it in v9. This commit adds a reminder to drop this functionality entirely in v10.</MESSAGE>
+    <SHA>c34d129be76d441be6f6264d361879de05f7b8d1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.reservedstate.service.FileSettingsServiceTests testStopWorksInMiddleOfProcessing #117591</MESSAGE>
+      <SHA>2e9ef4059fd049f45e67325a1ebfb79ef2d78561</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.reservedstate.service.FileSettingsServiceTests testStopWorksInMiddleOfProcessing #117591</MESSAGE>
+      <SHA>fb4b322ee829e4c361fb4594c2bcf75b99f80042</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.reservedstate.service.FileSettingsServiceTests testStopWorksInMiddleOfProcessing #117591</MESSAGE>
+      <SHA>71f1a5b5e1bdafcf817fab0813999fd07f2750aa</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

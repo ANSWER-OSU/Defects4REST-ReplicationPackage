@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3376</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/3376</ISSUEURL>
+  <TITLE>Advance search is not working</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.10 Steps to reproduce the problem: 1. Go to nopCommerce demo store 2. Type &quot;Apple&quot; in search box and click on search button (page URL - http://demo.nopcommerce.com/search?q=apple ) 3. Now check Advanced search checkbox and click on search button (page URL - http://demo.nopcommerce.com/search?q=apple&amp;adv=true&amp;cid=0&amp;mid=0&amp;pf=&amp;pt=&amp;adv=false&amp;isc=false&amp;sid=false ) 4. Now select any option from Catalog selector (Sort option/Page Size/Display Mode) - **it will throw an error** (Selected sort by Name - A to Z - http://demo.nopcommerce.com/search?q=apple&amp;adv=true,false&amp;cid=0&amp;mid=0&amp;pf=&amp;pt=&amp;isc=false&amp;sid=false&amp;orderby=5) Error Message: ``` An unhandled exception occurred while processing the request. FormatException: String was not recognized as a valid Boolean. bool.Parse(ReadOnlySpan&lt;char&gt; value) FormatException: true,false is not a valid value for Boolean. Nop.Web.Framework.Infrastructure.Extensions.ApplicationBuilderExtensions+&lt;&gt;c.&lt;UseNopExceptionHandler&gt;b__1_1(HttpContext context) in ApplicationBuilderExtensions.cs, line 85 ``` Here in last url parameter adv = adv=true,false if you selected option **Search In product descriptions ** as true then parameter : sid=true,false I looked in source and found input tag (i.e. &lt;input asp-for=&quot;sid&quot; /&gt;)generate two times input. Here is source image: ![advance-search](https://user-images.githubusercontent.com/13154058/46921627-4f6c6b80-d01b-11e8-88aa-7a4a63d140c0.png)</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#3379 Fixed setting list on 'all settings' page</MESSAGE>
+    <SHA>cce691715fd72db2b3ef51127099cfc1517fcb9d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#3376 Remove dublicates from search query urls</MESSAGE>
+      <SHA>af5bb1b4d6c4cbdb5de018f35dbb1687d6d87687</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/WebHelper.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

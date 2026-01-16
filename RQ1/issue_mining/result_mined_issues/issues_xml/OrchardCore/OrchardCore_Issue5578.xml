@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5578</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/5578</ISSUEURL>
+  <TITLE>Container creation fails in Azure Media Storage if name contains uppercase chars</TITLE>
+  <DESCRIPTION>When creating folders or uploading images with Azure Media Storage an error is thrown: &quot;the specified resource name contains invalid characters&quot;. My settings are as follows: ``` &quot;OrchardCore.Media.Azure&quot;: { &quot;ContainerName&quot;: &quot;{{ ShellSettings.Name }}&quot;, &quot;BasePath&quot;: &quot;media&quot;, &quot;CreateContainer&quot;: true }, ``` I have found out the issue is with the storage container creation. When creating a tenant I will name the tenant like MyCompany but containers names have to be lower case in Azure. Azure Data Protection also fails with the same issue if your template for container has uppercase.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Create a point to extend media process (#5098) Co-authored-by: Dean Marcussen &lt;dean.marcussen@gmail.com&gt;</MESSAGE>
+    <SHA>6c04d987f46b7e082166dfde1dd9420b74428fe0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Azure container name must be lower case (#5580) Fixes #5578</MESSAGE>
+      <SHA>e677cf540ec81ee8e1f1120d07d5045852d8d22a</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.DataProtection.Azure/Startup.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Media.Azure/MediaBlobStorageOptionsConfiguration.cs</FILE>
+        <FILE>src/docs/reference/modules/DataProtection.Azure/README.md</FILE>
+        <FILE>src/docs/reference/modules/Media.Azure/README.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

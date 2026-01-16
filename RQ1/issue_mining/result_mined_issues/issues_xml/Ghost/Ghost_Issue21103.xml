@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>21103</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/21103</ISSUEURL>
+  <TITLE>Comments don't play well with theme toggles</TITLE>
+  <DESCRIPTION>### Issue Summary (This report references comments-ui version 0.17) The mode=&quot;auto&quot; styling works great -- it's awesome that themes that are running in dark mode automagically get dark mode for comments too. HOWEVER (yeah, there's always a however), themes with a toggle to let the user choose between dark/light cause the auto mode to break, as the comments iframe does not adjust colors when the theme does. Theme creators could work around this by providing a background behind the comments that doesn't change when the slider is toggled after the page load, but that's going to be a pretty ugly hack and means that the comments are going to look weirdly wrong after the toggle button is flipped on that page. Is there a way to make comments-ui detect that the color of the container has changed? ### Steps to Reproduce Quick way to fake switching modes: Add (or remove) &quot;class='dark-mode'&quot; to the html tag in casper. ### Ghost Version 5.92 ### Node.js Version 18 ### How did you install Ghost? WSL2/using Ghost-cli ### Database type MySQL 8 ### Browser &amp; OS version chrome/ Windows 10 ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>215</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Improved image upload limitations in ActivityPub (#23063) ref PROD-1554 - allow larger file size (5MB) - clearer uploading state for images</MESSAGE>
+    <SHA>0d6616995eb60752b81ac78ea1e7d4ecee8a7326</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Improved handling of comments for themes with darkmode toggles (#22407) Closes https://github.com/TryGhost/Ghost/issues/21103 &quot;Auto&quot; for comments works great for themes that detect browser preferences or theme settings. However, themes with toggle switches can end up looking rather strange when the toggle is flipped. This PR adds a mutation observer that watches the parent of #ghost-comments-root for class or style changes. If either is detected, it re-runs the darkmode function and updates new state, triggering a re-render in the correct color scheme. Theme creators with toggle switches can trigger the behavior either by adding a class to the parent of #ghost-comments-root or by directly adding a color to that element's style. Note that mutation observers do not detect when CSS variables or inherited colors change, so other change types (inherited colors from an ancestor or changes to a variable) will not trigger an update. I considered detecting changes at body or html, but some themes make a lot of unrelated changes to those elements, so it seemed safest to stay local, at the risk of not &quot;just working&quot;. I considered some heavier packages that attempt to observe all style changes, but wasn't convinced that these workarounds were both robust and lightweight. --------- Co-authored-by: Steve Larson &lt;9larsons@gmail.com&gt;</MESSAGE>
+      <SHA>426a9a7631f16209b3d268c4a22de0147e59cd1c</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/comments-ui/src/components/ContentBox.test.jsx</FILE>
+        <FILE>apps/comments-ui/src/components/ContentBox.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

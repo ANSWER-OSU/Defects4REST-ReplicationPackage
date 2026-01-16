@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122327</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122327</ISSUEURL>
+  <TITLE>[CI] EsqlActionBreakerIT testStatsMissingFieldWithStats failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #17889 / part3](https://gradle-enterprise.elastic.co/s/dp3xq3jki5wzc) - [elasticsearch-periodic #6349 / openjdk23_entitlements_false_checkpart3_java-matrix](https://gradle-enterprise.elastic.co/s/sv57lrdt3uhzi) - [elasticsearch-periodic-platform-support #6331 / opensuse-leap-15_platform-support-unix](https://gradle-enterprise.elastic.co/s/drdilm3fh2hds) - [elasticsearch-periodic-platform-support #6268 / almalinux-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/wz6xhf4pbe4ay) - [elasticsearch-periodic-platform-support #6261 / debian-12_platform-support-unix](https://gradle-enterprise.elastic.co/s/z462jm5sxhjg6) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.esql.action.EsqlActionBreakerIT.testStatsMissingFieldWithStats&quot; -Dtests.seed=4C502960BD7C21C9 -Dtests.locale=ann -Dtests.timezone=Etc/GMT+5 -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.action.EsqlActionBreakerIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testStatsMissingFieldWithStats),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: an instance of org.elasticsearch.common.breaker.CircuitBreakingException but: &lt;[foo-index/WISIh_MQSWOZUT_kFjbOZA][[foo-index][0]] org.elasticsearch.action.NoShardAvailableActionException: no shard copies found&gt; is a org.elasticsearch.action.NoShardAvailableActionException ``` **Issue Reasons:** - [main] 5 failures in test testStatsMissingFieldWithStats (1.0% fail rate in 510 executions) - [main] 3 failures in pipeline elasticsearch-periodic-platform-support (27.3% fail rate in 11 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Simplify InternalOrder.isOrder a little (#122372) No need for recursion here. We don't allow nested compound order instances so this thing works exactly as the JavaDoc states and we only need to check one level down.</MESSAGE>
+    <SHA>ac03aa4c6388e6d8ce3eab46894471883cd7fd07</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.action.EsqlActionBreakerIT testStatsMissingFieldWithStats #122327</MESSAGE>
+      <SHA>fd97007803e64e14051ebefe61820b0edd0417c6</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

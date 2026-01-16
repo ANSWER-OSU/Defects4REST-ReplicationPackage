@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6640</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/6640</ISSUEURL>
+  <TITLE>MongoDB Query Runner displays duplicated columns</TITLE>
+  <DESCRIPTION>### Issue Summary MongoDB Query Runner displays duplicated columns on querying without `fields`. ### Steps to Reproduce 1. Insert multiple records ``` test&gt; db.hoge.find() [ { _id: ObjectId('6569ecd1214c2278faf58ca3'), name: 'test' }, { _id: ObjectId('6569ee53d53db7930aaa0cc0'), name: 'test2', age: 10 } ] ``` 2. Send a query without `fields` ``` {&quot;collection&quot;: &quot;hoge&quot;} ``` 3. The columns are &quot;_id&quot;, &quot;name&quot;, &quot;_id&quot;, &quot;name&quot;, &quot;age&quot;. The expected columns are &quot;_id&quot;, &quot;name&quot;, &quot;age&quot;. ![image](https://github.com/getredash/redash/assets/36331/60b9a3b9-22d5-453c-a4d3-7102cb62b9c3) ### Technical details: * Redash Version: master branch * Browser/OS: Chrome / Docker * How did you install Redash:</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>243</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>get data size in memory for better logs (#7090)</MESSAGE>
+    <SHA>86b75db82ef12f7c2999f75245189853a6a4467e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix columns duplication on MongoDB Query Runner #6640 (#6641) Co-authored-by: Konstantin Smirnov &lt;46676677+konnectr@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>ed8c05f634e60d50b0ce266996afad51074ea782</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/query_runner/mongodb.py</FILE>
+        <FILE>tests/query_runner/test_mongodb.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix columns duplication on MongoDB Query Runner #6640 (#6641) Co-authored-by: Konstantin Smirnov &lt;46676677+konnectr@users.noreply.github.com&gt;</MESSAGE>
+      <SHA>2714ec92c455408c16ffd0d7f0c46cbc7fbac37b</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/query_runner/mongodb.py</FILE>
+        <FILE>tests/query_runner/test_mongodb.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

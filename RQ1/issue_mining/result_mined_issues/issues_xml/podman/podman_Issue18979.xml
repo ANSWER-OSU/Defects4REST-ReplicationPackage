@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18979</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18979</ISSUEURL>
+  <TITLE>quadlet generator is not able to correctly parse lines with trainling whitespaces</TITLE>
+  <DESCRIPTION>### Issue Description I copypasted .container file from `podmansh` man page but the way I did it, it added some trailing whitespaces and lines containing only whitespaces: ``` [Unit] Description=The podmansh container After=local-fs.target &lt;space&gt;&lt;space&gt;&lt;space&gt; [Container] Image=registry.fedoraproject.org/fedora ContainerName=podmansh RemapUsers=keep-id&lt;space&gt;&lt;space&gt;&lt;space&gt; RunInit=yes &lt;space&gt;&lt;space&gt;&lt;space&gt; Volume=%h/data:%h:Z Exec=sleep infinity &lt;space&gt;&lt;space&gt;&lt;space&gt; [Service] ExecStartPre=/usr/bin/mkdir -p %h/data [Install] RequiredBy=default.target ``` With current version of quadlet I didn't get any service: ``` $ /usr/lib/systemd/system-generators/podman-system-generator -v -user ./ quadlet-generator[6531]: Starting quadlet-generator, output to: ./ quadlet-generator[6531]: Loading source unit file /etc/containers/systemd/users/1000/podmansh.container quadlet-generator[6531]: No files parsed from [/home/c/.config/containers/systemd /etc/containers/systemd/users/1000 /etc/containers/systemd/users] ``` but when I reverted commit bfe61af6d76d5137a251f86c370b9f02fed6d2ad I started to get error messages like: ``` quadlet-generator[9195]: Loading source unit file /etc/containers/systemd/users/1000/podmansh.container quadlet-generator[9195]: Error loading '/etc/containers/systemd/users/1000/podmansh.container', ignoring: file contains line 4: “ ” which is not a key-value pair, group, or comment ``` ``` quadlet-generator[9206]: Loading source unit file /etc/containers/systemd/users/1000/podmansh.container quadlet-generator[9206]: Error converting 'podmansh.container', ignoring: unsupported RemapUsers option 'keep-id ``` ### Steps to reproduce the issue Steps to reproduce the issue 1. see above 2. 3. ### Describe the results you received Describe the results you received ### Describe the results you expected I'd expect that whitespaces are ignored or the problems in parsing is reported ### podman info output ```yaml If you are unable to run podman info for any reason, please provide the podman version, operating system and its version and the architecture you are running. ``` ### Podman in a container No ### Privileged Or Rootless Rootless ### Upstream Latest Release Yes ### Additional environment details Additional environment details ### Additional information Additional information like issue happens only occasionally or issue happens with a particular architecture or on a particular setting</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18978 from rhatdan/man1 [CI:DOCS] Fix example on PublishPort</MESSAGE>
+    <SHA>384638861b9245b57fca0d4430e5732f529af8a3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Trim whitespace from unit files while parsing Fixes: https://github.com/containers/podman/issues/18979 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>bc5269f187db9c05d96a3073d127f477b69cd9b7</SHA>
+      <PATCHEDFILES>
+        <FILE>.pre-commit-config.yaml</FILE>
+        <FILE>Makefile</FILE>
+        <FILE>pkg/systemd/parser/unitfile.go</FILE>
+        <FILE>test/e2e/quadlet/remap-keep-id2.container</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Trim whitespace from unit files while parsing Fixes: https://github.com/containers/podman/issues/18979 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>62fc35c0702bf1411f0760f25b2214607aaff2d9</SHA>
+      <PATCHEDFILES>
+        <FILE>.pre-commit-config.yaml</FILE>
+        <FILE>Makefile</FILE>
+        <FILE>pkg/systemd/parser/unitfile.go</FILE>
+        <FILE>test/e2e/quadlet/remap-keep-id2.container</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2564</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2564</ISSUEURL>
+  <TITLE>Error 1118: Row size too large</TITLE>
+  <DESCRIPTION>```drone: container_name: dsci-drone image: 'drone/drone:1.0.0-rc.3' restart: always hostname: drone.dev ports: - '80:80' - '443:443' volumes: - './data/drone:/data' - '/var/run/docker.sock:/var/run/docker.sock' restart: always environment: - 'DRONE_GITEA_SERVER=http://100.100.100.3:3000' - 'DRONE_GITEA_SKIP_VERIFY=false' - 'DRONE_GIT_ALWAYS_AUTH=false' - 'DRONE_RUNNER_CAPACITY=2' - 'DRONE_SERVER_HOST=100.100.100.4' - 'DRONE_SERVER_PROTO=http' - 'DRONE_TLS_AUTOCERT=false' - 'DRONE_ADMIN=milan' - 'DRONE_OPEN=true' - 'MYSQL_ALLOW_EMPTY_PASSWORD=yes' - 'MYSQL_DATABASE=drone' - 'DRONE_DATABASE_DRIVER=mysql' - 'DRONE_DATABASE_DATASOURCE=drone:drone@tcp(100.100.100.2:3306)/drone?parseTime=true' networks: gitea: ipv4_address: 100.100.100.4 ``` Everything works except when I try to change database provider from sqlite to mysql. It throws an error that some column type needs to be changed from varchar/blob to text. Also, how do I add volume to be trusted. All docs I have been over through have different answers which does not work in this version of drone drone/drone:1.0.0-rc.3 (docker)</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [CODE-2274]: Add repo description and UI url in the webhook emitted info (#2555) * feat: [CODE-2274]: Add repo description and UI url in the webhook emitted info</MESSAGE>
+    <SHA>4ebc0db9b39c8423cce43c2c5091b57e5761675a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: [CDE-255]: Fixed Gitness Issues (#2564) * feat: [CDE-255]: fixed ui lint issue * feat: [CDE-255]: Fixed Gitness Issues</MESSAGE>
+      <SHA>dab431568fa1181d0ffbe223019d87543fcda224</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/cde-gitness/components/GitspaceListing/ListGitspaces.tsx</FILE>
+        <FILE>web/src/cde-gitness/pages/GitspaceDetails/GitspaceDetails.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

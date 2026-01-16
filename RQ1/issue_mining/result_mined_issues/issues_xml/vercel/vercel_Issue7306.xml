@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7306</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/7306</ISSUEURL>
+  <TITLE>vc dev issues with node 17; unresponsive site and/or 502 on api routes (ipv4 / ipv6 issue)</TITLE>
+  <DESCRIPTION>**TL;DR;** The issue is caused by changes in DNS resolution order in node 17. The quickest short-term *workaround* is to remove `::1` from your `hosts` file (or otherwise change your system to resolve `localhost` to 127.0.0.1 before ::1), but watch this issue for a better solution. **Full Explanation** This issue affects `create-react-app` and presumably any other framework which defaults to `ipv4` and where `vc dev` waits for a port to become reachable. Node 17 has a potentially breaking change where [`--dns-result-order` now defaults to `verbatim`](https://github.com/nodejs/node/commit/1b2749ecbe) (instead of `ip4first`). Depending on system setup, this means `localhost` will now resolve to `::1` (ipv6) instead of `127.0.0.1` (ipv4). Since create-react-app [currently defaults to ipv4](https://github.com/facebook/create-react-app/issues/11302), what happens in this case is: 1. `create-react-app` still opens your browser to `localhost` (127.0.0.1) on some random port 2. Browser requests to e.g. `localhost:3000` hang (with little hint why on the console) 3. After 5m (i.e. 300s), `vc dev` fails with, e.g. ``` Error! Detecting port 33409 timed out after 300000ms ``` This is because `vc dev`, using `is-port-reachable`, is testing on `localhost` which in this case resolves to `::1`, while `create-react-app` is only listening on `127.0.0.1`, so it will never be reachable (for `vc dev`). The easiest workaround is to modify your system to resolve the `ipv4` address first, or, failing that, to remove `::1` from your `hosts` file. Obviously this is not a good long-term solution. You can force `create-react-app` to bind to an ipv6 with the `HOST` environment variable: ``` $ HOST=::1 vc dev ``` This allows the dev server to fully load and proxy requests to `create-react-app`, but API routes fail since the serverless funcs don't listen for them on `::1`, i.e. ``` Error! Failed to complete request to /api/serverless: Error: connect ECONNREFUSED ::1:35855 ``` That's perhaps a different issue though :) If relevant, I'm currently on Vercel CLI 23.1.3-canary.72. A little surprised I'm the first one to report this, but maybe my system is unique :)</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>151</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[cli] Add alias for `vc develop` =&gt; `vc dev` (#7955) This will make it easier for users who are used to `gatsby develop` or other CLIs that abbreviate to [`develop`](https://twitter.com/DiverseCauses/status/1536358138676486146). Fixes this: ![image](https://user-images.githubusercontent.com/229881/173387083-7afd01db-00ab-4670-a07d-fa6c8cecea5d.png)</MESSAGE>
+    <SHA>0d302a6f48539683ee445d107068a2fd9fdd3ba4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[cli] Fix `vc dev` when user has ipv6 configured (#7956) Running tests from #7455 - Fixes #7306 - Closes #7455</MESSAGE>
+      <SHA>0e8278f49029b10f7a583ac4966c80ff0523848a</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/cli/package.json</FILE>
+        <FILE>packages/cli/src/util/dev/server.ts</FILE>
+        <FILE>packages/cli/types/is-port-reachable/index.d.ts</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

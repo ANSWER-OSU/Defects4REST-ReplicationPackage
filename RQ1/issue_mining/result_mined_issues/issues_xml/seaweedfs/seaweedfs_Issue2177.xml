@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2177</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/2177</ISSUEURL>
+  <TITLE>Volume on ARMv7 throws</TITLE>
+  <DESCRIPTION>**Describe the bug** Volume on ARM32 throws an &quot;unaligned 64-bit atomic operation&quot; error on upload of a file **System Setup** - /usr/bin/weed volume -ip=odroid3.node.dc1.consul -port=9444 -mserver=seaweedfsmaster0.service.dc1.consul:9333,seaweedfsmaster1.service.dc1.consul:9333,seaweedfsmaster2.service.dc1.consul:9333 -dir=/data/vol - OS version = Ubuntu 5.4.118-221 armv7l armv7l armv7l GNU/Linux - `weed version' = version 30GB 2.56 a2979aa linux arm - hardware = Odroid HC1 (Samsung Exynos5422 Cortex™-A15 2Ghz and Cortex™-A7 Octa cores) **Expected behavior** Not to crash **Additional context** 2021/07/02 15:46:52 http: panic serving 192.168.1.238:40226: unaligned 64-bit atomic operation goroutine 101 [running]: net/http.(*conn).serve.func1(0x32244e0) /home/travis/.gimme/versions/go1.16.5.linux.amd64/src/net/http/server.go:1824 +0x104 panic(0x171c1b8, 0x1e1dca8) /home/travis/.gimme/versions/go1.16.5.linux.amd64/src/runtime/panic.go:971 +0x4b4 runtime/internal/atomic.panicUnaligned() /home/travis/.gimme/versions/go1.16.5.linux.amd64/src/runtime/internal/atomic/unaligned.go:8 +0x24 runtime/internal/atomic.Load64(0x31473e4, 0xe5b38, 0x0) /home/travis/.gimme/versions/go1.16.5.linux.amd64/src/runtime/internal/atomic/asm_arm.s:263 +0x14 github.com/chrislusf/seaweedfs/weed/server.(*VolumeServer).privateStoreHandler(0x3147380, 0x1e56c4c, 0x34581e0, 0x30de680) /home/travis/gopath/src/github.com/chrislusf/seaweedfs/weed/server/volume_server_handlers.go:49 +0x4bc net/http.HandlerFunc.ServeHTTP(0x300fa88, 0x1e56c4c, 0x34581e0, 0x30de680) /home/travis/.gimme/versions/go1.16.5.linux.amd64/src/net/http/server.go:2069 +0x34 net/http.(*ServeMux).ServeHTTP(0x325b440, 0x1e56c4c, 0x34581e0, 0x30de680) /home/travis/.gimme/versions/go1.16.5.linux.amd64/src/net/http/server.go:2448 +0x16c net/http.serverHandler.ServeHTTP(0x30ec360, 0x1e56c4c, 0x34581e0, 0x30de680) /home/travis/.gimme/versions/go1.16.5.linux.amd64/src/net/http/server.go:2887 +0x88 net/http.(*conn).serve(0x32244e0, 0x1e59564, 0x31c09c0) /home/travis/.gimme/versions/go1.16.5.linux.amd64/src/net/http/server.go:1952 +0x7f0 created by net/http.(*Server).Serve /home/travis/.gimme/versions/go1.16.5.linux.amd64/src/net/http/server.go:3013 +0x318</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #2184 from jbarotin/master</MESSAGE>
+    <SHA>3df153421defe0e8cce9d2620c1e90d5f00b4c4e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>another fix related to 64 bit alignment fix https://github.com/chrislusf/seaweedfs/issues/2177</MESSAGE>
+      <SHA>44b50b2fdfc00f8a2990a84a4808827d11124728</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/wdclient/exclusive_locks/exclusive_locker.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

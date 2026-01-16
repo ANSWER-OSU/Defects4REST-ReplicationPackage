@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121253</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121253</ISSUEURL>
+  <TITLE>[CI] VectorSearchIT testBBQVectorSearch {upgradedNodes=0} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6116 / openjdk22_8.19.0_java-matrix-bwc](https://gradle-enterprise.elastic.co/s/agimoy5mou2qo) - [elasticsearch-intake #16883 / 8.18.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/cm2qszwjbob74) **Reproduction Line:** ``` ./gradlew &quot;:qa:rolling-upgrade:v8.19.0#bwcTest&quot; -Dtests.class=&quot;org.elasticsearch.upgrades.VectorSearchIT&quot; -Dtests.method=&quot;testBBQVectorSearch {upgradedNodes=3}&quot; -Dtests.seed=1B09637119A7D4F8 -Dtests.bwc=true -Dtests.locale=mgo-Latn-CM -Dtests.timezone=America/Fortaleza -Druntime.java=22 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.upgrades.VectorSearchIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testBBQVectorSearch%20%7BupgradedNodes%3D0%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: &quot;0&quot; but: was &quot;1&quot; ``` **Issue Reasons:** - [8.x] 2 failures in test testBBQVectorSearch {upgradedNodes=0} (1.2% fail rate in 162 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>36</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.test.rest.XPackRestIT org.elasticsearch.xpack.test.rest.XPackRestIT #120816</MESSAGE>
+    <SHA>66aac2d03eb69d90ad0b1a0448c72c42f94da166</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.upgrades.VectorSearchIT testBBQVectorSearch {upgradedNodes=0} #121253</MESSAGE>
+      <SHA>7fd7d6467aa286146e5f93376d4b67f143893af9</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.upgrades.VectorSearchIT testBBQVectorSearch {upgradedNodes=0} #121253</MESSAGE>
+      <SHA>e0ad1da6db768db054b5404c7e3d3045e2328da0</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4559</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/4559</ISSUEURL>
+  <TITLE>CLI: awx custom commands do not respond to --help</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY &lt;!-- Briefly describe the problem. --&gt; using new CLI by pip installing `awxkit` directory, when I call `awx login --help` with TOWER_USERNAME and TOWER_PASSWORD in my environment, I get the token output. If I DO NOT provide the above environment variables XOR TOWER_TOKEN, I get the help but I also get an error: ``` $unset TOWER_USERNAME $ unset TOWER_PASSWORD $ unset TOWER_TOKEN $ awx login --help usage: awx login [-h] [--conf.client_id TEXT] [--conf.client_secret TEXT] [--conf.scope {read,write}] [--conf.host https://example.awx.org] [--conf.token TEXT] [--conf.username TEXT] [--conf.password TEXT] [-k] optional arguments: -h, --help show this help message and exit OAuth2.0 Options: --conf.client_id TEXT --conf.client_secret TEXT --conf.scope {read,write} authentication: --conf.host https://example.awx.org --conf.token TEXT an OAuth2.0 token (get one by using `awx login`) --conf.username TEXT --conf.password TEXT -k, --conf.insecure Allow insecure server connections when using SSL Error retrieving an OAuth2.0 token (&lt;class 'awxkit.exceptions.Unauthorized'&gt;). ``` Expected results: Calling `awx login --help` under any circumstances prints out help and not an error. E.g. if `help` is requested, don't attempt to authenticate at all Also, because the output of `export TOWER_TOKEN=&lt;token&gt;` is a bit unique, I think the help text should indicate this is how it works. I know it is in the docs but would like it in the help text too, because it does not really indicate that it is going to give you a token. Rather, user might assume it creates a session from which they would log out or something.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #4557 from jlmitch5/fixPopoverClick fix regression where clicking inside popover closed it Reviewed-by: https://github.com/apps/softwarefactory-project-zuul</MESSAGE>
+    <SHA>e19035079e75f64d4ec3825dbdb22971931e8b7e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>make --help work properly for custom commands see: https://github.com/ansible/awx/issues/4559</MESSAGE>
+      <SHA>f02e474a3467005e15ccdca4ebb0553223d5e755</SHA>
+      <PATCHEDFILES>
+        <FILE>awxkit/awxkit/cli/resource.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>make --help work properly for custom commands see: https://github.com/ansible/awx/issues/4559</MESSAGE>
+      <SHA>6999d779a880227f653826df8b1ca2e2cf1ba4ef</SHA>
+      <PATCHEDFILES>
+        <FILE>awxkit/awxkit/cli/client.py</FILE>
+        <FILE>awxkit/awxkit/cli/resource.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #4559 from ryanpetrello/git-python-fix-373 Upgrade gitpython to pick up bug fix</MESSAGE>
+      <SHA>dff88c8bdc18ce5ff8495ddc1124896240115ec3</SHA>
+      <PATCHEDFILES>
+        <FILE>requirements/README.md</FILE>
+        <FILE>requirements/requirements.in</FILE>
+        <FILE>requirements/requirements.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

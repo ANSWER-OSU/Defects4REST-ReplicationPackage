@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>10123</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/10123</ISSUEURL>
+  <TITLE>AWX 19.1.0 - Job settings cannot be saved (/worker-json.js returns 404)</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY Job settings cannot be saved, probably due to the `worker-json.js` returning 404. ##### ENVIRONMENT * AWX version: 19.1.0 * AWX install method: minikube * OS: Debian * Browser: Chromium: 90.0.4430.93 (Official Build) (64-bit) ##### STEPS TO REPRODUCE - Go the Settings &gt; Jobs settings &gt; Edit - Tweak a setting - Hit Save ##### EXPECTED RESULTS - The settings are saved succesfully ##### ACTUAL RESULTS - The settings never get updated, the save button doesn't do anything ##### ADDITIONAL INFORMATION I am not sure what debug information would help, but I will be happy to provide any if required</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #10190 from jbradberry/fix-precommit-for-macs Remove the shebang line from pre-commit.sh SUMMARY since bash isn't available by default on OS X. ISSUE TYPE Bugfix Pull Request COMPONENT NAME API AWX VERSION ADDITIONAL INFORMATION Reviewed-by: Kersom &lt;None&gt; Reviewed-by: Rebeccah Hunter &lt;rhunter@redhat.com&gt;</MESSAGE>
+    <SHA>f2b2e64426eabafe1cb09f54a08a2eefa9a31a88</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #10171 from jakemcdermott/remove-job-isolated-settings Remove all AWX_ISOLATED* fields I believe this should address #10123. The issue mentions a worker-json.js 404 and, while we should fix that at some point, I don't think it's actually related to the save not working. SUMMARY I noticed the job settings form wasn't saving on devel. After some debugging, I found that removing the AWX_ISOLATED_CHECK_INTERVAL and AWX_ISOLATED_LAUNCH_TIMEOUT made the form saveable again. It doesn't seem like we use any of the AWX_ISOLATED* fields anymore (not to be confused with AWX_ISOLATION* fields, which we do use) so this PR removes them all. cc @wenottingham @shanemcd @marshmalien @gamuniz @tiagodread @jbradberry Reviewed-by: Jeff Bradberry &lt;None&gt; Reviewed-by: Bill Nottingham &lt;None&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+      <SHA>a332f46f310b5cabb4655583718824420ef8d613</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/screens/Host/data.hostFacts.json</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/shared/data.hostFacts.json</FILE>
+        <FILE>awx/ui_next/src/screens/Job/shared/data.job.json</FILE>
+        <FILE>awx/ui_next/src/screens/Setting/Jobs/JobsDetail/JobsDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Setting/Jobs/JobsDetail/JobsDetail.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Setting/Jobs/JobsEdit/JobsEdit.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Setting/Jobs/JobsEdit/JobsEdit.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Setting/Jobs/JobsEdit/data.defaultJobSettings.json</FILE>
+        <FILE>awx/ui_next/src/screens/Setting/shared/data.allSettingOptions.json</FILE>
+        <FILE>awx/ui_next/src/screens/Setting/shared/data.allSettings.json</FILE>
+        <FILE>awx/ui_next/src/screens/Setting/shared/data.jobSettings.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

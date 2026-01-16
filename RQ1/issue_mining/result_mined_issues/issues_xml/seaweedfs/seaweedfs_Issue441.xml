@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>441</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/441</ISSUEURL>
+  <TITLE>!URGENT URGENT URGENT! Wrong volume size reported =&gt; upload error</TITLE>
+  <DESCRIPTION>Since 0.73 volume sizes seem to be reported * 1024. So volume size exceeds max volume size and upload is denied but volume is marked as writeable. Unfortunately we cannot switch back to 0.7 or 0.72 as these throw other critical errors. Please fix this ASAP. Our production system with hundrets of millions of files is currently fucked. As a workaround we try to raise max_volume_size * 1024 but I don't know if there are any side effects. Example - uploaded files in collection have approx 1MB, not 1GB: https://cl.ly/3h0i0220032L</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update README.md</MESSAGE>
+    <SHA>b4148e3f99a75ee379d414455a4554fc5f68f1c4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix byte counter on loading index file fix https://github.com/chrislusf/seaweedfs/issues/441</MESSAGE>
+      <SHA>818233bbf631bc2b47565ccdc5bfba60998cb3c1</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/storage/compact_map.go</FILE>
+        <FILE>weed/storage/needle_map_memory.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

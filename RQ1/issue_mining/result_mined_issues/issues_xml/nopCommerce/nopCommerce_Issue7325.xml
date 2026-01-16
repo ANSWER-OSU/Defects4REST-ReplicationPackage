@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7325</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7325</ISSUEURL>
+  <TITLE>Allow to enable lock for order placement</TITLE>
+  <DESCRIPTION>In some cases if could be helpful to allow a store owner to enable a lock when placing an order (&quot;performwithlock&quot;). For example. by executing a single packet attack, wherein multiple purchase requests are sent simultaneously the last bytes of said requests are held back and sent with a single packet. The server then processes the requests in parallel and a race condition occurs. Let's allo to enable it. But with some conditions such as: 1. Only for the same customer or 2. For orders that redeem the same gift cards (in order to avoid duplicated redeems) But allow a store owner to disable it because in some cases it could lead to deadlocks. And this lock (setting) will be disabled by default P.S. Contact Andrei to get a detailed list of steps to reproduce the issue.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>61</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>7322 Fixed issue with cached connection string in fluentmigrator</MESSAGE>
+    <SHA>97e37a40a29a220484b52702fab04de995b319c5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7325 Added possibility to enable lock for order placement</MESSAGE>
+      <SHA>faf8ec000232434dc456be448345cbc9b98c3c49</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Orders/OrderSettings.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Installation/InstallationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/NopOrderDefaults.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderProcessingService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo480/SettingMigration.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#7325 Fixed AutoMapper configuration</MESSAGE>
+      <SHA>1f7644761038c5720283aeb9788fd9d4150659d1</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Infrastructure/Mapper/AdminMapperConfiguration.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

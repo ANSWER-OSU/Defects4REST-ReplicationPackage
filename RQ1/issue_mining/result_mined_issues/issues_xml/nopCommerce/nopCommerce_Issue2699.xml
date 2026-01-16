@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2699</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2699</ISSUEURL>
+  <TITLE>Log all errors</TITLE>
+  <DESCRIPTION>I think I found a decent solution for logging errors (not just razor view compilation errors). Inside the UseNopExceptionHandler extension method you can change the code like this (the code in bold is added): //or use special exception handler application.UseExceptionHandler(&quot;/errorpage.htm&quot;); application.UseExceptionHandler(handler =&gt; { handler.Run(context =&gt; { var exception = context.Features.Get&lt;IExceptionHandlerFeature&gt;().Error; var logger = EngineContext.Current.Resolve&lt;Nop.Services.Logging.ILogger&gt;(); logger.InsertLog(Nop.Core.Domain.Logging.LogLevel.Error, &quot;Exception&quot;, exception.ToString()); // rethrow the exception to show the errorpage.htm throw exception; }); }); It basically logs the error using the nopCommerce ILogger service and then shows the error page. I would go further and also add the logging in DEV environment not just in production. It will still be quite useful especially if an error occurs during an ajax request and you can't spot the error message in the browser (unless you open the dev tools and see the network tab). Also having the exact exception in the Log is much better than some formatted html containing the error. Source: https://www.nopcommerce.com/boards/t/48672/nopcommerce-40-bug-fixes-and-improvements.aspx?p=7#195375</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Removed extra &quot;div&quot; element on the registration page</MESSAGE>
+    <SHA>8bcd66e53e512f44758d24014e568079c9cd59d9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2699 Remove global mvc exception filter and diagnostic listener. Now errors are logged using IExceptionHandlerFeature</MESSAGE>
+      <SHA>eb073a9c87fd8ec183b2abc9420a2d089862072d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Diagnostic/NopDiagnosticListener.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/ErrorHandlerStartup.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ApplicationBuilderExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ServiceCollectionExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/ExceptionFilter.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

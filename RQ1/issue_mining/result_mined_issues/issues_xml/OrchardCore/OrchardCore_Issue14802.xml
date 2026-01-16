@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14802</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/14802</ISSUEURL>
+  <TITLE>Multi-tenant Microsoft Entra ID authentication not working</TITLE>
+  <DESCRIPTION>### Describe the bug When using Microsoft Entra ID (AzureAD) authentication with multi-tenancy (i.e. no tenant ID is specified, &quot;common&quot; or &quot;organizations&quot; is used instead), token validation fails during login: ``` IDX10205: Issuer validation failed because the actual issuer didn't match the valid issuer(s). Issuer: 'System.String (value removed)'. Did not match: validationParameters.ValidIssuer: 'System.String (value removed)' or validationParameters.ValidIssuers: 'System.String (value removed)' ``` The Orchard documentation explicitly states multi-tenant accounts as supported. ### To Reproduce Steps to reproduce the behavior: 1. Create an Azure App registration with *Supported account types* set to *Accounts in any organizational directory*. 2. Configure Microsoft Entra ID authentication in Orchard with the application ID only. Set the tenant ID to `common` instead of the actual tenant. 3. Try to login by using Microsoft Entra ID. ### Expected behavior Login should work out of the box. This can easily be fixed by using the `AadIssuerValidator` that comes with `Microsoft.Identity` (see https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/wiki/ValidatingTokens#dx10205-issuer-validation-failed). ```C# options.TokenValidationParameters.IssuerValidator = AadIssuerValidator.GetAadIssuerValidator(options.Authority, options.Backchannel).Validate; ``` Additionally, this would allow to use any other Microsoft accounts (e.g. personal Microsoft accounts, Skype, XBox).</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>126</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix multi-targeting file locks (#14732)</MESSAGE>
+    <SHA>926766966c4bc8353c7bbfef8b7943617649a1fe</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes Microsoft Entra ID authentication for multi-tenant app registrations by adding missing token validation. Fixes #14802</MESSAGE>
+      <SHA>270a439c01b0ea07f7e8205c4f83bfb5ef863b4c</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Microsoft.Authentication/Configuration/OpenIdConnectOptionsConfiguration.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes Microsoft Entra ID authentication for multi-tenant app registrations by adding missing token validation. Fixes #14802</MESSAGE>
+      <SHA>3511f9434fd02a38aa66ac37ef0caf1335b317dd</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Microsoft.Authentication/Configuration/OpenIdConnectOptionsConfiguration.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes Microsoft Entra ID authentication for multi-tenant app registrations by adding missing token validation. Fixes #14802</MESSAGE>
+      <SHA>eed022d41d63ecac73a27c19cf3261278bd1d698</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Microsoft.Authentication/Configuration/OpenIdConnectOptionsConfiguration.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

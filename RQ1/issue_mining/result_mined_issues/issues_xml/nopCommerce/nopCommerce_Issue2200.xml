@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2200</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2200</ISSUEURL>
+  <TITLE>Log should save URL &quot;as is&quot; (do not lowercase)</TITLE>
+  <DESCRIPTION>So I was working on a feed provider which send a hash key in SHA512. It was a get request. example: www.mystore.com/feed/feedprovider?hash=XXXX&amp;salt=XXXX So while debugging I used the log to test the url. Problem with this is that I discovered that &quot;GetThisPageUrl&quot; in webhelper returns url in lowercase. When dealing with authentication it's important to have casing. So I am asking that the &quot;InsertLog&quot; get's its own method to insert url &quot;as-is&quot; without any modifications at all. This makes debugging easier and what the log is for. Let's add a new parameter to GetThisPageUrl() method indicating whether it should return lowcased URL or not (default value set to &quot;true&quot;). And we'll pass &quot;false&quot; only when saving lor records also see realrted work item https://github.com/nopSolutions/nopCommerce/issues/2407</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>175</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'develop' of https://github.com/nopSolutions/nopCommerce into develop</MESSAGE>
+    <SHA>c30cbc945b06f7fd3dd9cd93ca717439c5393cab</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Feature #2200 - Log should save URL &quot;as is&quot; (do not lowercase)</MESSAGE>
+      <SHA>78a899ff8a401612fb6ced51f96d68292ff07a0d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/IWebHelper.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/WebHelper.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Logging/DefaultLogger.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#2200 Log records should save URL &quot;as is&quot; (do not lowercase)</MESSAGE>
+      <SHA>31637e173dc09f7610d0a80bc5b113b6f02c1469</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/IWebHelper.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/WebHelper.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Logging/DefaultLogger.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#2407 #2200 Further changes in not converting URLs to the lower case in some cases</MESSAGE>
+      <SHA>5e46179bec4a2b6a97b40dd5f2e149e90f585994</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/IWebHelper.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/WebHelper.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Logging/DefaultLogger.cs</FILE>
+        <FILE>src/Tests/Nop.Core.Tests/WebHelperTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

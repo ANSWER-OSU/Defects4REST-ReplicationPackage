@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4682</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/4682</ISSUEURL>
+  <TITLE>Role Requirements Are Never Downloaded</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY In v7.0.0, I'm observing that none of my `roles/requirements.yml` are being downloaded. This is because `roles_enabled` is always `False` (https://github.com/ansible/awx/blob/7.0.0/awx%2Fplaybooks%2Fproject_update.yml/#L136). I believe it is being set to False here: https://github.com/ansible/awx/blob/7.0.0/awx%2Fmain%2Ftasks.py/#L1903-L1905 And I believe that because all of my project update jobs have `job_type` set to `check`: ``` 12:18 $ tower-cli project_update list == ======= ====== ========== ======== =========================== ======= id project name status job_type created elapsed == ======= ====== ========== ======== =========================== ======= 1 8 redact failed check 2019-09-08T14:58:52.163985Z 9.473 2 8 redact successful check 2019-09-08T15:01:53.265410Z 17.66 3 8 redact successful check 2019-09-08T15:03:44.311907Z 18.207 5 8 redact successful check 2019-09-08T15:10:12.334796Z 17.444 7 8 redact successful check 2019-09-08T15:11:19.262736Z 15.567 9 8 redact successful check 2019-09-08T15:57:46.330028Z 17.179 11 8 redact successful check 2019-09-08T15:59:29.868311Z 15.006 13 8 redact successful check 2019-09-08T16:04:29.774665Z 16.601 15 8 redact successful check 2019-09-08T16:33:41.156042Z 19.91 17 8 redact successful check 2019-09-08T16:36:23.018896Z 18.152 19 8 redact successful check 2019-09-08T16:37:47.548971Z 19.975 21 8 redact successful check 2019-09-08T16:43:29.512127Z 16.647 23 8 redact successful check 2019-09-08T16:45:07.534971Z 14.553 25 8 redact successful check 2019-09-08T16:46:58.107282Z 16.064 27 8 redact successful check 2019-09-08T16:48:27.617600Z 19.797 29 8 redact successful check 2019-09-08T16:53:42.570323Z 24.899 31 8 redact successful check 2019-09-08T16:57:09.892092Z 19.343 33 8 redact successful check 2019-09-08T17:02:40.347073Z 31.163 34 8 redact successful check 2019-09-08T17:06:31.258627Z 26.832 35 8 redact successful check 2019-09-08T17:08:58.761749Z 30.126 36 8 redact successful check 2019-09-08T17:10:13.679558Z 26.716 38 8 redact successful check 2019-09-08T17:17:49.829855Z 30.161 == ======= ====== ========== ======== =========================== ======= ``` ##### ENVIRONMENT * AWX version: 7.0.0 * AWX install method: docker for mac * Ansible version: 2.8.4 * Operating System: N/A * Web Browser: N/A ##### STEPS TO REPRODUCE * Have a project with `requirements/roles.yml` * Observe that roles are not downloaded * Observe that all project_updates are set to 'check' ##### EXPECTED RESULTS I want my roles downloaded. :-) ##### ACTUAL RESULTS My roles are not updated. ##### ADDITIONAL INFORMATION N/A</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #4680 from ansible/i18n_release_3.8.0_translations (More) UI translation strings for release_3.8.0 branch</MESSAGE>
+    <SHA>a65008f7624efe8ed47db8bd10ed773151e87007</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #4682 from wenottingham/subs-corner-cases Use the exported count in the manifest for the node count, if present.</MESSAGE>
+      <SHA>ddd109059f2fe64164d07bb5a02795aa395f8667</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/utils/licensing.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

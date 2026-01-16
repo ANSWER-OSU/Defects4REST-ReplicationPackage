@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121990</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121990</ISSUEURL>
+  <TITLE>[CI] StatementParserTests testValidFromPattern failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6235 / almalinux-8-aarch64_checkpart3_platform-support-arm](https://gradle-enterprise.elastic.co/s/7wm22gcjsvkvk) - [elasticsearch-intake #17523 / part3](https://gradle-enterprise.elastic.co/s/3gmqrmyh6majy) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:test&quot; --tests &quot;org.elasticsearch.xpack.esql.parser.StatementParserTests.testValidFromPattern&quot; -Dtests.seed=FDEC80A8F8E2599F -Dtests.locale=ie -Dtests.timezone=Australia/South -Druntime.java=23 ``` **Applicable branches:** 9.0 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.parser.StatementParserTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testValidFromPattern),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.elasticsearch.xpack.esql.parser.ParsingException: line 1:97: mismatched input '+16:00}}&gt;,&quot;.nwegl2.*&quot;,offhxulzqlj:&lt;6vm8g5m$727h3z$syd!4-{now' expecting {'dissect', 'drop', 'enrich', 'eval', 'grok', 'keep', 'limit', 'mv_expand', 'rename', 'sort', 'stats', 'where', 'lookup', DEV_INLINESTATS, DEV_LOOKUP, DEV_JOIN_LEFT, DEV_JOIN_RIGHT} ``` **Issue Reasons:** - [9.0] 2 failures in test testValidFromPattern (1.6% fail rate in 126 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add 9.0 patch transport version constants #121985 (#121986) * Add 9.0 patch transport version constants #121985 Transport version changes must be unique per branch. Some transport version changes meant for 9.0 are missing unique backport constants. This is a backport of #121985, adding unique transport version patch numbers for each change intended for 9.0. * match constant naming in main</MESSAGE>
+    <SHA>f5d3f3810fd1a098b4bafa77a6f9fd4ef234046f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.parser.StatementParserTests testValidFromPattern #121990</MESSAGE>
+      <SHA>8e8156c141244679155f25adadfa981fe8ae9c06</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

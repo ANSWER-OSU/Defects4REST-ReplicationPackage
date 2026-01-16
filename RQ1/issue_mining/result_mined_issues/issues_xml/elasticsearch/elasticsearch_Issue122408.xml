@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122408</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122408</ISSUEURL>
+  <TITLE>[CI] ExchangeServiceTests testExchangeSourceContinueOnFailure failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #17898 / part3](https://gradle-enterprise.elastic.co/s/nzyze2t6fxwko) - [elasticsearch-intake #17401 / part3](https://gradle-enterprise.elastic.co/s/znm26wykpdxf4) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:compute:test&quot; --tests &quot;org.elasticsearch.compute.operator.exchange.ExchangeServiceTests.testExchangeSourceContinueOnFailure&quot; -Dtests.seed=23414301FFD8431B -Dtests.locale=fr-MA -Dtests.timezone=Zulu -Druntime.java=23 ``` **Applicable branches:** 9.0 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.compute.operator.exchange.ExchangeServiceTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testExchangeSourceContinueOnFailure),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: &lt;7&gt; but: was &lt;6&gt; ``` **Issue Reasons:** - [9.0] 2 failures in test testExchangeSourceContinueOnFailure (0.3% fail rate in 646 executions) - [9.0] 2 failures in step part3 (2.5% fail rate in 79 executions) - [9.0] 2 failures in pipeline elasticsearch-intake (2.5% fail rate in 79 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Instrument methods on File that require write permission (#122109) (#122389) This commit adds instrumentation for File methods that require write permission. No server or plugins use these methods, so no policy changes were necessary. Note that since we are not planning to restrict temp file creation, the bootstrap self test on file writing was removed, which failed with these changes.</MESSAGE>
+    <SHA>20ead0f09eb6f28388501196961a1476d570911a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.compute.operator.exchange.ExchangeServiceTests testExchangeSourceContinueOnFailure #122408</MESSAGE>
+      <SHA>550fb18e776abe0591d3cfd0cb84cce42c69d551</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

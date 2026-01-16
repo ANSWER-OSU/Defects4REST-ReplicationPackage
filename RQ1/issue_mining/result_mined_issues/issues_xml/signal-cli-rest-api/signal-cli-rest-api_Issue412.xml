@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>412</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/412</ISSUEURL>
+  <TITLE>Cannot send anything</TITLE>
+  <DESCRIPTION>### The problem After registering a number on a fresh container with no prior configuration I am not able to send any messages. Command that was run: ``` curl -X POST -H &quot;Content-Type: application/json&quot; 'http://localhost:8080/v2/send' -d '{&quot;message&quot;: &quot;Test via Signal API!&quot;, &quot;number&quot;: &quot;&lt;sender&gt;&quot;, &quot;recipients&quot;: [ &quot;&lt;recipient&gt;&quot; ]}' ``` And the response is: ``` { &quot;error&quot;: &quot;WARN SendHelper - Failed to send message due to IO exception: Unable to parse entity\nFailed to send message\n&quot; } ``` In the container logs I am seeing: ``` [GIN] &lt;timestamp&gt; | 400 | 6.6703771s | 10.0.2.100 | POST &quot;/v2/send&quot; ``` ### Are you using the latest released version? - [X] Yes ### Have you read the troubleshooting page? - [X] Yes ### What type of installation are you running? signal-cli-rest-api Docker Container ### In which mode are you using the docker container? Native Mode ### What's the architecture of your host system? x86-64 ### Additional information I encountered this issue in all modes, i.e. normal, native and json-rpc. Further, I have a version where a number was registered under version 0.64 and strangely when mounting this configuration directory, I can do everything without any problems..</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>33</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>updated GraalVM to fix broken native image build</MESSAGE>
+    <SHA>db005cdcc32d54f83e6f4ab6dee2f1fbe93f7e0d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fixed signal-cli-native build * due to different glibc versions, it is not possible to use the existing (prebuilt) libsignal_jni.so that get's shipped with the signal-cli binary distribution for the signal-cli native image build. So in order to make that work (again), we need to use our own libsignal_jni.so for the x86_64 build. see #412</MESSAGE>
+      <SHA>f18ebde9519bb55e33d1091a8752c06240f31dd3</SHA>
+      <PATCHEDFILES>
+        <FILE>Dockerfile</FILE>
+        <FILE>ext/libraries/libsignal-client/signal-cli-native.patch</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>improved error handling in send method * when a message is successfully sent, signal-cli returns a timestamp, which we convert to an integer. in case, we, for some reason can't convert the timestamp to an integer, it means that signal-cli returned some non-numeric characters as well (which is a strong indication that there was an error). So, instead of returning the parsing error, return the actual signal-cli error message. see #412</MESSAGE>
+      <SHA>6f269d3e1d4f8fe4ecc60e3931d2f99451afd499</SHA>
+      <PATCHEDFILES>
+        <FILE>src/client/client.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>add debug logging to cli client * log the stdout &amp; stderr buffers in case debug logging is enabled. see #412</MESSAGE>
+      <SHA>bc74d4cb48ec339001e5b6e6825a00f1b5e027f6</SHA>
+      <PATCHEDFILES>
+        <FILE>src/client/cli.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

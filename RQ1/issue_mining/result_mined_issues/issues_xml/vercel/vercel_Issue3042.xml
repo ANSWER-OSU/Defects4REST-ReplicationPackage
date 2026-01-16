@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3042</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/3042</ISSUEURL>
+  <TITLE>&quot;Authentication error&quot; on canary instead of &quot;You are not owner of the domain&quot;</TITLE>
+  <DESCRIPTION>When adding an `alias` to now.json that the current token does not own, the stable channel shows: ``` &gt; Deploying ~/Code/foo under username &gt; Using project projectname &gt; Error! You are not owner of the domain &quot;example.com&quot; ``` However, the canary channel has regressed and shows the following: ``` &gt; Deploying ~/Code/foo under username &gt; Using project projectname &gt; Error! Authentication error. Run `now login` to log-in again. ```</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now-client] Export TypeScript types (#3087) This makes downstream compilation with `tsc` work correctly. Otherwise, compilation fails with errors such as: ``` ../now-client/dist/src/index.d.ts:1:40 - error TS2304: Cannot find name 'CreateDeploymentFunction'. 1 export declare const createDeployment: CreateDeploymentFunction; ~~~~~~~~~~~~~~~~~~~~~~~~ ````</MESSAGE>
+    <SHA>efd8863f8bf4c143e9c024995c70eca70cde68a3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-cli] Add `not_domain_owner` error handling (#3045) This adds missing error handler for `not_domain_owner` error (fixes #3042)</MESSAGE>
+      <SHA>05a44a0c70840bb3100655461e76dfa87577f422</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-cli/src/commands/deploy/latest.js</FILE>
+        <FILE>packages/now-cli/src/commands/deploy/legacy.ts</FILE>
+        <FILE>packages/now-cli/src/util/deploy/create-deploy.js</FILE>
+        <FILE>packages/now-cli/src/util/errors-ts.ts</FILE>
+        <FILE>packages/now-cli/src/util/handle-error.ts</FILE>
+        <FILE>packages/now-cli/test/helpers/prepare.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now-cli] Add `not_domain_owner` error handling (#3045) This adds missing error handler for `not_domain_owner` error (fixes #3042)</MESSAGE>
+      <SHA>7ea49e8ada645a913f953316f69c0bd9ffe83902</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-cli/src/commands/deploy/latest.js</FILE>
+        <FILE>packages/now-cli/src/commands/deploy/legacy.ts</FILE>
+        <FILE>packages/now-cli/src/util/deploy/create-deploy.js</FILE>
+        <FILE>packages/now-cli/src/util/errors-ts.ts</FILE>
+        <FILE>packages/now-cli/src/util/handle-error.ts</FILE>
+        <FILE>packages/now-cli/test/helpers/prepare.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

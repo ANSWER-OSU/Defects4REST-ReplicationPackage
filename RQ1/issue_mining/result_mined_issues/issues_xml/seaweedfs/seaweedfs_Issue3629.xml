@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3629</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3629</ISSUEURL>
+  <TITLE>[master] Game on masterclient.go:288 updateVidMap</TITLE>
+  <DESCRIPTION>**Describe the bug** I see such abnormal messages: ``` I0908 09:27:00.597693 masterclient.go:288 updateVidMap(DefaultDataCenter) .master: :0 volume add: 577, del: 547, add ec: 0 del ec: 0 I0908 09:27:00.585748 master_grpc_server.go:196 master see deleted volume 236 from :0 I0908 09:27:00.599290 master_grpc_server.go:196 master see deleted volume 316 from :0 I0908 09:27:00.599335 master_grpc_server.go:196 master see deleted volume 1293 from :0 I0908 09:27:00.599381 master_grpc_server.go:196 master see deleted volume 1506 from :0 I0908 09:27:00.599416 master_grpc_server.go:196 master see deleted volume 1415 from :0 I0908 09:27:00.599438 master_grpc_server.go:196 master see deleted volume 2587 from :0 I0908 09:27:00.599458 master_grpc_server.go:196 master see deleted volume 1674 from :0 I0908 09:27:00.599478 master_grpc_server.go:196 master see deleted volume 1169 from :0 ``` normal messages: ``` I0908 09:27:43.339900 masterclient.go:288 updateVidMap(stagedc) .master: fast-volume-2.s3-fast-volume.service.stagedc.consul:8080 volume add: 957, del: 0, add ec: 0 del ec: 0 ``` **System Setup** ``` 3.26 master branch ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>refactor https://github.com/seaweedfs/seaweedfs/pull/3616 (#3625)</MESSAGE>
+    <SHA>31d2f77ceb8aa0acd4ebf7a85ca24c9375de0a17</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>skip deltaBeat https://github.com/seaweedfs/seaweedfs/issues/3629</MESSAGE>
+      <SHA>a476b6b28eaf60603f544b1eaecf4ee548d59827</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/master_grpc_server.go</FILE>
+        <FILE>weed/topology/configuration.go</FILE>
+        <FILE>weed/wdclient/masterclient.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>skip deltaBeat if dn is zero (#3630) * skip deltaBeat https://github.com/seaweedfs/seaweedfs/issues/3629 * fix GrpcPort * skip url :0 * skip empty DataCenter or Rack * skip empty heartbeat Ip * dell msg add DataCenter * comment todo * fix</MESSAGE>
+      <SHA>721c6197f9f14fb76b3ccfb77f7a5fe107b874de</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/pb/master_pb/master_helper.go</FILE>
+        <FILE>weed/server/master_grpc_server.go</FILE>
+        <FILE>weed/server/volume_grpc_client_to_master.go</FILE>
+        <FILE>weed/topology/configuration.go</FILE>
+        <FILE>weed/wdclient/masterclient.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

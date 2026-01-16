@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1530</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/1530</ISSUEURL>
+  <TITLE>2.04: FUSE mount show empty folders when filer is down</TITLE>
+  <DESCRIPTION>FUSE mount _pretends_ to work when filer is down: 1. start filer (e.g. `weed filer ...`) 2. mount `/mnt/weed` (e.g. `weed mount -dir=/mnt/weed ...`) 3. stop filer 4. `find /mnt/weed | wc -l`: prints `8`, successfully counts files in root and top-level directories. Here is the problem: `find /mnt/weed` is not expected to succeed when the filer is down. It should not be possible to walk directory tree without filer. FUSE mount should have waited for filer but instead it _pretended_ to know the content of the file system and incorrectly reported empty top level directories. 5. start filer again, same as in step 1. 6. `find /mnt/weed | wc -l`: prints `114`, as expected. When the filer became available, the count of files/folders has changed because there are actually some files/folders nested under top level directories. FUSE mount should not lie about file system content. When filer is not available, FUSE mount should wait for filer and never ever return fraudulent/fabricated information about folder's content.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>15</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Only wait on retryable requests</MESSAGE>
+    <SHA>3f7d1d1bf146eaeac3ddcd96e3d8de088bdf97ce</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>mount: report filer IO error related to https://github.com/chrislusf/seaweedfs/issues/1530</MESSAGE>
+      <SHA>9b4f7fed14aa23115b896cc19c909b6c8f8db336</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filesys/dir.go</FILE>
+        <FILE>weed/filesys/meta_cache/meta_cache.go</FILE>
+        <FILE>weed/filesys/meta_cache/meta_cache_init.go</FILE>
+        <FILE>weed/util/bounded_tree/bounded_tree.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>mount: retry for directory listing with filer related to https://github.com/chrislusf/seaweedfs/issues/1530</MESSAGE>
+      <SHA>28d4e1a51ba624fd4f5dbfbf386a6301de64b559</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filesys/meta_cache/meta_cache_init.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

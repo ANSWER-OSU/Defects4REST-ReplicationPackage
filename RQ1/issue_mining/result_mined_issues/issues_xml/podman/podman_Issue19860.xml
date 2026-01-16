@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19860</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/19860</ISSUEURL>
+  <TITLE>weird: FROM scratch + label + manifest = Error: choosing image instance: no image found in manifest list for architecture amd64, variant &quot;&quot;, OS linux</TITLE>
+  <DESCRIPTION>```console $ bin/podman rmi -a &lt;----- tabula rasa $ bin/podman manifest create m 8c302e57230e3008109ac72140dcd1bafc339510a0dc0cbaa2ccae07e32f49 $ podman images REPOSITORY TAG IMAGE ID CREATED SIZE localhost/m latest 8c302e57230e 9 seconds ago 110 B ``` No surprises. Nothing unusual. Now build a scratch image with a label, any label: ```console $ echo &quot;FROM scratch&quot; | podman build -t i --label a=b -f - STEP 1/2: FROM scratch STEP 2/2: LABEL &quot;a&quot;=&quot;b&quot; COMMIT i --&gt; 00fd88257b95 Successfully tagged localhost/i:latest 00fd88257b95bafc988e62f236130015e8edcb8d57d9895b389dff72d8c03ca6 $ podman images Error: choosing image instance: no image found in manifest list for architecture amd64, variant &quot;&quot;, OS linux ``` It can be done in either order (build first, then manifest create). Removing the image succeeds (exit status 0, and image is successfully deleted) but with scary warnings: ```console $ podman rmi i WARN[0000] Failed to determine if an image is a parent: choosing image instance: no image found in manifest list for architecture amd64, variant &quot;&quot;, OS linux, ignoring the error WARN[0000] Failed to determine parent of image: choosing image instance: no image found in manifest list for architecture amd64, variant &quot;&quot;, OS linux, ignoring the error Untagged: localhost/i:latest Deleted: 00fd88257b95bafc988e62f236130015e8edcb8d57d9895b389dff72d8c03ca6 ``` The obvious fix is to add `build --platform=linux/amd64` -- nope, no difference. Removing `--label` fixes everything.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19849 from giuseppe/increase-inotify-watchers machine: increase max number of inotify instances</MESSAGE>
+    <SHA>0e3b492faa7ade393b98f740e417b8ae0b96f083</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>systests: manifest zstd test: lots of tiny cleanups Primarily, build test images FROM scratch, not alpine, to avoid image pulls and network flakes and potential pull- the-rug-out errors if the base alpine image changes. This was much more complicated than it should've been, because creating unique arch-specific FROM-scratch images triggered a weird manifest bug, filed as #19860. Also: - add a teardown() to clean up manifests - remove test for skopeo (skopeo is required for sys tests) - remove unnecessary intermediate tmpdir - deduplicate, by looping over amd+arm - fix indentation - and, finally, clean up dangling images (this was the initial reason behind my diving in here. Such a simple thing, I thought.) Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>fdf694fcff224f6ed6aec9e4bc32788e23e9c68b</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/012-manifest.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

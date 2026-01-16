@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16376</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16376</ISSUEURL>
+  <TITLE>Podman run inside pod fails with: `Error: OCI runtime error: crun: sd-bus call: Invalid unit name '.': Invalid argument`</TITLE>
+  <DESCRIPTION>### Discussed in https://github.com/containers/podman/discussions/16361 &lt;div type='discussions-op-text'&gt; &lt;sup&gt;Originally posted by **rocketraman** October 31, 2022&lt;/sup&gt; I am attempting to run rootless a container inside an existing pod, but when attempting to do so I get the error: ``` $ podman run --rm --pod=pod1 quay.io/podman/hello Error: OCI runtime error: crun: sd-bus call: Invalid unit name '.': Invalid argument ``` There are no error logs from selinux, either in the user or system journal. If I run the same container without a pod spec, or after creating a new pod and running it inside that, it works fine. Comparing the `podman pod inspect` output of the non-working and working pods, I note that the working pod has a line like this: ``` &quot;CgroupPath&quot;: &quot;user.slice/user-libpod_pod_ccb1a86db5466e260a3ad60912ea02f4ce13f3cb19465bd239c0bebe28b5cf2a.slice&quot;, ``` but the non-working pod does not. Everything else is basically the same (except expected differences like pod names, container ids, etc.). It is likely this pod was created using earlier versions of podman and the kernel. `podman system migrate` does not fix the issue. Debug logs from the failing run show this: ``` time=&quot;2022-10-31T16:38:26-04:00&quot; level=debug msg=&quot;ExitCode msg: \&quot;crun: [conmon:d]: failed to write to /proc/self/oom_score_adj: permission denied\\n\\nsd-bus call: invalid unit name '.': invalid argument: oci permission denied\&quot;&quot; Error: crun: [conmon:d]: failed to write to /proc/self/oom_score_adj: Permission denied sd-bus call: Invalid unit name '.': Invalid argument: OCI permission denied ``` Podman version 4.2.1 on Fedora 36 with rawhide debug kernel 6.1-rc2. &lt;/div&gt;</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #15760 from cevich/enable_kube_tests Cirrus: Update CI VM images to F37beta</MESSAGE>
+    <SHA>774e950374198617a54b915714ec9ca4dc007ea8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>runtime: add check for valid pod systemd cgroup there is already the same check when using cgroupfs, but not when using the systemd cgroup backend. The check is needed to avoid a confusing error from the OCI runtime. Closes: https://github.com/containers/podman/issues/16376 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>cac4919bf6d4070e792e9acc0e0d49a745e70ef9</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/runtime_ctr.go</FILE>
+        <FILE>test/upgrade/test-upgrade.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

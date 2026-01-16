@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>119191</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/119191</ISSUEURL>
+  <TITLE>[CI] SmokeTestMultiNodeClientYamlTestSuiteIT class failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5599 / release-tests](https://gradle-enterprise.elastic.co/s/v4elhy6ncdpzk) - [elasticsearch-pull-request #48177 / part-1](https://gradle-enterprise.elastic.co/s/lyosxi4aps2ro) - [elasticsearch-periodic-platform-support #5488 / rocky-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/hwykli6uosa4o) **Reproduction Line:** ``` ./gradlew &quot;:qa:smoke-test-multinode:yamlRestTest&quot; --tests &quot;org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT.test {yaml=search/310_match_bool_prefix/operator}&quot; -Dtests.seed=D46E9853C786049F -Dbuild.snapshot=false -Dtests.jvm.argline=&quot;-Dbuild.snapshot=false&quot; -Dlicense.key=x-pack/license-tools/src/test/resources/public.key -Dtests.locale=az -Dtests.timezone=ECT -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.RuntimeException: Failure at [search/310_match_bool_prefix:6]: Connection refused ``` **Issue Reasons:** - [main] 3 failures in class org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT (0.8% fail rate in 382 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>16</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.backwards.MixedClusterClientYamlTestSuiteIT test {p0=synonyms/90_synonyms_reloading_for_synset/Reload analyzers for specific synonym set} #116777</MESSAGE>
+    <SHA>a3c251d3f45d683e3adb31e938fb212cad13a416</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT #119191</MESSAGE>
+      <SHA>1ab28f9bb2127c963a874dc292e60829213916c9</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT #119191</MESSAGE>
+      <SHA>c662aecac3bbef1abcfb801a6a0b8326c3dfba0d</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Adjust test mute #119191</MESSAGE>
+      <SHA>275afd4b446dd06efc07c8987b63f55defe19ec8</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Adjust test mute #119191 (#119206)</MESSAGE>
+      <SHA>2f9cd0793c76c93d6f02edb86364a5ce204e56bb</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[8.x] Adjust test mute Backporting #119206 to 8.x branch. The assertion that trips is related to synthetic recovery source usage, no need to mute the entire test suite. Relates to #119191</MESSAGE>
+      <SHA>b8cc2c7fc491c9374c1f363ca315f5d7f035a099</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[8.x] Adjust test mute (#119210) Backporting #119206 to 8.x branch. The assertion that trips is related to synthetic recovery source usage, no need to mute the entire test suite. Relates to #119191</MESSAGE>
+      <SHA>12a9b3774239101586a9b9fc62053529493af8e3</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

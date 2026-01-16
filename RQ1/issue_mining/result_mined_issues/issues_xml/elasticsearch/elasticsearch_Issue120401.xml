@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>120401</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/120401</ISSUEURL>
+  <TITLE>[CI] QueryableReservedRolesIT testQueryDeleteOrUpdateReservedRoles failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #5877 / windows-2022_checkpart4_platform-support-windows](https://gradle-enterprise.elastic.co/s/nzqjria6tro6o) - [elasticsearch-periodic-platform-support #5831 / windows-2022_checkpart4_platform-support-windows](https://gradle-enterprise.elastic.co/s/umrczgw3pwdug) **Reproduction Line:** ``` gradlew &quot;:x-pack:plugin:security:qa:security-basic:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.security.QueryableReservedRolesIT.testQueryDeleteOrUpdateReservedRoles&quot; -Dtests.seed=F21C6BF518702D9D -Dtests.locale=es-PE -Dtests.timezone=Canada/Eastern -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.security.QueryableReservedRolesIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testQueryDeleteOrUpdateReservedRoles),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: is &lt;29&gt; but: was &lt;0&gt; ``` **Issue Reasons:** - [main] 2 failures in test testQueryDeleteOrUpdateReservedRoles (0.3% fail rate in 636 executions) - [main] 2 failures in step windows-2022_checkpart4_platform-support-windows (20.0% fail rate in 10 executions) - [main] 2 failures in pipeline elasticsearch-periodic-platform-support (20.0% fail rate in 10 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>31</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix policy manager/parser absolute path checks (#122736)</MESSAGE>
+    <SHA>cf64bd31f67845c7d95606ff03868f01095bae8d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[Test] Fix QueryableReservedRolesIT testQueryDeleteOrUpdateReservedRoles Resolves https://github.com/elastic/elasticsearch/issues/120401</MESSAGE>
+      <SHA>667f71f58325733465d4ce834ab4c7795d119615</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/qa/security-basic/src/javaRestTest/java/org/elasticsearch/xpack/security/QueryableReservedRolesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Test] Fix QueryableReservedRolesIT testQueryDeleteOrUpdateReservedRoles (#122803) Adds missing `assertBusy` in `testQueryDeleteOrUpdateReservedRoles`. We wait for security migration to finish before test execution, but this is not enough to guarantee that built-in roles are synchronized into the `.security` index. In many cases, the roles have already been synchronized before the query gets executed, but in rare cases the cluster is a bit slower and the assertion fails because the built-in roles have not been indexed yet. Resolves https://github.com/elastic/elasticsearch/issues/120401</MESSAGE>
+      <SHA>2f4abbf8702a7c13c41b7627e0902aecc7cf7ab3</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/qa/security-basic/src/javaRestTest/java/org/elasticsearch/xpack/security/QueryableReservedRolesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Test] Fix QueryableReservedRolesIT testQueryDeleteOrUpdateReservedRoles (#122803) Adds missing `assertBusy` in `testQueryDeleteOrUpdateReservedRoles`. We wait for security migration to finish before test execution, but this is not enough to guarantee that built-in roles are synchronized into the `.security` index. In many cases, the roles have already been synchronized before the query gets executed, but in rare cases the cluster is a bit slower and the assertion fails because the built-in roles have not been indexed yet. Resolves https://github.com/elastic/elasticsearch/issues/120401</MESSAGE>
+      <SHA>ec2eae1884731458561c52c8f2e21d6b1ac8acb3</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/qa/security-basic/src/javaRestTest/java/org/elasticsearch/xpack/security/QueryableReservedRolesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Test] Fix QueryableReservedRolesIT testQueryDeleteOrUpdateReservedRoles (#122803) Adds missing `assertBusy` in `testQueryDeleteOrUpdateReservedRoles`. We wait for security migration to finish before test execution, but this is not enough to guarantee that built-in roles are synchronized into the `.security` index. In many cases, the roles have already been synchronized before the query gets executed, but in rare cases the cluster is a bit slower and the assertion fails because the built-in roles have not been indexed yet. Resolves https://github.com/elastic/elasticsearch/issues/120401</MESSAGE>
+      <SHA>f0a757cebc49e2cacf621c613e7339f5f0f2b939</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/qa/security-basic/src/javaRestTest/java/org/elasticsearch/xpack/security/QueryableReservedRolesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Test] Fix QueryableReservedRolesIT testQueryDeleteOrUpdateReservedRoles (#122803) Adds missing `assertBusy` in `testQueryDeleteOrUpdateReservedRoles`. We wait for security migration to finish before test execution, but this is not enough to guarantee that built-in roles are synchronized into the `.security` index. In many cases, the roles have already been synchronized before the query gets executed, but in rare cases the cluster is a bit slower and the assertion fails because the built-in roles have not been indexed yet. Resolves https://github.com/elastic/elasticsearch/issues/120401</MESSAGE>
+      <SHA>d12f47f89a1806917e753764cf6c963232878070</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/qa/security-basic/src/javaRestTest/java/org/elasticsearch/xpack/security/QueryableReservedRolesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Test] Fix QueryableReservedRolesIT testQueryDeleteOrUpdateReservedRoles (#122803) (#122808) Adds missing `assertBusy` in `testQueryDeleteOrUpdateReservedRoles`. We wait for security migration to finish before test execution, but this is not enough to guarantee that built-in roles are synchronized into the `.security` index. In many cases, the roles have already been synchronized before the query gets executed, but in rare cases the cluster is a bit slower and the assertion fails because the built-in roles have not been indexed yet. Resolves https://github.com/elastic/elasticsearch/issues/120401</MESSAGE>
+      <SHA>44f99f9c76adcf60aabf02df4f4e2400b2a32c83</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/qa/security-basic/src/javaRestTest/java/org/elasticsearch/xpack/security/QueryableReservedRolesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Test] Fix QueryableReservedRolesIT testQueryDeleteOrUpdateReservedRoles (#122803) (#122807) Adds missing `assertBusy` in `testQueryDeleteOrUpdateReservedRoles`. We wait for security migration to finish before test execution, but this is not enough to guarantee that built-in roles are synchronized into the `.security` index. In many cases, the roles have already been synchronized before the query gets executed, but in rare cases the cluster is a bit slower and the assertion fails because the built-in roles have not been indexed yet. Resolves https://github.com/elastic/elasticsearch/issues/120401</MESSAGE>
+      <SHA>8172440e389b5a6b3a7f3f43214771c74e23f606</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/qa/security-basic/src/javaRestTest/java/org/elasticsearch/xpack/security/QueryableReservedRolesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[Test] Fix QueryableReservedRolesIT testQueryDeleteOrUpdateReservedRoles (#122803) (#122806) Adds missing `assertBusy` in `testQueryDeleteOrUpdateReservedRoles`. We wait for security migration to finish before test execution, but this is not enough to guarantee that built-in roles are synchronized into the `.security` index. In many cases, the roles have already been synchronized before the query gets executed, but in rare cases the cluster is a bit slower and the assertion fails because the built-in roles have not been indexed yet. Resolves https://github.com/elastic/elasticsearch/issues/120401</MESSAGE>
+      <SHA>e41a855bd56be26b9514046f6df61d7829ec727c</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/security/qa/security-basic/src/javaRestTest/java/org/elasticsearch/xpack/security/QueryableReservedRolesIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

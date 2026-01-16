@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>184</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/184</ISSUEURL>
+  <TITLE>Allow multiple values to be visualised on same graph</TITLE>
+  <DESCRIPTION>BACKGROUND Right now, when I create a query with multiple measures, I can only graph one measure in the widget beneath the query. Ie. I can only specify a singly y value at a time. If I change the y value, it changes all the graphs. I can also not graph multiple y values on the same graph (perhaps with different axes eg. % vs. absolute numbers). USER STORY As a Data Analyst, I want to write one query (which references one series variable (eg. city) and one time variable (eg. week)) and then draw multiple graphs on multiple measures from the same query, so that I don't need to create and save multiple &quot;new&quot; queries, each time I want a new graph. And so I can see multiple measures on the same graph and see how they trend together over time. ACCEPTANCE CRITERIA • Can draw multiple graphs showing different measures in each graph all from same, single query • Can add multiple lines for different measures on the same graph (Eg. orders vs. customers vs. cart abandonments over time) • Don't need to save same query multiple times with minor changes to achieve multiple graphs • Nor do I need to save multiple smaller queries to then create a dashboard (which the current model invite users to do) POTENTIAL SOLUTION • Create new reference such as &quot;Value 1::y1&quot;, &quot;Value 2::y2&quot;, Value3::y3&quot;...&quot;ValueA::yA&quot; • Then for each graph widget specify WHICH y value(s?) it should look for when drawing the graph</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix tests related to query versions</MESSAGE>
+    <SHA>75584c0771719591a60b09de8bfa650827ab9556</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #184 from alison985/154_add_to_dashboard_from_query add ability to add query to dashboard from query page</MESSAGE>
+      <SHA>17f5371286d5841d0b57bf64824f656bf5520593</SHA>
+      <PATCHEDFILES>
+        <FILE>client/app/pages/queries/add-to-dashboard.html</FILE>
+        <FILE>client/app/pages/queries/add-to-dashboard.js</FILE>
+        <FILE>client/app/pages/queries/index.js</FILE>
+        <FILE>client/app/pages/queries/query.html</FILE>
+        <FILE>client/app/pages/queries/view.js</FILE>
+        <FILE>client/app/services/dashboard.js</FILE>
+        <FILE>redash/handlers/api.py</FILE>
+        <FILE>redash/handlers/dashboards.py</FILE>
+        <FILE>redash/models.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

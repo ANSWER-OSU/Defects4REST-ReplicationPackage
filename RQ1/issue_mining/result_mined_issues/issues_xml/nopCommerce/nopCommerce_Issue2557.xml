@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2557</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2557</ISSUEURL>
+  <TITLE>Admin view locations should be added first</TITLE>
+  <DESCRIPTION>Currently when you open the public area the view locations are properly ordered from the ThemeableViewLocationExpander as the themeable locations are added first. &quot;/Themes/DefaultClean/Views/{1}/{0}.cshtml&quot; &quot;/Themes/DefaultClean/Views/Shared/{0}.cshtml&quot; &quot;/Views/{1}/{0}.cshtml&quot; &quot;/Views/Shared/{0}.cshtml&quot; But in the Admin are this is a problem as the Admin area locations should be first instead. Now in the Admin are the locations are like this: &quot;/Themes/DefaultClean/Views/{1}/{0}.cshtml&quot; &quot;/Themes/DefaultClean/Views/Shared/{0}.cshtml&quot; &quot;/Areas/{2}/Views/{1}/{0}.cshtml&quot; &quot;/Areas/{2}/Views/Shared/{0}.cshtml&quot; &quot;/Views/Shared/{0}.cshtml&quot; This way if you override the Home/Index view in the DefaultClean theme and try to visit the administration, you will end up with the Home page in the public area. You can easily check if the AreaName is &quot;Admin&quot; and in this case add the Admin view locations first and also there is no need to add the Themeable view locations at all as the administration should not be themeable anyway (at least in 3.9 it wasn't). Please note that almost every theme (except DefaultClean) overrides the Home/Index view. Source: https://www.nopcommerce.com/boards/t/48672/nopcommerce-40-bug-fixes-and-improvements.aspx#192807</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>12</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add constant for the name of Admin area</MESSAGE>
+    <SHA>f9e7c6c800d21344c16df31a199b9607424d6bfa</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#2557 No need to add the themeable view locations at all as the administration should not be themeable</MESSAGE>
+      <SHA>1387024f2e4b48917296a7be36adb3452f31e410</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Themes/ThemeableViewLocationExpander.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

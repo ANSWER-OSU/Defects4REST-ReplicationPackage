@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4717</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/4717</ISSUEURL>
+  <TITLE>bug:</TITLE>
+  <DESCRIPTION>### Issue description ### Environment Bug report without environment information will be ignored or closed. * apisix version (cmd: `apisix version`):2.0 * OS (cmd: `uname -a`): centos 7.4 * OpenResty / Nginx version (cmd: `nginx -V` or `openresty -V`): 1.17.8.2 * etcd version, if have (cmd: run `curl http://127.0.0.1:9090/v1/server_info` to get the info from server-info API):3.5 * apisix-dashboard version, if have: * luarocks version, if the issue is about installation (cmd: `luarocks --version`): ### Minimal test code / Steps to reproduce the issue Bug report without steps to reproduce will be ignored or closed. 1. set a route with cors open, OPTIONS method support 2.visit route with OPTIONS method, return response with no allow-control-allow-origin etc. headers 3. ### What's the actual result? (including assertion message &amp; call stack if applicable) response with no allow-control-allow-origin etc. headers ### What's the expected result? response with allow-control-allow-origin etc. headers For split backend and frontend environment OPTIONS method is used frequently, so return in rewrite stage is not suitable</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>docs: update 360 user case link. (#4749)</MESSAGE>
+    <SHA>137f09f16f5d63c04eab5745e486735880e68eeb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat(cors): validate allow_origins Fix #4717 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>9e56bc166923ef50615daf9c720ea96d67f272ad</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/cors.lua</FILE>
+        <FILE>t/plugin/cors.t</FILE>
+        <FILE>t/plugin/cors2.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat(cors): validate allow_origins Fix #4717 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>8c3dd9e26a6027f33792d23617eca6e6dca20e2a</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/cors.lua</FILE>
+        <FILE>t/config-center-yaml/global-rule.t</FILE>
+        <FILE>t/plugin/cors.t</FILE>
+        <FILE>t/plugin/cors2.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat(cors): validate allow_origins (#4757) Fix #4717 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>391a2d3e40578b15127c4b2f5f26af7156721a2f</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/cors.lua</FILE>
+        <FILE>t/config-center-yaml/global-rule.t</FILE>
+        <FILE>t/plugin/cors.t</FILE>
+        <FILE>t/plugin/cors2.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

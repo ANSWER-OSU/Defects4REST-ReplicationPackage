@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4591</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4591</ISSUEURL>
+  <TITLE>Two stages setting to enable SSL</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.3 and bellow Steps to reproduce the problem: when failed to config ssl function in http server, that may cause admin area is unreachable. so wondering if we can set a second stage confirmation, just like we change windows screen resulations. we can temporally activate ssl function, if the ssl function is good, shows a page with button and a timer, the administrator click at that page so that SSL can be set, otherwise after 20 seconds the ssl setting will roll back. actually wrong ssl configuration like Too many redirects occurs too often. Implementation described in comments - https://github.com/nopSolutions/nopCommerce/issues/4591#issuecomment-967211595</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>831</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Updated version of 4.60 SchemaMigration migration to avoid problem on systems which use CI/CD</MESSAGE>
+    <SHA>691184d187040559e08cdedc4a041af4b1ed57d4</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4591 Added a scheme-specific action to switch SSL setting.</MESSAGE>
+      <SHA>fc35742687dfd8df50228c81b090313a472b60da</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo460/LocalizationMigration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/HttpsRequirementAttribute.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/StoreController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Store/_CreateOrUpdate.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#4591 Further changes to manage store SSL settings</MESSAGE>
+      <SHA>8d1c561e7e0fbe4abc896b83cb7cdc39901424c7</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Infrastructure/Mapper/AdminMapperConfiguration.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

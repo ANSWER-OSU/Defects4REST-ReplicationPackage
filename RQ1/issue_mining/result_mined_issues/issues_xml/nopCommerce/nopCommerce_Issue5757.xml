@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5757</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5757</ISSUEURL>
+  <TITLE>ReduceRewardPoints should not recalculate points</TITLE>
+  <DESCRIPTION>&gt; The code does not consider that reward configurations are &quot;point in time&quot;. The rewards configuration at purchase time affect the awarded amount of points. The configuration could change prior to the time the refund is made. The rewardPointsHistoryEntry has the actual Points rewarded. &gt; &gt; 1. nopCommerce version: 4.40 (but likely in older versions too) &gt; 2. Expected behavior: Points should be taken from the rewardPointsHistoryEntry.Points &gt; 3. Actual behavior: Points are calculated using the current (today's) configuration &gt; 4. Steps to reproduce the problem: See code snippet below &gt; 5. Any private modifications you made to your nopCommerce: Any custom configurations/code would also be impacted, because of the &quot;point in time&quot; configuration problem. &gt; &gt; ``` &gt; protected virtual async Task ReduceRewardPointsAsync(Order order) &gt; { &gt; ... &gt; var totalForRewardPoints = _orderTotalCalculationService &gt; .CalculateApplicableOrderTotalForRewardPoints(... &gt; var points = ... &gt; await _orderTotalCalculationService.CalculateRewardPointsAsync(... &gt; ... &gt; //get appropriate history entry &gt; var rewardPointsHistoryEntry = await _rewardPointService.GetRewardPointsHistoryEntryByIdAsync(... &gt; ... &gt; //or reduce reward points if the entry already exists &gt; await _rewardPointService.AddRewardPointsHistoryEntryAsync(..., -points ... &gt; ``` Source: https://www.nopcommerce.com/boards/topic/91368/reducerewardpoints-should-not-recalculate-points</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>94</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5878 Sending a reply to a review has been disabled for guests because their email is unknown</MESSAGE>
+    <SHA>d87e107b7b9cf8b680efa8cc701af25a1acb4a4d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5757 Fix reducing reward points of the order (#5885)</MESSAGE>
+      <SHA>672ccf5205a41340916769f6aa0fedb4256a4ff5</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderProcessingService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#5757 Fix reducing reward points of the order (#5885) (cherry picked from commit 672ccf5205a41340916769f6aa0fedb4256a4ff5)</MESSAGE>
+      <SHA>f1ef93b5472ea582275ff9c903bc0d5786c346bb</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderProcessingService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18758</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18758</ISSUEURL>
+  <TITLE>`FieldError` when trying so sort on `Account count` field in Providers list</TITLE>
+  <DESCRIPTION>First discussed in discussion [#17020 circuits/provider Error](https://github.com/netbox-community/netbox/discussions/17020) ### Deployment Type Self-hosted ### NetBox Version v4.2.4 ### Python Version 3.10 ### Steps to Reproduce 1. Create one or more Providers (`/circuits/providers/add/`) 2. Navigate to Providers list (`http://127.0.0.1:8000/circuits/providers/`) 3. Click 'Account count' column in order to sort providers by number of associate accounts ### Expected Behavior List of providers should be sorted based on how many provider accounts are associated with each. ### Observed Behavior `FieldError` is raised ![Image](https://github.com/user-attachments/assets/d4898a32-f38c-42ee-a876-54d7f96629fc) ``` File &quot;~/.virtualenvs/netbox/lib/python3.10/site-packages/django/db/models/sql/query.py&quot;, line 1423, in try_transform raise FieldError( Exception Type: FieldError at /circuits/providers/ Exception Value: Unsupported lookup 'count' for BigAutoField or join on the field not permitted, perhaps you meant contains? ```</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixes #18141: Fix quick-add support for plugin models</MESSAGE>
+    <SHA>7aba6500ddef8a58d8d914b9899ee987a4a39a94</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #18758: Enable sorting by Account count on prodiver list</MESSAGE>
+      <SHA>d87bed7cc75460e57c6bbc95a0bcb994958e5071</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/circuits/tables/providers.py</FILE>
+        <FILE>netbox/circuits/views.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #18758: Enable sorting by Account count on prodiver list (#18763)</MESSAGE>
+      <SHA>09d867adc3fe8014b547d752e1cca3bf0b1eabdf</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/circuits/tables/providers.py</FILE>
+        <FILE>netbox/circuits/views.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes #18758: Enable sorting by Account count on prodiver list (#18763)</MESSAGE>
+      <SHA>ba8ac6516040d580a13cd09e41ead30603639663</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/circuits/tables/providers.py</FILE>
+        <FILE>netbox/circuits/views.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

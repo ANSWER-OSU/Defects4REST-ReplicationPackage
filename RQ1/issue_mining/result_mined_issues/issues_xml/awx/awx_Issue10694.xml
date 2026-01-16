@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>10694</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/10694</ISSUEURL>
+  <TITLE>Consider capacity for controller_node selection</TITLE>
+  <DESCRIPTION>edited by cmeyers: Today, we randomly choose an online controller node https://github.com/ansible/awx/blob/b5fac4157df2f8c949361a7ca26452f47fc3baf5/awx/main/models/ha.py#L155 We should do &quot;something better&quot; (see comments below for ideas)</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>227</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>add test to verify that when there are 2 jobs and only capacity for one that one will move into waiting and the other stays in pending</MESSAGE>
+    <SHA>d7440d1ca37a33059468c1385d00f9d1e974e2bd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Treat hybrid nodes correctly Hybrid nodes need the capacity impact of both the control and execution tasks. Also, use a constant task impact for control nodes as was originally proposed in the issue https://github.com/ansible/awx/issues/10694</MESSAGE>
+      <SHA>1fe442270db44279fe3c64cbcdcbd1e20b959709</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/models/ha.py</FILE>
+        <FILE>awx/main/scheduler/task_manager.py</FILE>
+        <FILE>awx/main/scheduler/task_manager_instances.py</FILE>
+        <FILE>awx/settings/defaults.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

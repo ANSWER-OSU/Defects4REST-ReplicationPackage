@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5517</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5517</ISSUEURL>
+  <TITLE>Paypal Smart Payment Buttons. Rounding problem</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.30 &gt; ``` &gt; Payments.PayPalSmartPaymentButtons error: &gt; The requested action could not be performed, semantically incorrect, or failed business validation. &gt; System.AggregateException: One or more errors occurred. ({&quot;name&quot;:&quot;UNPROCESSABLE_ENTITY&quot;,&quot;details&quot;:[{&quot;field&quot;:&quot;/purchase_units/@reference_id=='0954f93c-bd95-41a2-81e9-2b8a2ffa39ba'/amount/breakdown/discount/value&quot;,&quot;value&quot;:&quot;-0.01&quot;,&quot;issue&quot;:&quot;CANNOT_BE_NEGATIVE&quot;,&quot;description&quot; &gt; ``` &gt; &gt; This problem has a higher chance of occurrance on configurations with tax included in the price such as VAT or GST. In the sourcecode servicemanager.cs CreateOrder method, there is a mismatch of values on this line: &gt; &gt; `var discountTotal = Math.Round(itemTotal + taxTotal + shippingTotal - orderTotal, 2);` &gt; &gt; discountTotal could potentially be a negative value of -0.01 or lower. taxTotal, shippingTotal and orderTotal values are OK since its fetched from the shopping cart. However itemTotal is summed up for each item with tax stripped off then rounded by 2 decimals places - potentially causing values mismatch on a Paypal API validation. &gt; &gt; ``` &gt; var itemPrice = Math.Round(_taxService.GetProductPrice(product, &gt; _shoppingCartService.GetUnitPrice(item), false, _workContext.CurrentCustomer, out _), 2); &gt; itemTotal += itemPrice * item.Quantity; // &lt;-- this calculation is not stable &gt; ``` &gt; Source: https://www.nopcommerce.com/boards/topic/90441/paypal-smart-payment-buttons-plugin-rounding-problem</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>88</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5699 Fixed problem with accounting product qty in bundles on stock</MESSAGE>
+    <SHA>f96dd326d44a8441c4b224ad082048c23cb7fdab</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5517 Paypal Smart Payment Buttons plugin. Don't round price for each item</MESSAGE>
+      <SHA>b9dcb27bb4cf8a1cf0f25edfd68a204715b309cb</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalSmartPaymentButtons/Services/ServiceManager.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalSmartPaymentButtons/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

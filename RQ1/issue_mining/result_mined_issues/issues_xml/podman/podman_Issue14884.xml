@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14884</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14884</ISSUEURL>
+  <TITLE>Running nested inside docker starts failing with Ubuntu Jammy: writing file `/sys/fs/cgroup/buildah-&lt;random&gt;/cgroup.procs`: Operation not supported</TITLE>
+  <DESCRIPTION>In our CI, we run an application (```nodepool```/```diskimage-builder```) in container under Docker that then, nested inside this continaer, runs ```podman``` (we use it to extract the root image of containers that we then modify with ```diskimage-builder```). Our CI recently updated from an Ubuntu Focal distribution to Ubuntu Jammy and this started failing. The container the app runs in (under Docker) is Debian; it then runs podman ``` 3.4.7+ds1-3+b1```. This has not changed. When running on Ubuntu Focal host, this works [1]. Our CI saves quite a bit of info about the host but perhaps the most interesting thing is kernel```5.4.0-121-generic```. A change switched only the base-os to Ubuntu Jammy and it started failing to run podman with [2] ``` 2022-07-06 00:16:37.594 | + podman build -t dib-tmp-work-image-22460 -f /usr/local/lib/python3.10/site-packages/diskimage_builder/elements/fedora-container/containerfiles/36 /opt/dib/cache/containerfile 2022-07-06 00:16:37.708 | STEP 1/2: FROM docker.io/library/fedora:36 2022-07-06 00:16:37.710 | Trying to pull docker.io/library/fedora:36... 2022-07-06 00:16:38.305 | Getting image source signatures 2022-07-06 00:16:38.306 | Copying blob sha256:e1deda52ffad5c9c8e3b7151625b679af50d6459630f4bf0fbf49e161dba4e88 2022-07-06 00:16:38.430 | Copying blob sha256:e1deda52ffad5c9c8e3b7151625b679af50d6459630f4bf0fbf49e161dba4e88 2022-07-06 00:16:42.150 | Copying config sha256:98ffdbffd20736862c8955419ef7db69849d715131717697007c3e51f22915a5 2022-07-06 00:16:42.153 | Writing manifest to image destination 2022-07-06 00:16:42.153 | Storing signatures 2022-07-06 00:16:42.186 | STEP 2/2: RUN dnf install -y findutils util-linux 2022-07-06 00:16:42.397 | error running container: error from /usr/bin/crun creating container for [/bin/sh -c dnf install -y findutils util-linux]: writing file `/sys/fs/cgroup/buildah-buildah444253232/cgroup.procs`: Operation not supported 2022-07-06 00:16:42.397 | : exit status 1 2022-07-06 00:16:42.407 | Error: error building at STEP &quot;RUN dnf install -y findutils util-linux&quot;: error while running runtime: exit status 1 ``` This runs ```5.15.0-40-generic```. Both of these are running docker ```version=20.10.17```; i.e. afaict the only difference here is the host distribution. https://github.com/containers/podman/issues/12559 feels similar? [1] https://zuul.opendev.org/t/openstack/build/ffce49bb9ee04d3aa66d852792e4d747/logs [2] https://zuul.opendev.org/t/openstack/build/53e3e8a9468b471896ec5be0718e4f02</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>podman: always call into SetupRootless Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+    <SHA>7b4afbf621a787ead00ae83bdaebabeec3b0c707</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>abi: create new cgroup when running in a container if podman is running in the root cgroup, it will create a new subcgroup and move itself there. [NO NEW TESTS NEEDED] it needs nested podman Closes: https://github.com/containers/podman/issues/14884 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>e3419c03245c5639d457cb27f4081cee400f3a36</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/infra/abi/system.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>abi: create new cgroup when running in a container if podman is running in the root cgroup, it will create a new subcgroup and move itself there. [NO NEW TESTS NEEDED] it needs nested podman Closes: https://github.com/containers/podman/issues/14884 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>35dc17bfe619444471317d067325d6f92752dc8f</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/domain/infra/abi/system.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18460</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18460</ISSUEURL>
+  <TITLE>--pid host causes podman stop to print oci runtime errors when the container is already stopped</TITLE>
+  <DESCRIPTION>### Issue Description Podman stop prints error on stderr when it shouldn't, it looks like we try to call the oci runtime every time. ### Steps to reproduce the issue Steps to reproduce the issue 1. `podman run --pid host alpine true` 2. `podman stop --all` Repeat to call podman stop, you will see message every time. ### Describe the results you received An extra error message from crun on stderr, exit code is still 0 ``` 2023-05-04T11:05:37.592448Z: error opening file `/run/user/1000/crun/832d948a97ade6e92350c1413c345b7e390909782311684583087d32cb2fea31/status`: No such file or directory 832d948a97ade6e92350c1413c345b7e390909782311684583087d32cb2fea31 ``` with runc ``` ERRO[0000] container does not exist e3b02bf539a8e2a407fe2df8d60addc556a8725127d9217577d7a60de9535550 ``` ### Describe the results you expected no error message ### podman info output ```yaml latest @main ``` ### Podman in a container No ### Privileged Or Rootless None ### Upstream Latest Release Yes ### Additional environment details Additional environment details ### Additional information Found in #18442 which shows how important such checks are.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18456 from hussam-qasem/patch-1 [CI:DOCS] Update podman-completion.1.md</MESSAGE>
+    <SHA>b5387da839f8d76d261e894ae8f80c12ca712472</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>libpod: do not Cleanup() more than once If the container was already cleaned up we should not try to do it again. Podman stop will always try to call Cleanup() if you look at the podman event log and just keep calling podman stop --all you see a cleanup event every time. This is not wanted. Also in case of the host pidns we report a error every single time, see the linked issue. Fixes #18460 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>95557a532e86fd9315a583b8407f55231f33c7b5</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_api.go</FILE>
+        <FILE>test/e2e/stop_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

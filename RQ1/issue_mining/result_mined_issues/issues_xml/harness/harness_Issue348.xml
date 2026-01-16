@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>348</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/348</ISSUEURL>
+  <TITLE>Drone Dockerfile build fails missing package rsrc.</TITLE>
+  <DESCRIPTION>I'm on a fresh checkout of drone (40fe4305815dd898ffbeeccee2f5bdd979896d72) I get this error: ``` bash Step 11 : RUN make ---&gt; Running in a5344ae88a06 cd cmd/droned/assets &amp;&amp; find js -name &quot;*.js&quot; ! -name '.*' ! -name &quot;main.js&quot; -exec cat {} \; &gt; js/main.js go install github.com/GeertJohan/go.rice/rice ../../GeertJohan/go.rice/rice/writecoff.go:5:2: cannot find package &quot;github.com/akavel/rsrc/binutil&quot; in any of: /go/src/pkg/github.com/akavel/rsrc/binutil (from $GOROOT) /gocode/src/github.com/akavel/rsrc/binutil (from $GOPATH) ../../GeertJohan/go.rice/rice/embed-syso.go:8:2: cannot find package &quot;github.com/akavel/rsrc/coff&quot; in any of: /go/src/pkg/github.com/akavel/rsrc/coff (from $GOROOT) /gocode/src/github.com/akavel/rsrc/coff (from $GOPATH) make: *** [rice] Error 1 2014/06/07 15:20:23 The command [/bin/sh -c make] returned a non-zero code: 2 ``` If I check that out into vendor, it all works. I suggest adding it to .gitmodules.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>56</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [CODE-133]: add sort filters and active state (#347)</MESSAGE>
+    <SHA>a50e95b8adc1b53d412800c73473aa37ff256f83</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: [code-101]: fix icons on system update (#348)</MESSAGE>
+      <SHA>cc4c753971608fc20a86e389defd7a7278a1e78b</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/pages/PullRequest/Conversation/Conversation.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix Restful React generation missing /api/v1 (#348)</MESSAGE>
+      <SHA>ae06520dad74014de43742344c29a7bcdcd25714</SHA>
+      <PATCHEDFILES>
+        <FILE>web/restful-react.config.js</FILE>
+        <FILE>web/src/services/code/index.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

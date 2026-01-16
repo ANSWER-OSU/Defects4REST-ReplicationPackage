@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4273</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4273</ISSUEURL>
+  <TITLE>Cannot connect to mail server that does not support authentication</TITLE>
+  <DESCRIPTION>nopCommerce version: develop The 4.3 development version based on mailkit has an issue sending mails when the SMTP server does not have authentication enabled. I am using Office 365 to send mails, it is configure to authenticate based on source IP address and does not accept authentication. In 4.2 this works fine but the mailkit implementation always tries to authenticate even if no username/password is configured. To get it working I made the following change in SmtpBuilder: ``` if (emailAccount.UseDefaultCredentials || !string.IsNullOrWhiteSpace(emailAccount.Username)) { client.Authenticate(emailAccount.UseDefaultCredentials ? CredentialCache.DefaultNetworkCredentials : new NetworkCredential(emailAccount.Username, emailAccount.Password)); } ``` Source: https://www.nopcommerce.com/boards/topic/74983/cannot-connect-to-mailserver-that-does-not-support-authentication Related with #3693</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>73</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#4523 Added missed DisplayOrder property to import/export product</MESSAGE>
+    <SHA>76261af548fe9a766ec7da5ca60d66515f59b031</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4273 Fixed case when email account credentials aren't required for sent with requests</MESSAGE>
+      <SHA>c00c50b8323508d5286a0ddce0b1908fae3b25f1</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Messages/SmtpBuilder.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

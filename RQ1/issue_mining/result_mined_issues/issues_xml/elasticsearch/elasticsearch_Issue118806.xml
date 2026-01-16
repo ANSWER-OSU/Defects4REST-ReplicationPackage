@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118806</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118806</ISSUEURL>
+  <TITLE>[CI] QueryableReservedRolesIT testDeletingAndCreatingSecurityIndexTriggersSynchronization failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5427 / concurrent-search-tests](https://gradle-enterprise.elastic.co/s/tc5j5vaw7gyhm) - [elasticsearch-periodic-platform-support #5415 / ubuntu-1804_platform-support-unix](https://gradle-enterprise.elastic.co/s/vxvykrj7r5rfa) - [elasticsearch-periodic-platform-support #5415 / oraclelinux-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/vf3dqbf6ep5fa) - [elasticsearch-periodic-platform-support #5415 / rhel-7_platform-support-unix](https://gradle-enterprise.elastic.co/s/ocqpzhsg7rwhw) - [elasticsearch-pull-request #47015 / part-4](https://gradle-enterprise.elastic.co/s/lwap4q64cc7qo) - [elasticsearch-periodic #5427 / graalvm-ce17_checkpart4_java-matrix](https://gradle-enterprise.elastic.co/s/gjrb45gwrqf44) - [elasticsearch-periodic #5427 / openjdk22_checkpart4_java-matrix](https://gradle-enterprise.elastic.co/s/r225hapiamrke) - [elasticsearch-periodic #5427 / openjdk17_checkpart4_java-matrix](https://gradle-enterprise.elastic.co/s/nug5ymtlig7wg) - [elasticsearch-pull-request #47015 / part-4](https://gradle-enterprise.elastic.co/s/lyzkbuarl5cjc) - [elasticsearch-periodic #5427 / openjdk21_checkpart4_java-matrix](https://gradle-enterprise.elastic.co/s/7zqp7amrr3vro) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:security:qa:security-basic:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.security.QueryableReservedRolesIT.testDeletingAndCreatingSecurityIndexTriggersSynchronization&quot; -Dtests.seed=5E39A37157649705 -Dtests.locale=kea-CV -Dtests.timezone=America/Boise -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.security.QueryableReservedRolesIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testDeletingAndCreatingSecurityIndexTriggersSynchronization),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: is &lt;3&gt; but: was &lt;0&gt; ``` **Issue Reasons:** - [8.x] 4 consecutive failures in test testDeletingAndCreatingSecurityIndexTriggersSynchronization - [8.x] 2 consecutive failures in step rhel-7_platform-support-unix - [8.x] 2 consecutive failures in step openjdk17_checkpart4_java-matrix - [8.x] 23 failures in test testDeletingAndCreatingSecurityIndexTriggersSynchronization (37.7% fail rate in 61 executions) - [8.x] 2 failures in step rhel-7_platform-support-unix (100.0% fail rate in 2 executions) - [8.x] 4 failures in step part-4 (33.3% fail rate in 12 executions) - [8.x] 2 failures in step openjdk17_checkpart4_java-matrix (100.0% fail rate in 2 executions) - [8.x] 3 failures in step part4 (27.3% fail rate in 11 executions) - [8.x] 2 failures in pipeline elasticsearch-periodic (100.0% fail rate in 2 executions) - [8.x] 2 failures in pipeline elasticsearch-periodic-platform-support (100.0% fail rate in 2 executions) - [8.x] 3 failures in pipeline elasticsearch-pull-request (27.3% fail rate in 11 executions) - [8.x] 3 failures in pipeline elasticsearch-intake (27.3% fail rate in 11 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix semantic text match failure (#118790) * Fix semantic text match failure * Remove shard settings; only check for counts and not specific doc IDs</MESSAGE>
+    <SHA>5c55c39f9f320aa4defb9f4458ef87d9ac994779</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.security.QueryableReservedRolesIT testDeletingAndCreatingSecurityIndexTriggersSynchronization #118806</MESSAGE>
+      <SHA>e1d06a8881577c90f57cf0e0a379df78ba22b22e</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Test queryable built-in role synchronization (#118964) Adds more tests for built-in roles synchronization, and fixes a bug where `synchronizationInProgress` hasn't been reset properly. Resolves https://github.com/elastic/elasticsearch/issues/118806</MESSAGE>
+      <SHA>845021d33a17523df4c949f57d5db51031e9659d</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/security/src/main/java/org/elasticsearch/xpack/security/support/QueryableBuiltInRolesSynchronizer.java</FILE>
+        <FILE>x-pack/plugin/security/src/main/java/org/elasticsearch/xpack/security/support/QueryableReservedRolesProvider.java</FILE>
+        <FILE>x-pack/plugin/security/src/test/java/org/elasticsearch/xpack/security/support/QueryableBuiltInRolesSynchronizerTests.java</FILE>
+        <FILE>x-pack/plugin/security/src/test/java/org/elasticsearch/xpack/security/support/QueryableBuiltInRolesUtilsTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Test queryable built-in role synchronization (#118964) Adds more tests for built-in roles synchronization, and fixes a bug where `synchronizationInProgress` hasn't been reset properly. Resolves https://github.com/elastic/elasticsearch/issues/118806</MESSAGE>
+      <SHA>df8d11d420dbb73215542606f3f21b45252a236d</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/security/src/main/java/org/elasticsearch/xpack/security/support/QueryableBuiltInRolesSynchronizer.java</FILE>
+        <FILE>x-pack/plugin/security/src/main/java/org/elasticsearch/xpack/security/support/QueryableReservedRolesProvider.java</FILE>
+        <FILE>x-pack/plugin/security/src/test/java/org/elasticsearch/xpack/security/support/QueryableBuiltInRolesSynchronizerTests.java</FILE>
+        <FILE>x-pack/plugin/security/src/test/java/org/elasticsearch/xpack/security/support/QueryableBuiltInRolesUtilsTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

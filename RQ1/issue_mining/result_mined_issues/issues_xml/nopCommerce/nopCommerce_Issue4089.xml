@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4089</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4089</ISSUEURL>
+  <TITLE>HttpContext is null in CookieAuthenticationService.cs when installing a plugin</TITLE>
+  <DESCRIPTION>In nopCommerce 4.20 I've written a custom plugin and when installing the plugin on startup I get a null object reference error in CookieAuthenticationService.cs. Happens here in GetAuthenticatedCustomer: ``` //try to get authenticated user identity var authenticateResult = _httpContextAccessor.HttpContext.AuthenticateAsync(NopAuthenticationDefaults.AuthenticationScheme).Result; if (!authenticateResult.Succeeded) return null; ``` I've replaced it with this for now in the source code: ``` AuthenticateResult authenticateResult = _httpContextAccessor?.HttpContext?.AuthenticateAsync(NopAuthenticationDefaults.AuthenticationScheme)?.Result; if (authenticateResult == null || !authenticateResult.Succeeded) return null; ``` Why is this happening?</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>182</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#3652 Removed redundant code and modules not related to endpoint routing</MESSAGE>
+    <SHA>d97737d58909c8819d39556b277dd6dbb0725d47</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4089 Added ensuring that system users are always in the database</MESSAGE>
+      <SHA>f5fa5811695e6b6d9f30dd219ab35982fe9b396b</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Customers/CustomerService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/ICustomerService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/WebWorkContext.cs</FILE>
+        <FILE>src/Tests/Nop.Services.Tests/Catalog/PriceCalculationServiceTests.cs</FILE>
+        <FILE>src/Tests/Nop.Services.Tests/FakeCustomerService.cs</FILE>
+        <FILE>src/Tests/Nop.Services.Tests/Orders/OrderTotalCalculationServiceTests.cs</FILE>
+        <FILE>src/Tests/Nop.Services.Tests/Tax/TaxServiceTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16075</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16075</ISSUEURL>
+  <TITLE>healthcheck run: error: ctr does not exist in database: no such container</TITLE>
+  <DESCRIPTION>Seen just now in an [in-flight PR](https://api.cirrus-ci.com/v1/artifact/task/6347492638851072/html/sys-podman-fedora-36-aarch64-root-host.log.html#t--00292): ``` [+1345s] not ok 292 podman create --health-on-failure=kill ... # podman healthcheck run APUcS4ihNr Error: container 43712cb6940abc3a35e883961fa79d4632674e40ca72394fec96535842fdf06c does not exist in database: no such container [ rc=125 (** EXPECTED 0 **) ] ``` f36 local root aarch64. Also seen in my flake logs, but only once so I hadn't filed it: ### [sys] 288 podman create --health-on-failure=kill * fedora-36-aarch64 : sys podman fedora-36-aarch64 root host * PR #15812 * [09-16 05:06](https://api.cirrus-ci.com/v1/artifact/task/4947692416663552/html/sys-podman-fedora-36-aarch64-root-host.log.html#t--00288)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #16083 from dfr/freebsd-pod Add support for 'podman pod' on FreeBSD</MESSAGE>
+    <SHA>bb0b1849d7102c2f9212ebaaeb332519a92c5d3c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>increase timeout of on-failure=kill system test The on-failure=kill system tests turned out to be flaky. Once the container has been killed, the test waits for systemd to restart the service by running `container inspect` for 10 seconds. The subsequent `healthcheck run` was the flake point which suggests the 10 seconds timeout to not be sufficiently high enough; presumably when the CI nodes are under pressure. Fixes: #16075 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>05dd41bfd704d46b37b09fbf14f6be0f7bd878d9</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/250-systemd.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

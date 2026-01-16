@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>856</ISSUENO>
+  <ISSUEURL>https://github.com/r-spacex/SpaceX-API/issues/856</ISSUEURL>
+  <TITLE>cannot post query for upcoming launches</TITLE>
+  <DESCRIPTION>posting data on this url ``` https://api.spacexdata.com/v4/launches/query``` with data ``` { &quot;query&quot;: { &quot;upcoming&quot;: true }, &quot;options&quot;: { &quot;limit&quot;: 1, &quot;select&quot;: { &quot;name&quot;: 1, &quot;id&quot;: 1, &quot;date_local&quot;: 1, &quot;flight_number&quot;: 1, &quot;details&quot;: 1, &quot;links&quot;: 1, &quot;date_precision&quot;: 1 }, &quot;sort&quot;: { &quot;flight_number&quot;: &quot;asc&quot; }, &quot;populate&quot;: [ { &quot;path&quot;: &quot;launchpad&quot;, &quot;select&quot;: { &quot;name&quot;: 1, &quot;full_name&quot;: 1 } }, { &quot;path&quot;: &quot;rocket&quot;, &quot;select&quot;: { &quot;name&quot;: 1, &quot;id&quot;: 1 } } ] } } ``` Getting response **Cannot read property 'map' of undefined** **it was working few hours before the issue was raised, plz try to solve it fast as possible**</DESCRIPTION>
+  <REPONAME>SpaceX-API</REPONAME>
+  <TIMEDIFFERENCEDAYS>118</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add missing route desc</MESSAGE>
+    <SHA>f3d37dada468316f1699ba420d294fd0a3f6ba6b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#856 handle situations where users might hide the crew field</MESSAGE>
+      <SHA>7f8fa4109eea806560722c20388dc657d4140354</SHA>
+      <PATCHEDFILES>
+        <FILE>routes/launches/v4/_transform-response.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#856 bugfix for crew overwrite</MESSAGE>
+      <SHA>f0f723b73d3ee6f752fcc05723ec8ad290d47110</SHA>
+      <PATCHEDFILES>
+        <FILE>routes/launches/v4/_transform-response.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

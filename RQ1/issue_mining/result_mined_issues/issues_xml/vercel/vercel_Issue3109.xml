@@ -1,0 +1,69 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3109</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/3109</ISSUEURL>
+  <TITLE>Now + Next.js: &quot;Please install typescript&quot; error with --prod deployment</TITLE>
+  <DESCRIPTION>I have a staging/production environment on Zeit for a frontend application done in Next.js. Last prod deployment was done 4 days ago, without issues. Today I've merged staging into prod, but I get an error that blocks the deployment while building the application: ``` It looks like you're trying to use TypeScript but do not have the required package(s) installed. Please install typescript by running: npm install --save-dev typescript If you are not trying to use TypeScript, please remove the tsconfig.json file from your package root (and any TypeScript files) ``` I'm not sure what is the reason why this error shows up now and not in the previous builds. I've checked the builds logs and nothing changed. I could probably solve this by adding typescript as **prod dependency** instead of having it as devDependency in my package.json file, but I'm not sure why the error is happening now and wasn't there on the latest releases. Another workaround would be to not use the **--prod flag** on the **production deployment** since the issue doesn't happen with the **staging deployment** that doesn't use the --prod flag. This is the full deployment command I'm using ``` now --prod --token $ZEIT_TOKEN --local-config .now/now.production.json ``` I have a gut feeling that it might be connected to #3107 and #3105 Any hints? Ps: I've also open a [thread on spectrum](https://spectrum.chat/zeit/general/now-next-js-please-install-typescript-error-on-production-deployment~6cc5a743-0ca1-4e21-b45f-02a8ee0dcfb8) and seems I'm not the only one</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Revert &quot;[tests] Add test all script&quot; since it runs on commit (#3108) Reverts #3106 from @MAPESO The tests seem to be running on each commit which is going to slow down development.</MESSAGE>
+    <SHA>0af87dc2bef14e1368342482cf416e32055021b3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-cli][now-client] Add parameter `nowConfig` for custom now.json (#3110) When now-client was implemented, it did not work with `--local-config` flag from now-cli because the only parameters it looks at are the files in a directory. This fixes the regression in now@16.3.0 so that now-client can accept an optional `nowConfig` object or fallback to the `now.json` file. Fixes #3099 Fixes #3105 Fixes #3107 Fixes #3109 [PRODUCT-350] #close [PRODUCT-350]: https://zeit.atlassian.net/browse/PRODUCT-350</MESSAGE>
+      <SHA>2791338e04b1cc1f5dafa355aa223d153e26e971</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-cli/src/util/deploy/process-deployment.ts</FILE>
+        <FILE>packages/now-cli/src/util/get-config.ts</FILE>
+        <FILE>packages/now-cli/src/util/index.js</FILE>
+        <FILE>packages/now-cli/test/helpers/prepare.js</FILE>
+        <FILE>packages/now-cli/test/integration.js</FILE>
+        <FILE>packages/now-client/src/create-deployment.ts</FILE>
+        <FILE>packages/now-client/src/deploy.ts</FILE>
+        <FILE>packages/now-client/src/types.ts</FILE>
+        <FILE>packages/now-client/src/upload.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now-cli][now-client] Fix `--local-config` flag and `files` key (#3117) This PR is a followup to #3110 that fixes the first deployment when using the `--local-config` flag and also fixes v1 deployments using the [`files`](https://zeit.co/docs/v1/features/configuration/#files-(array)) key. The tests have been adjusted so we don't regress in both cases. Fixes #3099 Fixes #3105 Fixes #3107 Fixes #3109 [PRODUCT-350] #close [PRODUCT-350]: https://zeit.atlassian.net/browse/PRODUCT-350</MESSAGE>
+      <SHA>d9bb6c8a54b298b2cbd8420b366e7a4ae7029dcc</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-cli/test/helpers/prepare.js</FILE>
+        <FILE>packages/now-cli/test/integration.js</FILE>
+        <FILE>packages/now-client/src/create-deployment.ts</FILE>
+        <FILE>packages/now-client/src/deploy.ts</FILE>
+        <FILE>packages/now-client/src/types.ts</FILE>
+        <FILE>packages/now-client/src/utils/index.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now-cli][now-client] Add parameter `nowConfig` for custom now.json (#3110) When now-client was implemented, it did not work with `--local-config` flag from now-cli because the only parameters it looks at are the files in a directory. This fixes the regression in now@16.3.0 so that now-client can accept an optional `nowConfig` object or fallback to the `now.json` file. Fixes #3099 Fixes #3105 Fixes #3107 Fixes #3109 [PRODUCT-350] #close [PRODUCT-350]: https://zeit.atlassian.net/browse/PRODUCT-350</MESSAGE>
+      <SHA>6716fdd49b32e9ca30c1dee15f6b326b0cde46bf</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-cli/src/util/deploy/process-deployment.ts</FILE>
+        <FILE>packages/now-cli/src/util/get-config.ts</FILE>
+        <FILE>packages/now-cli/src/util/index.js</FILE>
+        <FILE>packages/now-cli/test/helpers/prepare.js</FILE>
+        <FILE>packages/now-cli/test/integration.js</FILE>
+        <FILE>packages/now-client/src/create-deployment.ts</FILE>
+        <FILE>packages/now-client/src/deploy.ts</FILE>
+        <FILE>packages/now-client/src/types.ts</FILE>
+        <FILE>packages/now-client/src/upload.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now-cli][now-client] Fix `--local-config` flag and `files` key (#3117) This PR is a followup to #3110 that fixes the first deployment when using the `--local-config` flag and also fixes v1 deployments using the [`files`](https://zeit.co/docs/v1/features/configuration/#files-(array)) key. The tests have been adjusted so we don't regress in both cases. Fixes #3099 Fixes #3105 Fixes #3107 Fixes #3109 [PRODUCT-350] #close [PRODUCT-350]: https://zeit.atlassian.net/browse/PRODUCT-350</MESSAGE>
+      <SHA>e6692bb79b34a195f9d27007f2cdc256b1b2f3d8</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-cli/test/helpers/prepare.js</FILE>
+        <FILE>packages/now-cli/test/integration.js</FILE>
+        <FILE>packages/now-client/src/create-deployment.ts</FILE>
+        <FILE>packages/now-client/src/deploy.ts</FILE>
+        <FILE>packages/now-client/src/types.ts</FILE>
+        <FILE>packages/now-client/src/utils/index.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

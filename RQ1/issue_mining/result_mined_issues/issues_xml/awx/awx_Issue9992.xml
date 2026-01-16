@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9992</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/9992</ISSUEURL>
+  <TITLE>gather_analytics fails the first time</TITLE>
+  <DESCRIPTION>##### STEPS TO REPRODUCE * Fresh install devel instance * Reset analytics gather timestamp via the settings api * let a gather analytics trigger ##### EXPECTED RESULTS * Now to see a traceback ##### ACTUAL RESULTS * Traceback (see below) ##### ADDITIONAL INFORMATION In the Tower dev env ``` awx-dispatcher stdout | 2021-04-22 13:43:58,493 ERROR [52846d6c] awx.main.dispatch Worker failed to run task awx.main.tasks.gather_analytics(*[], **{} awx-dispatcher stdout | Traceback (most recent call last): awx-dispatcher stdout | File &quot;/awx_devel/awx/main/dispatch/worker/task.py&quot;, line 90, in perform_work awx-dispatcher stdout | result = self.run_callable(body) awx-dispatcher stdout | File &quot;/awx_devel/awx/main/dispatch/worker/task.py&quot;, line 65, in run_callable awx-dispatcher stdout | return _call(*args, **kwargs) awx-dispatcher stdout | File &quot;/awx_devel/awx/main/tasks.py&quot;, line 384, in gather_analytics awx-dispatcher stdout | last_time = DateTimeField().to_internal_value(last_gather.value) if last_gather else None awx-dispatcher stdout | File &quot;/var/lib/awx/venv/awx/lib64/python3.8/site-packages/rest_framework/fields.py&quot;, line 1213, in to_internal_value awx-dispatcher stdout | self.fail('invalid', format=humanized_format) awx-dispatcher stdout | File &quot;/var/lib/awx/venv/awx/lib64/python3.8/site-packages/rest_framework/fields.py&quot;, line 641, in fail awx-dispatcher stdout | raise ValidationError(message_string, code=key) awx-dispatcher stdout | rest_framework.exceptions.ValidationError: [ErrorDetail(string='Datetime has wrong format. Use one of these formats instead: YYYY-MM-DDThh:mm[:ss[.uuuuuu]][+HH:MM|-HH:MM|Z].', code='invalid')] ``` ![image](https://user-images.githubusercontent.com/722880/115726713-f9e24980-a350-11eb-90df-e3736a66a5d2.png) Looks like an easy fix. ``` diff --git a/awx/main/tasks.py b/awx/main/tasks.py index b7c8bd0185..2e206b8b65 100644 --- a/awx/main/tasks.py +++ b/awx/main/tasks.py @@ -381,7 +381,7 @@ def gather_analytics(): from rest_framework.fields import DateTimeField last_gather = Setting.objects.filter(key='AUTOMATION_ANALYTICS_LAST_GATHER').first() - last_time = DateTimeField().to_internal_value(last_gather.value) if last_gather else None + last_time = DateTimeField().to_internal_value(last_gather.value) if last_gather and last_gather.value else None gather_time = now() if not last_time or ((gather_time - last_time).total_seconds() &gt; settings.AUTOMATION_ANALYTICS_GATHER_INTERVAL): ```</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9943 from AlexSCorey/9115-SSOFix Fixes SSO Redirect SUMMARY This fixes #9115 by simply checking if there is a redirect url in and then replacing it with the existing url in history, navigating the user to the correct login url. ISSUE TYPE Bugfix Pull Request COMPONENT NAME UI AWX VERSION ADDITIONAL INFORMATION Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt; Reviewed-by: Alex Corey &lt;Alex.swansboro@gmail.com&gt;</MESSAGE>
+    <SHA>8d20add2d5afe953b93168fa84fc815e21739774</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9993 from chrismeyersfsu/fix-gather_analytics_first_time_run fix running analytics for the first time related to #9992 Reviewed-by: Jeff Bradberry &lt;None&gt;</MESSAGE>
+      <SHA>9fd2c5ba164051db64bec578de42d9267d44b67b</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

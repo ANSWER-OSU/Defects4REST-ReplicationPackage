@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6195</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/6195</ISSUEURL>
+  <TITLE>(AWX with external postgres ), Web UI not working after installation - docker</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE Web UI not working after trying to access the hostname url. ##### SUMMARY So , I have installed AWX and it is connected to an external DB which also on a RHEL 8 VM. After installing the awx , I am trying to connect to the UI but it showing as the awx box refused to connect. ##### ENVIRONMENT * AWX version: a * AWX install method: docker on linux * Ansible version: 2.9.3 * Operating System: RHEL 8.1 * Web Browser: google chrome ##### STEPS TO REPRODUCE &lt;!-- Please describe exactly how to reproduce the problem. --&gt; ##### EXPECTED RESULTS I expected the UI to come up on the browser. ##### ACTUAL RESULTS Site can't be reached, refused to connect ##### ADDITIONAL INFORMATION Result of docker logs -f awx_tasks The above exception was the direct cause of the following exception: Traceback (most recent call last): File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/conf/settings.py&quot;, line 87, in _ctit_db_wrapper yield File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/conf/settings.py&quot;, line 415, in __getattr__ value = self._get_local(name) File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/conf/settings.py&quot;, line 358, in _get_local setting = Setting.objects.filter(key=name, user__isnull=True).order_by('pk').first() File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/models/query.py&quot;, line 653, in first for obj in (self if self.ordered else self.order_by('pk'))[:1]: File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/models/query.py&quot;, line 274, in __iter__ self._fetch_all() File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/models/query.py&quot;, line 1242, in _fetch_all self._result_cache = list(self._iterable_class(self)) File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/models/query.py&quot;, line 55, in __iter__ results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size) File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/models/sql/compiler.py&quot;, line 1131, in execute_sql cursor = self.connection.cursor() File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/backends/base/base.py&quot;, line 256, in cursor return self._cursor() File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/backends/base/base.py&quot;, line 233, in _cursor self.ensure_connection() File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/backends/base/base.py&quot;, line 217, in ensure_connection self.connect() File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/utils.py&quot;, line 89, in __exit__ raise dj_exc_value.with_traceback(traceback) from exc_value File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/backends/base/base.py&quot;, line 217, in ensure_connection self.connect() File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/backends/base/base.py&quot;, line 195, in connect self.connection = self.get_new_connection(conn_params) File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/django/db/backends/postgresql/base.py&quot;, line 178, in get_new_connection connection = Database.connect(**conn_params) File &quot;/var/lib/awx/venv/awx/lib/python3.6/site-packages/psycopg2/__init__.py&quot;, line 126, in connect conn = _connect(dsn, connection_factory=connection_factory, **kwasync) django.db.utils.OperationalError: could not connect to server: No route to host Is the server running on host &quot;10.100.x.x&quot; and accepting TCP/IP connections on port 5432?</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #6176 from sarabrajsingh/release_4.2 [backport 4.2] removed hostname check when editing hostname on existing host (#13057)</MESSAGE>
+    <SHA>ad81f5ce521c585211e8f371e51e2800f2e1e5a1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #6195 from sarabrajsingh/release_4.2 [4.2] backport - initial commit of new machinery to handle redirects for webhook notifications</MESSAGE>
+      <SHA>d48617d93cb191b8d4892839d0091b03d328b868</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/main/notifications/webhook_backend.py</FILE>
+        <FILE>awx/main/tests/functional/test_notifications.py</FILE>
+        <FILE>awx/main/tests/unit/notifications/test_webhook.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7379</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7379</ISSUEURL>
+  <TITLE>Avoid using sessions for storing ProcessPaymentRequest</TITLE>
+  <DESCRIPTION>At the moment we use sessions to store the ProcessPaymentRequest object during the checkout process. But this solution is associated with a number of problems, the main one being the lack of a session for AJAX requests. We encountered this problem at the stage of developing the WEB API, I think other developers have the same problem. It is better to use generic attributes or cache for such purposes</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>183</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7653 removed the unused language parameter (#7655)</MESSAGE>
+    <SHA>2529c2c3e98fc3cc02485894125ac16151dbb825</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7379 Avoid using sessions for storing ProcessPaymentRequest</MESSAGE>
+      <SHA>42ae7dfdecef541c2dbb6050860ef7e5c0d5244d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/CommonHelper.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Domain/Customers/NopCustomerDefaults.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Common/GenericAttributeService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Common/IGenericAttributeService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Common/Pdf/AddressItem.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Common/Pdf/PdfDocument.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Common/PdfService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Messages/MessageTokenProvider.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/IOrderProcessingService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderProcessingService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Payments/DictionarySerializer.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Payments/IPaymentService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Payments/PaymentService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Payments/ProcessPaymentRequest.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/PayPalCommerceDefaults.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/Services/PayPalCommerceServiceManager.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/plugin.json</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/Extensions/ApplicationBuilderExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/OrderModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Orders/OrderModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Order/_OrderDetails.Info.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/CheckoutController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/OrderModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/ShoppingCartModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Models/Order/OrderDetailsModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Models/ShoppingCart/ShoppingCartModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Order/Details.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Shared/_OrderReviewData.cshtml</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Core.Tests/CommonHelperTests.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Services.Tests/Orders/OrderProcessingServiceTests.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Services.Tests/Payments/PaymentServiceTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#7379 Added a way to use a new order GUID when setting payment request</MESSAGE>
+      <SHA>d0d6299e49c6f747edd01904385b952df61d079a</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Orders/IOrderProcessingService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderProcessingService.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/Services/PayPalCommerceServiceManager.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

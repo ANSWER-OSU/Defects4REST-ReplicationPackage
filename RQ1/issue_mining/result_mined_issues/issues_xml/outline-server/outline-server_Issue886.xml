@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>886</ISSUENO>
+  <ISSUEURL>https://github.com/Jigsaw-Code/outline-server/issues/886</ISSUEURL>
+  <TITLE>Can't remove unreachable servers from Outline Manager</TITLE>
+  <DESCRIPTION>Hey y'all :) My Outline Manager is currently in a weird state: - There are 2 unreachable servers (GCP, not Digital Ocean) in the Manager. - Their icons on the left sidebar keep spinning. - At first, clicking each icon shows the usual &quot;Connections&quot; and &quot;Settings&quot; tabs but with null/0/blank metrics. - Clicking the &quot;remove server&quot; menu item from the 3 dot menu doesn't do anything. - Eventually, I see this &quot;Server unreachable&quot; page (screenshot attached). - Clicking the &quot;Remove Server&quot; button doesn't do anything. &lt;img width=&quot;810&quot; alt=&quot;outline_manaager_bad_state&quot; src=&quot;https://user-images.githubusercontent.com/133466/116760851-1da62f00-a9e4-11eb-8c67-9b67d8774193.png&quot;&gt; I got into this state because I was experimenting with starting my own Outline server on GCP. When I restarted the GCE instance, the IP changed, and then this &quot;Server unreachable&quot; issue appeared. I re-ran the install script on the instance, added the new IP to Outline Manager, then again shutdown the server and then had a 2nd unreachable server. Outline manager version: 1.8.0 (1.8.0.4401) Thanks!</DESCRIPTION>
+  <REPONAME>outline-server</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Upgrade outline-ss-server (#883)</MESSAGE>
+    <SHA>583ef409cd405cbdd2bcae95f9585017fb48cc73</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Populate an unreachable server's view with the server id This fixes https://github.com/Jigsaw-Code/outline-server/issues/888, https://github.com/Jigsaw-Code/outline-server/issues/886, and https://github.com/Jigsaw-Code/outline-server/issues/873 which were caused by the missing id keeping us from finding the server to forget.</MESSAGE>
+      <SHA>9dd2178b4e8a05ae7e584d57c9b212be6e9c0591</SHA>
+      <PATCHEDFILES>
+        <FILE>src/server_manager/model/server.ts</FILE>
+        <FILE>src/server_manager/web_app/app.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Populate an unreachable server's view with the server id (#890) This fixes https://github.com/Jigsaw-Code/outline-server/issues/888, https://github.com/Jigsaw-Code/outline-server/issues/886, and https://github.com/Jigsaw-Code/outline-server/issues/873 which were caused by the missing id keeping us from finding the server to forget.</MESSAGE>
+      <SHA>f7fe19b9528a7dab85a21786eb933dccc3e7fa76</SHA>
+      <PATCHEDFILES>
+        <FILE>src/server_manager/model/server.ts</FILE>
+        <FILE>src/server_manager/web_app/app.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

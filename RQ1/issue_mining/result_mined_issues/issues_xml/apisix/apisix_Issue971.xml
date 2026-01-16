@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>971</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/971</ISSUEURL>
+  <TITLE>request help: How to add password auth support for limit-count-redis</TITLE>
+  <DESCRIPTION>### Issue description We need to support auth password for redis in production env. So i modified the file `limit-count/limit-count-redis.lua` as follows: ``` bash --- a/lua/apisix/plugins/limit-count/limit-count-redis.lua +++ b/lua/apisix/plugins/limit-count/limit-count-redis.lua @@ -51,6 +51,20 @@ function _M.incoming(self, key) return false, err end + if pass then + local ok, err = red:auth(conf.redis_pass) + if not ok then + return nil, redis_err(err) + end + end + + if dbid then + local ok, err = red:select(conf.redis_dbid) + if not ok then + return nil, redis_err(err) + end + end + local limit = self.limit local window = self.window local remaining ``` and ``` bash --- a/lua/apisix/plugins/limit-count.lua +++ b/lua/apisix/plugins/limit-count.lua @@ -45,6 +45,9 @@ local schema = { redis_port = { type = &quot;integer&quot;, minimum = 1 }, + redis_pass = { + type = &quot;string&quot;, minLength = 0 + }, redis_timeout = { type = &quot;integer&quot;, minimum = 1 }, ``` when i do this request again, it says that: ``` bash $ curl -i 127.0.0.1:9180/apisix/admin/routes/00000000000000000075 -X PUT -H 'Content-Type: application/json' -d ' &gt; { &gt; &quot;uris&quot;:[ &gt; &quot;/api/admin/login&quot; &gt; ], &gt; &quot;hosts&quot;:[ &gt; &quot;blog.nsa.work&quot; &gt; ], &gt; &quot;methods&quot;:[ &gt; &quot;POST&quot; &gt; ], &gt; &quot;plugins&quot;:{ &gt; &quot;limit-count&quot;:{ &gt; &quot;count&quot;:2, &gt; &quot;time_window&quot;:60, &gt; &quot;rejected_code&quot;:503, &gt; &quot;key&quot;:&quot;http_x_forwarded_for&quot;, &gt; &quot;policy&quot;:&quot;redis&quot;, &gt; &quot;redis_host&quot;:&quot;127.0.0.1&quot;, &gt; &quot;redis_port&quot;:6389, &gt; &quot;redis_pass&quot;:&quot;xxxx&quot;, &gt; &quot;redis_timeout&quot;:1000 &gt; } &gt; }, &gt; &quot;vars&quot;:[ &gt; [ &gt; &quot;scheme&quot;, &gt; &quot;==&quot;, &gt; &quot;https&quot; &gt; ] &gt; ], &gt; &quot;upstream_id&quot;:&quot;2&quot;, &gt; &quot;desc&quot;:&quot;https://blog.nsa.work/api/admin/login&quot; &gt; }' HTTP/1.1 400 Bad Request Date: Fri, 13 Dec 2019 10:36:41 GMT Content-Type: text/plain Transfer-Encoding: chunked Connection: keep-alive Server: APISIX web server {&quot;error_msg&quot;:&quot;failed to check the configuration of plugin limit-count err: additional properties forbidden, found redis_pass&quot;} ``` How to support this additional properties of plugin limit-count ? ### Environment * apisix version (cmd: `apisix version`): 0.9 * OS: alpine 3.7</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>72</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>test: need to escape the character `{`. (#1148)</MESSAGE>
+    <SHA>859e085c212e2ba8c93d20fcd5f9081e5b10a3c6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feature: Support password auth for plugin limit-count-redis (#971)</MESSAGE>
+      <SHA>9f07695cd83852565c6164fbc43ccf475e9d0232</SHA>
+      <PATCHEDFILES>
+        <FILE>.travis.yml</FILE>
+        <FILE>lua/apisix/plugins/limit-count.lua</FILE>
+        <FILE>lua/apisix/plugins/limit-count/limit-count-redis.lua</FILE>
+        <FILE>t/plugin/limit-count-redis.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feature: Support password auth for plugin limit-count-redis (#971)</MESSAGE>
+      <SHA>c6e666df91009596bee66c6b15df95d3055affb4</SHA>
+      <PATCHEDFILES>
+        <FILE>.travis.yml</FILE>
+        <FILE>lua/apisix/plugins/limit-count.lua</FILE>
+        <FILE>lua/apisix/plugins/limit-count/limit-count-redis.lua</FILE>
+        <FILE>t/plugin/limit-count-redis.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

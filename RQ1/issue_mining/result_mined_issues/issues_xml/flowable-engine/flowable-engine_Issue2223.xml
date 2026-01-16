@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2223</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/2223</ISSUEURL>
+  <TITLE>TaskQuery: scope is not available when including variables</TITLE>
+  <DESCRIPTION>Hi, I just found out that when calling .includeTaskLocalVariables() or .includeProcessVariables(), the response does not contain any of the scope attributes. It happens when using both ProcessEngine and CmmnEngine. Why does this happen? Example bellow: ![image](https://user-images.githubusercontent.com/8373746/76636323-c07dbe80-6540-11ea-87cb-8840a5b1caf5.png) ![image](https://user-images.githubusercontent.com/8373746/76636346-cbd0ea00-6540-11ea-89f4-de92b9757222.png)</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Change the posted value of people/group fields from userid/groupid to user/group object when save/complete a task to match the backend api's need (#2231)</MESSAGE>
+    <SHA>0f3a6e3e8b3360991aa0ae85074a12089e0c58c3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add test for include variables #2223</MESSAGE>
+      <SHA>b41fddcb5b2bbe8c6b0bfb3764abd5cb0d12c1c4</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-cmmn-engine/src/test/java/org/flowable/cmmn/test/task/CmmnTaskQueryTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix issue with task query for db2 and mssql #2223</MESSAGE>
+      <SHA>f6f086e4832c70f35ee038b1a6487317029bf02c</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-task-service/src/main/resources/org/flowable/task/service/db/mapping/entity/Task.xml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

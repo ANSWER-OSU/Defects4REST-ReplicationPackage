@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19713</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/19713</ISSUEURL>
+  <TITLE>Umask with podman exec</TITLE>
+  <DESCRIPTION>### Discussed in https://github.com/containers/podman/discussions/19712 &lt;div type='discussions-op-text'&gt; &lt;sup&gt;Originally posted by **Joniteus** August 23, 2023&lt;/sup&gt; Hi, I have set a new umask value to my containers.conf (0017) and now my containerized application writes it's log files with the permissions I want it to write them. BUT! As I was setting it up and tried to test the propagation of the settings by entering the running container with 'podman exec' the umask value was the default one (0022) instead of what was visible in the containers.conf and podman inspect container. So the question follows. Why the umask setting is different in these cases?&lt;/div&gt;</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #19727 from vrothberg/fix-19715 kube: notifyproxy: close once</MESSAGE>
+    <SHA>32f7bb131a477169ad3ffa34b30bacced6f2ea56</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>podman exec should set umask to match container Fixes: https://github.com/containers/podman/issues/19713 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>6f284dbd468bb3f0b8b1331a9e16a789cfb50dbf</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_internal_common.go</FILE>
+        <FILE>libpod/oci_conmon_exec_common.go</FILE>
+        <FILE>test/system/075-exec.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

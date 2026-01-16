@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24921</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/24921</ISSUEURL>
+  <TITLE>Broken group card and permissions pages</TITLE>
+  <DESCRIPTION>### Bug The `user/group/card.php?id=1` and `user/group/perms.php?id=1` pages are empty and result in error messages (the following is for card.php): ``` PHP Fatal error: Uncaught Error: Call to undefined method UserGroup::getFullName() in /var/www/dolibarr/htdocs/core/class/html.form.class.php:9540 Stack trace: #0 /var/www/dolibarr/htdocs/core/lib/functions.lib.php(2484): Form-&gt;showrefnav() #1 /var/www/dolibarr/htdocs/user/group/perms.php(210): dol_banner_tab() #2 {main} thrown in /var/www/dolibarr/htdocs/core/class/html.form.class.php on line 9540, referer: https://dolibarr.local/user/group/card.php?id=1&amp;save_lastsearch_values=1 ``` This was working in 17.0.2 before we upgraded to 18.0.0-beta. ### Environment Version 18 ### Environment OS Debian 11 ### Environment Web server apache2 ### Environment PHP 8.2.6 ### Environment Database MariaDB 10.5.19 ### Environment URL(s) _No response_ ### Expected and actual behavior _No response_ ### Steps to reproduce the behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'develop' of github.com:Dolibarr/dolibarr into develop # Conflicts: # htdocs/compta/facture/card.php # htdocs/fourn/facture/card.php</MESSAGE>
+    <SHA>7be8ea782d3fec15a73a26c4cea7a38e39103874</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #24921 : fix fatal error</MESSAGE>
+      <SHA>bb908cca9a4f92e7ea03d7d4b2e4c015f3a6bf6b</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/user/class/usergroup.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix upstream #24921: Broken group card and permissions pages</MESSAGE>
+      <SHA>58702c56172a0c9a426f913925025b6a1b6ce348</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/user/class/usergroup.class.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

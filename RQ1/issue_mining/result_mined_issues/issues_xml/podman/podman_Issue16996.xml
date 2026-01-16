@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16996</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16996</ISSUEURL>
+  <TITLE>[Bug]: Python error while building podman from source</TITLE>
+  <DESCRIPTION>### Issue Description I am building podman 4.3.1 on Ubuntu 18.04 via Spack. The build aborts with these errors: ``` 'make' '-j16' '-e' 'BUILDTAGS=seccomp exclude_graphdriver_devicemapper exclude_graphdriver_btrfs' 4 errors found in build log: 30 File &quot;hack/markdown-preprocess&quot;, line 40, in process 31 for line in fh_in: 32 File &quot;/usr/lib/python3.6/encodings/ascii.py&quot;, line 26, in decode 33 return codecs.ascii_decode(input, self.errors)[0] 34 UnicodeDecodeError: 'ascii' codec can't decode byte 0xe2 in position 3745: ordinal not in range(128) 35 hack/markdown-preprocess docs/source/markdown/podman-create.1.md.in &gt;&gt; 36 Makefile:427: recipe for target 'docs/source/markdown/podman-build.1.md' failed &gt;&gt; 37 make: *** [docs/source/markdown/podman-build.1.md] Error 1 38 make: *** Waiting for unfinished jobs.... 39 Traceback (most recent call last): 40 File &quot;hack/markdown-preprocess&quot;, line 147, in &lt;module&gt; 41 main() 42 File &quot;hack/markdown-preprocess&quot;, line 144, in main 43 preprocessor.process(infile) ... 45 self.insert_file(fh_out, optionfile) 46 File &quot;hack/markdown-preprocess&quot;, line 67, in insert_file 47 for opt_line in fh_included: 48 File &quot;/usr/lib/python3.6/encodings/ascii.py&quot;, line 26, in decode 49 return codecs.ascii_decode(input, self.errors)[0] 50 UnicodeDecodeError: 'ascii' codec can't decode byte 0xc2 in position 738: ordinal not in range(128) &gt;&gt; 51 Makefile:427: recipe for target 'docs/source/markdown/podman-create.1.md' failed &gt;&gt; 52 make: *** [docs/source/markdown/podman-create.1.md] Error 1 53 make: *** wait: No child processes. Stop. ``` It seems that the markdown files that are being converted into man pages contain some non-ASCII characters (likely UTF-8 characters), and Python does not handle this well. ### Steps to reproduce the issue Steps to reproduce the issue 1. `spack install podman` ### Describe the results you received Build fails ### Describe the results you expected Build succeeds ### podman info output ```shell If you are unable to run podman info for any reason, please provide the podman version, operating system and its version and the architecture you are running. ``` ### Podman in a container No ### Privileged Or Rootless Rootless ### Upstream Latest Release Yes ### Additional environment details Additional environment details ### Additional information This patch corrects the problem for me: ```diff $ cat var/spack/repos/builtin/packages/podman/markdown-utf8.diff --- a/hack/markdown-preprocess +++ b/hack/markdown-preprocess @@ -36,7 +36,7 @@ outfile = os.path.splitext(infile)[0] outfile_tmp = outfile + '.tmp.' + str(os.getpid()) - with open(infile, 'r') as fh_in, open(outfile_tmp, 'w') as fh_out: + with open(infile, 'r', encoding='utf-8') as fh_in, open(outfile_tmp, 'w', encoding='utf-8') as fh_out: for line in fh_in: # '@@option foo' -&gt; include file options/foo.md if line.startswith('@@option '): @@ -63,7 +63,7 @@ # treats them as one line and will unwantedly render the # comment in its output. fh_out.write(&quot;\n[//]: # (BEGIN included file &quot; + path + &quot;)\n&quot;) - with open(path, 'r') as fh_included: + with open(path, 'r', encoding='utf-8') as fh_included: for opt_line in fh_included: opt_line = self.replace_type(opt_line) opt_line = opt_line.replace('&lt;&lt;subcommand&gt;&gt;', self.podman_subcommand()) ```</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #16989 from sstosh/fix-e2e e2e: fix run_volume_test</MESSAGE>
+    <SHA>7f3dd309c62ededf102e6165f372801e18b4406f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Preprocess files in UTF-8 mode Some (?) Python versions assume that text files are encoded as 7-bit ASCII and abort when encountering other encoding. Some of podman's markdown documentation files are encoded as UTF-8, and this needs to be specified explicitly when opening files. Closes https://github.com/containers/podman/issues/16996. [NO NEW TESTS NEEDED] Signed-off-by: Erik Schnetter &lt;schnetter@gmail.com&gt;</MESSAGE>
+      <SHA>7826e1ced60b17e8dbd74310e8efc8249c6655f6</SHA>
+      <PATCHEDFILES>
+        <FILE>hack/markdown-preprocess</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14173</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14173</ISSUEURL>
+  <TITLE>Aardvark/Netavark flakes</TITLE>
+  <DESCRIPTION>``` Aardvark Test 2: Two containers, same subnet ... Expected &lt;[]string | len:0, cap:0&gt;: nil to have length 2 /var/tmp/go/src/github.com[/containers/podman/test/e2e/run_aardvark_test.go:105](https://github.com/containers/podman/blob/bb8f53a727aeebb49873b2f4c9c12d6f1d0ce1d3/test/e2e/run_aardvark_test.go#L105) ``` ### Podman run networking [It] Aardvark Test 2: Two containers, same subnet * fedora-35 : Netavark int podman root * PR #13744 * [04-01 05:04](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/4916207047409664/html/int-podman-fedora-35-root-host-netavark.log.html#t--Aardvark-Test-2--Two-containers--same-subnet--1) * [04-01 05:04](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/4916207047409664/html/int-podman-fedora-35-root-host-netavark.log.html#t--Aardvark-Test-2--Two-containers--same-subnet--2) * [04-01 05:04](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/4916207047409664/html/int-podman-fedora-35-root-host-netavark.log.html#t--Aardvark-Test-2--Two-containers--same-subnet--3) * PR #13662 * [03-25 11:38](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/4594481012932608/html/int-podman-fedora-35-root-host-netavark.log.html#t--Aardvark-Test-2--Two-containers--same-subnet--1) * [03-25 11:38](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/4594481012932608/html/int-podman-fedora-35-root-host-netavark.log.html#t--Aardvark-Test-2--Two-containers--same-subnet--2) * [03-25 11:38](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/4594481012932608/html/int-podman-fedora-35-root-host-netavark.log.html#t--Aardvark-Test-2--Two-containers--same-subnet--3) * PR #13575 * [03-21 09:09](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/4749337602293760/html/int-podman-fedora-35-root-host-netavark.log.html#t--Aardvark-Test-2--Two-containers--same-subnet--1) * [03-21 09:09](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/4749337602293760/html/int-podman-fedora-35-root-host-netavark.log.html#t--Aardvark-Test-2--Two-containers--same-subnet--2) * fedora-36 : int podman fedora-36 root container * PR #14152 * [05-08 12:26](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/5421609321234432/html/int-podman-fedora-36-root-container.log.html#t--Aardvark-Test-2--Two-containers--same-subnet--1) * fedora-36 : int podman fedora-36 root host * PR #14040 * [04-28 08:29](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/5047243462934528/html/int-podman-fedora-36-root-host.log.html#t--Aardvark-Test-2--Two-containers--same-subnet--1) * [04-28 08:29](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/5047243462934528/html/int-podman-fedora-36-root-host.log.html#t--Aardvark-Test-2--Two-containers--same-subnet--2)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>244</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14807 from eriksjolund/fix_read_only_spelling [CI:DOCS] Fix spelling &quot;read only&quot; -&gt; &quot;read-only&quot;</MESSAGE>
+    <SHA>a406b950e4f8cf64bdd2c1e03a8480d4b5f97226</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix flake in aardvark tests The retry logic in digshort() did not work because dig always exits with 0 even when the domain name is not found. To make it work we have to check the standard output. We work on fixing the underlying issue in aardvark/netavark but this will take more time. Fixes #14173 Fixes #14171 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>4c5b058e860d386b3c310e04e8ea51ffe60f4c82</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/common_test.go</FILE>
+        <FILE>test/e2e/run_aardvark_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

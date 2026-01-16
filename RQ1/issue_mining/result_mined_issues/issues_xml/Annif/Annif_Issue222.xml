@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>222</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/222</ISSUEURL>
+  <TITLE>Travis build fails due to boto / google_compute_engine import error</TITLE>
+  <DESCRIPTION>The latest Travis builds fail with an error like this: ``` ../../../virtualenv/python3.5.6/lib/python3.5/site-packages/gensim/__init__.py:5: in &lt;module&gt; from gensim import parsing, corpora, matutils, interfaces, models, similarities, summarization, utils # noqa:F401 ../../../virtualenv/python3.5.6/lib/python3.5/site-packages/gensim/parsing/__init__.py:4: in &lt;module&gt; from .preprocessing import (remove_stopwords, strip_punctuation, strip_punctuation2, # noqa:F401 ../../../virtualenv/python3.5.6/lib/python3.5/site-packages/gensim/parsing/preprocessing.py:40: in &lt;module&gt; from gensim import utils ../../../virtualenv/python3.5.6/lib/python3.5/site-packages/gensim/utils.py:45: in &lt;module&gt; from smart_open import smart_open ../../../virtualenv/python3.5.6/lib/python3.5/site-packages/smart_open/__init__.py:1: in &lt;module&gt; from .smart_open_lib import * ../../../virtualenv/python3.5.6/lib/python3.5/site-packages/smart_open/smart_open_lib.py:45: in &lt;module&gt; from boto.compat import BytesIO, urlsplit, six ../../../virtualenv/python3.5.6/lib/python3.5/site-packages/boto/__init__.py:1216: in &lt;module&gt; boto.plugin.load_plugins(config) ../../../virtualenv/python3.5.6/lib/python3.5/site-packages/boto/plugin.py:93: in load_plugins _import_module(file) ../../../virtualenv/python3.5.6/lib/python3.5/site-packages/boto/plugin.py:75: in _import_module return imp.load_module(name, file, filename, data) ../../../virtualenv/python3.5.6/lib/python3.5/imp.py:235: in load_module return load_source(name, filename, file) ../../../virtualenv/python3.5.6/lib/python3.5/imp.py:172: in load_source module = _load(spec) /usr/lib/python2.7/dist-packages/google_compute_engine/boto/compute_auth.py:19: in &lt;module&gt; from google_compute_engine import logger E ImportError: No module named 'google_compute_engine' The command &quot;pytest --cov=./&quot; exited with 4. ``` This seems to be due to this [travis issue](https://github.com/travis-ci/travis-ci/issues/7940)</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Bump version: 0.37.0 → 0.37.1</MESSAGE>
+    <SHA>4f598c488048dfe4a4ad6a6575d263d4e561a531</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Try to fix Travis build failures (#222)</MESSAGE>
+      <SHA>ed9651b047fb723b0188de1f5f50984cc99c76e1</SHA>
+      <PATCHEDFILES>
+        <FILE>.travis.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

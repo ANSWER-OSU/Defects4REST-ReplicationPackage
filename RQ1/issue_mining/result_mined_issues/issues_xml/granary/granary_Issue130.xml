@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>130</ISSUENO>
+  <ISSUEURL>https://github.com/snarfed/granary/issues/130</ISSUEURL>
+  <TITLE>newlines in &lt;pre&gt; tags shouldn't get removed</TITLE>
+  <DESCRIPTION>Just noticed when reading https://aaronparecki.com/2018/02/07/7/indieauth in my feedreader (@aaronpk uses granary to provide an Atom feed) that the contents of `&lt;pre&gt;` tags also get their newlines stripped and thus the code examples are missing them. Given that granary doesn't seem to need to parse the HTML anywhere I totally get if this is WON'T FIX. Given that the microformats parser returns the newlines as they are it also seems to be the wrong place to handle this(?) (Ref #80 for why newlines are stripped)</DESCRIPTION>
+  <REPONAME>granary</REPONAME>
+  <TIMEDIFFERENCEDAYS>18</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>github: create(): convert links and images to markdown fixes snarfed/bridgy#794</MESSAGE>
+    <SHA>0b94583f42d63587bc7b9d5f5130148298072911</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>mf2: remember HTML content, keep newlines, don't translate to &lt;br&gt; for #130, also re #80. i highly suspect this will cause a regression somewhere, but i'm not quite sure where yet. :/</MESSAGE>
+      <SHA>6260e32a1b4864e1b27f78719b864899a1389791</SHA>
+      <PATCHEDFILES>
+        <FILE>README.md</FILE>
+        <FILE>granary/microformats2.py</FILE>
+        <FILE>granary/test/test_atom.py</FILE>
+        <FILE>granary/test/test_microformats2.py</FILE>
+        <FILE>granary/test/testdata/repost.as-from-mf2.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>70</ISSUENO>
+  <ISSUEURL>https://github.com/strapdata/elassandra/issues/70</ISSUEURL>
+  <TITLE>ES DELETE by index/type fails for time-series indices</TITLE>
+  <DESCRIPTION>There seems to be a possible bug or difference in the way plan indices are handled (ie: ```test_index```) vs. timeseries indices (ie: ```test-2017.01.01```) particularly evident on ```DELETE``` actions: #### Successful DELETE: test_index &lt;pre&gt; DELETE test_index PUT _template/test_template { &quot;template&quot;: &quot;test_index&quot;, &quot;mappings&quot;: { &quot;_default_&quot;: { &quot;properties&quot;: { &quot;attachment&quot;: { &quot;type&quot;: &quot;binary&quot; }, &quot;report&quot;: { &quot;type&quot;: &quot;boolean&quot; }, &quot;payload&quot;: { &quot;type&quot;: &quot;object&quot;, &quot;enabled&quot;: false } } } } } PUT test_index/test_type/test12 { &quot;@timestamp&quot;: &quot;2016-12-27T19:14:00.012Z&quot;, &quot;level&quot;: &quot;INFO&quot;, &quot;message&quot;: &quot;test message&quot;, &quot;action&quot;: &quot;test_action&quot;, &quot;payload&quot;: {}, &quot;report&quot;: false } DELETE test_index/test_type/test12 &lt;/pre&gt; #### Failed DELETE on index: test_index-2016.12.29 &lt;pre&gt; DELETE test_index* PUT _template/test_template { &quot;template&quot;: &quot;test_index-*&quot;, &quot;mappings&quot;: { &quot;_default_&quot;: { &quot;properties&quot;: { &quot;attachment&quot;: { &quot;type&quot;: &quot;binary&quot; }, &quot;report&quot;: { &quot;type&quot;: &quot;boolean&quot; }, &quot;payload&quot;: { &quot;type&quot;: &quot;object&quot;, &quot;enabled&quot;: false } } } } } PUT test_index-2016.12.29/test_type/test12 { &quot;@timestamp&quot;: &quot;2016-12-27T19:14:00.012Z&quot;, &quot;level&quot;: &quot;INFO&quot;, &quot;message&quot;: &quot;test message&quot;, &quot;action&quot;: &quot;test_action&quot;, &quot;payload&quot;: {}, &quot;report&quot;: false } GET test_index-2016.12.29/_search DELETE test_index-2016.12.29/test_type/test12 &lt;/pre&gt; Which results in the following error: &lt;pre&gt; { &quot;error&quot;: { &quot;root_cause&quot;: [ { &quot;type&quot;: &quot;action_request_validation_exception&quot;, &quot;reason&quot;: &quot;Validation Failed: 1: test_index-2016.12.29.test_type table does not exists;&quot; } ], &quot;type&quot;: &quot;action_request_validation_exception&quot;, &quot;reason&quot;: &quot;Validation Failed: 1: test_index-2016.12.29.test_type table does not exists;&quot; }, &quot;status&quot;: 400 } &lt;/pre&gt; Any suggestion as of what might be causing this?</DESCRIPTION>
+  <REPONAME>elassandra</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge remote-tracking branch 'origin/master'</MESSAGE>
+    <SHA>d55a73fa886a6aa5edb55e8a8c71cedd1f32cb08</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#70 Fix ES Delete index when having a template Don’t try to remove C* 2i on _default_ table</MESSAGE>
+      <SHA>c96045680e98c69b6f6e8dd9c8c487512485e373</SHA>
+      <PATCHEDFILES>
+        <FILE>core/src/main/java/org/elasticsearch/cluster/metadata/MetaDataDeleteIndexService.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Revert &quot;#70 Fix ES Delete index when having a template&quot; This reverts commit c96045680e98c69b6f6e8dd9c8c487512485e373.</MESSAGE>
+      <SHA>03323d5a621b15db2c41db6bf73d4dfba43b9fc3</SHA>
+      <PATCHEDFILES>
+        <FILE>core/src/main/java/org/elasticsearch/cluster/metadata/MetaDataDeleteIndexService.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#70 Fix ES Delete index when having a template Fix the delete index issue and add a unit test.</MESSAGE>
+      <SHA>aba0095e29eace6691933934557e9fcaf341cef4</SHA>
+      <PATCHEDFILES>
+        <FILE>core/src/main/java/org/elasticsearch/cluster/metadata/MetaDataDeleteIndexService.java</FILE>
+        <FILE>core/src/test/java/org/elassandra/NamedUdtTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18693</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18693</ISSUEURL>
+  <TITLE>[systest] subnet is already used on the host or by another config</TITLE>
+  <DESCRIPTION>Occasional flake in system tests, very likely because of a non-16-24 subnet: ``` # podman network create --subnet 172.31.30.0/24 testnet-8KINMhneHJ Error: subnet 172.31.30.0/24 is already used on the host or by another config ``` Seems like a solved problem, and it is, but not without adding more dependencies. One simple possibility might involve: ``` python -mipaddress -c '...ipaddress.ip_address(&quot;172.16.x.0&quot;) in ipaddress.ip_network(&quot;EACH-LINE-FROM-IP-ROUTE&quot;) ``` ...in `helpers.network.bash:random_rfc1918_subnet()`. Filing so I don't forget. * fedora-38-aarch64 : sys podman fedora-38-aarch64 root host boltdb * PR #18681 * [05-25 10:13](https://api.cirrus-ci.com/v1/artifact/task/4823815151157248/html/sys-podman-fedora-38-aarch64-root-host-boltdb.log.html#t--00434) in [sys] podman run CONTAINERS_CONF_OVERRIDE dns options * fedora-38-aarch64 : sys remote fedora-38-aarch64 root host sqlite [remote] * PR #17831 * [05-18 22:08](https://api.cirrus-ci.com/v1/artifact/task/4752281095110656/html/sys-remote-fedora-38-aarch64-root-host-sqlite.log.html#t--00426) in [sys] podman network create</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>153</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #20493 from edsantiago/getport_safe CI: e2e: safer GetPort()</MESSAGE>
+    <SHA>c1d177e8e7aae0ca3666657447175e27498a5800</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>CI: systest: safer random_rfc1918_subnet Our aarch64 CI system uses 172.31.0.0/20. Because I was (and am) lazy, my random_rfc1918_subnet() helper was only checking /24. This causes flakes. Solution is to actually do it right: binary arithmetic, prefix matching. This is effectively impossible in bash, so, use a hairy perl helper and add copious tests. Fixes: #18693 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>9e3363c5e3387cbc73c4debd25e19cb26e561753</SHA>
+      <PATCHEDFILES>
+        <FILE>test/system/helpers.network.bash</FILE>
+        <FILE>test/system/helpers.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

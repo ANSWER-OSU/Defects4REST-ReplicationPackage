@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15497</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/15497</ISSUEURL>
+  <TITLE>Post settings menu date picker doesn't use site timezone</TITLE>
+  <DESCRIPTION>### Issue Summary The timezone of post settings menu date picker doesn't match the site's timezone. This prevents a user from editing the publication date of a post when the publication date is published the following day relative to the user's current timezone. ### Steps to Reproduce - Set the site's timezone to one that is a day ahead of your current timezone - Start a new draft - Open the post settings menu, note that the publish date is set to the right date (one day ahead of you) - Try to edit that value: &lt;img width=&quot;357&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/101513/192858508-1ac67e9e-2098-438c-a2e7-9684b7a75cb3.png&quot;&gt; Note that although the date in the box is correct (the 29th in the screenshot), the selected date in the date picker is the previous day (the 28th), or today in your current timezone. Today in the site timezone (29th) is not selectable. ### Ghost Version 5.16 ### Node.js Version 16 ### How did you install Ghost? ghost install ### Database type MySQL 8 ### Browser &amp; OS version Tested in latest Mac Chrome ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Added disabled state with CTA for Zapier integration refs https://github.com/TryGhost/Team/issues/1157</MESSAGE>
+    <SHA>94aaa168cd9c785b92e89256d1c7a46edecfe3be</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed gh-date-time-picker not using site's timezone for min/max date refs #15497 Expected behavior of the default `'now'` option for both min and max date available was not met. `'now'` option for min/max date used `moment()` function which did not consider the timezone of the site. Now `moment.tz()` is used instead of `moment()`, and blogTimezone attribute is provided as the timezone. With this change, default `'now'` option will use the site's timezone.</MESSAGE>
+      <SHA>303483607267fc15b10793d7bef4d77536c55720</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/app/components/gh-date-time-picker.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed timezone issue with min/max dates in datetime picker fixes #15497 `'now'` option for min/max date used `moment()` function and did not consider the timezone of the site.</MESSAGE>
+      <SHA>220af3b276389cdb5ba8e0f6d564f82c528cfd7c</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/app/components/gh-date-time-picker.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

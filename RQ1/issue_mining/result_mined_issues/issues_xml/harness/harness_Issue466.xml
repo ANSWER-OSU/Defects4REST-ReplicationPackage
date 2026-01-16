@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>466</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/466</ISSUEURL>
+  <TITLE>Restrict deploy to specific branch</TITLE>
+  <DESCRIPTION>Right now with the publish plugins, you can restrict to a specific branch, but not the deploy plugins. The flow in my .drone.yml is: on all: test on master: build and publish docker image to hub on all (NOT DESIRED): deploy to staging But right now, I can't restrict the deploy to master. At least when publishing with the docker plugin, deploying is pretty senseless without the publish step. (note also that it seems that the git env we're in during the deploy step is odd. I thought I could do something like: `test &quot;$(git symbolic-ref --short -q HEAD)&quot; = &quot;master&quot; &amp;&amp; deploy-script` But the symbolic ref is coming back empty. I also tried `$(git rev-parse --abbrev-ref HEAD)` and that just printed HEAD.) As a side note, I suspect this would be relatively easy to implement - it seems like adding a `Branch` field to the struct in `pkg/plugin/deploy/bash.go` and then replicating the logic to test branches that is in `pkg/plugin/publish/publish.go` in `pkg/plugin/deploy/deployment.go`, but I've never written anything in go before, and my attempts were thwarted by the fact that what is built by `make` dousn't seem to be the source code, at least by default (I wiped out all of `pkg` and it still built fine).</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: [code-695]: fix form</MESSAGE>
+    <SHA>8011df2974be1838cd75e689b9b34a795ff9651d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[Import] Fix space import to list repos of provided namespace (#466)</MESSAGE>
+      <SHA>ab0b79037b7c3101a7ebbee747b7b370d0cd830b</SHA>
+      <PATCHEDFILES>
+        <FILE>internal/services/importer/provider.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

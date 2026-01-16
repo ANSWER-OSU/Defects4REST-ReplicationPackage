@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>480</ISSUENO>
+  <ISSUEURL>https://github.com/k8ssandra/management-api-for-apache-cassandra/issues/480</ISSUEURL>
+  <TITLE>python 2 missing on ubi cass-management-api images 3.11</TITLE>
+  <DESCRIPTION>python2(python 2.7) is not included which break cqlsh image: docker.io/k8ssandra/cass-management-api:3.11.16-ubi8 See installed packages here https://github.com/k8ssandra/management-api-for-apache-cassandra/blob/master/Dockerfile-oss.ubi8#L130 ``` kubectl -n k8ssandra-operator exec -it cluster1-main-az-1a-sts-0 -c cassandra -- /bin/bash [cassandra@cluster1-main-az-1a-sts-0 /]$ cqlsh No appropriate python interpreter found. [cassandra@cluster1-main-az-1a-sts-0 /]$ cat ~/bin/cqlsh #!/bin/sh python -c 'import sys; sys.exit(not (0x020700b0 &lt; sys.hexversion &lt; 0x03000000))' 2&gt;/dev/null \ &amp;&amp; exec python &quot;`python -c &quot;import os;print(os.path.dirname(os.path.realpath('$0')))&quot;`/cqlsh.py&quot; &quot;$@&quot; for pyver in 2.7; do which python$pyver &gt; /dev/null 2&gt;&amp;1 &amp;&amp; exec python$pyver &quot;`python$pyver -c &quot;import os;print(os.path.dirname(os.path.realpath('$0')))&quot;`/cqlsh.py&quot; &quot;$@&quot; done echo &quot;No appropriate python interpreter found.&quot; &gt;&amp;2 exit 1 [cassandra@cluster1-main-az-1a-sts-0 /]$ rpm -qa | grep python python3-setuptools-wheel-39.2.0-7.el8.noarch platform-python-pip-9.0.3-23.el8.noarch platform-python-3.6.8-56.el8_9.3.x86_64 python3-pip-9.0.3-23.el8.noarch python3-pip-wheel-9.0.3-23.el8.noarch platform-python-setuptools-39.2.0-7.el8.noarch python3-libs-3.6.8-56.el8_9.3.x86_64 python3-setuptools-39.2.0-7.el8.noarch python36-3.6.8-38.module+el8.9.0+20976+d3c38525.x86_64 ```</DESCRIPTION>
+  <REPONAME>management-api-for-apache-cassandra</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Rename DSE7 to HCD (#485) * Rename DSE7 to HCD</MESSAGE>
+    <SHA>78b22b001483ac61d7329e976a3034205fedf6fa</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Release v0.1.77 * [BUGFIX] [#480](https://github.com/k8ssandra/management-api-for-apache-cassandra/issues/480) python 2 missing on ubi cass-management-api images 3.11 * [CHANGE] [#484](https://github.com/k8ssandra/management-api-for-apache-cassandra/issues/484) Rename DSE7 to HCD</MESSAGE>
+      <SHA>5e3d09cebdd3583f740bb18c81f50262dfeb07e2</SHA>
+      <PATCHEDFILES>
+        <FILE>CHANGELOG.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

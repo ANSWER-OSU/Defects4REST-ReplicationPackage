@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9120</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/9120</ISSUEURL>
+  <TITLE>Liquid For Loop 'Non-negative number required'</TITLE>
+  <DESCRIPTION>@sebastienros prior to the Liquid update in 'dev' branch, you, you could do this: ``` {% assign nestedIndexSize = nestedTitles.size | minus: 1 %} {% for i in (0..nestedIndexSize) %} &lt;li class=&quot;breadcrumb-item text-nowrap&quot;&gt;&lt;a href=&quot;{{ nestedUrls[i] }}&quot;&gt;{{ nestedTitles[i] }}&lt;/a&gt;&lt;/li&gt; {% endfor %} {% endif %} ``` On the for loop, you did not care if 'nestedIndexSize' was less than 0, it just wouldn't render the for loop. With the latest change it will throw an error of: ``` ArgumentOutOfRangeException: Non-negative number required. (Parameter 'capacity') ``` To fix it you have to do something like this: ``` {% assign nestedIndexSize = nestedTitles.size | minus: 1 %} {% if nestedIndexSize &gt; 0 %} {% for i in (0..nestedIndexSize) %} &lt;li class=&quot;breadcrumb-item text-nowrap&quot;&gt;&lt;a href=&quot;{{ nestedUrls[i] }}&quot;&gt;{{ nestedTitles[i] }}&lt;/a&gt;&lt;/li&gt; {% endfor %} {% endif %} {% endif %} ``` In other words, you have to put an if statement in to ensure it is greater than 0. My request is that we either have the underlying code take care of it and not render the loop like it used to. Or, if we don't want to do that, then maybe we can at least have the underlying code fail &quot;gracefully&quot;. Normally, no matter what you do in Liquid, it doesn't crash the page. A specific section might not render, but doesn't break the whole page. Just my thoughts.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix some liquid comparisons with blank/empty</MESSAGE>
+    <SHA>d5ae9dcf6085ab933b0c80ec7bda2638d6d9c44d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix for ranges in liquid Fixes #9120</MESSAGE>
+      <SHA>d938b9c3b1ae3a4931f129f0a110e9b969cb88c0</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Build/Dependencies.props</FILE>
+        <FILE>src/docs/resources/libraries/README.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix for ranges Fixes #9120</MESSAGE>
+      <SHA>94b24fc392e643c173a82e164a526471ea9acc05</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Build/Dependencies.props</FILE>
+        <FILE>src/docs/resources/libraries/README.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix for ranges (#9122) Fixes #9120</MESSAGE>
+      <SHA>4e1f974eede50f374a400317771040d1f1ba8dd5</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Build/Dependencies.props</FILE>
+        <FILE>src/docs/resources/libraries/README.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

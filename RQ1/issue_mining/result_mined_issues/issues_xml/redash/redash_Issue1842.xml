@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1842</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/1842</ISSUEURL>
+  <TITLE>Updating Alert Destination email field does not change the value in the database</TITLE>
+  <DESCRIPTION>### Issue Summary Updating the email address list for an Alert Destination does not update the database. ### Steps to Reproduce 1. Create an email alert destination group, refresh page. 2. Change one or more emails, save. Refresh page. 3. The email group is the same as it was when created. 4. Confirm via a DB query (```select * from notification_destinations;```) ### Technical details: * Redash Version: 1.0.3+b2850 * Browser/OS: Various, consistent behaves the same * How did you install Redash: ```https://raw.githubusercontent.com/getredash/redash/master/bin/upgrade``` More details: Checking the API log for the update (when I click the save button) things look ok: ``` [2017-06-23 21:17:26,311][PID:25417][INFO][metrics] method=POST path=/api/destinations/1 endpoint=destination status=200 content_type=application/json content_length=144 duration=7.94 query_count=4 query_duration=2.80 ``` Enabling statement logging in PostgreSQL shows this happening (with sanitized emails): ``` 2017-06-23 21:31:54.550 UTC [459] redash@redash LOG: statement: BEGIN 2017-06-23 21:31:54.551 UTC [459] redash@redash LOG: statement: SELECT organizations.updated_at AS organizations_updated_at, organizations.created_at AS organizations_created_at, organizations.id AS organizations_id, organizations.name AS organizations_name, organizations.slug AS organizations_slug, organizations.settings AS organizations_settings FROM organizations WHERE organizations.slug = 'default' LIMIT 1 2017-06-23 21:31:54.552 UTC [459] redash@redash LOG: statement: SELECT users.groups AS users_groups, users.updated_at AS users_updated_at, users.created_at AS users_created_at, users.id AS users_id, users.org_id AS users_org_id, users.name AS users_name, users.email AS users_email, users.password_hash AS users_password_hash, users.api_key AS users_api_key FROM users WHERE users.id = '1' AND 1 = users.org_id 2017-06-23 21:31:54.554 UTC [459] redash@redash LOG: statement: SELECT groups.id AS groups_id, groups.org_id AS groups_org_id, groups.type AS groups_type, groups.name AS groups_name, groups.permissions AS groups_permissions, groups.created_at AS groups_created_at FROM groups WHERE groups.id IN (1, 2, 3) 2017-06-23 21:31:54.555 UTC [459] redash@redash LOG: statement: SELECT notification_destinations.id AS notification_destinations_id, notification_destinations.org_id AS notification_destinations_org_id, notification_destinations.user_id AS notification_destinations_user_id, notification_destinations.name AS notification_destinations_name, notification_destinations.type AS notification_destinations_type, notification_destinations.options AS notification_destinations_options, notification_destinations.created_at AS notification_destinations_created_at FROM notification_destinations WHERE notification_destinations.id = '1' AND 1 = notification_destinations.org_id 2017-06-23 21:31:54.557 UTC [459] redash@redash LOG: statement: COMMIT ``` In other words, it does not appear to be even attempting to update the addresses.</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #1846 from getredash/athena-updates Athena updates: bring back ability to disable annotations and disable formatter</MESSAGE>
+    <SHA>e1eeb67025f91717d229ccb41bc09708b956020d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix: alert destination details were not updating. Closes #1842.</MESSAGE>
+      <SHA>24ba1109650d429617de38a5bb9c18546bc9abbb</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/handlers/destinations.py</FILE>
+        <FILE>redash/models.py</FILE>
+        <FILE>tests/handlers/test_destinations.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix: alert destination details were not updating. Closes #1842.</MESSAGE>
+      <SHA>d9a3509d4d40352fbc10085a98f032da88526ea0</SHA>
+      <PATCHEDFILES>
+        <FILE>handlers/destinations.py</FILE>
+        <FILE>models.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

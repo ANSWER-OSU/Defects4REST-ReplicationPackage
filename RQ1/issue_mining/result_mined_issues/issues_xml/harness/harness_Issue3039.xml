@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3039</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/3039</ISSUEURL>
+  <TITLE>Jsonnet cleans &quot;trigger&quot; from steps</TITLE>
+  <DESCRIPTION>Hi. Jsonnet removes &quot;trigger&quot; while converting to `.drone.yaml` ``` { name: &quot;Send slack info&quot;, depends_on: [ &quot;OTHER_STEP&quot; ], image: &quot;plugins/slack&quot;, settings: { channel: &quot;notifications&quot;, link_names: true, template: &quot;{{#success build.status}}Cron build passed. Good job.{{else}}Cron build failed. Fix me please.{{/success}}&quot;, }, trigger: { event: [&quot;cron&quot;] }, when: {status: ['success', 'failure'] } } ``` And after running `drone jsonnet --stream --format=false --stdout` I'm receiving this: ``` - name: Send slack info image: plugins/slack settings: channel: notifications link_names: true template: &quot;{{#success build.status}}Cron build passed. Good job.{{else}}Cron build failed. Fix me please.{{/success}}&quot; when: status: - success - failure depends_on: - OTHER_STEP ``` there's no ``` trigger: event: - corn ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: [AH-731]: fix build (#3109) * fix: [AH-731]: fix build</MESSAGE>
+    <SHA>d85030ef038aa997e83be809efb16c1eb8a0fa58</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: [CODE-2839]: branch rules state migration (#3039)</MESSAGE>
+      <SHA>a71e822ac9ed5ee736b937e8080fbfa147883739</SHA>
+      <PATCHEDFILES>
+        <FILE>app/services/migrate/rule.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

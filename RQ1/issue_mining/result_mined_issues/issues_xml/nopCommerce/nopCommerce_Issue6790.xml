@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6790</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6790</ISSUEURL>
+  <TITLE>Product search by manufacturer and category name includes deleted entries</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.60 &gt; The SearchProductsAsync method is not taking into account deleted Categories and Manufactures, when AllowCustomersToSearchWithCategoryName and/or AllowCustomersToSearchWithManufacturerName are true. Source: https://www.nopcommerce.com/boards/topic/97641/by-design-or-bug Probably we should not only filter by `Deleted`, but also take into account all filters for categories (ACL and store mappings, `Published`, etc), like in [this method](https://github.com/nopSolutions/nopCommerce/blob/4.60-bug-fixes/src/Libraries/Nop.Services/Catalog/CategoryService.cs#L240). Same for manufacturers. Let's think it out.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch '4.60-bug-fixes' of https://github.com/nopSolutions/nopCommerce into 4.60-bug-fixes</MESSAGE>
+    <SHA>ca50beefcc73ed8976bf411f38cc5a791bd541ea</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6790 Added constraints to search by manufacturer and category</MESSAGE>
+      <SHA>a26af04fcde5b1049052dea436d7e2a079c9d584</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Catalog/ProductService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

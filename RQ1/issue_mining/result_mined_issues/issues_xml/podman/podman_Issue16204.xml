@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16204</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16204</ISSUEURL>
+  <TITLE>podman system df: usability issues with --format, --verbose</TITLE>
+  <DESCRIPTION>First: the two should not be allowed together: ```console $ bin/podman system df --format '{{.Type}}' --verbose [spits out the --verbose output] ``` Second: `--format json` is not implemented: ```console $ bin/podman system df --format json json json json ``` And, third, there is no command-completion help for `--format`: ```console $ bin/podman __completeNoDesc system df --format '{{.' :4 Completion ended with directive: ShellCompDirectiveNoFileComp ```</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #16219 from dfr/freebsd-install Makefile: don't install systemd generator binaries on FreeBSD</MESSAGE>
+    <SHA>a77ac5be83496878d1d3f39dbda3a2ac4e62d0b1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix `system df` issues with `-f` and `-v` Fixed the issue of `--format` and `--verbose` flags being allowed in combination with one another. Implemented functionality for `--format json` or `--format '{{ json }}' `. Implemented command-completion help for `--format`. Fixes: #16204 Signed-off-by: Jake Correnti &lt;jcorrenti13@gmail.com&gt;</MESSAGE>
+      <SHA>e5032a8dea7f35905d459c96b5b58487476bfd92</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/system/df.go</FILE>
+        <FILE>docs/source/markdown/podman-system-df.1.md</FILE>
+        <FILE>test/e2e/system_df_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>33681</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/33681</ISSUEURL>
+  <TITLE>Mastodon (.social) Web Share Intent broken right now</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem For years, I have been using this bookmarklet to share links on Mastodon. `javascript:window.open(&quot;https://mastodon.social/share?text=&quot;+encodeURIComponent(document.title)+&quot;&amp;url=&quot;+encodeURIComponent(&quot;\n\n&quot;+location.href), &quot;&quot;);` This is broken right now on mastodon.social. If I try to share just text, it seems to work so I imagine that the encoding of URL is causing the share page to not load fully. Example of a broken share intent link at the moment: `https://mastodon.social/share?text=Home%20-%20Mastodon&amp;url=%0A%0Ahttps%3A%2F%2Fmastodon.social%2Fhome` ### Expected behaviour Share page should load properly with link title and link URI ### Actual behaviour Share page does not load fully. ### Detailed description _No response_ ### Mastodon instance mastodon.social ### Mastodon version 4.4.0-nightly.2025-01-22 ### Browser name and version Chrome 131.0.6778.265 ### Operating system Windows 10 ### Technical details _No response_</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Change notifications from moderators to not be filtered (#33654)</MESSAGE>
+    <SHA>3dcf5e12b1ffb8e57a7c1e1f3f1145c9bae477e8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix WebUI crash when language detection code returns `undefined` Fixes #33681</MESSAGE>
+      <SHA>44da30cf2f2303c2a389a52f429a453dedb66f65</SHA>
+      <PATCHEDFILES>
+        <FILE>app/javascript/mastodon/features/compose/containers/language_dropdown_container.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

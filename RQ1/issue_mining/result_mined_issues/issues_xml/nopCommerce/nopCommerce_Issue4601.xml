@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4601</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4601</ISSUEURL>
+  <TITLE>Move customer related fields from the &quot;GenericAttribute&quot; table to the &quot;Customer&quot; table</TITLE>
+  <DESCRIPTION>Currently some customer properties (e.g. First Name, Last Name, etc) are stored in the [GenericAttribute] table. These records are stored separately (one value - one record in the table). Assume if a store has 10.000 customers, then it will create minimum 100.000 rows. So GenericAttribute table will be increasing continuously. And this will definitely increase database size and impact the performance. Let's move these records to the [Customer] table. You can find all of them at C:\andrei\nop_sources\src\Libraries\Nop.Core\Domain\Customers\NopCustomerDefaults.cs. But here is a list of properties to be moved (not all should be moved): 1. FirstName 2. LastName 3. Gender 4. DateOfBirth 5. Company 6. StreetAddress 7. StreetAddress2 8. ZipPostalCode 9. City 10. County 11. CountryId 12. StateProvinceId 13. Phone 14. Fax 15. VatNumber 16. VatNumberStatusId 17. TimeZoneId 18. CustomCustomerAttributes 19. CurrencyId 20. LanguageId 21. TaxDisplayTypeId</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1191</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5947 Search customers by last activity and registration dates (#6119)</MESSAGE>
+    <SHA>bab1d36f8da0987f6a826c9f4f51ee800cee2053</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4601 Customer attributes moved to customer table</MESSAGE>
+      <SHA>8eb036aa69ecbaac64c73562af7a0e6f614bc792</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Customers/Customer.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Domain/Customers/NopCustomerDefaults.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Mapping/Builders/Customers/CustomerBuilder.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/Installation/SchemaMigration.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/UpgradeTo460/DataMigration.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/UpgradeTo460/SchemaMigration.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/BackInStockSubscriptionService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Customers/CustomerService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/ExportImport/ExportManager.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Helpers/DateTimeHelper.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Installation/InstallationService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Messages/MessageTokenProvider.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderProcessingService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Tax/TaxService.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.ExternalAuth.Facebook/Infrastructure/FacebookAuthenticationEventConsumer.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.ExternalAuth.Facebook/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Sendinblue/Services/EventConsumer.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Sendinblue/Services/SendinblueManager.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Sendinblue/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.Avalara/Services/AvalaraTaxManager.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Tax.Avalara/plugin.json</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.FacebookPixel/Services/FacebookPixelService.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Widgets.FacebookPixel/plugin.json</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/WebWorkContext.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/CustomerController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/ProductReviewController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/CustomerModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Infrastructure/Mapper/AdminMapperConfiguration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Controllers/CustomerController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/AddressModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/CustomerModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/ForumModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/ProfileModelFactory.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Services.Tests/ExportImport/ExportManagerTests.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Services.Tests/Helpers/DateTimeHelperTests.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Web.Tests/Public/Factories/AddressModelFactoryTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#4601 Some code refactoring</MESSAGE>
+      <SHA>d0fcc25a766ea3c70c1c0e9e0ab4ca7c4bd72f0f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Data/Migrations/UpgradeTo460/DataMigration.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

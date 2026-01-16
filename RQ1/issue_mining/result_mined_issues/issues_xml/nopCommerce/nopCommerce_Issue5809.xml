@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5809</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5809</ISSUEURL>
+  <TITLE>GDPR compliance. Automated way to remove personal data</TITLE>
+  <DESCRIPTION>&gt; There should be automated ways of removing personal data after a set period of time in accordance with the website owner's privacy policy i.e. if the privacy policy states you will keep customer order history for a period of 3 years after which it will be anonymised, then this is what you must legally do! The same goes for inactive customer accounts, guest users and so on. &gt; &gt; This is such a basic functional requirement in the UK/EU it would be really good to see nopCommerce pay a bit more attention to it. Source: https://www.nopcommerce.com/boards/topic/86984/nopcommerce-not-in-compliance-with-eu-gdpr-cookie-law#287948 We already have a method (in `IGdprService` service) to delete all personal data by request. Now we can create a schedule task (disabled by default and running once a day) to use this method and delete customer's data automatically. The period of time after which the data must be deleted (36 months by default) can be configured in admin area &gt; configuration &gt; settings &gt; GDRP settings.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>202</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6101 Fixed typo in locale about uninstalled plugins</MESSAGE>
+    <SHA>10799c50104fa7630c39949c56be9721356e63a8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5809 Added automated way to delete inactive customers and their personal data (#6196)</MESSAGE>
+      <SHA>cf8ab7f020a7284048f972d350d30eda4bb68a3d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Gdpr/GdprSettings.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/UpgradeTo460/DataMigration.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Gdpr/DeleteInactiveCustomersTask.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Installation/InstallationService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo460/LocalizationMigration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Migrations/UpgradeTo460/SettingMigration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/SettingController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Factories/SettingModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Infrastructure/Mapper/AdminMapperConfiguration.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Models/Settings/GdprSettingsModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Setting/_Gdpr.Common.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#5809 Fix of tests</MESSAGE>
+      <SHA>410996e4582a4103f982bced84feb7693c17fe51</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Tests/Nop.Tests/Nop.Services.Tests/ScheduleTasks/ScheduleTaskServiceTests.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Services.Tests/Tasks/ScheduleTaskServiceTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

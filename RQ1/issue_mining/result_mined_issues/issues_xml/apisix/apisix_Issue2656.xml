@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2656</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2656</ISSUEURL>
+  <TITLE>bug: the id and `consumer_name` must be same when create/edit the `consumer` object</TITLE>
+  <DESCRIPTION>for this case, it should throw an error message, eg: `the id and username must be same for consumer object`. ```shell $ curl http://127.0.0.1:9080/apisix/admin/consumers/2 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -i -d ' { &quot;username&quot;: &quot;jack&quot;, &quot;plugins&quot;: { &quot;key-auth&quot;: { &quot;key&quot;: &quot;auth-one&quot; }, &quot;limit-count&quot;: { &quot;count&quot;: 2, &quot;time_window&quot;: 60, &quot;rejected_code&quot;: 503, &quot;key&quot;: &quot;remote_addr&quot; } } }' ```</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>change: disable skywalking by default. (#2632) * fix: disable skywalking by default. Close #2623. * trailing sw * clean test</MESSAGE>
+    <SHA>ebf0563a40dd79ce37ba52c47e018f38c4232d31</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>refactor(consumer): remove id and use username only Close #2656 Close #2653 Close #2651</MESSAGE>
+      <SHA>424b9aa7e5403df8d8db7945614d423b4514d73a</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/admin/consumers.lua</FILE>
+        <FILE>apisix/balancer/chash.lua</FILE>
+        <FILE>apisix/consumer.lua</FILE>
+        <FILE>apisix/core/ctx.lua</FILE>
+        <FILE>apisix/plugin.lua</FILE>
+        <FILE>apisix/plugins/basic-auth.lua</FILE>
+        <FILE>apisix/plugins/consumer-restriction.lua</FILE>
+        <FILE>apisix/plugins/hmac-auth.lua</FILE>
+        <FILE>apisix/plugins/jwt-auth.lua</FILE>
+        <FILE>apisix/plugins/key-auth.lua</FILE>
+        <FILE>apisix/plugins/limit-req.lua</FILE>
+        <FILE>apisix/plugins/prometheus/exporter.lua</FILE>
+        <FILE>apisix/plugins/wolf-rbac.lua</FILE>
+        <FILE>apisix/schema_def.lua</FILE>
+        <FILE>doc/admin-api.md</FILE>
+        <FILE>doc/architecture-design.md</FILE>
+        <FILE>doc/plugins/consumer-restriction.md</FILE>
+        <FILE>doc/zh-cn/admin-api.md</FILE>
+        <FILE>doc/zh-cn/architecture-design.md</FILE>
+        <FILE>doc/zh-cn/plugins/consumer-restriction.md</FILE>
+        <FILE>t/admin/consumers.t</FILE>
+        <FILE>t/core/ctx.t</FILE>
+        <FILE>t/plugin/key-auth.t</FILE>
+        <FILE>t/plugin/prometheus.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>refactor(consumer): remove id and use username only Close #2656 Close #2653 Close #2651</MESSAGE>
+      <SHA>ca13130be3a3e6c68dfdd882acc3e27c52309b63</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/admin/consumers.lua</FILE>
+        <FILE>apisix/balancer/chash.lua</FILE>
+        <FILE>apisix/consumer.lua</FILE>
+        <FILE>apisix/core/ctx.lua</FILE>
+        <FILE>apisix/plugin.lua</FILE>
+        <FILE>apisix/plugins/basic-auth.lua</FILE>
+        <FILE>apisix/plugins/consumer-restriction.lua</FILE>
+        <FILE>apisix/plugins/hmac-auth.lua</FILE>
+        <FILE>apisix/plugins/jwt-auth.lua</FILE>
+        <FILE>apisix/plugins/key-auth.lua</FILE>
+        <FILE>apisix/plugins/limit-req.lua</FILE>
+        <FILE>apisix/plugins/prometheus/exporter.lua</FILE>
+        <FILE>apisix/plugins/wolf-rbac.lua</FILE>
+        <FILE>apisix/schema_def.lua</FILE>
+        <FILE>doc/admin-api.md</FILE>
+        <FILE>doc/architecture-design.md</FILE>
+        <FILE>doc/plugins/consumer-restriction.md</FILE>
+        <FILE>doc/zh-cn/admin-api.md</FILE>
+        <FILE>doc/zh-cn/architecture-design.md</FILE>
+        <FILE>doc/zh-cn/plugins/consumer-restriction.md</FILE>
+        <FILE>t/admin/consumers.t</FILE>
+        <FILE>t/core/ctx.t</FILE>
+        <FILE>t/plugin/key-auth.t</FILE>
+        <FILE>t/plugin/prometheus.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

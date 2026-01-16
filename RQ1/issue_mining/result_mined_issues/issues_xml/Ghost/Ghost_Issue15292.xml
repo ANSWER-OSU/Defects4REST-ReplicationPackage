@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15292</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/15292</ISSUEURL>
+  <TITLE>Validation errors for duplicate members should be displayed inline</TITLE>
+  <DESCRIPTION>Attempting to add a member that already exists (with duplicate email address), an error is displayed as a red banner which persists until manually dismissed. ## Steps to reproduce 1. Go to Ghost Admin &gt; Members 2. Add a member with the email address test@test.com 3. Try to add a new member, also with the address test@test.com ![image](https://user-images.githubusercontent.com/3798302/110780660-d65db680-825c-11eb-917e-3342d29351cc.png) ## Expected behaviour This error handling should be updated to follow the same pattern as attempting to invite a new staff user that already exists: ![image](https://user-images.githubusercontent.com/3798302/110780770-f5f4df00-825c-11eb-9cbd-175f5cef57d7.png) ### Ghost Version 5.10</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>16</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update metascraper to v5.30.4</MESSAGE>
+    <SHA>a967a8f930773d301953962b943cf6bf86a76ac6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add property to api validation error refs #15292 - Add `property: 'email'` to returned API validation error for add &amp; edit member</MESSAGE>
+      <SHA>ddf868bb7690a7cfde0e50e207d725dd0336f0bb</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/members-api/lib/services/member-bread.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Remove banner error. use inline error. refs #15292 - Remove red banner error and change to inline error - Handle server side validation error response</MESSAGE>
+      <SHA>c40c860787003f10cde974112d824fe86ded0fc3</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/app/controllers/member.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed validation errors for duplicate members (#15362) closes: #15292 - Remove banner error and show duplicate member validation error inline - Add property: 'email' to member API validation error</MESSAGE>
+      <SHA>a440076a123a8bfc5cdcb975a0930be761184348</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/app/controllers/member.js</FILE>
+        <FILE>ghost/members-api/lib/services/member-bread.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

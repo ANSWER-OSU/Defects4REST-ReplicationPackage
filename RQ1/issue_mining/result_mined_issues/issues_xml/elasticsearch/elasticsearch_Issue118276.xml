@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118276</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118276</ISSUEURL>
+  <TITLE>[CI] ReindexDataStreamTransportActionIT testAlreadyUpToDateDataStream failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5318 / release-tests](https://gradle-enterprise.elastic.co/s/fjc2j243jmpfy) - [elasticsearch-periodic #5312 / release-tests](https://gradle-enterprise.elastic.co/s/2mzay4trt6q4u) - [elasticsearch-periodic #5306 / release-tests](https://gradle-enterprise.elastic.co/s/2y4mhgrsg3px4) - [elasticsearch-periodic #5300 / release-tests](https://gradle-enterprise.elastic.co/s/2eseqri2mw7eq) - [elasticsearch-periodic #5294 / release-tests](https://gradle-enterprise.elastic.co/s/vksfgjzmr6an2) - [elasticsearch-periodic #5288 / release-tests](https://gradle-enterprise.elastic.co/s/ncnflto2nblro) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:migrate:internalClusterTest&quot; --tests &quot;org.elasticsearch.xpack.migrate.action.ReindexDataStreamTransportActionIT.testNonExistentDataStream&quot; -Dtests.seed=310019ECCC8EFF65 -Dbuild.snapshot=false -Dtests.jvm.argline=&quot;-Dbuild.snapshot=false&quot; -Dlicense.key=x-pack/license-tools/src/test/resources/public.key -Dtests.locale=ksb-Latn-TZ -Dtests.timezone=America/Adak -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.migrate.action.ReindexDataStreamTransportActionIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testAlreadyUpToDateDataStream),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: unexpected exception type thrown; expected:&lt;org.elasticsearch.ResourceNotFoundException&gt; but was:&lt;java.lang.IllegalStateException&gt; ``` **Issue Reasons:** - [main] 6 consecutive failures in step release-tests - [main] 6 failures in test testAlreadyUpToDateDataStream (2.0% fail rate in 299 executions) - [main] 6 failures in step release-tests (100.0% fail rate in 6 executions) - [main] 6 failures in pipeline elasticsearch-periodic (100.0% fail rate in 6 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>24</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.migrate.action.ReindexDataStreamTransportActionIT testNonExistentDataStream #118275</MESSAGE>
+    <SHA>44b06db8b7b882b79de29d2ef418ad8d52cd3826</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.migrate.action.ReindexDataStreamTransportActionIT testAlreadyUpToDateDataStream #118276</MESSAGE>
+      <SHA>631f6b7e92b5418b4c38c04409f57b28fcaf790f</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Unmuting ReindexDataStreamTransportAction tests after fix was backported (#119465) https://github.com/elastic/elasticsearch/pull/119241 backports the change that enables the feature flag for migration reindexing for XPackRestIT. This fixes a couple of failing tests on 8.x. Closes #118275 Closes #118276</MESSAGE>
+      <SHA>e6b10f99ed857da0fffbd8e7f5cc4c14dc8a960d</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3083</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3083</ISSUEURL>
+  <TITLE>[hashicorp raft] bug: sometimes peers are deleted after master change</TITLE>
+  <DESCRIPTION>**Describe the bug** sometimes but regularly peers are deleted after master change **System Setup** ``` 3.04 ``` ``` weed master -resumeState=true -raftHashicorp ``` **Expected behavior** after changing the master, the list of peers was unchanged **Additional context** raft logs: ``` May 20, 2022 @ 12:39:21.877 2022-05-20T07:39:21.877Z [WARN] raft: failed to contact: server-id=slow-master-0.dc2:9333 time=317.196538ms slow-master-1(node9-dc1) May 20, 2022 @ 12:39:21.999 2022-05-20T07:39:21.999Z [WARN] raft: heartbeat timeout reached, starting election: last-leader-addr=slow-master-1.dc1:9333 last-leader-id= slow-master-0(node9-dc2) May 20, 2022 @ 12:39:22.001 2022-05-20T07:39:22.001Z [WARN] raft: rejecting vote request since we have a leader: from=slow-master-0.dc2:9333 leader=slow-master-1.dc1:9333 leader-id=&quot;&quot; slow-master-0(node3-dc2) May 20, 2022 @ 12:39:22.002 2022-05-20T07:39:22.000Z [WARN] raft: rejecting vote request since we have a leader: from=slow-master-0.dc2:9333 leader=slow-master-1.dc1:9333 leader-id=slow-master-1.dc1:9333 slow-master-1(node9-dc1) May 20, 2022 @ 12:39:22.164 2022-05-20T07:39:22.163Z [WARN] raft: failed to contact: server-id=slow-master-0.dc2:9333 time=602.853871ms slow-master-1(node9-dc1) May 20, 2022 @ 12:39:22.199 2022-05-20T07:39:22.198Z [ERROR] raft: peer has newer term, stopping replication: peer=&quot;{Voter slow-master-0.dc2:9333 slow-master-0.dc2:19333}&quot; slow-master-1(node9-dc1) May 20, 2022 @ 12:39:22.754 2022-05-20T07:39:22.754Z [WARN] raft: heartbeat timeout reached, starting election: last-leader-addr=slow-master-1.dc1:9333 last-leader-id= slow-master-0(node3-dc1) May 20, 2022 @ 13:51:23.826 2022-05-20T08:51:23.825Z [WARN] raft: heartbeat timeout reached, not part of a stable configuration or a non-voter, not triggering a leader election slow-master-1(node9-dc1) May 20, 2022 @ 13:51:24.259 2022-05-20T08:51:24.257Z [WARN] raft: not part of stable configuration, aborting election slow-master-0(node9-dc2) ``` weed shell ``` &gt; cluster.raft.ps the raft cluster has 1 servers * slow-master-0.dc1:9333 slow-master-0.dc1:19333 (Voter) &gt; ``` https://github.com/hashicorp/raft/issues/506</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>61</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>minor</MESSAGE>
+    <SHA>2ae3f812f8bd2ce1aaae505a31cc33decf872f0b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>check for ping before deleting raft server https://github.com/chrislusf/seaweedfs/issues/3083</MESSAGE>
+      <SHA>6cfbfb084941e213f38a83a763fd359cc6611108</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/master_server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

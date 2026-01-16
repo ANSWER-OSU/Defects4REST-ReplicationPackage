@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>41</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/41</ISSUEURL>
+  <TITLE>Add &quot;Color square&quot; specification attribute type (allow filtering by this type)</TITLE>
+  <DESCRIPTION>We already have distinct attribute types supported. Let's add &quot;Color square&quot; specification attribute type Forum source: http://www.nopcommerce.com/boards/t/29080/suggestion-type-property-for-specification-attributes.aspx The issue (filtering). When we add this new attribute type, then a store owner will create a specification attribute record and its options in admin area &gt; catalog &gt; attributes &gt; specification attributes &gt; details page. Right now an attribute type (option, text, etc) is stored in a mapping between specification option and a product ([Product_SpecificationAttribute_Mapping] table) on a product details page. But we should ask a store owner to enter a certain color on the &quot;specification attribute option&quot; popup window. Hence we need it to move &quot;attribute type&quot; to [SpecificationAttribute] table/entity in order to support this new functionality - first, a store owner creates an attribute and set its attribute type to &quot;color squares&quot;, then he/she adds options with colors It's possible. But what should we do with the existing functionality when an attribute type is specified while mapping an attribute option to a product (on a product details page &gt; specification attributes tab). How should we migrate specified types to &quot;SpecificationAttribute&quot; entity (when upgrading existing stores)? It could be quite complex The issue is that if we move &quot;attribute type&quot; to &quot;specification attribute&quot; entity from a mapping between specification option and a product ([Product_SpecificationAttribute_Mapping] table), then we don't be able to map specification attributes with attributes type that don't support options (e.g. &quot;custom text&quot;, etc). It's caused by wrong design we've chosen many years ago - &quot;ProductSpecificationAttribute&quot; entity ([Product_SpecificationAttribute_Mapping] table) has &quot;SpecificationAttributeOptionId&quot; property which references appropriate specification attribute option but in some cases it should reference specification attribute (not an option) --- Add sample data</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>60</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Added missed locales to a recently made commit</MESSAGE>
+    <SHA>363fba0d0fb50612b61258db5189d134592c2965</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#41 &quot;Color squares&quot; for specification attributes. Allow filtering by color.</MESSAGE>
+      <SHA>a0c2f790378ebacaed96803372daaa1b452f9596</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Domain/Catalog/SpecificationAttributeOption.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Domain/Catalog/SpecificationAttributeOptionFilter.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Mapping/Catalog/SpecificationAttributeOptionMap.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Controllers/SpecificationAttributeController.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Models/Catalog/SpecificationAttributeOptionModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Views/SpecificationAttribute/_CreateOrUpdate.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Administration/Views/SpecificationAttribute/_CreateOrUpdateOption.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/App_Data/Localization/defaultResources.nopres.xml</FILE>
+        <FILE>src/Presentation/Nop.Web/Extensions/ControllerExtensions.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Models/Catalog/CatalogPagingFilteringModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Models/Catalog/ProductSpecificationModel.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Themes/DefaultClean/Content/css/styles.css</FILE>
+        <FILE>src/Presentation/Nop.Web/Themes/DefaultClean/Content/css/styles.rtl.css</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Catalog/_FilterSpecsBox.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Product/CompareProducts.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Views/Product/_ProductSpecifications.cshtml</FILE>
+        <FILE>src/Tests/Nop.Data.Tests/Catalog/SpecificationAttributeOptionPersistenceTests.cs</FILE>
+        <FILE>upgradescripts/3.70-the next version/upgrade.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

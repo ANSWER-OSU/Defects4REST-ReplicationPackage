@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3795</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3795</ISSUEURL>
+  <TITLE>[master] Transfer leadership on shutdown</TITLE>
+  <DESCRIPTION>avoid https://github.com/hashicorp/raft/issues/472 at regular stop master do stress test 1. `make hashicorp_raft` 2. stress test ``` for i in {1..100}; do sleep 2; docker exec -it seaweedfs_master2_1 kill -s HUP 1; docker exec -it seaweedfs_master1_1 kill -s HUP 1;docker exec -it seaweedfs_master0_1 kill -s HUP 1;done ``` 3. Stop leader `docker stop seaweedfs_master2_1` PR https://github.com/seaweedfs/seaweedfs/pull/3797</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>build(deps): bump protobuf-java from 3.16.1 to 3.16.3 in /other/java/client (#3789)</MESSAGE>
+    <SHA>0f522da367b85820aa0fb1e8b2efb769cecff7af</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>master server graceful stop https://github.com/seaweedfs/seaweedfs/issues/3795</MESSAGE>
+      <SHA>35c246e9b7f615daca2c4ccba2649972ae527d3b</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/command/master.go</FILE>
+        <FILE>weed/server/master_server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14362</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14362</ISSUEURL>
+  <TITLE>tail 800 lines journald: incomplete output</TITLE>
+  <DESCRIPTION>Two flakes in one week: ``` # podman-remote [options] logs --tail 800 &lt;CID&gt; ... ...makes it only to 400-something, or perhaps even just zero lines ? Failure [3.295 seconds] Podman logs /var/tmp/go/src/github.com[/containers/podman/test/e2e/logs_test.go:26](https://github.com/containers/podman/blob/e874fc105c0fcfa291e256071be8b48dc4f347f8/test/e2e/logs_test.go#L26) tail 800 lines: journald [It] /var/tmp/go/src/github.com[/containers/podman/test/e2e/logs_test.go:116](https://github.com/containers/podman/blob/e874fc105c0fcfa291e256071be8b48dc4f347f8/test/e2e/logs_test.go#L116) Expected [long string] to have length 800 ``` ### Podman logs [It] tail 800 lines: journald * fedora-35 : int remote fedora-35 root host [remote] * PR #14272 * [05-19 09:16](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/4855020456771584/html/int-remote-fedora-35-root-host.log.html#t--tail-800-lines--journald--1) * [05-19 09:16](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/4855020456771584/html/int-remote-fedora-35-root-host.log.html#t--tail-800-lines--journald--2) * [05-19 09:16](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/4855020456771584/html/int-remote-fedora-35-root-host.log.html#t--tail-800-lines--journald--3) * fedora-36 : int remote fedora-36 root host [remote] * PR #13808 * [05-25 09:10](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/5626273706803200/html/int-remote-fedora-36-root-host.log.html#t--tail-800-lines--journald--1) * [05-25 09:10](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/5626273706803200/html/int-remote-fedora-36-root-host.log.html#t--tail-800-lines--journald--2) * [05-25 09:10](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/5626273706803200/html/int-remote-fedora-36-root-host.log.html#t--tail-800-lines--journald--3)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14424 from lsm5/gopkg-in-yaml-bump Bump gopkg.in/yaml.v3 to v3.0.1</MESSAGE>
+    <SHA>70ce77e8d0aab41918b54b2547c902a5463cf798</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix &quot;tail 800 lines: journald&quot; flake The test calls podman run -d followed by podman logs. There is no guarantee the the container or conmon has written all its output. Adding an extra podman wait should fix this. Do not remove the -d to not print 1000 unnecessary lines in the logs. Fixes #14362 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>78d1f5d7d62b79f36b5910935acd195d723efb48</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/logs_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix &quot;tail 800 lines: journald&quot; flake The test calls podman run -d followed by podman logs. There is no guarantee the the container or conmon has written all its output. Adding an extra podman wait should fix this. Do not remove the -d to not print 1000 unnecessary lines in the logs. Fixes #14362 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>70201a3b5f991f12b80ffc33e3da679f1ab9b526</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/logs_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

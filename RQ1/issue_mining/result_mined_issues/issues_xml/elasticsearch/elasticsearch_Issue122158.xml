@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122158</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122158</ISSUEURL>
+  <TITLE>[CI] DownsampleActionSingleNodeTests testDuplicateDownsampleRequest failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #17674 / part2](https://gradle-enterprise.elastic.co/s/mgcyb4mrdiyek) - [elasticsearch-pull-request #55080 / part-2](https://gradle-enterprise.elastic.co/s/shcmjcodu2e4k) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:downsample:test&quot; --tests &quot;org.elasticsearch.xpack.downsample.DownsampleActionSingleNodeTests.testDuplicateDownsampleRequest&quot; -Dtests.seed=F5C8F9E8A4AEA95A -Dtests.locale=hr-BA -Dtests.timezone=Africa/Conakry -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.downsample.DownsampleActionSingleNodeTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testDuplicateDownsampleRequest),title:'Test',type:optionsListControl))))) **Failure Message:** ``` com.carrotsearch.randomizedtesting.UncaughtExceptionError: Captured an uncaught exception in thread: Thread[id=104, name=Thread-9, state=RUNNABLE, group=TGRP-DownsampleActionSingleNodeTests] ``` **Issue Reasons:** - [main] 2 failures in test testDuplicateDownsampleRequest (0.2% fail rate in 811 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Dry up search error trace ITs (#122138) This logic will need a bit of adjustment for bulk query execution. Lets dry it up before so we don't have to copy and paste the fix which will be a couple lines.</MESSAGE>
+    <SHA>d3abf9d5bad1cb0f4988b3121f17f2f0605fb72f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.downsample.DownsampleActionSingleNodeTests testDuplicateDownsampleRequest #122158</MESSAGE>
+      <SHA>f097b6e0a9d06f3231ddf2721a30313df996deb3</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

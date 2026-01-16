@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>278</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/278</ISSUEURL>
+  <TITLE>`now alias` regression</TITLE>
+  <DESCRIPTION>Copied from #272. Previously, running just `now alias` would alias the most recent deployment using the `alias` field in `package.json`. Since v4 that doesn’t work anymore. I just tested it with the `aliases` field instead (per the above) but it still errors: ``` $ now alias &gt; Error! Please specify a valid subcommand: ls | set | rm now alias &lt;ls | set | rm&gt; &lt;deployment&gt; &lt;alias&gt; Options: -h, --help Output usage information -c FILE, --config=FILE Config file -d, --debug Debug mode [off] -t TOKEN, --token=TOKEN Login token Examples: – Lists all your aliases: $ now alias ls – Adds a new alias to my-api.now.sh: $ now alias set api-ownv3nc9f8.now.sh my-api.now.sh The `.now.sh` suffix can be ommited: $ now alias set api-ownv3nc9f8 my-api The deployment id can be used as the source: $ now alias set deploymentId my-alias Custom domains work as alias targets: $ now alias set api-ownv3nc9f8.now.sh my-api.com – The subcommand `set` is the default and can be skipped. – `http(s)://` in the URLs is unneeded / ignored. – Removing an alias: $ now alias rm aliasId To get the list of alias ids, use `now alias ls`. Alias: ln ``` TL;DR `now alias` (without further parameters) regressed in v4.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now-bash] Use the `workPath` directory (#279) This is important for `now dev`, where the `workPath` is re-used and thus leads to faster re-builds.</MESSAGE>
+    <SHA>e9935dee3193572689a41773aaebe9cebf17028f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-bash] Only read the `$event` body once (#278) In situations where the handler responds very quickly, the `$event` file path gets deleted before the `_lambda_runtime_body` function can finish its work. So instead, just read that file once and cache it to a variable inside that function. This fixes this issue when the `handler` responds very quickly, causing the `$events` file to be deleted before the multiple `jq` invocations are able to read it: ``` /var/task/.import-cache/runtime.sh: line 78: /tmp/T/tmp.DShzjeah: No such file or directory /var/task/.import-cache/runtime.sh: line 82: /tmp/T/tmp.DShzjeah: No such file or directory ```</MESSAGE>
+      <SHA>e4ed811b53060a2ca48dd4c5d53a35744e237a53</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-bash/runtime.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

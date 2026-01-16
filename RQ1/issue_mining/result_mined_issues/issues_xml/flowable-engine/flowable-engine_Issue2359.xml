@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2359</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/2359</ISSUEURL>
+  <TITLE>The spring-boot flowable.eventregistry.enabled and flowable.idm.enabled do not disable the engines when using the App engine</TITLE>
+  <DESCRIPTION>**Describe the bug** Use a spring-boot starter which contains all engines, e.g. ``` &lt;dependency&gt; &lt;groupId&gt;org.flowable&lt;/groupId&gt; &lt;artifactId&gt;flowable-spring-boot-starter-rest&lt;/artifactId&gt; &lt;/dependency&gt; ``` In the spring-boot `application.properties` disable the IDM and Eventregistry engines using: ``` flowable.eventregistry.enabled=false flowable.idm.enabled=false ``` Start the spring-boot application. We see from the logs that the IDM and Eventregistry are still being configured on the App engine - these settings are ignored. ``` 2020-05-26 08:03:27.046 INFO 6355 --- [ main] o.f.a.s.SpringAppEngineConfiguration : class org.flowable.eventregistry.impl.configurator.EventRegistryEngineConfigurator (priority:100000) 2020-05-26 08:03:27.046 INFO 6355 --- [ main] o.f.a.s.SpringAppEngineConfiguration : class org.flowable.idm.engine.configurator.IdmEngineConfigurator (priority:150000) ``` It is also not possible to disable these engines using a EngineConfigurator on the AppEngine as the IDM and Eventregistry Configurators are added before any configurators are executed. I had to workaround this using a `BeanPostProcessor` on the `SpringAppEngineConfiguration` to disable these. **Expected behavior** I would expect the settings `flowable.eventregistry.enabled=false` and `flowable.idm.enabled=false` to work when applied to the App engine in the same way as process and CMMN engines, when using Spring-Boot. **Code** I expect that code should be added to the `AppEngineAutoConfiguration` in the same was as the `ProcessEngineAutoConfiguration`. See https://github.com/flowable/flowable-engine/blob/ba1d1e9728e04b6b2c366436b0435dd300495dc1/modules/flowable-spring-boot/flowable-spring-boot-starters/flowable-spring-boot-autoconfigure/src/main/java/org/flowable/spring/boot/ProcessEngineAutoConfiguration.java#L195 **Additional context** Using Flowable-6.5.0 on Postgres 11 in Spring-boot-2.2.2.RELEASE</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Stabilse DB tests by giving surefire more memory and make sure we clear TaskSimpleCompleteListener.clear in the TaskListenerTest</MESSAGE>
+    <SHA>ba1d1e9728e04b6b2c366436b0435dd300495dc1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Disable IDM and EventRegistry engines on AppEngineAutoConfiguration if they are explicitly disabled via property Fixes #2359</MESSAGE>
+      <SHA>8bbe0a1b33411190adf0116146404699d12afecf</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-spring-boot/flowable-spring-boot-starters/flowable-spring-boot-autoconfigure/src/main/java/org/flowable/spring/boot/app/AppEngineAutoConfiguration.java</FILE>
+        <FILE>modules/flowable-spring-boot/flowable-spring-boot-starters/flowable-spring-boot-autoconfigure/src/test/java/org/flowable/test/spring/boot/app/AppEngineAutoConfigurationTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

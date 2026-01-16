@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3761</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/3761</ISSUEURL>
+  <TITLE>[DS-387] Add ability for various Packager plugins to report their custom &quot;options&quot; via command line</TITLE>
+  <DESCRIPTION>&lt;i&gt;Imported from JIRA &lt;a href=&quot;https://jira.lyrasis.org/browse/DS-387&quot;&gt;[DS-387]&lt;/a&gt; created by tdonohue&lt;/i&gt; &lt;p&gt;Currently, the various packager plugins (METS &amp; PDF) have no way to report to users what options are available to be passed to the plugin (via the 'packager -o &lt;span class=&quot;error&quot;&gt;&amp;#91;option&amp;#93;&lt;/span&gt;=&lt;span class=&quot;error&quot;&gt;&amp;#91;value&amp;#93;&lt;/span&gt;' flag).&lt;/p&gt; &lt;p&gt;It'd be nice to allow a user to get a brief description of the valid options for each plugin via the commandline interface. I've implemented a simple patch (see attached) which lets users do this as follows:&lt;/p&gt; &lt;p&gt;(1) running 'dspace packager -h' will output the normal Help information, including a list of all currently configured packager plugins (this feature already existed)&lt;/p&gt; &lt;p&gt;(2) running 'dspace packager -h -t METS' will report normal Help information, but will &lt;b&gt;also&lt;/b&gt; output some additional options which are specific to the METS packager plugin. Similarly, 'dspace packager -h -t PDF' would report any additional options which are specific to the PDF packager plugin.&lt;/p&gt; &lt;p&gt;The way this is implemented is to add a &quot;getParameterHelp()&quot; method to both the PackageIngester and PackageDisseminator interfaces. Each implementing packager plugin is responsible for reporting any custom options in this &quot;getParameterHelp()&quot; method.&lt;/p&gt; &lt;p&gt;See the attached patch for further details. (NOTE: This patch is very slightly dependent on &lt;a href=&quot;https://jira.lyrasis.org/browse/DS-386&quot; title=&quot;Allow user to specify which &lt;dmdSec&gt; is used by the METS Ingester when importing METS from Packager script&quot; class=&quot;issue-link&quot; data-issue-key=&quot;DS-386&quot;&gt;&lt;del&gt;DS-386&lt;/del&gt;&lt;/a&gt; in that some of the line numbers in the patch are only correct if you already have installed &lt;a href=&quot;https://jira.lyrasis.org/browse/DS-386&quot; title=&quot;Allow user to specify which &lt;dmdSec&gt; is used by the METS Ingester when importing METS from Packager script&quot; class=&quot;issue-link&quot; data-issue-key=&quot;DS-386&quot;&gt;&lt;del&gt;DS-386&lt;/del&gt;&lt;/a&gt;.)&lt;/p&gt;</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>332</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merged in task/dspace-cris-2023_02_x/DSC-2276 (pull request #3694) [DSC-2276] fix store-metrics to commit every 20 worked items Approved-by: Vincenzo Mecca</MESSAGE>
+    <SHA>876b18f3bdb652408f8b34553da44e7c67ebd76e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merged in task/dspace-cris-2023_02_x/DSC-2226 (pull request #3761) [DSC-2226] optimize SQL queries for metadata enhancement updates Approved-by: Vincenzo Mecca</MESSAGE>
+      <SHA>c576c8b80f7654d0fc29b6659c780fa6e01f5a48</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/content/dao/impl/ItemForMetadataEnhancementUpdateDAOImpl.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

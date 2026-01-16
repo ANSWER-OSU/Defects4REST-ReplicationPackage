@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2944</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2944</ISSUEURL>
+  <TITLE>Issues with grep syntax</TITLE>
+  <DESCRIPTION>Hello, I am having some issues with drone parsing a `grep` command in my pipeline. Essentially, I am using grep to pull a version number of one of my container images in order to promote the image from dev -&gt; stage and eventually stage-&gt;prod. I am doing this through `gcloud`. My command to grab the image using `gcloud` syntax is: ` gcloud container images list-tags &lt;my-image-repository&gt; --filter=&quot;tags:latest&quot; --format=&quot;table[noheading](tags)&quot; | grep -o '\bv\w*.*'` This command parses the correct information when I log directly into the docker container that I am using to execute this step, however, when I run it with Drone it appears to yank the `\b` from my grep command completely. I tested this with a pipeline by just running `grep -o '\bv\w*.*'` against a `test.txt` file that included a string `v1.0.30841303` and the pipeline fails out with the last step showing the following: `+ grep -o 'v\w*.*' test.txt` Is there something I am doing wrong or is there something in Drone that would cause it to incorrectly parse the `\b` in my grep syntax? Thank you!</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: [CDE-456]: Dropdown filter changes for status and owner fields (#2970) * Resolved PR comments * Resolved PR comments * Resolved PR comments * Resolved PR comments * Resolved PR comments * Dropdown filter changes for status and owner fields</MESSAGE>
+    <SHA>042df435bd5dcc126354046e376632ca5cf698c6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: [AH-609]: Add unit tests for create virtual registry flow (#2944) * feat: [AH-609]: pass not supported type instead of GENERIC * feat: [AH-609]: Add unit tests for create virtual registry flow</MESSAGE>
+      <SHA>92bea1dfbf865619d4e4ec7caf72cc18dd06f2a9</SHA>
+      <PATCHEDFILES>
+        <FILE>web/scripts/jest/setup-file.js</FILE>
+        <FILE>web/src/ar/pages/repository-details/components/Forms/RepositoryCreateForm.tsx</FILE>
+        <FILE>web/src/ar/pages/repository-details/components/Forms/__tests__/RepositoryCreateForm.test.tsx</FILE>
+        <FILE>web/src/ar/pages/repository-details/hooks/__tests__/CreateRepositoryModal.test.tsx</FILE>
+        <FILE>web/src/ar/pages/repository-details/hooks/useCreateRepositoryModal/useCreateRepositoryModal.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

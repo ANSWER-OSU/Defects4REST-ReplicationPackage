@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>792</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/792</ISSUEURL>
+  <TITLE>Unable to use handlebar syntax in mobile number field of Twilio plugin?</TITLE>
+  <DESCRIPTION>NocoDB used as docker : true NocoDB version : **0.82.0** Database used in NC_DB URL : pg Project was created by clicking : New Project Database on which spreadsheet is created : pg OS on which NocoDB is running : linux Node.js version if running as node : **v12.22.6** Database version : unknown **Steps To Reproduce** 1. Go to Automations 2. Add a twilio webhook 3. use a number field from the row data as the mobile number: ![image](https://user-images.githubusercontent.com/591242/142658422-33e429b5-ec07-4434-894f-1c9b76376bbd.png) 4. In heroku error log: 2021-11-19T16:23:32.863087+00:00 app[web.1]: RestException [Error]: The 'To' number is not a valid phone number. 2021-11-19T16:23:32.863091+00:00 app[web.1]: at success (/usr/src/app/node_modules/twilio/lib/base/Version.js:135:15) 2021-11-19T16:23:32.863091+00:00 app[web.1]: at Promise_then_fulfilled (/usr/src/app/node_modules/q/q.js:766:44) 2021-11-19T16:23:32.863092+00:00 app[web.1]: at Promise_done_fulfilled (/usr/src/app/node_modules/q/q.js:835:31) 2021-11-19T16:23:32.863093+00:00 app[web.1]: at Fulfilled_dispatch [as dispatch] (/usr/src/app/node_modules/q/q.js:1229:9) 2021-11-19T16:23:32.863093+00:00 app[web.1]: at Pending_become_eachMessage_task (/usr/src/app/node_modules/q/q.js:1369:30) 2021-11-19T16:23:32.863094+00:00 app[web.1]: at RawTask.call (/usr/src/app/node_modules/asap/asap.js:40:19) 2021-11-19T16:23:32.863094+00:00 app[web.1]: at flush (/usr/src/app/node_modules/asap/raw.js:50:29) 2021-11-19T16:23:32.863095+00:00 app[web.1]: at processTicksAndRejections (internal/process/task_queues.js:79:11) { 2021-11-19T16:23:32.863096+00:00 app[web.1]: status: 400, 2021-11-19T16:23:32.863096+00:00 app[web.1]: code: 21211, 2021-11-19T16:23:32.863096+00:00 app[web.1]: moreInfo: 'https://www.twilio.com/docs/errors/21211', 2021-11-19T16:23:32.863097+00:00 app[web.1]: details: undefined 2021-11-19T16:23:32.863097+00:00 app[web.1]: } **it works fine if I type the exact same number manually into the form.** Therefore I suspect that handlebar is not supported in that input box? **Expected behavior** I expect to be able to use handlebar syntax in the &quot;Comma separated mobile #&quot; field for the Twilio plugin.</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: update regex with lookbehind to support safari re #799 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+    <SHA>eabdfc7825fff71e9ebff200f22c0e53999263a9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: allow handlebar syntax in hooks payload re #792 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>0c13680c58670873b344fd379d7731a72fd74b60</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/noco/common/BaseModel.ts</FILE>
+        <FILE>packages/nocodb/src/lib/noco/meta/NcMetaMgr.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>125090</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/125090</ISSUEURL>
+  <TITLE>[CI] Ec2DiscoveryTests testFilterByTags failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #7117 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/7k6qlf3rpgeum) - [elasticsearch-periodic-platform-support #7117 / almalinux-8-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/jq3kdeu63iwxe) - [elasticsearch-periodic-platform-support #7117 / opensuse-leap-15_platform-support-unix](https://gradle-enterprise.elastic.co/s/fhq4yhblpwrww) - [elasticsearch-periodic #7095 / openjdk22_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/eqpeckyrcufi2) - [elasticsearch-periodic-platform-support #7117 / almalinux-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/lrnqjnr4t7rsi) - [elasticsearch-intake #20388 / part1](https://gradle-enterprise.elastic.co/s/ldqh7wdvno7na) - [elasticsearch-pull-request #63475 / part-1](https://gradle-enterprise.elastic.co/s/os5khxwbahmxs) - [elasticsearch-pull-request #63463 / part-1](https://gradle-enterprise.elastic.co/s/tgkdduakxbqlq) - [elasticsearch-periodic #7081 / encryption-at-rest](https://gradle-enterprise.elastic.co/s/vn4kway4wdfym) - [elasticsearch-periodic-platform-support #7103 / rocky-9_platform-support-unix](https://gradle-enterprise.elastic.co/s/szaqms2a4cjni) **Reproduction Line:** ``` gradlew &quot;:plugins:discovery-ec2:test&quot; --tests &quot;org.elasticsearch.discovery.ec2.Ec2DiscoveryTests.testFilterByTags&quot; -Dtests.seed=6270229B48F52580 -Dtests.locale=bn-Beng-BD -Dtests.timezone=America/Ciudad_Juarez -Druntime.java=24 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.discovery.ec2.Ec2DiscoveryTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testFilterByTags),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: a collection with size &lt;5&gt; but: collection size was &lt;0&gt; ``` **Issue Reasons:** - [8.x] 13 failures in test testFilterByTags (9.0% fail rate in 144 executions) - [8.x] 2 failures in step part1 (9.1% fail rate in 22 executions) - [8.x] 3 failures in step part-1 (10.7% fail rate in 28 executions) - [8.x] 2 failures in pipeline elasticsearch-periodic-platform-support (50.0% fail rate in 4 executions) - [8.x] 2 failures in pipeline elasticsearch-periodic (50.0% fail rate in 4 executions) - [8.x] 2 failures in pipeline elasticsearch-intake (9.1% fail rate in 22 executions) - [8.x] 3 failures in pipeline elasticsearch-pull-request (10.7% fail rate in 28 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Remove @UpdateForV9 annotation (#125024) * Delete libs/core/src/main/java/org/elasticsearch/core/UpdateForV9.java * Remove UpdateForV9 annotation in ConsumeProcessor.java</MESSAGE>
+    <SHA>30dd38bc97bb9271c807732093e99f9cd494c2f9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.discovery.ec2.Ec2DiscoveryTests testFilterByTags #125090</MESSAGE>
+      <SHA>8fc012088b5095dee7751144df0b803dc51c7ad5</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.discovery.ec2.Ec2DiscoveryTests testFilterByTags #125090</MESSAGE>
+      <SHA>fc97d65fc03e08c78389e450630bf50841317144</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Work around `testFilterByTags` failure (#125109) A SDK bug[^1] means that these values sometimes don't parse as an integer. We don't need them to do so in order to pass the test, so this commit relaxes the test to accept any string. Closes #125090 Closes #125166 [^1]: https://github.com/aws/aws-sdk-java-v2/issues/5968</MESSAGE>
+      <SHA>23769da8e35520dc2fa59a5fa2f709f9aeff3f03</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>plugins/discovery-ec2/src/test/java/org/elasticsearch/discovery/ec2/Ec2DiscoveryTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Work around `testFilterByTags` failure (#125109) A SDK bug[^1] means that these values sometimes don't parse as an integer. We don't need them to do so in order to pass the test, so this commit relaxes the test to accept any string. Closes #125090 Closes #125166 [^1]: https://github.com/aws/aws-sdk-java-v2/issues/5968</MESSAGE>
+      <SHA>1b22b0e6f20551ad8fc2637a707e841c77848e47</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>plugins/discovery-ec2/src/test/java/org/elasticsearch/discovery/ec2/Ec2DiscoveryTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Work around `testFilterByTags` failure (#125109) A SDK bug[^1] means that these values sometimes don't parse as an integer. We don't need them to do so in order to pass the test, so this commit relaxes the test to accept any string. Closes #125090 Closes #125166 [^1]: https://github.com/aws/aws-sdk-java-v2/issues/5968</MESSAGE>
+      <SHA>8c4d9d1b25d355a0503b34bcad5415b6e7416f28</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>plugins/discovery-ec2/src/test/java/org/elasticsearch/discovery/ec2/Ec2DiscoveryTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.discovery.ec2.Ec2DiscoveryTests testFilterByTags #125090</MESSAGE>
+      <SHA>8854471aec8688eafff78159b3a13c267e86f459</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Work around `testFilterByTags` failure (#125109) A SDK bug[^1] means that these values sometimes don't parse as an integer. We don't need them to do so in order to pass the test, so this commit relaxes the test to accept any string. Closes #125090 Closes #125166 [^1]: https://github.com/aws/aws-sdk-java-v2/issues/5968</MESSAGE>
+      <SHA>b534a105ecce94a2797051d2c3e2769e7b0f14ea</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>plugins/discovery-ec2/src/test/java/org/elasticsearch/discovery/ec2/Ec2DiscoveryTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

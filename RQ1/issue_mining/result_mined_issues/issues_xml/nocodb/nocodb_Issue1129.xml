@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1129</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/1129</ISSUEURL>
+  <TITLE>Cannot add Percentage as a column</TITLE>
+  <DESCRIPTION>NocoDB used as docker : **true** NocoDB version : **0.84.9** Database used in NC_DB URL : **pg** Project was created by clicking : **New Project by connecting to external database** Database on which spreadsheet is created : **pg** OS on which NocoDB is running : **Docker/Rocky Linux 8** Database version : **14.1-1.pgdg110+1** Node : **v12.22.6** Arch : **x64** ProjectOnRootDB: **true** **Steps To Reproduce** 1. Go to a table 2. Add new column --&gt; Percentage type 3. &quot;Update table failed&quot;, no column is added. **Expected behavior** Should add Percentage column. Dev Console Error: ``` POST https://noco.anchorhrg.com/dashboard/?q=sqlOpPlus_tableUpdate 500 (anonymous) @ 3370c21.js:2 t.exports @ 3370c21.js:2 t.exports @ 3370c21.js:2 Promise.then (async) v.request @ 3370c21.js:2 (anonymous) @ 3370c21.js:2 (anonymous) @ 35a1cff.js:2 m @ 5d83827.js:2 (anonymous) @ 5d83827.js:2 A.forEach.t.&lt;computed&gt; @ 5d83827.js:2 r @ 3370c21.js:2 l @ 3370c21.js:2 (anonymous) @ 3370c21.js:2 (anonymous) @ 3370c21.js:2 ActSqlOpPlus @ 35a1cff.js:2 (anonymous) @ 3370c21.js:2 m.dispatch @ 3370c21.js:2 dispatch @ 3370c21.js:2 (anonymous) @ 99706d2.js:2 m @ 5d83827.js:2 (anonymous) @ 5d83827.js:2 A.forEach.t.&lt;computed&gt; @ 5d83827.js:2 r @ 3370c21.js:2 l @ 3370c21.js:2 (anonymous) @ 3370c21.js:2 (anonymous) @ 3370c21.js:2 save @ 99706d2.js:2 ee @ 3370c21.js:2 n @ 3370c21.js:2 ee @ 3370c21.js:2 t.$emit @ 3370c21.js:2 click @ 5d83827.js:2 ee @ 3370c21.js:2 n @ 3370c21.js:2 Fr.c._wrapper @ 3370c21.js:2 35a1cff.js:2 index 0 99706d2.js:2 Error: Request failed with status code 500 at t.exports (3370c21.js:2:178381) at t.exports (3370c21.js:2:208481) at XMLHttpRequest.A (3370c21.js:2:176975) ```</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix : backup nocodb data folders while running docker-com Signed-off-by: Naveen MR &lt;oof1lab@gmail.com&gt;</MESSAGE>
+    <SHA>3c557e965e38fd6056ff5fefd79672e55e33ddb2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix : percent type in postgres. re #1129 Signed-off-by: Naveen MR &lt;oof1lab@gmail.com&gt;</MESSAGE>
+      <SHA>dfa6249bd826616ff07b331ba944e12e90d137b6</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/helpers/sqlUi/PgUi.js</FILE>
+        <FILE>packages/nocodb/src/lib/sqlUi/PgUi.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

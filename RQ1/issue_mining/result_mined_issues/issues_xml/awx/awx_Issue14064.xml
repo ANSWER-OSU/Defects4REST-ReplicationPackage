@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14064</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/14064</ISSUEURL>
+  <TITLE>Add an argument to control the API call frequency with --monitor or --wait</TITLE>
+  <DESCRIPTION>### Please confirm the following - [X] I agree to follow this project's [code of conduct](https://docs.ansible.com/ansible/latest/community/code_of_conduct.html). - [X] I have checked the [current issues](https://github.com/ansible/awx/issues) for duplicates. - [X] I understand that AWX is open source software provided for free and that I might not receive a timely response. ### Feature type Enhancement to Existing Feature ### Feature Summary I would like to propose the addition of a new argument in the AWX project to provide users with the ability to control the frequency of API calls when utilizing the --monitor or --wait options. Currently, these options trigger API calls every 0.25 seconds, which can lead to security alerts. ### Select the relevant components - [ ] UI - [ ] API - [ ] Docs - [ ] Collection - [X] CLI - [ ] Other ### Steps to reproduce 1. Launch a job using the AWX command-line interface. 2. Include the --monitor or --wait options in the command to enable monitoring or waiting for job completion. 3. Observe the API calls being made every 0.25 seconds. ### Current results When using the AWX command-line interface with the --monitor or --wait options, the API calls are made every 0.25 seconds. This frequent API call behavior can trigger security alerts in certain environments. ### Sugested feature result The proposed feature aims to introduce a customizable argument, such as --api-interval, that would allow users to define the desired interval between API calls when utilizing the --monitor or --wait options in AWX. By incorporating this feature, administrators would have the flexibility to adjust the frequency of API calls according to their specific environment requirements, thereby reducing the occurrence of security alerts and improving the overall user experience. ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>29</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>AAP-8038 - enable/disable services on reboot (#13415) Co-authored-by: Lucas Benedito &lt;lbenedit@redhat.com&gt;</MESSAGE>
+    <SHA>434595481c35a6e450a96474944f97ccd5a6c719</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add polling interval argument for --monitor/--wait Also sets default value to 2000ms (instead of the previous 250ms) and minimum to 250ms to avoid overwhelming the server. The logs retrieval will be likely less smooth (unless user overrides the interval) but it makes the polling more reliable. Fixes #14064 Signed-off-by: Lukas Holecek &lt;hluk@email.cz&gt;</MESSAGE>
+      <SHA>1bd7770c30b1193b0ef7e724b6faef6765f57fd8</SHA>
+      <PATCHEDFILES>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+        <FILE>awxkit/awxkit/cli/stdout.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add polling interval argument for --monitor/--wait Adds `--poll-interval` CLI flag indicating the interval between API calls when `--monitor` or `--wait` are used. The default value is set to 2000ms (instead of the previous 250ms) to avoid overwhelming the server in case client does not set the interval explicitly. The logs retrieval will be less smooth (unless user overrides the interval) but it makes the job monitoring much less likely to fail by overloading the server (which can respond for example with 502 Bad Request status code). The minimum allowed value is 250ms. related #14064 Signed-off-by: Lukas Holecek &lt;hluk@email.cz&gt;</MESSAGE>
+      <SHA>647ebb581e9171402e81b96d8a6be550237bdfef</SHA>
+      <PATCHEDFILES>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+        <FILE>awxkit/awxkit/cli/stdout.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Add polling interval argument for --monitor/--wait Adds `--poll-interval` CLI flag indicating the interval between API calls when `--monitor` or `--wait` are used. The default value is set to 2s (instead of the previous 0.25s) to avoid overwhelming the server in case client does not set the interval explicitly. The logs retrieval will be less smooth (unless user overrides the interval) but it makes the job monitoring much less likely to fail by overloading the server (which can respond for example with 502 Bad Request status code). The minimum allowed value is 0.25 (250 milliseconds). related #14064 Signed-off-by: Lukas Holecek &lt;hluk@email.cz&gt;</MESSAGE>
+      <SHA>e991935c9c49ac29c4517220396a383ab8497306</SHA>
+      <PATCHEDFILES>
+        <FILE>awxkit/awxkit/cli/custom.py</FILE>
+        <FILE>awxkit/awxkit/cli/stdout.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

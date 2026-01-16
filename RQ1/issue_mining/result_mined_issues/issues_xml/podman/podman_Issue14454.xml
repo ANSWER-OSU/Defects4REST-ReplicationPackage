@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14454</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14454</ISSUEURL>
+  <TITLE>v4.1.0 User volumes are not mounted when default volumes are configured in /etc/container/containers.conf</TITLE>
+  <DESCRIPTION>/kind bug **Description** In `podman` **v4.1.0** user volumes (`podman run -v`) or mounts (`podman run --mount`) are not added to the OCI spec and not mounted when default volumes are configured in */etc/containers/containers.conf* e.g ```toml volumes = [&quot;/etc/ssl/certs:/etc/ssl/certs:ro&quot;] ``` In `podman` **v4.0.3** user mounts **and** default volumes added to the OCI spec and mounted. **Steps to reproduce the issue:** 1. Set `volumes = [&quot;/etc/ssl/certs:/etc/ssl/certs:ro&quot;]` in */etc/containers/containers.conf* 4. Create a pod with a container that has additional user mounts I used the following script for testing. ```bash #!/bin/sh -eu pod=mount-test cleanup() { rmdir $tmproot # delay cleanup else `pod rm` might fail sleep 3 $PODMAN pod rm $pod &gt;/dev/null } $PODMAN pod create --name $pod &gt;/dev/null tmproot=$(mktemp -d) trap cleanup EXIT $PODMAN run -it --pod $pod -v $tmproot:/root docker.io/library/alpine:latest mount | egrep '(/root|/etc/ssl/certs)' #$PODMAN run -it --pod $pod --mount type=bind,src=$tmproot,target=/root docker.io/library/alpine:latest mount ``` **Describe the results you received:** The output of the test script when using **v4.1.0** is &gt;(none):~# PODMAN=podman-4.1.0 ./test-mount.sh rootfs on /etc/ssl/certs type rootfs (ro,size=2957428k,nr_inodes=739357,inode64) **NOTE** when `volumes` are removed from */etc/containers/containers.conf* then the output is &gt;(none):~# PODMAN=podman-4.1.0 ./test-mount.sh rootfs on /root type rootfs (rw,size=2957428k,nr_inodes=739357,inode64) **Describe the results you expected:** The output of the test script when using **v4.0.3** is &gt;(none):~# PODMAN=podman-4.0.3 ./test-mount.sh rootfs on /root type rootfs (rw,size=2957428k,nr_inodes=739357,inode64) rootfs on /etc/ssl/certs type rootfs (ro,size=2957428k,nr_inodes=739357,inode64) **Additional information you deem important (e.g. issue happens only occasionally):** We did a `git bisect` and identified 7a5342804944472246ed0b977e9088e0b01be87b as first bad commit. I looked at the commit and it seems that the Mounts fields that contains the user mounts field gets overridden by the field https://github.com/containers/podman/commit/7a5342804944472246ed0b977e9088e0b01be87b#diff-5a040c4acc8459d3378715e9af985864e25b780aa6c796170bff095b35bf1883R417 from the json unmarshaller in the Inherit function here https://github.com/containers/podman/commit/7a5342804944472246ed0b977e9088e0b01be87b#diff-3ff238a49e99bd584fa865688b0fd9914acd5cdd71f46606c6750a855da6cf4fR561 I wonder if this does affect other user options too? **Have you tested with the latest version of Podman and have you checked the Podman Troubleshooting Guide? (https://github.com/containers/podman/blob/main/troubleshooting.md)** Yes</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14507 from Luap99/userns-net libpod: store network status when userns is used</MESSAGE>
+    <SHA>96f9d0dc0e0dbb796494af573c67e194e60aebcd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Infra Inheritance patch infra was overriding options that it should be appending rather than resetting. fix this by appending the given container's spec to the compatible options before marshaling/unmarshaling resolves #14454 Signed-off-by: cdoern &lt;cdoern@redhat.com&gt;</MESSAGE>
+      <SHA>ed1e4f94fb35bc727a921c28cea3ba0f94fc9121</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/specgen/generate/container_create.go</FILE>
+        <FILE>test/e2e/pod_create_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Infra Inheritance patch infra was overriding options that it should be appending rather than resetting. fix this by appending the given container's spec to the compatible options before marshaling/unmarshaling resolves #14454 Signed-off-by: cdoern &lt;cdoern@redhat.com&gt;</MESSAGE>
+      <SHA>16ffd5efe82b06ffcc9f9e6b725303b995af0464</SHA>
+      <PATCHEDFILES>
+        <FILE>pkg/specgen/generate/container_create.go</FILE>
+        <FILE>test/e2e/pod_create_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

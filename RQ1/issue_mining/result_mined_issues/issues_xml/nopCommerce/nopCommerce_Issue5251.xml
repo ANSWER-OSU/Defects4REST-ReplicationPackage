@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5251</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5251</ISSUEURL>
+  <TITLE>Specification attribute option value localizations are deleted if saved again in admin area</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.3 Steps to reproduce the problem: 1) Create a new SpecificationAttribute &quot;SA_Test&quot; and click save + continue 2) Add an option to the new SpecificationAttribute &quot;SA_Test_Text&quot; 3) Add &quot;SA_Test&quot; as &quot;CustomtText&quot; to any one product. Provide a value to field Standard (e.g. &quot;SA_Test_Standard&quot;) and to another Language (e.g &quot;SA_Test_French&quot;) with &quot;Show on product page&quot; enabled 4) Save and preview the product details page. If you change to e.g French you will see &quot;SA_Test_French&quot; for the SpecificationAttribute &quot;SA_Test&quot;. 5) Open the edit specification attribute details page again for the mapping between the &quot;SA_Test&quot; attribute and the choosen product and just click on save. You don't need to change any value. 6) Again open the edit specification attribute details page as before 7) Now, all localizations are gone. The problem is in the code in `src/Presentation/Nop.Web/Areas/Admin/Controllers/ProductController.cs` in the Method `public virtual async Task&lt;IActionResult&gt; ProductSpecAttrUpdate(AddSpecificationAttributeModel model, bool continueEditing)` In the `switch (model.AttributeTypeId)` you have case (int)SpecificationAttributeType.CustomText: psa.CustomValue = model.Value; foreach (var localized in model.Locales) { await _localizedEntityService.SaveLocalizedValueAsync(psa, x =&gt; x.CustomValue, localized.ValueRaw, localized.LanguageId); } break; Here you are using `localized.ValueRaw` but you need `localized.Value` as you can see in the corresponding `switch` in the method `public virtual async Task&lt;IActionResult&gt; ProductSpecificationAttributeAdd(AddSpecificationAttributeModel model, bool continueEditing)`.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Suppressed violations CA1416 by surrounding the code with the platform guard methods</MESSAGE>
+    <SHA>a3306d0a1384f6238a3d5a20829b38be01dd2fb7</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5251 Fix the incorrected saving of specification attribute localized option value</MESSAGE>
+      <SHA>c4ba81d460b22cea1ac1d0404ba65ac740dc62ef</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/ProductController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#5251 Fix the incorrected saving of specification attribute localized option value</MESSAGE>
+      <SHA>1989339a30b44c88ef0c48b59702d043cd6bcec2</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Controllers/ProductController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

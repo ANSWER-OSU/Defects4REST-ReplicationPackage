@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1713</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/1713</ISSUEURL>
+  <TITLE>shared base- fields showAll/ HideAll error</TITLE>
+  <DESCRIPTION>Node: **v14.18.0** Arch: **arm64** Platform: **darwin** Docker: **false** Database: **sqlite3** ProjectOnRootDB: **true** RootDB: **sqlite3** PackageVersion: **0.84.18** ``` GET /api/v1/db/meta/audits/comments/count?ids[]=3&amp;ids[]=2&amp;ids[]=1&amp;fk_model_id=md_ruy5tydtlvchvt 304 - - 2.365 ms projectAclMiddleware :: Forbidden [Error]: viewUpdate - editor : Not allowed at Function.forbidden (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/noco/meta/helpers/catchError.ts:47:11) at projectAclMiddleware (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/noco/meta/helpers/ncMetaAclMw.ts:63:17) at /Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/noco/meta/helpers/catchError.ts:6:20 at Layer.handle [as handle_request] (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/express/lib/router/layer.js:95:5) at next (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/express/lib/router/route.js:137:13) at authMiddleware (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/noco/meta/helpers/ncMetaAclMw.ts:23:7) at /Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/noco/meta/helpers/catchError.ts:6:20 at Layer.handle [as handle_request] (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/express/lib/router/layer.js:95:5) at next (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/express/lib/router/route.js:137:13) at exports.default (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/noco/meta/helpers/extractProjectIdAndAuthenticate.ts:141:5) PATCH /api/v1/db/meta/views/vw_64yqwazih1twez 403 43 - 4.732 ms projectAclMiddleware :: Forbidden [Error]: hideAllColumns - editor : Not allowed at Function.forbidden (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/noco/meta/helpers/catchError.ts:47:11) at projectAclMiddleware (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/noco/meta/helpers/ncMetaAclMw.ts:63:17) at /Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/noco/meta/helpers/catchError.ts:6:20 at Layer.handle [as handle_request] (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/express/lib/router/layer.js:95:5) at next (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/express/lib/router/route.js:137:13) at authMiddleware (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/noco/meta/helpers/ncMetaAclMw.ts:23:7) at /Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/noco/meta/helpers/catchError.ts:6:20 at Layer.handle [as handle_request] (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/express/lib/router/layer.js:95:5) at next (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/node_modules/express/lib/router/route.js:137:13) at exports.default (/Users/rajuudava/NocoDB/nocodb/packages/nocodb/src/lib/noco/meta/helpers/extractProjectIdAndAuthenticate.ts:141:5) POST /api/v1/db/meta/views/vw_64yqwazih1twez/hide-all 403 47 - 3.106 ms ```</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix: allow count api permission for editor role, add isnot support in xwhere query param re #1725 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+    <SHA>494c7195b9de8cbf708ea6ce23806e86be16d516</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: add hideAllColumns &amp; showAllColumns permission for editor re #1713 Signed-off-by: Pranav C &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>44deffc4e9728ba3c40e6b8ad54bc336b29e7075</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nocodb/src/lib/utils/projectAcl.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

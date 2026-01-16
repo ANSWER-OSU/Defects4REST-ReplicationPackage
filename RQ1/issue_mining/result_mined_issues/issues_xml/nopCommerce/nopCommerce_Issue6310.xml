@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6310</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6310</ISSUEURL>
+  <TITLE>Paypal Commerce: Some currencies should not have decimals</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.50 Steps to reproduce the problem: Try to pay with paypal commerce in the following currencies: &quot;JPY&quot;, &quot;HUF&quot;, &quot;TWD&quot; Paypal will throw an error as there currencies does not support decimals. https://developer.paypal.com/reference/currency-codes/ In the ServiceManager, in the CreateOrderAsync function, a test needs to be added for these 3 currencies. if the payment is made with these currencies, all Prices, Amounts etc should use the format &quot;0&quot; instead of &quot;0.00&quot;</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6306 PayPalCommerce plugin. Fixed bug when voiding an order</MESSAGE>
+    <SHA>b455dc2f687385b8f6579186490a7d3df3850134</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6310 PayPalCommerce plugin. Fixed bug with currencies that do not support decimals</MESSAGE>
+      <SHA>87bcc3e5d0457ffb8db8e038c606ce2cbe663c2b</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/PayPalCommerceDefaults.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/Services/ServiceManager.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

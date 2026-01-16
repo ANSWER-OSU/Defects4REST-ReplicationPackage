@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122994</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122994</ISSUEURL>
+  <TITLE>[DOCS] Release notes/Breaking Changes for: Cluster and node setting changes for discovery.type not clearly</TITLE>
+  <DESCRIPTION>The description of the **“Impact”** for the changes to the **“discovery.type”** setting is somewhat unclear IMHO. The following is described in the impact: https://github.com/elastic/elasticsearch/blob/18df4d0c898e2533a7b54ceaf5da6877bdd22be1/docs/reference/migration/migrate_9_0.asciidoc?plain=1#L121-L122 At first glance, this could lead to the confusion that this setting should be removed completely. However, this is not absolutely necessary. It is only necessary to take into account that only `multi-node` and `single-node` are valid. Here is a suggestion: ``` Remove any value for discovery.type from your elasticsearch.yml configuration file, except “multi-node” or “single-node”. Defaults to “multi-node” ``` Since the setting as described in the new documentation is not removed, but IMHO even added, I find the whole description a bit confusing.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[ES|QL] Render aggregate_metric_double (#122660) This commit allows users to read aggregate_metric_double fields from indices in ES|QL, with any subset of metrics.</MESSAGE>
+    <SHA>e4ee91a08a877840dfafcd65677c3ae225585ab3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Clarify breaking change note for #112903 Closes #122994</MESSAGE>
+      <SHA>da633b3b3824b8905306411559cec6ffd12443a1</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/112903.yaml</FILE>
+        <FILE>docs/reference/migration/migrate_9_0.asciidoc</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

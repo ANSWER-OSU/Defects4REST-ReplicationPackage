@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1274</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/1274</ISSUEURL>
+  <TITLE>Migration failed: table users already exists</TITLE>
+  <DESCRIPTION>I have a Docker container running Drone, which I just tried to migrate by running ``` bash docker stop droneci docker rm droneci docker pull drone/drone:0.4 /usr/bin/docker run --name droneci \ # Some arguments omitted for clarity -e 'DRONE_DATABASE_DATASOURCE=/var/lib/drone/drone.sqlite' \ -v '/srv/drone:/var/lib/drone' \ drone/drone:0.4 ``` However, the new container now outputs the following to stdout and quits: ``` time=&quot;2015-10-28T21:05:25Z&quot; level=info msg=&quot;using database driver sqlite3&quot; time=&quot;2015-10-28T21:05:25Z&quot; level=info msg=&quot;using database config /var/lib/drone/drone.sqlite&quot; time=&quot;2015-10-28T21:05:25Z&quot; level=error msg=&quot;table users already exists&quot; time=&quot;2015-10-28T21:05:25Z&quot; level=fatal msg=&quot;migration failed&quot; ``` I found #224, which seems similar but has been fixed already. The version in the `migration_version` table is 3. The `users` table does indeed exist, and has an entry for me in it (I was the only user).</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #1273 from rkrdo/bitbucket-setup-doc-update Added missing OAuth permission for Bitbucket remote</MESSAGE>
+    <SHA>8b17e6518ec26348c72854ad9fa6d8b3a511d121</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add link from installation to upgrade instructions This is a followup to #1274, where I didn't notice that 0.4 was a breaking release. The upgrading documentation mentions this, but I was looking on the installation instructions page and missed the link in the sidebar. Hopefully this change will prevent someone else from making the same mistake in the future.</MESSAGE>
+      <SHA>71ba267f17c23e2848451bdd4922211e666201da</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/setup/index.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

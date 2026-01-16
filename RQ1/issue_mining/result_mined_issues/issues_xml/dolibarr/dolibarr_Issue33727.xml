@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>33727</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/33727</ISSUEURL>
+  <TITLE>XSS in note field</TITLE>
+  <DESCRIPTION>### Bug # Description Cross-site scripting (XSS) is a type of security vulnerability that allows attackers to inject malicious scripts into web pages viewed by other users. A stored (persistent) XSS vulnerability occurs when an attacker’s input is saved on the server and later displayed to other users without proper sanitization or encoding. In this case, a stored XSS vulnerability exists in the **note storage feature** of the web application, specifically on the page: **http://192.168.126.18/societe/note.php?id=1** The application allows users to store both **public** and **private** notes, which are vulnerable to persistent XSS. ### Dolibarr Version 21.0.0 ### Environment PHP php8 ### Environment Database default ### Steps to reproduce the behavior and expected behavior # ️ Proof of Concept ### Vulnerable Parameters: - **note_private** (private notes) - **note_public** (public notes) ### Affected Endpoint: **/societe/note.php** (via POST request) ### Bypassed Filtering Mechanism: The filtering function `dol_htmlwithnojs()` in `functions.lib.php` is bypassable using the event attribute: ``` oncontentvisibilityautostatechange=alert(1) ``` ### Exploit Payload: Using an allowed `&lt;a&gt;` tag, an attacker can inject the following payload: ```html &lt;a oncontentvisibilityautostatechange=alert(1) style=display:block;content-visibility:auto href=&quot;/x&quot;&gt;X&lt;/a&gt; ``` ### Attack Scenario: 1. An attacker submits the payload via the **note_private** or **note_public** fields. 2. The application stores the malicious input in its database. 3. When another user (or an administrator) views the stored note, the injected script executes. 4. The script can be used to steal session cookies, redirect users to phishing pages, or perform other malicious actions. # Impacts A successful stored XSS attack can lead to severe consequences, including: - **Session Hijacking:** If session cookies lack the `HttpOnly` flag, an attacker can steal them to take over user accounts. - **Phishing Attacks:** Users can be redirected to malicious websites. - **Content Manipulation:** The attacker can modify the displayed content, such as injecting fake login forms. - **Automatic Malware Downloads:** Scripts can trigger automatic downloads of malicious files. - **Access to User Data:** The attacker can request access to geolocation, camera, or other sensitive browser functionalities. # Mitigations To protect against stored XSS vulnerabilities, the following security measures should be implemented: 1. **Proper Input Validation &amp; Sanitization:** - Use **`htmlspecialchars()`** in PHP to encode special characters. - Avoid allowing dangerous HTML attributes like `on*` event handlers. 2. **Contextual Output Encoding:** - Apply the appropriate escaping based on the output context (e.g., `htmlspecialchars()` for HTML, `json_encode()` for JSON). 3. **Implement a Content Security Policy (CSP):** - Restrict inline scripts using `Content-Security-Policy` headers. 4. **Use a Web Application Firewall (WAF):** - Block known XSS payload patterns in HTTP requests. # References - [OWASP - Cross-Site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/) - [OWASP - XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html) - [PortSwigger - Stored XSS](https://portswigger.net/web-security/cross-site-scripting/stored) - [Mozilla - Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) # Credit Found by: - Arthur Deloffre ([Vozec](https://github.com/vozec)) - Clément Viard ([KlemouLeZoZo](https://github.com/requin-citron)) ### Attached files https://github.com/user-attachments/assets/bec27765-fd57-4d2e-a50b-6d44140494b2</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'develop' of git@github.com:Dolibarr/dolibarr.git into develop</MESSAGE>
+    <SHA>7f621558fc2f649e29814af37d497a59b349eebb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX #33727 Sec</MESSAGE>
+      <SHA>9a80025dd517d362391412e0741271a523064419</SHA>
+      <PATCHEDFILES>
+        <FILE>dev/tools/codespell/codespell-ignore.txt</FILE>
+        <FILE>dev/tools/codespell/codespell-lines-ignore.txt</FILE>
+        <FILE>htdocs/waf.inc.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>FIX #33727 Sec</MESSAGE>
+      <SHA>f1a6ae1b576baccbdbf889008360456d6028ac25</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/main.inc.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

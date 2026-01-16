@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>919</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/919</ISSUEURL>
+  <TITLE>drone start before mysql</TITLE>
+  <DESCRIPTION>i have drone configured with mysql. maybe upstart starts drone before mysql. the upstart scripts needs to wait for mysql BUT ONLY if it's used. it works with `service drone start` after the server started. ``` panic: Could not get DB version: dial tcp 127.0.0.1:3306: connection refused goroutine 16 [running]: runtime.panic(0xab3d40, 0xc2081275e0) /usr/local/go/src/pkg/runtime/panic.c:279 +0xf5 github.com/drone/drone/server/datastore/database.MustConnect(0xc2081272c0, 0x5, 0xc2081284e0, 0x1e, 0x0) /var/cache/drone/src/github.com/drone/drone/server/datastore/database/database.go:52 +0x8a main.main() /var/cache/drone/src/github.com/drone/drone/server/main.go:104 +0x274 goroutine 19 [finalizer wait]: runtime.park(0x4a8570, 0x11caf90, 0x11b59e9) /usr/local/go/src/pkg/runtime/proc.c:1369 +0x89 runtime.parkunlock(0x11caf90, 0x11b59e9) /usr/local/go/src/pkg/runtime/proc.c:1385 +0x3b runfinq() /usr/local/go/src/pkg/runtime/mgc0.c:2644 +0xcf runtime.goexit() /usr/local/go/src/pkg/runtime/proc.c:1445 goroutine 22 [syscall]: os/signal.loop() /usr/local/go/src/pkg/os/signal/signal_unix.go:21 +0x1e created by os/signal.init·1 /usr/local/go/src/pkg/os/signal/signal_unix.go:27 +0x32 goroutine 24 [chan receive]: database/sql.(*DB).connectionOpener(0xc208060480) /usr/local/go/src/pkg/database/sql/sql.go:583 +0x48 created by database/sql.Open /usr/local/go/src/pkg/database/sql/sql.go:442 +0x27c starting build 2015/03/16 18:08:55 x509: certificate is valid for grml, not localhost 2015/03/16 18:08:56 subscription's close channel received message panic: Could not get DB version: dial tcp 127.0.0.1:3306: connection refused goroutine 16 [running]: runtime.panic(0xab3d40, 0xc208127540) /usr/local/go/src/pkg/runtime/panic.c:279 +0xf5 github.com/drone/drone/server/datastore/database.MustConnect(0xc208127220, 0x5, 0xc208128400, 0x1e, 0x0) /var/cache/drone/src/github.com/drone/drone/server/datastore/database/database.go:52 +0x8a main.main() /var/cache/drone/src/github.com/drone/drone/server/main.go:104 +0x274 goroutine 19 [finalizer wait]: runtime.park(0x4a8570, 0x11caf90, 0x11b59e9) /usr/local/go/src/pkg/runtime/proc.c:1369 +0x89 runtime.parkunlock(0x11caf90, 0x11b59e9) /usr/local/go/src/pkg/runtime/proc.c:1385 +0x3b runfinq() /usr/local/go/src/pkg/runtime/mgc0.c:2644 +0xcf runtime.goexit() /usr/local/go/src/pkg/runtime/proc.c:1445 goroutine 22 [syscall]: os/signal.loop() /usr/local/go/src/pkg/os/signal/signal_unix.go:21 +0x1e created by os/signal.init·1 /usr/local/go/src/pkg/os/signal/signal_unix.go:27 +0x32 goroutine 24 [chan receive]: database/sql.(*DB).connectionOpener(0xc208060480) /usr/local/go/src/pkg/database/sql/sql.go:583 +0x48 created by database/sql.Open /usr/local/go/src/pkg/database/sql/sql.go:442 +0x27c ```</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>239</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>correctly store build number in binary</MESSAGE>
+    <SHA>a13ce5cb6f574f0ffd1c0143674c218ec8373140</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix for issue #919</MESSAGE>
+      <SHA>5e06cb093fb7cee3a97bef8412bf51196de3bf03</SHA>
+      <PATCHEDFILES>
+        <FILE>store/datastore/store.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #1308 from bradrydzewski/master fix for issue #919</MESSAGE>
+      <SHA>64908ed2414b771554fda6508dd56a0c43766831</SHA>
+      <PATCHEDFILES>
+        <FILE>store/datastore/store.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Bug fix to handle Comments preservation while updating nested fields in YAML (#919)</MESSAGE>
+      <SHA>b873fb95edb1b3240d84382c129f6039f2d99b8e</SHA>
+      <PATCHEDFILES>
+        <FILE>web/src/components/PluginsPanel/PluginsPanel.module.scss</FILE>
+        <FILE>web/src/components/PluginsPanel/PluginsPanel.module.scss.d.ts</FILE>
+        <FILE>web/src/components/PluginsPanel/PluginsPanel.tsx</FILE>
+        <FILE>web/src/components/PluginsPanel/Steps/HarnessSteps/RunStep/RunStep.tsx</FILE>
+        <FILE>web/src/components/SourceCodeEditor/AdvancedSourceCodeEditor.tsx</FILE>
+        <FILE>web/src/pages/AddUpdatePipeline/AddUpdatePipeline.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

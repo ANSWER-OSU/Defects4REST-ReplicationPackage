@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19346</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/19346</ISSUEURL>
+  <TITLE>Redirect URLs are not sanitized in some cases</TITLE>
+  <DESCRIPTION>### Deployment Type Self-hosted ### NetBox Version v4.2.8 ### Python Version 3.10 ### Steps to Reproduce There are a few instances where NetBox returns a redirect crafted from the URL specified in a request. For instance: https://github.com/netbox-community/netbox/blob/81dfaf0d6769ffc732a7e073135eb0f99f694e21/netbox/dcim/views.py#L3797 ### Expected Behavior These values should be validated using Django's `url_has_allowed_host_and_scheme()` function prior to use. ### Observed Behavior These values are passed directly to the HTTP response object.</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>18706 Fix VLAN Assignment checking (#19332) * 18706 Fix VLAN assignment checking * 18706 add tests * 18706 review feedback</MESSAGE>
+    <SHA>81dfaf0d6769ffc732a7e073135eb0f99f694e21</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #19346: Ensure all redirect URLs are validated</MESSAGE>
+      <SHA>e44ad8af4512400c244589bbc34c1dc294792fc5</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/account/views.py</FILE>
+        <FILE>netbox/dcim/views.py</FILE>
+        <FILE>netbox/netbox/views/generic/bulk_views.py</FILE>
+        <FILE>netbox/netbox/views/generic/object_views.py</FILE>
+        <FILE>netbox/utilities/request.py</FILE>
+        <FILE>netbox/utilities/views.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #19347 from netbox-community/19346-redirect-checks Fixes #19346: Ensure all redirect URLs are validated</MESSAGE>
+      <SHA>c0e6168d34ef87e28a2de8f2d3ed0b8f6ccdb0bc</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/account/views.py</FILE>
+        <FILE>netbox/dcim/views.py</FILE>
+        <FILE>netbox/netbox/views/generic/bulk_views.py</FILE>
+        <FILE>netbox/netbox/views/generic/object_views.py</FILE>
+        <FILE>netbox/utilities/request.py</FILE>
+        <FILE>netbox/utilities/views.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

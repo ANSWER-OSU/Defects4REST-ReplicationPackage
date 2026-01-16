@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14906</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14906</ISSUEURL>
+  <TITLE>The command-line option builtin-volume mentioned in podman-create.1.md does not exist</TITLE>
+  <DESCRIPTION>&lt;!-- --------------------------------------------------- BUG REPORT INFORMATION --------------------------------------------------- Use the commands below to provide key information from your environment: You do NOT have to include this information if this is a FEATURE REQUEST **NOTE** A large number of issues reported against Podman are often found to already be fixed in more current versions of the project. Before reporting an issue, please verify the version you are running with `podman version` and compare it to the latest release documented on the top of Podman's [README.md](../README.md). If they differ, please update your version of Podman to the latest possible and retry your command before creating an issue. Also, there is a running list of known issues in the [Podman Troubleshooting Guide](https://github.com/containers/podman/blob/main/troubleshooting.md), please reference that page before opening a new issue. If you are filing a bug against `podman build`, please instead file a bug against Buildah (https://github.com/containers/buildah/issues). Podman build executes Buildah to perform container builds, and as such the Buildah maintainers are best equipped to handle these bugs. --&gt; **Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind bug **Description** The documentation mentions the command-line option __builtin-volume__ https://github.com/containers/podman/blob/4d111fa9af0352d25d4c9ecc7d203f20f5727d09/docs/source/markdown/podman-create.1.md?plain=1#L452 but when I try it out Podman fails ``` $ podman create --name test --builtin-volume=bind docker.io/library/fedora:36 Error: unknown flag: --builtin-volume See 'podman create --help' $ podman --version podman version 4.1.1 ```</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14896 from edsantiago/logformatter_by_task logformatter: link by *task ID*, not build ID</MESSAGE>
+    <SHA>a51a63023c773afae601628fbb89461249c5a043</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[CI:DOCS] man pages: remove non-existent option builtin-volume Closes #14906 Signed-off-by: Erik Sjölund &lt;erik.sjolund@gmail.com&gt;</MESSAGE>
+      <SHA>f6ed7a8c94cd9d67fca1a0b825fe8d8cb39b5aab</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-create.1.md</FILE>
+        <FILE>docs/source/markdown/podman-run.1.md</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>man page checker: enforce stricter options format Followup to #14906, in which a nonexistent option was found in a man page. The xref script was designed to catch that, but I was too lax in my parsing: the option was documented using wrong syntax, and the script didn't catch it. Solution: do not allow *any* unrecognized cruft in the option description lines. And fix all improperly-written entries to conform to the rule: **--option**=*value(s)* Two asterisks around option, which must have two dashes. One asterisk around value(s). This is going to cause headaches for some people adding new options, but I don't think I can fix that: there are many factors that make an unparseable line. Adding 'hint' code would make the script even more complex than it is. I have to assume that our contributors are smart enough to look at surrounding context and figure out the right way to specify options. Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>ad7c54e13a17eed8efb7b1367a17859d6f7e3032</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/MANPAGE_SYNTAX.md</FILE>
+        <FILE>docs/source/markdown/podman-build.1.md</FILE>
+        <FILE>docs/source/markdown/podman-commit.1.md</FILE>
+        <FILE>docs/source/markdown/podman-create.1.md</FILE>
+        <FILE>docs/source/markdown/podman-generate-kube.1.md</FILE>
+        <FILE>docs/source/markdown/podman-generate-systemd.1.md</FILE>
+        <FILE>docs/source/markdown/podman-image-trust.1.md</FILE>
+        <FILE>docs/source/markdown/podman-images.1.md</FILE>
+        <FILE>docs/source/markdown/podman-import.1.md</FILE>
+        <FILE>docs/source/markdown/podman-info.1.md</FILE>
+        <FILE>docs/source/markdown/podman-kube-play.1.md</FILE>
+        <FILE>docs/source/markdown/podman-machine-info.1.md</FILE>
+        <FILE>docs/source/markdown/podman-machine-init.1.md</FILE>
+        <FILE>docs/source/markdown/podman-machine-set.1.md</FILE>
+        <FILE>docs/source/markdown/podman-manifest-add.1.md</FILE>
+        <FILE>docs/source/markdown/podman-manifest-annotate.1.md</FILE>
+        <FILE>docs/source/markdown/podman-network-create.1.md</FILE>
+        <FILE>docs/source/markdown/podman-pod-clone.1.md</FILE>
+        <FILE>docs/source/markdown/podman-pod-create.1.md</FILE>
+        <FILE>docs/source/markdown/podman-pod-inspect.1.md</FILE>
+        <FILE>docs/source/markdown/podman-push.1.md</FILE>
+        <FILE>docs/source/markdown/podman-run.1.md</FILE>
+        <FILE>docs/source/markdown/podman-stats.1.md</FILE>
+        <FILE>docs/source/markdown/podman-system-connection-add.1.md</FILE>
+        <FILE>docs/source/markdown/podman-system-connection-remove.1.md</FILE>
+        <FILE>docs/source/markdown/podman-volume-create.1.md</FILE>
+        <FILE>docs/source/markdown/podman-volume-inspect.1.md</FILE>
+        <FILE>docs/source/markdown/podman-volume-ls.1.md</FILE>
+        <FILE>hack/xref-helpmsgs-manpages</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>man page checker: enforce stricter options format Followup to #14906, in which a nonexistent option was found in a man page. The xref script was designed to catch that, but I was too lax in my parsing: the option was documented using wrong syntax, and the script didn't catch it. Solution: do not allow *any* unrecognized cruft in the option description lines. And fix all improperly-written entries to conform to the rule: **--option**=*value(s)* Two asterisks around option, which must have two dashes. One asterisk around value(s). This is going to cause headaches for some people adding new options, but I don't think I can fix that: there are many factors that make an unparseable line. Adding 'hint' code would make the script even more complex than it is. I have to assume that our contributors are smart enough to look at surrounding context and figure out the right way to specify options. Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt; &lt;MH: Fixed cherry-pick conflicts&gt; Signed-off-by: Matthew Heon &lt;matthew.heon@pm.me&gt;</MESSAGE>
+      <SHA>52850ce7049277df028fc8839ab99a15be08ead1</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/MANPAGE_SYNTAX.md</FILE>
+        <FILE>docs/source/markdown/podman-build.1.md</FILE>
+        <FILE>docs/source/markdown/podman-commit.1.md</FILE>
+        <FILE>docs/source/markdown/podman-create.1.md</FILE>
+        <FILE>docs/source/markdown/podman-generate-kube.1.md</FILE>
+        <FILE>docs/source/markdown/podman-generate-systemd.1.md</FILE>
+        <FILE>docs/source/markdown/podman-image-trust.1.md</FILE>
+        <FILE>docs/source/markdown/podman-images.1.md</FILE>
+        <FILE>docs/source/markdown/podman-import.1.md</FILE>
+        <FILE>docs/source/markdown/podman-info.1.md</FILE>
+        <FILE>docs/source/markdown/podman-machine-info.1.md</FILE>
+        <FILE>docs/source/markdown/podman-machine-init.1.md</FILE>
+        <FILE>docs/source/markdown/podman-machine-set.1.md</FILE>
+        <FILE>docs/source/markdown/podman-manifest-add.1.md</FILE>
+        <FILE>docs/source/markdown/podman-manifest-annotate.1.md</FILE>
+        <FILE>docs/source/markdown/podman-network-create.1.md</FILE>
+        <FILE>docs/source/markdown/podman-play-kube.1.md</FILE>
+        <FILE>docs/source/markdown/podman-pod-clone.1.md</FILE>
+        <FILE>docs/source/markdown/podman-pod-create.1.md</FILE>
+        <FILE>docs/source/markdown/podman-pod-inspect.1.md</FILE>
+        <FILE>docs/source/markdown/podman-push.1.md</FILE>
+        <FILE>docs/source/markdown/podman-run.1.md</FILE>
+        <FILE>docs/source/markdown/podman-stats.1.md</FILE>
+        <FILE>docs/source/markdown/podman-system-connection-add.1.md</FILE>
+        <FILE>docs/source/markdown/podman-system-connection-remove.1.md</FILE>
+        <FILE>docs/source/markdown/podman-volume-create.1.md</FILE>
+        <FILE>docs/source/markdown/podman-volume-inspect.1.md</FILE>
+        <FILE>docs/source/markdown/podman-volume-ls.1.md</FILE>
+        <FILE>hack/xref-helpmsgs-manpages</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

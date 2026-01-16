@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>17437</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/17437</ISSUEURL>
+  <TITLE>Required taxonomy fields doesn't present invalid state consistently with other fields</TITLE>
+  <DESCRIPTION>### Describe the bug When taxonomy fields are added into content type and required property is set to true, then backend validation occurs and model state error is added into errors. But the error is not correctly bound to the model property, but on the root of the model. So the UI shows error only in validation summary and not under each taxonomy field. ### Orchard Core version 2.1.4 but I believe it is from the begging of the taxonomy module. ### To Reproduce 1. Enable taxonomy feature 2. Create new content type for taxonomy item 3. Create new taxonomy using taxonomy item type 4. Add 2 items into new taxonomy 5. Create new content type and add 3 taxonomy fields with required settings each with different display settings: one unique with standard view for radio buttons, second with multiple choice and standard view for checkboxes, third with multiple and tags view 6. Create new instance of content type with 3 taxonomy fields and send it without settings any taxonomy item 7. There will be errors in summary but not below the each taxonomy fields. And there is no red border showing that the field is in error state like it is done i other content fields. ### Expected behavior Expected behavior is to show validation error message for each invalid taxonomy field and also there should be red border showing invalid state. ### Logs and screenshots Current state after doing repro steps ![Image](https://github.com/user-attachments/assets/6d57bec5-11b7-424d-a8c3-55416b093c38) Expected behavior ![Image](https://github.com/user-attachments/assets/46c8981d-a7e7-4b0b-9c18-505cd686385e)</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Don't throw exception when casing fail in JavaScript evaluator (#17436) --------- Co-authored-by: Sébastien Ros &lt;sebastienros@gmail.com&gt;</MESSAGE>
+    <SHA>cc37085d1e6a68d11f0083841c60caeac3cca754</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix required taxonomy fields invalid state * fix validation error binding * add missing is-invalid visualization #17437</MESSAGE>
+      <SHA>0e5dd5bc01b75784a28ffb804ce04a93cc95a511</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Taxonomies/Drivers/TaxonomyFieldDisplayDriver.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Taxonomies/Drivers/TaxonomyFieldTagsDisplayDriver.cs</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Taxonomies/Views/TaxonomyField-Tags.Edit.cshtml</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Taxonomies/Views/TaxonomyField.Edit.cshtml</FILE>
+        <FILE>src/OrchardCore.Themes/TheAdmin/Assets/scss/components/_validations.scss</FILE>
+        <FILE>src/OrchardCore.Themes/TheAdmin/wwwroot/css/TheAdmin.css</FILE>
+        <FILE>src/OrchardCore.Themes/TheAdmin/wwwroot/css/TheAdmin.min.css</FILE>
+        <FILE>src/OrchardCore.Themes/TheAdmin/wwwroot/css/login.css</FILE>
+        <FILE>src/OrchardCore.Themes/TheAdmin/wwwroot/css/login.min.css</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

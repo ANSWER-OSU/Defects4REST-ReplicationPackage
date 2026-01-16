@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14354</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/14354</ISSUEURL>
+  <TITLE>Ghost changes &quot;send-only&quot; posts to &quot;post and send&quot; after rescheduling</TITLE>
+  <DESCRIPTION>### Issue Summary Hello, I want to report a bug with Ghost. As the title says, this issue happens when I reschedule a send-only post to members. Context, I use Ghost as a blog and send my newsletter without publishing on the blog. But I found a strange behavior when I click on reschedule for those send-only posts. So, when I go back to edit a post that was already scheduled to only send by email, I have to revert to draft, or rescheduling will turn this post into a &quot;send &amp; post&quot; without me wanting it to happen. ### Steps to Reproduce 1. Schedule a post to **send-only by email** 2. Exit the editor 3. Go back to the editor and update the post 4. Go to publish and click **Reschedule** the post 5. Look at the pop up in the bottom left saying the post will be &quot;published and delivered&quot; without you changing it (see screenshot below) &lt;img width=&quot;328&quot; alt=&quot;CleanShot 2022-03-22 at 08 28 20@2x&quot; src=&quot;https://user-images.githubusercontent.com/79269148/159449683-0ae8de80-f1d2-42c0-b616-949e7b74f8f3.png&quot;&gt; ### Ghost Version 4.36.1 ### Node.js Version I'm using managed hosting, I don't know ### How did you install Ghost? I'm using Midnight managed hosting ### Database type Other ### Browser &amp; OS version _No response_ ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Renamed stats endpoint member again refs https://github.com/TryGhost/Ghost/commit/759e362a30e231eead2d087a14ef52635ae2f87d</MESSAGE>
+    <SHA>37ee53bb4a03723e27a3f974b2037d088f16a471</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed scheduled send-only post switching to publish+send when rescheduling closes https://github.com/TryGhost/Ghost/issues/14354 When setting/cleaning up the publish menu state we were incorrectly reverting to the default &quot;publish &amp; send&quot; state when a post was already set to be email-only. This resulted in an unexpected and non-obvious switch to &quot;publish &amp; send&quot; when re-scheduling a scheduled email-only post. - updated the publish menu setup and cleanup routines to account for scheduled, email-only posts - fixed the header in the publish menu to say &quot;sent&quot; rather than &quot;published&quot; when an email-only post is scheduled</MESSAGE>
+      <SHA>623825f8f0a53de273cc9249d850f2651806c765</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/app/components/gh-distribution-action-select.hbs</FILE>
+        <FILE>ghost/admin/app/components/gh-publishmenu-draft.hbs</FILE>
+        <FILE>ghost/admin/app/components/gh-publishmenu-scheduled.hbs</FILE>
+        <FILE>ghost/admin/app/components/gh-publishmenu.hbs</FILE>
+        <FILE>ghost/admin/app/components/gh-publishmenu.js</FILE>
+        <FILE>ghost/admin/tests/acceptance/editor-test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

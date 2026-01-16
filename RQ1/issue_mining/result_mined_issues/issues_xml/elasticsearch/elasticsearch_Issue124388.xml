@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>124388</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/124388</ISSUEURL>
+  <TITLE>[CI] NodeEnvironmentTests testIndexCompatibilityChecks failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6852 / openjdk24_entitlements_true_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/prcg25jjzcrao) - [elasticsearch-pull-request #61424 / checkpart1_release-tests](https://gradle-enterprise.elastic.co/s/b6wffn4u5m74m) - [elasticsearch-pull-request #61213 / part-1](https://gradle-enterprise.elastic.co/s/g4xr73nimo5zk) - [elasticsearch-pull-request #61096 / part-1](https://gradle-enterprise.elastic.co/s/y2ju74poaa4cg) **Reproduction Line:** ``` ./gradlew &quot;:server:test&quot; --tests &quot;org.elasticsearch.env.NodeEnvironmentTests.testIndexCompatibilityChecks&quot; -Dtests.seed=14F69652DC3A5F7C -Dtests.jvm.argline=&quot;-Des.entitlements.enabled=true&quot; -Dtests.locale=eu -Dtests.timezone=Pacific/Johnston -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.env.NodeEnvironmentTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testIndexCompatibilityChecks),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: (a string containing &quot;Cannot start this node&quot; and a string containing &quot;it holds metadata for indices with version [4.29.21]&quot; and a string containing &quot;Revert this node to version [8.19.0]&quot;) but: a string containing &quot;Revert this node to version [8.19.0]&quot; was &quot;Cannot start this node because it holds metadata for indices with version [4.29.21] with which this node of version [9.1.0] is incompatible. Revert this node to version [9.0.51] and delete any indices with versions earlier than [8.0.0] before upgrading to version [9.1.0]. If all such indices have already been deleted, revert this node to version [9.0.51] and wait for it to join the cluster to clean up any older indices from its metadata.&quot; ``` **Issue Reasons:** - [main] 4 failures in test testIndexCompatibilityChecks (1.6% fail rate in 244 executions) - [main] 2 failures in step part-1 (1.7% fail rate in 118 executions) - [main] 3 failures in pipeline elasticsearch-pull-request (2.6% fail rate in 116 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>58</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Refactor `SnapshotInfo` dataflow in finalization (#124336) There's no need to have a `SnapshotInfo` consumer to run at the end of finalization, we only pass it the value we already calculated earlier. This replaces it with a bare `Runnable` instead.</MESSAGE>
+    <SHA>88eeb8a5a18545b1315278b2ea5776431bb0de59</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.env.NodeEnvironmentTests testIndexCompatibilityChecks #124388</MESSAGE>
+      <SHA>5752c7108793d92ccd17d9a0e47a527a5658b22b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.env.NodeEnvironmentTests testIndexCompatibilityChecks #124388</MESSAGE>
+      <SHA>02c9644faa07317e42773dab83015a7e8b3c74d3</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

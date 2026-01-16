@@ -1,0 +1,147 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>90</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/90</ISSUEURL>
+  <TITLE>UI issues</TITLE>
+  <DESCRIPTION>Bugs: - [x] Scroll position changes when changing visualizations tabs. - [x] After creating a new visualization and saving it, it should switch to the saved visualization tab. - [x] When trying to create a dashboard widget and it fails, the user left in &quot;limbo&quot; state. ace657d - [x] Widget title should be a link (or behave like a link). 3243f27 - [x] Table link from dashbaords points at the visualization object rather the table tab. 3243f27 - [x] When forking a query while viewing some visualization, the URL hash stays of the visualization, which no longer exists in the forked query. 320d457 - [x] When changing title/description/... the query object get saved, which means that the query text get saved too. It should only save what was changed. 9305b76 Performance: - [x] We render table visualization twice (because we just hide the tab). 5ad2bd0 Improvements: - [x] Pressing &quot;enter&quot; in edit-in-place fields should submit the change. ESC should cancel the edit. 6c00b8a85347edbcfb93bd01b823ae9bfefd679d - [x] Visualization should have an explicit edit mode which you go into after you already created and saved it. 7171400</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>49</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #150 from EverythingMe/query-refactor #138: Query controllers refactor</MESSAGE>
+    <SHA>61a196fafc62a024bf8e9c384f0178dd575788a0</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[#90] save only modified fields when changing query name/description</MESSAGE>
+      <SHA>9305b76b854e2373456d5aefc0dfe99cc50c9911</SHA>
+      <PATCHEDFILES>
+        <FILE>rd_ui/app/scripts/controllers/query_edit.js</FILE>
+        <FILE>rd_ui/app/scripts/controllers/query_view.js</FILE>
+        <FILE>rd_ui/app/views/query.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[#90] perf: don't render (ngIf) the table visualization tab instead of hiding (ngHide)</MESSAGE>
+      <SHA>5ad2bd048cbf64920b7f17162d9e9a209c3c8545</SHA>
+      <PATCHEDFILES>
+        <FILE>rd_ui/app/views/query.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[#90] switch to new visualization tab on save</MESSAGE>
+      <SHA>23760ffa86c9b24498d8c0dae1b46f51e0898e87</SHA>
+      <PATCHEDFILES>
+        <FILE>rd_ui/app/scripts/controllers/query_view.js</FILE>
+        <FILE>rd_ui/app/scripts/visualizations/base.js</FILE>
+        <FILE>rd_ui/app/views/query.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[#90] query links in widget title</MESSAGE>
+      <SHA>11ba93cc8022c3e1de068368f6c207a06bd4aa98</SHA>
+      <PATCHEDFILES>
+        <FILE>rd_ui/app/scripts/controllers/controllers.js</FILE>
+        <FILE>rd_ui/app/scripts/directives/query_directives.js</FILE>
+        <FILE>rd_ui/app/views/dashboard.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[#90] query link: style, link to #table, 'query' attr required</MESSAGE>
+      <SHA>3243f277f256acec20992433d3fcb24293c6ce9d</SHA>
+      <PATCHEDFILES>
+        <FILE>rd_ui/app/scripts/directives/query_directives.js</FILE>
+        <FILE>rd_ui/app/styles/redash.css</FILE>
+        <FILE>rd_ui/app/views/dashboard.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[#90] handle widget creation failures</MESSAGE>
+      <SHA>ace657d95a0f89c6b75547ea0c9ec43dc2514941</SHA>
+      <PATCHEDFILES>
+        <FILE>rd_ui/app/scripts/directives/dashboard_directives.js</FILE>
+        <FILE>rd_ui/app/scripts/services/resources.js</FILE>
+        <FILE>rd_ui/app/views/new_widget_form.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[#90] query-link: use ng-href as @arikfr suggested</MESSAGE>
+      <SHA>40adba4242e81905d91359aa05c4fe867c875f97</SHA>
+      <PATCHEDFILES>
+        <FILE>rd_ui/app/scripts/directives/query_directives.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #154 from EverythingMe/90-ui-issues [#90] save only modified fields when changing query name/description</MESSAGE>
+      <SHA>ff9fadd55a51574666771195d83385e92dfc4426</SHA>
+      <PATCHEDFILES>
+        <FILE>rd_ui/app/index.html</FILE>
+        <FILE>rd_ui/app/scripts/app.js</FILE>
+        <FILE>rd_ui/app/scripts/controllers/controllers.js</FILE>
+        <FILE>rd_ui/app/scripts/controllers/dashboard.js</FILE>
+        <FILE>rd_ui/app/scripts/controllers/query_edit.js</FILE>
+        <FILE>rd_ui/app/scripts/controllers/query_view.js</FILE>
+        <FILE>rd_ui/app/scripts/directives/dashboard_directives.js</FILE>
+        <FILE>rd_ui/app/scripts/directives/directives.js</FILE>
+        <FILE>rd_ui/app/scripts/directives/query_directives.js</FILE>
+        <FILE>rd_ui/app/scripts/services/resources.js</FILE>
+        <FILE>rd_ui/app/scripts/visualizations/base.js</FILE>
+        <FILE>rd_ui/app/styles/redash.css</FILE>
+        <FILE>rd_ui/app/views/dashboard.html</FILE>
+        <FILE>rd_ui/app/views/new_widget_form.html</FILE>
+        <FILE>rd_ui/app/views/query.html</FILE>
+        <FILE>rd_ui/bower.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[#90] clear visualization hash when redirecting to forked query</MESSAGE>
+      <SHA>29f01a5780f69c43eb1c89cfff040efe8154a31d</SHA>
+      <PATCHEDFILES>
+        <FILE>rd_ui/app/scripts/controllers/query_edit.js</FILE>
+        <FILE>rd_ui/app/scripts/controllers/query_view.js</FILE>
+        <FILE>rd_ui/app/scripts/services/resources.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[#90] visualization edit mode</MESSAGE>
+      <SHA>a696e10ef7a526d55b49b2b52d869c1f662ac1d9</SHA>
+      <PATCHEDFILES>
+        <FILE>rd_ui/app/styles/redash.css</FILE>
+        <FILE>rd_ui/app/views/query.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[#90] edit vis. form touchup</MESSAGE>
+      <SHA>82f5f15c2a706e7d48963e57d10ddbee97d9065f</SHA>
+      <PATCHEDFILES>
+        <FILE>rd_ui/app/views/query.html</FILE>
+        <FILE>rd_ui/app/views/visualizations/chart_editor.html</FILE>
+        <FILE>rd_ui/app/views/visualizations/edit_visualization.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[#90] save only modified fields when changing query name/description</MESSAGE>
+      <SHA>001e2a8887b7b91111b953408e43501320cd8577</SHA>
+      <PATCHEDFILES>
+        <FILE>rd_ui/app/scripts/controllers/query_edit.js</FILE>
+        <FILE>rd_ui/app/scripts/controllers/query_view.js</FILE>
+        <FILE>rd_ui/app/views/query.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[#90] perf: don't render (ngIf) the table visualization tab instead of hiding (ngHide)</MESSAGE>
+      <SHA>9717a686be5eed83d48138fdc99be5ddbc5e0d0b</SHA>
+      <PATCHEDFILES>
+        <FILE>rd_ui/app/views/query.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[#90] switch to new visualization tab on save</MESSAGE>
+      <SHA>37dbdf494f68ac9ae241ab0937e8d301e38dd8ce</SHA>
+      <PATCHEDFILES>
+        <FILE>rd_ui/app/scripts/controllers/query_view.js</FILE>
+        <FILE>rd_ui/app/scripts/visualizations/base.js</FILE>
+        <FILE>rd_ui/app/views/query.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

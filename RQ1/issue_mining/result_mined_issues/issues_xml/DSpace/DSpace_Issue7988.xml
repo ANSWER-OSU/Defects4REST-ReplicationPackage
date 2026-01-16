@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7988</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/7988</ISSUEURL>
+  <TITLE>DSpace 6.3/7.0 metadata-export includes items more than once</TITLE>
+  <DESCRIPTION>**Describe the bug** The `metadata-export` feature includes duplicate items, once for every collection they are mapped to. This bug seems to have been exposed after the fix for empty subcommunities causing NullPointerExceptions (DS-4211, #2396). It occurs in DSpace 6.3 and DSpace 7.0. **To Reproduce** Export a community and extract only the `id` column using `csvcut` to check the total number of IDs and the unique number of IDs in the CSV: ```console $ ~/dspace7/bin/dspace metadata-export -f /tmp/community.csv -i 10568/1 $ csvcut -c id /tmp/community.csv | sed 1d | wc -l 32070 $ csvcut -c id /tmp/community.csv | sed 1d | sort -u | wc -l 19315 ``` Further investigation using `csvcut`: ```console $ csvcut -c id,collection /tmp/community.csv | sed 1d | sort | uniq -c | sort -n | tail 5 e714bdf9-cc0f-4d9a-a808-d572e25c9238,10568/3||10568/27660||10568/80011||10568/79345||10568/79347 6 037b6d3f-76d0-4000-9846-6fd6c3512f2e,10568/69153||10568/80104||10568/79345||10568/111707||10568/79349||10568/41914||10568/79346 6 7dfd1c61-9e8c-4677-8d41-e1c4b11d867d,10568/53||10568/80011||10568/33431||10568/79165||10568/617||10568/79346 6 96ed7d8f-8264-431a-a67d-0725e5a6d9ad,10568/69153||10568/80104||10568/79345||10568/111707||10568/79349||10568/41914||10568/79346 6 a352c559-42d7-4369-91d0-c62b8521ada1,10568/69153||10568/80104||10568/79345||10568/111707||10568/79349||10568/41914||10568/79346 6 ce599c54-2809-48db-9a57-ceb8b3d128c5,10568/69153||10568/80104||10568/79345||10568/111707||10568/79349||10568/41914||10568/79346 6 e9afa7e7-cbb2-4c69-bc1a-c1dff089cc58,10568/53||10568/80012||10568/79345||10568/87893||10568/83349||10568/105597 6 fb76888c-03ae-4d53-b27d-87d7ca91371a,10568/89918||10568/79345||10568/79165||10568/79349||10568/41914||10568/79346||10568/841 6 ff42d1e6-c489-492c-a40a-803cabd901ed,10568/3||10568/97116||10568/80101||10568/89918||10568/80012||10568/79345||10568/79346||10568/34356||10568/602 7 094e9e1d-09ff-40ca-a6b9-eca580936147,10568/66||10568/80108||10568/79345||10568/698||10568/61||10568/79349||10568/41914||10568/79347 ``` The explanation of the shell commands is: 1. `csvcut` extracts the `id` and `collection` columns of the CSV 2. `sed` deletes the CSV header 3. `sort` sorts the lines in the file (required before using `uniq`) 4. `uniq -c` lists each id/collection pair with a count of the number of times they occur 5. `sort -n` sorts the count numerically 6. `tail` shows the last ten lines of `sort -n` You can clearly see that each item appears in the CSV _at least once_ for every collection it is mapped to. **Expected behavior** Items should only appear once in the CSV. The `collection` column lists the collections the item is mapped to so we should not be listing the item more than once. **Related work** - [Empty subcommunity causes NullPointerException when exporting metadata (DS-4211)](https://jira.lyrasis.org/browse/DS-4211), merged in 6.4 and DSpace 7 `main` branch</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>32</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #7952 from atmire/w2p-83661_Port-harvest-to-scripts-and-processes Port harvest to scripts and processes</MESSAGE>
+    <SHA>d9d24427af9719f63224f342c7c420265ed5a706</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Ensure that a mapped Item is exported only once. #7988</MESSAGE>
+      <SHA>6bedbf09a412f33ac258fc44e629e65ad47fdd2d</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/content/MetadataDSpaceCsvExportServiceImpl.java</FILE>
+        <FILE>dspace-api/src/test/java/org/dspace/content/MetadataDSpaceCsvExportServiceImplIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Avoid exporting mapped Item more than once. #7988</MESSAGE>
+      <SHA>89918cdeb61e466592256f2e2c38eb701c5cb59d</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/app/bulkedit/MetadataExport.java</FILE>
+        <FILE>dspace-api/src/test/java/org/dspace/app/bulkedit/MetadataExportIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Avoid exporting mapped Item more than once. #7988</MESSAGE>
+      <SHA>93ec03290aa5412e7c7f96a1303021c8333d15c0</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/app/bulkedit/MetadataExport.java</FILE>
+        <FILE>dspace-api/src/test/java/org/dspace/app/bulkedit/MetadataExportIT.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

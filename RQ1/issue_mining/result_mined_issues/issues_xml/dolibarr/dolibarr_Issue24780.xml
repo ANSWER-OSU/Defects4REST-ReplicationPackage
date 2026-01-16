@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>24780</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/24780</ISSUEURL>
+  <TITLE>500 Error - Serialization error during update of custom field</TITLE>
+  <DESCRIPTION>### Bug When I attempt to update a custom field from the facture card, I have a unhandled 500 error. I just updated : - dolibarr from 16.0.4 to 17.0.1 - ubuntu 20.04 to 22.04 - php from 7.4 to 8.1 - pgsql from 12.x to 14.7) This custom field is a simple boolean and was working before the bunch of update. Here is the apache log. ``` [Mon May 15 21:54:34.209985 2023] [php:error] [pid 5655] [client 12.34.56.78:50449] PHP Fatal error: Uncaught Exception: Serialization of 'PgSql\\Connection' is not allowed in /opt/dolibarr/htdocs/core/lib/functions.lib.php:1167\nStack trace:\n#0 /opt/dolibarr/htdocs/core/lib/functions.lib.php(1167): serialize()\n#1 /opt/dolibarr/htdocs/compta/facture/card.php(2875): dol_clone()\n#2 {main}\n thrown in /opt/dolibarr/htdocs/core/lib/functions.lib.php on line 1167, referer: https://myowidolibarr.ca/compta/facture/card.php?id=61&amp;action=edit_extras&amp;token=hiddentoken&amp;attribute=quickbooks&amp;ignorecollapsesetup=1 ``` ### Environment Version 17.0.1 ### Environment OS Ubuntu 22.04 LTS ### Environment Web server Apache 2.4 ### Environment PHP php 8.1.2 ### Environment Database postgresql 14.7 ### Environment URL(s) /compta/facture/card.php ### Expected and actual behavior **Expected behaviour:** Just refresh the page with updated custom field (box checked in my case) **Actual behaviour:** After submit the update of the single custom field, I see the 500 error on my browser. ### Steps to reproduce the behavior Pre-requisite: have a (boolean) custom field on invoice card. Create an invoice without filling the custom field. once created (and validated), click the pen near the custom field to enable input, update the custom field and click Update &lt;- and showtime ### Attached files Concern my &quot;quickbooks&quot; field &lt;img width=&quot;694&quot; alt=&quot;image&quot; src=&quot;https://github.com/Dolibarr/dolibarr/assets/1232923/ed62bed1-d20e-48a8-b53c-0d03f57017bd&quot;&gt; &lt;img width=&quot;1475&quot; alt=&quot;image&quot; src=&quot;https://github.com/Dolibarr/dolibarr/assets/1232923/bdd21b75-8db6-4dfb-a482-b6e61a4d16f9&quot;&gt;</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>427</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix : #29372 month_report is accessible even without the readall permission (#29385) Co-authored-by: robin &lt;robin.lagler@vingeanne-transports.com&gt;</MESSAGE>
+    <SHA>c24fda189fc3628089e95152d85cd69fed14ebbb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix #24780 change default isolation method in dol_clone This fixes serialization error when attempting to update a custom field value. This change is made globally because the previous native = 0 default isolation method is labeled as `deprecated` in the code and therefore shouldn't be used anymore. Signed-off-by: Alexis Thietard &lt;alexis.thietard@rtone.fr&gt;</MESSAGE>
+      <SHA>933362f450f8180d929645c9d4c4ab4722afbeb6</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/functions.lib.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix #24780 change default isolation method in dol_clone This fixes serialization error when attempting to update a custom field value. This change is made globally because the previous native = 0 default isolation method is labeled as `deprecated` in the code and therefore shouldn't be used anymore. Signed-off-by: Alexis Thietard &lt;alexis.thietard@rtone.fr&gt;</MESSAGE>
+      <SHA>6e0ece32ac4c0a7d192c5175ca7c6a9ca68ebd6b</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/functions.lib.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix #24780 change default isolation method in dol_clone This fixes serialization error when attempting to update a custom field value. This change is made globally because the previous native = 0 default isolation method is labeled as `deprecated` in the code and therefore shouldn't be used anymore. Signed-off-by: Alexis Thietard &lt;alexis.thietard@rtone.fr&gt;</MESSAGE>
+      <SHA>ae13e10a4be5e7168f3bb3e8d06ba1cf3206c550</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/functions.lib.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix #24780 change default isolation method in dol_clone This fixes serialization error when attempting to update a custom field value. This change is made globally because the previous native = 0 default isolation method is labeled as `deprecated` in the code and therefore shouldn't be used anymore. Signed-off-by: Alexis Thietard &lt;alexis.thietard@rtone.fr&gt;</MESSAGE>
+      <SHA>962137854a49caa23776ea9f1fedeea909d30f4c</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/functions.lib.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix #24780 change default isolation method in dol_clone This fixes serialization error when attempting to update a custom field value. This change is made globally because the previous native = 0 default isolation method is labeled as `deprecated` in the code and therefore shouldn't be used anymore. Signed-off-by: Alexis Thietard &lt;alexis.thietard@rtone.fr&gt;</MESSAGE>
+      <SHA>dd50db37cedc5db0f4cb32b46918ea590f55d636</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/functions.lib.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix #24780 change default isolation method in dol_clone This fixes serialization error when attempting to update a custom field value. This change is made globally because the previous native = 0 default isolation method is labeled as `deprecated` in the code and therefore shouldn't be used anymore. Signed-off-by: Alexis Thietard &lt;alexis.thietard@rtone.fr&gt;</MESSAGE>
+      <SHA>6d620298b2c55b85de3576a95dee48028847ac3e</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/functions.lib.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix #24780 change default isolation method in dol_clone This fixes serialization error when attempting to update a custom field value. This change is made globally because the previous native = 0 default isolation method is labeled as `deprecated` in the code and therefore shouldn't be used anymore. Signed-off-by: Alexis Thietard &lt;alexis.thietard@rtone.fr&gt;</MESSAGE>
+      <SHA>31eeeb25ed5ee5dcaee4e92129a42770a4b5d8ad</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/functions.lib.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix #24780 change default isolation method in dol_clone This fixes serialization error when attempting to update a custom field value. This change is made globally because the previous native = 0 default isolation method is labeled as `deprecated` in the code and therefore shouldn't be used anymore. Signed-off-by: Alexis Thietard &lt;alexis.thietard@rtone.fr&gt;</MESSAGE>
+      <SHA>e484a589b222b8497e467a84b5d6a4f58fd6f49a</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/functions.lib.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix #24780 change default isolation method in dol_clone This fixes serialization error when attempting to update a custom field value. This change is made globally because the previous native = 0 default isolation method is labeled as `deprecated` in the code and therefore shouldn't be used anymore. Signed-off-by: Alexis Thietard &lt;alexis.thietard@rtone.fr&gt;</MESSAGE>
+      <SHA>d136f8d1a2ad75f16cdb9eacf8932e2c3fda659c</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/functions.lib.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix #24780 change default isolation method in dol_clone (#29391) This fixes serialization error when attempting to update a custom field value. This change is made globally because the previous native = 0 default isolation method is labeled as `deprecated` in the code and therefore shouldn't be used anymore. Signed-off-by: Alexis Thietard &lt;alexis.thietard@rtone.fr&gt;</MESSAGE>
+      <SHA>8c9a1c2bfcb41e67d436df0c69c7bba47dad98ac</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/core/lib/functions.lib.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>11523</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/11523</ISSUEURL>
+  <TITLE>/api/v2/ping is returning wrong value in &quot;heartbeat&quot; field</TITLE>
+  <DESCRIPTION>### Please confirm the following - [X] I agree to follow this project's [code of conduct](http://docs.ansible.com/ansible/latest/community/code_of_conduct.html). - [X] I have checked the [current issues](https://github.com/ansible/awx/issues) for duplicates. - [X] I understand that AWX is open source software provided for free and that I am not entitled to status updates or other assurances. ### Summary Summary: I believe that this behavior where two endpoints ( `/api/v2/ping` and `/api/v2/instances/` ) return different values for the same &quot;heartbeat&quot; like field is not consistent, and I think that `/api/v2/ping` &quot;heartbeat&quot; field should be mapped to `last_health_check` field of `Instance` model. Details: In AAP1.2 (Tower 3.8.4) `/api/v2/ping` response, &quot;heartbeat&quot; field was mapped to `instance.modified` (*), and the value &quot;heartbeat&quot; field in the response was returning a new updated value every minute. ~~~ /var/lib/awx/venv/awx/lib/python3.6/site-packages/awx/api/views/root.py class ApiV2PingView(APIView): ... def get(self, request, format=None): ... for instance in Instance.objects.all(): response['instances'].append(dict(node=instance.hostname, uuid=instance.uuid, heartbeat=instance.modified, &lt;=== capacity=instance.capacity, version=instance.version)) ~~~ This is not the case anymore in AAP2.1 (Ansible Automation Platform Controller 4.1.0). I see that in AAP2.1 (Ansible Automation Platform Controller 4.1.0) `/api/v2/ping` &quot;heartbeat&quot; field is **still** mapped to modified , and not to `last_seen` nor to `last_health_check` that have been introduced for this purpose. ~~~ /var/lib/awx/venv/awx/lib/python3.8/site-packages/awx/api/views/root.py 133 class ApiV2PingView(APIView): 134 &quot;&quot;&quot;A simple view that reports very basic information about this 135 instance, which is acceptable to be public information. 136 &quot;&quot;&quot; .. 143 def get(self, request, format=None): ... 152 for instance in Instance.objects.all(): 153 response['instances'].append( 154 dict( ... 158 heartbeat=instance.modified, &lt;======= ... ~~~ Because of that, `/api/v2/ping` will not return a new value every minute, it will return a new value only if the user fiddles manually with the instance properties (e.g. any change on Administration &gt; Instance Group &gt; &quot;any instance group&quot; &gt; Instance Page, etc.). Now, being said that in AAP2.1 (Ansible Automation Platform Controller 4.1.0) `/api/v2/instances/` **does** return correctly all the fields, including last_seen and last_health_check which are updated every minute as expected. (*) back then, there was no `last_seen` nor `last_health_check` field in the Instance model ### AWX version Red Hat Downstream AAP2.1 ### Installation method docker on linux ### Modifications no ### Ansible version Ansible Automation Platform Controller 4.1.0 ### Operating system Linux RHEL8.3 ### Web browser Firefox ### Steps to reproduce Access `https://&lt;awx-url&gt;/api/v2/ping/` and compare the response with the one from `https://192.168.122.106/api/v2/instances/`. &quot;heartbeat&quot; value from `ping` endpoint will be older than the same value from `instances` endpoint. ### Expected results &quot;heartbeat&quot; value from `ping` endpoint should match &quot;last_seen&quot; and &quot;last_health_check&quot; values from `instances` endpoint results. (Not sure about &quot;last_seen&quot;, but in my tests, said field have always had the same value as &quot;last_health_check&quot; field so far) ### Actual results &quot;heartbeat&quot; value from `ping` endpoint will be older than the same value from `instances` endpoint. ### Additional information Likely related commit: https://github.com/ansible/tower/commit/6a17e5b65bf9421c2e650d23817c79ce81248c6f Likely related issue: https://github.com/ansible/awx/issues/10737</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #11454 from AlexSCorey/ReceptorEndPoints Creates end point and beginning of serializer for receptor mesh</MESSAGE>
+    <SHA>d33a0d5ddeefc534e5c70f2bc95746479002cd17</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Update ping endpoint to use last_seen Update ping endpoint to use last_seen, instead of `modified` on instances `heartbeat`. See: https://github.com/ansible/awx/issues/11523</MESSAGE>
+      <SHA>3d45f31536dfd777169c3ff5e9352553b3e89ee3</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/views/root.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Update ping endpoint to use last_seen Update ping endpoint to use last_seen, instead of `modified` on instances `heartbeat`. See: https://github.com/ansible/awx/issues/11523</MESSAGE>
+      <SHA>facf325ba6f77e0fcaa09b8ec8d9b82019abf937</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/api/views/root.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/9</ISSUEURL>
+  <TITLE>ER_BAD_FIELD_ERROR: Unknown column 'c.datetime_precision' in 'field list'</TITLE>
+  <DESCRIPTION>Dev environment versions: ``` $ node -v v8.5.0 $ npm -v 5.5.1 $ mysql --version mysql Ver 14.14 Distrib 5.5.37, for debian-linux-gnu (x86_64) using readline 6.2 $ xmysql --version 0.0.8 ``` - - - Right after installing xmysql from npm and starting it, I get the following error. No code changes were done. ``` { Error: ER_BAD_FIELD_ERROR: Unknown column 'c.datetime_precision' in 'field list' at Query.Sequence._packetToError (/Users/marcoferreira/.nvm/versions/node/v8.5.0/lib/node_modules/xmysql/node_modules/mysql/lib/protocol/sequences/Sequence.js:52:14) at Query.ErrorPacket (/Users/marcoferreira/.nvm/versions/node/v8.5.0/lib/node_modules/xmysql/node_modules/mysql/lib/protocol/sequences/Query.js:77:18) at Protocol._parsePacket (/Users/marcoferreira/.nvm/versions/node/v8.5.0/lib/node_modules/xmysql/node_modules/mysql/lib/protocol/Protocol.js:279:23) at Parser.write (/Users/marcoferreira/.nvm/versions/node/v8.5.0/lib/node_modules/xmysql/node_modules/mysql/lib/protocol/Parser.js:76:12) at Protocol.write (/Users/marcoferreira/.nvm/versions/node/v8.5.0/lib/node_modules/xmysql/node_modules/mysql/lib/protocol/Protocol.js:39:16) at Socket.&lt;anonymous&gt; (/Users/marcoferreira/.nvm/versions/node/v8.5.0/lib/node_modules/xmysql/node_modules/mysql/lib/Connection.js:103:28) at emitOne (events.js:115:13) at Socket.emit (events.js:210:7) at addChunk (_stream_readable.js:266:12) at readableAddChunk (_stream_readable.js:253:11) -------------------- at Pool.query (/Users/marcoferreira/.nvm/versions/node/v8.5.0/lib/node_modules/xmysql/node_modules/mysql/lib/Pool.js:199:23) at Xsql.dbCacheInitAsync (/Users/marcoferreira/.nvm/versions/node/v8.5.0/lib/node_modules/xmysql/lib/xsql.js:36:15) at Xsql.init (/Users/marcoferreira/.nvm/versions/node/v8.5.0/lib/node_modules/xmysql/lib/xsql.js:26:10) at Xapi.init (/Users/marcoferreira/.nvm/versions/node/v8.5.0/lib/node_modules/xmysql/lib/xapi.js:36:16) at Object.&lt;anonymous&gt; (/Users/marcoferreira/.nvm/versions/node/v8.5.0/lib/node_modules/xmysql/bin/index.js:34:10) at Module._compile (module.js:624:30) at Object.Module._extensions..js (module.js:635:10) at Module.load (module.js:545:32) at tryModuleLoad (module.js:508:12) at Function.Module._load (module.js:500:3) code: 'ER_BAD_FIELD_ERROR', errno: 1054, sqlMessage: 'Unknown column \'c.datetime_precision\' in \'field list\'', sqlState: '42S22', index: 0, sql: 'select c.table_name, c.column_name, c.ordinal_position,c.column_key,c.is_nullable, c.data_type, c.column_type,c.extra,c.privileges, c.column_comment,c.column_default,c.data_type,c.character_maximum_length, c.character_octet_length,c.numeric_precision,c.numeric_scale,c.datetime_precision,c.character_set_name, c.collation_name, k.constraint_name, k.referenced_table_name, k.referenced_column_name, s.index_name,s.seq_in_index from information_schema.columns as c left join information_schema.key_column_usage as k on c.column_name=k.column_name and c.table_schema = k.referenced_table_schema and c.table_name = k.table_name left join information_schema.statistics as s on c.column_name = s.column_name and c.table_schema = s.index_schema and c.table_name = s.table_name where c.table_schema=\'gdi\' order by c.table_name, c.ordinal_position' } undefined ```</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #8 from markuman/master add dockerfile and description about docker in README.md</MESSAGE>
+    <SHA>f7a6037a7c473e97d3307c78d0eae682bc519157</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix : remove not required columns from query. See https://github.com/o1lab/xmysql/issues/9</MESSAGE>
+      <SHA>d484ab3880e6acbd86c3c609a6e5dcd00dd25346</SHA>
+      <PATCHEDFILES>
+        <FILE>lib/util/data.helper.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

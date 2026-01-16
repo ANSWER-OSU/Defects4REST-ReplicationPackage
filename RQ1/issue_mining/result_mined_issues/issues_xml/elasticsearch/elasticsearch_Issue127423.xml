@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127423</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/127423</ISSUEURL>
+  <TITLE>[CI] TransportClusterStateActionDisruptionIT testLocalRequestAlwaysSucceeds failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #22381 / part1](https://gradle-enterprise.elastic.co/s/vra3hdy4qljg6) - [elasticsearch-periodic-platform-support #7913 / debian-12_platform-support-unix](https://gradle-enterprise.elastic.co/s/6tldgdnf3th72) - [elasticsearch-periodic-platform-support #7907 / ubuntu-2404-aarch64_checkpart1_platform-support-arm](https://gradle-enterprise.elastic.co/s/ebnubfy2kw3q2) - [elasticsearch-periodic #7880 / openjdk21_entitlements_true_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/tb23aoopfyn3s) - [elasticsearch-periodic-platform-support #7901 / oraclelinux-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/hckcku7gmizks) - [elasticsearch-periodic #7856 / openjdk23_entitlements_true_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/6n5byvaqziplu) - [elasticsearch-periodic-platform-support #7871 / rocky-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/el52nmbysfivq) **Reproduction Line:** ``` ./gradlew &quot;:server:internalClusterTest&quot; --tests &quot;org.elasticsearch.action.admin.cluster.state.TransportClusterStateActionDisruptionIT.testLocalRequestAlwaysSucceeds&quot; -Dtests.seed=BE65DC794ED0B254 -Dtests.locale=rm-Latn-CH -Dtests.timezone=Asia/Gaza -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.action.admin.cluster.state.TransportClusterStateActionDisruptionIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testLocalRequestAlwaysSucceeds),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.RuntimeException: Can't get master node Cannot invoke &quot;org.elasticsearch.cluster.node.DiscoveryNode.getName()&quot; because the return value of &quot;org.elasticsearch.cluster.node.DiscoveryNodes.getMasterNode()&quot; is null ``` **Issue Reasons:** - [main] 7 failures in test testLocalRequestAlwaysSucceeds (2.8% fail rate in 253 executions) - [main] 4 failures in pipeline elasticsearch-periodic-platform-support (50.0% fail rate in 8 executions) - [main] 2 failures in pipeline elasticsearch-periodic (25.0% fail rate in 8 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Enable online prewarming for guice injection (#127338) This hooks up the OnlinePrewarmingService implementation for guice injection (and enables us to lookup the implementation in ITs using the internalCluster.getInstance methods)</MESSAGE>
+    <SHA>7f49c8a7b8d54c000b686e279214fd6d7566744a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.action.admin.cluster.state.TransportClusterStateActionDisruptionIT testLocalRequestAlwaysSucceeds #127423</MESSAGE>
+      <SHA>d4b1b20d64422d2c2a2eda39d7e0c41130c851a0</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.action.admin.cluster.state.TransportClusterStateActionDisruptionIT testLocalRequestAlwaysSucceeds #127423</MESSAGE>
+      <SHA>b99c41c0520d751134778b30b030bf6697710202</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

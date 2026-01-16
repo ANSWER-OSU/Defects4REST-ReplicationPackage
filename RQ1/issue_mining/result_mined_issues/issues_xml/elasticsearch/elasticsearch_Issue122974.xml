@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>122974</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/122974</ISSUEURL>
+  <TITLE>[CI] ShrinkIndexIT testShrinkIndexPrimaryTerm failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #18484 / part1](https://gradle-enterprise.elastic.co/s/ihay3nrgbs3ey) - [elasticsearch-intake #18253 / part1](https://gradle-enterprise.elastic.co/s/mtommmccoffag) **Reproduction Line:** ``` ./gradlew &quot;:server:internalClusterTest&quot; --tests &quot;org.elasticsearch.action.admin.indices.create.ShrinkIndexIT.testShrinkIndexPrimaryTerm&quot; -Dtests.seed=F2C5A2F37104E280 -Dtests.locale=fy-Latn-NL -Dtests.timezone=America/Costa_Rica -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.action.admin.indices.create.ShrinkIndexIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testShrinkIndexPrimaryTerm),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.Exception: Test abandoned because suite timeout was reached. ``` **Issue Reasons:** - [main] 2 failures in test testShrinkIndexPrimaryTerm (0.4% fail rate in 451 executions) - [main] 2 failures in step part1 (3.5% fail rate in 57 executions) - [main] 2 failures in pipeline elasticsearch-intake (3.5% fail rate in 57 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Updates the deprecation info API to not warn about system indices and data streams (#122951)</MESSAGE>
+    <SHA>463dc4a8a5a99504f64d96ed53245f6e208fd227</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.action.admin.indices.create.ShrinkIndexIT testShrinkIndexPrimaryTerm #122974</MESSAGE>
+      <SHA>5166b8148102217247313ece93bf9403963d4a2f</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

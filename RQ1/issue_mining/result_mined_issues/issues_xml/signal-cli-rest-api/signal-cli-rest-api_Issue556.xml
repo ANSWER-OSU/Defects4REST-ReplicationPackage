@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>556</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/556</ISSUEURL>
+  <TITLE>panic: concurrent write to websocket</TITLE>
+  <DESCRIPTION>### The problem I was trying to send many messages using 8 consumers in the [signalbot](https://github.com/filipre/signalbot) and got this error: ``` panic: concurrent write to websocket connection goroutine 137 [running]: github.com/gorilla/websocket.(*messageWriter).flushFrame(0x4000417f08, 0x1, {0x15f21c0?, 0x4000417f88?, 0x400035af00?}) /go/pkg/mod/github.com/gorilla/websocket@v1.5.0/conn.go:617 +0x460 github.com/gorilla/websocket.(*Conn).WriteMessage(0x4000d518c0, 0x4000417f78?, {0x15f21c0, 0x0, 0x0}) /go/pkg/mod/github.com/gorilla/websocket@v1.5.0/conn.go:770 +0xf4 github.com/bbernhard/signal-cli-rest-api/api.wsPing(0x4000d518c0, 0x40001968a0) /tmp/signal-cli-rest-api-src/api/api.go:524 +0x90 created by github.com/bbernhard/signal-cli-rest-api/api.(*Api).Receive in goroutine 134 /tmp/signal-cli-rest-api-src/api/api.go:564 +0x750 ``` ### Are you using the latest released version? - [X] Yes ### Have you read the troubleshooting page? - [X] Yes ### What type of installation are you running? signal-cli-rest-api Docker Container ### In which mode are you using the docker container? JSON-RPC Mode ### What's the architecture of your host system? x86-64 ### Additional information _No response_</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>135</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fixed bug in send method * allow sending messages to the sourceUuid see #550</MESSAGE>
+    <SHA>911b6867787fc79c878064dbf7db9cfa078b1144</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>protect websocket write with mutex * Gorilla Websocket only allows one concurrent writer. As there are multiple goroutines that could write concurrently to the websocket, the websocket write needs to be protected by a Mutext. This is not particular nice, but a complete rewrite of the connection handling would be quite a lot of work. see #556</MESSAGE>
+      <SHA>cd996e18141ac6f96007219818e7ecfa310f00c1</SHA>
+      <PATCHEDFILES>
+        <FILE>src/api/api.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

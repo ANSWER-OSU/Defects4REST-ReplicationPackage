@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5593</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5593</ISSUEURL>
+  <TITLE>Clear Cache With Distributed Cache</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40.2 Steps to reproduce the problem: Run Multiple Instance. Login to Admin Area. Select Clear Cache. Check Redis Keys. Only the key that are set by the instance are cleared. Distributed cache manager holds a list of keys which are set by the instance running. It uses this list to clear the cache keys from redis. But when reading it does not check the keys list. So understand that this list is used only for clearing the keys. It may add the keys to the list when TryGetItemAsync returns true but this will not solve the problem since still only a portion of the keys will be stored. Is there any purpose for it. I expect clear cache to clear all keys in redis server or cluster. There is no meaning of clearing the keys set by instance. Since it may not even set anything if the instance is created at later stage. Other instances may already created the cache keys.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>537</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6301 Use name for specification attribute option as CustomValue when exporting products</MESSAGE>
+    <SHA>f4003005c8d8435ab3139d353257da32dbfadf6a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5593 Improved clear function of distributed cache</MESSAGE>
+      <SHA>5acbd99662a4dd052333261c68c91216493eabec</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Core/Caching/CacheKey.cs</FILE>
+        <FILE>src/Libraries/Nop.Core/Caching/DistributedCacheManager.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Caching/MemoryDistributedCacheManager.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Caching/MsSqlServerCacheManager.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Caching/RedisCacheManager.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/BaseNopTest.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Core.Tests/Caching/DistributedCacheManagerTests.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Core.Tests/Caching/LockerTests.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Core.Tests/Caching/MemoryCacheManagerTests.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/Nop.Data.Tests/NopDataProviderTests.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

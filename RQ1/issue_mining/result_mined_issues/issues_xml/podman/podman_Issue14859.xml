@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14859</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14859</ISSUEURL>
+  <TITLE>podman-remote wait: Error getting exit code from DB: no such exit code</TITLE>
+  <DESCRIPTION>Seen just now: ``` $ podman-remote --url unix:/tmp/podman_tmp_mnLg wait gfKskJHy37 Error: getting exit code of container ebff09951585fcda59dfeceabfaab084751a8303a7cd981420c32c1d0c38b656 from DB: no such exit code ``` Only one so far. Seems suspiciously related to issue #14761 and PR #14830. ### [sys] 203 podman kill - concurrent stop * fedora-36 : sys remote fedora-36 rootless host [remote] * PR #14852 * [07-07 12:23](https://storage.googleapis.com/cirrus-ci-6707778565701632-fcae48/artifacts/containers/podman/5862726869188608/html/sys-remote-fedora-36-rootless-host.log.html#t--00203)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>20</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>podman wait: return 0 if container never ran Make sure to return/exit with 0 when waiting for a container that never ran. Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+    <SHA>62cdc387de982feb796af71252a3fe3d504d570c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>libpod: read exit code when cleaning up the runtime While for some call paths we may be doing this redundantly we need to make sure the exit code is always read at this point. [NO NEW TESTS NEEDED] as I do not manage to reproduce the issue which is very likely caused by a code path not writing the exit code when running concurrently. Fixes: #14859 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>3bb4cf8ee2ca4d2b5fcd16da95a6ebd60b9ed18b</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_internal.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>container wait: improve error message Improve the error message when looking up the exit code of a container. The state of the container may help us track down #14859 which flakes rarely and is impossible to reproduce on my machine. [NO NEW TESTS NEEDED] Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>35035d281c2fcf5da23ff4a73a4941e12262832a</SHA>
+      <PATCHEDFILES>
+        <FILE>libpod/container_api.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

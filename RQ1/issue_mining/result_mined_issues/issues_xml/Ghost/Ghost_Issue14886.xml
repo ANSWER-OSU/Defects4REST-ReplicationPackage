@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14886</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/14886</ISSUEURL>
+  <TITLE>The {{#is &quot;post&quot;}} helper produces a result on the 'post' and 'page'</TITLE>
+  <DESCRIPTION>### Issue Summary The {{#is &quot;post&quot;}} helper produces a result on the 'post' and 'page'. The result should be limited to the 'post' only. ### Steps to Reproduce Paste this code to page.hbs: ``` {{#is &quot;post&quot;}} This is post not page {{/is}} ``` Check the results on the 'page'. ### Ghost Version 5.0.0 ### Node.js Version Ghost(Pro) ### How did you install Ghost? Ghost(Pro) ### Database type MySQL 8 ### Browser &amp; OS version _No response_ ### Relevant log / error output _No response_ ### Code of Conduct - [X] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixed signing key mismatching in members JWT/JWKS refs https://github.com/TryGhost/Team/issues/1640 - Some the clien libraries were not able to match the signin key to verify JWT when using `GET /members/.well-knonw/jwks.json` endpoint for member token verification. This issue was due to missing `keyid` parameter allows to indicate the key used to secure JWS (as per https://www.rfc-editor.org/rfc/rfc7515#section-4.1.4) and resolves the automatic matching issue on the client. - The `kid` parameter was left in claims to avoid accidental breaking changes.</MESSAGE>
+    <SHA>fcc9daf5494f515fe1293a2a1cce065960c41a89</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed page vs post context calculation closes https://github.com/TryGhost/Ghost/issues/14886 refs https://github.com/naz/Ghost/commit/0c097f653289e197576381078cac56e8a6327b1d - The context calculation after referenced change was adding a stray &quot;post&quot; entry into the context, causing the `{{#is &quot;post&quot;}}` helper to fail.</MESSAGE>
+      <SHA>ffb570dc795d8d91dea6c6a81ff0fb88f72cceff</SHA>
+      <PATCHEDFILES>
+        <FILE>core/frontend/services/rendering/context.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed page vs post context calculation closes https://github.com/TryGhost/Ghost/issues/14886 refs https://github.com/naz/Ghost/commit/0c097f653289e197576381078cac56e8a6327b1d - The context calculation after referenced change was adding a stray &quot;post&quot; entry into the context, causing the `{{#is &quot;post&quot;}}` helper to fail.</MESSAGE>
+      <SHA>4fa412c8801a1051556095944bf56dc7a4c42490</SHA>
+      <PATCHEDFILES>
+        <FILE>core/frontend/services/rendering/context.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118150</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118150</ISSUEURL>
+  <TITLE>[CI] EsqlSpecIT test {lookup-join.LookupMessageFromIndexKeepReordered SYNC} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #14014 / part3](https://gradle-enterprise.elastic.co/s/rczqx36rb4dui) - [elasticsearch-intake #13961 / part3](https://gradle-enterprise.elastic.co/s/el7odw3ww3sco) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:multi-node:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT&quot; -Dtests.method=&quot;test {lookup-join.LookupMessageFromIndexKeepReordered SYNC}&quot; -Dtests.seed=53BC5891FD5B4194 -Dtests.locale=vai-LR -Dtests.timezone=Pacific/Chuuk -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Blookup-join.LookupMessageFromIndexKeepReordered%20SYNC%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Data mismatch: row 0 column 0:a list containing row 0 column 0:0: expected &quot;Success&quot; but was &quot;Disconnected&quot; row 0 column 1:a list containing row 0 column 1:0: expected &quot;172.21.3.15&quot; but was &quot;172.21.0.5&quot; row 0 column 2:a list containing row 0 column 2:0: expected &quot;1756467&quot; but was &quot;1232382&quot; row 0 column 3:a list containing row 0 column 3:0: expected &quot;Connected to 10.1.0.1&quot; but was &quot;Disconnected&quot; row 1 column 0:a list containing row 1 column 0:0: expected &quot;Error&quot; but was &quot;Success&quot; row 1 column 1:a list containing row 1 column 1:0: expected &quot;172.21.3.15&quot; but was &quot;172.21.2.113&quot; row 1 column 2:a list containing row 1 column 2:0: expected &quot;5033755&quot; but was &quot;2764889&quot; row 1 column 3:a list containing row 1 column 3:0: expected &quot;Connection error&quot; but was &quot;Connected to 10.1.0.2&quot; row 2 column 0:a list containing row 2 column 0:0: expected &quot;Error&quot; but was &quot;Success&quot; row 2 column 1:a list containing row 2 column 1:0: expected &quot;172.21.3.15&quot; but was &quot;172.21.2.162&quot; row 2 column 2:a list containing row 2 column 2:0: expected &quot;8268153&quot; but was &quot;3450233&quot; ``` **Issue Reasons:** - [main] 2 failures in test test {lookup-join.LookupMessageFromIndexKeepReordered SYNC} (3.2% fail rate in 62 executions) - [main] 2 failures in step part3 (14.3% fail rate in 14 executions) - [main] 2 failures in pipeline elasticsearch-intake (14.3% fail rate in 14 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Using the credentials of the user who calls reindex data stream (#117938)</MESSAGE>
+    <SHA>d42654a6910a2193a0528d7314b2620e8a1a4178</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT test {lookup-join.LookupMessageFromIndexKeepReordered SYNC} #118150</MESSAGE>
+      <SHA>07deeee9b3e532e829edfc7a2ed7be6b973de70e</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Ignore order in LookupMessageFromIndexKeepReordered (#118256) Fix #118150 Fix #118151 We should also ignore the order for this test, as the output rows are not deterministic in all cases.</MESSAGE>
+      <SHA>ccc416ddf9e92a09865fdd765ec5eefb6d9456b2</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/lookup-join.csv-spec</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Ignore order in LookupMessageFromIndexKeepReordered (#118256) Fix #118150 Fix #118151 We should also ignore the order for this test, as the output rows are not deterministic in all cases. (cherry picked from commit ccc416ddf9e92a09865fdd765ec5eefb6d9456b2) # Conflicts: # muted-tests.yml</MESSAGE>
+      <SHA>7ab1eaabdde159d4c8150c1fafc91d5c109e80de</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/lookup-join.csv-spec</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Ignore order in LookupMessageFromIndexKeepReordered (#118256) (#118268) Fix #118150 Fix #118151 We should also ignore the order for this test, as the output rows are not deterministic in all cases. (cherry picked from commit ccc416ddf9e92a09865fdd765ec5eefb6d9456b2) # Conflicts: # muted-tests.yml</MESSAGE>
+      <SHA>eb57db65c4b6d99c5c5a72039c19b32fc87acb6f</SHA>
+      <PATCHEDFILES>
+        <FILE>x-pack/plugin/esql/qa/testFixtures/src/main/resources/lookup-join.csv-spec</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

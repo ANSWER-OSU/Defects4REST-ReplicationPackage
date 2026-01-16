@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>523</ISSUENO>
+  <ISSUEURL>https://github.com/MobSF/Mobile-Security-Framework-MobSF/issues/523</ISSUEURL>
+  <TITLE>Don't Play Around. An Error just popped in! Sequence index out of range.</TITLE>
+  <DESCRIPTION>i got this error when send [this](https://ufile.io/nc80n) apk file. -- &gt; Don't Play Around. An Error just popped in! &gt; Sequence index out of range. &gt; &gt; list index out of range -- Commandline output -- &gt; [24/Dec/2017 18:14:58] &quot;GET / HTTP/1.1&quot; 200 7727 &gt; [INFO] MIME Type: application/vnd.android.package-archive FILE: 16b280b277ecf84b71052b32cba488c8eb03e659f1b0ce38a46d22ddbdeb96ab.apk &gt; &gt; [INFO] Performing Static Analysis of Android APK &gt; [24/Dec/2017 18:15:43] &quot;POST /upload/ HTTP/1.1&quot; 200 191 &gt; [INFO] Starting Analysis on : 16b280b277ecf84b71052b32cba488c8eb03e659f1b0ce38a46d22ddbdeb96ab.apk &gt; [INFO] Generating Hashes &gt; [INFO] Unzipping &gt; [INFO] Getting Hardcoded Certificates/Keystores &gt; [INFO] APK Extracted &gt; [INFO] Getting Manifest from Binary &gt; [INFO] AXML -&gt; XML &gt; [INFO] Parsing AndroidManifest.xml &gt; [INFO] Fetching icon path &gt; [INFO] Extracting Manifest Data &gt; [INFO] Manifest Analysis Started &gt; [INFO] Static Android Binary Analysis Started &gt; [INFO] Static Android Resourse Analysis Started &gt; [INFO] Reading Code Signing Certificate &gt; [INFO] APKiD Analysis on Dex file &gt; [ERROR] list index out of range --</DESCRIPTION>
+  <REPONAME>Mobile-Security-Framework-MobSF</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update settings.py</MESSAGE>
+    <SHA>11d4640ba8b4324d2d6f39f4b5918530fe9553c6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>APKiD no classes.dex error fix (#524) &amp; Update APKiD rules * APKiD no classes.dex error fix Add a basic check for the existence of classes.dex file so that APKiD won’t crush. fix for issue #523 * Update APKiD rules Update APKiD rules file from rednaga’s repo - https://github.com/rednaga/APKiD</MESSAGE>
+      <SHA>0bc2598610bfe033702c45dfb320005053a83a27</SHA>
+      <PATCHEDFILES>
+        <FILE>MalwareAnalyzer/views.py</FILE>
+        <FILE>StaticAnalyzer/tools/apkid/rules/rules.yarc</FILE>
+        <FILE>templates/static_analysis/static_analysis.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>AVD android 6 update (#618) * APKiD no classes.dex error fix Add a basic check for the existence of classes.dex file so that APKiD won’t crush. fix for issue #523 * Update APKiD rules Update APKiD rules file from rednaga’s repo - https://github.com/rednaga/APKiD * New AVD emulator update * Major update to the AVD emulator - using snapshot feature instead of booting up the emulator each time * Some little aesthetic changes * Typo fix minor fix * fix small typo typo correction * Config check Minor config check * update settings remove my username + default add to none * Revert &quot;update settings&quot; This reverts commit 500da93ee64d7e18967c34d0b1d0579f5a38c5ad. * Revert &quot;Merge remote-tracking branch 'MobSF/master'&quot; This reverts commit e06dc749ce3f9a12edded3dc3fef1040acc10226, reversing changes made to 500da93ee64d7e18967c34d0b1d0579f5a38c5ad. * update settings.py remove username + default adb * Update start_avd.py correct error message ADB BINARY not AVD * start_avd update This is a new trick where I modify the system.omg.qcow2 file to fit the host OS * qcow2 wrapper + AVD update AVD emulator update - * Qcow2 script to manipulate the system image * some AVD runner changes * settings.py update update to match the new AVD version * Merge branch 'MobSF/master' # Conflicts: # requirements.txt * requirements fix</MESSAGE>
+      <SHA>a0f6f292965e461671f8ed77570c8a2087fabe36</SHA>
+      <PATCHEDFILES>
+        <FILE>DynamicAnalyzer/views/android/avd.py</FILE>
+        <FILE>DynamicAnalyzer/views/android/dynamic.py</FILE>
+        <FILE>DynamicAnalyzer/views/android/shared.py</FILE>
+        <FILE>MalwareAnalyzer/views.py</FILE>
+        <FILE>MobSF/settings.py</FILE>
+        <FILE>MobSF/utils.py</FILE>
+        <FILE>StaticAnalyzer/tools/apktool_2.3.2.jar</FILE>
+        <FILE>StaticAnalyzer/tools/cfr_0_119.jar</FILE>
+        <FILE>StaticAnalyzer/views/android/converter.py</FILE>
+        <FILE>StaticAnalyzer/views/android/manifest_analysis.py</FILE>
+        <FILE>StaticAnalyzer/views/android/static_analyzer.py</FILE>
+        <FILE>scripts/__init__.py</FILE>
+        <FILE>scripts/mobsfy.py</FILE>
+        <FILE>scripts/qcow2.py</FILE>
+        <FILE>scripts/start_avd.py</FILE>
+        <FILE>templates/dynamic_analysis/start_test.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

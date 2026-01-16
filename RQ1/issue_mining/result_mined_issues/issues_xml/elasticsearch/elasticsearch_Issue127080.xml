@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>127080</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/127080</ISSUEURL>
+  <TITLE>[CI] EsqlClientYamlAsyncIT test {p0=esql/10_basic/basic with documents_found} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #7759 / single-processor-node-tests](https://gradle-enterprise.elastic.co/s/zyuk5zzwfuis6) - [elasticsearch-pull-request #68690 / part-3](https://gradle-enterprise.elastic.co/s/w7oss67foq6hu) - [elasticsearch-periodic-platform-support #7763 / rhel-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/5v256yviolqle) - [elasticsearch-periodic-platform-support #7745 / rocky-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/4leduvfewdjis) - [elasticsearch-periodic #7705 / encryption-at-rest](https://gradle-enterprise.elastic.co/s/fw2cxhwa43cy4) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:single-node:yamlRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.qa.single_node.EsqlClientYamlAsyncIT.test {p0=esql/10_basic/basic with documents_found}&quot; -Dtests.seed=6EEDA62533ACD384 -Dtests.configure_test_clusters_with_one_processor=true -Dtests.locale=en-IN -Dtests.timezone=PST8PDT -Druntime.java=24 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.single_node.EsqlClientYamlAsyncIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Bp0%3Desql%2F10_basic%2Fbasic%20with%20documents_found%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Failure at [esql/10_basic:200]: Expected: &lt;10&gt; but: was &lt;9&gt; ``` **Issue Reasons:** - [main] 5 failures in test test {p0=esql/10_basic/basic with documents_found} (1.4% fail rate in 345 executions) - [main] 2 failures in pipeline elasticsearch-periodic (20.0% fail rate in 10 executions) - [main] 2 failures in pipeline elasticsearch-periodic-platform-support (20.0% fail rate in 10 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Bugfix: fixed scroll with knn query (#126035) Although scrolling is not recommended for knn queries, it is effective. But I found a bug that when use scroll in the knn query, the But I found a bug that when using scroll in knn query, knn_score_doc will be lost in query phase, which means knn query does not work. In addition, the operations for directly querying the node where the shard is located and querying the node with transport are different. It can be reproduced on the local node. Because the query phase uses the previous ShardSearchRequest object stored before the dfs phase. But when it run in the local node, it don't do the encode and decode processso the operation is correct. I wrote an IT to reproduce it and fixed it by adding the new source to the LegacyReaderContext.</MESSAGE>
+    <SHA>d854b1c625979c5137b80c40845fa671ddac45bc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.single_node.EsqlClientYamlAsyncIT test {p0=esql/10_basic/basic with documents_found} #127080</MESSAGE>
+      <SHA>4a8bc57127b86c21fd620ff1f4722a765560a60b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>ESQL: Unmute test (#127065) It was assuming a simpler execution model. This weakens the assertion to one that should always pass. Closes #127046 Closes #127039 Closes #127090 Closes #127080</MESSAGE>
+      <SHA>5b351af9fc406b2f394fec3ad06c2f62777f8c94</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>x-pack/plugin/src/yamlRestTest/resources/rest-api-spec/test/esql/10_basic.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

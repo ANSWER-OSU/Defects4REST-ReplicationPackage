@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>6123</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/6123</ISSUEURL>
+  <TITLE>Filter featured products by available start date</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.50 Steps to reproduce the problem: To add a filters to GetCategoryFeaturedProductsAsync for AvailableStartDateTimeUtc and AvailableStartDateTimeUtc condition. ``` /// &lt;summary&gt; /// Gets featured products by a category identifier /// &lt;/summary&gt; /// &lt;param name=&quot;categoryId&quot;&gt;Category identifier&lt;/param&gt; /// &lt;param name=&quot;storeId&quot;&gt;Store identifier; 0 if you want to get all records&lt;/param&gt; /// &lt;returns&gt; /// A task that represents the asynchronous operation /// The task result contains the list of featured products /// &lt;/returns&gt; public virtual async Task&lt;IList&lt;Product&gt;&gt; GetCategoryFeaturedProductsAsync(int categoryId, int storeId = 0) { IList&lt;Product&gt; featuredProducts = new List&lt;Product&gt;(); if (categoryId == 0) return featuredProducts; var customer = await _workContext.GetCurrentCustomerAsync(); var customerRoleIds = await _customerService.GetCustomerRoleIdsAsync(customer); var cacheKey = _staticCacheManager.PrepareKeyForDefaultCache(NopCatalogDefaults.CategoryFeaturedProductsIdsKey, categoryId, customerRoleIds, storeId); var featuredProductIds = await _staticCacheManager.GetAsync(cacheKey, async () =&gt; { var query = from p in _productRepository.Table join pc in _productCategoryRepository.Table on p.Id equals pc.ProductId where p.Published &amp;&amp; !p.Deleted &amp;&amp; p.VisibleIndividually &amp;&amp; (!p.AvailableStartDateTimeUtc.HasValue || p.AvailableStartDateTimeUtc.Value &lt; DateTime.UtcNow) &amp;&amp; //Add By Robin (!p.AvailableEndDateTimeUtc.HasValue || p.AvailableEndDateTimeUtc.Value &gt; DateTime.UtcNow) &amp;&amp; pc.IsFeaturedProduct &amp;&amp; categoryId == pc.CategoryId select p; //apply store mapping constraints query = await _storeMappingService.ApplyStoreMapping(query, storeId); //apply ACL constraints query = await _aclService.ApplyAcl(query, customerRoleIds); featuredProducts = query.ToList(); return featuredProducts.Select(p =&gt; p.Id).ToList(); }); if (featuredProducts.Count == 0 &amp;&amp; featuredProductIds.Count &gt; 0) featuredProducts = await _productRepository.GetByIdsAsync(featuredProductIds, cache =&gt; default, false); return featuredProducts; } ```</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#6128 Don't set microdata price to zero when &quot;Call for price&quot; option is used</MESSAGE>
+    <SHA>fe38f9a8db34a9ab16831025dc2680278d815fbb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#6123 Filter featured products by available start date</MESSAGE>
+      <SHA>5a2e3ab7af81980260f3b27801724f7e89b48f1e</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Catalog/ProductService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

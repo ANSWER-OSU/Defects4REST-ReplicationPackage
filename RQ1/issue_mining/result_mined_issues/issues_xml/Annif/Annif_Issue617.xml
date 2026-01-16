@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>617</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/617</ISSUEURL>
+  <TITLE>Upgrade simplemma dependency and remove function cache</TITLE>
+  <DESCRIPTION>Hi, I just noticed that you wrapped a custom class around [simplemma](https://github.com/adbar/simplemma/), notably to use a function cache. Interestingly, I had the same idea which indeed speeds up the process. The cache is included in the versions that you use (0.7.* upwards), so you could delete the following line without any impact on performance: https://github.com/NatLibFi/Annif/blob/aa50441e769a4c93866ca93ee07d3b9677c4d201/annif/analyzer/simplemma.py#L15 In addition, you could use the `lang` attribute (new in 0.7.0) directly with `simplemma.lemmatize()`. Best, Adrien</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update README.md - Fix link to ReadTheDocs (point to docs, not to project page) - Use https in link for annif.org - Mention Finto AI</MESSAGE>
+    <SHA>dea7d51153c1a1f8112d5ed11b8db8d5b8d9a091</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>upgrade to simplemma 0.8 and disable unnecessary cache. Fixes #617</MESSAGE>
+      <SHA>da70c2139c391df8418848ab7ad53d4ebf941495</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/analyzer/simplemma.py</FILE>
+        <FILE>setup.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

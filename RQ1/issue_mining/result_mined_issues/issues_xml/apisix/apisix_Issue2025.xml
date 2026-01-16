@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2025</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2025</ISSUEURL>
+  <TITLE>bug: comparing etcd key's modifiedIndex as a number may cause an error when access to prometheus exporter api</TITLE>
+  <DESCRIPTION>### Issue description When any upstream node uses domain name as host, modifiedIndex of the etcd key for upstream is modifed to string in the domain name resolution caching logic: https://github.com/apache/apisix/blob/master/apisix/init.lua#L251 At this time, comparing the etcd key's modifiedIndex as a number will cause an error: https://github.com/apache/apisix/blob/master/apisix/plugins/prometheus/exporter.lua#L181 ### Environment * apisix version (cmd: `apisix version`): 1.5 * OS: centos 7 ### Minimal test code / Steps to reproduce the issue 1. use domain name as host for an upstream node. 2. resolve domain name to another IP 3. access prometheus exporter api ### What's the actual result? (including assertion message &amp; call stack if applicable) cause an error ### What's the expected result? normal response</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>doc: fixed health-ckeck document path for README_CN.md (#2038) FIX #2037</MESSAGE>
+    <SHA>d42f9d80fa849cb0b6921089250a3d1ce51321f5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>bugfix: comparing etcd key's modifiedIndex as a number may cause an error when access to prometheus exporter api (#2035) fix #2025</MESSAGE>
+      <SHA>04c270814a1c0a188e5806602e1b62a47f90885e</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/prometheus/exporter.lua</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

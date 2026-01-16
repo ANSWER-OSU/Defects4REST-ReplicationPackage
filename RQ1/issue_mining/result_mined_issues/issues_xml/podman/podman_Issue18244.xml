@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18244</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18244</ISSUEURL>
+  <TITLE>podman container ls --format=&quot;{{.State}}&quot; returns the wrong information</TITLE>
+  <DESCRIPTION>Podman version 4.1.1 on RedHat 8.5 Specifying a format to include container State in the output of podman container ls returns the value from the Status field and not the State field. Actual Result. podman container ls -a --format=&quot;{{json .Names}} {{json .State}} {{json .Status}}&quot; &quot;test-container&quot; &quot;Up 3 weeks ago&quot; &quot;Up 3 weeks ago&quot; &quot;stopped-container&quot; &quot;Exited (0) 16 Seconds ago&quot; &quot;Exited (0) 16 Seconds ago&quot; Expected Result. podman container ls --format=&quot;{{json .Names}} {{json .State}} {{json .Status}}&quot; &quot;test-container&quot; &quot;running&quot; &quot;Up 3 weeks ago&quot; &quot;stopped-container&quot; &quot;exited&quot; &quot;Exited (0) 16 seconds ago&quot; Additional information. Running podman container ls --format=json does display the correct state=value, however when scripting automated health checks it is useful to limit the returned values using the --filter=&quot;{{ }}&quot; option. podman container ls --format=json [ { ... &quot;Names&quot;: [ &quot;test-container&quot; ], ... &quot;State&quot;: &quot;running&quot; &quot;Status&quot;: &quot;Up 3 weeks ago&quot; ... }, { ... &quot;Names&quot;: [ &quot;stopped-container&quot; ], ... &quot;State&quot;: &quot;exited&quot; &quot;Status&quot;: &quot;Exited (0) 16 seconds ago&quot; ... } ]</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18288 from cevich/enable_rawhide_testing Cirrus: Enable testing on Fedora rawhide</MESSAGE>
+    <SHA>d05a9807928c1deada0f0294cd912825a0487832</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ps: --format {{.State}} match docker output We should return the raw state string without any extra formatting in this case. `{{.Status}}` returns the nicely formatted string used in the default ps output, e.g. `Up 2 seconds ago`, while `{{.State}}` returns the state as string, e.g. `running`. This matches the docker output and allows better use in scripts. Fixes #18244 Signed-off-by: Paul Holzinger &lt;pholzing@redhat.com&gt;</MESSAGE>
+      <SHA>c5a928c5b78757644e30ae0e81f41db87d42baf9</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/containers/ps.go</FILE>
+        <FILE>test/system/040-ps.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1485</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/1485</ISSUEURL>
+  <TITLE>Incorrect HSQL create script</TITLE>
+  <DESCRIPTION>Using HSQL for unit tests causes; &quot;java.sql.SQLSyntaxErrorException: unexpected token: DEFAULT : line: 18&quot; Caused by; 2019-01-02 11:22:07,916 ERROR [org.flowable.common.engine.impl.db.AbstractSqlScriptBasedDbSchemaManager] - problem during schema create, statement create table ACT_RE_PROCDEF ( ID_ varchar(64) NOT NULL, REV_ integer, CATEGORY_ varchar(255), NAME_ varchar(255), KEY_ varchar(255) NOT NULL, VERSION_ integer NOT NULL, DEPLOYMENT_ID_ varchar(64), RESOURCE_NAME_ varchar(4000), DGRM_RESOURCE_NAME_ varchar(4000), DESCRIPTION_ varchar(4000), HAS_START_FORM_KEY_ bit, HAS_GRAPHICAL_NOTATION_ bit, SUSPENSION_STATE_ integer, TENANT_ID_ varchar(255) default '', DERIVED_FROM_ varchar(64), DERIVED_FROM_ROOT_ varchar(64), DERIVED_VERSION_ integer NOT NULL default 0, ENGINE_VERSION_ varchar(255), primary key (ID_) ) The issue relates to the 'default' clause being before the 'NOT NULL'. I have already submitted a pull request to fix this.</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Move to 6.4.0-19 version</MESSAGE>
+    <SHA>bea43050a634de86177665d0532f4d9f396eba4d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add fix for issue #1485. (#1500)</MESSAGE>
+      <SHA>5dee4e3fb3bc242b35d353e888456f97ac0ea441</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/create/flowable.hsql.create.engine.sql</FILE>
+        <FILE>modules/flowable-engine/src/main/resources/org/flowable/db/upgrade/flowable.hsql.upgradestep.6300.to.6301.engine.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

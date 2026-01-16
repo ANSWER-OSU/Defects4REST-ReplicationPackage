@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>30</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/30</ISSUEURL>
+  <TITLE>Failing deploying a file named 404.html</TITLE>
+  <DESCRIPTION>I was deploying a `404.html` file and faced some weird problems! The deploy was successful, but my service worker was always failing to install due to a fetch failure (for this `404.html` file, which was always not found when the sw tried to fetch it and store it into cache). I simply renamed the `404.html` into `not-found.html` and it started working normally. Any idea about the reason for this behaviour? In my local environment it works with the 404.html file, tried in many different machines and devices, so, I don't think it is a problem with the service worker itself. Indeed, after deploying, when going for the `/404.html` address in the browser, I got a not found page (the zeit's now 404 page) instead of the (existing??) file named 404.html. Interestingly enough, the `404.png` file works normally.</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>784</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Tell ESLint to ignore legacy code</MESSAGE>
+    <SHA>e061c9bbc4721f16c675c31d7e8b4d269a096ada</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add `progress` module to dependencies (#30)</MESSAGE>
+      <SHA>1ec72f0eef5ecbdaf78e36daea94cd5db833ce0a</SHA>
+      <PATCHEDFILES>
+        <FILE>package.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Support default export from import/export syntax (#30) Fix issue where files using new `import/export` syntax ran into 502 when also exporting other named exports. https://spectrum.chat/thread/4322e805-b8ba-43d2-96e2-98b2497724e3 ``` const data = {}; export default function handler(request, response) { response.end('hello'); } export {data}; ```</MESSAGE>
+      <SHA>a91e3da7d8d36a1c7a6b4c586aaf98f88c4b421b</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-node/index.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

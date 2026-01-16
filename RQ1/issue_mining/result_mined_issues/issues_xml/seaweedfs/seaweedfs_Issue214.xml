@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>214</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/214</ISSUEURL>
+  <TITLE>seaweedfs should check WhiteList before proxyToLeader</TITLE>
+  <DESCRIPTION>` r.HandleFunc(&quot;/&quot;, ms.uiStatusHandler) r.HandleFunc(&quot;/ui/index.html&quot;, ms.uiStatusHandler) r.HandleFunc(&quot;/dir/assign&quot;, ms.proxyToLeader(ms.guard.WhiteList(ms.dirAssignHandler))) r.HandleFunc(&quot;/dir/lookup&quot;, ms.proxyToLeader(ms.guard.WhiteList(ms.dirLookupHandler))) r.HandleFunc(&quot;/dir/join&quot;, ms.proxyToLeader(ms.guard.WhiteList(ms.dirJoinHandler))) r.HandleFunc(&quot;/dir/status&quot;, ms.proxyToLeader(ms.guard.WhiteList(ms.dirStatusHandler))) r.HandleFunc(&quot;/col/delete&quot;, ms.proxyToLeader(ms.guard.WhiteList(ms.collectionDeleteHandler))) r.HandleFunc(&quot;/vol/lookup&quot;, ms.proxyToLeader(ms.guard.WhiteList(ms.volumeLookupHandler))) ` If a request not in whitelist is sent to a non-leader master, this request will be handled by leader, which is unexpected.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>33</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #221 from euforia/master Added basic makefile</MESSAGE>
+    <SHA>dcb8215482cc0a304960192652a694640121afcd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix set HTTP_X_FORWARDED_FOR when proxying https://github.com/chrislusf/seaweedfs/issues/214</MESSAGE>
+      <SHA>70d050416baa4acc5d3721a10429432c8d107505</SHA>
+      <PATCHEDFILES>
+        <FILE>go/security/guard.go</FILE>
+        <FILE>go/weed/weed_server/master_server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

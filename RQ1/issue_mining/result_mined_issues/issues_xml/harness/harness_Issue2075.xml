@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2075</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2075</ISSUEURL>
+  <TITLE>Different workspace behaviour on agents and with drone exec</TITLE>
+  <DESCRIPTION>Not sure if this issue should be here, or rather be discussed in the cli repository - please let me know if I should move it. I've noticed, that when running `drone exec` there will be no temporary volume created for `workspace`. This leads to different behaviour on the agent and with drone exec: On the agent: - the folder `/workspace` will stay persistent between builds Locally: - `/workspace` is not persistent between steps Scenario where this is relevant: I have a pipeline, where I test modules for an application. That application expects these modules to be place in a specific directory (`/application/modules/&lt;mymodule&gt;`) otherwise they can't be tested within the application framework. With the following definition for workspace+path I am able to accomplish this when running my builds on an agent: ``` workspace: base: /workspace path: application/modules/mymodule pipeline: prepare: image: ... commands: - cp -r /application /workspace/application test: image: ... commands: - run_tests ... ``` The contents created at `/workspace/application` will persist between further drone steps (when run on an agent). However locally, this is not the case. When comparing both execution flows, I realized that drone exec only mounts the current folder to workspace+path, but does not create a volume for `/workspace` When using `drone exec --volumes &quot;workspace:/workspace&quot;` the behaviour would be the same as when run on an agent. Simple yaml to reproduce the effect: ``` workspace: base: /workspace path: application/modules/mymodule pipeline: step1: image: alpine commands: - touch /workspace/hello - ls /workspace step2: image: alpine commands: - ls /workspace ``` Proposal: Also create a workspace volume when running locally</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix ssh key fingerprint (#2076)</MESSAGE>
+    <SHA>ef18a7aff275c8c83cdefd19fd95f0ef95710eaa</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[code-1946] initial work on ssh server (#2075)</MESSAGE>
+      <SHA>2f8900e46354098e39aec7a30bb5eab81c289d2d</SHA>
+      <PATCHEDFILES>
+        <FILE>.gitignore</FILE>
+        <FILE>app/api/controller/repo/create.go</FILE>
+        <FILE>app/api/controller/repo/find.go</FILE>
+        <FILE>app/api/controller/repo/git_service_pack.go</FILE>
+        <FILE>app/api/controller/repo/import.go</FILE>
+        <FILE>app/api/controller/repo/move.go</FILE>
+        <FILE>app/api/controller/repo/update.go</FILE>
+        <FILE>app/api/controller/repo/update_public_access.go</FILE>
+        <FILE>app/api/controller/space/list_repositories.go</FILE>
+        <FILE>app/api/handler/repo/git_service_pack.go</FILE>
+        <FILE>app/services/webhook/types.go</FILE>
+        <FILE>app/url/provider.go</FILE>
+        <FILE>app/url/wire.go</FILE>
+        <FILE>cli/operations/server/server.go</FILE>
+        <FILE>cli/operations/server/system.go</FILE>
+        <FILE>cmd/gitness/wire.go</FILE>
+        <FILE>cmd/gitness/wire_gen.go</FILE>
+        <FILE>git/api/service_pack.go</FILE>
+        <FILE>git/interface.go</FILE>
+        <FILE>git/service_pack.go</FILE>
+        <FILE>ssh/server.go</FILE>
+        <FILE>ssh/wire.go</FILE>
+        <FILE>types/config.go</FILE>
+        <FILE>types/enum/git.go</FILE>
+        <FILE>types/repo.go</FILE>
+        <FILE>web/src/components/CloneButtonTooltip/CloneButtonTooltip.tsx</FILE>
+        <FILE>web/src/pages/Repository/EmptyRepositoryInfo.tsx</FILE>
+        <FILE>web/src/pages/Repository/RepositoryContent/ContentHeader/ContentHeader.tsx</FILE>
+        <FILE>web/src/services/code/index.tsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

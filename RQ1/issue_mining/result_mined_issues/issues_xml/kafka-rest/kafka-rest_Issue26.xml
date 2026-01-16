@@ -1,0 +1,161 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>26</ISSUENO>
+  <ISSUEURL>https://github.com/confluentinc/kafka-rest/issues/26</ISSUEURL>
+  <TITLE>Add support for SimpleConsumer-like access</TITLE>
+  <DESCRIPTION>Sometimes apps might not want to be part of a consumer group, or might have trivial consumption patterns such as consuming from a single partition. We can probably expose this pretty cleanly with URLs like GET /topics/foo/partitions/0/messages?offset=100[&amp;count=100], although specifying per-partition offsets at the topic level may get messy.</DESCRIPTION>
+  <REPONAME>kafka-rest</REPONAME>
+  <TIMEDIFFERENCEDAYS>103</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update version to 2.0-SNAPSHOT for next release.</MESSAGE>
+    <SHA>64396989baccec2f96dca2d8be00a6bb0465e0fc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#26 : Add support for SimpleConsumer-like access TODO: add tests for the new feature</MESSAGE>
+      <SHA>d29696b1b0d4ebf51538e8902bd4805fb19abea7</SHA>
+      <PATCHEDFILES>
+        <FILE>src/main/java/io/confluent/kafkarest/Context.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/Errors.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/KafkaRestApplication.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/KafkaRestConfig.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/SimpleConsumerFetcher.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/entities/EmbeddedFormat.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/resources/TopicsResource.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/ClusterTestHarness.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/TestKafkaRestApplication.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/AbstractConsumerResourceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/BrokersResourceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/PartitionsResourceAvroProduceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/PartitionsResourceBinaryProduceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/PartitionsResourceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/RootResourceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/TopicsResourceAvroProduceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/TopicsResourceBinaryProduceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/TopicsResourceTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#26 : Binary integration test. TODO : avro IT and UT</MESSAGE>
+      <SHA>96d9a79439187b39a5c7ae0616350e03421103d2</SHA>
+      <PATCHEDFILES>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/AbstractConsumerTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/ClusterTestHarness.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/SimpleConsumerBinaryTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#26 Fix : throw a topicNotFoundError instead of partitionNotFoundError when the topic is not found</MESSAGE>
+      <SHA>bcb65b2ec837749b74355a61e9e7403c650ff80b</SHA>
+      <PATCHEDFILES>
+        <FILE>src/main/java/io/confluent/kafkarest/MetadataObserver.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#26 SimpleConsumer : Fix Avro Decoding</MESSAGE>
+      <SHA>0aa7d29bb15a3dad284cdbbac9a6701a50c95990</SHA>
+      <PATCHEDFILES>
+        <FILE>src/main/java/io/confluent/kafkarest/SimpleConsumerManager.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/entities/EmbeddedFormat.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#26 IT for Avro and Binary SimpleConsumer</MESSAGE>
+      <SHA>62e292ac0747479d02e6f4d684c3f185129825d3</SHA>
+      <PATCHEDFILES>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/AbstractConsumerTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/SimpleConsumerAvroTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/SimpleConsumerBinaryTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#26 : Add UT for Resource Consumption</MESSAGE>
+      <SHA>d07bfb7a5834cf09e5f55d6287ff6f00cb904f6d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/TopicsResourceAbstractConsumeTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/TopicsResourceAvroConsumeTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/TopicsResourceBinaryConsumeTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#26 : Add UT for Resource Consumption</MESSAGE>
+      <SHA>265bcf244de36f6345a34111fe58f93cc093e0e9</SHA>
+      <PATCHEDFILES>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/TopicsResourceBinaryConsumeTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#26 : Add support for SimpleConsumer-like access TODO: add tests for the new feature</MESSAGE>
+      <SHA>e23c6c1ae3b39bb79c27a183ba64023c62f8c19f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/main/java/io/confluent/kafkarest/Context.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/Errors.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/KafkaRestApplication.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/KafkaRestConfig.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/SimpleConsumerFetcher.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/entities/EmbeddedFormat.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/resources/TopicsResource.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/ClusterTestHarness.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/TestKafkaRestApplication.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/AbstractConsumerResourceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/BrokersResourceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/PartitionsResourceAvroProduceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/PartitionsResourceBinaryProduceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/PartitionsResourceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/RootResourceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/TopicsResourceAvroProduceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/TopicsResourceBinaryProduceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/TopicsResourceTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#26 : Binary integration test. TODO : avro IT and UT</MESSAGE>
+      <SHA>3726ec4d8316e9ee73c6a355836e2c40dada7c65</SHA>
+      <PATCHEDFILES>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/AbstractConsumerTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/ClusterTestHarness.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/SimpleConsumerBinaryTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#26 Fix : throw a topicNotFoundError instead of partitionNotFoundError when the topic is not found</MESSAGE>
+      <SHA>8265902e48659166b0a5e604bad72a2c661903c2</SHA>
+      <PATCHEDFILES>
+        <FILE>src/main/java/io/confluent/kafkarest/MetadataObserver.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#26 SimpleConsumer : Fix Avro Decoding</MESSAGE>
+      <SHA>a3a7384027ed71a3422804d72b552334a6e3f953</SHA>
+      <PATCHEDFILES>
+        <FILE>src/main/java/io/confluent/kafkarest/SimpleConsumerManager.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/entities/EmbeddedFormat.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#26 IT for Avro and Binary SimpleConsumer</MESSAGE>
+      <SHA>1800ac80a8fc2fbe8208b74b5df0a70750c1a906</SHA>
+      <PATCHEDFILES>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/AbstractConsumerTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/SimpleConsumerAvroTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/integration/SimpleConsumerBinaryTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#26 : Add UT for Resource Consumption</MESSAGE>
+      <SHA>56b61a231ac569fdb7d304a574d45194102e7aae</SHA>
+      <PATCHEDFILES>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/TopicsResourceAbstractConsumeTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/TopicsResourceAvroConsumeTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/TopicsResourceBinaryConsumeTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#26 : Add UT for Resource Consumption</MESSAGE>
+      <SHA>fafd114f62bc410526e3ac1e584896a1e94f5b5f</SHA>
+      <PATCHEDFILES>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/TopicsResourceBinaryConsumeTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

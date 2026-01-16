@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5911</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5911</ISSUEURL>
+  <TITLE>PayPalCommerce plugin. Shipping address error when ordering a downloadable product</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40 &gt; For some users when they order a downloadable product they will an error message on step 3 of the checkout page. &gt; It looks like the system thinks there is a shipped item and that the Postal Code is invalid. To fix the problem the user will need to add any shipped item to the cart and then remove the shipped item. Then the checkout process can continue. &gt; Below is a screenshot of the error message. &gt; ![Checkout-Error](https://user-images.githubusercontent.com/16698464/138237092-d266a2b8-c13b-4ee6-9c55-054bd957e294.jpg) Source: https://www.nopcommerce.com/boards/topic/92256/shipping-error-when-ordering-a-downloadable-product-with-the-paypal-commerce-plugin We only check the existence of the [shipping address](https://github.com/nopSolutions/nopCommerce/blob/develop/src/Plugins/Nop.Plugin.Payments.PayPalCommerce/Services/ServiceManager.cs#L341), but it may remain from previous orders, we also should check whether the current purchase requires shipping (`IShoppingCartService.ShoppingCartRequiresShippingAsync()`).</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5914 Set microdata availability to InStock when DontManageStock inventory method is used</MESSAGE>
+    <SHA>34e0ae55ad27340415f1fc7f7f6fe0b95e00b9dc</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5911 PayPalCommerce plugin. Check whether the current purchase requires shipping</MESSAGE>
+      <SHA>23584839738c4339201bb6d7da9588514a8e5fc6</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/Services/ServiceManager.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalCommerce/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>777</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/777</ISSUEURL>
+  <TITLE>Filer 文件和文件夹 同名的问题</TITLE>
+  <DESCRIPTION>作者您好： 我使用的weaweedfs 版本为 0.94 . Filer 服务使用Cassandra 存储元数据。我在存储文件时发现，与文件名相同的文件夹会被覆盖，反之亦然。请问这是一个BUG 还是在使用Cassandra作为元数据存储时的 feature?</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>copy the visible chunks logic from Go implementation</MESSAGE>
+    <SHA>021f5d689b78f19152fdec86a6f88d8f36f3c659</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>avoid overwriting file or directory fix https://github.com/chrislusf/seaweedfs/issues/777</MESSAGE>
+      <SHA>ceca078acb8607f5d3252356617cf630ff6b4be8</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filer2/filer.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>refactor a bit more fix https://github.com/chrislusf/seaweedfs/issues/777</MESSAGE>
+      <SHA>7a6f49cd420aad9416c4c99e53e621a43b3cd45e</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filer2/filer.go</FILE>
+        <FILE>weed/server/filer_grpc_server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

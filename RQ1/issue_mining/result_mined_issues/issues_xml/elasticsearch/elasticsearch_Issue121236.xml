@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121236</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121236</ISSUEURL>
+  <TITLE>[CI] ClassificationIT testWithDatastreams failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6311 / openjdk21_checkpart4_java-matrix](https://gradle-enterprise.elastic.co/s/s26opisxqqkcm) - [elasticsearch-periodic #6269 / openjdk17_checkpart4_java-matrix](https://gradle-enterprise.elastic.co/s/fupjbzcf3bi7g) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:ml:qa:native-multi-node-tests:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.ml.integration.ClassificationIT.testWithDatastreams&quot; -Dtests.seed=C44759E89B85D865 -Dtests.locale=ff-Adlm-GW -Dtests.timezone=America/Guadeloupe -Druntime.java=21 ``` **Applicable branches:** 8.17 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.ml.integration.ClassificationIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testWithDatastreams),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Stats were: {&quot;id&quot;:&quot;classification_with_datastreams&quot;,&quot;state&quot;:&quot;started&quot;,&quot;progress&quot;:[{&quot;phase&quot;:&quot;reindexing&quot;,&quot;progress_percent&quot;:100},{&quot;phase&quot;:&quot;loading_data&quot;,&quot;progress_percent&quot;:100},{&quot;phase&quot;:&quot;feature_selection&quot;,&quot;progress_percent&quot;:100},{&quot;phase&quot;:&quot;coarse_parameter_search&quot;,&quot;progress_percent&quot;:100},{&quot;phase&quot;:&quot;fine_tuning_parameters&quot;,&quot;progress_percent&quot;:98},{&quot;phase&quot;:&quot;final_training&quot;,&quot;progress_percent&quot;:0},{&quot;phase&quot;:&quot;writing_results&quot;,&quot;progress_percent&quot;:0},{&quot;phase&quot;:&quot;inference&quot;,&quot;progress_percent&quot;:0}],&quot;data_counts&quot;:{&quot;training_docs_count&quot;:300,&quot;test_docs_count&quot;:0,&quot;skipped_docs_count&quot;:0},&quot;memory_usage&quot;:{&quot;timestamp&quot;:1739167749478,&quot;peak_usage_bytes&quot;:70234,&quot;status&quot;:&quot;ok&quot;},&quot;analysis_stats&quot;:{&quot;classification_stats&quot;:{&quot;timestamp&quot;:1739167749478,&quot;iteration&quot;:17,&quot;hyperparameters&quot;:{&quot;class_assignment_objective&quot;:&quot;maximize_minimum_recall&quot;,&quot;alpha&quot;:2.253493216325616,&quot;downsample_factor&quot;:0.3876909661561454,&quot;eta&quot;:0.5557600605717856,&quot;eta_growth_rate_per_tree&quot;:1.3727348114128046,&quot;feature_bag_fraction&quot;:0.125 [truncated] ``` **Issue Reasons:** - [8.17] 2 failures in test testWithDatastreams (1.1% fail rate in 190 executions) - [8.17] 2 failures in pipeline elasticsearch-periodic (28.6% fail rate in 7 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>13</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Enable Mapped Field Types to Override Default Highlighter (#121176) This commit introduces the `MappedFieldType#getDefaultHighlighter`, allowing a specific highlighter to be enforced for a field. The semantic field mapper utilizes this new functionality to set the `semantic` highlighter as the default. All other fields will continue to use the `unified` highlighter by default.</MESSAGE>
+    <SHA>dbeb55cb3d361907c77bb6d72dbb627b47c94360</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ml.integration.ClassificationIT testWithDatastreams #121236</MESSAGE>
+      <SHA>ec7c50ffc91d3dc68bff57b18cda890600749295</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ml.integration.ClassificationIT testWithDatastreams #121236</MESSAGE>
+      <SHA>d4c781d7650457b4b9384f760d0a2707cb1188d5</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.ml.integration.ClassificationIT testWithDatastreams #121236</MESSAGE>
+      <SHA>7075357dab9df3a42c3a9b55617d323f7a108aeb</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[ML] Unmute fixed Classification IT tests #122352 Unmute tests following #122268 Closes #120071 Closes #121680 Closes #121492 Closes #121415 Closes #121236</MESSAGE>
+      <SHA>e8bbf27146aa978cd5edce42729f277b9f4c7999</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

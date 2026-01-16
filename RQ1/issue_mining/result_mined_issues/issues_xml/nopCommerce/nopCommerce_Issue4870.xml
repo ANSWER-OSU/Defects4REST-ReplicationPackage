@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4870</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4870</ISSUEURL>
+  <TITLE>PayPal IPNHandler Errors</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.30 Steps to reproduce the problem: 1) I started getting emails saying my IPNHandler url was wrong. I also started getting Error 400. Bad request in my logs for https://www.ochapparel.com/Plugins/PaymentPayPalStandard/IPNHandler 2) So I went to https://ochapparel.com/Plugins/PaymentPayPalStandard/IPNHandler and I got the below error: ``` System.InvalidOperationException HResult=0x80131509 Message=Synchronous operations are disallowed. Call ReadAsync or set AllowSynchronousIO to true instead. Source=Microsoft.AspNetCore.Server.IIS StackTrace: at Microsoft.AspNetCore.Server.IIS.Core.HttpRequestStream.Read(Byte[] buffer, Int32 offset, Int32 count) at Microsoft.AspNetCore.Server.IIS.Core.WrappingStream.Read(Byte[] buffer, Int32 offset, Int32 count) at System.IO.Stream.CopyTo(Stream destination, Int32 bufferSize) at System.IO.Stream.CopyTo(Stream destination) at Nop.Plugin.Payments.PayPalStandard.Controllers.PaymentPayPalStandardController.IPNHandler() in C:\Users\Cody-PC\Documents\Visual Studio 2019\Websites\nopCommerce_4.30_Source\Plugins\Nop.Plugin.Payments.PayPalStandard\Controllers\PaymentPayPalStandardController.cs:line 485 at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters) at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments) at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync() at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State&amp; next, Scope&amp; scope, Object&amp; state, Boolean&amp; isCompleted) at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync() ``` I looked it up and it said to: ``` public void ConfigureServices(IServiceCollection services) { // If using Kestrel: services.Configure&lt;KestrelServerOptions&gt;(options =&gt; { options.AllowSynchronousIO = true; }); // If using IIS: services.Configure&lt;IISServerOptions&gt;(options =&gt; { options.AllowSynchronousIO = true; }); } ``` From &lt;https://stackoverflow.com/questions/47735133/asp-net-core-synchronous-operations-are-disallowed-call-writeasync-or-set-all&gt; I updated the plugin and uploaded it to my site. 3) I went back to https://www.ochapparel.com/Plugins/PaymentPayPalStandard/IPNHandler and the error is gone</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>33</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #4894 from denisburlacu/feature/4891_Missing_int64 Add database type mapping for int64/long Fixes #4891</MESSAGE>
+    <SHA>cdc00a6887d782e44622fac15d9bf60ead415e02</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed #4870 PayPal IPNHandler 1. Allow paypal's HTTP client to do a POST request to the IPNHandler ignoring antiforgery validation 2. Use async calls instead of sync ones</MESSAGE>
+      <SHA>53b79739035c5e984be07f01c697e0ecc479d996</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalStandard/Controllers/PaymentPayPalStandardController.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#4870 Fix IPN error in PayPal Standard plugin</MESSAGE>
+      <SHA>ef14689a45b455a8eb960b146f8b86fbee3ebbeb</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalStandard/Controllers/PaymentPayPalStandardController.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalStandard/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#4870 Paypal Standard plugin. Move IPN handler to a separate controller to avoid creating guests, redundand checks, etc for IPN requests.</MESSAGE>
+      <SHA>b0e24dd28ea7f0e8773c026ba59fa1fd4dac2f8b</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalStandard/Controllers/PaymentPayPalStandardController.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalStandard/Controllers/PaymentPayPalStandardIpnController.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalStandard/Infrastructure/RouteProvider.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Payments.PayPalStandard/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

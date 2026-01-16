@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5035</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5035</ISSUEURL>
+  <TITLE>Unable to modify store entity due to dependency on store entity prior to migration</TITLE>
+  <DESCRIPTION># More detailed explanation During startup, the configuration requires access to the store entity. If a user were to adjust the store entity a SQL Column not found error will be thrown. This occurs prior to the UpMigration specified within the StartEngine() method. ## nopCommerce version: 4.3 ## Steps to reproduce the problem: Using the[ update-existing-entity](https://docs.nopcommerce.com/en/developer/tutorials/update-existing-entity.html) tutorial to update the store entity. 1. Update nop.Core domain 2. Update nop.Data builder 3. Add nop.Data migration 4. Add IMigrationManager.ApplyUpMigration code to ApplicationBuilderExtensions.StartEngine(); Within the DependencyRegistrar.BuildRegistration() there is a call to the store entity. Because the user is updating the store entity the system requires the column which is yet to be updated and a SQL error occurs. ## How to solve: 1. Change the tutorial so that the migration is done prior to store access. 2. Add some form of checking to see if the store needs migration and do so. 3. For users, add the lines required on StartEngine() to the BuildRegistration() method and incorporate the namespace as per Visual Studio. ## For the future: Are other entities accessed prior to the migration? - I see a lot of users having issues with not being able to update their entities.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>710</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>When saving a picture in the file system, its extension will not be specified if an incorrect Content-Type is passed (further changes - pictures with &quot;jpeg&quot; extension should not be saved as &quot;jpg&quot;)</MESSAGE>
+    <SHA>4600a5ca600f85d64e5fbcf339862a0498227006</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5035 Added migration running entry point immediately after the migration runner becomes available</MESSAGE>
+      <SHA>30e52c6bcbe4524f8f790e752650740028ee3bfb</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Data/Migrations/IMigrationManager.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/MigrationManager.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Migrations/MigrationProcessType.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/NopDbStartup.cs</FILE>
+        <FILE>src/Presentation/Nop.Web.Framework/Infrastructure/NopStartup.cs</FILE>
+        <FILE>src/Tests/Nop.Tests/TestMigrationManager.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

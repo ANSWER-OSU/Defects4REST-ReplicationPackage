@@ -1,0 +1,99 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>125713</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/125713</ISSUEURL>
+  <TITLE>NPE on mapping merge for dense_vector field</TITLE>
+  <DESCRIPTION>### Elasticsearch Version 8.19+ ### Installed Plugins _No response_ ### Java Version _bundled_ ### OS Version na ### Problem Description When attempting to update the mapping of a dense vector field that has dynamically set particular values, it may fail with an NPE. Specifically, this will occur with `dims`. ### Steps to Reproduce ``` --- &quot;Test mapping update with dynamic dims&quot;: - requires: cluster_features: &quot;gte_v8.16.0&quot; reason: 'updatable dense vector field type for int4 was added in 8.16' - requires: test_runner_features: [ contains ] - do: indices.create: index: test_index - do: indices.put_mapping: index: test_index body: properties: embedding: type: dense_vector index_options: type: flat - do: index: index: test_index id: &quot;40&quot; body: embedding: [ 1, 1, 1, 11 ] - do: indices.flush: { } - do: indices.refresh: {} - do: indices.put_mapping: index: test_index body: properties: embedding: type: dense_vector index_options: type: int4_flat ``` ### Logs (if relevant) ``` java.lang.NullPointerException at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.index.mapper.FieldMapper$Parameter.merge(FieldMapper.java:982) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.index.mapper.FieldMapper$Builder.merge(FieldMapper.java:1419) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.index.mapper.FieldMapper.merge(FieldMapper.java:406) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.index.mapper.FieldMapper.merge(FieldMapper.java:63) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.index.mapper.ObjectMapper$MergeResult.buildMergedMappers(ObjectMapper.java:716) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.index.mapper.ObjectMapper$MergeResult.build(ObjectMapper.java:638) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.index.mapper.RootObjectMapper.merge(RootObjectMapper.java:234) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.index.mapper.Mapping.merge(Mapping.java:147) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.index.mapper.MapperService.mergeMappings(MapperService.java:676) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.index.mapper.MapperService.mergeMappings(MapperService.java:643) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.cluster.metadata.MetadataMappingService$PutMappingExecutor.applyRequest(MetadataMappingService.java:154) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.cluster.metadata.MetadataMappingService$PutMappingExecutor.execute(MetadataMappingService.java:117) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.cluster.service.MasterService.innerExecuteTasks(MasterService.java:1076) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.cluster.service.MasterService.executeTasks(MasterService.java:1039) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.cluster.service.MasterService.executeAndPublishBatch(MasterService.java:246) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.cluster.service.MasterService$BatchingTaskQueue$Processor.lambda$run$2(MasterService.java:1692) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.action.ActionListener.run(ActionListener.java:465) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.cluster.service.MasterService$BatchingTaskQueue$Processor.run(MasterService.java:1689) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.cluster.service.MasterService$5.lambda$doRun$0(MasterService.java:1284) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.action.ActionListener.run(ActionListener.java:465) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.cluster.service.MasterService$5.doRun(MasterService.java:1263) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.common.util.concurrent.ThreadContext$ContextPreservingAbstractRunnable.doRun(ThreadContext.java:1044) at org.elasticsearch.server@9.1.0-SNAPSHOT/org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:27) at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1095) at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:619) at java.base/java.lang.Thread.run(Thread.java:1447) ```</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Exercise multi-part uploads in S3 repo analysis tests (#125669) Extends the max blob size to 10MiB, and sets the buffer size to 5MiB, to ensure that sometimes the S3 repo analysis tests will create blobs using the multipart upload flow.</MESSAGE>
+    <SHA>83c0ca14f7cf9c03cc374120492d65f9edf286a9</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Return appropriate error on null dims update instead of npe (#125716) Calling `Object::toString` was trying to call `null.toString()`, really it should have been `Objects::toString`, which accepts `null`. closes: https://github.com/elastic/elasticsearch/issues/125713</MESSAGE>
+      <SHA>dd58b0b6face632cd4476a496cb79e8c0dffdcb6</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/125716.yaml</FILE>
+        <FILE>rest-api-spec/src/yamlRestTest/resources/rest-api-spec/test/search.vectors/40_knn_search.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/mapper/MapperFeatures.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/mapper/vectors/DenseVectorFieldMapper.java</FILE>
+        <FILE>x-pack/plugin/rank-vectors/src/main/java/org/elasticsearch/xpack/rank/vectors/mapper/RankVectorsFieldMapper.java</FILE>
+        <FILE>x-pack/plugin/src/yamlRestTest/resources/rest-api-spec/test/rank_vectors/rank_vectors.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Return appropriate error on null dims update instead of npe (#125716) Calling `Object::toString` was trying to call `null.toString()`, really it should have been `Objects::toString`, which accepts `null`. closes: https://github.com/elastic/elasticsearch/issues/125713 (cherry picked from commit dd58b0b6face632cd4476a496cb79e8c0dffdcb6)</MESSAGE>
+      <SHA>c2025e49451b57cbd3f8403e1785eab54fd940cc</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/125716.yaml</FILE>
+        <FILE>rest-api-spec/src/yamlRestTest/resources/rest-api-spec/test/search.vectors/40_knn_search.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/mapper/MapperFeatures.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/mapper/vectors/DenseVectorFieldMapper.java</FILE>
+        <FILE>x-pack/plugin/rank-vectors/src/main/java/org/elasticsearch/xpack/rank/vectors/mapper/RankVectorsFieldMapper.java</FILE>
+        <FILE>x-pack/plugin/src/yamlRestTest/resources/rest-api-spec/test/rank_vectors/rank_vectors.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Return appropriate error on null dims update instead of npe (#125716) Calling `Object::toString` was trying to call `null.toString()`, really it should have been `Objects::toString`, which accepts `null`. closes: https://github.com/elastic/elasticsearch/issues/125713 (cherry picked from commit dd58b0b6face632cd4476a496cb79e8c0dffdcb6)</MESSAGE>
+      <SHA>0129d312bdc88c305da946800aa67fe4c2494f0c</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/125716.yaml</FILE>
+        <FILE>rest-api-spec/src/yamlRestTest/resources/rest-api-spec/test/search.vectors/40_knn_search.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/mapper/MapperFeatures.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/mapper/vectors/DenseVectorFieldMapper.java</FILE>
+        <FILE>x-pack/plugin/rank-vectors/src/main/java/org/elasticsearch/xpack/rank/vectors/mapper/RankVectorsFieldMapper.java</FILE>
+        <FILE>x-pack/plugin/src/yamlRestTest/resources/rest-api-spec/test/rank_vectors/rank_vectors.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Return appropriate error on null dims update instead of npe (#125716) (#125766) Calling `Object::toString` was trying to call `null.toString()`, really it should have been `Objects::toString`, which accepts `null`. closes: https://github.com/elastic/elasticsearch/issues/125713 (cherry picked from commit dd58b0b6face632cd4476a496cb79e8c0dffdcb6)</MESSAGE>
+      <SHA>6ba6caf81d68667c8798f994c957865b49d93681</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/125716.yaml</FILE>
+        <FILE>rest-api-spec/src/yamlRestTest/resources/rest-api-spec/test/search.vectors/40_knn_search.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/mapper/MapperFeatures.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/mapper/vectors/DenseVectorFieldMapper.java</FILE>
+        <FILE>x-pack/plugin/rank-vectors/src/main/java/org/elasticsearch/xpack/rank/vectors/mapper/RankVectorsFieldMapper.java</FILE>
+        <FILE>x-pack/plugin/src/yamlRestTest/resources/rest-api-spec/test/rank_vectors/rank_vectors.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Return appropriate error on null dims update instead of npe (#125716) (#125767) Calling `Object::toString` was trying to call `null.toString()`, really it should have been `Objects::toString`, which accepts `null`. closes: https://github.com/elastic/elasticsearch/issues/125713 (cherry picked from commit dd58b0b6face632cd4476a496cb79e8c0dffdcb6)</MESSAGE>
+      <SHA>96def2843f254b6960dd528cb8ad84628f27a87c</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/125716.yaml</FILE>
+        <FILE>rest-api-spec/src/yamlRestTest/resources/rest-api-spec/test/search.vectors/40_knn_search.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/mapper/MapperFeatures.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/mapper/vectors/DenseVectorFieldMapper.java</FILE>
+        <FILE>x-pack/plugin/rank-vectors/src/main/java/org/elasticsearch/xpack/rank/vectors/mapper/RankVectorsFieldMapper.java</FILE>
+        <FILE>x-pack/plugin/src/yamlRestTest/resources/rest-api-spec/test/rank_vectors/rank_vectors.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Return appropriate error on null dims update instead of npe (#125716) (#125765) Calling `Object::toString` was trying to call `null.toString()`, really it should have been `Objects::toString`, which accepts `null`. closes: https://github.com/elastic/elasticsearch/issues/125713 (cherry picked from commit dd58b0b6face632cd4476a496cb79e8c0dffdcb6)</MESSAGE>
+      <SHA>37fff92e4aee837c28f0eec083f84a2fc60768ac</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/125716.yaml</FILE>
+        <FILE>rest-api-spec/src/yamlRestTest/resources/rest-api-spec/test/search.vectors/40_knn_search.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/mapper/MapperFeatures.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/mapper/vectors/DenseVectorFieldMapper.java</FILE>
+        <FILE>x-pack/plugin/rank-vectors/src/main/java/org/elasticsearch/xpack/rank/vectors/mapper/RankVectorsFieldMapper.java</FILE>
+        <FILE>x-pack/plugin/src/yamlRestTest/resources/rest-api-spec/test/rank_vectors/rank_vectors.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Return appropriate error on null dims update instead of npe (#125716) Calling `Object::toString` was trying to call `null.toString()`, really it should have been `Objects::toString`, which accepts `null`. closes: https://github.com/elastic/elasticsearch/issues/125713</MESSAGE>
+      <SHA>92825242a0aee36923d39a0347167d5c6b2bdef7</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/125716.yaml</FILE>
+        <FILE>rest-api-spec/src/yamlRestTest/resources/rest-api-spec/test/search.vectors/40_knn_search.yml</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/mapper/MapperFeatures.java</FILE>
+        <FILE>server/src/main/java/org/elasticsearch/index/mapper/vectors/DenseVectorFieldMapper.java</FILE>
+        <FILE>x-pack/plugin/rank-vectors/src/main/java/org/elasticsearch/xpack/rank/vectors/mapper/RankVectorsFieldMapper.java</FILE>
+        <FILE>x-pack/plugin/src/yamlRestTest/resources/rest-api-spec/test/rank_vectors/rank_vectors.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16387</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16387</ISSUEURL>
+  <TITLE>podman systemd clutters /run with .ctr-id files</TITLE>
+  <DESCRIPTION>podman systemd commands do not clean up leftover `.ctr-id` files: ```console # bats --filter basic test/system/250-systemd.bats [passes] # ls -l /run ... -rw-r--r--. 1 root root 64 Nov 2 12:36 podman_test_HvKVwQfIFo.service.ctr-id ``` After multiple runs of system tests, `/run` is full of these files. Yes, of course these are tests, not representative, but even in the real world people will be creating and removing differently-named containers and may not want these confusing stale files left behind. Probably a simple fix, adding to one of the `ExecStop` stanzas.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #16389 from edsantiago/verify_network_backend CI: set and verify DESIRED_NETWORK (netavark, cni)</MESSAGE>
+    <SHA>6428ff180a3757f399b4e0fef0222c324d780eed</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>remove container/pod id file along with container/pod Remove the container/pod ID file along with the container/pod. It's primarily used in the context of systemd and are not useful nor needed once a container/pod has ceased to exist. Fixes: #16387 Signed-off-by: Valentin Rothberg &lt;vrothberg@redhat.com&gt;</MESSAGE>
+      <SHA>3fee351c355788aed0d5f9e069f8b14ed7eb109a</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/containers/rm.go</FILE>
+        <FILE>cmd/podman/pods/create.go</FILE>
+        <FILE>cmd/podman/pods/rm.go</FILE>
+        <FILE>docs/source/markdown/options/cidfile.write.md</FILE>
+        <FILE>docs/source/markdown/podman-pod-rm.1.md.in</FILE>
+        <FILE>docs/source/markdown/podman-rm.1.md.in</FILE>
+        <FILE>libpod/runtime_ctr.go</FILE>
+        <FILE>test/system/030-run.bats</FILE>
+        <FILE>test/system/200-pod.bats</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118184</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118184</ISSUEURL>
+  <TITLE>[CI] DefaultEndPointsIT testInferDeploysDefaultRerank failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #14143 / part2](https://gradle-enterprise.elastic.co/s/fnmc5uprqv53i) - [elasticsearch-intake #14144 / part2](https://gradle-enterprise.elastic.co/s/fikfu624gnm5u) - [elasticsearch-pull-request #45360 / part-2](https://gradle-enterprise.elastic.co/s/eve35kz73d6c6) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:inference:qa:inference-service-tests:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.inference.DefaultEndPointsIT.testInferDeploysDefaultRerank&quot; -Dtests.seed=E254CD6CA0EDD28A -Dtests.locale=es-BO -Dtests.timezone=Africa/Algiers -Druntime.java=23 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.inference.DefaultEndPointsIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testInferDeploysDefaultRerank),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.net.SocketTimeoutException: 120.000 milliseconds timeout on connection http-outgoing-0 [ACTIVE] ``` **Issue Reasons:** - [8.x] 2 consecutive failures in test testInferDeploysDefaultRerank - [8.x] 2 consecutive failures in step part2 - [8.x] 2 consecutive failures in pipeline elasticsearch-intake - [8.x] 3 failures in test testInferDeploysDefaultRerank (2.3% fail rate in 133 executions) - [8.x] 2 failures in step part2 (11.1% fail rate in 18 executions) - [8.x] 2 failures in pipeline elasticsearch-intake (11.1% fail rate in 18 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>46</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix mocking in SyntheticSourceLicenseServiceTests (#118155) Some mock verifies where missing and `LicenseState#copyCurrentLicenseState(...)` wasn't always mocked. And because of incorrect mocking the testGoldOrPlatinumLicenseCustomCutoffDate() test had an incorrect assertion.</MESSAGE>
+    <SHA>ab6fcc4e749ae575e6505498d18de19ce3db4ca2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.inference.DefaultEndPointsIT testInferDeploysDefaultRerank #118184</MESSAGE>
+      <SHA>27aac9654d0b226ac5988f635858ae6404a75cda</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.inference.DefaultEndPointsIT testInferDeploysDefaultRerank #118184</MESSAGE>
+      <SHA>e0733ed0f1fb2a1659cd4283d01bae78c2ca1a1b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

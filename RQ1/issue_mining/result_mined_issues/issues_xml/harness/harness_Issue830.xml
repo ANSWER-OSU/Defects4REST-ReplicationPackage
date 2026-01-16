@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>830</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/830</ISSUEURL>
+  <TITLE>the commit get stuck in running for some reason and can't manually stop building the commit.</TITLE>
+  <DESCRIPTION>I have installed the drone on the digital ocean, my app is very simple express node.js app. ``` javascript var express = require('express'); console.log(&quot;hello log&quot;); var app = express(); app.get('/', function(req, res){ res.send('hello world'); }); app.listen(3300); ``` my yml is like ``` javascript image: dockerfile/nodejs env: - GOPATH=/var/cache/drone script: - echo hello world 222 - pwd - ls - npm install express redis mqtt - node app.js - /bin/bash services: - mongodb - rabbitmq - redis ``` when the drone server is updating on the commit, it will get stuck in running the ###### node app.js, keep running forever... Firstly, I don't know why it will get stuck in running ###### node app.js, in particular in app.listen(3300), if I commented the line ###### app.listen(3300), the commit update will be successful. The port 3300 is always open. Secondly, because the update is running forever, and there is no way for me to stop the current commit, even I push a new commit, this new commit will fail to execute since the previous commit is still running. Anybody help me with these two issues ?</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add interfaces for keyword search (#816)</MESSAGE>
+    <SHA>1a2a456550180ab6b54b6f92515f148e7217f130</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: protect internal webhook from mutation and listing (#830)</MESSAGE>
+      <SHA>5dc8c93233a50d5638ffce16d98093bde8a40bd2</SHA>
+      <PATCHEDFILES>
+        <FILE>app/api/controller/webhook/common.go</FILE>
+        <FILE>app/api/controller/webhook/create.go</FILE>
+        <FILE>app/api/controller/webhook/delete.go</FILE>
+        <FILE>app/api/controller/webhook/update.go</FILE>
+        <FILE>app/api/handler/webhook/delete.go</FILE>
+        <FILE>app/api/handler/webhook/list.go</FILE>
+        <FILE>app/api/handler/webhook/update.go</FILE>
+        <FILE>app/api/usererror/usererror.go</FILE>
+        <FILE>app/store/database/webhook.go</FILE>
+        <FILE>types/webhook.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

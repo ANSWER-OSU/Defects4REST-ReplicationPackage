@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>8013</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/8013</ISSUEURL>
+  <TITLE>Create a tower_workflow_approval module</TITLE>
+  <DESCRIPTION>&lt;!-- Issues are for **concrete, actionable bugs and feature requests** only - if you're just asking for debugging help or technical support, please use: - http://webchat.freenode.net/?channels=ansible-awx - https://groups.google.com/forum/#!forum/awx-project We have to limit this because of limited volunteer time to respond to issues! --&gt; ##### ISSUE TYPE - Feature Idea ##### SUMMARY &lt;!-- Briefly describe the problem or desired enhancement. --&gt; Per PR #7963 we are missing a module to interact with the workflow_approvals endpoint</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>279</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9895 from sean-m-sullivan/workflow_schema Tower workflow schema SUMMARY See #9309 This is a clean PR of that, after an errant rebase Adds a way to add entire workflow node schemas to workflows. Either through the workflow schema module or the workflow job template module. This speeds up workflow creation vs the workflow node module by 3x. The model for the schemas is the format used by the tower_export module. The main difference between this and the workflow node module is that the loops are done in python. Traditionally if you have a workflow with 10 nodes, ansible tasks need to be invoked 19 times. 1x to create the workflow, 10 x to initially create the nodes, and then one time for each node that is not an endpoint in the schema. This removes the need to loop and invoke many times. ISSUE TYPE Feature Pull Request COMPONENT NAME awx-collection AWX VERSION 17.0.1 Reviewed-by: John Westcott IV &lt;None&gt; Reviewed-by: Bianca Henderson &lt;beeankha@gmail.com&gt;</MESSAGE>
+    <SHA>cf51dc5ceaac4834484e3eb986da34b66774eafe</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9896 from sean-m-sullivan/approval_node Add workflow approval and node wait modules SUMMARY Please see #9878 this is a clean PR after redoing my fork. Add a module to find a workflow approval node and approve or deny it, based on Issue #8013. Add a module to wait for a specific workflow node to complete and return information on it. Both of these are based on tests I have been creating for testing workflows. Scenario Launch workflow Wait for A node in the workflow to finish, compare output to expected output. If it matches, approve the approval node, otherwise deny the approval node. Workflow completes. Even used in concert I've added the wait feature to both of these so a user can wait on either to appear. This does require a workflow to use unique names on the job nodes they are waiting on, As the job # is created on the fly, it would be difficult for user to specify, A future update could explore searching for a specific identifier among a workflow template and then finding that job created by that identifier. Currently without the modules this depends on generous use of the uri module, with until and retry coupled together. ISSUE TYPE Feature Pull Request COMPONENT NAME awx-collection AWX VERSION 19.0.0 Reviewed-by: Bianca Henderson &lt;beeankha@gmail.com&gt;</MESSAGE>
+      <SHA>0bdd873bd3d1eb86ca47ae8ea69ab7d9d28cd1bc</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/plugins/module_utils/tower_api.py</FILE>
+        <FILE>awx_collection/plugins/modules/tower_workflow_approval.py</FILE>
+        <FILE>awx_collection/plugins/modules/tower_workflow_node_wait.py</FILE>
+        <FILE>awx_collection/test/awx/test_completeness.py</FILE>
+        <FILE>awx_collection/tests/integration/targets/tower_workflow_launch/tasks/main.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

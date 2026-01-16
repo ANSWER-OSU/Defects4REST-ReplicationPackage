@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>842</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/842</ISSUEURL>
+  <TITLE>now aws deploy fails with EPIPE error</TITLE>
+  <DESCRIPTION>I have tried to deploy a nuxt and an adonisjs app to aws. Both fail with the following error: (and both work fine with now itself) ``` Error: write EPIPE at exports._errnoException (util.js:1050:11) at Socket._writeGeneric (net.js:725:26) at Socket._write (net.js:744:8) at doWrite (_stream_writable.js:329:12) at writeOrBuffer (_stream_writable.js:315:5) at Socket.Writable.write (_stream_writable.js:241:11) at Socket.write (net.js:671:40) at Socket.Writable.end (_stream_writable.js:475:10) at Socket.end (net.js:441:31) at handleInput (C:\snapshot\now-cli\node_modules\clipboardy\node_modules\execa\index.js:62:17) at module.exports (C:\snapshot\now-cli\node_modules\clipboardy\node_modules\execa\index.js:247:2) at Object.copy (C:\snapshot\now-cli\node_modules\clipboardy\lib\windows.js:10:16) at exports.write.input (C:\snapshot\now-cli\node_modules\clipboardy\index.js:28:20) at copyToClipboard (C:\snapshot\now-cli\dist\now.js:9058:13) at deploy (C:\snapshot\now-cli\dist\now.js:11994:18) at process._tickDomainCallback (internal/process/next_tick.js:135:7) Error: write EPIPE at exports._errnoException (util.js:1050:11) at Socket._writeGeneric (net.js:725:26) at Socket._write (net.js:744:8) at doWrite (_stream_writable.js:329:12) at writeOrBuffer (_stream_writable.js:315:5) at Socket.Writable.write (_stream_writable.js:241:11) at Socket.write (net.js:671:40) at Socket.Writable.end (_stream_writable.js:475:10) at Socket.end (net.js:441:31) at handleInput (C:\snapshot\now-cli\node_modules\clipboardy\node_modules\execa\index.js:62:17) at module.exports (C:\snapshot\now-cli\node_modules\clipboardy\node_modules\execa\index.js:247:2) at Object.copy (C:\snapshot\now-cli\node_modules\clipboardy\lib\windows.js:10:16) at exports.write.input (C:\snapshot\now-cli\node_modules\clipboardy\index.js:28:20) at copyToClipboard (C:\snapshot\now-cli\dist\now.js:9058:13) at deploy (C:\snapshot\now-cli\dist\now.js:11994:18) at process._tickDomainCallback (internal/process/next_tick.js:135:7) ``` When I run the deployed lambda function I get: ``` Error: Could not establish a connection to the http server at Socket.retry (/var/task/__now_handler.js:77:15) at emitOne (events.js:96:13) at Socket.emit (events.js:188:7) at emitErrorNT (net.js:1277:8) at _combinedTickCallback (internal/process/next_tick.js:80:11) at process._tickDomainCallback (internal/process/next_tick.js:128:9) ```</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>384</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[now-node] Bump node-file-trace to 0.2.4 (#849)</MESSAGE>
+    <SHA>873b099f5333a8fcac6b735317cae17820018d1d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-static-build] Allow setting the `tag` for zero-config builders (#842) * [now-static-build] Allow to set the `tag` for zero-config builders This reverts commit 32b6f1d6a9047920d6cc40385de711022f77c4d4. * Remove unsupported builders * Fix setting the tag</MESSAGE>
+      <SHA>1508932ad6f5c77bd5fcda07bbe937de89ffa554</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-build-utils/src/detect-builders.ts</FILE>
+        <FILE>packages/now-build-utils/test/test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

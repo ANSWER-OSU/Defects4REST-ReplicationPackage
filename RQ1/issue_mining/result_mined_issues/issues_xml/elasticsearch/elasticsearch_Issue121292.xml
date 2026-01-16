@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121292</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121292</ISSUEURL>
+  <TITLE>[CI] TransportInferenceActionTests testRerouting_HandlesTransportException_FromOtherNode failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #6190 / release-tests](https://gradle-enterprise.elastic.co/s/cpmpjq5uduf2m) - [elasticsearch-periodic #6183 / release-tests](https://gradle-enterprise.elastic.co/s/e6fxecbogimum) - [elasticsearch-periodic #6176 / release-tests](https://gradle-enterprise.elastic.co/s/w4qizsryleolm) - [elasticsearch-periodic #6169 / release-tests](https://gradle-enterprise.elastic.co/s/4vyi65dhv45ow) - [elasticsearch-periodic #6162 / release-tests](https://gradle-enterprise.elastic.co/s/qnabnrz4utbm6) - [elasticsearch-periodic #6155 / release-tests](https://gradle-enterprise.elastic.co/s/pmnwcugagszmu) - [elasticsearch-periodic #6148 / release-tests](https://gradle-enterprise.elastic.co/s/lobmuik2n5ebi) - [elasticsearch-periodic #6141 / release-tests](https://gradle-enterprise.elastic.co/s/kifpi3uxz2ppa) - [elasticsearch-periodic #6134 / release-tests](https://gradle-enterprise.elastic.co/s/wnwajp7tk5nxk) - [elasticsearch-periodic #6127 / release-tests](https://gradle-enterprise.elastic.co/s/lwmbyy3r6wlde) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:inference:test&quot; --tests &quot;org.elasticsearch.xpack.inference.action.TransportInferenceActionTests.testRerouting_ToOtherNode&quot; -Dtests.seed=EA3D522F4B19D442 -Dbuild.snapshot=false -Dtests.jvm.argline=&quot;-Dbuild.snapshot=false&quot; -Dlicense.key=x-pack/license-tools/src/test/resources/public.key -Dtests.locale=fr -Dtests.timezone=W-SU -Druntime.java=23 ``` **Applicable branches:** 9.0 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.inference.action.TransportInferenceActionTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testRerouting_HandlesTransportException_FromOtherNode),title:'Test',type:optionsListControl))))) **Failure Message:** ``` org.mockito.exceptions.verification.WantedButNotInvoked: Wanted but not invoked: transportService.sendRequest( same(Mock for DiscoveryNode, hashCode: 609223141), &quot;cluster:monitor/xpack/inference&quot;, &lt;any&gt;, &lt;any&gt; ); -&gt; at org.elasticsearch.xpack.inference.action.TransportInferenceActionTests.testRerouting_ToOtherNode(TransportInferenceActionTests.java:132) However, there were exactly 2 interactions with this mock: transportService.getTaskManager(); -&gt; at org.elasticsearch.action.support.HandledTransportAction.&lt;init&gt;(HandledTransportAction.java:44) transportService.registerRequestHandler( &quot;cluster:monitor/xpack/inference&quot;, org.elasticsearch.common.util.concurrent.EsExecutors$DirectExecutorService@757faad9, false, true, org.elasticsearch.xpack.inference.action.TransportInferenceAction$$Lambda/0x00000000346393e8@70919d1b, org.elasticsearch.action.support.HandledTransportAction$$Lambda/0x0000000034644c90@fa46e6d ); -&gt; at org.elasticsearch.action.supp [truncated] ``` **Issue Reasons:** - [9.0] 12 consecutive failures in step release-tests - [9.0] 12 failures in test testRerouting_HandlesTransportException_FromOtherNode (3.5% fail rate in 341 executions) - [9.0] 12 failures in step release-tests (100.0% fail rate in 12 executions) - [9.0] 12 failures in pipeline elasticsearch-periodic (100.0% fail rate in 12 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add 8.18 back to branches.json</MESSAGE>
+    <SHA>e84bc5d8d9eedbd3b3bd95b5d9724172a9a0c316</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.inference.action.TransportInferenceActionTests testRerouting_HandlesTransportException_FromOtherNode #121292</MESSAGE>
+      <SHA>d920fee680fdbc581bfc632bb5a68dbfdfdd6541</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.inference.action.TransportInferenceActionTests testRerouting_HandlesTransportException_FromOtherNode #121292</MESSAGE>
+      <SHA>3e691f4e88f1c7ab6b2af3deaa3622b313b45997</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.inference.action.TransportInferenceActionTests testRerouting_HandlesTransportException_FromOtherNode #121292</MESSAGE>
+      <SHA>3e2a41705e4e6821a3a1dd14f7e153ffa64f2e1c</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

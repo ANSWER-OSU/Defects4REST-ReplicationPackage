@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>546</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/546</ISSUEURL>
+  <TITLE>Eval metrics file output compatible with DVC</TITLE>
+  <DESCRIPTION>To make it possible to use Annif in [DVC](https://dvc.org/) workflows, Annif should be able to produce a metrics file in a format that DVC understands, i.e. either JSON or YAML 1.2 (see documentation for [dvc metrics](https://dvc.org/doc/command-reference/metrics)). Example command: annif eval my-project --metrics-file metrics.json /path/to/my-test-corpus/ and the created `metrics.json` file would look something like this: ``` { &quot;Precision (doc avg)&quot;: 0.1560, &quot;Recall (doc avg)&quot;: 0.2333, ... &quot;F1@5&quot;: 0.1789, ... &quot;Documents evaluated&quot;: 300 } ``` The option could be named `-M` or `--metrics-file`. It's possible that the selection of metrics should be reduced - the default set is quite large and this may be cumbersome to deal with in DVC. It would be helpful to implement also an option to select which metrics to calculate (see #545). Also, DVC may not like the current naming of the metrics which includes capital letters, spaces and parentheses (e.g. `F1 score (doc avg)`) and perhaps it would be better to use names like `f1_score_doc_avg`.</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>37</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #527 from NatLibFi/issue374-spacy-analyzer Add spaCy analyzer</MESSAGE>
+    <SHA>1b47624171377831fe4a8feb555acd827b87dd90</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Output eval metrics as a JSON file. Fixes #546</MESSAGE>
+      <SHA>b4bf5b934237c837d0001e04eb8160e89422a72e</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/cli.py</FILE>
+        <FILE>annif/eval.py</FILE>
+        <FILE>tests/test_cli.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

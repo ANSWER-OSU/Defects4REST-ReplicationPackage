@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121503</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121503</ISSUEURL>
+  <TITLE>[CI] SearchQueryThenFetchAsyncActionTests testBottomFieldSort failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6240 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/vtawtqy3ol5uq) - [elasticsearch-pull-request #55380 / part-1](https://gradle-enterprise.elastic.co/s/zh2iyz2qljuig) - [elasticsearch-periodic-platform-support #6163 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/3qylugzqkhkzs) - [elasticsearch-periodic-platform-support #6156 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/nqlpdlewgl6ye) - [elasticsearch-periodic-platform-support #6149 / windows-2022_checkpart1_platform-support-windows](https://gradle-enterprise.elastic.co/s/ygfz6vubyxrlq) **Reproduction Line:** ``` gradlew &quot;:server:test&quot; --tests &quot;org.elasticsearch.action.search.SearchQueryThenFetchAsyncActionTests.testBottomFieldSort&quot; -Dtests.seed=4E89F13212612635 -Dtests.locale=fi -Dtests.timezone=Singapore -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.action.search.SearchQueryThenFetchAsyncActionTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testBottomFieldSort),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Expected: a value equal to or greater than &lt;1&gt; but: &lt;0&gt; was less than &lt;1&gt; ``` **Issue Reasons:** - [main] 5 failures in test testBottomFieldSort (0.5% fail rate in 958 executions) - [main] 4 failures in step windows-2022_checkpart1_platform-support-windows (33.3% fail rate in 12 executions) - [main] 4 failures in pipeline elasticsearch-periodic-platform-support (28.6% fail rate in 14 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>[ML] Add deprecation warning for flush API (#121667) The anomaly detection job flush API is deprecated since it is only required for the post data API, which was deprecated since 7.11.0. Closes #121506</MESSAGE>
+    <SHA>f1b198347616852dc2761ae95925ee4202d50344</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.action.search.SearchQueryThenFetchAsyncActionTests testBottomFieldSort #121503</MESSAGE>
+      <SHA>fcf7130d4896ae59affec7a7a0b3e046d675df22</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

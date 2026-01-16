@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>22023</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/22023</ISSUEURL>
+  <TITLE>API has different max length for feature_image_alt than editor. API 190 / Editor 125</TITLE>
+  <DESCRIPTION>### Issue Summary Updating feature_image_alt over admin API allows 190 characters. The Editor will only allow 125 A feature_image_alt up to 190 characters is accepted when updating a post at `/admin/posts/{{id}}` When editing the same posts and saving, the error &quot;Update failed: Feature image alt text cannot be longer than 125 characters.&quot; is displayed. See screenshot. &lt;img width=&quot;814&quot; alt=&quot;Image&quot; src=&quot;https://github.com/user-attachments/assets/1e0b6091-403b-4c80-bf82-e0335b370b0e&quot; /&gt; ### Steps to Reproduce 1. Update a post over API `/admin/posts/{{id}}` with string longer than 125 characters, ex { &quot;feature_image_alt&quot; : &quot;The image shows a wet, pink-lit city street with a car in the background and a person in a coat standing in the foreground.&quot; } 2. Open the posts in Editor, attempt to save. Expecting Editor &amp; admin API to have the same max length, 190 characters ### Ghost Version 5.106.1-0-ga963b514+moya ### Node.js Version N/A ### How did you install Ghost? GhostPro ### Database type MySQL 5.7 ### Browser &amp; OS version N/A ### Relevant log / error output ```shell Update failed: Feature image alt text cannot be longer than 125 characters. ``` ### Code of Conduct - [x] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>50</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Refactored several test files to new E2E framework - just some gentle refactors to move them to the new E2E test suite - includes the new snapshots with the necessary matchers in place to ensure the tests aren't hardcoded with specific IDs</MESSAGE>
+    <SHA>cb0fe4ba650ef7c12e40a501e3702d5de8b15b75</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Changed featureImageALt function to allow up to 190 characters in alternative text fixes #22023 This change was made so that the upper character limit for changing Alternative Text by the Ghost API (190) is preserved on the Ghost admin, and update smoothly</MESSAGE>
+      <SHA>5f12ace9454a312278b9d9a5b13f389cb1cace6f</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/app/validators/post.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixed inconsistent character limits for alt text fixes https://github.com/TryGhost/Ghost/issues/22023 **Summary:** This pull request ensures that users have a seamless experience when managing feature_image_alt text, whether through the API or the Admin panel, by standardizing the character limit across both interfaces. **Changes Implemented:** Updated Character Limit in Admin Panel: Modified the validation logic in the Ghost Admin panel to increase the feature_image_alt character limit from 125 to 190 characters, matching the Admin API's allowance. **Use-Case for This Change:** Users utilizing the Admin API can set feature_image_alt text up to 190 characters. However, when editing such posts in the Admin panel, they encounter errors due to the lower character limit. This change ensures consistency between the API and Admin panel, enhancing usability and preventing potential data loss or errors during post edits.</MESSAGE>
+      <SHA>862e345c5b657c6a00d8f54701f3341550b76ce0</SHA>
+      <PATCHEDFILES>
+        <FILE>ghost/admin/app/validators/post.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2726</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2726</ISSUEURL>
+  <TITLE>feat: Improve zipkin plugin performance</TITLE>
+  <DESCRIPTION>### Issue description When I do zipkin plugin performance test , I find the cpu always in 75%, but remove the zipkin plugin the cpu is become normal . I find this issue is of zipkin spans report issue, ref:https://github.com/apache/apisix/blob/master/apisix/plugins/zipkin.lua #L221 , I replace it report with batch processor, after that the cpu become normal, sometime become 30% but it can down to 10%.Here is my test case: ### Test Script ``` ./wrk -c 1000 -t 10 -d 120s --latency -H &quot;Host: deepmock.beta.iwosai.com&quot; http://192.168.100.96:9080/whoami ``` ### Without Zipkin Plugin ``` 10 threads and 1000 connections Thread Stats Avg Stdev Max +/- Stdev Latency 208.75ms 264.01ms 2.00s 88.09% Req/Sec 334.13 188.49 0.93k 59.21% Latency Distribution 50% 104.66ms 75% 288.86ms 90% 523.21ms 99% 1.16s 196672 requests in 1.00m, 139.07MB read Socket errors: connect 0, read 0, write 0, timeout 4898 Requests/sec: 3273.51 Transfer/sec: 2.31MB ``` ### Add Zipkin Plugin ``` Running 2m test @ http://192.168.100.96:9080/whoami 10 threads and 1000 connections Thread Stats Avg Stdev Max +/- Stdev Latency 172.44ms 263.79ms 2.00s 89.92% Req/Sec 200.43 185.26 838.00 69.16% Latency Distribution 50% 76.36ms 75% 207.03ms 90% 438.70ms 99% 1.21s 225298 requests in 2.00m, 163.96MB read Socket errors: connect 0, read 0, write 0, timeout 14159 Requests/sec: 1876.76 Transfer/sec: 1.37MB ``` ![image](https://user-images.githubusercontent.com/15153469/98932742-b1f60580-251a-11eb-832d-30c41d1968cd.png) ### After Fixed ``` Running 1m test @ http://192.168.100.96:9080/whoami 10 threads and 1000 connections Thread Stats Avg Stdev Max +/- Stdev Latency 216.30ms 243.66ms 2.00s 90.99% Req/Sec 322.18 163.04 0.96k 62.93% Latency Distribution 50% 170.45ms 75% 254.41ms 90% 427.89ms 99% 1.21s 187282 requests in 1.00m, 136.39MB read Socket errors: connect 0, read 0, write 0, timeout 5020 Requests/sec: 3116.20 Transfer/sec: 2.27MB ``` ![image](https://user-images.githubusercontent.com/15153469/98932860-dd78f000-251a-11eb-9ab1-79e47fc76eaf.png) ![image](https://user-images.githubusercontent.com/15153469/98932900-ecf83900-251a-11eb-861e-2f001a800759.png)</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: support plugin for &quot;aliyun&quot; log service (#2177)</MESSAGE>
+    <SHA>5b396020d5709415244cf09843789e48f3b210fb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat: Improve zipkin span reporter performance (#2727) Close #2726</MESSAGE>
+      <SHA>b3cd11ff02484550dc962d66581b47df0e07d081</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/zipkin.lua</FILE>
+        <FILE>apisix/plugins/zipkin/reporter.lua</FILE>
+        <FILE>t/plugin/zipkin.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

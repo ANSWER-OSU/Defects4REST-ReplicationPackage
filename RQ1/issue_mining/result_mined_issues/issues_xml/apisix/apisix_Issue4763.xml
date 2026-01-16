@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4763</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/4763</ISSUEURL>
+  <TITLE>bug: using HTTP PATCH method to modify plugin pemeters return 405</TITLE>
+  <DESCRIPTION>### Issue description on apisx 2.1, it supports using Http PATCH to modify plugin pemeters，for example ``` [root@qizhendong-dev2 /]# curl http://127.0.0.1:9080/apisix/admin/global_rules/1 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -s | python -m json.tool { &quot;action&quot;: &quot;get&quot;, &quot;count&quot;: &quot;1&quot;, &quot;node&quot;: { &quot;key&quot;: &quot;/apisix/global_rules/1&quot;, &quot;value&quot;: { &quot;create_time&quot;: 1628162770, &quot;id&quot;: &quot;1&quot;, &quot;plugins&quot;: { &quot;http-logger&quot;: { &quot;auth_header&quot;: &quot;&quot;, &quot;batch_max_size&quot;: 1, &quot;buffer_duration&quot;: 60, &quot;concat_method&quot;: &quot;new_line&quot;, &quot;inactive_timeout&quot;: 5, &quot;include_req_body&quot;: false, &quot;max_retry_count&quot;: 0, &quot;name&quot;: &quot;http logger&quot;, &quot;retry_delay&quot;: 1, &quot;send_prometheus_data&quot;: false, &quot;timeout&quot;: 3, &quot;uri&quot;: &quot;http://10.181.159.72:15151&quot;, &quot;use_tcp_transmission&quot;: true }, &quot;limit-conn&quot;: { &quot;burst&quot;: 0, &quot;conn&quot;: 10001, &quot;default_conn_delay&quot;: 0.1, &quot;key&quot;: &quot;remote_addr&quot;, &quot;rejected_code&quot;: 503 } }, &quot;update_time&quot;: 1628162770 } } } [root@qizhendong-dev2 /]# curl -i -X PATCH http://127.0.0.1:9080/apisix/admin/global_rules/1/plugins/limit-conn/conn -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -d &quot;10000&quot; HTTP/1.1 405 Not Allowed Date: Thu, 05 Aug 2021 11:26:21 GMT Content-Type: text/html; charset=utf-8 Content-Length: 154 Connection: close Access-Control-Allow-Origin: * Access-Control-Allow-Credentials: true Access-Control-Expose-Headers: * Access-Control-Max-Age: 3600 Server: APISIX/2.7 &lt;html&gt; &lt;head&gt;&lt;title&gt;405 Not Allowed&lt;/title&gt;&lt;/head&gt; &lt;body&gt; &lt;center&gt;&lt;h1&gt;405 Not Allowed&lt;/h1&gt;&lt;/center&gt; &lt;hr&gt;&lt;center&gt;openresty&lt;/center&gt; &lt;/body&gt; &lt;/html&gt; ``` error.log ``` 2021/08/05 19:26:21 [error] 4705#4705: *1582 lua entry thread aborted: runtime error: /usr/local/apisix/apisix/admin/utils.lua:37: attempt to index local 'patch_conf' (a number value) stack traceback: coroutine 0: /usr/local/apisix/apisix/admin/utils.lua: in function 'inject_timestamp' /usr/local/apisix/apisix/admin/global_rules.lua:159: in function &lt;/usr/local/apisix/apisix/admin/global_rules.lua:116&gt; /usr/local/apisix/apisix/admin/init.lua:176: in function 'handler' /usr/local/apisix//deps/share/lua/5.1/resty/radixtree.lua:721: in function 'dispatch' /usr/local/apisix/apisix/init.lua:757: in function 'http_admin' content_by_lua(nginx.conf:232):2: in main chunk, client: 127.0.0.1, server: _, request: &quot;PATCH /apisix/admin/global_rules/1/plugins/limit-conn/conn HTTP/1.1&quot;, host: &quot;127.0.0.1:9080&quot; ```` **Now, I use 2.1 which can work, but on 2.7 I got this error. We have many deploy scripts to manage our cluter and use a lot of http PATCH method** ### Environment Bug report without environment information will be ignored or closed. * apisix version (cmd: `apisix version`): /usr/local/openresty/luajit/bin/luajit /usr/local/apisix/apisix/cli/apisix.lua version 2.7 * OS (cmd: `uname -a`): inux qizhendong-dev2 3.10.0-514.el7.x86_64 #1 SMP Tue Nov 22 16:42:41 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux * OpenResty / Nginx version (cmd: `nginx -V` or `openresty -V`): nginx version: openresty/1.19.3.2 built by gcc 9.3.1 20200408 (Red Hat 9.3.1-2) (GCC) built with OpenSSL 1.1.1k 25 Mar 2021 TLS SNI support enabled configure arguments: --prefix=/usr/local/openresty/nginx --with-cc-opt='-O2 -DNGX_LUA_ABORT_AT_PANIC -I/usr/local/openresty/zlib/include -I/usr/local/openresty/pcre/include -I/usr/local/openresty/openssl111/include' --add- * etcd version, if have (cmd: run `curl http://127.0.0.1:9090/v1/server_info` to get the info from server-info API): {&quot;id&quot;:&quot;47dd2614-0fe2-49ba-956a-f1e1ba707f03&quot;,&quot;version&quot;:&quot;2.7&quot;,&quot;up_time&quot;:708,&quot;boot_time&quot;:1628162758,&quot;etcd_version&quot;:&quot;3.4.0&quot;,&quot;hostname&quot;:&quot;qizhendong-dev2&quot;,&quot;last_report_time&quot;:1628163418} etcdctl version: 3.4.13 API version: 3.4 * apisix-dashboard version, if have: no * luarocks version, if the issue is about installation (cmd: `luarocks --version`): luarocks 3.7.0 LuaRocks main command-line interface ### Minimal test code / Steps to reproduce the issue Bug report without steps to reproduce will be ignored or closed. 1. 2. 3. ### What's the actual result? (including assertion message &amp; call stack if applicable) ### What's the expected result?</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>chore(deps): bump actions/setup-node from 2.3.1 to 2.3.2 (#4758) Bumps [actions/setup-node](https://github.com/actions/setup-node) from 2.3.1 to 2.3.2. - [Release notes](https://github.com/actions/setup-node/releases) - [Commits](https://github.com/actions/setup-node/compare/v2.3.1...v2.3.2) --- updated-dependencies: - dependency-name: actions/setup-node dependency-type: direct:production update-type: version-update:semver-patch ... Signed-off-by: dependabot[bot] &lt;support@github.com&gt; Co-authored-by: dependabot[bot] &lt;49699333+dependabot[bot]@users.noreply.github.com&gt;</MESSAGE>
+    <SHA>65a2d637178cb868b366d1f0e2fcf0d6f005ad8a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix(admin): inject updatetime when the requst is PATCH with sub path Fix #4763 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>4ffe97c890232a402b78a6821f5b945059cc6956</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/admin/global_rules.lua</FILE>
+        <FILE>apisix/admin/plugin_config.lua</FILE>
+        <FILE>apisix/admin/routes.lua</FILE>
+        <FILE>apisix/admin/services.lua</FILE>
+        <FILE>apisix/admin/ssl.lua</FILE>
+        <FILE>apisix/admin/upstreams.lua</FILE>
+        <FILE>apisix/admin/utils.lua</FILE>
+        <FILE>t/admin/upstream4.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(admin): inject updatetime when the requst is PATCH with sub path (#4765) * fix(admin): inject updatetime when the requst is PATCH with sub path Fix #4763 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt; * fix typo error Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>7a1287a62aebb49c76c439be52835da940cb0ce0</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/admin/global_rules.lua</FILE>
+        <FILE>apisix/admin/plugin_config.lua</FILE>
+        <FILE>apisix/admin/routes.lua</FILE>
+        <FILE>apisix/admin/services.lua</FILE>
+        <FILE>apisix/admin/ssl.lua</FILE>
+        <FILE>apisix/admin/upstreams.lua</FILE>
+        <FILE>apisix/admin/utils.lua</FILE>
+        <FILE>t/admin/upstream4.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

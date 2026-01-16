@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118399</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118399</ISSUEURL>
+  <TITLE>[CI] EsqlSpecIT test {lookup-join.LookupMessageFromIndexKeep ASYNC} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5321 / openjdk22_checkpart3_java-matrix](https://gradle-enterprise.elastic.co/s/ygxjbslruxqru) - [elasticsearch-pull-request #45651 / part-3](https://gradle-enterprise.elastic.co/s/mudm5uoyw2m5a) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:esql:qa:server:multi-node:javaRestTest&quot; --tests &quot;org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT&quot; -Dtests.method=&quot;test {lookup-join.LookupMessageFromIndexKeep SYNC}&quot; -Dtests.seed=9341F9A7F9BF951F -Dtests.locale=ff-Adlm -Dtests.timezone=America/Yellowknife -Druntime.java=22 ``` **Applicable branches:** 8.x **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Blookup-join.LookupMessageFromIndexKeep%20ASYNC%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Data mismatch: row 0 column 0:a list containing row 0 column 0:0: expected &quot;2023-10-23T13:55:01.543Z&quot; but was &quot;2023-10-23T12:15:03.360Z&quot; row 0 column 1:a list containing row 0 column 1:0: expected &quot;172.21.3.15&quot; but was &quot;172.21.2.162&quot; row 0 column 2:a list containing row 0 column 2:0: expected &quot;1756467&quot; but was &quot;3450233&quot; row 0 column 3:a list containing row 0 column 3:0: expected &quot;Connected to 10.1.0.1&quot; but was &quot;Connected to 10.1.0.3&quot; row 1 column 0:a list containing row 1 column 0:0: expected &quot;2023-10-23T13:53:55.832Z&quot; but was &quot;2023-10-23T13:55:01.543Z&quot; row 1 column 2:a list containing row 1 column 2:0: expected &quot;5033755&quot; but was &quot;1756467&quot; row 1 column 3:a list containing row 1 column 3:0: expected &quot;Connection error&quot; but was &quot;Connected to 10.1.0.1&quot; row 1 column 4:a list containing row 1 column 4:0: expected &quot;Error&quot; but was &quot;Success&quot; row 2 column 0:a list containing row 2 column 0:0: expected &quot;2023-10-23T13:52:55.015Z&quot; but was &quot;2023-10-23T13:53:55.832Z&quot; row 2 column 2:a list containing row 2 column 2:0: expected &quot;8268153&quot; but was &quot;5033755&quot; row 3 column 0:a list containing row 3 column 0:0: expected &quot;2023-10-23T13:51:54.732Z&quot; but was &quot;2023-10-23T13:52:55.015Z&quot; ``` **Issue Reasons:** - [8.x] 2 failures in test test {lookup-join.LookupMessageFromIndexKeep ASYNC} (18.2% fail rate in 11 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.reservedstate.service.RepositoriesFileSettingsIT testSettingsApplied #116694</MESSAGE>
+    <SHA>570cdcc7cb8aca83f80e539394a4e791e71e9724</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.multi_node.EsqlSpecIT test {lookup-join.LookupMessageFromIndexKeep ASYNC} #118399</MESSAGE>
+      <SHA>2070571232eae31948f098834f44cd1cc397ca5d</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

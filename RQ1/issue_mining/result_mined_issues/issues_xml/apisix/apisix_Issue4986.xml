@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4986</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/4986</ISSUEURL>
+  <TITLE>Set discovery to DNS, and the service port cannot be obtained automatically</TITLE>
+  <DESCRIPTION>### Issue description 服务发现使用为DNS后，添加路由时，服务名称一定要带端口号吗，测试发现不带端口都被转发到80端口上去了 config.yaml: discovery: dns: servers: - &quot;127.0.0.1:8600&quot; # use the real address of your dns server curl http://127.0.0.1:9080/apisix/admin/routes/1 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -i -d ' { &quot;uri&quot;: &quot;/gatewayd/*&quot;, &quot;upstream&quot;: { &quot;service_name&quot;: &quot;gateway.service.consul&quot; &quot;type&quot;: &quot;roundrobin&quot;, &quot;discovery_type&quot;: &quot;dns&quot; }, &quot;plugins&quot;: { &quot;proxy-rewrite&quot; : { &quot;regex_uri&quot;: [&quot;^/gatewayd/(.*)&quot;, &quot;/${1}&quot;] } } }' ![G}54OW9QEESI L5M}1H`G05](https://user-images.githubusercontent.com/48759779/132150102-f7d42f14-dbe7-4155-a3f5-2aa340551723.jpg) ![@9%8JW L44 @V{B(6V7 BNU](https://user-images.githubusercontent.com/48759779/132150150-a09e8e6e-32a6-4ea9-8f30-b8b22a7e9a20.jpg) 而实际环境中一个服务对应多个节点，端口都是随机不一致的 不能自动获取consul 上注册上去的端口么 ### Environment - apisix version (cmd: `apisix version`): 2.9 - OS (cmd: `uname -a`): centos 7 Linux localhost.localdomain 3.10.0-1160.el7.x86_64 #1 SMP Mon Oct 19 16:18:59 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux - OpenResty / Nginx version (cmd: `nginx -V` or `openresty -V`):openresty/1.19.9.1 - etcd version, if have (cmd: run `curl http://127.0.0.1:9090/v1/server_info` to get the info from server-info API):3.5.0 - apisix-dashboard version, if have:2.7 - consul version :V1.10.2</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix(consul): retry connecting after a delay (#4979)</MESSAGE>
+    <SHA>e49b41d2bb938a9b268bdd61e4a21db5f5f3f75d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix(DNS): prefer SRV in service discovery Fix #4986 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>f384990cdac845f9e5ab7949b1b0edaa14b2e90b</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/discovery/dns.lua</FILE>
+        <FILE>t/coredns/db.test.local</FILE>
+        <FILE>t/discovery/dns/mix.t</FILE>
+        <FILE>t/discovery/dns/sanity.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix(DNS): prefer SRV in service discovery (#4992) Fix #4986 Signed-off-by: spacewander &lt;spacewanderlzx@gmail.com&gt;</MESSAGE>
+      <SHA>2f4564218c8b4daa7dda990065ca7fd81f0ff23a</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/discovery/dns.lua</FILE>
+        <FILE>t/coredns/db.test.local</FILE>
+        <FILE>t/discovery/dns/mix.t</FILE>
+        <FILE>t/discovery/dns/sanity.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

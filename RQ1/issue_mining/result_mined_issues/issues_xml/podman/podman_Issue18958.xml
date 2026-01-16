@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18958</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18958</ISSUEURL>
+  <TITLE>e2e: don't reuse foodevdir</TITLE>
+  <DESCRIPTION>``` [It] podman run device host device with --privileged ... # podman-remote [options] run --privileged quay.io/libpod/alpine:latest test -c /dev/kmsg Error: preparing container 7a060cb2675b1c5d201b5bfdff10a10dcba67a86ffba46f9a646482bd7612714 for attach: open /dev/foodevdir: no such file or directory ``` Almost certainly because too many tests mkdir-rmdir `/dev/foodevdir`, which is not parallel-safe: ```console $ ack foodevdir test/e2e test/e2e/play_kube_test.go 4688: devicePath := &quot;/dev/foodevdir/baddevice&quot; test/e2e/pod_create_test.go 879: Expect(os.MkdirAll(&quot;/dev/foodevdir&quot;, os.ModePerm)).To(Succeed()) 880: defer os.RemoveAll(&quot;/dev/foodevdir&quot;) 882: mknod := SystemExec(&quot;mknod&quot;, []string{&quot;/dev/foodevdir/null&quot;, &quot;c&quot;, &quot;1&quot;, &quot;3&quot;}) 887: session := podmanTest.Podman([]string{&quot;pod&quot;, &quot;create&quot;, &quot;--device&quot;, &quot;/dev/foodevdir:/dev/bar&quot;, &quot;--name&quot;, podName}) test/e2e/run_device_test.go 75: Expect(os.MkdirAll(&quot;/dev/foodevdir&quot;, os.ModePerm)).To(Succeed()) 76: defer os.RemoveAll(&quot;/dev/foodevdir&quot;) 78: mknod := SystemExec(&quot;mknod&quot;, []string{&quot;/dev/foodevdir/null&quot;, &quot;c&quot;, &quot;1&quot;, &quot;3&quot;}) 82: session := podmanTest.Podman([]string{&quot;run&quot;, &quot;-q&quot;, &quot;--device&quot;, &quot;/dev/foodevdir:/dev/bar&quot;, ALPINE, &quot;stat&quot;, &quot;-c%t:%T&quot;, &quot;/dev/bar/null&quot;}) test/e2e/run_privileged_test.go 116: Expect(os.MkdirAll(&quot;/dev/foodevdir&quot;, os.ModePerm)).To(Succeed()) 118: mknod := SystemExec(&quot;mknod&quot;, []string{&quot;/dev/foodevdir/null&quot;, &quot;c&quot;, &quot;1&quot;, &quot;3&quot;}) 128: os.RemoveAll(&quot;/dev/foodevdir&quot;) ``` Trivial to fix, but wow, this mkdir-in-/dev thing really disturbs me, filing because I want some quiet time to look at this and see if there's a better way.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18954 from vrothberg/fix-15828 compat API create/pull/push: fix error handling</MESSAGE>
+    <SHA>dba92832697d0c9741205f2b1d4566a7d7fd332c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>e2e: use parallel-safe /dev subdirectories Replace /dev/foodevdir with unique paths, to avoid one test's RemoveAll() from stepping on another test. Closes: #18958 Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>d0af5df893816811609d57f362cc523ef36a392a</SHA>
+      <PATCHEDFILES>
+        <FILE>test/e2e/pod_create_test.go</FILE>
+        <FILE>test/e2e/run_device_test.go</FILE>
+        <FILE>test/e2e/run_privileged_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

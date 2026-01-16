@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2641</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/2641</ISSUEURL>
+  <TITLE>Ship canary Builders with canary Now CLI</TITLE>
+  <DESCRIPTION>Currently, we're shipping stable Builders with stable and canary Now CLI. To make it easier to test them, we should ship canary Builders with canary Now CLI. In turn, we also need to make now/build-utils aware of this (that's where we select the default builders for zero config).</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Support Node 8 (#2648) * Support Node 8 This changes the TypeScript compilation target to &quot;es2015&quot; so that async generator functions are transpiled, which enables Node 8 to be supported. As a side-effect, any of the files that utilize `async function*` or `for await` needed to be converted to TypeScript so that the transpilation actually happens. It was painful to do this process for `src/commands/deploy/legacy.ts`, and since it is legacy code I did not want to make too many changes to the code, so there's a log of `@ts-ignore` and `any` types being used. But the behavior of the file should not have changed at all. * Make `engines` field be &quot;&gt;= 8&quot; * Add Node 8 to CircleCI matrix * Remove `console.error()` * Remove `.ts` extension on import calls * Use `Now` instead of `any` * Use native `url` module instead of `whatwg-url` * Debug integration test * Skip `02-angular-node` test on Node 8 * Remove debugging * Add &quot;Downloading Hugo&quot; step to Node 8 tests * Skip `03-aurelia` test on Node 8 * Skip `03-aurelia` test for all All node versions are failing with the same error: https://circleci.com/gh/zeit/now-cli/29922 * Use `fs-extra` instead of `fs.promises` for Node 8</MESSAGE>
+    <SHA>257f5f293eb0f5dcc74c758e4b27011bd084d0d5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now dev] Bundle `canary` builders for Now CLI canary Closes #2641.</MESSAGE>
+      <SHA>e1e576d752473e40b0b3452b0dbfee7148bcc29d</SHA>
+      <PATCHEDFILES>
+        <FILE>scripts/build.js</FILE>
+        <FILE>scripts/preinstall.js</FILE>
+        <FILE>src/util/dev/builder-cache.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now dev] Bundle `canary` builders for Now CLI canary (#2661) * [now dev] Bundle `canary` builders for Now CLI canary Closes #2641. * Add unit tests * More unit tests * Use `semver.parse()` in `getDistTag()` * Convert build script to TypeScript, DRY the `getDistTag()` function * Prettier</MESSAGE>
+      <SHA>d29b1b9cfaad1866e8c61e4db1319af6f4bdf7c5</SHA>
+      <PATCHEDFILES>
+        <FILE>package.json</FILE>
+        <FILE>scripts/build.ts</FILE>
+        <FILE>scripts/preinstall.js</FILE>
+        <FILE>src/util/dev/builder-cache.ts</FILE>
+        <FILE>src/util/dev/server.ts</FILE>
+        <FILE>test/dev-builder.unit.js</FILE>
+        <FILE>test/dev-server.unit.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[now dev] Bundle `canary` builders for Now CLI canary (#2661) * [now dev] Bundle `canary` builders for Now CLI canary Closes #2641. * Add unit tests * More unit tests * Use `semver.parse()` in `getDistTag()` * Convert build script to TypeScript, DRY the `getDistTag()` function * Prettier</MESSAGE>
+      <SHA>ba007f89ffda8415638d942c2d7ab854a237c9a8</SHA>
+      <PATCHEDFILES>
+        <FILE>package.json</FILE>
+        <FILE>scripts/build.ts</FILE>
+        <FILE>scripts/preinstall.js</FILE>
+        <FILE>src/util/dev/builder-cache.ts</FILE>
+        <FILE>src/util/dev/server.ts</FILE>
+        <FILE>test/dev-builder.unit.js</FILE>
+        <FILE>test/dev-server.unit.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

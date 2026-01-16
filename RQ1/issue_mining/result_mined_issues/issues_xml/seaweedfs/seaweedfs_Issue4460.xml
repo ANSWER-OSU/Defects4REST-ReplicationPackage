@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4460</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/4460</ISSUEURL>
+  <TITLE>There is a problem with the master election</TITLE>
+  <DESCRIPTION>**Describe the bug** bug introduced by https://github.com/seaweedfs/seaweedfs/commit/4511edc8717b1f54f23469ca0ad20d199c2db2eb &lt;img width=&quot;1317&quot; alt=&quot;企业微信截图_aa59c0cc-81df-46df-8856-4fd3a564e9a3&quot; src=&quot;https://user-images.githubusercontent.com/48707349/236995426-d74050ea-9068-4080-9feb-452c3839496d.png&quot;&gt; Since raft.GrpcServer is not anonymously nested weed_raft. RaftServer structure, so weed_raft. The RaftServer is no longer inherited to raft.GrpcServer. When called based on grpc, the error &quot;method xx not implemented&quot; is returned. &lt;img width=&quot;1049&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/48707349/236995650-e9c6ebfa-1ca0-46a5-9b6c-c0bda59f3b79.png&quot;&gt;</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>reset wait time on a successful retry</MESSAGE>
+    <SHA>25b237b83ca38854154cf4ea3f76ae892fa88b12</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>update raft version fix #4460</MESSAGE>
+      <SHA>d999f1f0e2a13deeb8d221009ac352d86095480d</SHA>
+      <PATCHEDFILES>
+        <FILE>go.mod</FILE>
+        <FILE>weed/server/raft_server.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

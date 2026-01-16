@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7094</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7094</ISSUEURL>
+  <TITLE>Zettle Inventory doubling on initial synchronization when Inventory Tracking Enabled</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.70 Using nop 4.70 with the zettle plugin. When adding new inventory items (sync from Nop to zettle) with inventory tracking enabled, the inventory doubles due to the webhook being called to update inventory after creation. I have added logging into the relevant sections to help me debug since this is an active site that I am unable to connect a debugger to. This product I am trying to sync has an inventory level of 17. Here is the data below: ``` Misc.Zettle information. Synchronization started at 5:56:44 PM UTC Add discounts... Delete products... Also delete all existing library items before importing products Change images... Update inventory tracking... Create and update products... Prepare 3 records to import Import 3 products (#7, #9, #10) Import (9164dece-da50-11ee-8f7f-3d465ce14ec0) created at 5:56:46 PM Synchronization finished at 5:56:46 PM UTC ``` Then a product creation webhook occurs: ```Zettle ProductCreated request { &quot;productUuid&quot;: &quot;88398349-da50-11ee-aaa5-074994edb3be&quot;, &quot;trackingStatusChange&quot;: &quot;START_TRACKING&quot;, &quot;variantChanges&quot;: [ { &quot;fromLocationUuid&quot;: &quot;35c1f814-d8dd-11ee-80f2-39f9cbd7af56&quot;, &quot;toLocationUuid&quot;: &quot;35c1f856-d8dd-11ee-9912-4e467e438357&quot;, &quot;variantUuid&quot;: &quot;8839836c-da50-11ee-aaa5-074994edb3be&quot;, &quot;change&quot;: 17 } ] } ``` UpdateInventoryBalanceAsync is called by webhook &quot;ProductCreated&quot; ``` { &quot;productChanges&quot;: [ { &quot;productUuid&quot;: &quot;88398349-da50-11ee-aaa5-074994edb3be&quot;, &quot;trackingStatusChange&quot;: &quot;START_TRACKING&quot;, &quot;variantChanges&quot;: [ { &quot;fromLocationUuid&quot;: &quot;35c1f814-d8dd-11ee-80f2-39f9cbd7af56&quot;, &quot;toLocationUuid&quot;: &quot;35c1f856-d8dd-11ee-9912-4e467e438357&quot;, &quot;variantUuid&quot;: &quot;8839836c-da50-11ee-aaa5-074994edb3be&quot;, &quot;change&quot;: 17 } ] } ], &quot;returnBalanceForLocationUuid&quot;: &quot;35c1f856-d8dd-11ee-9912-4e467e438357&quot;, &quot;externalUuid&quot;: &quot;925991aa-da50-11ee-aaa5-074994edb3be&quot; } ``` The problem appears to be the below item, webhook &quot;InventoryBalanceChanged&quot; ``` { &quot;externalUuid&quot;: &quot;925991aa-da50-11ee-aaa5-074994edb3be&quot;, &quot;balanceBefore&quot;: [ { &quot;locationUuid&quot;: &quot;35c1f856-d8dd-11ee-9912-4e467e438357&quot;, &quot;productUuid&quot;: &quot;88398349-da50-11ee-aaa5-074994edb3be&quot;, &quot;variantUuid&quot;: &quot;8839836c-da50-11ee-aaa5-074994edb3be&quot;, &quot;balance&quot;: 0, &quot;created&quot;: &quot;2024-03-04T17:56:46.779+00:00&quot; } ], &quot;balanceAfter&quot;: [ { &quot;locationUuid&quot;: &quot;35c1f856-d8dd-11ee-9912-4e467e438357&quot;, &quot;productUuid&quot;: &quot;88398349-da50-11ee-aaa5-074994edb3be&quot;, &quot;variantUuid&quot;: &quot;8839836c-da50-11ee-aaa5-074994edb3be&quot;, &quot;balance&quot;: 17, &quot;created&quot;: &quot;2024-03-04T17:56:48.661+00:00&quot; } ], &quot;updated&quot;: { &quot;timestamp&quot;: &quot;2024-03-04T17:56:48.661+00:00&quot; }, &quot;error&quot;: null, &quot;error_description&quot;: null, &quot;developerMessage&quot;: null } ``` The issue: _zettleSettings.InventoryTrackingIds This object is newed up each time a new thread gets spawned. This is supposed to be the repository for any external tracking GUID's that are transmitted from zettle to nop. Since there are multiple items synced, multiple threads get spawned, and as a result the memory space for each instance of _zettleSettings.InventoryTrackingIds is not shared across requests. These id's are stored in the database under table setting (zettlesettings.inventorytrackingids) The issue here is that since the object is not shared across requests, this database location is overwritten constantly without concurrency. If three products get added in bulk, three &quot;InventoryBalanceChanged&quot; webhook requests get fired, and each request only knows of it's own tracking id. not the other two leading to a loss of concurrent data. I have re-worked this section to prevent this from occurring. I will submit a PR.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>42</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#4880 Added UnknownFile directory to check write permission</MESSAGE>
+    <SHA>51034c3e4386d09f81908bee2ae92be34da79a1e</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix inventory doubling on webhook request from zettle to nop. Github issue #7094</MESSAGE>
+      <SHA>acfd0d3328725d302d056397d619d5935004ee65</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Zettle/Controllers/ZettleAdminController.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Zettle/Domain/ZettleRecord.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Zettle/Services/ZettleService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#7094 PayPal Zettle plugin. Fix inventory doubling on webhook request (#7096)</MESSAGE>
+      <SHA>34215c134d50b7a77c75d55536de59b322587a77</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Zettle/Controllers/ZettleAdminController.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Zettle/Domain/ZettleRecord.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Zettle/Services/ZettleService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#7094 PayPal Zettle plugin. Next changes to fix inventory doubling</MESSAGE>
+      <SHA>25de00e68255a2c0a85289179c5f3ffa8e53c574</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Zettle/Controllers/ZettleAdminController.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Zettle/Data/InventoryBalanceMigration.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Zettle/Domain/ZettleRecord.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Zettle/Services/ZettleService.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Zettle/ZettleSettings.cs</FILE>
+        <FILE>src/Plugins/Nop.Plugin.Misc.Zettle/plugin.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

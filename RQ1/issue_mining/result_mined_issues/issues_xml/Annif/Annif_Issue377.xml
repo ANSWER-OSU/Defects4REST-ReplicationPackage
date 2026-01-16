@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>377</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/377</ISSUEURL>
+  <TITLE>Use sparse arrays for subject vectors</TITLE>
+  <DESCRIPTION>Currently subject vectors (wrapped by VectorSuggestionResult and ListSuggestionResult objects) are basic, dense NumPy vectors. These take up a lot of RAM, for example a single YSO vector takes about 40,000 subjects * 4 bytes (float32) = 160kB and these add up especially for ensemble backends (pav and nn_ensemble) that need to keep many such vectors in memory. SciPy sparse vectors would likely be much more space-efficient so we should (try to) switch to them. (related to #339)</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>8</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #376 from NatLibFi/issue342-train-cached-option Implement --cached option for train command</MESSAGE>
+    <SHA>8c1a09a757b7ca85e69203682e2254028ae4460b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Store returned scores as sparse vectors in PAV backend, saving RAM (part of #377)</MESSAGE>
+      <SHA>7008316e6606d3c3d80377afa96c21d7f5d84259</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/backend/pav.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Store also true labels as sparse vectors in PAV backend, saving RAM (part of #377)</MESSAGE>
+      <SHA>e2dc1576c45a0198c7707118a0c6321fea66fbfc</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/backend/pav.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

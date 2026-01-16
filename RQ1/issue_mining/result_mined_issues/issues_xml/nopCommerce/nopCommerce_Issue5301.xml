@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5301</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5301</ISSUEURL>
+  <TITLE>Limit to store works incorrectly</TITLE>
+  <DESCRIPTION>nopCommerce version: develop Steps to reproduce the problem: 1. Configure two stores, e.g. First-store and Second-store 2. Edit a blog post or create a new one 3. Set `Limited to stores` property for First-store 4. Go to the Second-store/blog page 5. See there a blog post limited to First-store only Same for other `IStoreMappingSupported` entities. [IsEntityMappingExists](https://github.com/nopSolutions/nopCommerce/blob/develop/src/Libraries/Nop.Services/Stores/StoreMappingService.cs#L141) checks mappings only for the passed store, and if they are not there the store-mapping filter will not be included in the query, but there may be mappings for other stores that will not be counted at all. In previous versions that filter is included in all queries, but of course it affected the performance.</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>24</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Admin panel - changed the &quot;back to&quot; link size</MESSAGE>
+    <SHA>2490a566370685e690c6d5db95d124922ce13eb2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5301 Fixed condition for checking the existence of ACL rules and store mappings in DB. #5133 The ACL and store mapping methods moved directly to their call places. Correct entity filter by store in the admin area. Rename variable.</MESSAGE>
+      <SHA>9a5023699bb0a5585b5d9a6a3392bde11456a936</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Blogs/BlogService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/CategoryService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/ManufacturerService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/ProductService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Catalog/ProductTagService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Directory/CountryService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Messages/MessageTemplateService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/News/NewsService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Orders/OrderReportService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Polls/PollService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Security/AclService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Security/Caching/AclRecordCacheEventConsumer.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Security/IAclService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Security/NopSecurityDefaults.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Stores/Caching/StoreMappingCacheEventConsumer.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Stores/IStoreMappingService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Stores/NopStoreDefaults.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Stores/StoreMappingService.cs</FILE>
+        <FILE>src/Libraries/Nop.Services/Topics/TopicService.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Areas/Admin/Views/Customer/_CreateOrUpdate.Info.cshtml</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/CatalogModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/CommonModelFactory.cs</FILE>
+        <FILE>src/Presentation/Nop.Web/Factories/WidgetModelFactory.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

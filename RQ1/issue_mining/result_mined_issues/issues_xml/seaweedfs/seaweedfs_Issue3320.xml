@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3320</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3320</ISSUEURL>
+  <TITLE>[filer] duplicated local subscription detected</TITLE>
+  <DESCRIPTION>**Describe the bug** Persistent error background **System Setup** ``` version 8000GB 3.15 37578929 linux amd64 ``` ![Screenshot 2022-07-15 at 17 53 26](https://user-images.githubusercontent.com/9497591/179227025-5a4b32c4-b83e-46fb-887a-6b2b66c0f82a.png) **Additional context** ``` I0715 12:40:02 1 meta_aggregator.go:102] subscribing remote 10.103.39.13:9090 meta change: rpc error: code = Unknown desc = duplicated local subscription detected for client filer:10.106.97.33:9090@10.106.97.33:41542 id 650053677 I0715 12:40:01 1 meta_aggregator.go:102] subscribing remote 10.103.39.35:9090 meta change: rpc error: code = Unknown desc = duplicated local subscription detected for client filer:10.106.97.2:9090@10.106.97.2:52844 id -1217481642 ``` restarting api server does not help ``` kubectl -n s3 exec -it api-77db57df9b-5g4cn -- kill -s TERM 1 kubectl -n s3 get pods api-77db57df9b-5g4cn NAME READY STATUS RESTARTS AGE api-77db57df9b-5g4cn 1/1 Running 2 24h ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>minor</MESSAGE>
+    <SHA>2ae3f812f8bd2ce1aaae505a31cc33decf872f0b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>err msg with duplicated local subscription detected move to log level 1 https://github.com/chrislusf/seaweedfs/issues/3320</MESSAGE>
+      <SHA>11e393dbe796ea3adf56e9fac9852dd8bb07ac2a</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filer/meta_aggregator.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>err msg with duplicated local subscription detected move to log level 1 https://github.com/chrislusf/seaweedfs/issues/3320</MESSAGE>
+      <SHA>b6471ecd754dbcd26c7ccc767be16c8acc6337b9</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filer/meta_aggregator.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7393</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/7393</ISSUEURL>
+  <TITLE>BulkCopy with KeepIdentity doesn't update the identity sequence in PostgreSQL</TITLE>
+  <DESCRIPTION>nopCommerce version: develop &gt; The problem is in first insertion, it will call BulkInsertEntitiesAsync: &gt; ```c# &gt; /// &lt;returns&gt;A task that represents the asynchronous operation&lt;/returns&gt; &gt; protected virtual async Task InsertInstallationDataAsync&lt;T&gt;(params T[] entities) where T : BaseEntity &gt; { &gt; await _dataProvider.BulkInsertEntitiesAsync(entities); &gt; } &gt; ``` ```c# public override async Task BulkInsertEntitiesAsync&lt;TEntity&gt;(IEnumerable&lt;TEntity&gt; entities) { using var dataContext = CreateDataConnection(LinqToDbDataProvider); await dataContext.BulkCopyAsync(new BulkCopyOptions() { KeepIdentity = true }, entities.RetrieveIdentity(dataContext)); } ``` &gt; &gt; and for second insertion, it calls InsertEntityAsync: &gt; &gt; ```c# &gt; protected virtual async Task&lt;T&gt; InsertInstallationDataAsync&lt;T&gt;(T entity) where T : BaseEntity &gt; { &gt; return await _dataProvider.InsertEntityAsync(entity); &gt; } &gt; ``` &gt; &gt; There is a minor difference in call these two methods, in BulkInsertEntitiesAsync, it will RetrieveIdentity (so count the largest id from table, and use that for the start id of all bulk insert entities), this will not affect the current value of Product_Picture_Mapping_Id_seq, after inserted two ProductPicture records, the current value for Product_Picture_Mapping_Id_seq is still 0. &gt; &gt; And then it try to insert a ProductPicture with InsertEntityAsync, this time, it will use the current sequence id from Product_Picture_Mapping_Id_seq, so we will get allocated id = 1, but this id already existed in ProductPicture table, so you will get an error: &gt; &gt; duplicate key value violates unique constraint &quot;PK_Product_Picture_Mapping&quot; Source: https://www.nopcommerce.com/en/boards/topic/101149/is-postgres-database-supported-in-nopcommerce</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#7203 Suppressed clearing the form when entering the wrong billing/shipping address on the multistep checkout page</MESSAGE>
+    <SHA>1fe42cc649f3780bc99c738f39b9d413af36d565</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#7393 Fixed BulkCopy operation for PostgreSQL</MESSAGE>
+      <SHA>5c5b904c92f56144940fd4a542b02ce4ae975e6a</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Data/DataProviders/BaseDataProvider.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/DataProviders/PostgreSqlDataProvider.cs</FILE>
+        <FILE>src/Libraries/Nop.Data/Mapping/FluentMigratorMetadataReader.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

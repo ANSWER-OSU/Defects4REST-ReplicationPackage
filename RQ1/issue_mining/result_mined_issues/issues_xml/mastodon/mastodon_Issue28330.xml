@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>28330</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/28330</ISSUEURL>
+  <TITLE>The text about &quot;follows from other servers&quot; is cropped and difficult to read in some cases</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem 1.Create view that news are in columns (Home, Local timeline and Federated timeline) 2. Open https://pol.social/deck/@linuxmagazine@fosstodon.org/following in fourth column and take a look on right down corner: ![image](https://github.com/mastodon/mastodon/assets/26818304/283959fb-acc9-4ab1-b661-d1ca03326686) ### Expected behaviour Correct displaying of text ### Actual behaviour The text is cropped and difficult to read ### Detailed description Text `Follows from other servers are not displayed.` is cropped when profile has many informations on element `#mastodon &gt; div &gt; div &gt; div.columns-area &gt; div:nth-child(5) &gt; div &gt; div.account-timeline__header &gt; div &gt; div.account__header__bar` Element where text is cropped: `&lt;div class=&quot;empty-column-indicator&quot;&gt;&lt;div class=&quot;timeline-hint&quot;&gt;&lt;strong&gt;&lt;span&gt;&lt;span&gt;Follows&lt;/span&gt; from other servers are not displayed.&lt;/span&gt;&lt;/strong&gt;&lt;br&gt;&lt;a href=&quot;https://fosstodon.org/@linuxmagazine&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span&gt;Browse more on the original profile&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;` Selector: `#mastodon &gt; div &gt; div &gt; div.columns-area &gt; div:nth-child(5) &gt; div &gt; div.empty-column-indicator` ### Mastodon instance pol.social ### Mastodon version v4.2.0 ### Browser name and version Microsoft Edge Version 120.0.2210.61 (Official build) (64-bit) ### Operating system OS Name Microsoft Windows 10 Enterprise ### Technical details _No response_</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix `LinkCrawlWorker` error when encountering empty OEmbed response (#28268)</MESSAGE>
+    <SHA>a8a5c6514f6676155661846398fa0398e7355f5d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix empty column explainer getting cropped under certain conditions Fixes #28330</MESSAGE>
+      <SHA>681ab724f520909efdac37ae818a805e5b22a906</SHA>
+      <PATCHEDFILES>
+        <FILE>app/javascript/styles/mastodon/components.scss</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

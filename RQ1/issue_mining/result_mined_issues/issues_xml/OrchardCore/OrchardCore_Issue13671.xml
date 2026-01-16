@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>13671</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/13671</ISSUEURL>
+  <TITLE>Setting Authority value in OpenId server does not reflect server endpoints in the well-known info</TITLE>
+  <DESCRIPTION>### Describe the bug When using OpenId Server feature, one of the available settings is **Authority** or **Issuer**. When providing a specific value, the values the URI's showing for `authorization_endpoint`, `token_endpoint`, `introspection_endpoint`, `end_session_endpoint`, `revocation_endpoint`, `userinfo_endpoint`, and `jwks_uri` will still reflect the current site URL. For example, my OC app is running locally using `https://custom-domain.NET` this domain is accessible only when users on the internal network access my app. However, external apps must use `https://custom-domain.COM` in order to get to the same website. To allow external apps to connect to my app, I set the `Issuer` to `https://custom-domain.com/` which is the domain anyone can use to connect to my server. However, the value for the other endpoints still reflect the `.NET` domain not the `.COM` as I would expect. Here is the output of the `https://custom-domain.com/.well-known/openid-configuration` ``` { &quot;issuer&quot;: &quot;https://custom-domain.com/&quot;, &quot;authorization_endpoint&quot;: &quot;https://custom-domain.NET/connect/authorize&quot;, &quot;token_endpoint&quot;: &quot;https://custom-domain.NET/connect/token&quot;, &quot;introspection_endpoint&quot;: &quot;https://custom-domain.NET/connect/introspect&quot;, &quot;end_session_endpoint&quot;: &quot;https://custom-domain.NET/connect/logout&quot;, &quot;revocation_endpoint&quot;: &quot;https://custom-domain.NET/connect/revoke&quot;, &quot;userinfo_endpoint&quot;: &quot;https://custom-domain.NET/connect/userinfo&quot;, &quot;jwks_uri&quot;: &quot;https://custom-domain.NET/.well-known/jwks&quot;, &quot;grant_types_supported&quot;: [ &quot;authorization_code&quot;, &quot;refresh_token&quot; ], &quot;response_types_supported&quot;: [ &quot;code&quot; ], &quot;response_modes_supported&quot;: [ &quot;form_post&quot;, &quot;fragment&quot;, &quot;query&quot; ], &quot;scopes_supported&quot;: [ &quot;openid&quot;, &quot;offline_access&quot;, &quot;email&quot;, &quot;phone&quot;, &quot;profile&quot;, &quot;roles&quot; ], &quot;claims_supported&quot;: [ &quot;aud&quot;, &quot;exp&quot;, &quot;iat&quot;, &quot;iss&quot;, &quot;sub&quot; ], &quot;id_token_signing_alg_values_supported&quot;: [ &quot;RS256&quot; ], &quot;code_challenge_methods_supported&quot;: [ &quot;S256&quot; ], &quot;subject_types_supported&quot;: [ &quot;public&quot; ], &quot;token_endpoint_auth_methods_supported&quot;: [ &quot;client_secret_basic&quot;, &quot;client_secret_post&quot; ], &quot;introspection_endpoint_auth_methods_supported&quot;: [ &quot;client_secret_basic&quot;, &quot;client_secret_post&quot; ], &quot;revocation_endpoint_auth_methods_supported&quot;: [ &quot;client_secret_basic&quot;, &quot;client_secret_post&quot; ], &quot;claims_parameter_supported&quot;: false, &quot;request_parameter_supported&quot;: false, &quot;request_uri_parameter_supported&quot;: false, &quot;authorization_response_iss_parameter_supported&quot;: true } ``` ### Expected behavior I think anytime an `Authority` settings is different than the current host, the value for `authorization_endpoint`, `token_endpoint`, `introspection_endpoint`, `end_session_endpoint`, `revocation_endpoint`, `userinfo_endpoint`, and `jwks_uri` should be based on the Issue not the current site.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>mkdocs-material 9.1.10</MESSAGE>
+    <SHA>d71454c2078e8a47046e8fe2bd4574b5166fe12f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #13671</MESSAGE>
+      <SHA>67f07c026e95e0bf088e5a7e7131ba63837985f4</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.OpenId/Configuration/OpenIdServerConfiguration.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

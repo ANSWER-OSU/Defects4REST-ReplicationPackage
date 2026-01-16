@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19795</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/19795</ISSUEURL>
+  <TITLE>github.com/opencontainers/runc not being updated</TITLE>
+  <DESCRIPTION>Currently `go.mod` contains ``` replace github.com/opencontainers/runc =&gt; github.com/opencontainers/runc v1.1.1-0.20220617142545-8b9452f75cbc ``` This is from the main branch, while releases come from a divergent `release-1.1` branch. And the commit reference in `replace` hasn’t changed since 2022-06-13 . I think that’s risky; compare https://github.com/containers/podman/pull/18110 fixing security vulnerabilities (luckily, AFAICS, not impacting the Podman codebase right now, but that can change by using one more subpackage, without us noticing.) I think either we should revert back to using released versions (maybe that’s possible after https://github.com/containers/podman/pull/19101 ?), or Podman needs some process to keep updating the runc `replace` directive to keep up with upstream fixes. I don’t know nearly enough about runc to suggest which one is preferable.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>342</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #23484 from edsantiago/safename-600 CI: completion system test: use safename</MESSAGE>
+    <SHA>43a077db87971ff1b6689fba45c31e6d3be3fe41</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Remove runc edit to lock to specific version Fixes: https://github.com/containers/podman/issues/19795 Signed-off-by: Daniel J Walsh &lt;dwalsh@redhat.com&gt;</MESSAGE>
+      <SHA>37226e2e93e720b8bd05c2e99ea38152687d303d</SHA>
+      <PATCHEDFILES>
+        <FILE>go.mod</FILE>
+        <FILE>go.sum</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/apparmor/apparmor_unsupported.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/cgroups.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/file.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/fs/cpu.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/fs2/fs2.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/fs2/memory.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/cgroups/utils.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/configs/cgroup_unsupported.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/configs/config.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/configs/configs_fuzzer.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/configs/mount_unsupported.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/configs/namespaces_syscall.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/configs/namespaces_syscall_unsupported.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/configs/namespaces_unsupported.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/devices/device_unix.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/userns/userns.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/userns/userns_linux.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/userns/userns_linux_fuzzer.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/userns/userns_maps.c</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/userns/userns_maps_linux.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/userns/userns_unsupported.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/userns/usernsfd_linux.go</FILE>
+        <FILE>vendor/github.com/opencontainers/runc/libcontainer/utils/utils_unix.go</FILE>
+        <FILE>vendor/modules.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

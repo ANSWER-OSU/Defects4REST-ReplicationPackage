@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>232</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/232</ISSUEURL>
+  <TITLE>Manage group administrators</TITLE>
+  <DESCRIPTION>## Feature Request Thanks to the great work around #210 _signal-cli-rest-api_ will be able to manage group members with the next release The next step would be to show, add and remove group administrators. ### API proposal #### `GET /v1/groups/{number}` For each group include an array of admins: ```json { &quot;admins&quot;: [ &quot;string&quot; ], &quot;blocked&quot;: true, &quot;id&quot;: &quot;string&quot;, &quot;internal_id&quot;: &quot;string&quot;, &quot;invite_link&quot;: &quot;string&quot;, &quot;members&quot;: [ &quot;string&quot; ], &quot;name&quot;: &quot;string&quot;, &quot;pending_invites&quot;: [ &quot;string&quot; ], &quot;pending_requests&quot;: [ &quot;string&quot; ] } ``` #### `GET /v1/groups/{number}/{groupid}` Include an array of admins similar like shown above. #### `POST /v1/groups/{number}/{groupid}/admins` Similar endpoint like for adding group members. ```json { &quot;admins&quot;: [ &quot;string&quot; ] } ``` #### `DELETE /v1/groups/{number}/{groupid}/admins` Similar endpoint like for removing group members. ```json { &quot;admins&quot;: [ &quot;string&quot; ] } ``` As of my applications, adding a new field to a JSON object would be a non-breaking change.</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>26</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fixed bug in &quot;add/remove members to group&quot; endpoint * forgot to reference group</MESSAGE>
+    <SHA>60b4d8afbfb4c0ef5c2d5cd893f662ea2c6d538f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>added new API endpoints to add/remove admins to/from Signal Groups see #232</MESSAGE>
+      <SHA>d34fcb905ea427e86a03e9e7e092615514fe7933</SHA>
+      <PATCHEDFILES>
+        <FILE>src/api/api.go</FILE>
+        <FILE>src/client/client.go</FILE>
+        <FILE>src/docs/docs.go</FILE>
+        <FILE>src/docs/swagger.json</FILE>
+        <FILE>src/docs/swagger.yaml</FILE>
+        <FILE>src/main.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>added admins to groups GET endpoint see #232</MESSAGE>
+      <SHA>c4b5f900f9464e9d4e9ecbfac18b2fc40d6806af</SHA>
+      <PATCHEDFILES>
+        <FILE>src/client/client.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>added new API endpoints to add/remove admins to/from Signal Groups see #232</MESSAGE>
+      <SHA>387d45192bd9f27610504a72ecf225b2e05e44a9</SHA>
+      <PATCHEDFILES>
+        <FILE>src/api/api.go</FILE>
+        <FILE>src/client/client.go</FILE>
+        <FILE>src/docs/docs.go</FILE>
+        <FILE>src/docs/swagger.json</FILE>
+        <FILE>src/docs/swagger.yaml</FILE>
+        <FILE>src/main.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>added admins to groups GET endpoint see #232</MESSAGE>
+      <SHA>264883d3f64159d8d9295daf9018c80743451f44</SHA>
+      <PATCHEDFILES>
+        <FILE>src/client/client.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

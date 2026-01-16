@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14829</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/14829</ISSUEURL>
+  <TITLE>middleware must be in execution pipeline before UseRouting to 'Configure(...)' in the application startup code.</TITLE>
+  <DESCRIPTION>@jtkech maybe this issue due to #14801 But, when I run my app now I get this error &gt; middleware must be in execution pipeline before UseRouting to 'Configure(...)' in the application startup code. ![image](https://github.com/OrchardCMS/OrchardCore/assets/24724371/f8c881c9-0f9c-4264-80e5-f50b0c9671c6) I am using `IStartupFilter` ``` services.AddSingleton&lt;IStartupFilter, DetectionStartupFilter&gt;(); ``` ``` public class DetectionStartupFilter : IStartupFilter { public Action&lt;IApplicationBuilder&gt; Configure(Action&lt;IApplicationBuilder&gt; next) { return app =&gt; { app.UseDetection(); next(app); }; } } ``` The error is thrown here https://github.com/wangkanai/wangkanai/blob/2abff4ffcaf15a024b2c0705c941fb9353f2205d/Hosting/src/DependencyInjection/ApplicationBuilderExtensions.cs#L36</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Testing docker build (#14825)</MESSAGE>
+    <SHA>ed991296c486e6774561ba678b880ed021b27298</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Call IStartupFilter.Configure method before Configure Pipeline Fix #14829</MESSAGE>
+      <SHA>648add252001a5f3152ac36aa6a97dd1472fc84d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore/OrchardCore/Modules/Extensions/ShellPipelineExtensions.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

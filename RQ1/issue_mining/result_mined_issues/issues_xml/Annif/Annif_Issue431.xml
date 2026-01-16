@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>431</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/431</ISSUEURL>
+  <TITLE>Problem parsing timestamps from Maui Server</TITLE>
+  <DESCRIPTION>When starting up the Web UI (`annif run`) I encountered this error: ``` File &quot;/home/local/oisuomin/git/Annif/annif/backend/maui.py&quot;, line 30, in modification_time return datetime.strptime(mtime, '%Y-%m-%dT%H:%M:%S.%fZ') File &quot;/usr/lib/python3.7/_strptime.py&quot;, line 577, in _strptime_datetime tt, fraction, gmtoff_fraction = _strptime(data_string, format) File &quot;/usr/lib/python3.7/_strptime.py&quot;, line 359, in _strptime (data_string, format)) ValueError: time data '2020-05-27T08:02:55.222+03:00' does not match format '%Y-%m-%dT%H:%M:%S.%fZ' ``` The problem is that the `maui` backend expects timestamps to have the UTC (&quot;zulu&quot;) designator Z, but Maui Server can also produce date strings formatted with ISO 8601 timezone offsets such as `+03:00`. PR follows...</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #430 from NatLibFi/feature-cli-short-form-options Define short form for CLI options and fix some of their docstrings</MESSAGE>
+    <SHA>6352dea3768acaac1fa9f6272a60f8ac15ce857f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Make modification timestamps timezone-aware. Fixes #431</MESSAGE>
+      <SHA>bd1c68f8933db6ba183b0771bfd6e211cd9f19c9</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/backend/backend.py</FILE>
+        <FILE>annif/backend/http.py</FILE>
+        <FILE>annif/backend/maui.py</FILE>
+        <FILE>tests/test_backend_http.py</FILE>
+        <FILE>tests/test_backend_maui.py</FILE>
+        <FILE>tests/test_backend_pav.py</FILE>
+        <FILE>tests/test_project.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

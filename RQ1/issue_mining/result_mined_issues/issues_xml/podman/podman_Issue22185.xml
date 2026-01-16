@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>22185</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/22185</ISSUEURL>
+  <TITLE>include arch/os in image libpod list</TITLE>
+  <DESCRIPTION>### Feature request description Today, ``` &quot;Architecture&quot;: &quot;arm64&quot;, &quot;Os&quot;: &quot;linux&quot;, ``` are only available when we inspect an image But usually this information is useful when we want to list images. For example to know if an image is using `amd64` or Apple Silicon computer, etc. so it requires one additional query for each image. ### Suggest potential solution Include ```json &quot;Architecture&quot;: &quot;arm64&quot;, &quot;Os&quot;: &quot;linux&quot;, ``` as part of `libpod/images/json` return this information could be with an additional query parameter to the endpoint `?arch=true&amp;os=true`, `?displayArchAndOs`, whatever so opt-in query. ### Have you considered any alternatives? A clear and concise description of any alternative solutions or features you've considered. ### Additional context Add any other context or screenshots about the feature request here.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>15</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #22260 from baude/validatepr [CI:DOCS]Initial PR validation</MESSAGE>
+    <SHA>0b0335259e672c8e9640c2852722a0d7974ef830</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Add os, arch, and ismanifest to libpod image list when listing images through the restful service, consumers want to know if the image they are listing is a manifest or not because the libpod endpoint returns both images and manifest lists. in addition, we now add `arch` and `os` as fields in the libpod endpoint for image listing as well. Fixes: #22184 Fixes: #22185 Signed-off-by: Brent Baude &lt;bbaude@redhat.com&gt;</MESSAGE>
+      <SHA>08a49389c8574b173d41feb10b5aa0e6a4d6d005</SHA>
+      <PATCHEDFILES>
+        <FILE>hack/xref-helpmsgs-manpages</FILE>
+        <FILE>pkg/api/handlers/compat/images.go</FILE>
+        <FILE>pkg/domain/entities/images.go</FILE>
+        <FILE>pkg/domain/entities/types/images.go</FILE>
+        <FILE>pkg/domain/infra/abi/images_list.go</FILE>
+        <FILE>test/apiv2/12-imagesMore.at</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

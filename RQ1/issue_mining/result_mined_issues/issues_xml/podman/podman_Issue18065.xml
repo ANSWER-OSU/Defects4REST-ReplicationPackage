@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18065</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/18065</ISSUEURL>
+  <TITLE>Cirrus: Failed to stop: java something</TITLE>
+  <DESCRIPTION>Seeing this a lot lately, multiple times per day: ``` Failed to stop: Task java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask@1b21f19b[ Not completed, task = java.util.concurrent.Executors$RunnableAdapter@2a087959[ Wrapped task = TrustedListenableFutureTask@5768a9f6[ status=PENDING, info=[ task=[running=[NOT STARTED YET], com.google.api.gax.rpc.CheckingAttemptCallable@5137f960] ] ] ] ] rejected from java.util.concurrent.ScheduledThreadPoolExecutor@728a8117[ Terminated, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 4438 ] ``` e.g. [here](https://cirrus-ci.com/task/6007844865048576), [here](https://cirrus-ci.com/task/4566393509642240). Unfortunately my flake logger has a bug, it isn't preserving log links for these. I'll track that down when I have time. ITM this is still worth filing. Obvious first thought is that it's a problem on the Cirrus end, but I see [nothing reported there](https://github.com/cirruslabs/cirrus-ci-web/issues?q=is%3Aissue+is%3Aopen+failed+to+stop). We're also seeing lots of `Failed to start`, but those aren't as bad, because those happen within a few minutes. The `stop` ones happen after the task has finished, and all tests have run (possibly even passed), so it's a big waste of energy and time.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>32</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #18069 from cevich/fix_build_aarch64_dep Cirrus: Fix aarch64 clone_script 404 errors</MESSAGE>
+    <SHA>19463738c2f4512e118c4a12c6422a66537a6edb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Cirrus: Enable labeling of EC2 VMs In GCP, user specified VM names are required upon creation. Cirrus-CI generates helpful names containing the task-ID. Unfortunately in EC2 the VM ID's are auto-generated, and special permissions are required to allow secondary setting of a `Name` tag. Since this permission has been granted, enable the `experimental` flag on EC2 tasks so that cirrus can update VM name-tags. This is especially useful in troubleshooting orphaned VMs. Ref: https://github.com/containers/podman/issues/18065#issuecomment-1497779159 Signed-off-by: Chris Evich &lt;cevich@redhat.com&gt;</MESSAGE>
+      <SHA>56e7b511e1d1568809e7b4066b97adb2d498fed1</SHA>
+      <PATCHEDFILES>
+        <FILE>.cirrus.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2046</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/2046</ISSUEURL>
+  <TITLE>HEAD memory usage for large files is insane</TITLE>
+  <DESCRIPTION>**Describe the bug** Currently I'm using [minio/mc](https://github.com/minio/mc) as command shell, when I'm downloading large files from server, like `mc cp s3/mybucket/large10g.txt 10g.txt` mc will send HEAD request first to s3 api, then proxy to filer the memory usage is about 2 times of the file size, for example, a 10 GB file will cost like 20GB memory. After debug for a while, it appears to me that has something to do with #1913</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #2045 from qieqieplus/fix-vacuum-commit</MESSAGE>
+    <SHA>24efa31e49aea0ff5e0cbdaa1a8cb6267dbcbfed</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>revert PR #1903 avoid http error: superfluous response.WriteHeader</MESSAGE>
+      <SHA>ac71117ee67b0506ecf9fab382d6110e30c50e35</SHA>
+      <PATCHEDFILES>
+        <FILE>go.mod</FILE>
+        <FILE>go.sum</FILE>
+        <FILE>weed/command/filer_cat.go</FILE>
+        <FILE>weed/filer/filer_on_meta_event.go</FILE>
+        <FILE>weed/filer/read_write.go</FILE>
+        <FILE>weed/filer/stream.go</FILE>
+        <FILE>weed/s3api/s3api_object_handlers.go</FILE>
+        <FILE>weed/server/common.go</FILE>
+        <FILE>weed/server/filer_server_handlers_read.go</FILE>
+        <FILE>weed/server/volume_server_handlers_read.go</FILE>
+        <FILE>weed/shell/command_fs_cat.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix https://github.com/chrislusf/seaweedfs/issues/2046</MESSAGE>
+      <SHA>42f631f5495bfb55817dffe7d8ef678be33a7cbe</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/filer/stream.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

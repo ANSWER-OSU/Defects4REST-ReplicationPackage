@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>114</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/114</ISSUEURL>
+  <TITLE>Load vocabulary and metadata separately</TITLE>
+  <DESCRIPTION>Currently the only supported subject corpus format is one that is organized by subject and contains both the vocabulary (URI + label) and metadata (lines of text, e.g. document titles). But most existing metadata is not in this subject-centric form but as individual documents. Also fastText (and probably many other ML models) requires document-centric input. Currently we do an awkward transformation that takes some time and memory and may lose some information. We should have a command for loading a vocabulary in SKOS or TSV format, e.g. annif loadvoc yso-fi yso-skos.ttl annif loadvoc ykl-fi ykl.tsv Then documents could be loaded separately in TSV format: annif loaddocs yso-fi yso-finna-fi.tsv This should be the default (possibly the only?) subject corpus format.</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Bump version: 0.24.0 → 0.25.0</MESSAGE>
+    <SHA>102a3184f2cb82075a7e78192cf838a30d2e9c42</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Support loading subjects from a TSV file. Part of #114</MESSAGE>
+      <SHA>d9dd96732bb2ec22676042a0d854a18d79d9d7fd</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/cli.py</FILE>
+        <FILE>annif/project.py</FILE>
+        <FILE>tests/corpora/archaeology/subjects.tsv</FILE>
+        <FILE>tests/test_cli.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #129 from NatLibFi/issue114-loadvoc-tsv Support loading subjects from a TSV file. Part of #114</MESSAGE>
+      <SHA>2981478fc2cbc62a987bb22e28d1875c4256b356</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/cli.py</FILE>
+        <FILE>annif/project.py</FILE>
+        <FILE>tests/corpora/archaeology/subjects.tsv</FILE>
+        <FILE>tests/test_cli.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Support loading subjects from a SKOS file. Part of #114</MESSAGE>
+      <SHA>399b0d668ce2a6fc46ae15c351a494c55cf9f4fd</SHA>
+      <PATCHEDFILES>
+        <FILE>Pipfile</FILE>
+        <FILE>annif/cli.py</FILE>
+        <FILE>annif/corpus/__init__.py</FILE>
+        <FILE>annif/corpus/subject.py</FILE>
+        <FILE>setup.py</FILE>
+        <FILE>tests/corpora/archaeology/README.md</FILE>
+        <FILE>tests/corpora/archaeology/extract-yso-archaeology.rq</FILE>
+        <FILE>tests/corpora/archaeology/yso-archaeology.rdf</FILE>
+        <FILE>tests/test_cli.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Initial support for loading train documents as TSV files. Not yet implemented for tfidf backend. Part of #114</MESSAGE>
+      <SHA>1813c8ced939c6f4c49ae9e019ac2a982629d2b7</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/backend/backend.py</FILE>
+        <FILE>annif/backend/fasttext.py</FILE>
+        <FILE>annif/backend/tfidf.py</FILE>
+        <FILE>annif/cli.py</FILE>
+        <FILE>annif/corpus/__init__.py</FILE>
+        <FILE>annif/corpus/subject.py</FILE>
+        <FILE>annif/project.py</FILE>
+        <FILE>tests/corpora/archaeology/documents.tsv</FILE>
+        <FILE>tests/projects.cfg</FILE>
+        <FILE>tests/test_cli.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

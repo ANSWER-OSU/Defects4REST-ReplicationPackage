@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>620</ISSUENO>
+  <ISSUEURL>https://github.com/bbernhard/signal-cli-rest-api/issues/620</ISSUEURL>
+  <TITLE>Groupmod: GID 101 already exists</TITLE>
+  <DESCRIPTION>### The problem The API was running fine since the last update. I didn't change any users, groups, or anything. Suddenly I cannot start the container because of the following message: `&lt;html&gt;&lt;body&gt; &lt;!--StartFragment--&gt; date | stream | content -- | -- | -- 2024/11/23 13:29:19 | stdout | groupmod: GID '101' already exists 2024/11/23 13:29:19 | stdout | + groupmod -g 101 signal-api 2024/11/23 13:29:19 | stdout | usermod: no changes 2024/11/23 13:29:19 | stdout | + usermod -u 1026 signal-api 2024/11/23 13:29:19 | stdout | + [ -z /home/.local/share/signal-cli ] 2024/11/23 13:29:19 | stdout | + set -e 2024/11/23 13:23:43 | stdout | groupmod: GID '101' already exists 2024/11/23 13:23:43 | stdout | + groupmod -g 101 signal-api 2024/11/23 13:23:43 | stdout | + usermod -u 1026 signal-api 2024/11/23 13:23:43 | stdout | + [ -z /home/.local/share/signal-cli ] 2024/11/23 13:23:43 | stdout | + set -e &lt;!--EndFragment--&gt; &lt;/body&gt; &lt;/html&gt;` Is it now necessary to have an own user for the container? ### Are you using the latest released version? - [X] Yes ### Have you read the troubleshooting page? - [X] Yes ### What type of installation are you running? signal-cli-rest-api Docker Container ### In which mode are you using the docker container? Normal Mode ### What's the architecture of your host system? x86-64 ### Additional information - Running on Synology Container Manager</DESCRIPTION>
+  <REPONAME>signal-cli-rest-api</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>added expiration_time to Update Groups endpoint see #616</MESSAGE>
+    <SHA>2c4ef753abf233c0c4f4aa98f782ac63b210842d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>allow non-unique group GIDs see #620</MESSAGE>
+      <SHA>b530fbb86011116eaa0b16f8c9afe04411721342</SHA>
+      <PATCHEDFILES>
+        <FILE>entrypoint.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

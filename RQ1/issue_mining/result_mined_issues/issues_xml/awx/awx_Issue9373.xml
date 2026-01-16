@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9373</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/9373</ISSUEURL>
+  <TITLE>[ui_next] Silent error when creating or editing an inventory source to 'Update on launch' and 'Update on project update'</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY When creating or editing an inventory which is sourced from a project, if the 'Update on launch' and 'Update on project update' options are selected, the form does not save and the API's error response does not get displayed in the UI. ``` {&quot;update_on_launch&quot;:[&quot;Cannot update SCM-based inventory source on launch if set to update on project update. Instead, configure the corresponding source project to update on launch.&quot;]} ``` I think the fix for this should be two parts: 1. Update the tooltips for both toggles to note that they cannot be used simultaneously 2. Surface API errors to user on save, generally. ##### STEPS TO REPRODUCE 1. Create an Inventory with type 'Sourced from a Project' 2. Select both 'Update on launch' or 'Update on project update' 3. Save Note: error in console</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>28</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9646 from shanemcd/pdd-wrapper Create a wrapper directory for the private data dir Reviewed-by: None &lt;None&gt; Reviewed-by: Ryan Petrello &lt;None&gt; Reviewed-by: Elijah DeLee &lt;kdelee@redhat.com&gt;</MESSAGE>
+    <SHA>305f717e88fc5afafb20ba5877d1cd30ff2bd752</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9576 from AlexSCorey/9373-InventorySourceSilentFailure Fixes silent error on SCM subform SUMMARY This addresses #9373. It disallows the user to select both Update on launch and update on project update. It also adds a bit of info to the tool tip including a link to the project in question so the user can edit the project to allow them to update on launch and on project update ISSUE TYPE Bugfix Pull Request COMPONENT NAME UI AWX VERSION ADDITIONAL INFORMATION Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+      <SHA>43522d30e60534fe7f08429b8baea2e1e95cb972</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/components/FormField/CheckboxField.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/shared/InventorySourceSubForms/SCMSubForm.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/shared/InventorySourceSubForms/SharedFields.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

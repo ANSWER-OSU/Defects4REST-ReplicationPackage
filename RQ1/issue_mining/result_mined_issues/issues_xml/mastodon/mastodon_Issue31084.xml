@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>31084</ISSUENO>
+  <ISSUEURL>https://github.com/mastodon/mastodon/issues/31084</ISSUEURL>
+  <TITLE>Mastodon rejects multiple rel=self links in webfinger, breaching webfinger spec</TITLE>
+  <DESCRIPTION>### Steps to reproduce the problem 1. implement webfinger endpoint with multiple ``rel: self`` entries in the ``links`` array, but using different ``type``s (example: application/json &amp; application/activity+json) 2. query it using mastodon (for example @aprl@social.lysand.org), see that the user isnt resolved 3. query webfinger yourself, and see that there are multiple rel tags indeed (for example: https://social.lysand.org/.well-known/webfinger?resource=acct:aprl@social.lysand.org ) ### Expected behaviour Mastodon picks rel=self with type=application/activity+json ### Actual behaviour mastodon shits itself ### Detailed description This is valid, in spec webfinger, and thus every other fedi server for example akkoma and misskey support such webfinger, but mastodon discards it as invalid for some reason. I did not find the place in code yet but this issue has been around for a long time but never got fixed. Afaik this breaches webfinger spec because the spec never mentions there only being one rel=self tag. it instead should scan for a rel=self &amp; type=application/activity+json tag ### Mastodon instance any ### Mastodon version v4.2.10 ### Technical details If this is happening on your own Mastodon server, please fill out those: - Ruby version: (from `ruby --version`, eg. v3.1.2) - Node.js version: (from `node --version`, eg. v18.16.0)</DESCRIPTION>
+  <REPONAME>mastodon</REPONAME>
+  <TIMEDIFFERENCEDAYS>3</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix duplicate `orderedItems` in user archive's `outbox.json` (#31099)</MESSAGE>
+    <SHA>ced5e853c7d7c7f2b849d904964ef92e93ad27c8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Select correct self link when parsing Webfinger response Fixes #31084</MESSAGE>
+      <SHA>a8c01d89ce4940f9cd6d84a9a2205fa0efa52022</SHA>
+      <PATCHEDFILES>
+        <FILE>app/lib/webfinger.rb</FILE>
+        <FILE>app/services/activitypub/fetch_remote_actor_service.rb</FILE>
+        <FILE>app/services/resolve_account_service.rb</FILE>
+        <FILE>spec/fixtures/requests/activitypub-webfinger.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

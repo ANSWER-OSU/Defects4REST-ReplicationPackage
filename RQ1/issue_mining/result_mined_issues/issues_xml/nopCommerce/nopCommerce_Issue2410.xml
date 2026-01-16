@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2410</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/2410</ISSUEURL>
+  <TITLE>Shipping totals/Payment Method fee should include/exclude Tax based on ForceTaxExclusionFromOrderSubtotal attribute</TITLE>
+  <DESCRIPTION>As far as I can see the &quot;Force tax exclusion from order subtotal&quot; Tax Setting allows us to show the our Order totals so they &quot;add up&quot;. e.g. Subtotal (ex. Tax) + Shipping + Payment Method fee + Tax = Order Total However, if you've set either Shipping and/or Payment Method to be taxable, then they always display including Tax, regardless of the ForceTaxExclusionFromOrderSubtotal setting. So you end up with totals that look a bit jarring for the user e.g. Subtotal (ex. Tax) + Shipping (inc. Tax) + Payment Method fee (inc. Tax) + Tax != Order Total. It could be resolved for Shipping very easily on https://github.com/nopSolutions/nopCommerce/blob/develop/src/Presentation/Nop.Web/Factories/ShoppingCartModelFactory.cs#L1071 by passing in: `decimal? shoppingCartShippingBase = _orderTotalCalculationService.GetShoppingCartShippingTotal(cart, subTotalIncludingTax);` Equally, for the Payment Method fee to pass in the additional variable on https://github.com/nopSolutions/nopCommerce/blob/develop/src/Presentation/Nop.Web/Factories/ShoppingCartModelFactory.cs#L1091 `decimal paymentMethodAdditionalFeeWithTaxBase = _taxService.GetPaymentMethodAdditionalFee(paymentMethodAdditionalFee, subTotalIncludingTax, _workContext.CurrentCustomer);`</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>1072</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixed refresh grid bug in PickupInStore plugin</MESSAGE>
+    <SHA>27c91d3cd39baad2ff86564b190a87987ad25c60</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Tax checks for Shipping and Payment Method fee Issue #2410</MESSAGE>
+      <SHA>b556c1d9d3379b4cfbc6a4cae589d8d55050dd7a</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web/Factories/ShoppingCartModelFactory.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

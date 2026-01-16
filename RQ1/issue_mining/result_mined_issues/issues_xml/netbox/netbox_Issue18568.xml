@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>18568</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/18568</ISSUEURL>
+  <TITLE>Upgrade `mkdocstrings` to v0.28.0</TITLE>
+  <DESCRIPTION>### Proposed Changes Upgrade `mkdocstrings` from v0.27.0 to v0.28.0. ### Justification `mkdocstrings` v0.28.0 fails when building the docs with the following error: ``` ERROR - mkdocstrings: module 'netbox' has no attribute 'jobs' Traceback (most recent call last): File &quot;/home/jstretch/projects/netbox/venv/lib/python3.10/site-packages/pytkdocs/cli.py&quot;, line 214, in main output = json.dumps(process_json(line)) File &quot;/home/jstretch/projects/netbox/venv/lib/python3.10/site-packages/pytkdocs/cli.py&quot;, line 126, in process_json return process_config(json.loads(json_input)) File &quot;/home/jstretch/projects/netbox/venv/lib/python3.10/site-packages/pytkdocs/cli.py&quot;, line 104, in process_config obj = loader.get_object_documentation(path, members) File &quot;/home/jstretch/projects/netbox/venv/lib/python3.10/site-packages/pytkdocs/loader.py&quot;, line 334, in get_object_documentation leaf = get_object_tree(dotted_path, self.new_path_syntax) File &quot;/home/jstretch/projects/netbox/venv/lib/python3.10/site-packages/pytkdocs/loader.py&quot;, line 263, in get_object_tree obj = getattr(current_node.obj, obj_name) AttributeError: module 'netbox' has no attribute 'jobs' ERROR - Error reading page 'plugins/development/background-jobs.md': ERROR - Could not collect 'netbox.jobs.JobRunner' ```</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>33</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>17686 config option for disk divider (#18011)</MESSAGE>
+    <SHA>29c25e39fce5b549d4d960bcc7a65379059855ac</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes: #18568 Update mkdocstrings and adapt config</MESSAGE>
+      <SHA>6bf7a12f1e03cff146cc05b30e268f249179105a</SHA>
+      <PATCHEDFILES>
+        <FILE>mkdocs.yml</FILE>
+        <FILE>requirements.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes: #18568 Update mkdocstrings and adapt config (#18841) * Fixes: #18568 Update mkdocstrings and adapt config * Fixed some output formatting errors When trying to compare the output from &quot;mkdocstrings[python-legacy]==0.27.0&quot; and &quot;mkdocstrings[python]==0.28.2&quot; I encountered some HTML errors: - &lt;div&gt; inside a &lt;p&gt; - unescaped non-tags &lt;pk&gt;</MESSAGE>
+      <SHA>1a60cb98840bb5a85950a5e7087ff79628643200</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/administration/authentication/overview.md</FILE>
+        <FILE>docs/customization/export-templates.md</FILE>
+        <FILE>docs/integrations/graphql-api.md</FILE>
+        <FILE>docs/plugins/development/index.md</FILE>
+        <FILE>docs/release-notes/version-2.1.md</FILE>
+        <FILE>mkdocs.yml</FILE>
+        <FILE>requirements.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fixes: #18568 Update mkdocstrings and adapt config</MESSAGE>
+      <SHA>19703f7d69f286110f73b6566cca530de5511ed5</SHA>
+      <PATCHEDFILES>
+        <FILE>mkdocs.yml</FILE>
+        <FILE>requirements.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

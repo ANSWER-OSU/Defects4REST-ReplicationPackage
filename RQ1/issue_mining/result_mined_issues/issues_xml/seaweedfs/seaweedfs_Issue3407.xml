@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3407</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/3407</ISSUEURL>
+  <TITLE>[stats] weed mount displays wrong data in output.</TITLE>
+  <DESCRIPTION>**Describe the bug** weed mounts statistics displayed via df command doesn't respond to real data from volume server. We have 2 volume servers with 13 10Gb volumes on each and replication 010. According to the weed shell volume.list we use around 70Gb on each data node: `DataNode 10.120.214.8:8080 total size:70776755152 file_count:39229 deleted_file:4238 deleted_bytes:297263094` `DataNode 10.120.214.7:8080 total size:70799440000 file_count:39684 deleted_file:4689 deleted_bytes:315723235` On client: `df -h /mnt/app Filesystem Size Used Avail Use% Mounted on 10.120.214.8:8988+10.120.214.7:8988:/ 260G -8.0Z -2.7G 100% /mnt/app` **System Setup** 1. master: /usr/local/bin/weed -v=1 -logdir=/var/log/seaweedfs/master master -peers=10.120.214.8:9333,10.120.214.7:9333,10.120.214.9:9333 -ip=10.120.214.7 -defaultReplication=010 -mdir=/opt/seaweedfs/master/meta -volumeSizeLimitMB=10240 -resumeState=true -ip.bind=0.0.0.0 2. volume: /usr/local/bin/weed -v=1 -logdir=/var/log/seaweedfs/volume volume -mserver=10.120.214.8:9333,10.120.214.7:9333,10.120.214.9:9333 -ip=10.120.214.7 -port=8080 -rack=rack2 -dataCenter=dc1 -index=leveldb -dir=/mnt/seaweedfs -max=0 -ip.bind=0.0.0.0 3. filer: /usr/local/bin/weed -v=1 -logdir=/var/log/seaweedfs/filer filer -master=10.120.214.8:9333,10.120.214.7:9333,10.120.214.9:9333 -ip=10.120.214.7 -rack=rack2 -dataCenter=dc1 -collection=default -maxMB=4 -saveToFilerLimit=0 -defaultReplicaPlacement=010 -encryptVolumeData=true -ip.bind=0.0.0.0 4. mount: weed fuse /mnt/app -o rw,nodev,nosuid,allowOthers=true,dataCenter=dc1,collection=default,concurrentWriters=128,readRetryTime=30s,filer='10.120.214.8:8988,10.120.214.7:8988',cacheDir=/var/cache/seaweedfs/mnt-app,cacheCapacityMB=0,filer.path=/ -o child - OS version: Oracle Linux Server 8.6 - version 30GB 3.14 3c79c770562ef4f7c0d4e57a88f616eb3671b9cd linux amd64 - filer.toml ``` [filer.options] recursive_delete = false [leveldb2] enabled = true dir = &quot;/opt/seaweedfs/filer&quot; ``` **Expected behavior** https://seaweedfs.slack.com/archives/C9MGUC1UG/p1659665309805189?thread_ts=1659633210.439099&amp;cid=C9MGUC1UG 26 x 10GB - usedBytes = freeSpace 260Gb - 70Gb * 2 = 120Gb So df should display around 120 Gb of free space.</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>filer prefer volume server in same data center (#3405) * initial prefer same data center https://github.com/seaweedfs/seaweedfs/issues/3404 * GetDataCenter * prefer same data center for ReplicationSource * GetDataCenterId * remove glog</MESSAGE>
+    <SHA>d4a101e7397ddb97389c07851aa5e955d2043600</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>mount: adjust df stats reporting when close to the limit fix https://github.com/seaweedfs/seaweedfs/issues/3407</MESSAGE>
+      <SHA>2972584a53d6a066213982538bacc8697d73f42f</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/mount/weedfs_stats.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

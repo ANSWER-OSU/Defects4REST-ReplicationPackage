@@ -1,0 +1,82 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>19002</ISSUENO>
+  <ISSUEURL>https://github.com/netbox-community/netbox/issues/19002</ISSUEURL>
+  <TITLE>Extend module types to support modeling FRU components</TITLE>
+  <DESCRIPTION>### NetBox version v4.2.6 ### Feature type Data model extension ### Proposed functionality ### ModuleTypeProfile Introduce a new ModuleTypeProfile model to represent a meta class of module types (e.g. power supply, NIC, or GPU). Each instance of this model will define a user-configurable schema of attributes to be assigned on module types having this profile. ```python class ModuleTypeProfile(NetBoxModel): name = models.CharField() schema = models.JSONField() ``` The `schema` field will hold a user-defined [JSON schema](https://json-schema.org/) which defines the scalar attributes that can be defined on module types with this profile. For example, a CPU profile might have a profile specify the following: ```json { &quot;properties&quot;: { &quot;architecture&quot;: { &quot;type&quot;: &quot;string&quot; }, &quot;speed&quot;: { &quot;type&quot;: &quot;number&quot;, &quot;minimum&quot;: &quot;0.01&quot;, &quot;multipleOf&quot;: &quot;0.01&quot; }, &quot;cores&quot;: { &quot;type&quot;: &quot;number&quot;, &quot;minimum&quot;: 1, &quot;multipleOf&quot;: 1 } } } ``` Note that these attributes are intentionally limited to storing the [basic types](https://cswr.github.io/JsonSchema/spec/basic_types/) supported by JSON schema (strings, numbers, booleans, and null). Any more advanced needs will require the use of a custom field on the ModuleType model. ### ModuleType Two new fields will be added to the ModuleType model: * `profile`: An optional ForeignKey to ModuleTypeProfile * `attributes`: A JSONField which stores the assigned key-value pairs for a module type as defined by the assigned profile When editing a module type, the UI form will be extended to render all profile attributes as discrete form fields, with simple validation applied automatically. ### Use case The introduction of module type profiles with configurable attributes will improve the ability to accurately model field-replaceable units (FRU) as modules in NetBox. Today, this is typically done using inventory items, however that model is considerably limited in several ways: * Inventory items have no ability to track unoccupied bays/sockets * Inventory items (like other device components) must be named * Inventory items cannot contain components (interfaces, power ports, etc.) * There is no mechanism available for storing profile-specific attributes on inventory items Modules are better suited for this task, as only the last constraint listed above affects modules as well, and is overcome by the changes proposed in this FR. (Ultimately, we'll likely deprecate inventory items in favor of this and related improvements to modules.) ### Database changes - Introduce the ModuleTypeProfile model - Add a `profile` ForeignKey on ModuleType - Add an `attributes` JSONField on ModuleType ### External dependencies This will introduce a dependency in the [`jsonschema`](https://python-jsonschema.readthedocs.io/en/stable/) Python library.</DESCRIPTION>
+  <REPONAME>netbox</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fixes: #18305 make contacts mixin available for plugins (#19029)</MESSAGE>
+    <SHA>864db469ba31412d82eb24d3ebf537d2bdacac9f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Closes #19002: Module type profiles (#19014) * Move Module &amp; ModuleType models to a separate file * Add ModuleTypeProfile &amp; related fields * Initial work on JSON schema validation * Add attributes property on ModuleType * Introduce MultipleOfValidator * Introduce JSONSchemaProperty * Enable dynamic form field rendering * Misc cleanup * Fix migration conflict * Ensure deterministic ordering of attriubte fields * Support choices &amp; default values * Include module type attributes on module view * Enable modifying individual attributes via REST API * Enable filtering by attribute values * Add documentation &amp; tests * Schema should be optional * Include attributes column for profiles * Profile is nullable * Include some initial profiles to be installed via migration * Fix migrations conflict * Fix filterset test * Misc cleanup * Fixes #19023: get_field_value() should respect null values in bound forms (#19024) * Skip filters which do not specify a JSON-serializable value * Fix handling of array item types * Fix initial data in schema field during bulk edit * Implement sanity checking for JSON schema definitions * Fall back to filtering by string value</MESSAGE>
+      <SHA>8d7889e2c00e44689fe9efe66da0422b6669ba9b</SHA>
+      <PATCHEDFILES>
+        <FILE>base_requirements.txt</FILE>
+        <FILE>docs/models/dcim/moduletype.md</FILE>
+        <FILE>docs/models/dcim/moduletypeprofile.md</FILE>
+        <FILE>netbox/dcim/api/serializers_/devicetypes.py</FILE>
+        <FILE>netbox/dcim/api/urls.py</FILE>
+        <FILE>netbox/dcim/api/views.py</FILE>
+        <FILE>netbox/dcim/filtersets.py</FILE>
+        <FILE>netbox/dcim/forms/bulk_edit.py</FILE>
+        <FILE>netbox/dcim/forms/bulk_import.py</FILE>
+        <FILE>netbox/dcim/forms/filtersets.py</FILE>
+        <FILE>netbox/dcim/forms/model_forms.py</FILE>
+        <FILE>netbox/dcim/graphql/filters.py</FILE>
+        <FILE>netbox/dcim/graphql/schema.py</FILE>
+        <FILE>netbox/dcim/graphql/types.py</FILE>
+        <FILE>netbox/dcim/migrations/0205_moduletypeprofile.py</FILE>
+        <FILE>netbox/dcim/migrations/0206_load_module_type_profiles.py</FILE>
+        <FILE>netbox/dcim/migrations/initial_data/module_type_profiles/cpu.json</FILE>
+        <FILE>netbox/dcim/migrations/initial_data/module_type_profiles/fan.json</FILE>
+        <FILE>netbox/dcim/migrations/initial_data/module_type_profiles/gpu.json</FILE>
+        <FILE>netbox/dcim/migrations/initial_data/module_type_profiles/hard_disk.json</FILE>
+        <FILE>netbox/dcim/migrations/initial_data/module_type_profiles/memory.json</FILE>
+        <FILE>netbox/dcim/migrations/initial_data/module_type_profiles/power_supply.json</FILE>
+        <FILE>netbox/dcim/models/__init__.py</FILE>
+        <FILE>netbox/dcim/models/devices.py</FILE>
+        <FILE>netbox/dcim/models/modules.py</FILE>
+        <FILE>netbox/dcim/search.py</FILE>
+        <FILE>netbox/dcim/tables/modules.py</FILE>
+        <FILE>netbox/dcim/tables/template_code.py</FILE>
+        <FILE>netbox/dcim/tests/test_api.py</FILE>
+        <FILE>netbox/dcim/tests/test_filtersets.py</FILE>
+        <FILE>netbox/dcim/tests/test_views.py</FILE>
+        <FILE>netbox/dcim/urls.py</FILE>
+        <FILE>netbox/dcim/utils.py</FILE>
+        <FILE>netbox/dcim/views.py</FILE>
+        <FILE>netbox/extras/tests/test_filtersets.py</FILE>
+        <FILE>netbox/netbox/api/fields.py</FILE>
+        <FILE>netbox/netbox/filtersets.py</FILE>
+        <FILE>netbox/netbox/navigation/menu.py</FILE>
+        <FILE>netbox/netbox/tables/columns.py</FILE>
+        <FILE>netbox/templates/dcim/module.html</FILE>
+        <FILE>netbox/templates/dcim/moduletype.html</FILE>
+        <FILE>netbox/templates/dcim/moduletypeprofile.html</FILE>
+        <FILE>netbox/utilities/forms/utils.py</FILE>
+        <FILE>netbox/utilities/jsonschema.py</FILE>
+        <FILE>netbox/utilities/tests/test_forms.py</FILE>
+        <FILE>netbox/utilities/validators.py</FILE>
+        <FILE>requirements.txt</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#19002: Display boolean attributes as checkmarks</MESSAGE>
+      <SHA>4309df4ebbaad65d3ab58a3a83fc28a14302e908</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/templates/dcim/moduletype.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#19002: Display boolean attributes as checkmarks (#19168)</MESSAGE>
+      <SHA>3444dc503d130f108ab85d168f0b3ab990ca5ca4</SHA>
+      <PATCHEDFILES>
+        <FILE>netbox/templates/dcim/moduletype.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

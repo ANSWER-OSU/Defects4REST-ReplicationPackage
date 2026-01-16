@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1977</ISSUENO>
+  <ISSUEURL>https://github.com/makeplane/plane/issues/1977</ISSUEURL>
+  <TITLE>[bug]: plane frontend does not show the correct timestamp</TITLE>
+  <DESCRIPTION>### Is there an existing issue for this? - [X] I have searched the existing issues ### Current behavior With the recent update, `v0.11-dev`, the timestamps in the frontend are skewed. As an example, here's an issue that was created 2 days ago, on 23rd of August, when examined in the DB: ![plane-db](https://github.com/makeplane/plane/assets/11243138/14308e5e-a66e-478c-a23f-a31980c3d4cc) It clearly shows that the issue was created on `2023-08-23` But the timestamps for the same issue's activities in frontend shows up as `yesterday`: ![plane-frontend](https://github.com/makeplane/plane/assets/11243138/37ba5359-21f1-4108-9a7a-aeb4e7f432d6) I believe this issue is caused by one of the recent changes, since the Plane issue was created prior to upgrading to the latest release tag, and the timestamps were fine before the upgrade. **P.S.:** would it be possible to add a &quot;hover over&quot; on the timestamp text to show the actual timestamp? Currently, hovering over the text in the frontend does nothing. ### Steps to reproduce 1. Create an issue on an older version of plane. For completeness, we were running `v0.10-dev`. 2. Perform some activities on the issue on plane. 3. Upgrade to `v0.11-dev`. 4. Timestamp on the issue's page is now incorrect, even though the DB reflects the correct timestamp. ### Browser Mozilla Firefox ### Version Self-hosted</DESCRIPTION>
+  <REPONAME>plane</REPONAME>
+  <TIMEDIFFERENCEDAYS>141</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>chore: updated initiative activity (#1975)</MESSAGE>
+    <SHA>7d0135747e61ac2ba68b8b0e218e1a587cb7b461</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>chore: project settings upgrade screen updated (#1977)</MESSAGE>
+      <SHA>d23147225fb7c137f479da70020d0215ef68881a</SHA>
+      <PATCHEDFILES>
+        <FILE>web/app/[workspaceSlug]/(projects)/projects/(detail)/[projectId]/settings/epics/page.tsx</FILE>
+        <FILE>web/app/[workspaceSlug]/(projects)/projects/(detail)/[projectId]/settings/project-updates/page.tsx</FILE>
+        <FILE>web/ee/components/epics/upgrade.tsx</FILE>
+        <FILE>web/ee/components/project-overview/upgrade.tsx</FILE>
+        <FILE>web/ee/constants/project/settings/tabs.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>155</ISSUENO>
+  <ISSUEURL>https://github.com/snarfed/granary/issues/155</ISSUEURL>
+  <TITLE>Granary is generating &quot;quotation-of&quot; from content in the tweet that is not a quotation</TITLE>
+  <DESCRIPTION>This tweet is an example: https://twitter.com/oktadev/status/1018179594367782913 I'm guessing it's picking up on the fact that the tweet ends in a URL. But there is no additional information about that URL available, so the information in the `quotation-of` property ends up being not useful. I think it should limit to generating the `quotation-of` property only if there is an actual tweet. Twitter doesn't include the quoted tweet URL in the parent tweet text anymore either https://twittercommunity.com/t/updating-how-urls-are-rendered-in-the-quote-tweet-payload/105473 Here's the HTML Granary is generating for the tweet above: ```html &lt;article class=&quot;h-entry&quot;&gt; &lt;span class=&quot;p-uid&quot;&gt;tag:twitter.com:1018179594367782913&lt;/span&gt; &lt;time class=&quot;dt-published&quot; datetime=&quot;2018-07-14T17:05:06+00:00&quot;&gt;2018-07-14T17:05:06+00:00&lt;/time&gt; &lt;span class=&quot;p-author h-card&quot;&gt; &lt;data class=&quot;p-uid&quot; value=&quot;tag:twitter.com:oktadev&quot;&gt;&lt;/data&gt; &lt;data class=&quot;p-numeric-id&quot; value=&quot;786323471877836800&quot;&gt;&lt;/data&gt; &lt;a class=&quot;p-name u-url&quot; href=&quot;http://developer.okta.com&quot;&gt;OktaDev&lt;/a&gt; &lt;a class=&quot;u-url&quot; href=&quot;https://developer.okta.com/blog&quot;&gt;&lt;/a&gt; &lt;a class=&quot;u-url&quot; href=&quot;https://devforum.okta.com&quot;&gt;&lt;/a&gt; &lt;span class=&quot;p-nickname&quot;&gt;oktadev&lt;/span&gt; &lt;img class=&quot;u-photo&quot; src=&quot;https://pbs.twimg.com/profile_images/1006555705082384384/izi1LTo4.jpg&quot; alt=&quot;&quot; /&gt; &lt;/span&gt; &lt;a class=&quot;u-url&quot; href=&quot;https://twitter.com/oktadev/status/1018179594367782913&quot;&gt;https://twitter.com/oktadev/status/1018179594367782913&lt;/a&gt; &lt;div class=&quot;e-content p-name&quot;&gt; Three Developer Tools I'm Thankful For &lt;a href=&quot;https://developer.okta.com/blog/2017/11/22/three-developer-tools-im-thankful-for&quot;&gt;developer.okta.com/blog/2017/11/2…&lt;/a&gt; &lt;/div&gt; &lt;article class=&quot;u-quotation-of h-cite&quot;&gt; &lt;span class=&quot;p-uid&quot;&gt;&lt;/span&gt; &lt;a class=&quot;p-name u-url&quot; href=&quot;https://developer.okta.com/blog/2017/11/22/three-developer-tools-im-thankful-for&quot;&gt;developer.okta.com/blog/2017/11/2…&lt;/a&gt; &lt;div class=&quot;&quot;&gt; &lt;/div&gt; &lt;/article&gt; ```</DESCRIPTION>
+  <REPONAME>granary</REPONAME>
+  <TIMEDIFFERENCEDAYS>42</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>github: create/preview bug fix for commenting on private repos https://console.cloud.google.com/errors/CP2z6O3Hub755wE</MESSAGE>
+    <SHA>0a86fd0d2b6893e2147b39cc65f361952b7e9ef3</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>mf2: only use quotation-of property for quote tweets, not URLs for #155. hacky. :(</MESSAGE>
+      <SHA>c39a57d5c530ef62f6001a0ab9de9c9a597c6189</SHA>
+      <PATCHEDFILES>
+        <FILE>README.md</FILE>
+        <FILE>granary/microformats2.py</FILE>
+        <FILE>granary/test/test_microformats2.py</FILE>
+        <FILE>granary/test/testdata/note_with_article_attachment.as.json</FILE>
+        <FILE>granary/test/testdata/note_with_article_attachment.mf2-from-as.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>mf2: if a tag has startIndex/length, don't emit an mf2 child for it gets rid of the &quot;URL citation block at the bottom&quot; mentioned in https://github.com/snarfed/granary/issues/155#issuecomment-412962619</MESSAGE>
+      <SHA>4489a5958c0b8de01df7478a486d14e6b47beb45</SHA>
+      <PATCHEDFILES>
+        <FILE>README.md</FILE>
+        <FILE>granary/microformats2.py</FILE>
+        <FILE>granary/test/testdata/note_with_article_attachment_indices.as.json</FILE>
+        <FILE>granary/test/testdata/note_with_article_attachment_indices.mf2-from-as.json</FILE>
+        <FILE>granary/test/testdata/note_with_article_attachment_indices.mf2.html</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

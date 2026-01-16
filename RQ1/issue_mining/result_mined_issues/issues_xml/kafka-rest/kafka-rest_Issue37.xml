@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>37</ISSUENO>
+  <ISSUEURL>https://github.com/confluentinc/kafka-rest/issues/37</ISSUEURL>
+  <TITLE>Catch MessageStreamsExistException from ConsumerConnector.createMessageStreams</TITLE>
+  <DESCRIPTION>When ConsumersResource.readTopic is invoked, it calls createMessageStreams if there isn't already a stream. However, if the consumer has already invoked the method for a different topic, it will throw a MessageStreamsExistException. Currently this isn't being caught, so it'll be turned into a 500. We should catch it and turn it into a more useful error code. This will also require updating the docs since it'll introduce a new error code.</DESCRIPTION>
+  <REPONAME>kafka-rest</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update API documentation with Avro consumer support.</MESSAGE>
+    <SHA>723db0f625b7167df5263837b44a9bb3f684e452</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Convert MessageStreamsExistException into a 409 RestException. Fixes #37.</MESSAGE>
+      <SHA>552bdb0b1c8f095e2eccf28910cbf8b03a35d053</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/api.rst</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/ConsumerManager.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/ConsumerReadTask.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/ConsumerState.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/ConsumerWorkerReadCallback.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/Errors.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/mock/MockConsumerConnector.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/AbstractConsumerResourceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/ConsumerManagerTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #41 from confluentinc/issue-37-double-consumer-subscription Convert MessageStreamsExistException into a 409 RestException. Fixes #37.</MESSAGE>
+      <SHA>dc9f400d2b42467c151a4515c39457617dd5d84f</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/api.rst</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/ConsumerManager.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/ConsumerReadTask.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/ConsumerState.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/ConsumerWorkerReadCallback.java</FILE>
+        <FILE>src/main/java/io/confluent/kafkarest/Errors.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/mock/MockConsumerConnector.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/AbstractConsumerResourceTest.java</FILE>
+        <FILE>src/test/java/io/confluent/kafkarest/unit/ConsumerManagerTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

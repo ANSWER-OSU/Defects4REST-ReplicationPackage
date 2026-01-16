@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>9852</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/9852</ISSUEURL>
+  <TITLE>error when removing single Source from inventory</TITLE>
+  <DESCRIPTION>&lt;!-- Issues are for **concrete, actionable bugs and feature requests** only - if you're just asking for debugging help or technical support, please use: - http://webchat.freenode.net/?channels=ansible-awx - https://groups.google.com/forum/#!forum/awx-project We have to limit this because of limited volunteer time to respond to issues! --&gt; ##### ISSUE TYPE - Bug Report ##### SUMMARY It is not possible to delete single Source from Inventory. When trying to delete single inventory source following error occurs ``` Error: TypeError: Cannot read property 'count' of undefined at https://awx.example.com/static/js/main.2594bb50.chunk.js:1:148664 at c (https://awx.example.com/static/js/2.89b6cada.chunk.js:2:1469770) at Generator._invoke (https://awx.example.com/static/js/2.89b6cada.chunk.js:2:1469523) at Generator.next (https://awx.example.com/static/js/2.89b6cada.chunk.js:2:1470129) at r (https://awx.example.com/static/js/2.89b6cada.chunk.js:2:729) at s (https://awx.example.com/static/js/2.89b6cada.chunk.js:2:932) ``` ##### ENVIRONMENT * AWX version: 19.0.0 * AWX install method: awx-operator 0.8.0 on RKE * Ansible version: X.Y.Z * Operating System: * Web Browser: ##### STEPS TO REPRODUCE Create Inventory Create Inventory source Delete Inventory source ##### EXPECTED RESULTS Source is deleted. ##### ACTUAL RESULTS Source is not deleted. See error above. ##### ADDITIONAL INFORMATION Currently as a workaround it is possible to create a dummy Source and select it as well. Multiple Source deletion is working. The warning message is broken, tho. ``` {numItemsToDelete, plural, one {This inventory source is currently being used by other resources that rely on it. Are you sure you want to delete it?} other {Deleting these inventory sources could impact other resources that rely on them. Are you sure you want to delete anyway?}} ```</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>14</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #9958 from AlexSCorey/9910-PluralAriaLabel Fixes object rendered on dom in aria-label SUMMARY This addresses #9910. Aria-labels that use &lt;Plural/&gt; won't work properly. In this case I used aria-labelledby and passed it the id of the button. I tested it with a screen reader and that fixed it. I also fixed some JobListCancelButton tooltips ISSUE TYPE Bugfix Pull Request COMPONENT NAME UI AWX VERSION ADDITIONAL INFORMATION Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+    <SHA>c1a009d12822c3648090824860e84a2f221e2b77</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #9975 from mabashian/9852-delete-inv-src Fixes bug where users could not delete a single inventory source SUMMARY link #9852 Also fixes a bug that I came across with deletion warnings. The deletion warning was showing a count for workflow nodes that referenced any inventory source with the same parent inventory. For example: Create an inventory Create two inventory sources invsrc1 and invsrc2 Create a workflow with a node that syncs invsrc1 Attempt to delete invsrc2 The warning will indicate that there's 1 workflow node that uses the inventory source but that's actually not true. There should be no deletion warning in this case. This PR addresses ^^ ISSUE TYPE Bugfix Pull Request COMPONENT NAME UI Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt; Reviewed-by: Tiago Góes &lt;tiago.goes2009@gmail.com&gt;</MESSAGE>
+      <SHA>3fc4baae065df7aa8c35fbe26b442c268962ba81</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/screens/Inventory/InventorySourceDetail/InventorySourceDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventorySources/InventorySourceList.jsx</FILE>
+        <FILE>awx/ui_next/src/util/getRelatedResouceDeleteDetails.test.js</FILE>
+        <FILE>awx/ui_next/src/util/getRelatedResourceDeleteDetails.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

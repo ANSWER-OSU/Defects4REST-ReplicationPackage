@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5082</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/5082</ISSUEURL>
+  <TITLE>When Specifying ignore_unreachable: yes in a Task, AWX Inventory Host View Should Reflect Unreachable Hosts as Successful</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Feature Idea ##### SUMMARY &lt;!-- Briefly describe the problem or desired enhancement. --&gt; When specifying `ignore_unreachable: yes` in a playbook task, any hosts that were unreachable at the time show as `unreachable` and `skipped`, but not `failed`. However, when you look in the AWX host inventory view, hosts that were unreachable but didn't essentially fail show as failing: ![image](https://user-images.githubusercontent.com/25699347/67393872-40df5b00-f571-11e9-8d0b-7c1566b1214d.png) In the preceding example, CentOS1 was unreachable while CentOS2 was reachable. The playbook task had `ignore_unreachable: yes` included. The `PLAY RECAP` shows CentOS1 being unreachable and skipped, but not failed: ~~~ PLAY RECAP ********************************************************************* CentOS1 : ok=0 changed=0 unreachable=1 failed=0 skipped=1 rescued=0 ignored=0 CentOS2 : ok=1 changed=1 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0 ~~~ Oddly though, in `awx-manage shell_plus`, CentOS1 is showing active failures: ~~~ &gt;&gt;&gt; r = Host.objects.filter(id=34) &gt;&gt;&gt; for x in r: ... print(x.has_active_failures) ... True ~~~ As a test, I went into `psql` and manually updated `main_host` to change `has_active_failures` to `False`. After doing this, I verified the change via `awx-manage shell_plus` and re-ran the same job template. ~~~ &gt;&gt;&gt; r = Host.objects.filter(id=34) &gt;&gt;&gt; for x in r: ... print(x.has_active_failures) ... False ~~~ As I would expect, the job template was successful, however, CentOS1 was still marked as a failed node, even though no failures were reported in the `PLAY RECAP`. I verified the reversion via `awx-manage shell_plus`: ~~~ &gt;&gt;&gt; r = Host.objects.filter(id=34) &gt;&gt;&gt; for x in r: ... print(x.has_active_failures) ... True ~~~ Per an user's request, they would like to see hosts that were marked `unreachable` and `skipped`, but not `failed` as successful in the AWX inventory host view.</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>271</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #5070 from ansible/ui_ee_wfjt Remove EE from WorkflowJobTemplate screens</MESSAGE>
+    <SHA>78ba8b25f05f4adec7f0c36d3b4d9d9e82f4e15b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #5082 from mabashian/9213-ssl-tls Fixes bug where email notification ssl and tls were a dropdown instead of checkboxes</MESSAGE>
+      <SHA>56f564adc9f325ee2dfd3a454fce970bcad32ea2</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/components/AnsibleSelect/AnsibleSelect.jsx</FILE>
+        <FILE>awx/ui_next/src/components/DetailList/ArrayDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/NotificationTemplate/NotificationTemplateDetail/NotificationTemplateDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/NotificationTemplate/NotificationTemplateDetail/NotificationTemplateDetail.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/NotificationTemplate/shared/NotificationTemplateForm.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/NotificationTemplate/shared/NotificationTemplateForm.test.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/NotificationTemplate/shared/TypeInputsSubForm.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/NotificationTemplate/shared/notification-template-default-messages.json</FILE>
+        <FILE>awx/ui_next/src/screens/NotificationTemplate/shared/typeFieldNames.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

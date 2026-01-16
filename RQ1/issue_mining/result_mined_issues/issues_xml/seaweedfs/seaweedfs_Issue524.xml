@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>524</ISSUENO>
+  <ISSUEURL>https://github.com/seaweedfs/seaweedfs/issues/524</ISSUEURL>
+  <TITLE>hanged when run weed master</TITLE>
+  <DESCRIPTION>``` ➜ tmp git:(master) ✗ weed master -peers 10.64.7.106:9444,10.4.23.114:9444,10.4.23.115:9444 -ip 10.64.7.106 -ip.bind 10.64.7.106 -port 9444 I0703 19:46:40 39010 file_util.go:20] Folder /tmp Permission: -rwxrwxrwx I0703 19:46:40 39010 master_server.go:62] Volume Size Limit is 30000 MB I0703 19:46:40 39010 master.go:87] Start Seaweed Master 0.76 at 10.64.7.106:9444 I0703 19:46:40 39010 raft_server.go:56] Peers Change: [] =&gt; [10.64.7.106:9444 10.4.23.114:9444 10.4.23.115:9444] I0703 19:46:40 39010 raft_server.go:78] Joining cluster: 10.64.7.106:9444,10.4.23.114:9444,10.4.23.115:9444 I0703 19:46:41 39010 raft_server.go:166] Attempting to connect to: http://10.4.23.114:9444/cluster/join ``` using browser open this url , crashed. ``` 2017/07/03 19:47:13 http: panic serving 10.232.4.175:59240: runtime error: invalid memory address or nil pointer dereference goroutine 55 [running]: net/http.(*conn).serve.func1(0xc4202d6140) /home/jinlei1/os/go/src/net/http/server.go:1721 +0xd0 panic(0xbab320, 0x10782f0) /home/jinlei1/os/go/src/runtime/panic.go:489 +0x2cf github.com/chrislusf/seaweedfs/weed/server.(*MasterServer).uiStatusHandler(0xc4201e2380, 0x1047400, 0xc42030a000, 0xc4202de500) /home/jinlei1/ksyun/src/github.com/chrislusf/seaweedfs/weed/server/master_server_handlers_ui.go:24 +0x13b github.com/chrislusf/seaweedfs/weed/server.(*MasterServer).(github.com/chrislusf/seaweedfs/weed/server.uiStatusHandler)-fm(0x1047400, 0xc42030a000, 0xc4202de500) /home/jinlei1/ksyun/src/github.com/chrislusf/seaweedfs/weed/server/master_server.go:66 +0x48 net/http.HandlerFunc.ServeHTTP(0xc4201c7010, 0x1047400, 0xc42030a000, 0xc4202de500) /home/jinlei1/os/go/src/net/http/server.go:1942 +0x44 github.com/gorilla/mux.(*Router).ServeHTTP(0xc4201ce960, 0x1047400, 0xc42030a000, 0xc4202de500) /home/jinlei1/ksyun/src/github.com/gorilla/mux/mux.go:114 +0x10c net/http.serverHandler.ServeHTTP(0xc4202049a0, 0x1047400, 0xc42030a000, 0xc4202de300) /home/jinlei1/os/go/src/net/http/server.go:2568 +0x92 net/http.(*conn).serve(0xc4202d6140, 0x1047f00, 0xc4202b0340) /home/jinlei1/os/go/src/net/http/server.go:1825 +0x612 created by net/http.(*Server).Serve /home/jinlei1/os/go/src/net/http/server.go:2668 +0x2ce ```</DESCRIPTION>
+  <REPONAME>seaweedfs</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>add cpu and mem pprof</MESSAGE>
+    <SHA>55a9ff6d8ff2aa44efb5a17ace23e1ccf050d797</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix nil raft server caused crash fix https://github.com/chrislusf/seaweedfs/issues/524</MESSAGE>
+      <SHA>955cd32c54f3fbc2f4a40dfa88796566a4161304</SHA>
+      <PATCHEDFILES>
+        <FILE>weed/server/master_server_handlers_ui.go</FILE>
+        <FILE>weed/server/master_ui/templates.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

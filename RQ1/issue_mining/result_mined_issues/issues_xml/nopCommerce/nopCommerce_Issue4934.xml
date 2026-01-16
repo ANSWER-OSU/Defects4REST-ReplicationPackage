@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4934</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/4934</ISSUEURL>
+  <TITLE>Public plugin url not redirecting to include language code when SeoFriendlyUrlsForLanguagesEnabled</TITLE>
+  <DESCRIPTION>**Setup:** Define RouteProvider in plugin, to include the language pattern for SeoFriendlyUrls: ``` var pattern = string.Empty; if (DataSettingsManager.DatabaseIsInstalled) { var localizationSettings = endpointRouteBuilder.ServiceProvider.GetRequiredService&lt;LocalizationSettings&gt;(); if (localizationSettings.SeoFriendlyUrlsForLanguagesEnabled) { var langservice = endpointRouteBuilder.ServiceProvider.GetRequiredService&lt;ILanguageService&gt;(); var languages = langservice.GetAllLanguages().ToList(); pattern = &quot;{language:lang=&quot; + languages.FirstOrDefault().UniqueSeoCode + &quot;}/&quot;; } } ``` Define a route to use the pattern ``` endpointRouteBuilder.MapControllerRoute(&quot;RouteName&quot;, $&quot;{pattern}PluginUrl&quot;, new { controller = &quot;PluginController&quot;, action = &quot;Index&quot; }); ``` **Expected behavior:** When navigating to http:// website/PluginUrl , the browser should be redirected to http:// website/**en**/PluginUrl **Investigation:** Removing lines 82-84 from https://github.com/nopSolutions/nopCommerce/blob/develop/src/Presentation/Nop.Web.Framework/Mvc/Filters/CheckLanguageSeoCodeAttribute.cs resolves the issue. ``` //ensure that this route is registered and localizable (LocalizedRoute in RouteProvider) if (context.RouteData.Values[&quot;language&quot;] == null) return; ``` **Conclusion:** I might be missing something, specifically where in the plugin to configure the language as RouteData. On the other hand, is that check really needed ? Based on the comment, it looks like remnant of older versions</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>146</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5043 Further changes to add event when sitemap created</MESSAGE>
+    <SHA>2133b41042837d0731d0cfc6f741d1926c018e5f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#4934 Public plugin must be redirected to URL with language code when SeoFriendlyUrlsForLanguagesEnabled</MESSAGE>
+      <SHA>0029c9b7a830b0904554fe6687c5bba287fc7c77</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Presentation/Nop.Web.Framework/Mvc/Filters/CheckLanguageSeoCodeAttribute.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

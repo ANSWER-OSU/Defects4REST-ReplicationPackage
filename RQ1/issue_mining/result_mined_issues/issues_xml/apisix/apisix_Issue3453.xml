@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3453</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/3453</ISSUEURL>
+  <TITLE>bug: limit-xxx plugins schema bug</TITLE>
+  <DESCRIPTION>### Issue description limit-count: When the `count` or `time_window` fields of the limit-count plugin are 0, the plugin is not available. Repair method: It should be greater than 0 in the schema. Need to provide response test cases. imit-req: When the `rate` fields of the limit-req plugin are 0, the plugin is not available. Repair method: It should be greater than 0 in the schema. Need to provide response test cases. ### Environment * apisix version (cmd: `apisix version`): 2.2 * OS (cmd: `uname -a`): Liunx * OpenResty / Nginx version (cmd: `nginx -V` or `openresty -V`): nginx version: openresty/1.19.3.1 * etcd version, if have (cmd: run `curl http://127.0.0.1:9090/v1/server_info` to get the info from server-info API): * apisix-dashboard version, if have: ### Minimal test code / Steps to reproduce the issue 1. add route ```shell curl -i http://127.0.0.1:9080/apisix/admin/routes/1 -H 'X-API-KEY: edd1c9f034335f136f87ad84b625c8f1' -X PUT -d ' { &quot;uri&quot;: &quot;/hello&quot;, &quot;plugins&quot;: { &quot;limit-count&quot;: { &quot;count&quot;: 0, &quot;time_window&quot;: 60, &quot;rejected_code&quot;: 503, &quot;key&quot;: &quot;remote_addr&quot; } }, &quot;upstream&quot;: { &quot;type&quot;: &quot;roundrobin&quot;, &quot;nodes&quot;: { &quot;127.0.0.1:1980&quot;: 1 } } }' ``` 2. test plugin: ```shell curl -i http://127.0.0.1:9080/hello HTTP/1.1 500 Internal Server Error Date: Fri, 29 Jan 2021 04:14:01 GMT Content-Type: text/html; charset=utf-8 Content-Length: 174 Connection: close Server: APISIX/2.2 &lt;html&gt; &lt;head&gt;&lt;title&gt;500 Internal Server Error&lt;/title&gt;&lt;/head&gt; &lt;body&gt; &lt;center&gt;&lt;h1&gt;500 Internal Server Error&lt;/h1&gt;&lt;/center&gt; &lt;hr&gt;&lt;center&gt;openresty&lt;/center&gt; &lt;/body&gt; &lt;/html&gt; ``` `/usr/local/openresty/lualib/resty/limit/count.lua` code segment: ```lua ...... assert(limit &gt; 0 and window &gt; 0) ...... ``` `/usr/local/openresty/lualib/resty/limit/req.lua` code segment: ```lua ...... assert(rate &gt; 0 and burst &gt;= 0) ...... ```</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: customed config.yaml when apisix start (#2101) fix #2034</MESSAGE>
+    <SHA>6415b295594767e5698b355126ebcdd5e7a37e1b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>chore: fix the limit plugin schema fix #3453</MESSAGE>
+      <SHA>23a63057bf68cae24edfb335891471def0783c40</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/plugins/limit-count.lua</FILE>
+        <FILE>apisix/plugins/limit-req.lua</FILE>
+        <FILE>t/plugin/limit-count.t</FILE>
+        <FILE>t/plugin/limit-req.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

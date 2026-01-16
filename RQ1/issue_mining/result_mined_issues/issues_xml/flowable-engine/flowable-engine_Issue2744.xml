@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2744</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/2744</ISSUEURL>
+  <TITLE>Event listeners are not dispatched from the CMMN Task Service</TITLE>
+  <DESCRIPTION>**Is your feature request related to a problem? Please describe.** We're currently using event listeners configured on the engine to apply permission validations when any task is assigned to a user. We use this to check whether a user belongs to a group any time a task is assigned to someone. We've recently started using CMMN and noticed that in the CMMN Engine you can still define &quot;typedEventListeners&quot; and &quot;eventListeners&quot; but those aren't being used when tasks are assigned. Looks like some code is missing on the CMMN engine :( **Describe the solution you'd like** &quot;eventListeners&quot; and &quot;typedEventListeners&quot; should be used when a task is completed in the CMMN engine. This means changing the method org.flowable.cmmn.engine.impl.task.TaskHelper#changeTaskAssignee and add code to dispatch the event, the same way it's done in org.flowable.engine.impl.util.TaskHelper#changeTaskAssignee **Additional context** We're currently using Flowable 6.5.0 but I have also checked and this feature is still not available in the 6.6.0 version. I don't mind making a pull request with this feature. Is this something you feel worth contributing?</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>65</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge remote-tracking branch 'upstream/master'</MESSAGE>
+    <SHA>faaf6cdcc0ecf3eb65a08ddebe88f29796e74c3a</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Dispatch cmmn engine events when task is assigned #2744</MESSAGE>
+      <SHA>9bbe26280091627e01609b79f7b71641e6d2aafb</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-cmmn-api/src/main/java/org/flowable/cmmn/api/event/FlowableTaskAssignedEvent.java</FILE>
+        <FILE>modules/flowable-cmmn-engine/src/main/java/org/flowable/cmmn/engine/impl/event/FlowableCmmnEventBuilder.java</FILE>
+        <FILE>modules/flowable-cmmn-engine/src/main/java/org/flowable/cmmn/engine/impl/event/FlowableTaskAssignedEventImpl.java</FILE>
+        <FILE>modules/flowable-cmmn-engine/src/main/java/org/flowable/cmmn/engine/impl/task/TaskHelper.java</FILE>
+        <FILE>modules/flowable-cmmn-engine/src/test/java/org/flowable/cmmn/test/event/TaskAssignedEventTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Dispatch cmmn engine events when task is assigned #2744</MESSAGE>
+      <SHA>68e9a63c91cd76172f5698d643021ef15578f6be</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-cmmn-api/src/main/java/org/flowable/cmmn/api/event/FlowableTaskAssignedEvent.java</FILE>
+        <FILE>modules/flowable-cmmn-engine/src/main/java/org/flowable/cmmn/engine/impl/event/FlowableCmmnEventBuilder.java</FILE>
+        <FILE>modules/flowable-cmmn-engine/src/main/java/org/flowable/cmmn/engine/impl/event/FlowableTaskAssignedEventImpl.java</FILE>
+        <FILE>modules/flowable-cmmn-engine/src/main/java/org/flowable/cmmn/engine/impl/task/TaskHelper.java</FILE>
+        <FILE>modules/flowable-cmmn-engine/src/test/java/org/flowable/cmmn/test/event/TaskAssignedEventTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Dispatch cmmn engine events when task is assigned Closes #2744</MESSAGE>
+      <SHA>6461a7dfd9c263e99a2f86055a5ce5f36d8f7f46</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-cmmn-engine/src/main/java/org/flowable/cmmn/engine/impl/event/FlowableCmmnEventBuilder.java</FILE>
+        <FILE>modules/flowable-cmmn-engine/src/main/java/org/flowable/cmmn/engine/impl/task/TaskHelper.java</FILE>
+        <FILE>modules/flowable-cmmn-engine/src/test/java/org/flowable/cmmn/test/event/TaskAssignedEventTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

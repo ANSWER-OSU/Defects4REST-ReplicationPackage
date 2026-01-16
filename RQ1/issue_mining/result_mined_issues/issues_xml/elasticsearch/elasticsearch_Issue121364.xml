@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121364</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121364</ISSUEURL>
+  <TITLE>[CI] CohereServiceUpgradeIT testCohereEmbeddings {upgradedNodes=2} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #16936 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/pj6rjalerhs6y) - [elasticsearch-intake #16934 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/2rlryjp76rosk) - [elasticsearch-intake #16932 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/mkbb5lcdfj3r6) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:inference:qa:rolling-upgrade:v8.19.0#bwcTest&quot; -Dtests.class=&quot;org.elasticsearch.xpack.application.CohereServiceUpgradeIT&quot; -Dtests.method=&quot;testRerank {upgradedNodes=3}&quot; -Dtests.seed=9DE645285488F16E -Dtests.bwc=true -Dtests.locale=ka-Geor-GE -Dtests.timezone=Africa/Banjul -Druntime.java=23 ``` **Applicable branches:** 9.0 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.application.CohereServiceUpgradeIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testCohereEmbeddings%20%7BupgradedNodes%3D2%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.Exception: Test abandoned because suite timeout was reached. ``` **Issue Reasons:** - [9.0] 3 consecutive failures in step 8.19.0_bwc-snapshots - [9.0] 3 failures in test testCohereEmbeddings {upgradedNodes=2} (5.8% fail rate in 52 executions) - [9.0] 3 failures in step 8.19.0_bwc-snapshots (18.8% fail rate in 16 executions) - [9.0] 3 failures in pipeline elasticsearch-intake (25.0% fail rate in 12 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.application.CohereServiceUpgradeIT testRerank {upgradedNodes=1} #121363</MESSAGE>
+    <SHA>0eade806f6d924fdd21cc2a8fa1859e97c82efb2</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.application.CohereServiceUpgradeIT testCohereEmbeddings {upgradedNodes=2} #121364</MESSAGE>
+      <SHA>130811db721455a8a36404117ebf1339a01510ec</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

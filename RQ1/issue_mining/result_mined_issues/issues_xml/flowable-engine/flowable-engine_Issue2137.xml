@@ -1,0 +1,120 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2137</ISSUENO>
+  <ISSUEURL>https://github.com/flowable/flowable-engine/issues/2137</ISSUEURL>
+  <TITLE>Add support of JSON variable to the service task</TITLE>
+  <DESCRIPTION>**Is your feature request related to a problem? Please describe.** JSON variables are supported in some places in the BPMN engine, for example for script task multi-instanciation. But they are not supported by the web service task, for example: * to put a JSON variable as a complex element of the SOAP Request * or put a complex element of a SOAP Response into a JSON variable **Describe the solution you'd like** Improve `flowable-cxf` to support JSON variables **Describe alternatives you've considered** N/A **Additional context** N/A</DESCRIPTION>
+  <REPONAME>flowable-engine</REPONAME>
+  <TIMEDIFFERENCEDAYS>58</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Move to version 6.4.2</MESSAGE>
+    <SHA>97ed29e8cef0ff145483133a3d85d5a60b16b1bd</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Issue #2137: Add support of JSON variable to the service task (Json variable conversion to request objects of the CXF Dynamic client)</MESSAGE>
+      <SHA>4b8f6a7debaf0b341b97eb21b7d23b81a07c85ee</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-cxf/src/main/java/org/flowable/engine/impl/webservice/CxfWSDLImporter.java</FILE>
+        <FILE>modules/flowable-cxf/src/main/java/org/flowable/engine/impl/webservice/WSDLImporter.java</FILE>
+        <FILE>modules/flowable-cxf/src/test/java/org/flowable/engine/impl/webservice/MockWebServiceExtension.java</FILE>
+        <FILE>modules/flowable-cxf/src/test/java/org/flowable/engine/impl/webservice/Operands.java</FILE>
+        <FILE>modules/flowable-cxf/src/test/java/org/flowable/engine/impl/webservice/WebServiceMock.java</FILE>
+        <FILE>modules/flowable-cxf/src/test/java/org/flowable/engine/impl/webservice/WebServiceMockImpl.java</FILE>
+        <FILE>modules/flowable-cxf/src/test/java/org/flowable/engine/impl/webservice/WebServiceTaskTest.java</FILE>
+        <FILE>modules/flowable-cxf/src/test/resources/org/flowable/engine/impl/webservice/WebServiceTaskTest.testJsonArrayVariableDirectInvocation.bpmn20.xml</FILE>
+        <FILE>modules/flowable-cxf/src/test/resources/org/flowable/engine/impl/webservice/WebServiceTaskTest.testJsonArrayVariableMultiInstanceLoop.bpmn20.xml</FILE>
+        <FILE>modules/flowable-cxf/src/test/resources/org/flowable/engine/impl/webservice/WebServiceTaskTest.testJsonBeanVariableDirectInvocation.bpmn20.xml</FILE>
+        <FILE>modules/flowable-cxf/src/test/resources/org/flowable/engine/impl/webservice/WebServiceTaskTest.testJsonBeanVariableInvocationByAttribute.bpmn20.xml</FILE>
+        <FILE>modules/flowable-cxf/src/test/resources/org/flowable/engine/impl/webservice/WebServiceTaskTest.testJsonBeanWithArrayVariableDirectInvocation.bpmn20.xml</FILE>
+        <FILE>modules/flowable-cxf/src/test/resources/org/flowable/engine/impl/webservice/WebServiceTaskTest.testJsonBeanWithArrayVariableMultiInstanceLoop.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/data/ClassStructureDefinition.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/data/FieldBaseStructureDefinition.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/data/FieldBaseStructureInstance.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/data/SimpleStructureDefinition.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #3 from petalslink/2137-add-support-json-variable-to-web-servicetask Issue #2137: Add support of JSON variable to the service task</MESSAGE>
+      <SHA>75001d1bb827153e083832b63ebfce6409c9c40e</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-cxf/src/main/java/org/flowable/engine/impl/webservice/CxfWSDLImporter.java</FILE>
+        <FILE>modules/flowable-cxf/src/main/java/org/flowable/engine/impl/webservice/WSDLImporter.java</FILE>
+        <FILE>modules/flowable-cxf/src/test/java/org/flowable/engine/impl/webservice/MockWebServiceExtension.java</FILE>
+        <FILE>modules/flowable-cxf/src/test/java/org/flowable/engine/impl/webservice/Operands.java</FILE>
+        <FILE>modules/flowable-cxf/src/test/java/org/flowable/engine/impl/webservice/WebServiceMock.java</FILE>
+        <FILE>modules/flowable-cxf/src/test/java/org/flowable/engine/impl/webservice/WebServiceMockImpl.java</FILE>
+        <FILE>modules/flowable-cxf/src/test/java/org/flowable/engine/impl/webservice/WebServiceTaskTest.java</FILE>
+        <FILE>modules/flowable-cxf/src/test/resources/org/flowable/engine/impl/webservice/WebServiceTaskTest.testJsonArrayVariableDirectInvocation.bpmn20.xml</FILE>
+        <FILE>modules/flowable-cxf/src/test/resources/org/flowable/engine/impl/webservice/WebServiceTaskTest.testJsonArrayVariableMultiInstanceLoop.bpmn20.xml</FILE>
+        <FILE>modules/flowable-cxf/src/test/resources/org/flowable/engine/impl/webservice/WebServiceTaskTest.testJsonBeanVariableDirectInvocation.bpmn20.xml</FILE>
+        <FILE>modules/flowable-cxf/src/test/resources/org/flowable/engine/impl/webservice/WebServiceTaskTest.testJsonBeanVariableInvocationByAttribute.bpmn20.xml</FILE>
+        <FILE>modules/flowable-cxf/src/test/resources/org/flowable/engine/impl/webservice/WebServiceTaskTest.testJsonBeanWithArrayVariableDirectInvocation.bpmn20.xml</FILE>
+        <FILE>modules/flowable-cxf/src/test/resources/org/flowable/engine/impl/webservice/WebServiceTaskTest.testJsonBeanWithArrayVariableMultiInstanceLoop.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/data/ClassStructureDefinition.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/data/FieldBaseStructureDefinition.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/data/FieldBaseStructureInstance.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/data/SimpleStructureDefinition.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Issue #2137: Add support of JSON variable to the service task (Conversion of Java bean response objects of the CXF Dynamic client into Json variable)</MESSAGE>
+      <SHA>5b999ac889e2b3e2683dea4649b586f415d8f3d0</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-bpmn-converter/src/main/java/org/flowable/bpmn/converter/BpmnXMLConverter.java</FILE>
+        <FILE>modules/flowable-bpmn-converter/src/main/java/org/flowable/bpmn/converter/ValuedDataObjectXMLConverter.java</FILE>
+        <FILE>modules/flowable-bpmn-converter/src/test/java/org/flowable/editor/language/xml/DataObjectConverterTest.java</FILE>
+        <FILE>modules/flowable-bpmn-converter/src/test/resources/dataobjectmodel.bpmn</FILE>
+        <FILE>modules/flowable-bpmn-model/src/main/java/org/flowable/bpmn/model/JsonDataObject.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/data/TransformationDataOutputAssociation.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/parser/handler/ProcessParseHandler.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #4 from petalslink/2137-add-support-json-variable-to-web-servicetask Issue #2137: Add support of JSON variable to the service task</MESSAGE>
+      <SHA>1794dc0d2b82d49db0916a77ed3290f8734dff68</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-bpmn-converter/src/main/java/org/flowable/bpmn/converter/BpmnXMLConverter.java</FILE>
+        <FILE>modules/flowable-bpmn-converter/src/main/java/org/flowable/bpmn/converter/ValuedDataObjectXMLConverter.java</FILE>
+        <FILE>modules/flowable-bpmn-converter/src/test/java/org/flowable/editor/language/xml/DataObjectConverterTest.java</FILE>
+        <FILE>modules/flowable-bpmn-converter/src/test/resources/dataobjectmodel.bpmn</FILE>
+        <FILE>modules/flowable-bpmn-model/src/main/java/org/flowable/bpmn/model/JsonDataObject.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/data/TransformationDataOutputAssociation.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/parser/handler/ProcessParseHandler.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Issue #2137: Add support json variable to web servicetask (#2181) * Issue #2137: Add support of JSON variable to the service task (Json variable conversion to request objects of the CXF Dynamic client) * Issue #2137: Add support of JSON variable to the service task (Conversion of Java bean response objects of the CXF Dynamic client into Json variable) * Add a unit test about XML part (of SOAP response) to JSon variable conversion, and fix JSon serialization of java.util.Date * Fix how a value is set into a JSon data object * Reuse the ObjectMapper instance available in the engine configuration</MESSAGE>
+      <SHA>da0976a3d12300915271c9a6179386e86dd67736</SHA>
+      <PATCHEDFILES>
+        <FILE>modules/flowable-bpmn-converter/src/main/java/org/flowable/bpmn/converter/BpmnXMLConverter.java</FILE>
+        <FILE>modules/flowable-bpmn-converter/src/main/java/org/flowable/bpmn/converter/ValuedDataObjectXMLConverter.java</FILE>
+        <FILE>modules/flowable-bpmn-converter/src/test/java/org/flowable/editor/language/xml/DataObjectConverterTest.java</FILE>
+        <FILE>modules/flowable-bpmn-converter/src/test/java/org/flowable/editor/language/xml/ValuedDataObjectConverterTest.java</FILE>
+        <FILE>modules/flowable-bpmn-converter/src/test/resources/dataobjectmodel.bpmn</FILE>
+        <FILE>modules/flowable-bpmn-converter/src/test/resources/valueddataobjectmodel.bpmn</FILE>
+        <FILE>modules/flowable-bpmn-model/src/main/java/org/flowable/bpmn/model/JsonDataObject.java</FILE>
+        <FILE>modules/flowable-cxf/src/main/java/org/flowable/engine/impl/webservice/CxfWSDLImporter.java</FILE>
+        <FILE>modules/flowable-cxf/src/main/java/org/flowable/engine/impl/webservice/WSDLImporter.java</FILE>
+        <FILE>modules/flowable-cxf/src/test/java/org/flowable/engine/impl/webservice/MockWebServiceExtension.java</FILE>
+        <FILE>modules/flowable-cxf/src/test/java/org/flowable/engine/impl/webservice/Operands.java</FILE>
+        <FILE>modules/flowable-cxf/src/test/java/org/flowable/engine/impl/webservice/WebServiceMock.java</FILE>
+        <FILE>modules/flowable-cxf/src/test/java/org/flowable/engine/impl/webservice/WebServiceMockImpl.java</FILE>
+        <FILE>modules/flowable-cxf/src/test/java/org/flowable/engine/impl/webservice/WebServiceTaskTest.java</FILE>
+        <FILE>modules/flowable-cxf/src/test/resources/org/flowable/engine/impl/webservice/WebServiceTaskTest.testJsonArrayVariableDirectInvocation.bpmn20.xml</FILE>
+        <FILE>modules/flowable-cxf/src/test/resources/org/flowable/engine/impl/webservice/WebServiceTaskTest.testJsonArrayVariableMultiInstanceLoop.bpmn20.xml</FILE>
+        <FILE>modules/flowable-cxf/src/test/resources/org/flowable/engine/impl/webservice/WebServiceTaskTest.testJsonBeanVariableDirectInvocation.bpmn20.xml</FILE>
+        <FILE>modules/flowable-cxf/src/test/resources/org/flowable/engine/impl/webservice/WebServiceTaskTest.testJsonBeanVariableInvocationByAttribute.bpmn20.xml</FILE>
+        <FILE>modules/flowable-cxf/src/test/resources/org/flowable/engine/impl/webservice/WebServiceTaskTest.testJsonBeanWithArrayVariableDirectInvocation.bpmn20.xml</FILE>
+        <FILE>modules/flowable-cxf/src/test/resources/org/flowable/engine/impl/webservice/WebServiceTaskTest.testJsonBeanWithArrayVariableMultiInstanceLoop.bpmn20.xml</FILE>
+        <FILE>modules/flowable-cxf/src/test/resources/org/flowable/engine/impl/webservice/WebServiceTaskTest.testJsonDataObject.bpmn20.xml</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/data/ClassStructureDefinition.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/data/FieldBaseStructureDefinition.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/data/FieldBaseStructureInstance.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/data/SimpleStructureDefinition.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/data/TransformationDataOutputAssociation.java</FILE>
+        <FILE>modules/flowable-engine/src/main/java/org/flowable/engine/impl/bpmn/parser/handler/ProcessParseHandler.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

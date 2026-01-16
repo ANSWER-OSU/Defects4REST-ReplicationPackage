@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>5878</ISSUENO>
+  <ISSUEURL>https://github.com/nopSolutions/nopCommerce/issues/5878</ISSUEURL>
+  <TITLE>Replies to anonymous product reviews don't work</TITLE>
+  <DESCRIPTION>nopCommerce version: 4.40.4 Steps to reproduce the problem: Most of my users use guest checkout. Because I want customers to leave reviews, I have allowed anonymous reviews with approval. Customers are able to leave reviews. However, when editing the review to add reply text, the sql insert fails from what I believe is because no email address exists for guests. I had to manually put the reply text in the ProductReview table record. Error below. Cannot insert the value NULL into column 'To', table 'QueuedEmail'; column does not allow nulls. INSERT fails. The statement has been terminated. Source: https://www.nopcommerce.com/en/boards/topic/92056/product-review-reply-text-insert-fails We should not send notifications to guests</DESCRIPTION>
+  <REPONAME>nopCommerce</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>#5886 Fixed problem with the ContactUs.Body token in the SendContactUsMessageAsync method</MESSAGE>
+    <SHA>92a9a5587d96a0db1d11c3b5a620d73423b48497</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>#5878 Sending a reply to a review has been disabled for guests because their email is unknown</MESSAGE>
+      <SHA>d87e107b7b9cf8b680efa8cc701af25a1acb4a4d</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Messages/WorkflowMessageService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>#5878 Sending a reply to a review has been disabled for guests because their email is unknown</MESSAGE>
+      <SHA>b7db52bc14f346b18a7866c0e7fb7147be25c3ee</SHA>
+      <PATCHEDFILES>
+        <FILE>src/Libraries/Nop.Services/Messages/WorkflowMessageService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

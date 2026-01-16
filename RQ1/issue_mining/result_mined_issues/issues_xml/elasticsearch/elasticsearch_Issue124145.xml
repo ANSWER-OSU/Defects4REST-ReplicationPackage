@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>124145</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/124145</ISSUEURL>
+  <TITLE>[ES|QL] restore better syntax error messages</TITLE>
+  <DESCRIPTION>### Description https://github.com/elastic/elasticsearch/commit/21845ad7a18821ccd80927211285308bb3eb8038 resulted in some negative changes to our syntax error messages. The top priority is `row var = 1 not in` - used to result in `mismatched input '&lt;EOF&gt;' expecting '('` - but now says `mismatched input '&lt;EOF&gt;' expecting LP` &lt;img width=&quot;651&quot; alt=&quot;Image&quot; src=&quot;https://github.com/user-attachments/assets/5ab5cbea-f0e1-4391-9995-dde2fb854544&quot; /&gt; (the lexer lost the literal name for LP, so it just gives the symbolic name... this won't be obvious to a user). Also, an incorrect command name generates an error with a missing element in the list `from index | project ` - used to result in mismatched input 'PROJECT' expecting {'dissect', 'drop', 'enrich', 'eval', 'grok', 'keep', 'limit', 'mv_expand', 'rename', 'sort', 'stats', 'where', 'lookup'} - but now says mismatched input 'PROJECT' expecting {, 'enrich', 'dissect', 'eval', 'grok', 'limit', 'sort', 'stats', 'where', 'lookup', 'mv_expand', 'drop', 'keep', 'rename'} Could we restore the original behavior in these cases? Particularly, the parentheses.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>10</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.esql.qa.single_node.EsqlSpecIT test {lookup-join.MvJoinKeyFromRow SYNC} #124951</MESSAGE>
+    <SHA>4a0c935e822954219c159a818c8840f8044cb0f5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>ESQL: Improve error message for ( and [ (#124177) Due to recent grammar changes made ( token to no longer be reported by its text rather by his internal token name. Due to the use of pushMode, the symbol is not treated as a literal rather as a symbol. To address this, the parser listener looks at the error message and changes the message before returning it to the user. Replace hacky regex approach with Vocabulary substitution (not as pluggable as it could be yet much better) Fix #124145 Relates #123085 #121948 Co-authored-by: Alexander Spies &lt;alexander.spies@elastic.co&gt;</MESSAGE>
+      <SHA>e8533c1732162ad1f5142cd201f571181a9a4e1b</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/changelog/124177.yaml</FILE>
+        <FILE>x-pack/plugin/esql/src/main/java/org/elasticsearch/xpack/esql/parser/EsqlParser.java</FILE>
+        <FILE>x-pack/plugin/esql/src/test/java/org/elasticsearch/xpack/esql/parser/StatementParserTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>12334</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/12334</ISSUEURL>
+  <TITLE>DbConnectionValidator fails if Shell Settings come from same database</TITLE>
+  <DESCRIPTION>If shell settings come from the same database, the document table may already exist before the setup, in that case during the setup the DbConnectionValidator fails because the document table already exits.</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add missing null check operator in ShellSettingsManager.EnsureConfigurationAsync() (#12328)</MESSAGE>
+    <SHA>7f95dc0649fb830a2975bc779407fc6923ec6dc1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #12334</MESSAGE>
+      <SHA>fe6cada7558e55388f29ffca1f1780d3cf2882f7</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Tenants/Services/TenantValidator.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Data.YesSql.Abstractions/DbConnectionValidatorResult.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Data.YesSql/DbConnectionValidator.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Infrastructure/Shells.Database/Configuration/DatabaseShellsStorageOptions.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Infrastructure/Shells.Database/Extensions/DatabaseShellContextFactoryExtensions.cs</FILE>
+        <FILE>src/OrchardCore/OrchardCore.Setup.Core/SetupService.cs</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

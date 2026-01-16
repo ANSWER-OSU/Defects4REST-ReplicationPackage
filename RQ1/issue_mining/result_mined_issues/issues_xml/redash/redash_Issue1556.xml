@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1556</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/1556</ISSUEURL>
+  <TITLE>0027_add_draft_toggle.py makes every existing dashboards hide (in master branch)</TITLE>
+  <DESCRIPTION>Sorry, I found a nits bug in master branch. (I know recent master branch is the status for very experimental stage. ) ### Issue Summary The old_migration scripts make every existing dashboards hide. https://github.com/getredash/redash/blob/master/old_migrations/0027_add_draft_toggle.py#L11-L17 It is adding is_draft column both queries and dashboards. However its update cares only queries. So every dashboard will be `is_draft = true` . ```python migrate( migrator.add_column('queries', 'is_draft', models.Query.is_draft) ) migrate( migrator.add_column('dashboards', 'is_draft', models.Query.is_draft) ) db.database.execute_sql(&quot;UPDATE queries SET is_draft = (name = 'New Query')&quot;) ```</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #1551 from getredash/change_tracking Fix: flask-admin - exclude created_at/updated_at so models can be saved</MESSAGE>
+    <SHA>4b4758af22cb30c4f031c91d2deefe84c85eafe8</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix: #1556 0027_add_draft_toggle.py makes every existing dashboards hide - https://github.com/getredash/redash/issues/1556</MESSAGE>
+      <SHA>d6834d91047d546a6d3b8a4d8e7c4a9b87cac5b0</SHA>
+      <PATCHEDFILES>
+        <FILE>old_migrations/0027_add_draft_toggle.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

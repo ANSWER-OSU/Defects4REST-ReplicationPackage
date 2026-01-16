@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>691</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/691</ISSUEURL>
+  <TITLE>Remove old aliased deployments after replacing them</TITLE>
+  <DESCRIPTION>## Goal In CI, when I [deploy my app to staging](https://gist.github.com/sholladay/bd0d9ffeebee6dd8207766be18886503#file-deploy-staging-sh) and then alias it, I'd like to remove the deployment that is being replaced (the one that was previously at that alias). The old deployment will forever go unused from that point forward and it takes up space in the `now ls` output, adding noise and confusion to what our deployments actually represent. ## Details The command `now remove my-app --yes --safe` comes close to what I want, except that it potentially removes deployments that weren't done in CI (e.g. experiments by my team), so it's a bit too aggressive. Additionally, it errors out if there _aren't_ any old deployments (i.e. it fails the first time), which I don't want in the case of an alias that otherwise succeeds. As a workaround, I had an idea to run `OLD_URL=$(now ls my-alias)` as a first step before deploying, so that I know what to remove later on. Trying that, `OLD_URL` currently becomes: &gt; \&gt; 1 deployment found under my-app [1s] my-app (1 of 1 total) url inst # state age my-app-abcdefghij.now.sh 1 READY 20h So the info I need (`my-app-abcdefghij.now.sh`) is in there, but I would have to parse it, which I'm not keen on. My ideal solution would simply be an opt-in flag to use when aliasing, since this is a common case. ```sh now alias set staging.my-app.com --remove-old ```</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>507</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Bumps ncc to 0.20.x (#641) * bumps ncc to 0.20.0 * upgrades to ncc@0.20.2 this includes the fixes for https://github.com/zeit/ncc/issues/434 * defines filterAssetBase when calling ncc This prevents assets from being evicted by ncc's filtering. * scopes includeFiles under the package root it was previously scoped under the directory of the input file currently being processed. This should fix #522 along with fixing the 09-include-files tests for now-node * Bump to ncc 0.20.3 * Bump ncc-watcher to 1.1.0</MESSAGE>
+    <SHA>df2769717baa50d82dcb7633172b19f366642358</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-node] Add support for `server.listen()` (#691) * [now-node] Add support for listener * Fix listener * Add hapi-async test * Add timeout for listening * Add additional case for invalid export * Increase timeout to 5 seconds</MESSAGE>
+      <SHA>a5e651403e7a5fb76fb772e4c461211eb609f019</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-node/src/launcher.ts</FILE>
+        <FILE>packages/now-node/test/fixtures/02-node-server/hapi-async/index.js</FILE>
+        <FILE>packages/now-node/test/fixtures/02-node-server/hapi-async/package.json</FILE>
+        <FILE>packages/now-node/test/fixtures/02-node-server/index.js</FILE>
+        <FILE>packages/now-node/test/fixtures/02-node-server/now.json</FILE>
+        <FILE>packages/now-node/test/fixtures/02-node-server/subdirectory/index.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

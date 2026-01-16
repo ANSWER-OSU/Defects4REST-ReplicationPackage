@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121350</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121350</ISSUEURL>
+  <TITLE>[CI] SmokeTestMultiNodeClientYamlTestSuiteIT test {yaml=search.vectors/42_knn_search_int4_flat/Vector similarity with filter only} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic-platform-support #6145 / rhel-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/ybknmgk5qddiu) - [elasticsearch-periodic-platform-support #6138 / oraclelinux-8_platform-support-unix](https://gradle-enterprise.elastic.co/s/lacdrlhf3sa5i) **Reproduction Line:** ``` ./gradlew &quot;:qa:smoke-test-multinode:yamlRestTest&quot; --tests &quot;org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT&quot; -Dtests.method=&quot;test {yaml=search.vectors/42_knn_search_int4_flat/Vector similarity with filter only}&quot; -Dtests.seed=DC5AA32211BA81F1 -Dtests.locale=nb-SJ -Dtests.timezone=America/Pangnirtung -Druntime.java=23 ``` **Applicable branches:** 8.18 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(test%20%7Byaml%3Dsearch.vectors%2F42_knn_search_int4_flat%2FVector%20similarity%20with%20filter%20only%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: Failure at [search.vectors/42_knn_search_int4_flat:231]: field [hits.hits] doesn't have length [1] Expected: &lt;1&gt; but: was &lt;0&gt; ``` **Issue Reasons:** - [8.18] 2 failures in test test {yaml=search.vectors/42_knn_search_int4_flat/Vector similarity with filter only} (1.9% fail rate in 106 executions) - [8.18] 2 failures in pipeline elasticsearch-periodic-platform-support (50.0% fail rate in 4 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Update ESRestTestCase's ROLLUP_REQUESTS_OPTIONS (#121335) Sometimes there are multiple warning.</MESSAGE>
+    <SHA>0d2db063ec4d8e95941e3b92dc150e294e5f0689</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT test {yaml=search.vectors/42_knn_search_int4_flat/Vector similarity with filter only} #121350</MESSAGE>
+      <SHA>1c1f1950185abb7529b4f812864403c7887c2b50</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT test {yaml=search.vectors/42_knn_search_int4_flat/Vector similarity with filter only} #121350</MESSAGE>
+      <SHA>9c93a99d0d6bef6c30fab20f5b462202a6c8a677</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.smoketest.SmokeTestMultiNodeClientYamlTestSuiteIT test {yaml=search.vectors/42_knn_search_int4_flat/Vector similarity with filter only} #121350</MESSAGE>
+      <SHA>d3ac9d8b5d99e52a71126d036de39d1a7c3446cd</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>226</ISSUENO>
+  <ISSUEURL>https://github.com/corona-warn-app/cwa-verification-server/issues/226</ISSUEURL>
+  <TITLE>Add timestamp to test result</TITLE>
+  <DESCRIPTION>## Current Implementation Test representation as hash and test result are fetched from test result server. ## Suggested Enhancement Add a timestamp when the test result is confirmed. This timestamp can be considered as confirmation time of the test. ### Interface The existing REST payload shall be enhanced by a key `&quot;sc&quot;: number` containing the time of confirmation in UNIX epoch format. This value is optional, i. e, upon creation time the mobile client may not set this value. As long the test result is pending, the value will not be included, when requested via `/version/v1/testresult` ## Expected Benefits All Tests PCR and RAG Tests shall contain the timestamp. Concerning PCR Tests this timestamp is currently the time, the result arrives at the server.</DESCRIPTION>
+  <REPONAME>cwa-verification-server</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>fix ci (#224) * fix ci * Update Dockerfile</MESSAGE>
+    <SHA>691dfe9db8a37e0a80f8259a8374640145b56b97</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>feat(#226)/Added Collection Sample (cs) timestamp (#227) * Added Collection Sample (cs) timestamp * Update ci-dockerfile.yml * Fixed Sample Collection * Fix Typo</MESSAGE>
+      <SHA>462eff91c4bf0612fe384746a8d780d594f303f5</SHA>
+      <PATCHEDFILES>
+        <FILE>.github/workflows/ci-dockerfile.yml</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/controller/ExternalTestStateController.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/model/TestResult.java</FILE>
+        <FILE>src/main/java/app/coronawarn/verification/service/FakeRequestService.java</FILE>
+        <FILE>src/test/java/app/coronawarn/verification/TestUtils.java</FILE>
+        <FILE>src/test/java/app/coronawarn/verification/VerificationApplicationExternalTest.java</FILE>
+        <FILE>src/test/java/app/coronawarn/verification/service/TestResultServerServiceTest.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

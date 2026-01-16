@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>4660</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/4660</ISSUEURL>
+  <TITLE>Unwanted project source tree updates before job run</TITLE>
+  <DESCRIPTION>##### ISSUE TYPE - Bug Report ##### SUMMARY Projects are not supposed to update to newer versions when a job is ran, unless the project is set to update on launch. This appears to be happening when `scm_branch` of the project is blank, and new commits have been added to the repo. ##### ENVIRONMENT * AWX version: X.Y.Z * AWX install method: openshift, minishift, docker on linux, docker for mac, boot2docker * Ansible version: X.Y.Z * Operating System: * Web Browser: ##### STEPS TO REPRODUCE create a new project with test-playbooks, then merge a PR to that repo, and re-run a job that uses the debug playbook from it. ##### EXPECTED RESULTS old version ran ##### ACTUAL RESULTS new version ran ##### ADDITIONAL INFORMATION fallout from project branch override</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>18</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #4664 from ryanpetrello/pin-collections-requirements pin known working collections in 3.8.0</MESSAGE>
+    <SHA>35eda3a9a75b48b266b721b2c0f639437c7cb30d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #4660 from beeankha/fix_import_export_failures Change import/export Collections Module to Detect Errors vs Warnings</MESSAGE>
+      <SHA>e406e4298bbd66c7ce238577ee946aa472f73af5</SHA>
+      <PATCHEDFILES>
+        <FILE>awx_collection/plugins/modules/tower_export.py</FILE>
+        <FILE>awx_collection/plugins/modules/tower_import.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

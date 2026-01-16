@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>636</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/636</ISSUEURL>
+  <TITLE>Standalone external alias</TITLE>
+  <DESCRIPTION>* I have `app` on now at `app.now.sh` * `app` is a monolith that currently has `/Foos` path to get `Foo` objects from DB * `app` *also* needs to be able to call the `Foos` APIs internally, so if `foo-api` is split off the application it must know where it is. * My goal is to 1. FIRST: Remove `foo-api` to separate application on now &amp; passthrough alias to it from `app.now.sh` on `pathname: Foos*` 2. LATER: Remove `foo-api` to a hosted API on bluemix (`foo-api.mybluemix.com/Foos`, and pass through to it on `pathname: Foos*` (same alias) ## What works 1. Deploying `foo-api` to `now` 2. Aliasing it on now: `now alias foo-api-o92u7oasjdfakl.now.sh foo-api` 2. Passthrough aliasing to it from `app.now.sh`: ```json { &quot;pathname&quot;: &quot;/Foos**&quot;, &quot;dest&quot; : &quot;foo-api.now.sh&quot; } ``` 3. Setting `FOO_API` as an ENV far on `app.now.sh` instance so it knows where to look up `Foos` internally: `[~/app/] $ now -e FOO_API=&quot;https://foo-api.now.sh&quot;` ## What doesn't work Now I want to move my `foo-api` to bluemix and point `foo-api.now.sh` to bluemix so: 1. The existing pass through alias on `app.now.sh/Foos*` still works 2. **Calling the foo api via `process.env.FOO_API` within `app.now.sh` still works without me having to redeploy with new ENV vars** because `foo-api.now.sh` now points to external Step 2 above is what I can't figure out. I would like `app` to *not* be aware of where its calls to `foo-api.now.sh` actually go so it can transparently be switched to from now-local to remote without having to redeploy `app` with new env vars. This would require *two* steps for migration: 1. Change alias 2. Change path internally Where I would like just 1. # Question Is it possible to set up an alias without an instance? Example: `now alias https://foo.mybluemix.com foo-api.now.sh`</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>799</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Remove extra pre-fixing for dynamic routes (#751)</MESSAGE>
+    <SHA>8d987243c6bbf24171f9560af0a4bd1d3c0bd676</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-static-build] Use `yarn` when invoking `now-dev` script (#747) `yarn` used to be used, but was switched over to `npm` in #636. The problem with `npm` is that when the `ignoreScripts` config option is enabled in the user's `.npmrc` file, then `npm run …` does not get invoked. This makes sense for `npm i`, but doesn't really make sense if you're explicitly _trying_ to run a package script via `npm run`, and in fact breaks `now dev`. `yarn` has a similar option to ignore scripts, however it has the more understandable behavior that when you do `yarn run` then the script is actually run. There isn't a concern about if the user does not have `yarn` installed since `now dev` bundles its own copy of yarn and uses that version.</MESSAGE>
+      <SHA>c03d9479e126a8857cd58a312ffbd42802af1e36</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-static-build/src/index.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

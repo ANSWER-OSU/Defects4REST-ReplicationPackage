@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>121363</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/121363</ISSUEURL>
+  <TITLE>[CI] CohereServiceUpgradeIT testRerank {upgradedNodes=1} failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-intake #16934 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/2rlryjp76rosk) - [elasticsearch-intake #16932 / 8.19.0_bwc-snapshots](https://gradle-enterprise.elastic.co/s/mkbb5lcdfj3r6) **Reproduction Line:** ``` ./gradlew &quot;:x-pack:plugin:inference:qa:rolling-upgrade:v8.19.0#bwcTest&quot; -Dtests.class=&quot;org.elasticsearch.xpack.application.CohereServiceUpgradeIT&quot; -Dtests.method=&quot;testCohereEmbeddings {upgradedNodes=1}&quot; -Dtests.seed=29DDAAF8DC542DE8 -Dtests.bwc=true -Dtests.locale=szl-PL -Dtests.timezone=America/Puerto_Rico -Druntime.java=23 ``` **Applicable branches:** 9.0 **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.xpack.application.CohereServiceUpgradeIT),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testRerank%20%7BupgradedNodes%3D1%7D),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.RuntimeException: An error occurred while checking cluster 'test-cluster' status. ``` **Issue Reasons:** - [9.0] 2 consecutive failures in step 8.19.0_bwc-snapshots - [9.0] 2 consecutive failures in pipeline elasticsearch-intake - [9.0] 2 failures in test testRerank {upgradedNodes=1} (4.2% fail rate in 48 executions) - [9.0] 2 failures in step 8.19.0_bwc-snapshots (13.3% fail rate in 15 executions) - [9.0] 2 failures in pipeline elasticsearch-intake (18.2% fail rate in 11 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Mute org.elasticsearch.xpack.application.CohereServiceUpgradeIT testCohereEmbeddings {upgradedNodes=1} #121362</MESSAGE>
+    <SHA>afe9eb282fd682b65138653136cb7c16015719b5</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.xpack.application.CohereServiceUpgradeIT testRerank {upgradedNodes=1} #121363</MESSAGE>
+      <SHA>0eade806f6d924fdd21cc2a8fa1859e97c82efb2</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

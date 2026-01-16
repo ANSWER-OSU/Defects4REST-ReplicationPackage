@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3246</ISSUENO>
+  <ISSUEURL>https://github.com/vercel/vercel/issues/3246</ISSUEURL>
+  <TITLE>Ruby serverless API are not working anymore</TITLE>
+  <DESCRIPTION>Hi, First of all, thanks for the ruby support. I published some code ~7 days ago that was working just fine: https://github.com/denispasin/thp-landing That's a simple API possible for a test, using a gem. &gt; Installing build runtime... &gt; -- &gt; 09:01:22 PM | Build runtime installed: 2219.847ms &gt; 09:01:22 PM | Looking up build cache... &gt; 09:01:23 PM | downloading files... &gt; 09:01:23 PM | installing ruby... &gt; 09:01:23 PM | installing bundler... &gt; 09:01:23 PM | checking for existing vendor directory at &quot;vendor/bundle/ruby/2.5.0&quot; &gt; 09:01:23 PM | did not find a vendor directory but found a Gemfile, bundling gems... &gt; 09:01:23 PM | running &quot;bundle install --deployment&quot;... &gt; 09:01:56 PM | entrypoint is api/to_google_doc.rb &gt; 09:02:04 PM | done It's not anymore. It seems to not detect and install gems as it did before. &gt; Installing build runtime... &gt; -- &gt; 11:00:21 PM | Build runtime installed: 2210.095ms &gt; 11:00:21 PM | Looking up build cache... &gt; 11:01:05 PM | done It's probably from this commit (the only one with ruby in it and between now and 7 days ago): https://github.com/zeit/now/commit/e36f3d355e58495d0356934f2ff26f7c3d8ba915 I'll try to understand the commit. Tell me if you need more things from me!</DESCRIPTION>
+  <REPONAME>vercel</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Adjust commands for creating releases (#3287) * Adjust commands for creating releases * Update package.json Co-Authored-By: Steven &lt;steven@ceriously.com&gt; * Update package.json Co-Authored-By: Steven &lt;steven@ceriously.com&gt; * Adjusted log line * Deleted diff.js * Remove script * Fix run.js to use master</MESSAGE>
+    <SHA>c9572c352aff7f63aac26f510297358d466aeaba</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[now-ruby] Fix rails test (#3288) This test was failing for the last week. The issue was fixed in the build environment. The root cause was [ruby-build](https://github.com/rbenv/ruby-build) which is used to install the version of Ruby used in `@now/ruby`. It started using an older (possible broken) version of `bundler`. I pinned `ruby-build` to a previous version so that deployments continue working. So now we can enable the Rails test again (which uses nokogiri). Fixes #3246 Closes #3274</MESSAGE>
+      <SHA>2964bf50e0ece5feb03e27b99e675104cf436cac</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/now-ruby/test/test.js</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

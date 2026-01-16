@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>3695</ISSUENO>
+  <ISSUEURL>https://github.com/DSpace/DSpace/issues/3695</ISSUEURL>
+  <TITLE>[DS-320] java.util.NoSuchElementException: Timeout waiting for idle objec</TITLE>
+  <DESCRIPTION>&lt;i&gt;Imported from JIRA &lt;a href=&quot;https://jira.lyrasis.org/browse/DS-320&quot;&gt;[DS-320]&lt;/a&gt; created by nuncanada&lt;/i&gt; &lt;p&gt;We have been restarting Tomcat daily now, sometimes multiple times a day, the connections are running out.&lt;/p&gt; &lt;p&gt;From a heap dump its clear that there is a lot of Context objects not being released, actually being hold onto by Finalizer.&lt;/p&gt; &lt;p&gt;When applied Mark Woods patch:&lt;/p&gt; &lt;p&gt;&lt;a href=&quot;http://jira.dspace.org/jira/browse/DS-253&quot; class=&quot;external-link&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot;&gt;http://jira.dspace.org/jira/browse/DS-253&lt;/a&gt;&lt;/p&gt; &lt;p&gt;That seemed to make it longer for the problems to appear, but still they end up happening. (Nevertheless the patch brings other concurrent critical problem from cocoon, that we never actually spotted in production).&lt;/p&gt; &lt;p&gt;There are some Exceptions appearing before the one about no connections left, but the most common one is:&lt;/p&gt; &lt;p&gt;Caused by: org.postgresql.util.PSQLException: This statement has been closed.&lt;br/&gt; at org.postgresql.jdbc2.AbstractJdbc2Statement.checkClosed(AbstractJdbc2Statement.java:2444)&lt;br/&gt; at org.postgresql.jdbc2.AbstractJdbc2Statement.setInt(AbstractJdbc2Statement.java:1150)&lt;br/&gt; at org.apache.commons.dbcp.DelegatingPreparedStatement.setInt(DelegatingPreparedStatement.java:117)&lt;br/&gt; at org.apache.commons.dbcp.DelegatingPreparedStatement.setInt(DelegatingPreparedStatement.java:117)&lt;br/&gt; at org.dspace.storage.rdbms.DatabaseManager.loadParameters(DatabaseManager.java:1676)&lt;br/&gt; at org.dspace.storage.rdbms.DatabaseManager.query(DatabaseManager.java:219)&lt;br/&gt; at org.dspace.storage.rdbms.DatabaseManager.querySingle(DatabaseManager.java:302)&lt;/p&gt; &lt;p&gt;But i don't know why this is happening? Any clues?&lt;/p&gt; &lt;p&gt;Anyways, maybe there is some problem with the top-level Exception handling in XMLUI that is ending up making Contexts getting 'leaked'?&lt;/p&gt;</DESCRIPTION>
+  <REPONAME>DSpace</REPONAME>
+  <TIMEDIFFERENCEDAYS>41</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merged in task/main-cris/DSC-2251 (pull request #3745) Task/main cris/DSC-2251 Approved-by: Vincenzo Mecca</MESSAGE>
+    <SHA>7ea4cc9051bb3f175f71f7dee776336fc63c885c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merged in task/main-cris/DSC-2276 (pull request #3695) [DSC-2276] fix store-metrics to commit every 20 worked items Approved-by: Vincenzo Mecca</MESSAGE>
+      <SHA>97e4a4289d8c8e9a0aa743b90720223ae4eb4b77</SHA>
+      <PATCHEDFILES>
+        <FILE>dspace-api/src/main/java/org/dspace/metrics/StoreViewDownloadsCrisMetrics.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

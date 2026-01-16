@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>733</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/733</ISSUEURL>
+  <TITLE>Migrations in new permissions system</TITLE>
+  <DESCRIPTION>There is one small bug in: https://github.com/getredash/redash/commit/f7b57fa580a6556f8f101856aecc940283a024ca Migrations list: 0018_add_groups_refs.py 0019_add_super_admin_permission.py 0020_add_group_type.py ``` Applying 0018_add_groups_refs.py... [52.31.96.150] run: sudo sudo -u redash PYTHONPATH=. bin/run python migrations/0018_add_groups_refs.py [52.31.96.150] out: [2016-01-05 11:29:52,384][PID:17111][WARNING][redash.query_runner] MQL query runner enabled but not supported, not registering. Either disable or install missing dependencies. [52.31.96.150] out: [2016-01-05 11:29:52,435][PID:17111][WARNING][redash.query_runner] Oracle query runner enabled but not supported, not registering. Either disable or install missing dependencies. [52.31.96.150] out: [2016-01-05 11:29:52,549][PID:17111][ERROR][peewee] SELECT &quot;t1&quot;.&quot;id&quot;, &quot;t1&quot;.&quot;org_id&quot;, &quot;t1&quot;.&quot;type&quot;, &quot;t1&quot;.&quot;name&quot;, &quot;t1&quot;.&quot;permissions&quot;, &quot;t1&quot;.&quot;created_at&quot; FROM &quot;groups&quot; AS t1 WHERE (&quot;t1&quot;.&quot;name&quot; = %s) LIMIT 1 [u'default'] [52.31.96.150] out: Traceback (most recent call last): [52.31.96.150] out: File &quot;/usr/local/lib/python2.7/dist-packages/playhouse/postgres_ext.py&quot;, line 360, in execute_sql [52.31.96.150] out: cursor.execute(sql, params or ()) [52.31.96.150] out: ProgrammingError: column t1.type does not exist [52.31.96.150] out: LINE 1: SELECT &quot;t1&quot;.&quot;id&quot;, &quot;t1&quot;.&quot;org_id&quot;, &quot;t1&quot;.&quot;type&quot;, &quot;t1&quot;.&quot;name&quot;, &quot;... [52.31.96.150] out: ^ [52.31.96.150] out: [52.31.96.150] out: Traceback (most recent call last): ``` We need to run 0020_add_group_type.py first, and then 0018_add_groups_refs.py Good luck =)</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Fix #730: migration failing when no Google Apps domain set</MESSAGE>
+    <SHA>ab39ed2898297196ea45772efa528b7bd98ff370</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #733: merge migration #20 into #18, to avoid errors.</MESSAGE>
+      <SHA>224998c62a941a6c4e594c648500d33c87a3e2ac</SHA>
+      <PATCHEDFILES>
+        <FILE>migrations/0018_add_groups_refs.py</FILE>
+        <FILE>migrations/0020_add_group_type.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #733: update migrations to work with new code</MESSAGE>
+      <SHA>7a7e5be166ff479908db52f95cf6bed9d4430d4e</SHA>
+      <PATCHEDFILES>
+        <FILE>migrations/0003_update_data_source_config.py</FILE>
+        <FILE>migrations/0009_add_api_key_to_user.py</FILE>
+        <FILE>migrations/0011_migrate_bigquery_to_json.py</FILE>
+        <FILE>migrations/0012_add_list_users_permission.py</FILE>
+        <FILE>migrations/0014_add_alert_rearm_seconds.py</FILE>
+        <FILE>migrations/0014_migrate_existing_es_to_kibana.py</FILE>
+        <FILE>migrations/0015_add_schedule_query_permission.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #794 from getredash/hotfixes Fixes for #792, #785, #733 and additional logging for execute_query</MESSAGE>
+      <SHA>4e9b60ac8202fc978398f59bfae88d34ddffb292</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/setup.rst</FILE>
+        <FILE>migrations/0003_update_data_source_config.py</FILE>
+        <FILE>migrations/0009_add_api_key_to_user.py</FILE>
+        <FILE>migrations/0011_migrate_bigquery_to_json.py</FILE>
+        <FILE>migrations/0012_add_list_users_permission.py</FILE>
+        <FILE>migrations/0014_add_alert_rearm_seconds.py</FILE>
+        <FILE>migrations/0014_migrate_existing_es_to_kibana.py</FILE>
+        <FILE>migrations/0015_add_schedule_query_permission.py</FILE>
+        <FILE>rd_ui/app/scripts/controllers/users.js</FILE>
+        <FILE>rd_ui/app/views/users/show.html</FILE>
+        <FILE>redash/cli/users.py</FILE>
+        <FILE>redash/tasks.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

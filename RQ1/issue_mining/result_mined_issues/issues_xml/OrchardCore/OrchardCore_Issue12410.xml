@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>12410</ISSUENO>
+  <ISSUEURL>https://github.com/OrchardCMS/OrchardCore/issues/12410</ISSUEURL>
+  <TITLE>Update how ShortcodeDescriptors generate a list of categories</TITLE>
+  <DESCRIPTION>### Describe the bug In the [Shortcode views,](https://github.com/OrchardCMS/OrchardCore/blob/main/src/OrchardCore.Modules/OrchardCore.Shortcodes/Views/ShortcodeModal.cshtml#L13) update the code that groups the categories. ``` var categories = shortcodeDescriptors .Where(s =&gt; s != null) // this check is for each shortcodeDescriptor and should be for categories .SelectMany(s =&gt; s.Categories) .OrderBy(c =&gt; c, StringComparer.OrdinalIgnoreCase) .GroupBy(c =&gt; c, StringComparer.OrdinalIgnoreCase) .Select(g =&gt; g.Key); ``` The code can be simplify to this ``` var categories = shortcodeDescriptors.SelectMany(x =&gt; x.Categories ?? Enumerable.Empty&lt;string&gt;()) .Distinct(StringComparer.OrdinalIgnoreCase) .OrderBy(category =&gt; category); ```</DESCRIPTION>
+  <REPONAME>OrchardCore</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>mkdocs-material 8.4.4</MESSAGE>
+    <SHA>4dcc519b2ce51f3b9acb546bda60ab3fabfdcc4b</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Update the grouping logic for categories. Fix #12410</MESSAGE>
+      <SHA>c507111156c20ce743eb80648c7671a1a2674882</SHA>
+      <PATCHEDFILES>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Shortcodes/Views/Admin/Create.cshtml</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Shortcodes/Views/Admin/Edit.cshtml</FILE>
+        <FILE>src/OrchardCore.Modules/OrchardCore.Shortcodes/Views/ShortcodeModal.cshtml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

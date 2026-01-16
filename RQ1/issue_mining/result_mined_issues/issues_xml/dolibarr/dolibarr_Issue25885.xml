@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>25885</ISSUENO>
+  <ISSUEURL>https://github.com/Dolibarr/dolibarr/issues/25885</ISSUEURL>
+  <TITLE>US Chart Of Accounts Will Not Fully Load</TITLE>
+  <DESCRIPTION>### Bug When you load the US chart of account, you get a error. Most load, but not all. The problem is that the table ```llx_accounting_account``` field ```pcg_type``` is a ```varchar(20)``` and there are many inserts that look like this ```sql INSERT INTO llx_accounting_account (entity, rowid, fk_pcg_version, pcg_type, account_number, account_parent, label, active) VALUES (__ENTITY__, 10099, 'US-GAAP-BASIC', 'OTHER_INCOME_EXPENSES', '6', '0', 'Other (Non-Operating) Income And Expenses', 1); ``` Notice the ```pcg_type``` is ```OTHER_INCOME_EXPENSES```. This needs a varchar(21). This is a easy fix and I can do a pull request but I need to know, should it be fixed in - ``` htdocs/install/mysql/tables/llx_accounting_account.sql``` and modify the field varchar? - ```htdocs/install/mysql/data/llx_accounting_account_us.sql``` and do a ALTER? - Maybe in the install process on database upgrade it can do something in the migrations? Also note: I found the varchar actually should to be varchar(30) . There is another ```pcg_type``` insert ```INTERCOMPANY_RELPARTY_ACCOUNTS``` ### Environment Version _No response_ ### Environment OS _No response_ ### Environment Web server _No response_ ### Environment PHP _No response_ ### Environment Database mysql ### Environment URL(s) _No response_ ### Expected and actual behavior _No response_ ### Steps to reproduce the behavior _No response_ ### Attached files _No response_</DESCRIPTION>
+  <REPONAME>dolibarr</REPONAME>
+  <TIMEDIFFERENCEDAYS>6</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge branch 'develop' of git@github.com:Dolibarr/dolibarr.git into develop</MESSAGE>
+    <SHA>d02c615f400d95d2e671eba7455851fea9f2b7fb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>FIX #25885 Accountancy - Need more space on pcg_type for predefined groups</MESSAGE>
+      <SHA>3bb4b042c5717f289c173df787d978f849311194</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/install/mysql/migration/18.0.0-19.0.0.sql</FILE>
+        <FILE>htdocs/install/mysql/tables/llx_accounting_account.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #25939 from aspangaro/19a7 FIX #25885 Accountancy - Need more space on pcg_type for predefined groups</MESSAGE>
+      <SHA>d0c565ff6703135f2b126f75d0ffb40dde3d784a</SHA>
+      <PATCHEDFILES>
+        <FILE>htdocs/install/mysql/migration/18.0.0-19.0.0.sql</FILE>
+        <FILE>htdocs/install/mysql/tables/llx_accounting_account.sql</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

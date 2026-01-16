@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1212</ISSUENO>
+  <ISSUEURL>https://github.com/getredash/redash/issues/1212</ISSUEURL>
+  <TITLE>Email notification not working</TITLE>
+  <DESCRIPTION>Hi Arik, thank you for re:dash, it is really amazing. ### Issue Summary Redash 0.11.0+b1995 (and similar versions including 0.12RC I guess) ### Steps to Reproduce 1. Set an alert on a query that will trigger 2. Register to the alert with your user (email) 3. Refresh the query ### Technical details: From the logs I get `celery_error.log:[2016-06-26 13:30:46,312: WARNING/Worker-11] redash.tasks.check_alerts_for_query[5bb71f82-ec70-4893-bb12-5d665f7f9a05]: Exception: 'str' object has no attribute 'get'` I'm not really sure (*) but I think it is bubbling up in [redash/tasks/alerts.py:43](https://github.com/getredash/redash/blob/master/redash/tasks/alerts.py#L43) from [redash/destinations/email.py:27](https://github.com/getredash/redash/blob/8b73a2b135aed8fcbca139380a959b9222ae0080/redash/destinations/email.py#L27) (*) ConfigurationContainer may be doing something more than merely passing the dict along but I'm not sure ... The root cause may be in [redash/models.py:1192](https://github.com/getredash/redash/blob/master/redash/models.py#L1192) where it could be solved by: `config = {'addresses': self.user.email}` Hopefully this evening I will have a pull request.</DESCRIPTION>
+  <REPONAME>redash</REPONAME>
+  <TIMEDIFFERENCEDAYS>1</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #1204 from falling-down/vertica-metadata Add: show views in schema browser for Vertica data sources</MESSAGE>
+    <SHA>9a6d2d7c6206a693b30cf4df5f480d3715cebe24</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fix #1212: email alerts not being sent</MESSAGE>
+      <SHA>c43357cc77f805f2595972a9006408ee642cb08f</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/models.py</FILE>
+        <FILE>redash/tasks/alerts.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #1212: email alerts not being sent</MESSAGE>
+      <SHA>9bca3933e76c4a483b0e870a7b21dffbcec6c77b</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/models.py</FILE>
+        <FILE>redash/tasks/alerts.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #1212: email alerts not being sent</MESSAGE>
+      <SHA>8431470e70597b8e197f1159f520ea6e52b832ca</SHA>
+      <PATCHEDFILES>
+        <FILE>redash/models.py</FILE>
+        <FILE>redash/tasks/alerts.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix #1212: email alerts not being sent</MESSAGE>
+      <SHA>1422f7da5b5011f6f2c854270776e32f7fe5bdf4</SHA>
+      <PATCHEDFILES>
+        <FILE>models.py</FILE>
+        <FILE>tasks/alerts.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

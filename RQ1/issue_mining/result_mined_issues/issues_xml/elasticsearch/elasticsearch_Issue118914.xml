@@ -1,0 +1,87 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>118914</ISSUENO>
+  <ISSUEURL>https://github.com/elastic/elasticsearch/issues/118914</ISSUEURL>
+  <TITLE>[CI] MasterServiceTests testThreadContext failing</TITLE>
+  <DESCRIPTION>**Build Scans:** - [elasticsearch-periodic #5434 / openjdk23_checkpart1_java-matrix](https://gradle-enterprise.elastic.co/s/t7sa6ztnwo2ke) - [elasticsearch-pull-request #46485 / part-1](https://gradle-enterprise.elastic.co/s/gnahqrrpvscic) **Reproduction Line:** ``` ./gradlew &quot;:server:test&quot; --tests &quot;org.elasticsearch.cluster.service.MasterServiceTests.testThreadContext&quot; -Dtests.seed=611AFF0C9025D67D -Dtests.locale=az-Latn-AZ -Dtests.timezone=Japan -Druntime.java=23 ``` **Applicable branches:** main **Reproduces locally?:** N/A **Failure History:** [See dashboard](https://es-delivery-stats.elastic.dev/app/dashboards#/view/dcec9e60-72ac-11ee-8f39-55975ded9e63?_g=(refreshInterval:(pause:!t,value:60000),time:(from:now-7d%2Fd,to:now))&amp;_a=(controlGroupState:(initialChildControlState:('0c0c9cb8-ccd2-45c6-9b13-96bac4abc542':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:task.keyword,order:0,selectedOptions:!(),title:'GradleTask',type:optionsListControl),'4e6ad9d6-6fdc-4fcc-bf1a-aa6ca79e0850':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:className.keyword,order:1,selectedOptions:!(org.elasticsearch.cluster.service.MasterServiceTests),title:'Suite',type:optionsListControl),'144933da-5c1b-4257-a969-7f43455a7901':(dataViewId:fbbdc689-be23-4b3d-8057-aa402e9ed0c5,fieldName:name.keyword,order:2,selectedOptions:!(testThreadContext),title:'Test',type:optionsListControl))))) **Failure Message:** ``` java.lang.AssertionError: null ``` **Issue Reasons:** - [main] 2 failures in test testThreadContext (0.3% fail rate in 780 executions) **Note:** This issue was created using new test triage automation. Please report issues or feedback to es-delivery.</DESCRIPTION>
+  <REPONAME>elasticsearch</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Add missing timeouts to rest-api-spec ingest APIs (#118844)</MESSAGE>
+    <SHA>2ceade4234ab2323184cfb9ff11259542508453f</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.cluster.service.MasterServiceTests testThreadContext #118914</MESSAGE>
+      <SHA>a0ce7420af1bad48ffd0c5f19978b5943b4b32aa</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix `MasterServiceTests#testThreadContext` This test would fail to see the expected response headers if the task timed out before it started executing, which could happen very rarely. It's also not a very good test because it never actually executed any of the paths involving acking. This commit fixes the rare failure and tightens up the assertions to verify that it does indeed see the right thread context while handling the end of the acking process, and indeed that it always completes the acking process. Closes #118914</MESSAGE>
+      <SHA>2b6a43ea51a6730f2c2535491b9015a01bb75ba0</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/cluster/service/MasterServiceTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix `MasterServiceTests#testThreadContext` This test would fail to see the expected response headers if the task timed out before it started executing, which could happen very rarely. It's also not a very good test because it never actually executed any of the paths involving acking. This commit fixes the rare failure and tightens up the assertions to verify that it does indeed see the right thread context while handling the end of the acking process, and indeed that it always completes the acking process. Closes #118914</MESSAGE>
+      <SHA>0707e977f386fcf1e9a039ca28951e0c5c9d8373</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+        <FILE>server/src/test/java/org/elasticsearch/cluster/service/MasterServiceTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.cluster.service.MasterServiceTests testThreadContext #118914</MESSAGE>
+      <SHA>074afb019506f75fad79f3c05a8398b93d89814b</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Mute org.elasticsearch.cluster.service.MasterServiceTests testThreadContext #118914</MESSAGE>
+      <SHA>426b7216539825ee1534d51e1fd04401f6c8b432</SHA>
+      <PATCHEDFILES>
+        <FILE>muted-tests.yml</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix `MasterServiceTests#testThreadContext` (#118926) This test would fail to see the expected response headers if the task timed out before it started executing, which could happen very rarely. It's also not a very good test because it never actually executed any of the paths involving acking. This commit fixes the rare failure and tightens up the assertions to verify that it does indeed see the right thread context while handling the end of the acking process, and indeed that it always completes the acking process. Closes #118914</MESSAGE>
+      <SHA>41a4660f9a0f6ad6e8944ed15474627474dfc833</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/test/java/org/elasticsearch/cluster/service/MasterServiceTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix `MasterServiceTests#testThreadContext` (#118926) This test would fail to see the expected response headers if the task timed out before it started executing, which could happen very rarely. It's also not a very good test because it never actually executed any of the paths involving acking. This commit fixes the rare failure and tightens up the assertions to verify that it does indeed see the right thread context while handling the end of the acking process, and indeed that it always completes the acking process. Closes #118914</MESSAGE>
+      <SHA>2db510f8473456a47b241971d0fdd96cf138be95</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/test/java/org/elasticsearch/cluster/service/MasterServiceTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix `MasterServiceTests#testThreadContext` (#118926) This test would fail to see the expected response headers if the task timed out before it started executing, which could happen very rarely. It's also not a very good test because it never actually executed any of the paths involving acking. This commit fixes the rare failure and tightens up the assertions to verify that it does indeed see the right thread context while handling the end of the acking process, and indeed that it always completes the acking process. Closes #118914</MESSAGE>
+      <SHA>f073401b30a722b80442803866cc81cd78f770fb</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/test/java/org/elasticsearch/cluster/service/MasterServiceTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix `MasterServiceTests#testThreadContext` (#118926) This test would fail to see the expected response headers if the task timed out before it started executing, which could happen very rarely. It's also not a very good test because it never actually executed any of the paths involving acking. This commit fixes the rare failure and tightens up the assertions to verify that it does indeed see the right thread context while handling the end of the acking process, and indeed that it always completes the acking process. Closes #118914</MESSAGE>
+      <SHA>d0e29f4843f6619580eac05d57f0b8861b28bc44</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/test/java/org/elasticsearch/cluster/service/MasterServiceTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Fix `MasterServiceTests#testThreadContext` (#118926) (#119306) This test would fail to see the expected response headers if the task timed out before it started executing, which could happen very rarely. It's also not a very good test because it never actually executed any of the paths involving acking. This commit fixes the rare failure and tightens up the assertions to verify that it does indeed see the right thread context while handling the end of the acking process, and indeed that it always completes the acking process. Closes #118914</MESSAGE>
+      <SHA>faaede77ebd4cb6f3e57383e83ba241b09213184</SHA>
+      <PATCHEDFILES>
+        <FILE>server/src/test/java/org/elasticsearch/cluster/service/MasterServiceTests.java</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

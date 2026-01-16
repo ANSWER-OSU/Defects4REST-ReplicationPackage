@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>22764</ISSUENO>
+  <ISSUEURL>https://github.com/TryGhost/Ghost/issues/22764</ISSUEURL>
+  <TITLE>Search should match results with accents if term does not include them</TITLE>
+  <DESCRIPTION>### Issue Summary If a post title of page include accents, the search results should include those in the results, whether there are accents or not ### Steps to Reproduce 1. Create a post with the title Renée Zellweger (note the accented é) 2. Search for this using renee as the term 3. Observe no results ### Ghost Version 1.108.1 ### Node.js Version 18 ### How did you install Ghost? Ghost(Pro) ### Database type MySQL 8 ### Browser &amp; OS version All ### Relevant log / error output ```shell ``` ### Code of Conduct - [x] I agree to be friendly and polite to people in this repository</DESCRIPTION>
+  <REPONAME>Ghost</REPONAME>
+  <TIMEDIFFERENCEDAYS>28</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Added i18n support for comment sorting options (#23070) * Enables missing i18n support for the comment sorting options in the comments-ui app * New strings (best, oldest, newest) added. --------- Co-authored-by: Cathy Sarisky &lt;catsarisky@gmail.com&gt;</MESSAGE>
+    <SHA>b95a047c87593c7d41423d76a5c9d4357d774713</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixed charset handling in search and updated flexsearch to 0.8 (#22874) closes https://github.com/TryGhost/Ghost/issues/22764 * CJK characters need to be split to single characters - these characters are analogous to &quot;words&quot; in other languages. * Bump flexsearch to version 0.8, which allows using Charset.default to handle most of the language normalization. * Uses Charset.default to handle most normalization and splitting into words based on whitespace. * cjkEncoderPresetCodepoint runs a 'finalize' step that splits any CJK characters down to single characters * Note: Preset.CJK is not suitable as it splits ALL characters to single characters, rather than detecting CJK characters. * Switched to detecting CJK characters instead of non-CJK. Should be less brittle for future charset additions. * Retaining Charset.default means that accented characters will be normalized by the built in package. * Switched to using codepoints instead of regex because init was 100-200ms faster for ~3000 posts. --------- Co-authored-by: @shincurry</MESSAGE>
+      <SHA>9f59e66a9636f4d384ba887583ad5a8b9cbf8230</SHA>
+      <PATCHEDFILES>
+        <FILE>apps/sodo-search/package.json</FILE>
+        <FILE>apps/sodo-search/src/search-index.js</FILE>
+        <FILE>apps/sodo-search/src/search-index.test.js</FILE>
+        <FILE>yarn.lock</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

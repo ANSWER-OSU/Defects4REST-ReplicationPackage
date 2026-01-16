@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2124</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2124</ISSUEURL>
+  <TITLE>Plugin with no yaml parameters interpreted as a service</TITLE>
+  <DESCRIPTION>There is currently an issue where a plugin with no parameters is interpreted as a service. This will result in the plugin exiting early with an exit code of 0 Example configuration: ``` pipeline: something: image: plugins/foo ``` Example workaround by adding at least one configuration parameter: ```diff pipeline: something: image: plugins/foo + dummy: true ``` The fix for this is to only interpret steps as services if they exist in the services section OR if they have the `detach: true` attribute set.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>refresh repo info on activation</MESSAGE>
+    <SHA>c3732041d532142ad84126576eaa09098547facb</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>implement fix for #2124</MESSAGE>
+      <SHA>73d04b0398e7d62113351a8a94db0e8919029e83</SHA>
+      <PATCHEDFILES>
+        <FILE>vendor/github.com/cncd/pipeline/pipeline/frontend/yaml/compiler/compiler.go</FILE>
+        <FILE>vendor/github.com/cncd/pipeline/pipeline/frontend/yaml/compiler/convert.go</FILE>
+        <FILE>vendor/github.com/cncd/pipeline/pipeline/frontend/yaml/linter/linter.go</FILE>
+        <FILE>vendor/vendor.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #2134 from bradrydzewski/master implement fix for #2124</MESSAGE>
+      <SHA>44450bce8dc7aee676c5e375998a0b0ac4a1fab7</SHA>
+      <PATCHEDFILES>
+        <FILE>vendor/github.com/cncd/pipeline/pipeline/frontend/yaml/compiler/compiler.go</FILE>
+        <FILE>vendor/github.com/cncd/pipeline/pipeline/frontend/yaml/compiler/convert.go</FILE>
+        <FILE>vendor/github.com/cncd/pipeline/pipeline/frontend/yaml/linter/linter.go</FILE>
+        <FILE>vendor/vendor.json</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

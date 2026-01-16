@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>342</ISSUENO>
+  <ISSUEURL>https://github.com/NatLibFi/Annif/issues/342</ISSUEURL>
+  <TITLE>--cached option to reuse preprocessed training data</TITLE>
+  <DESCRIPTION>A large proportion of training time is typically spent on preprocessing the training data into a format suitable for the backend algorithm. This is particularly evident for trainable ensemble backends (`pav`, `vw_ensemble`, `nn_ensemble`) which have to pass all the training documents to source projects. We could support a `--cached` option that reuses the already preprocessed training data from the previous train run. This would make it a lot faster to experiment with different hyperparameters. For example: annif train nn-ensemble-fi my-corpus/train/ # initial training run annif eval nn-ensemble-fi my-corpus/test/ # evaluate on test documents # not happy with the result, let's adjust the hyperparameters $EDITOR projects.cfg annif train --cached nn-ensemble-fi # retrain using previous train data (note: no corpus given) annif eval nn-ensemble-fi my-corpus/test/ # reevaluate Implementing this requires changes to some backends: * fasttext, vw_multi and vw_ensemble already create training files which are stored in the project data directory; the option would simply skip creating a new one before retraining * pav and nn_ensemble only collect the training data into NumPy arrays held in memory; they would need to store the arrays in the data directory (e.g. as an LMDB database) so they can be reused later * tfidf also collects training data only in memory, but since it has no parameters to tune, there is probably no need for a `--cached` option (it could just give an error instead)</DESCRIPTION>
+  <REPONAME>Annif</REPONAME>
+  <TIMEDIFFERENCEDAYS>90</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>curl is needed for Docker healthcheck</MESSAGE>
+    <SHA>df3037a0f4e17748f3f9698aeab7f3b446fcf184</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Implement --cached option for train command in fasttext, omikuji and vw_multi backends (#342)</MESSAGE>
+      <SHA>8458f0d068f63dd9641c153f6cb9ca8e24a740f9</SHA>
+      <PATCHEDFILES>
+        <FILE>annif/backend/fasttext.py</FILE>
+        <FILE>annif/backend/nn_ensemble.py</FILE>
+        <FILE>annif/backend/omikuji.py</FILE>
+        <FILE>annif/backend/pav.py</FILE>
+        <FILE>annif/backend/tfidf.py</FILE>
+        <FILE>annif/backend/vw_multi.py</FILE>
+        <FILE>annif/cli.py</FILE>
+        <FILE>annif/project.py</FILE>
+        <FILE>tests/test_backend_fasttext.py</FILE>
+        <FILE>tests/test_backend_omikuji.py</FILE>
+        <FILE>tests/test_backend_vw_multi.py</FILE>
+        <FILE>tests/test_cli.py</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

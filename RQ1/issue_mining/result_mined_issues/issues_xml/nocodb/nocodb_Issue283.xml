@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>283</ISSUENO>
+  <ISSUEURL>https://github.com/nocodb/nocodb/issues/283</ISSUEURL>
+  <TITLE>Large tables fail to load</TITLE>
+  <DESCRIPTION>**Please enter the following details** Node: **v12.22.1** Arch: **x64** Platform: **linux** Docker: **true** Database: **pg** ProjectOnRootDB: **false** RootDB: **mysql2** PackageVersion: **0.9.32** NocoDB version : latest Project was created by clicking : New Project by connecting to external database **Steps To Reproduce** 1. Create a connection to a remote database with large tables (20+ million rows) 2. Click on one of the large tables to bring up a tab with the first 25 entires and pagination controls, and wait for it to load. **Expected behavior** I would expect the first 25 rows to show up pretty quickly, however they are not displayed until the ajax request for the COUNT of the table completes. For large tables, the first 25 rows return almost immediately but the count request can take several minutes to return (and sometimes times out), and so the first 25 rows don't show up until the count request returns (if at all). It would also be helpful to see some sort of loading graphic that lets me know it's still waiting for a query to the database to finish. Perhaps display the first 25 rows (since that's a quick query) and then the area for the pagination controls can have a loading graphic until the count is returned, at which point the pagination controls are displayed. The database I'm using is public, in case you would like to test against it. **Screenshots** In this screenshot you can see the count request timed out at 4 minutes, while the first 25 rows are returned in 241ms. This particular table has 26 million rows. ![image](https://user-images.githubusercontent.com/2007008/122127594-66357280-ce01-11eb-9385-a863acd04994.png)</DESCRIPTION>
+  <REPONAME>nocodb</REPONAME>
+  <TIMEDIFFERENCEDAYS>7</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>chore: Remove oracle dependency Signed-off-by: Pranav C Balan &lt;pranavxc@gmail.com&gt;</MESSAGE>
+    <SHA>f7f352b9b96eb025b7ec1753120ee5b1cf028567</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: Postgres rows count of large tables query optimized to handle large tables row count re #283 Signed-off-by: Pranav C Balan &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>5c06d35ad2b19380da5a0aae8a8de61ff2068572</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/components/project/spreadsheet/rowsXcDataTable.vue</FILE>
+        <FILE>packages/nocodb/src/lib/dataMapper/lib/sql/BaseModelSql.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: Postgres rows count of large tables query optimized to handle large tables row count re #283 Signed-off-by: Pranav C Balan &lt;pranavxc@gmail.com&gt;</MESSAGE>
+      <SHA>7a6121f04dc49eace5cbb0e1bd02ca17d4d488b3</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/components/project/spreadsheet/rowsXcDataTable.vue</FILE>
+        <FILE>packages/nocodb/src/lib/dataMapper/lib/sql/BaseModelSql.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Merge pull request #283 from nocodb/fix/docs-list-item-toggle-improved Improved list item toggle handling</MESSAGE>
+      <SHA>d4bde7eef0abf11db8c10aa1094090d03d612701</SHA>
+      <PATCHEDFILES>
+        <FILE>packages/nc-gui/utils/tiptapExtensions/images/node.ts</FILE>
+        <FILE>packages/nc-gui/utils/tiptapExtensions/listItem/bullet.ts</FILE>
+        <FILE>packages/nc-gui/utils/tiptapExtensions/listItem/helper.ts</FILE>
+        <FILE>packages/nc-gui/utils/tiptapExtensions/listItem/helper/getPosOfNodeWrtAnchorNode.ts</FILE>
+        <FILE>packages/nc-gui/utils/tiptapExtensions/listItem/helper/toggleItem.ts</FILE>
+        <FILE>packages/nc-gui/utils/tiptapExtensions/listItem/ordered.ts</FILE>
+        <FILE>packages/nc-gui/utils/tiptapExtensions/listItem/task.ts</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

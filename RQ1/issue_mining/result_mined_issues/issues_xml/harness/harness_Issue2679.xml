@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2679</ISSUENO>
+  <ISSUEURL>https://github.com/harness/harness/issues/2679</ISSUEURL>
+  <TITLE>Trigger build for Branch, Commit</TITLE>
+  <DESCRIPTION>Currently the only way to programmatically trigger a build is by re-starting an existing build with a new build number via the API. With 1.0 we now have the ability to fetch command branch data from version control, which means we can trigger a new build without any pre-existing data. I propose adding the following endpoints: ``` POST /api/repos/{namespace}/{name}/builds POST /api/repos/{namespace}/{name}/builds?branch={branch} POST /api/repos/{namespace}/{name}/builds?branch={branch}&amp;commit={commit} ``` You can pass additional parameters to your pipeline as url query parameters: ``` POST /api/repos/{namespace}/{name}/builds?branch={branch}&amp;{key=value} ``` Note that if no branch is provided, the default branch (master) is used.</DESCRIPTION>
+  <REPONAME>harness</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>update drone-yml to include matrix changes</MESSAGE>
+    <SHA>cce10d5c4760d1d6ede99db850ab7e77efe15579</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>trigger build from branch or sha, closed #2679</MESSAGE>
+      <SHA>1c6d751d50dded95fa6c28e9842bb9bf36c89440</SHA>
+      <PATCHEDFILES>
+        <FILE>CHANGELOG.md</FILE>
+        <FILE>handler/api/api.go</FILE>
+        <FILE>handler/api/repos/builds/create.go</FILE>
+        <FILE>handler/api/repos/builds/create_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

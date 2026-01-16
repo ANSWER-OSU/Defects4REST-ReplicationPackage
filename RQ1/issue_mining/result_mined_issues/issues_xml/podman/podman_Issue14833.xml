@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14833</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14833</ISSUEURL>
+  <TITLE>CI: runc is not being tested</TITLE>
+  <DESCRIPTION>Root cause, as best I can tell, is https://github.com/containers/automation_images/pull/115. This was supposed to make ubuntu use runc, but it didn't. ubuntu is using crun. Confirmation: #13376 brought in those new VM images, but the [ubuntu sys log](https://cirrus-ci.com/task/4867185968414720?logs=main#L11) clearly shows: ``` [+0006s] # Arch:amd64 OS:ubuntu21.10 Runtime:crun Rootless:false Events:journald Logdriver:journald Cgroups:v2+systemd Net:cni ^^^^ ``` Solution is going to require a VM dance, and some way to actually log in to ubuntu to confirm, so it's not something I can do. It will have to wait for @cevich's return.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>16</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #14896 from edsantiago/logformatter_by_task logformatter: link by *task ID*, not build ID</MESSAGE>
+    <SHA>a51a63023c773afae601628fbb89461249c5a043</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>CI: sanity check for desired runtime We're still not testing runc in CI (#14833), and it may be weeks or months before we can, due to criu/glibc nightmare, but one day we'll be back on track, then later on we'll update VMs again, and screw it up, and lose runc, and not notice, and RHEL will break, and oh noes headless chicken again, repeat repeat. We can do better. Use .cirrus.yml to explicitly define which VMs should use which runtimes, and enforce it early in the CI build step. This should never fail (uh huh) in a PR, only in one of the update-VM PRs. Signed-off-by: Ed Santiago &lt;santiago@redhat.com&gt;</MESSAGE>
+      <SHA>da8c6a8eaf6d5cd4f3f9d41c1612a2baad02d28f</SHA>
+      <PATCHEDFILES>
+        <FILE>.cirrus.yml</FILE>
+        <FILE>contrib/cirrus/runner.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

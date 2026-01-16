@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>7509</ISSUENO>
+  <ISSUEURL>https://github.com/ansible/awx/issues/7509</ISSUEURL>
+  <TITLE>Select all checkbox is tied to tightly to items per page</TITLE>
+  <DESCRIPTION>##### SUMMARY &lt;!-- Briefly describe the problem. --&gt; ##### STEPS TO REPRODUCE * check 5 resources (1 checked should not be the first 5) * set the page size to 5 ##### EXPECTED RESULTS * the select all checkbox to not be checked ##### ACTUAL RESULTS * the select all box is checked ![image](https://user-images.githubusercontent.com/722880/86274225-56e0f900-bb9f-11ea-8845-9c6f62dde1c0.png) ![image](https://user-images.githubusercontent.com/722880/86274248-62342480-bb9f-11ea-994c-71fc7d2e6b47.png)</DESCRIPTION>
+  <REPONAME>awx</REPONAME>
+  <TIMEDIFFERENCEDAYS>336</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #10321 from kdelee/management_cmd_ee_creds Create default EE in seperate awx-managment cmd</MESSAGE>
+    <SHA>5adfacba643e60623e0bbd7071d585b5fbba40e1</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Merge pull request #10329 from keithjgrant/6853-select-all-quirks Clear list selections on pagination/search/sort SUMMARY Updates nearly every list* so that URL param changes (pagination, search, or sort) clear the selection. This prevents the list of selected items in state from including items that may no longer appear on screen — preventing the user from accidentally deleting or otherwise altering an item they may not realize they still have selected. This also updates the useSelected hook to provide selectAll and clearSelected functions. Any lists that weren't yet already using this hook have been updated to do so. Addresses #6853 and #7509 ISSUE TYPE Bugfix Pull Request COMPONENT NAME UI ADDITIONAL INFORMATION *Lists that do not include this change are modals where the user is expected to paginate through screens and make several selections along the way (e.g. Multi Credential select modal), and lists that still use PaginatedDataList and are yet to be converted to PaginatedTable Note: I originally wanted to make the clearSelected prop on PaginatedTable required, so any lists that don't have this fix applied would fail loudly. Unfortunately that wasn't possible, as there were a few lists that should not have this behavior, so I had to leave it as an optional prop. Reviewed-by: Alex Corey &lt;Alex.swansboro@gmail.com&gt; Reviewed-by: Jake McDermott &lt;yo@jakemcdermott.me&gt;</MESSAGE>
+      <SHA>168c022d3ea350c84c32975fc0521adf2fda7a7f</SHA>
+      <PATCHEDFILES>
+        <FILE>awx/ui_next/src/components/DataListToolbar/DataListToolbar.jsx</FILE>
+        <FILE>awx/ui_next/src/components/JobList/JobList.jsx</FILE>
+        <FILE>awx/ui_next/src/components/PaginatedTable/PaginatedTable.jsx</FILE>
+        <FILE>awx/ui_next/src/components/Schedule/ScheduleList/ScheduleList.jsx</FILE>
+        <FILE>awx/ui_next/src/components/TemplateList/TemplateList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Application/ApplicationsList/ApplicationsList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Credential/CredentialList/CredentialList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/CredentialType/CredentialTypeList/CredentialTypeList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/ExecutionEnvironment/ExecutionEnvironmentList/ExecutionEnvironmentList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Host/HostList/HostList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/InstanceGroup/InstanceGroupList/InstanceGroupList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventoryGroups/InventoryGroupsList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventoryHostGroups/InventoryHostGroupsList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventoryHosts/InventoryHostList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventoryList/InventoryList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Inventory/InventorySources/InventorySourceList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/NotificationTemplate/NotificationTemplateDetail/NotificationTemplateDetail.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/NotificationTemplate/NotificationTemplateList/NotificationTemplateList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Organization/OrganizationList/OrganizationList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Project/ProjectList/ProjectList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Setting/Subscription/SubscriptionEdit/SubscriptionModal.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Team/TeamList/TeamList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/Template/Survey/SurveyList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/User/UserList/UserList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/User/UserTeams/UserTeamList.jsx</FILE>
+        <FILE>awx/ui_next/src/screens/WorkflowApproval/WorkflowApprovalList/WorkflowApprovalList.jsx</FILE>
+        <FILE>awx/ui_next/src/util/useSelected.jsx</FILE>
+        <FILE>awx/ui_next/src/util/useSelected.test.jsx</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

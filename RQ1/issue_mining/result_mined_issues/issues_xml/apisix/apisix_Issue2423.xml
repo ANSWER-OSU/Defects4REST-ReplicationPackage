@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>2423</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/2423</ISSUEURL>
+  <TITLE>request help: radixtree_host_uri does not consider routing priority</TITLE>
+  <DESCRIPTION>### Issue description Why does radixtree_host_uri.lua not set the priority when creating a route: ``` local radixtree_route = { paths = route.value.uris or route.value.uri, methods = route.value.methods, remote_addrs = route.value.remote_addrs or route.value.remote_addr, vars = route.value.vars, filter_fun = filter_fun, handler = function (api_ctx) api_ctx.matched_params = nil api_ctx.matched_route = route end } ``` Is this a bug? * apisix version (cmd: `apisix version`): latest master(4f535e7401468c3f857cbf6a83ed6c3a0a9496db)</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>2</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feature: add managed fields in json schema for resources, such as create_time and update_time (#2444) * feature: add managed fields in jsonschema for resources, such as create_time and update_time</MESSAGE>
+    <SHA>a92331c27a3b444832636fbbf5a2f092781a1d6c</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>bugfix: set route priority for router `radixtree_host_uri`. (#2447) Fix: #2423.</MESSAGE>
+      <SHA>3bb670b52169d0af874cd684b4d08bb7539d3d52</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/http/router/radixtree_host_uri.lua</FILE>
+        <FILE>t/router/radixtree-host-uri-priority.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

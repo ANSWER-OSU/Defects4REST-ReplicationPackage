@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>15206</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/15206</ISSUEURL>
+  <TITLE>`podman machine ssh` not doing the expected on Windows/WSL</TITLE>
+  <DESCRIPTION>When using podman machine I would expect `podman machine ssh` to handle the 'current' or initial/default machine. Instead it uses the default podman system connection? ```powershell PS&gt; .\podman.exe system connection list Name URI Identity Default crc ssh://core@127.0.0.1:2222/run/user/1000/podman/podman.sock C:\Users\gbraad\.crc\machines\crc\id_ecdsa true podman-machine-default ssh://user@localhost:59971/run/user/1000/podman/podman.sock C:\Users\gbraad\.ssh\podman-machine-default false podman-machine-default-root ssh://root@localhost:59971/run/podman/podman.sock C:\Users\gbraad\.ssh\podman-machine-default false PS&gt; .\podman.exe machine ssh Connecting to vm podman-machine-default. To close connection, use `~.` or `exit` Warning: Permanently added '[localhost]:59971' (ECDSA) to the list of known hosts. core@localhost's password: PS&gt; .\podman.exe system connection remove crc PS&gt; .\podman.exe machine ssh Error: no service destination configured ``` ![image](https://user-images.githubusercontent.com/1894/183009051-dbb03357-e53a-48af-b8f0-bc17f324c1f4.png) **Current results** It uses the default system connection **Expected results** It should not use the default system connection and use this one as the endpoint for `machine ssh`. Instead it should use the active podman-machine-default This might be a Windows specific issue (atm not able to verify this on Linux or macOS)</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>157</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #15198 from cevich/osx_docs Cirrus: Run Cross builds in [CI:DOCS] mode</MESSAGE>
+    <SHA>b0ef621ebf196fd61189aebff3161927f0049c52</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Fixes #15206 Correctly handle ssh to machine when VM found for WSL On Windows the VM is not correctly identified when the connection is not default. The load VM by name passes, but wants to try a remote connection which results in a no service configured. This change will not check the validVM flag but instead if the load returned a valid entry. [NO NEW TESTS NEEDED] Signed-off-by: Gerard Braad &lt;me@gbraad.nl&gt;</MESSAGE>
+      <SHA>1fed2b887047296494ad251ca06fbe5587ae19c0</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/machine/ssh.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>14049</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/14049</ISSUEURL>
+  <TITLE>Invalid cross-device link with named volume</TITLE>
+  <DESCRIPTION>Copied from: https://github.com/coreos/fedora-coreos-tracker/issues/1168 **Describe the bug** Running a container in podman on fcos next, fails with an exdev error when it tries to rename a file mounted under a named volume to something in the same directory. **Reproduction steps** Steps to reproduce the behavior: sudo podman run -v &quot;redpanda-test:/var/lib/redpanda/data&quot; docker.io/vectorized/redpanda:v21.11.12 the first run, it will start ok, you should see a log line with &quot;Successfully started Redpanda!&quot; the second run, the container exits with `Failure during startup: std::__1::__fs::filesystem::filesystem_error (error system:18, filesystem error: rename failed: Invalid cross-device link [/var/lib/redpanda/data/redpanda/kvstore/0_0/snapshot.partial.1649900837775.a1ZO] [/var/lib/redpanda/data/redpanda/kvstore/0_0/snapshot])` **Expected behavior** Container should restart without issue, being able to rename the file. **Actual behavior** Container dies with an odd error **System details** - Bare Metal/QEMU/AWS/GCP/etc. Proxmox VM - Fedora CoreOS version next (v 36.20220410.1.1) **Ignition config** very sparse, just ssh keys, networkmanager configs (would be sanitized) and podman.socket. **Additional information** The container starts without issue if I point the directory to a bind mount instead of a named volume. I can only reproduce this on fcos, not on Arch Linux with podman 4.0.3, kernel 5.17.1 or centos 8 stream with podman 4.0.2.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>0</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #13698 from Luap99/version Bump version to v4.1.0-dev</MESSAGE>
+    <SHA>9133a6d044c0ab525cc087ca12c1bbc005f5f325</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>volume: add new option -o o=noquota add a new option to completely disable xfs quota usage for a volume. xfs quota set on a volume, even just for tracking disk usage, can cause weird errors if the volume is later re-used by a container with a different quota projid. More specifically, link(2) and rename(2) might fail with EXDEV if the source file has a projid that is different from the parent directory. To prevent such kind of issues, the volume should be created beforehand with `podman volume create -o o=noquota $ID` Closes: https://github.com/containers/podman/issues/14049 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>91ead15283200feb9db8054a26d322fbfdc3fa59</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-volume-create.1.md</FILE>
+        <FILE>libpod/options.go</FILE>
+        <FILE>libpod/runtime_volume_linux.go</FILE>
+        <FILE>libpod/volume.go</FILE>
+        <FILE>libpod/volume_internal.go</FILE>
+        <FILE>pkg/domain/infra/abi/parse/parse.go</FILE>
+        <FILE>test/test_podman_baseline.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>volume: add new option -o o=noquota add a new option to completely disable xfs quota usage for a volume. xfs quota set on a volume, even just for tracking disk usage, can cause weird errors if the volume is later re-used by a container with a different quota projid. More specifically, link(2) and rename(2) might fail with EXDEV if the source file has a projid that is different from the parent directory. To prevent such kind of issues, the volume should be created beforehand with `podman volume create -o o=noquota $ID` Closes: https://github.com/containers/podman/issues/14049 Signed-off-by: Giuseppe Scrivano &lt;gscrivan@redhat.com&gt;</MESSAGE>
+      <SHA>e5d6b6b0a2cfdbb21506b8f5e741cf719c149cb4</SHA>
+      <PATCHEDFILES>
+        <FILE>docs/source/markdown/podman-volume-create.1.md</FILE>
+        <FILE>libpod/options.go</FILE>
+        <FILE>libpod/runtime_volume_linux.go</FILE>
+        <FILE>libpod/volume.go</FILE>
+        <FILE>libpod/volume_internal.go</FILE>
+        <FILE>pkg/domain/infra/abi/parse/parse.go</FILE>
+        <FILE>test/test_podman_baseline.sh</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

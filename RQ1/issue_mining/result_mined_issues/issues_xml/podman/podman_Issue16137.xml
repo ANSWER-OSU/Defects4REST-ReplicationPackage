@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>16137</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/16137</ISSUEURL>
+  <TITLE>The image quay.io/podman/upstream seems to be broken (crun is not installed)</TITLE>
+  <DESCRIPTION>**Is this a BUG REPORT or FEATURE REQUEST? (leave only one on its own line)** /kind bug **Description** The image quay.io/podman/upstream seems to be broken (crun is not installed). **Steps to reproduce the issue:** 1. Try to run the image `quay.io/podman/upstream` and from this container to run any container: ``` &gt; docker run -t -i --rm --privileged --pull=always quay.io/podman/upstream podman run --rm debian whoami latest: Pulling from podman/upstream Digest: sha256:6c93546c0639bc0f29e88930f5e5dc73009613b8f1069ff9ea1e6cc60f53e2f8 Status: Image is up to date for quay.io/podman/upstream:latest Error: default OCI runtime &quot;crun&quot; not found: invalid argument ``` **Describe the results you received:** `Error: default OCI runtime &quot;crun&quot; not found: invalid argument` **Describe the results you expected:** Be able to run containers from inside this container. Note: it works fine if I explicitly &quot;dnf install -y crun&quot; or if I use the image `quay.io/podman/testing` instead.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>5</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #16011 from vrothberg/lint bump golangci-lint to v1.49.0</MESSAGE>
+    <SHA>cd0c9494dd7fda2df6ac1d502bd4ce6860b58052</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>[CI:BUILD] copr: podman rpm should depend on containers-common-extra containers-common now has a new `-extra` subpackage which handles dependencies common to podman and buildah and also depends on the main package `containers-common` itself. The podman-next copr rebuilds containers-common from the rawhide branch of dist-git so it will always have the latest version and will also supersede the official containers-common packages (except on rawhide where it will be equal). Fixes: #16137 Signed-off-by: Lokesh Mandvekar &lt;lsm5@fedoraproject.org&gt;</MESSAGE>
+      <SHA>cadb64d32df5ad8e0ee44f32bea0e1ede73acd36</SHA>
+      <PATCHEDFILES>
+        <FILE>podman.spec.rpkg</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>[CI:BUILD] copr: podman rpm should depend on containers-common-extra containers-common now has a new `-extra` subpackage which handles dependencies common to podman and buildah and also depends on the main package `containers-common` itself. The podman-next copr rebuilds containers-common from the rawhide branch of dist-git so it will always have the latest version and will also supersede the official containers-common packages (except on rawhide where it will be equal). Fixes: #16137 Signed-off-by: Lokesh Mandvekar &lt;lsm5@fedoraproject.org&gt;</MESSAGE>
+      <SHA>3810a9dac01c4a0f4f9fb131c0db1bbe0fbb7760</SHA>
+      <PATCHEDFILES>
+        <FILE>podman.spec.rpkg</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

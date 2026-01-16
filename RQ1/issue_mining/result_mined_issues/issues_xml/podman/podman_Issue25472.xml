@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>25472</ISSUENO>
+  <ISSUEURL>https://github.com/containers/podman/issues/25472</ISSUEURL>
+  <TITLE>Copying files into a container via stdin with `podman container cp -a - ...` fails on Windows</TITLE>
+  <DESCRIPTION>### Issue Description When attempting to copy files into a container on Windows via `docker container cp -a - ...` the CLI returns an error: `Error: &quot;/dev/stdin&quot; could not be found on the host: no such file or directory`. Looking at the code for the cp command, the issue is due to the [`copy.ResolveHostPath(hostPath)` call in cp.go](https://github.com/containers/podman/blob/7f27a6661ae12052516bc27f692b4278b2fe574d/cmd/podman/containers/cp.go#L349). When copying from stdio on Windows, `copy.ResolveHostPath` ends up trying to do an `os.Stat` call for `/dev/stdio` due to that still being the value for `os.Stdin.Name()` on Windows, but this understandably fails and exits out. However, there's no real reason to do the `copy.ResolveHostPath` check when the input is from stdin, as the result isn't actually used during stdin copy. Ideally, the call to `copy.ResolveHostPath` can be conditioned on `!isStdin`. ### Steps to reproduce the issue Steps to reproduce the issue 1. On Windows, prepare a tar file to copy into a container 2. Create or run a new container 3. Run `Get-Content -Raw input.tar | podman container cp -a - &lt;container&gt;:/tmp` in PowerShell ### Describe the results you received Command failed with `Error: &quot;/dev/stdin&quot; could not be found on the host: no such file or directory` ### Describe the results you expected Contents of tar file are copied into the container. This works on MacOS and in Linux, but fails on Windows. ### podman info output ```yaml Client: APIVersion: 5.4.0 Built: 1739297196 BuiltTime: Tue Feb 11 10:06:36 2025 GitCommit: f9f7d48b24b1ca4403f189caaeab1cb8ff4a9aa2 GoVersion: go1.23.6 Os: windows OsArch: windows/amd64 Version: 5.4.0 host: arch: amd64 buildahVersion: 1.36.0-dev cgroupControllers: - cpuset - cpu - cpuacct - blkio - memory - devices - freezer - net_cls - perf_event - net_prio - hugetlb - pids - rdma - misc cgroupManager: cgroupfs cgroupVersion: v1 conmon: package: conmon-2.1.10-1.20240313132120223048.main.19.gaffab49.fc39.x86_64 path: /usr/bin/conmon version: 'conmon version 2.1.10, commit: ' cpuUtilization: idlePercent: 98.79 systemPercent: 0.21 userPercent: 1 cpus: 16 databaseBackend: sqlite distribution: distribution: fedora variant: container version: &quot;39&quot; eventLogger: journald freeLocks: 2026 hostname: CPC-daneg-UN5C5 idMappings: gidmap: null uidmap: null kernel: 5.15.167.4-microsoft-standard-WSL2 linkmode: dynamic logDriver: journald memFree: 30125613056 memTotal: 33632358400 networkBackend: netavark networkBackendInfo: backend: netavark dns: package: aardvark-dns-1.10.0-1.20240327154432243377.main.24.g9e8db9c.fc39.x86_64 path: /usr/libexec/podman/aardvark-dns version: aardvark-dns 1.11.0-dev package: netavark-1.10.1-1.20240327174936429720.main.58.gd5be5ad.fc39.x86_64 path: /usr/libexec/podman/netavark version: netavark 1.11.0-dev ociRuntime: name: crun package: crun-1.14.4-1.20240327203052128727.main.16.gdcbdf9d.fc39.x86_64 path: /usr/bin/crun version: |- crun version UNKNOWN commit: fc5c0828a410a954dc1c864f6bba070d1443d297 rundir: /run/crun spec: 1.0.0 +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +CRIU +LIBKRUN +WASM:wasmedge +YAJL os: linux pasta: executable: /usr/bin/pasta package: passt-0^20240220.g1e6f92b-1.fc39.x86_64 version: | pasta 0^20240220.g1e6f92b-1.fc39.x86_64 Copyright Red Hat GNU General Public License, version 2 or later &lt;https://www.gnu.org/licenses/old-licenses/gpl-2.0.html&gt; This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. remoteSocket: exists: true path: /run/podman/podman.sock rootlessNetworkCmd: pasta security: apparmorEnabled: false capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT rootless: false seccompEnabled: true seccompProfilePath: /usr/share/containers/seccomp.json selinuxEnabled: false serviceIsRemote: true slirp4netns: executable: &quot;&quot; package: &quot;&quot; version: &quot;&quot; swapFree: 8589934592 swapTotal: 8589934592 uptime: 270h 42m 42.00s (Approximately 11.25 days) variant: &quot;&quot; plugins: authorization: null log: - k8s-file - none - passthrough - journald network: - bridge - macvlan - ipvlan volume: - local registries: search: - docker.io store: configFile: /usr/share/containers/storage.conf containerStore: number: 3 paused: 0 running: 1 stopped: 2 graphDriverName: overlay graphOptions: overlay.mountopt: nodev,metacopy=on graphRoot: /var/lib/containers/storage graphRootAllocated: 1081101176832 graphRootUsed: 15046189056 graphStatus: Backing Filesystem: extfs Native Overlay Diff: &quot;false&quot; Supports d_type: &quot;true&quot; Supports shifting: &quot;false&quot; Supports volatile: &quot;true&quot; Using metacopy: &quot;true&quot; imageCopyTmpDir: /var/tmp imageStore: number: 31 runRoot: /run/containers/storage transientStore: false volumePath: /var/lib/containers/storage/volumes version: APIVersion: 5.1.0-dev-8ec821452 Built: 1711497600 BuiltTime: Wed Mar 27 00:00:00 2024 GitCommit: &quot;&quot; GoVersion: go1.21.8 Os: linux OsArch: linux/amd64 Version: 5.1.0-dev-8ec821452 ``` ### Podman in a container No ### Privileged Or Rootless Privileged ### Upstream Latest Release Yes ### Additional environment details Running Podman Desktop (1.17.1) on Windows 11 ### Additional information I've tested changing lines 348-352 in cp.go from ```Go // Make sure that host path exists. hostInfo, err := copy.ResolveHostPath(hostPath) if err != nil { return fmt.Errorf(&quot;%q could not be found on the host: %w&quot;, hostPath, err) } ``` to ```Go hostInfo := &amp;copy.FileInfo{} var err error if !isStdin { // Make sure that host path exists. hostInfo, err = copy.ResolveHostPath(hostPath) if err != nil { return fmt.Errorf(&quot;%q could not be found on the host: %w&quot;, hostPath, err) } } ``` and running a local build of the CLI and that resolves the issue.</DESCRIPTION>
+  <REPONAME>podman</REPONAME>
+  <TIMEDIFFERENCEDAYS>4</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>Merge pull request #25451 from baude/issue25435 Update documentation for podman-machine-os-apply</MESSAGE>
+    <SHA>7f27a6661ae12052516bc27f692b4278b2fe574d</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>Don't try to resolve host path if copying to container from stdin. Fixes: #25472 Signed-off-by: David Negstad &lt;David.Negstad@microsoft.com&gt;</MESSAGE>
+      <SHA>c6fe768176a5c58fcabbea631c6cbf758e731592</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/containers/cp.go</FILE>
+        <FILE>pkg/machine/e2e/basic_test.go</FILE>
+        <FILE>pkg/machine/e2e/config_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Don't try to resolve host path if copying to container from stdin. Fixes: #25472 Signed-off-by: David Negstad &lt;David.Negstad@microsoft.com&gt;</MESSAGE>
+      <SHA>180d55165de424a6adcdce12eaf04717752c01e1</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/containers/cp.go</FILE>
+        <FILE>pkg/machine/e2e/basic_test.go</FILE>
+        <FILE>pkg/machine/e2e/config_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>Don't try to resolve host path if copying to container from stdin. Fixes: #25472 Signed-off-by: David Negstad &lt;David.Negstad@microsoft.com&gt;</MESSAGE>
+      <SHA>bc0cc81064c755df1699ee13a499f874797ef891</SHA>
+      <PATCHEDFILES>
+        <FILE>cmd/podman/containers/cp.go</FILE>
+        <FILE>pkg/machine/e2e/basic_test.go</FILE>
+        <FILE>pkg/machine/e2e/config_test.go</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>

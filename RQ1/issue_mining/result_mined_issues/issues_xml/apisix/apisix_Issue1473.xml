@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<ISSUE>
+  <ISSUENO>1473</ISSUENO>
+  <ISSUEURL>https://github.com/apache/apisix/issues/1473</ISSUEURL>
+  <TITLE>bug: 'global_rule' is a boolean value</TITLE>
+  <DESCRIPTION>Steps to reproduce: 1. Add global routes (such as prometheus) 2. Delete some global routes 3. User request, we can see the response 500 error. One photo from community: ![image](https://user-images.githubusercontent.com/6814606/79683506-299dd380-825d-11ea-9ef0-ca1a34645382.png) This patch should be fine, and we need to add test case for confirming. ```diff [proxychains] DLL init diff --git a/apisix/init.lua b/apisix/init.lua index aa8598e8..1e6b1efb 100644 --- a/apisix/init.lua +++ b/apisix/init.lua @@ -264,14 +264,16 @@ function _M.http_access_phase() and #router.global_rules.values &gt; 0 then local plugins = core.tablepool.fetch(&quot;plugins&quot;, 32, 0) for _, global_rule in ipairs(router.global_rules.values) do - api_ctx.conf_type = &quot;global_rule&quot; - api_ctx.conf_version = global_rule.modifiedIndex - api_ctx.conf_id = global_rule.value.id - - core.table.clear(plugins) - api_ctx.plugins = plugin.filter(global_rule, plugins) - run_plugin(&quot;rewrite&quot;, plugins, api_ctx) - run_plugin(&quot;access&quot;, plugins, api_ctx) + if type(global_rule) == &quot;table&quot; then + api_ctx.conf_type = &quot;global_rule&quot; + api_ctx.conf_version = global_rule.modifiedIndex + api_ctx.conf_id = global_rule.value.id + + core.table.clear(plugins) + api_ctx.plugins = plugin.filter(global_rule, plugins) + run_plugin(&quot;rewrite&quot;, plugins, api_ctx) + run_plugin(&quot;access&quot;, plugins, api_ctx) + end end core.tablepool.release(&quot;plugins&quot;, plugins) ```</DESCRIPTION>
+  <REPONAME>apisix</REPONAME>
+  <TIMEDIFFERENCEDAYS>9</TIMEDIFFERENCEDAYS>
+  <BUGGYCOMMIT>
+    <MESSAGE>feat: support saving k8s deployment info to upstream (#1502) * feat: support save k8s deployment info to upstream</MESSAGE>
+    <SHA>a53b4707fb03efa40966a00f1525bdedad2334ce</SHA>
+  </BUGGYCOMMIT>
+  <PATCHCOMMITS>
+    <COMMIT>
+      <MESSAGE>fix: skip tombstone mark when iterating the global values Close #1473.</MESSAGE>
+      <SHA>7b6796d319abcb32cf67f97238ffc12a79bf3ee5</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/config_util.lua</FILE>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>t/node/global-rule.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: skip tombstone mark when iterating the global values (#1517) Close #1473.</MESSAGE>
+      <SHA>972840ec965e291ade089a93acfc2f065a0a0554</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/config_util.lua</FILE>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>t/node/global-rule.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+    <COMMIT>
+      <MESSAGE>fix: skip tombstone mark when iterating the global values (#1517) Close #1473.</MESSAGE>
+      <SHA>f42d99ad4541e09c0c0dbe45aca583c388184d03</SHA>
+      <PATCHEDFILES>
+        <FILE>apisix/core/config_util.lua</FILE>
+        <FILE>apisix/init.lua</FILE>
+        <FILE>t/node/global-rule.t</FILE>
+      </PATCHEDFILES>
+    </COMMIT>
+  </PATCHCOMMITS>
+</ISSUE>
