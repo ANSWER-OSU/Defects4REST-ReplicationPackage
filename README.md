@@ -42,17 +42,26 @@ The artifact consists of code, data, and execution logs. The total size of artif
 Please follow the following set of instructions to replicate our results. You can either load our VM image to use the artifact directly, or set it up locally.
 
 ### Install locally
-**Step 1.** Create and activate a python virtual environment
+**Step 1.** Clone this repository
+```
+git clone https://github.com/ANSWER-OSU/Defects4REST-ReplicationPackage.git
+
+cd Defects4REST-ReplicationPackage/
+```
+
+**Step 2.** Create and activate a Python virtual environment
 ```
 python -m venv venv
-
-# Windows
-.venv\Scripts\Activate.ps1
+```
+Activate the environment
+```
+# Windows (PowerShell)
+.\venv\Scripts\Activate.ps1
 
 # Linux/macOS
-source .venv/bin/activate
+source venv/bin/activate
 ```
-**Step 2.** Install the required Python libraries
+**Step 3.** Install the required Python libraries
 ```
 pip install -r requirements.txt
 ```
