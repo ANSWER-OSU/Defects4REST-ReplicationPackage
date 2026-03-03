@@ -39,7 +39,27 @@ The artifact consists of code, data, and execution logs. The total size of artif
 
 ## Setup[]()
 
-Please follow the following set of instructions to replicate our results. 
+Please follow the following set of instructions to replicate our results. You can either load our VM image to use the artifact directly, or set it up locally.
+
+### Install locally
+**Step 1.** Create and activate a python virtual environment
+```
+python -m venv venv
+
+# Windows
+.venv\Scripts\Activate.ps1
+
+# Linux/macOS
+source .venv/bin/activate
+```
+**Step 2.** Install the required Python libraries
+```
+pip install -r requirements.txt
+```
+
+You can skip the steps below and proceed to **RQ1: Common REST API Defect Types**
+
+### Use the VM 
 
 Note: The virtual machine was created and tested using VirtualBox version 7.2.4 on Ubuntu 24.04.03. Make sure you have atleast 30 GB of free storage to download and execute the virtual machine.
 
