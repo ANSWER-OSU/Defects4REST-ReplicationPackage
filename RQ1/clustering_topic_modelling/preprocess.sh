@@ -63,7 +63,7 @@ apis=(
 #    "WP-API"
 #    "zuul"
 )
-S
+
 for api_name in "${apis[@]}"; do
     # skip commented out APIs
     [[ "$api_name" =~ ^#.* ]] && continue

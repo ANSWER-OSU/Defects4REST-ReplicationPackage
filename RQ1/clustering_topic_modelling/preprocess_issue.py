@@ -33,6 +33,8 @@ import re
 import nltk
 import sys
 import string
+
+nltk.download('stopwords')
 from nltk.corpus import stopwords, wordnet
 
 # Load the CSV data
